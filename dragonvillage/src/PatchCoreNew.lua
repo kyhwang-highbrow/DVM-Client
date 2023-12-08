@@ -48,8 +48,8 @@ function PatchCoreNew:st_requestPatchInfo_successCB(ret)
 
     -- 다운로드 받을 파일 확인
     do
-        cclog('/versions/getPatchInfo dump')
-        ccdump(ret)
+        --cclog('/versions/getPatchInfo dump')
+        --ccdump(ret)
 
         -- 1. 일반 에셋 (한글, 영어 에셋 포함)
         self.m_patchAssetRes:applyPatchList(ret['list'], self.m_currPatchVer, self.m_latestPatchVer)

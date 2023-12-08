@@ -5,8 +5,9 @@ local PARENT = UI_DragonManage_Base
 -------------------------------------
 UI_DragonSkillEnhance = class(PARENT,{
 		-- 재료
-        m_selectedMtrl = '',
-        m_selectedUI = '',
+        m_selectedMtrls = '',
+        m_skillSpareLvSum = 'number',
+        m_limitMtrlsCount = 'number',
     })
 
 UI_DragonSkillEnhance.TAB_ENHANCE = 'enhance' -- 강화
@@ -28,7 +29,9 @@ end
 -- function init
 -------------------------------------
 function UI_DragonSkillEnhance:init(doid, is_myth)
-    local vars = self:load('dragon_skill_enhance.ui')
+    self.m_selectedMtrls = {}
+    self.m_skillSpareLvSum = g_dragonsData:getSkillSpareLVSum(doid)
+    self:load('dragon_skill_enhance.ui')
     UIManager:open(self, UIManager.SCENE)
 
     -- backkey 지정
@@ -79,16 +82,57 @@ end
 -------------------------------------
 function UI_DragonSkillEnhance:initButton()
     local vars = self.vars
-    vars['enhanceBtn']:registerScriptTapHandler(function() self:click_enhanceBtn() end)
+    vars['enhanceBtn']:registerScriptTapHandler(function() self:click_enhanceNewBtn() end)
 
     -- 스킬 슬라임 상점
     vars['skillSlimShopBtn']:registerScriptTapHandler(function() self:click_skillSlimeShopBtn() end)
+
+    -- ahen tjsxor
+    vars['allSelectBtn']:registerScriptTapHandler(function() self:click_allSelectBtn() end)
 
     -- 스킬 레벨업 안내 (네이버 sdk 링크)
     NaverCafeManager:setPluginInfoBtn(vars['plugInfoBtn'], 'd_skill_levelup_help')
 
     -- infoBtn
     if (vars['infoBtn']) then vars['infoBtn']:registerScriptTapHandler(function() UI_DragonSkillEnhanceHelp() end) end
+end
+
+-------------------------------------
+-- function setSelectDragonData
+-- @brief 선택된 드래곤 설정
+-------------------------------------
+function UI_DragonSkillEnhance:setSelectDragonData(object_id, b_force)
+    if (not b_force) and (self.m_selectDragonOID == object_id) then
+        return
+    end
+
+    local object_data = g_dragonsData:getDragonDataFromUid(object_id)
+    if (not object_data) then
+        object_data = g_slimesData:getSlimeObject(object_id)
+    end
+
+    if (not object_data) then
+        return self:setDefaultSelectDragon()
+    end
+
+    if (not self:checkDragonSelect(object_id)) then
+        return
+    end
+
+    -- 선택된 드래곤의 데이터를 최신으로 갱신
+    self.m_selectDragonOID = object_id
+    self.m_selectDragonData = object_data
+    self.m_bSlimeObject = (object_data.m_objectType == 'slime')
+    self.m_limitMtrlsCount = object_data:getRarity() == 'myth' and 1 or 9999
+
+    -- 선택된 드래곤 카드에 프레임 표시
+    self:changeDragonSelectFrame()
+
+    -- 선택된 드래곤이 변경되면 refresh함수를 호출
+    self:refresh()
+
+    -- 신규 드래곤이면 삭제
+    g_highlightData:removeNewDoid(object_id)
 end
 
 -------------------------------------
@@ -101,7 +145,6 @@ function UI_DragonSkillEnhance:refresh()
     if (not t_dragon_data) then
         return
     end
-
     
     -- 신화 드래곤인지 체크
     local is_myth = (t_dragon_data:getRarity() == 'myth')
@@ -113,7 +156,6 @@ function UI_DragonSkillEnhance:refresh()
     if vars['moveTabBtn'] then
         vars['moveTabBtn']:setVisible(not is_myth)
     end
-
 
     local did = t_dragon_data['did']
     local attr = t_dragon_data:getAttr()
@@ -164,13 +206,8 @@ function UI_DragonSkillEnhance:refresh()
     end
 
     do -- 재료 중에서 선택된 드래곤 항목들 정리
-        if (self.m_selectedMtrl) then
-            self.m_selectedMtrl = nil
-        end
-
-        if (self.m_selectedUI) then
-            self.m_selectedUI:setCheckSpriteVisible(false)
-            self.m_selectedUI = nil
+        if (#self.m_selectedMtrls > 0) then
+            self.m_selectedMtrls = {}
         end
     end
 
@@ -190,9 +227,7 @@ function UI_DragonSkillEnhance:refresh()
 	g_hotTimeData:setDiscountEventNode(HOTTIME_SALE_EVENT.SKILL_MOVE, vars, 'moveEventSprite', only_value)
 
 	-- 소모 골드 표시
-	local price = self:getSkillEnhancePrice()
-	vars['priceLabel']:setString(comma_value(price))
-
+    self:refresh_skillprice()
 	self:refresh_skillIcon()
     self:refresh_dragonMaterialTableView()
     self:refresh_dragonSkillMoveTableView()
@@ -204,36 +239,69 @@ function UI_DragonSkillEnhance:refresh()
 end
 
 -------------------------------------
+-- function refresh_skillprice
+-------------------------------------
+function UI_DragonSkillEnhance:refresh_skillprice()
+    -- 소모 골드 표시
+    local vars = self.vars
+	local price = self:getSkillEnhancePrice()
+	--vars['priceLabel']:setString(comma_value(price))
+
+    local label = vars['priceLabel']
+
+    local function tween_cb(value, node)    
+        label:setString(comma_value(math_floor(value)))        
+    end
+
+    local old_str = string.gsub(label:getString(), ',', '')    
+    local old_val = tonumber(old_str)
+    if old_val == nil then
+        old_val = 0
+    end
+
+    local new_val = price
+    local tween_action = cc.ActionTweenForLua:create(0.2, old_val, new_val, tween_cb)
+    label:stopAllActions()
+    label:runAction(tween_action)
+end
+
+-------------------------------------
 -- function show_effect
 -- @brief 스킬 강화 연출
 -------------------------------------
-function UI_DragonSkillEnhance:show_effect(finish_cb)
+function UI_DragonSkillEnhance:show_effect(skill_idx_list, finish_cb)
     local block_ui = UI_BlockPopup() 
     local res_path = 'res/ui/a2d/dragon_skill_enhance_move/dragon_skill_enhance_move.vrp'
 
     -- SKILL LV UP 
     do
-        local slot = g_dragonsData:getChangeSkillLvSlot(self.m_selectDragonData)
-        local target_node = self.vars['skillNode'..slot]
+        for _, slot in ipairs(skill_idx_list) do
+            local target_node = self.vars['skillNode'..slot]
 
-        local effect = MakeAnimator(res_path)
-        effect:changeAni('lvup', false)
-        effect:setPosition(ZERO_POINT)
-        effect:setScale(1.2)
-        target_node:addChild(effect.m_node)
+            local effect = MakeAnimator(res_path)
+            effect:changeAni('lvup', false)
+            effect:setPosition(ZERO_POINT)
+            effect:setScale(1.2)
+            target_node:addChild(effect.m_node)
 
-        local duration = effect:getDuration()
-        effect:runAction(cc.Sequence:create(
-            cc.DelayTime:create(duration),
-            cc.CallFunc:create(function() 
-                if (finish_cb) then
-                    finish_cb()
-                end
-                block_ui:close()
-            end),
-            cc.RemoveSelf:create()
-        ))
+            local duration = effect:getDuration()
+            effect:runAction(cc.Sequence:create(
+                cc.DelayTime:create(duration),
+                cc.RemoveSelf:create()
+            ))
+        end
     end
+
+    local delay_time = cc.DelayTime:create(0.2)
+    local call_func = cc.CallFunc:create(function() 
+        if (finish_cb) then
+            finish_cb()
+        end
+        block_ui:close()
+    end)
+
+    self.root:stopAllActions()
+    self.root:runAction(cc.Sequence:create(delay_time, call_func))
 end
 
 -------------------------------------
@@ -301,6 +369,33 @@ function UI_DragonSkillEnhance:getDragonList()
     end
 
     return dragon_dic
+end
+
+-------------------------------------
+--- @function isSelectedMateral
+--- @breif 재료 선택 여부
+-------------------------------------
+function UI_DragonSkillEnhance:isSelectedMateral(doid)
+    return table.find(self.m_selectedMtrls,doid) ~= nil
+end
+
+-------------------------------------
+--- @function selecteMateral
+--- @breif 재료 선택
+-------------------------------------
+function UI_DragonSkillEnhance:selectMateral(doid)
+    table.insert(self.m_selectedMtrls, doid)
+    self:refresh_dragonIndivisual_material(doid) -- 특성 재료 tableview
+end
+
+-------------------------------------
+--- @function unselecteMateral
+--- @breif 재료 선택 해제
+-------------------------------------
+function UI_DragonSkillEnhance:unselectMateral(doid)
+    local idx = table.find(self.m_selectedMtrls,doid)
+    table.remove(self.m_selectedMtrls, idx)
+    self:refresh_dragonIndivisual_material(doid) -- 특성 재료 tableview
 end
 
 -------------------------------------
@@ -389,7 +484,7 @@ function UI_DragonSkillEnhance:createMtrlDragonCardCB(ui, data)
         local doid = data['id']
         if doid and (doid ~= '') then
             local ui = UI_SimpleDragonInfoPopup(data)
-			local is_selected = (doid == self.m_selectedMtrl)
+			local is_selected = self:isSelectedMateral(doid)
             ui:setLockPossible(true, is_selected)
             ui:setRefreshFunc(function()
                 self:refresh_dragonIndivisual(doid)          -- 하단의 드래곤 tableview
@@ -438,37 +533,32 @@ function UI_DragonSkillEnhance:click_dragonMaterial(data)
     local list_item = self.m_mtrlTableViewTD:getItem(doid)
     local list_item_ui = list_item['ui']
     
-    local function set_ui()
-		-- 재료 경고
-        g_dragonsData:dragonMaterialWarning(doid, function()
-			if (self.m_selectedUI) then
-				self.m_selectedUI:setCheckSpriteVisible(false)
-			end
-
-			self.m_selectedMtrl = data['id']
-			self.m_selectedUI = list_item_ui
-			list_item_ui:setCheckSpriteVisible(true)
-		end)
-    end
-
 	-- 선택된 재료가 있는 경우
-    if self.m_selectedMtrl then
-		-- 선택된 재료와 클릭한 재료가 같음 
-		if (doid == self.m_selectedMtrl) then
-			--> 해제 처리
-			self.m_selectedMtrl = nil
-            self.m_selectedUI = nil
-			list_item_ui:setCheckSpriteVisible(false)
-
-		-- 선택 클릭 다름
-		else
-			--> @TODO 해제 및 다시 선택
-            set_ui()
-		end
-
-	-- 선택된 재료가 없는 경우
+    if self:isSelectedMateral(doid) == true then
+		-- 선택된 재료와 클릭한 재료가 같음 	
+        self:unselectMateral(doid)
+        --> 해제 처리
+        list_item_ui:setCheckSpriteVisible(false)	
+        self:refresh_skillprice()
     else
-		set_ui()
+        -- 최대 레벨업 가능 횟수보다 많이 선택한 경우
+        if #self.m_selectedMtrls >= self.m_skillSpareLvSum then
+            UIManager:toastNotificationRed(Str('더 이상 선택할 수 없습니다.'))
+            return
+        end
+
+        -- 최대 레벨업 가능 횟수보다 많이 선택한 경우
+        if #self.m_selectedMtrls >= self.m_limitMtrlsCount then
+            UIManager:toastNotificationRed(Str('신화 드래곤은 1마리 이상 선택이 불가능합니다.'))
+            return
+        end
+
+        -- 재료 경고
+        g_dragonsData:dragonMaterialWarning(doid, function()
+            self:selectMateral(data['id'])
+            self:refresh_skillprice()
+            list_item_ui:setCheckSpriteVisible(true)
+        end)
 	end
 end
 
@@ -509,7 +599,125 @@ end
 -------------------------------------
 function UI_DragonSkillEnhance:getSkillEnhancePrice()
 	local did = self.m_selectDragonData['did']
-	return TableDragon:getBirthGrade(did) * 10000
+	return (TableDragon:getBirthGrade(did) * 10000) * (#self.m_selectedMtrls)
+end
+
+-------------------------------------
+-- function findEnhancedSkillIdx
+-------------------------------------
+function UI_DragonSkillEnhance:findEnhancedSkillIdx(old_struct_dragon, mod_struct_dragon)
+    local  skill_idx_list = {}
+	for i = 0, 3 do
+		local a_lv = old_struct_dragon['skill_' .. i]
+		local b_lv = mod_struct_dragon['skill_' .. i]
+		if (a_lv ~= b_lv) then
+            if table.find(skill_idx_list, i) == nil then
+                table.insert(skill_idx_list, i)
+            end
+		end
+	end
+    return skill_idx_list
+end
+
+-------------------------------------
+--- @function click_enhanceNewBtn
+-------------------------------------
+function UI_DragonSkillEnhance:click_enhanceNewBtn()
+	-- 스킬 강화 가능 여부
+	local possible, msg = g_dragonsData:possibleDragonSkillEnhance(self.m_selectDragonOID)
+	if (not possible) then
+		UIManager:toastNotificationRed(msg)
+        return
+	end
+	-- 재료 요건 여부
+    if (#self.m_selectedMtrls == 0) then
+        UIManager:toastNotificationRed(Str('재료 드래곤을 선택해주세요'))
+        return
+    end
+
+    local ok_btn_cb = function ()
+        self:coroutine_enhance()
+    end
+
+    local msg = Str('스킬 레벨업을 진행하시겠습니까?')
+    local submsg = Str('{1}마리가 재료로 사용됩니다.', #self.m_selectedMtrls)
+    local ui = MakeSimplePricePopup(POPUP_TYPE.YES_NO, msg, submsg, ok_btn_cb)
+    ui:setPrice('gold', self:getSkillEnhancePrice())
+end
+
+-------------------------------------
+--- @function coroutine_enhance
+-------------------------------------
+function UI_DragonSkillEnhance:coroutine_enhance()
+    local t_prev_dragon_data = clone(self.m_selectDragonData)
+    
+    local function coroutine_function(dt)
+        local co = CoroutineHelper()
+
+        while #self.m_selectedMtrls > 0 do
+            local mtrl_doid = table.remove(self.m_selectedMtrls, 1)
+            local src_soids = {}
+            local src_doids = {}
+            local mtrl_dragon_object = g_dragonsData:getDragonObject(mtrl_doid)
+            -- 드래곤     
+            if (mtrl_dragon_object.m_objectType == 'dragon') then
+                table.insert(src_doids, mtrl_doid)
+            -- 슬라임
+            elseif (mtrl_dragon_object.m_objectType == 'slime') then
+                table.insert(src_soids, mtrl_doid)
+            end
+
+            src_doids = table.concat(src_doids, ',')
+            src_soids = table.concat(src_soids, ',')
+
+            co:work()
+            local success_cb = function(ret)
+                -- 드래곤
+                if ret['deleted_dragons_oid'] then
+                    for _,doid in pairs(ret['deleted_dragons_oid']) do
+                        -- 드래곤 리스트 갱신
+                        self.m_tableViewExt:delItem(doid)
+                    end
+                end
+                -- 슬라임
+                if ret['deleted_slimes_oid'] then
+                    for _,soid in pairs(ret['deleted_slimes_oid']) do
+                        -- 리스트 갱신
+                        self.m_tableViewExt:delItem(soid)
+                    end
+                end
+
+                co.NEXT()
+            end
+
+            g_dragonsData:request_skillLevelUp(self.m_selectDragonOID, src_doids, src_soids, success_cb, co.ESCAPE)
+            if co:waitWork() then return end
+        end
+
+        -- 스킬강화 UI 뒤의 드래곤관리UI를 갱신하도록 한다.
+        self.m_bChangeDragonList = true
+        local mod_struct_dragon = g_dragonsData:getDragonDataFromUid(self.m_selectDragonOID)        
+        local skill_idx_list = self:findEnhancedSkillIdx(t_prev_dragon_data, mod_struct_dragon)
+        self:show_effect(skill_idx_list, function()
+            local ui = UI_DragonSkillEnhance_Result(t_prev_dragon_data, mod_struct_dragon, skill_idx_list)
+            ui:setCloseCB(function()
+                -- 스킬 강화 가능 여부 판별하여 가능하지 않으면 닫아버림
+                local impossible, msg = g_dragonsData:impossibleSkillEnhanceForever(self.m_selectDragonOID)
+                if (impossible) then
+                    UIManager:toastNotificationRed(msg)
+                    self:close()
+                end
+            end)
+            -- 동시에 본UI 갱신
+            self.m_selectDragonData = mod_struct_dragon
+            self:refresh()
+            self:refresh_skillprice()
+        end)
+
+        co:close()
+    end
+
+    Coroutine(coroutine_function, 'UI_DragonSkillEnhance:coroutine_enhance()')
 end
 
 -------------------------------------
@@ -524,7 +732,7 @@ function UI_DragonSkillEnhance:click_enhanceBtn()
 	end
 
 	-- 재료 요건 여부
-    if (not self.m_selectedMtrl) then
+    if (not self.m_selectedMtrls) then
         UIManager:toastNotificationRed(Str('재료 드래곤을 선택해주세요'))
         return
     end
@@ -540,7 +748,7 @@ function UI_DragonSkillEnhance:click_enhanceBtn()
     local src_doids = ''
     local src_soids = ''
 
-	local mtrl_doid = self.m_selectedMtrl
+	local mtrl_doid = self.m_selectedMtrls
 	local mtrl_dragon_object = g_dragonsData:getDragonObject(mtrl_doid)
        
 	-- 드래곤     
@@ -584,16 +792,6 @@ function UI_DragonSkillEnhance:click_enhanceBtn()
 
         -- 갱신
         g_serverData:networkCommonRespone(ret)
-
-		-- 재료 제거
-		if (self.m_selectedMtrl) then
-			self.m_selectedMtrl = nil
-		end
-
-        if (self.m_selectedUI) then
-            self.m_selectedUI:setCheckSpriteVisible(false)
-            self.m_selectedUI = nil
-        end
 
 		-- 스킬강화 UI 뒤의 드래곤관리UI를 갱신하도록 한다.
         self.m_bChangeDragonList = true
@@ -646,6 +844,49 @@ function UI_DragonSkillEnhance:click_skillSlimeShopBtn()
 	ui:setCloseCB(function() 
         self:refresh() 
     end)
+end
+
+-------------------------------------
+--- @function click_allSelectBtn
+--- @brief 모두 선택
+-------------------------------------
+function UI_DragonSkillEnhance:click_allSelectBtn()
+    local available_count = self.m_skillSpareLvSum - #self.m_selectedMtrls
+
+    if available_count == 0 then
+        UIManager:toastNotificationRed(Str('더 이상 선택할 수 없습니다.'))
+        return
+    end
+
+    -- 최대 레벨업 가능 횟수보다 많이 선택한 경우
+    if #self.m_selectedMtrls >= self.m_limitMtrlsCount then
+        UIManager:toastNotificationRed(Str('신화 드래곤은 1마리 이상 선택이 불가능합니다.'))
+        return
+    end
+
+    for _, v in ipairs(self.m_mtrlTableViewTD.m_itemList) do
+        if available_count == 0  then
+            break
+        end
+
+        if #self.m_selectedMtrls >= self.m_limitMtrlsCount then
+            break
+        end
+
+        local ui = v['ui']
+        local struct_dragon = v['data']
+
+        if ui ~= nil then
+            local doid = struct_dragon['id']
+            if self:isSelectedMateral(doid) == false then
+                self:selectMateral(doid)
+                ui:setCheckSpriteVisible(true)
+                available_count = available_count - 1
+            end
+        end
+    end
+
+    self:refresh_skillprice()
 end
 
 -------------------------------------

@@ -4,15 +4,17 @@ local PARENT = UI
 -- class UI_DragonSkillEnhance_Result
 -------------------------------------
 UI_DragonSkillEnhance_Result = class(PARENT,{
+        m_dragonDataOld = 'StructDragonObject',
 		m_dragonData = 'StructDragonObject',
 		m_enhancedIdx = 'num',
+        m_enhancedIdxList = 'List<number>',
     })
 
 -------------------------------------
 -- function init
 -------------------------------------
-function UI_DragonSkillEnhance_Result:init(old_struct_dragon, mod_struct_dragon)
-    local vars = self:load('dragon_skill_enhance_result.ui')
+function UI_DragonSkillEnhance_Result:init(old_struct_dragon, mod_struct_dragon, idx_list)
+    self:load('dragon_skill_enhance_result.ui')
     UIManager:open(self, UIManager.POPUP)
 
     -- backkey 지정
@@ -23,6 +25,8 @@ function UI_DragonSkillEnhance_Result:init(old_struct_dragon, mod_struct_dragon)
     self:doAction(nil, false)
 
 	-- initialize
+    self.m_enhancedIdxList = idx_list or {}
+    self.m_dragonDataOld = old_struct_dragon
 	self.m_dragonData = mod_struct_dragon
 	self:findEnhancedSkillIdx(old_struct_dragon, mod_struct_dragon)
 
@@ -91,6 +95,12 @@ end
 -- function findEnhancedSkillIdx
 -------------------------------------
 function UI_DragonSkillEnhance_Result:findEnhancedSkillIdx(old_struct_dragon, mod_struct_dragon)
+    if #self.m_enhancedIdxList > 0 then
+        local idx = table.remove(self.m_enhancedIdxList, 1)
+        self.m_enhancedIdx = idx
+        return
+    end
+
 	for i = 0, 3 do 
 		local a_lv = old_struct_dragon['skill_' .. i]
 		local b_lv = mod_struct_dragon['skill_' .. i]
@@ -105,5 +115,13 @@ end
 -- function click_exitBtn
 -------------------------------------
 function UI_DragonSkillEnhance_Result:click_exitBtn()
+    if #self.m_enhancedIdxList > 0 then
+        local ui = UI_DragonSkillEnhance_Result(self.m_dragonDataOld, self.m_dragonData, self.m_enhancedIdxList)
+        ui.m_closeCB = self.m_closeCB
+        self.m_closeCB = nil
+        self:close()
+        return
+    end
+
     self:close()
 end

@@ -1359,6 +1359,39 @@ function ServerData_Dragons:haveSkillSpareLV(doid)
 end
 
 -------------------------------------
+--- @function getSkillSpareLVSum
+--- @brief 스킬 레벨을 올릴 수 있는 횟수 반환
+-------------------------------------
+function ServerData_Dragons:getSkillSpareLVSum(doid)
+    local t_dragon_data = self:getDragonDataFromUid(doid)
+	local t_dragon = TableDragon():get(t_dragon_data['did'])
+	local table_dragon_skill_modify = TableDragonSkillModify()
+    local evolution = t_dragon_data['evolution']
+    local sum = 0
+	
+	-- active 부터 진화도까지
+	for i = 0, evolution do
+		local key = i
+
+		-- 애초에 0이었으면... 
+		if (key == 0) then
+			key = 'active'
+		end
+
+		local skill_id = t_dragon['skill_' .. key]
+		local max_lv = table_dragon_skill_modify:getMaxLV(skill_id)
+		local curr_lv = t_dragon_data['skill_' .. i]
+
+		-- 한개라도 현재 레밸이 최대레벨보다 낮은것이 있다면 여분 스킬 있는것으로 판명
+		if (curr_lv < max_lv) then
+			sum = sum + (max_lv - curr_lv)
+		end
+	end
+ 
+	return sum
+end
+
+-------------------------------------
 -- function isSkillEnhanced
 -- @brief 한번이라도 스킬강화를 했는지
 -------------------------------------
@@ -2201,5 +2234,53 @@ function ServerData_Dragons:request_mastery_lvdown(doid, success_cb)
     --ui_network:setResponseStatusCB(response_status_cb)
     ui_network:setSuccessCB(function(ret) success(ret) end)
     --ui_network:setFailCB(fail_cb)
+    ui_network:request()
+end
+
+
+-------------------------------------
+--- @function request_skillLevelUp
+--- @brief 스킬 레벨업
+-------------------------------------
+function ServerData_Dragons:request_skillLevelUp(doid, src_doids, src_soids, _success_cb, fail_cb)
+    local uid = g_userData:get('uid')
+
+    local function success_cb(ret)
+        -- @analytics
+        Analytics:trackUseGoodsWithRet(ret, '드래곤 스킬 레벨업')
+        -- 재료로 사용된 드래곤 삭제
+        if ret['deleted_dragons_oid'] then
+            for _,doid in pairs(ret['deleted_dragons_oid']) do
+                g_dragonsData:delDragonData(doid)
+            end
+        end
+        -- 슬라임
+        if ret['deleted_slimes_oid'] then
+            for _,soid in pairs(ret['deleted_slimes_oid']) do
+                g_slimesData:delSlimeObject(soid)
+            end
+        end
+        -- 드래곤 정보 갱신
+        g_dragonsData:applyDragonData(ret['modified_dragon'])
+        -- 갱신
+        g_serverData:networkCommonRespone(ret)
+        -- @ master road
+        g_masterRoadData:addRawData('d_sklvup')
+        -- @ MASTER ROAD
+        local t_data = {clear_key = 'd_sklvup'}
+        g_masterRoadData:updateMasterRoad(t_data)
+
+        SafeFuncCall(_success_cb, ret)
+    end
+
+    local ui_network = UI_Network()
+    ui_network:setUrl('/dragons/skillup')
+    ui_network:setParam('uid', uid)
+    ui_network:setParam('doid', doid)
+    ui_network:setParam('src_doids', src_doids)
+    ui_network:setParam('src_soids', src_soids)
+    ui_network:setRevocable(true)
+    ui_network:setSuccessCB(success_cb)
+    ui_network:setFailCB(fail_cb)
     ui_network:request()
 end
