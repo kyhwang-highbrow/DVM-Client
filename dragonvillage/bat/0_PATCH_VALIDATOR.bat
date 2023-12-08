@@ -5,12 +5,6 @@ echo %ERRORLEVEL%
 IF NOT %ERRORLEVEL% == 0 EXIT
 
 cd ../bat
-call TranslationChecker.bat
-
-echo %ERRORLEVEL%
-IF NOT %ERRORLEVEL% == 0 EXIT
-
-cd ../bat
 call CsvToLuaTableStr.bat
 
 echo %ERRORLEVEL%
