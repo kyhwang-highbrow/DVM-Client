@@ -853,6 +853,13 @@ end
 function UI_DragonSkillEnhance:click_allSelectBtn()
     local available_count = self.m_skillSpareLvSum - #self.m_selectedMtrls
 
+    -- 현재 스킬 강화 가능한 드래곤인지 검증
+    local possible, msg = g_dragonsData:possibleDragonSkillEnhance(self.m_selectDragonOID)
+    if (not possible) then
+        UIManager:toastNotificationRed(msg)
+        return
+    end
+
     if available_count == 0 then
         UIManager:toastNotificationRed(Str('더 이상 선택할 수 없습니다.'))
         return
@@ -863,6 +870,7 @@ function UI_DragonSkillEnhance:click_allSelectBtn()
         UIManager:toastNotificationRed(Str('신화 드래곤은 1마리 이상 선택이 불가능합니다.'))
         return
     end
+
 
     for _, v in ipairs(self.m_mtrlTableViewTD.m_itemList) do
         if available_count == 0  then
