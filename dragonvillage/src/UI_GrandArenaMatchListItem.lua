@@ -53,10 +53,10 @@ function UI_GrandArenaMatchListItem:refresh()
     -- 테이머 아이콘
     local icon = struct_user_info:getDeckTamerIcon('grand_arena_up')
     vars['tamerNode']:removeAllChildren()
-    vars['tamerNode']:addChild(icon)
-
-
-
+    if icon ~= nil then
+        vars['tamerNode']:addChild(icon)
+    end
+    
     --selectedSprite
     --tamerInfoSprite
     --guideVisual
