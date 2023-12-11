@@ -2191,8 +2191,41 @@ end
 
 
 -------------------------------------
--- function request_mastery_lvdown
+-- function request_mastery_lvup
 -- @brief 특성 레벨업
+-------------------------------------
+function ServerData_Dragons:request_mastery_lvup(doid, src_doid, cb_func, fail_cb)
+    local uid = g_userData:get('uid')
+
+    local function success_cb(ret)
+        -- 재료로 사용된 드래곤 삭제
+        if ret['deleted_dragons_oid'] then
+            for _,doid in pairs(ret['deleted_dragons_oid']) do
+                g_dragonsData:delDragonData(doid)
+            end
+        end
+		-- 드래곤 갱신
+		g_dragonsData:applyDragonData(ret['modified_dragon'])
+		-- 재화 갱신
+		g_serverData:networkCommonRespone(ret)
+        
+        SafeFuncCall(cb_func, ret)
+    end
+
+    local ui_network = UI_Network()
+    ui_network:setUrl('/dragons/mastery_lvup')
+    ui_network:setParam('uid', uid)
+    ui_network:setParam('doid', doid)
+    ui_network:setParam('src_doid', src_doid)
+    ui_network:setRevocable(true)
+    ui_network:setSuccessCB(function(ret) success_cb(ret) end)    
+    ui_network:request()
+end
+
+
+-------------------------------------
+-- function request_mastery_lvdown
+-- @brief 특성 레벨 다운
 -------------------------------------
 function ServerData_Dragons:request_mastery_lvdown(doid, success_cb)
     local uid = g_userData:get('uid')

@@ -5,10 +5,9 @@ local PARENT = UI_DragonManage_Base
 -------------------------------------
 UI_DragonMasteryNew = class(PARENT,{
         m_masteryBoardUI = 'UI_DragonMasteryBoardNew',
-
+        m_masteryLevelUpCount = 'number',
         -- 재료
-        m_selectedMtrl = '',
-        m_selectedUI = '',
+        m_selectedMtrls = '',
     })
 
 UI_DragonMasteryNew.TAB_LVUP = 'mastery' -- 특성 레벨업
@@ -31,20 +30,19 @@ end
 -------------------------------------
 function UI_DragonMasteryNew:init(doid)
     local vars = self:load('dragon_mastery_new.ui')
+    self.m_selectedMtrls = {}
+    self.m_masteryLevelUpCount = 0
     UIManager:open(self, UIManager.SCENE)
-
     -- backkey 지정
     g_currScene:pushBackKeyListener(self, function() self:close() end, 'UI_DragonMasteryNew')
-
     self:sceneFadeInAction()
-
     self:initUI()
     self:initTab()
     self:initButton()
     self:refresh()
 
     -- 첫 선택 드래곤 지정
-    self:setDefaultSelectDragon(doid)
+    self:setDefaultSelectDragon(doid)    
 
     -- 정렬 도우미
     self:init_dragonSortMgr()
@@ -134,6 +132,7 @@ function UI_DragonMasteryNew:initButton()
     vars['masteryLvUpBtn']:registerScriptTapHandler(function() self:click_masteryLvUpBtn() end)
     vars['amorBtn']:registerScriptTapHandler(function() self:click_amorBtn() end)
     vars['resetBtn']:registerScriptTapHandler(function() self:click_resetBtn() end)
+    vars['allSelectBtn']:registerScriptTapHandler(function() self:click_allSelectBtn() end)
 
     -- 특성 안내 (네이버 sdk 링크)
     NaverCafeManager:setPluginInfoBtn(vars['plugInfoBtn'], 'mastery_help')
@@ -148,6 +147,46 @@ function UI_DragonMasteryNew:initButton()
     vars['recoverBtn']:registerScriptTapHandler(function() self:click_recoverBtn() end)
 end
 
+-------------------------------------
+--- @function isSelectedMateral
+--- @breif 재료 선택 여부
+-------------------------------------
+function UI_DragonMasteryNew:isSelectedMateral(data)
+    return table.find(self.m_selectedMtrls, data) ~= nil
+end
+
+-------------------------------------
+--- @function selecteMateral
+--- @breif 재료 선택
+-------------------------------------
+function UI_DragonMasteryNew:selectMateral(data)
+    table.insert(self.m_selectedMtrls, data)
+
+    if self:isMasteryMaterial(data['did']) == true then
+        self:refresh_masteryItem_material(data['item_id'])       
+    else
+        self:refresh_dragonIndivisual_material(data['id'])
+    end
+
+    self:refresh_masteryInfo()
+end
+
+-------------------------------------
+--- @function unselecteMateral
+--- @breif 재료 선택 해제
+-------------------------------------
+function UI_DragonMasteryNew:unselectMateral(data)
+    local idx = table.find(self.m_selectedMtrls,data)
+    table.remove(self.m_selectedMtrls, idx)
+
+    if self:isMasteryMaterial(data['did']) == true then
+        self:refresh_masteryItem_material(data['item_id'])       
+    else
+        self:refresh_dragonIndivisual_material(data['id'])
+    end
+
+    self:refresh_masteryInfo()
+end
 
 -------------------------------------
 -- function refresh
@@ -160,17 +199,10 @@ function UI_DragonMasteryNew:refresh()
         return
     end
     
-    do -- 재료 중에서 선택된 드래곤 항목들 정리
-        if (self.m_selectedMtrl) then
-            self.m_selectedMtrl = nil
-        end
-
-        if (self.m_selectedUI) then
-            self.m_selectedUI:setCheckSpriteVisible(false)
-            self.m_selectedUI = nil
-        end
+    if (self.m_selectedMtrls) then
+        self.m_selectedMtrls = {}
     end
-
+    
     self:refresh_dragonInfo()
     self:refresh_masteryInfo()
     self:refresh_dragonMaterialTableView()
@@ -240,28 +272,57 @@ function UI_DragonMasteryNew:refresh_dragonInfo()
     end
 end
 
+
+-------------------------------------
+-- function getMasteryLvUpAmorAndGoldCost
+-- @brief 특성 정보
+-------------------------------------
+function UI_DragonMasteryNew:getMasteryLvUpAmorAndGoldCost()
+    local dragon_obj = self:getSelectDragonObj() -- StructDragonObject
+    if (not dragon_obj) then
+        return 0 
+    end
+
+    local matr_cnt = #self.m_selectedMtrls
+    local cur_lv = dragon_obj:getMasteryLevel()
+    local dest_lv = math_min(cur_lv + matr_cnt, 10)
+    local sum_req_amor, sum_req_gold, sum_discounted = 0,0, false
+
+    for lv = cur_lv + 1, dest_lv  do
+        local req_amor, req_gold, discounted = dragon_obj:getMasteryLvUpAmorAndGoldCost(lv)
+        sum_req_amor = sum_req_amor + req_amor
+        sum_req_gold = sum_req_gold + req_gold
+        sum_discounted = discounted
+    end
+
+    return sum_req_amor, sum_req_gold, sum_discounted
+end
+
 -------------------------------------
 -- function refresh_masteryInfo
 -- @brief 특성 정보
 -------------------------------------
 function UI_DragonMasteryNew:refresh_masteryInfo()
+    local vars = self.vars
     local dragon_obj = self:getSelectDragonObj() -- StructDragonObject
-    
     if (not dragon_obj) then
         return
     end
 
-    local vars = self.vars
-
     local mastery_level = dragon_obj:getMasteryLevel()
     local mastery_point = dragon_obj:getMasteryPoint()
+    local matr_cnt = #self.m_selectedMtrls
 
-    local vars = self.vars
-    vars['mstrLvUp_masteryLabel']:setString(Str('특성 레벨 {1}', mastery_level))
+    if matr_cnt > 0 then
+        vars['mstrLvUp_masteryLabel']:setString(Str('특성 레벨 {1}', string.format('%d (+%d)',mastery_level, matr_cnt)))
+    else
+        vars['mstrLvUp_masteryLabel']:setString(Str('특성 레벨 {1}', mastery_level))
+    end
+    
     vars['mstrLvUp_spLabel']:setString(Str('스킬 포인트: {1}', mastery_point))
 
     -- 아모르의 서
-    local req_amor, req_gold, discounted = dragon_obj:getMasteryLvUpAmorAndGoldCost()
+    local req_amor, req_gold, discounted = self:getMasteryLvUpAmorAndGoldCost()
     local own_amor = g_userData:get('amor') or 0
     local str = Str('{1} / {2}', comma_value(own_amor), comma_value(req_amor))
     if (req_amor <= own_amor) then
@@ -277,7 +338,7 @@ function UI_DragonMasteryNew:refresh_masteryInfo()
     -- 최대 레벨 확인
     local is_max_level = (mastery_level == 10)
     vars['lockSprite']:setVisible(is_max_level)
-    vars['masteryLvUpBtn']:setEnabled(not is_max_level)
+    --vars['masteryLvUpBtn']:setEnabled(not is_max_level)
 
     -- 마스터리 할인 피버타임(핫타임) 적용
     if (discounted) then
@@ -474,51 +535,37 @@ function UI_DragonMasteryNew:click_dragonMaterial(data)
     -- 3.(사용 전)재료 확인 팝업 (드래곤 정보 팝업/특성 재료 정보 팝업)
     -- 4.체크 or 체크x
 
+    local dragon_obj = self:getSelectDragonObj() -- StructDragonObject
+    if (not dragon_obj) then
+        return
+    end
+
+    local matr_cnt = #self.m_selectedMtrls
+    local cur_lv = dragon_obj:getMasteryLevel()
+    local dest_lv = cur_lv + matr_cnt
+
     -- 1.재료로 사용할 수 있는지 확인
     if (data['did'] ~= 'mastery_material' and not self:checkMaterialDragonCondition(material_id)) then
-        return    
+        return
     end
-
-    -- 2.선택된 재료가 있는 경우, 해제 처리
-    if self.m_selectedMtrl then
-        -- 해제 처리
-		self.m_selectedUI:setCheckSpriteVisible(false)
-        self.m_selectedUI = nil
-
-        -- 선택한 것을 또 선택 했다면 해제하고 탈출
-        if (self.m_selectedMtrl['id'] == data['id']) then
-            self.m_selectedMtrl = nil
-            return
-        end
-        self.m_selectedMtrl = nil
-	end
+    
+    local list_item = self.m_mtrlTableViewTD:getItem(material_id)
+    local list_item_ui = list_item['ui']
 
 	-- 체크 표시 func
-    local check_ui = function()
-        self.m_selectedMtrl = data
-        local list_item = self.m_mtrlTableViewTD:getItem(self.m_selectedMtrl['id'])
-        local list_item_ui = list_item['ui']
-        self.m_selectedUI = list_item_ui
+    if self:isSelectedMateral(data) == true then
+        self:unselectMateral(data)
+        list_item_ui:setCheckSpriteVisible(false)
+    else
+
+        if dest_lv >= 10 then
+            UIManager:toastNotificationRed(Str('더 이상 선택할 수 없습니다.'))
+            return
+        end
+
+        self:selectMateral(data)
         list_item_ui:setCheckSpriteVisible(true)
     end
-
-    -- 체크 해제 func
-    local un_check_ui = function()
-        if self.m_selectedMtrl then
-            -- 해제 처리
-		    self.m_selectedUI:setCheckSpriteVisible(false)
-            self.m_selectedUI = nil
-            self.m_selectedMtrl = nil
-        end
-    end
-
-    -- 특성재료일 경우 해당 특성재료 아이템 아이디로 material_id을 변경
-    if (self:isMasteryMaterial(data['did'])) then
-        local dragon_obj = self:getSelectDragonObj() -- StructDragonObject
-        material_id = data['item_id']
-    end
-
-    UI_DragonMasteryConfirmPopup(material_id, check_ui, un_check_ui) -- 드래곤의 경우 오브젝트 아이디/아이템의 경우 아이템 아이디
 end
 
 -------------------------------------
@@ -656,14 +703,12 @@ function UI_DragonMasteryNew:createMtrlDragonCardCB(ui, data)
     local press_card_cb = function()
         local doid = data['id']
         if doid and (doid ~= '') then
-            local ui = UI_SimpleDragonInfoPopup(data)
-            local selected_id = self.m_selectedMtrl and self.m_selectedMtrl['id']
-			local is_selected = (selected_id == doid)
+            local ui = UI_SimpleDragonInfoPopup(data)            
+			local is_selected = self:isSelectedMateral(data)
             ui:setLockPossible(true, is_selected)
             ui:setRefreshFunc(function()
                 self:refresh_dragonIndivisual(doid)          -- 하단의 드래곤 tableview
                 self:refresh_dragonIndivisual_material(doid) -- 특성 재료 tableview
-                
                 -- 특성 UI 뒤의 드래곤관리UI를 갱신하도록 한다.
                 self.m_bChangeDragonList = true
             end)
@@ -678,14 +723,13 @@ end
 -- @brief 특성 레벨업 버튼
 -------------------------------------
 function UI_DragonMasteryNew:click_masteryLvUpBtn()
+    local vars = self.vars
     local dragon_obj = self:getSelectDragonObj() -- StructDragonObject
     if (not dragon_obj) then
         return
     end
 
-    local vars = self.vars
-    local req_amor, req_gold = dragon_obj:getMasteryLvUpAmorAndGoldCost()
-
+    local req_amor, req_gold = self:getMasteryLvUpAmorAndGoldCost()
     -- 골드 충족 여부
     if (not ConfirmPrice('gold', req_gold)) then
         cca.uiImpossibleAction(self.vars['masteryLvUpBtn'])
@@ -700,7 +744,7 @@ function UI_DragonMasteryNew:click_masteryLvUpBtn()
     end
     
     -- 재료 드래곤을 선택하지 않았을 때
-    if (not self.m_selectedMtrl) then
+    if (#self.m_selectedMtrls == 0) then
         local msg = Str('재료 드래곤을 선택해주세요!')
         UIManager:toastNotificationRed(msg)
         cca.uiImpossibleAction(self.vars['masteryLvUpRightMenu'])
@@ -715,39 +759,77 @@ function UI_DragonMasteryNew:click_masteryLvUpBtn()
         cca.uiImpossibleAction(self.vars['amorBtn'])
         return
     end
-    
+
+    local cb_func = function ()
+        self:coroutine_mastery_lvup()
+    end
+
+    UI_DragonMasteryConfirmPopup(
+        self:getSelectDragonObj(), 
+        self.m_selectedMtrls, cb_func, function() end)
+end
+
+-------------------------------------
+--- @function coroutine_mastery_lvup
+-------------------------------------
+function UI_DragonMasteryNew:coroutine_mastery_lvup()
+    local dragon_obj = self:getSelectDragonObj() -- StructDragonObject
+    if (not dragon_obj) then
+        return
+    end
 
     local doid = dragon_obj['id']
-    local src_doid
+    local mastery_level = dragon_obj:getMasteryLevel()
+    local function coroutine_function(dt)
+        local co = CoroutineHelper()
+        while #self.m_selectedMtrls > 0 do
+            local mtrl_dragon_object = table.remove(self.m_selectedMtrls, 1)
+            local src_doid
+            -- 특성재료일 경우, 특성 재료 아이템 아이디를 넣어줌
+            if (self:isMasteryMaterial(mtrl_dragon_object['did'])) then
+                src_doid = mtrl_dragon_object['item_id']
+            else
+                src_doid = mtrl_dragon_object['id']
+            end
 
-    -- 특성재료일 경우, 특성 재료 아이템 아이디를 넣어줌
-    if (self:isMasteryMaterial(self.m_selectedMtrl['did'])) then
-        src_doid = self.m_selectedMtrl['item_id']
-    else
-        src_doid = self.m_selectedMtrl['id']
-    end
+            co:work()
+            local success_cb = function(ret)
+                -- 재료로 사용된 드래곤 삭제
+                if ret['deleted_dragons_oid'] then
+                    for _, doid in pairs(ret['deleted_dragons_oid']) do
+                        -- 드래곤 리스트 갱신
+                        self.m_tableViewExt:delItem(doid)
+                    end
+                end
+                co.NEXT()
+            end
 
-    local function cb_func(ret)
+            g_dragonsData:request_mastery_lvup(doid, src_doid, success_cb, co.NEXT)
+            if co:waitWork() then return end
+        end
+
+        -- 특성 UI 뒤의 드래곤관리UI를 갱신하도록 한다.
+        self.m_bChangeDragonList = true
         self:refresh_dragonIndivisual(doid)
-        
+        self:refresh_masteryInfo()
+
         -- 결과 팝업
-        local ui_result = UI_DragonMasteryLevelUp_Result(self:getSelectDragonObj())
-		
-		-- 특성 레벨업 이후 조건에 충족하면 구매 촉진 팝업
-		ui_result:setCloseCB(function() 
-			local amor_cnt = g_userData:get('amor')
-			if (amor_cnt < 50) then
-				self:showAmorPackagePopup()
+        local ui_result = UI_DragonMasteryLevelUp_Result(self:getSelectDragonObj(), mastery_level)
+        -- 특성 레벨업 이후 조건에 충족하면 구매 촉진 팝업
+        ui_result:setCloseCB(function() 
+            local amor_cnt = g_userData:get('amor')
+            if (amor_cnt < 50) then
+                self:showAmorPackagePopup()
                 self:setPackageGora(50)
-			end
-		end)
-	end
-    
-    local function fail_cb()
+            end
+        end)
+
+        co:close()
     end
 
-    self:request_mastery_lvup(doid, src_doid, cb_func, fail_cb)
+    Coroutine(coroutine_function, 'UI_DragonSkillEnhance:coroutine_enhance()')
 end
+
 
 -------------------------------------
 -- function click_amorBtn
@@ -838,6 +920,62 @@ function UI_DragonMasteryNew:click_resetBtn()
     ui:setCloseCB(close_cb)
 end
 
+-------------------------------------
+--- @function click_allSelectBtn
+-------------------------------------
+function UI_DragonMasteryNew:click_allSelectBtn()    
+    local dragon_obj = self:getSelectDragonObj() -- StructDragonObject
+    if (not dragon_obj) then
+        return
+    end
+
+    local cur_lv = dragon_obj:getMasteryLevel()
+    local prev_mtrl_count = #self.m_selectedMtrls
+
+    -- 재료 드래곤을 선택하지 않았을 때
+    if (cur_lv >= 10) then
+        local msg = Str('이미 최대 특성 레벨을 달성하였습니다.')
+        UIManager:toastNotificationRed(msg)
+        return
+    end
+
+    local sum_req_amor, sum_req_gold = 0,0
+    for _, v in ipairs(self.m_mtrlTableViewTD.m_itemList) do
+        local matr_cnt = #self.m_selectedMtrls
+        local dest_lv = cur_lv + matr_cnt
+        if dest_lv >= 10 then
+            break
+        end
+
+        local req_amor, req_gold, discounted = dragon_obj:getMasteryLvUpAmorAndGoldCost(dest_lv + 1)
+        sum_req_amor = sum_req_amor + req_amor
+        sum_req_gold = sum_req_gold + req_gold
+
+        -- 골드 없으면 아웃
+        if (sum_req_gold > g_userData:get('gold')) then
+            break
+        end
+
+        -- 아모르의 서 없으면 아웃
+        if (sum_req_amor > g_userData:get('amor')) then
+            break
+        end
+
+        local ui = v['ui']
+        local mtrl_obj = v['data']
+
+        if ui ~= nil then
+            if self:isSelectedMateral(mtrl_obj) == false then
+                self:selectMateral(mtrl_obj)
+                ui:setCheckSpriteVisible(true)
+            end
+        end
+    end
+
+    if prev_mtrl_count ~= #self.m_selectedMtrls then
+        self:refresh_masteryInfo()
+    end
+end
 
 -------------------------------------
 -- function click_recoverBtn
@@ -868,72 +1006,6 @@ function UI_DragonMasteryNew:click_recoverBtn()
 end
 
 -------------------------------------
--- function request_mastery_lvup
--- @brief 특성 레벨업
--------------------------------------
-function UI_DragonMasteryNew:request_mastery_lvup(doid, src_doid, cb_func, fail_cb)
-    local uid = g_userData:get('uid')
-
-    --[[
-    -- 에러코드 처리
-    local function response_status_cb(ret)
-        return true
-    end
-
-    -- 통신실패 처리
-    local function response_fail_cb(ret)
-    end
-    --]]
-
-    local function success_cb(ret)
-
-        -- 재료로 사용된 드래곤 삭제
-        if ret['deleted_dragons_oid'] then
-            for _,doid in pairs(ret['deleted_dragons_oid']) do
-                g_dragonsData:delDragonData(doid)
-
-                -- 드래곤 리스트 갱신
-                self.m_tableViewExt:delItem(doid)
-            end
-        end
-
-		-- 드래곤 갱신
-		g_dragonsData:applyDragonData(ret['modified_dragon'])
-
-		-- 재화 갱신
-		g_serverData:networkCommonRespone(ret)
-
-        if (self.m_selectedMtrl) then
-			self.m_selectedMtrl = nil
-		end
-
-        if (self.m_selectedUI) then
-            self.m_selectedUI:setCheckSpriteVisible(false)
-            self.m_selectedUI = nil
-        end
-
-        -- 특성 UI 뒤의 드래곤관리UI를 갱신하도록 한다.
-        self.m_bChangeDragonList = true
-
-		if (cb_func) then
-			cb_func()
-		end
-    end
-
-    local ui_network = UI_Network()
-    ui_network:setUrl('/dragons/mastery_lvup')
-    ui_network:setParam('uid', uid)
-    ui_network:setParam('doid', doid)
-    ui_network:setParam('src_doid', src_doid)
-	--ui_network:hideLoading()
-    ui_network:setRevocable(true)
-    --ui_network:setResponseStatusCB(response_status_cb)
-    ui_network:setSuccessCB(function(ret) success_cb(ret) end)
-    --ui_network:setFailCB(response_fail_cb)
-    ui_network:request()
-end
-
--------------------------------------
 -- function isMasteryMaterial
 -------------------------------------
 function UI_DragonMasteryNew:isMasteryMaterial(did)
@@ -944,24 +1016,33 @@ end
 -- function refresh_dragonIndivisual_material
 -------------------------------------
 function UI_DragonMasteryNew:refresh_dragonIndivisual_material(doid)
-    local item = self.m_mtrlTableViewTD.m_itemMap[doid]
-
+    local item = self.m_mtrlTableViewTD.m_itemMap[doid]  
     local t_dragon_data = g_dragonsData:getDragonDataFromUid(doid)
-
     -- 테이블뷰 리스트의 데이터 갱신
     item['data'] = t_dragon_data
-
     -- UI card 버튼이 있을 경우 데이터 갱신
     if item and item['ui'] then
         local ui = item['ui']
         ui.m_dragonData = t_dragon_data
         ui:refreshDragonInfo()
+        ui:setCheckSpriteVisible(self:isSelectedMateral(t_dragon_data))
         self:createMtrlDragonCardCB(ui, t_dragon_data)
     end
 
     -- 갱신된 드래곤이 선택된 드래곤일 경우
     if (doid == self.m_selectDragonOID) then
         self:setSelectDragonData(doid, true)
+    end
+end
+
+-------------------------------------
+-- function refresh_masteryItem_material
+-------------------------------------
+function UI_DragonMasteryNew:refresh_masteryItem_material(doid)
+    local item = self.m_mtrlTableViewTD.m_itemMap[doid]
+    if item and item['ui'] then
+        local ui = item['ui']
+        ui:setCheckSpriteVisible(self:isSelectedMateral(item['data']))
     end
 end
 
@@ -1037,32 +1118,22 @@ end
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
 local PARENT = UI
-
 -------------------------------------
 -- class UI_DragonMasteryConfirmPopup
 -------------------------------------
 UI_DragonMasteryConfirmPopup = class(PARENT,{
+    m_selectedDragonObject = 'StructDragonObject',
+    m_selectedMtrls = 'list<number>',
     })
 
 -------------------------------------
 -- function init
 -------------------------------------
-function UI_DragonMasteryConfirmPopup:init(id, ok_cb, cancel_cb) -- 드래곤의 경우 드래곤 오브젝트 아이디/ 아이템의 경우 아이템 아이디
-    local vars = self:load('dragon_mastery_material_popup.ui')
+function UI_DragonMasteryConfirmPopup:init(dragon_obj, mtrl_ids, ok_cb, cancel_cb) -- 드래곤의 경우 드래곤 오브젝트 아이디/ 아이템의 경우 아이템 아이디
+    self:load('dragon_mastery_material_popup.ui')
+    self.m_selectedDragonObject = dragon_obj
+    self.m_selectedMtrls = mtrl_ids
     UIManager:open(self, UIManager.POPUP)
 
     -- backkey 지정
@@ -1073,36 +1144,56 @@ function UI_DragonMasteryConfirmPopup:init(id, ok_cb, cancel_cb) -- 드래곤의
     self:doActionReset()
     self:doAction(nil, false)
 
-    self:initUI(id, ok_cb, cancel_cb)
-    self:initButton()
+    self:initUI(ok_cb, cancel_cb)
+    --self:initButton()
+    self:initTableView()
 end
 
 -------------------------------------
 -- function initUI
 -------------------------------------
-function UI_DragonMasteryConfirmPopup:initUI(id, ok_cb, cancel_cb)
+function UI_DragonMasteryConfirmPopup:initUI(ok_cb, cancel_cb)
     local vars = self.vars
-    local card_ui = nil
-    local item_name = ''
-
-    -- 드래곤/특성 재료 아이템일 경우 아이템 카드/이름 생성
-    local dragon_obj = g_dragonsData:getDragonDataFromUid(id)
-    if (dragon_obj) then
-        card_ui = UI_DragonCard(dragon_obj)
-        item_name = TableDragon:getDragonName(dragon_obj:getDid())
-    else
-        card_ui = UI_ItemCard(id)
-        item_name = TableItem:getItemName(id)    
-    end
     
+    local matr_cnt = #self.m_selectedMtrls
+    local cur_lv = self.m_selectedDragonObject:getMasteryLevel()
+    local dest_lv = cur_lv + matr_cnt
+
     vars['okBtn']:registerScriptTapHandler(function() ok_cb() self:close() end)
     vars['cancelBtn']:registerScriptTapHandler(function() cancel_cb() self:close() end)
     vars['closeBtn']:registerScriptTapHandler(function() cancel_cb() self:close() end)
-    vars['itemDscLabel']:setString(item_name)
-    if (card_ui) then
-        card_ui.root:setScale(0.8)
-        vars['iconNode']:addChild(card_ui.root)
+    vars['itemDscLabel']:setString(string.format('Lv. %d  >>  Lv. %d', cur_lv, dest_lv))
+end
+
+-------------------------------------
+-- function initTableView
+-------------------------------------
+function UI_DragonMasteryConfirmPopup:initTableView()
+    local vars = self.vars   
+    local list_table_node = vars['materialTableViewNode']
+    list_table_node:removeAllChildren()
+
+    -- 리스트 아이템 생성 콜백
+    local function create_func(ui, data)
+        ui.root:setScale(0.66)
     end
+    
+    local function make_func(object)
+        if (object['did'] == 'mastery_material') then
+            return UI_ItemCard(object['item_id'], object['item_count'])
+        else
+            return UI_DragonCard(object)
+        end
+    end
+
+    -- 테이블뷰 생성
+    local table_view_td = UIC_TableView(list_table_node)
+    table_view_td.m_defaultCellSize = cc.size(100, 100)
+    --table_view_td.m_nItemPerCell = 8
+    table_view_td:setCellUIClass(make_func, create_func)
+    table_view_td:setItemList(self.m_selectedMtrls)
+    table_view_td:setDirection(cc.SCROLLVIEW_DIRECTION_HORIZONTAL)
+    table_view_td:setAlignCenter(true)
 end
 
 

@@ -77,9 +77,6 @@ function ServerData_AdventureBreakthroughAbyssPackage:isReceivableReward(product
         if (stage_id == target_stage_id) and (self:isReceivedReward(product_id, stage_id) == false) then
             local stage_info = g_adventureData:getStageInfo(stage_id)
             local star = stage_info:getNumberOfStars()
-
-            cclog('target_stage_id', target_stage_id, star)
-            
             -- 보상 조건인 별 3개인 경우 혹은 판매 종료 된 패키지인 경우
             if (star >= 3) then
                 return true

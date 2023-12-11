@@ -1295,11 +1295,11 @@ end
 -- @brief 드래곤 특성 레벨업 비용 계산
 -- @return number, number, bool
 -------------------------------------
-function StructDragonObject:getMasteryLvUpAmorAndGoldCost()
+function StructDragonObject:getMasteryLvUpAmorAndGoldCost(lv)
     local rarity_str = self:getRarity()
     local mastery_level = self:getMasteryLevel()
 
-    local req_amor, req_gold = TableMastery:getRequiredAmorQuantity(rarity_str, mastery_level + 1)
+    local req_amor, req_gold = TableMastery:getRequiredAmorQuantity(rarity_str, lv or (mastery_level + 1))
 
     -- 할인 핫타임
 	local active, dc_value, _ = g_fevertimeData:isActiveFevertimeByType(FEVERTIME_SALE_EVENT.MASTERY_DC)

@@ -5,13 +5,15 @@ local PARENT = UI
 -------------------------------------
 UI_DragonMasteryLevelUp_Result = class(PARENT,{
 		m_dragonObject = 'StructDragonObject',
+        m_prevLevel = 'number',
     })
 
 -------------------------------------
 -- function init
 -------------------------------------
-function UI_DragonMasteryLevelUp_Result:init(dragon_object)
+function UI_DragonMasteryLevelUp_Result:init(dragon_object, prev_lv)
     local vars = self:load('dragon_mastery_lvup_result.ui')
+    self.m_prevLevel = prev_lv
     UIManager:open(self, UIManager.SCENE)
 
     -- backkey 지정
@@ -92,7 +94,7 @@ function UI_DragonMasteryLevelUp_Result:refresh()
     vars['beforeLabel1']:setVisible(is_first)
     vars['beforeLabel2']:setVisible(not is_first)
 
-    vars['beforeLabel2']:setString(Str('Lv.{1}', (mastery_level-1)))
+    vars['beforeLabel2']:setString(Str('Lv.{1}', self.m_prevLevel or (mastery_level-1)))
     vars['afterLabel']:setString(Str('Lv.{1}', mastery_level))
 end
 
