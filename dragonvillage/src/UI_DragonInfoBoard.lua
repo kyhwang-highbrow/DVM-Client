@@ -522,6 +522,11 @@ function UI_DragonInfoBoard:click_runeBtn(slot_idx)
         return
     end
 
+    local is_slime_object = (self.m_dragonObject:getObjectType() ~= 'dragon')
+    if is_slime_object then
+        return
+    end
+
 
     if (self.m_bRuneInfoPopup) then
         local t_dragon_data = self.m_dragonObject
@@ -535,8 +540,12 @@ function UI_DragonInfoBoard:click_runeBtn(slot_idx)
 
     -- 룬 UI 오픈
     local doid = self.m_dragonObject['id']
-    local ui = UI_DragonRunes(doid, slot_idx)
+    local dragon_obj = g_dragonsData:getDragonDataFromUid(doid)
+    if dragon_obj == nil then
+        return
+    end
 
+    local ui = UI_DragonRunes(doid, slot_idx)
     -- 룬 장착에 대한 변경사항이 있을 경우 처리
     local function close_cb()
         local doid = self.m_dragonObject['id']

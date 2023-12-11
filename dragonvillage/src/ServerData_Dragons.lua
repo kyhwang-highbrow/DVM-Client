@@ -2191,7 +2191,7 @@ end
 
 
 -------------------------------------
--- function request_mastery_lvup
+-- function request_mastery_lvdown
 -- @brief 특성 레벨업
 -------------------------------------
 function ServerData_Dragons:request_mastery_lvdown(doid, success_cb)
