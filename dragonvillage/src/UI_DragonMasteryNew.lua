@@ -783,6 +783,7 @@ function UI_DragonMasteryNew:coroutine_mastery_lvup()
     local doid = dragon_obj['id']
     local mastery_level = dragon_obj:getMasteryLevel()
     local function coroutine_function(dt)
+        local block_ui = UI_BlockPopup()
         local co = CoroutineHelper()
         while #self.m_selectedMtrls > 0 do
             local mtrl_dragon_object = table.remove(self.m_selectedMtrls, 1)
@@ -826,6 +827,7 @@ function UI_DragonMasteryNew:coroutine_mastery_lvup()
             end
         end)
 
+        block_ui:close()
         co:close()
     end
 

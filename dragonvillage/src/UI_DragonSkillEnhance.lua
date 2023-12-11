@@ -30,7 +30,6 @@ end
 -------------------------------------
 function UI_DragonSkillEnhance:init(doid, is_myth)
     self.m_selectedMtrls = {}
-    self.m_skillSpareLvSum = g_dragonsData:getSkillSpareLVSum(doid)
     self:load('dragon_skill_enhance.ui')
     UIManager:open(self, UIManager.SCENE)
 
@@ -123,7 +122,6 @@ function UI_DragonSkillEnhance:setSelectDragonData(object_id, b_force)
     self.m_selectDragonOID = object_id
     self.m_selectDragonData = object_data
     self.m_bSlimeObject = (object_data.m_objectType == 'slime')
-    self.m_limitMtrlsCount = object_data:getRarity() == 'myth' and 1 or 9999
 
     -- 선택된 드래곤 카드에 프레임 표시
     self:changeDragonSelectFrame()
@@ -156,6 +154,10 @@ function UI_DragonSkillEnhance:refresh()
     if vars['moveTabBtn'] then
         vars['moveTabBtn']:setVisible(not is_myth)
     end
+
+    self.m_skillSpareLvSum = g_dragonsData:getSkillSpareLVSum(t_dragon_data['id'])
+    self.m_selectedMtrls = {}
+    self.m_limitMtrlsCount = is_myth and 1 or 9999
 
     local did = t_dragon_data['did']
     local attr = t_dragon_data:getAttr()
@@ -652,8 +654,8 @@ function UI_DragonSkillEnhance:coroutine_enhance()
     local t_prev_dragon_data = clone(self.m_selectDragonData)
     
     local function coroutine_function(dt)
+        local block_ui = UI_BlockPopup()
         local co = CoroutineHelper()
-
         while #self.m_selectedMtrls > 0 do
             local mtrl_doid = table.remove(self.m_selectedMtrls, 1)
             local src_soids = {}
@@ -714,6 +716,7 @@ function UI_DragonSkillEnhance:coroutine_enhance()
             self:refresh_skillprice()
         end)
 
+        block_ui:close()
         co:close()
     end
 
