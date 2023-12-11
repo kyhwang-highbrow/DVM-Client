@@ -156,34 +156,34 @@ function UI_DragonMasteryNew:isSelectedMateral(data)
 end
 
 -------------------------------------
---- @function selecteMateral
+--- @function selectMateral
 --- @breif 재료 선택
 -------------------------------------
 function UI_DragonMasteryNew:selectMateral(data)
     table.insert(self.m_selectedMtrls, data)
 
-    if self:isMasteryMaterial(data['did']) == true then
-        self:refresh_masteryItem_material(data['item_id'])       
-    else
-        self:refresh_dragonIndivisual_material(data['id'])
-    end
+    -- if self:isMasteryMaterial(data['did']) == true then
+    --     self:refresh_masteryItem_material(data['item_id'])       
+    -- else
+    --     self:refresh_dragonIndivisual_material(data['id'])
+    -- end
 
     self:refresh_masteryInfo()
 end
 
 -------------------------------------
---- @function unselecteMateral
+--- @function unselectMateral
 --- @breif 재료 선택 해제
 -------------------------------------
 function UI_DragonMasteryNew:unselectMateral(data)
-    local idx = table.find(self.m_selectedMtrls,data)
+    local idx = table.find(self.m_selectedMtrls, data)
     table.remove(self.m_selectedMtrls, idx)
 
-    if self:isMasteryMaterial(data['did']) == true then
-        self:refresh_masteryItem_material(data['item_id'])       
-    else
-        self:refresh_dragonIndivisual_material(data['id'])
-    end
+    -- if self:isMasteryMaterial(data['did']) == true then
+    --     self:refresh_masteryItem_material(data['item_id'])       
+    -- else
+    --     self:refresh_dragonIndivisual_material(data['id'])
+    -- end
 
     self:refresh_masteryInfo()
 end
@@ -198,11 +198,8 @@ function UI_DragonMasteryNew:refresh()
     if (not dragon_obj) then
         return
     end
-    
-    if (self.m_selectedMtrls) then
-        self.m_selectedMtrls = {}
-    end
-    
+
+    self.m_selectedMtrls = {}
     self:refresh_dragonInfo()
     self:refresh_masteryInfo()
     self:refresh_dragonMaterialTableView()
@@ -318,8 +315,12 @@ function UI_DragonMasteryNew:refresh_masteryInfo()
     else
         vars['mstrLvUp_masteryLabel']:setString(Str('특성 레벨 {1}', mastery_level))
     end
-    
-    vars['mstrLvUp_spLabel']:setString(Str('스킬 포인트: {1}', mastery_point))
+
+    if matr_cnt > 0 then
+        vars['mstrLvUp_spLabel']:setString(Str('스킬 포인트: {1}', string.format('%d (+%d)',mastery_point, matr_cnt)))
+    else
+        vars['mstrLvUp_spLabel']:setString(Str('스킬 포인트: {1}', mastery_point))
+    end
 
     -- 아모르의 서
     local req_amor, req_gold, discounted = self:getMasteryLvUpAmorAndGoldCost()
@@ -532,8 +533,7 @@ function UI_DragonMasteryNew:click_dragonMaterial(data)
     
     -- 1.재료로 사용할 수 있는지 확인
     -- 2.선택된 재료가 있는 경우 체크 해제 처리
-    -- 3.(사용 전)재료 확인 팝업 (드래곤 정보 팝업/특성 재료 정보 팝업)
-    -- 4.체크 or 체크x
+    -- 3.체크 or 체크x
 
     local dragon_obj = self:getSelectDragonObj() -- StructDragonObject
     if (not dragon_obj) then
@@ -544,26 +544,25 @@ function UI_DragonMasteryNew:click_dragonMaterial(data)
     local cur_lv = dragon_obj:getMasteryLevel()
     local dest_lv = cur_lv + matr_cnt
 
-    -- 1.재료로 사용할 수 있는지 확인
-    if (data['did'] ~= 'mastery_material' and not self:checkMaterialDragonCondition(material_id)) then
-        return
-    end
-    
     local list_item = self.m_mtrlTableViewTD:getItem(material_id)
     local list_item_ui = list_item['ui']
 
 	-- 체크 표시 func
-    if self:isSelectedMateral(data) == true then
-        self:unselectMateral(data)
+    if self:isSelectedMateral(list_item['data']) == true then
+        self:unselectMateral(list_item['data'])
         list_item_ui:setCheckSpriteVisible(false)
     else
+        -- 1.재료로 사용할 수 있는지 확인
+        if (data['did'] ~= 'mastery_material' and not self:checkMaterialDragonCondition(material_id)) then
+            return
+        end
 
         if dest_lv >= 10 then
             UIManager:toastNotificationRed(Str('더 이상 선택할 수 없습니다.'))
             return
         end
 
-        self:selectMateral(data)
+        self:selectMateral(list_item['data'])
         list_item_ui:setCheckSpriteVisible(true)
     end
 end
@@ -703,14 +702,17 @@ function UI_DragonMasteryNew:createMtrlDragonCardCB(ui, data)
     local press_card_cb = function()
         local doid = data['id']
         if doid and (doid ~= '') then
-            local ui = UI_SimpleDragonInfoPopup(data)            
-			local is_selected = self:isSelectedMateral(data)
+
+            local list_item = self.m_mtrlTableViewTD:getItem(doid)
+            local ui = UI_SimpleDragonInfoPopup(list_item['data'])            
+			local is_selected = self:isSelectedMateral(list_item['data'])
             ui:setLockPossible(true, is_selected)
             ui:setRefreshFunc(function()
                 self:refresh_dragonIndivisual(doid)          -- 하단의 드래곤 tableview
-                self:refresh_dragonIndivisual_material(doid) -- 특성 재료 tableview
-                -- 특성 UI 뒤의 드래곤관리UI를 갱신하도록 한다.
-                self.m_bChangeDragonList = true
+                if is_selected == false then
+                    self:refresh_dragonIndivisual_material(doid) -- 특성 재료 tableview
+                end
+                self.m_bChangeDragonList = true -- 특성 UI 뒤의 드래곤관리UI를 갱신하도록 한다.
             end)
         end
     end
@@ -963,11 +965,18 @@ function UI_DragonMasteryNew:click_allSelectBtn()
 
         local ui = v['ui']
         local mtrl_obj = v['data']
+        
 
         if ui ~= nil then
             if self:isSelectedMateral(mtrl_obj) == false then
-                self:selectMateral(mtrl_obj)
-                ui:setCheckSpriteVisible(true)
+                local is_locked_dragon = self:isMasteryMaterial(mtrl_obj['did']) == false 
+                                            and g_dragonsData:possibleMaterialDragon(mtrl_obj['id']) == false
+
+
+                if is_locked_dragon == false then
+                    self:selectMateral(mtrl_obj)
+                    ui:setCheckSpriteVisible(true)
+                end
             end
         end
     end
@@ -1025,7 +1034,6 @@ function UI_DragonMasteryNew:refresh_dragonIndivisual_material(doid)
         local ui = item['ui']
         ui.m_dragonData = t_dragon_data
         ui:refreshDragonInfo()
-        ui:setCheckSpriteVisible(self:isSelectedMateral(t_dragon_data))
         self:createMtrlDragonCardCB(ui, t_dragon_data)
     end
 
