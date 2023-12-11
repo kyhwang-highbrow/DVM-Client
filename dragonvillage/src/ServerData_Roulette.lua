@@ -67,10 +67,7 @@ function ServerData_Roulette:showAdRoulettePopup(ad_type, finish_cb)
 
     local function show_popup()
         PerpleSdkManager.getCrashlytics():setLog('showAdvPopup_1')
-        local ui = UI_AdsRoulettePopup()
-        if (finish_cb) then
-            ui:setCloseCB(finish_cb)
-        end
+        UI_AdsRoulettePopup.open()
     end
     
     if (ad_type == AD_TYPE.RANDOM_BOX_LOBBY) then

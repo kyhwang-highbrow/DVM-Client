@@ -26,10 +26,10 @@ UI_AdsRoulettePopup = class(PARENT, {
 -------------------------------------
 -- function init
 -------------------------------------
-function UI_AdsRoulettePopup:init()
+function UI_AdsRoulettePopup:init(reward_list)
     self.m_uiName = 'UI_AdsRoulettePopup'
     self:load('ad_roulette_popup.ui')
-    self.m_rewardItems = {}
+    self.m_rewardItems = reward_list or {}
     self.m_bIsCanSpin   = true
     self.m_expTime      = ExperationTime()
     self.m_targetIdx    = 1
@@ -46,6 +46,9 @@ function UI_AdsRoulettePopup:init()
     self:initButton()
     self:initDevPanel()
     self:refresh()
+
+    self:initItemIcon()
+    self:calibrateItemAngle()
 end
 
 --#region UI Inherit Override Functions
@@ -54,8 +57,7 @@ end
 -- virtual function initUI override
 -------------------------------------
 function UI_AdsRoulettePopup:initUI()
-    local vars = self.vars
-    self.m_rewardItems = {}
+    local vars = self.vars    
     self.m_spinTerm = g_advRouletteData:getRouletteTerm()
     self.m_dailyRemainCount = g_advRouletteData:getDailyCount()
     self.m_dailyMaxCount = g_advRouletteData:getDailyMaxCount()
@@ -72,22 +74,6 @@ function UI_AdsRoulettePopup:initUI()
         vars['badgeNode']:setVisible(false)
     end
 
-    local function setting_reward_info(ret)
-        local ret_adv_lobby = ret['adv_lobby']
-
-        for _,v in ipairs(ret_adv_lobby) do
-            local item_id = v['item_id']
-            local cnt = v['count']
-            local pick_weight = v['pick_weight']
-
-            table.insert(self.m_rewardItems, {['item_id'] = item_id, ['count'] = cnt, ['pick_weight'] = pick_weight})
-        end
-
-        self:initItemIcon()
-        self:calibrateItemAngle()
-    end
-
-    g_advRouletteData:request_rouletteInfo(setting_reward_info)
 end
 
 -------------------------------------
@@ -554,8 +540,21 @@ end
 -- function open
 -------------------------------------
 function UI_AdsRoulettePopup.open()
-    local ui = UI_AdsRoulettePopup()
-    return ui
+    local function setting_reward_info(ret)
+        local reward_list = {}
+        local ret_adv_lobby = ret['adv_lobby']
+
+        for _,v in ipairs(ret_adv_lobby) do
+            local item_id = v['item_id']
+            local cnt = v['count']
+            local pick_weight = v['pick_weight']
+
+            table.insert(reward_list, {['item_id'] = item_id, ['count'] = cnt, ['pick_weight'] = pick_weight})
+        end
+        local ui = UI_AdsRoulettePopup(reward_list)
+    end
+
+    g_advRouletteData:request_rouletteInfo(setting_reward_info)
 end
 
 --@CHECK
