@@ -82,7 +82,7 @@ end
 -------------------------------------
 function UI_ArenaNewHistoryListItem:click_reportBtn()
     local t_rival_info = self.m_rivalInfo
-    local hoid = t_rival_info['hoid']
+    local hoid = t_rival_info.m_hoid
     if hoid == nil then
         return
     end
