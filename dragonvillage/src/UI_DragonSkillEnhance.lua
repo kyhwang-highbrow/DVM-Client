@@ -634,7 +634,7 @@ function UI_DragonSkillEnhance:checkMaterialWarningPopup(next_func)
         end
     end
 
-    if warning_doid == nil then
+    if warning_doid == nil or #obj_list == 0 then
         next_func()
     else
         UI_DragonSkillEnhanceConfirmPopup(obj_list, next_func, function() end)

@@ -951,19 +951,7 @@ function UI_DragonMasteryNew:click_allSelectBtn()
             break
         end
 
-        local req_amor, req_gold, discounted = dragon_obj:getMasteryLvUpAmorAndGoldCost(dest_lv + 1)
-        sum_req_amor = sum_req_amor + req_amor
-        sum_req_gold = sum_req_gold + req_gold
 
-        -- 골드 없으면 아웃
-        if (sum_req_gold > g_userData:get('gold')) then
-            break
-        end
-
-        -- 아모르의 서 없으면 아웃
-        if (sum_req_amor > g_userData:get('amor')) then
-            break
-        end
 
         local ui = v['ui']
         local mtrl_obj = v['data']
@@ -976,6 +964,21 @@ function UI_DragonMasteryNew:click_allSelectBtn()
 
 
                 if is_locked_dragon == false then
+                    local req_amor, req_gold, discounted = dragon_obj:getMasteryLvUpAmorAndGoldCost(dest_lv + 1)
+
+                    -- 골드 없으면 아웃
+                    if (sum_req_gold > g_userData:get('gold')) then
+                        break
+                    end
+            
+                    -- 아모르의 서 없으면 아웃
+                    if (sum_req_amor > g_userData:get('amor')) then
+                        break
+                    end
+
+                    sum_req_amor = sum_req_amor + req_amor
+                    sum_req_gold = sum_req_gold + req_gold
+
                     self:selectMateral(mtrl_obj)
                     ui:setCheckSpriteVisible(true)
                 end
