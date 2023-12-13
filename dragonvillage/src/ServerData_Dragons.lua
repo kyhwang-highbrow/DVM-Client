@@ -1802,7 +1802,7 @@ end
 -- @brief 드래곤이 판매,재료로 사용,작별 등등..될 때 경고 메시지 확인 (성장시켜놓은 드래곤)
 -- @param oid : object_id 드래곤이나 슬라임의 오브젝트 ID
 -------------------------------------
-function ServerData_Dragons:dragonMaterialWarning(oid, next_func, t_warning, warning_msg)
+function ServerData_Dragons:dragonMaterialWarning(oid, next_func, t_warning, warning_msg, is_return_warning)
     local t_warning = t_warning or {}
     local object = self:getDragonObject(oid)
     local warning_message = warning_msg
@@ -1814,8 +1814,12 @@ function ServerData_Dragons:dragonMaterialWarning(oid, next_func, t_warning, war
     
     -- 슬라임의 경우 재료 전용이므로 pass
     if (object:getObjectType() == 'slime') then
+        if is_return_warning == true then
+            return false
+        end
+
         next_func()
-        return
+        return false
     end
 
     local msg = ''
@@ -1880,6 +1884,10 @@ function ServerData_Dragons:dragonMaterialWarning(oid, next_func, t_warning, war
         warning = true
     end
 
+    if is_return_warning == true then
+        return warning
+    end
+
     if (warning == true) then
         local name = object:getDragonNameWithEclv()
         local default_msg = ''
@@ -1897,6 +1905,8 @@ function ServerData_Dragons:dragonMaterialWarning(oid, next_func, t_warning, war
             next_func()
         end
     end
+
+    return warning
 end
 
 

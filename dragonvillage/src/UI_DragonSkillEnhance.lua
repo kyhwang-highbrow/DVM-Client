@@ -554,13 +554,10 @@ function UI_DragonSkillEnhance:click_dragonMaterial(data)
             UIManager:toastNotificationRed(Str('신화 드래곤은 1마리 이상 선택이 불가능합니다.'))
             return
         end
-
-        -- 재료 경고
-        g_dragonsData:dragonMaterialWarning(doid, function()
-            self:selectMateral(data['id'])
-            self:refresh_skillprice()
-            list_item_ui:setCheckSpriteVisible(true)
-        end)
+        
+        self:selectMateral(data['id'])
+        self:refresh_skillprice()
+        list_item_ui:setCheckSpriteVisible(true)
 	end
 end
 
@@ -621,6 +618,28 @@ function UI_DragonSkillEnhance:findEnhancedSkillIdx(old_struct_dragon, mod_struc
     return skill_idx_list
 end
 
+
+-------------------------------------
+--- @function checkMaterialWarningPopup
+-------------------------------------
+function UI_DragonSkillEnhance:checkMaterialWarningPopup(next_func)
+    local warning_doid = nil
+    for _, doid in ipairs(self.m_selectedMtrls) do
+        if g_dragonsData:dragonMaterialWarning(doid, nil, nil, nil, true) == true then
+            warning_doid = doid
+            break
+        end
+    end
+
+    if warning_doid == nil then
+        next_func()
+    else
+        g_dragonsData:dragonMaterialWarning(doid, function()
+            next_func()
+        end)
+    end
+end
+
 -------------------------------------
 --- @function click_enhanceNewBtn
 -------------------------------------
@@ -638,7 +657,9 @@ function UI_DragonSkillEnhance:click_enhanceNewBtn()
     end
 
     local ok_btn_cb = function ()
-        self:coroutine_enhance()
+        self:checkMaterialWarningPopup(function()
+            self:coroutine_enhance()
+        end)
     end
 
     local msg = Str('스킬 레벨업을 진행하시겠습니까?')
@@ -721,121 +742,6 @@ function UI_DragonSkillEnhance:coroutine_enhance()
     end
 
     Coroutine(coroutine_function, 'UI_DragonSkillEnhance:coroutine_enhance()')
-end
-
--------------------------------------
--- function click_enhanceBtn
--------------------------------------
-function UI_DragonSkillEnhance:click_enhanceBtn()
-	-- 스킬 강화 가능 여부
-	local possible, msg = g_dragonsData:possibleDragonSkillEnhance(self.m_selectDragonOID)
-	if (not possible) then
-		UIManager:toastNotificationRed(msg)
-        return
-	end
-
-	-- 재료 요건 여부
-    if (not self.m_selectedMtrls) then
-        UIManager:toastNotificationRed(Str('재료 드래곤을 선택해주세요'))
-        return
-    end
-
-	-- 골드 충족 여부
-    if (not ConfirmPrice('gold', self:getSkillEnhancePrice())) then
-        cca.uiImpossibleAction(self.vars['enhanceBtn'])
-        return
-	end
-
-    local uid = g_userData:get('uid')
-    local doid = self.m_selectDragonOID
-    local src_doids = ''
-    local src_soids = ''
-
-	local mtrl_doid = self.m_selectedMtrls
-	local mtrl_dragon_object = g_dragonsData:getDragonObject(mtrl_doid)
-       
-	-- 드래곤     
-	if (mtrl_dragon_object.m_objectType == 'dragon') then
-		src_doids = tostring(mtrl_doid)
-
-	-- 슬라임
-	elseif (mtrl_dragon_object.m_objectType == 'slime') then
-		src_soids = tostring(mtrl_doid)
-
-	end
-
-    local function success_cb(ret)
-        -- @analytics
-        Analytics:trackUseGoodsWithRet(ret, '드래곤 스킬 레벨업')
-
-        local t_prev_dragon_data = self.m_selectDragonData
-
-        -- 재료로 사용된 드래곤 삭제
-        if ret['deleted_dragons_oid'] then
-            for _,doid in pairs(ret['deleted_dragons_oid']) do
-                g_dragonsData:delDragonData(doid)
-
-                -- 드래곤 리스트 갱신
-                self.m_tableViewExt:delItem(doid)
-            end
-        end
-
-        -- 슬라임
-        if ret['deleted_slimes_oid'] then
-            for _,soid in pairs(ret['deleted_slimes_oid']) do
-                g_slimesData:delSlimeObject(soid)
-
-                -- 리스트 갱신
-                self.m_tableViewExt:delItem(soid)
-            end
-        end
-
-        -- 드래곤 정보 갱신
-        g_dragonsData:applyDragonData(ret['modified_dragon'])
-
-        -- 갱신
-        g_serverData:networkCommonRespone(ret)
-
-		-- 스킬강화 UI 뒤의 드래곤관리UI를 갱신하도록 한다.
-        self.m_bChangeDragonList = true
-
-		-- 결과창 출력
-        local finish_cb = function()
-            local mod_struct_dragon = StructDragonObject(ret['modified_dragon'])
-            local ui = UI_DragonSkillEnhance_Result(t_prev_dragon_data, mod_struct_dragon)
-		    ui:setCloseCB(function()
-			    -- 스킬 강화 가능 여부 판별하여 가능하지 않으면 닫아버림
-			    local impossible, msg = g_dragonsData:impossibleSkillEnhanceForever(self.m_selectDragonOID)
-			    if (impossible) then
-				    UIManager:toastNotificationRed(msg)
-				    self:close()
-			    end
-		    end)
-
-            -- 동시에 본UI 갱신
-		    self.m_selectDragonData = mod_struct_dragon
-            self:refresh()
-        end
-
-        self:show_effect(finish_cb)
-
-        -- @ master road
-        g_masterRoadData:addRawData('d_sklvup')
-
-        -- @ MASTER ROAD
-        local t_data = {clear_key = 'd_sklvup'}
-        g_masterRoadData:updateMasterRoad(t_data)
-    end
-
-    local ui_network = UI_Network()
-    ui_network:setUrl('/dragons/skillup')
-    ui_network:setParam('uid', uid)
-    ui_network:setParam('doid', doid)
-    ui_network:setParam('src_doids', src_doids)
-    ui_network:setParam('src_soids', src_soids)
-    ui_network:setRevocable(true)
-    ui_network:setSuccessCB(function(ret) success_cb(ret) end)
-    ui_network:request()
 end
 
 -------------------------------------
