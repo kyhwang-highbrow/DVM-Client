@@ -618,25 +618,26 @@ function UI_DragonSkillEnhance:findEnhancedSkillIdx(old_struct_dragon, mod_struc
     return skill_idx_list
 end
 
-
 -------------------------------------
 --- @function checkMaterialWarningPopup
 -------------------------------------
 function UI_DragonSkillEnhance:checkMaterialWarningPopup(next_func)
     local warning_doid = nil
+    local obj_list = {}
     for _, doid in ipairs(self.m_selectedMtrls) do
-        if g_dragonsData:dragonMaterialWarning(doid, nil, nil, nil, true) == true then
-            warning_doid = doid
-            break
+
+        local struct_dragon_obj = g_dragonsData:getDragonDataFromUid(doid)
+        warning_doid = doid
+
+        if struct_dragon_obj.m_objectType == 'dragon' then
+            table.insert(obj_list, g_dragonsData:getDragonDataFromUid(doid))
         end
     end
 
     if warning_doid == nil then
         next_func()
     else
-        g_dragonsData:dragonMaterialWarning(doid, function()
-            next_func()
-        end)
+        UI_DragonSkillEnhanceConfirmPopup(obj_list, next_func, function() end)
     end
 end
 

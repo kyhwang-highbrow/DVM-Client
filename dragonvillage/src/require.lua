@@ -1521,6 +1521,7 @@ local t_module = {
     'UI_DragonUpgradeCombineMaterialItem',
     'UI_DragonUpgradeCombineMaterialConfirmPopup',
 	'UI_DragonSkillEnhance',
+    'UI_DragonSkillEnhanceConfirmPopup',
     'UI_DragonEvolution',
     'UI_SkillDetailPopup',
     'UI_HelpStatus',
