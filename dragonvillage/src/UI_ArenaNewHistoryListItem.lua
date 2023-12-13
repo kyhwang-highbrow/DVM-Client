@@ -81,17 +81,8 @@ end
 -- function click_reportBtn
 -------------------------------------
 function UI_ArenaNewHistoryListItem:click_reportBtn()
-    local vars = self.vars
     local t_rival_info = self.m_rivalInfo
-    local uid = t_rival_info:getUid()
-
-    --cclog('uid', uid)
-    local enc_uid = HEX(AES_Encrypt(HEX2BIN(CONSTANT['AES_KEY']), uid))
-    --cclog('enc uid', enc_uid)
-    --local dec_uid = AES_Decrypt(HEX2BIN(CONSTANT['AES_KEY']), HEX2BIN(enc_uid))
-    --cclog('dec uid', dec_uid)
-
-    local hoid = 'code_' .. enc_uid
+    local hoid = t_rival_info['hoid']
     if hoid == nil then
         return
     end
@@ -106,5 +97,4 @@ function UI_ArenaNewHistoryListItem:click_reportBtn()
     local msg = Str('상대 유저를 신고하시겠습니까?')
     local sub_msg = Str('상세 설명과 함께 복사된 전투코드를 첨부 후\n[고객센터 > 전투 신고] 를 통해 문의 해주세요.')
     MakeSimplePopup2(POPUP_TYPE.YES_NO, msg, sub_msg, ok_cb)
-
 end
