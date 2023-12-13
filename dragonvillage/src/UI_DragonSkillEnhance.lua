@@ -889,7 +889,14 @@ function UI_DragonSkillEnhance:click_allSelectBtn()
 
         if ui ~= nil then
             local doid = struct_dragon['id']
-            if self:isSelectedMateral(doid) == false then
+            -- 재료 드래곤이 재료 가능한지 판별        
+            if (struct_dragon:getObjectType() == 'dragon') then
+                possible, msg = g_dragonsData:possibleMaterialDragon(doid)
+            else
+                possible, msg = g_slimesData:possibleMaterialSlime(doid)
+            end
+
+            if possible == true and self:isSelectedMateral(doid) == false then
                 self:selectMateral(doid)
                 ui:setCheckSpriteVisible(true)
                 available_count = available_count - 1

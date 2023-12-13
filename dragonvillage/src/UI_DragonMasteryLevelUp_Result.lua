@@ -89,13 +89,16 @@ function UI_DragonMasteryLevelUp_Result:refresh()
 
     -- 레벨 표시
     local mastery_level = dragon_object:getMasteryLevel()
-    local is_first = (mastery_level == 1)
+    local is_first = (self.m_prevLevel == 0)
+    local diff_lv = mastery_level - self.m_prevLevel
 
     vars['beforeLabel1']:setVisible(is_first)
     vars['beforeLabel2']:setVisible(not is_first)
 
     vars['beforeLabel2']:setString(Str('Lv.{1}', self.m_prevLevel or (mastery_level-1)))
     vars['afterLabel']:setString(Str('Lv.{1}', mastery_level))
+
+    vars['obtainPointLabel']:setStringArg(diff_lv)
 end
 
 -------------------------------------
