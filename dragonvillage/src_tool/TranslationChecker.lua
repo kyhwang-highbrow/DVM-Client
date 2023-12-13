@@ -27,7 +27,7 @@ function TranslationChecker:run(target_path)
         require(str)
     end
 
-    print(string.format('## {%d} languages load check perfect !!'), #self.m_allLuaFileList)
+    print(string.format('## {%d} languages load check perfect !!', #self.m_allLuaFileList))
 end
 
 -------------------------------------
