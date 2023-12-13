@@ -629,7 +629,7 @@ function UI_DragonSkillEnhance:checkMaterialWarningPopup(next_func)
         local struct_dragon_obj = g_dragonsData:getDragonDataFromUid(doid)
         warning_doid = doid
 
-        if struct_dragon_obj.m_objectType == 'dragon' then
+        if struct_dragon_obj and struct_dragon_obj.m_objectType == 'dragon' then
             table.insert(obj_list, g_dragonsData:getDragonDataFromUid(doid))
         end
     end
