@@ -74,5 +74,14 @@ if __name__ == '__main__':
     import tools.G_sheet.setup
     print('\n*** 작업      : 스프레드 시트 폼을 만듭니다.' 
     +     '\n*** 작업 시트 : [', ', '.join(sheet_name_list), '].')
-    make_sheet_form()
+    ##make_sheet_form()
+
+    copy_locale_list = get_language_code_list()
+    ss = ''
+
+    for v in copy_locale_list:
+        ss = ss + v + ','
+
+    print(ss)
+
     os.system('pause')

@@ -44,7 +44,7 @@ def get_str(result_data, file_path, ignore_krs): # 사용된 한글, 힌트 파�
         os.system('pause')
 
 
-def extract_from_DVM_lua(path, ignoreFiles, ignoreFolders, ignore_krs): # 딕셔너리 반환
+def extract_from_DVM_lua(path, ignoreFiles, ignoreFolders, ignore_krs, only_include_files = None): # 딕셔너리 반환
     result_data = {}
 
     option = {}
@@ -55,6 +55,10 @@ def extract_from_DVM_lua(path, ignoreFiles, ignoreFolders, ignore_krs): # 딕셔
     files = util_file.get_all_files(path, option)
 
     for file in files:
+        if only_include_files is not None:
+            filename = os.path.basename(file)
+            if filename not in only_include_files:
+                continue
         get_str(result_data, file, ignore_krs)
 
     # print(result_data)
