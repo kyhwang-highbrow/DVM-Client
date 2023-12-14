@@ -1,0 +1,251 @@
+
+chesto_water_01.png
+size: 1236,395
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+chesto_all_01_acc_1
+  rotate: false
+  xy: 983, 68
+  size: 93, 76
+  orig: 93, 76
+  offset: 0, 0
+  index: -1
+chesto_all_01_acc_11
+  rotate: false
+  xy: 574, 2
+  size: 79, 61
+  orig: 79, 61
+  offset: 0, 0
+  index: -1
+chesto_all_01_acc_2
+  rotate: false
+  xy: 984, 201
+  size: 134, 70
+  orig: 134, 70
+  offset: 0, 0
+  index: -1
+chesto_all_01_acc_3
+  rotate: false
+  xy: 1078, 57
+  size: 72, 87
+  orig: 72, 87
+  offset: 0, 0
+  index: -1
+chesto_all_01_arm_1
+  rotate: false
+  xy: 677, 73
+  size: 102, 77
+  orig: 102, 77
+  offset: 0, 0
+  index: -1
+chesto_all_01_arm_2
+  rotate: false
+  xy: 713, 6
+  size: 58, 65
+  orig: 58, 65
+  offset: 0, 0
+  index: -1
+chesto_all_01_eye_1
+  rotate: false
+  xy: 941, 20
+  size: 49, 42
+  orig: 49, 42
+  offset: 0, 0
+  index: -1
+chesto_all_01_eye_3
+  rotate: true
+  xy: 831, 2
+  size: 37, 48
+  orig: 37, 48
+  offset: 0, 0
+  index: -1
+chesto_all_01_eye_4
+  rotate: true
+  xy: 655, 2
+  size: 53, 56
+  orig: 53, 56
+  offset: 0, 0
+  index: -1
+chesto_all_01_head
+  rotate: false
+  xy: 963, 273
+  size: 157, 120
+  orig: 157, 120
+  offset: 0, 0
+  index: -1
+chesto_all_01_horn_1
+  rotate: false
+  xy: 1098, 17
+  size: 47, 38
+  orig: 47, 38
+  offset: 0, 0
+  index: -1
+chesto_all_01_horn_2
+  rotate: false
+  xy: 1147, 7
+  size: 38, 38
+  orig: 38, 38
+  offset: 0, 0
+  index: -1
+chesto_all_01_mouth_1
+  rotate: false
+  xy: 574, 65
+  size: 101, 85
+  orig: 101, 85
+  offset: 0, 0
+  index: -1
+chesto_all_01_mouth_2
+  rotate: false
+  xy: 992, 24
+  size: 54, 42
+  orig: 54, 42
+  offset: 0, 0
+  index: -1
+chesto_all_01_mouth_3
+  rotate: false
+  xy: 1122, 227
+  size: 112, 54
+  orig: 112, 54
+  offset: 0, 0
+  index: -1
+chesto_all_01_mouth_4
+  rotate: false
+  xy: 813, 98
+  size: 115, 64
+  orig: 115, 64
+  offset: 0, 0
+  index: -1
+chesto_all_01_mouth_5
+  rotate: true
+  xy: 773, 5
+  size: 66, 56
+  orig: 66, 56
+  offset: 0, 0
+  index: -1
+chesto_all_01_tail_1
+  rotate: false
+  xy: 813, 164
+  size: 169, 61
+  orig: 169, 61
+  offset: 0, 0
+  index: -1
+chesto_all_01_tail_2
+  rotate: false
+  xy: 1152, 47
+  size: 72, 36
+  orig: 72, 36
+  offset: 0, 0
+  index: -1
+chesto_all_01_tail_3
+  rotate: true
+  xy: 392, 28
+  size: 129, 180
+  orig: 129, 180
+  offset: 0, 0
+  index: -1
+chesto_all_01_water_1
+  rotate: false
+  xy: 1152, 85
+  size: 76, 79
+  orig: 76, 79
+  offset: 0, 0
+  index: -1
+chesto_all_01_water_2
+  rotate: false
+  xy: 1120, 166
+  size: 107, 59
+  orig: 107, 59
+  offset: 0, 0
+  index: -1
+chesto_all_01_water_3
+  rotate: false
+  xy: 831, 41
+  size: 62, 55
+  orig: 62, 55
+  offset: 0, 0
+  index: -1
+chesto_all_01_water_4
+  rotate: true
+  xy: 941, 64
+  size: 38, 40
+  orig: 38, 40
+  offset: 0, 0
+  index: -1
+chesto_all_01_water_5
+  rotate: true
+  xy: 895, 36
+  size: 60, 44
+  orig: 60, 44
+  offset: 0, 0
+  index: -1
+chesto_all_01_water_6
+  rotate: false
+  xy: 781, 118
+  size: 30, 32
+  orig: 30, 32
+  offset: 0, 0
+  index: -1
+chesto_all_01_water_7
+  rotate: false
+  xy: 1048, 11
+  size: 48, 44
+  orig: 48, 44
+  offset: 0, 0
+  index: -1
+chesto_all_01_wing
+  rotate: false
+  xy: 984, 146
+  size: 131, 53
+  orig: 131, 53
+  offset: 0, 0
+  index: -1
+effect_blue_light
+  rotate: false
+  xy: 625, 227
+  size: 167, 166
+  orig: 167, 166
+  offset: 0, 0
+  index: -1
+effect_light1
+  rotate: false
+  xy: 1122, 283
+  size: 110, 110
+  orig: 110, 110
+  offset: 0, 0
+  index: -1
+effect_light12
+  rotate: true
+  xy: 930, 104
+  size: 58, 51
+  orig: 58, 51
+  offset: 0, 0
+  index: -1
+effect_lightt
+  rotate: false
+  xy: 2, 5
+  size: 388, 388
+  orig: 388, 388
+  offset: 0, 0
+  index: -1
+effect_red_light
+  rotate: false
+  xy: 794, 227
+  size: 167, 166
+  orig: 167, 166
+  offset: 0, 0
+  index: -1
+effect_ring
+  rotate: true
+  xy: 625, 152
+  size: 73, 186
+  orig: 73, 186
+  offset: 0, 0
+  index: -1
+effect_ring2
+  rotate: false
+  xy: 392, 159
+  size: 231, 234
+  orig: 231, 234
+  offset: 0, 0
+  index: -1

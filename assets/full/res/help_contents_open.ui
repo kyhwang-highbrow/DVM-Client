@@ -119,7 +119,7 @@
 					ui_name = 'swallowTouchBtn';
 					flag = '';
 					x = 100.000000;
-					y = -455.000000;
+					y = -433.000000;
 					dock_point = { 0.000000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
@@ -189,7 +189,7 @@
 					ui_name = 'swallowTouchBtn';
 					flag = '';
 					x = 100.000000;
-					y = -390.000000;
+					y = -368.000000;
 					dock_point = { 0.000000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
@@ -259,7 +259,7 @@
 					ui_name = 'swallowTouchBtn';
 					flag = '';
 					x = 100.000000;
-					y = -325.000000;
+					y = -303.000000;
 					dock_point = { 0.000000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
@@ -329,7 +329,7 @@
 					ui_name = 'swallowTouchBtn';
 					flag = '';
 					x = 100.000000;
-					y = -260.000000;
+					y = -238.000000;
 					dock_point = { 0.000000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
@@ -399,7 +399,7 @@
 					ui_name = 'swallowTouchBtn';
 					flag = '';
 					x = 100.000000;
-					y = -195.000000;
+					y = -173.000000;
 					dock_point = { 0.000000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
@@ -469,7 +469,7 @@
 					ui_name = 'swallowTouchBtn';
 					flag = '';
 					x = 100.000000;
-					y = -130.000000;
+					y = -108.000000;
 					dock_point = { 0.000000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
@@ -539,7 +539,7 @@
 					ui_name = 'swallowTouchBtn';
 					flag = '';
 					x = 100.000000;
-					y = -132.000000;
+					y = -110.000000;
 					dock_point = { 0.000000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
@@ -609,7 +609,7 @@
 					ui_name = 'swallowTouchBtn';
 					flag = '';
 					x = 100.000000;
-					y = -65.000000;
+					y = -43.000000;
 					dock_point = { 0.000000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
@@ -679,7 +679,7 @@
 					ui_name = 'swallowTouchBtn';
 					flag = '';
 					x = 100.000000;
-					y = 0.000000;
+					y = 22.000000;
 					dock_point = { 0.000000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
@@ -749,7 +749,7 @@
 					ui_name = '';
 					flag = '';
 					x = 100.000000;
-					y = 65.000000;
+					y = 87.000000;
 					dock_point = { 0.000000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
@@ -819,7 +819,7 @@
 					ui_name = '';
 					flag = '';
 					x = 100.000000;
-					y = 130.000000;
+					y = 152.000000;
 					dock_point = { 0.000000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
@@ -889,7 +889,7 @@
 					ui_name = 'swallowTouchBtn';
 					flag = '';
 					x = 100.000000;
-					y = 195.000000;
+					y = 217.000000;
 					dock_point = { 0.000000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
@@ -959,7 +959,7 @@
 					ui_name = '';
 					flag = '';
 					x = 100.000000;
-					y = 260.000000;
+					y = 282.000000;
 					dock_point = { 0.000000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
@@ -1029,7 +1029,7 @@
 					ui_name = '';
 					flag = '';
 					x = 100.000000;
-					y = 325.000000;
+					y = 347.000000;
 					dock_point = { 0.000000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
@@ -1099,7 +1099,7 @@
 					ui_name = '';
 					flag = '';
 					x = 100.000000;
-					y = 391.000000;
+					y = 413.000000;
 					dock_point = { 0.000000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
@@ -1169,7 +1169,7 @@
 					ui_name = '';
 					flag = '';
 					x = 100.000000;
-					y = 390.000000;
+					y = 412.000000;
 					dock_point = { 0.000000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
@@ -1239,7 +1239,7 @@
 					ui_name = '';
 					flag = '';
 					x = 100.000000;
-					y = 455.000000;
+					y = 477.000000;
 					dock_point = { 0.000000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
@@ -1309,7 +1309,7 @@
 					ui_name = '';
 					flag = '';
 					x = 100.000000;
-					y = 520.000000;
+					y = 542.000000;
 					dock_point = { 0.000000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
@@ -1379,7 +1379,7 @@
 					ui_name = '';
 					flag = '';
 					x = 100.000000;
-					y = 585.000000;
+					y = 607.000000;
 					dock_point = { 0.000000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
@@ -1449,7 +1449,7 @@
 					ui_name = 'swallowTouchBtn';
 					flag = '';
 					x = 100.000000;
-					y = 650.000000;
+					y = 672.000000;
 					dock_point = { 0.000000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
@@ -1519,7 +1519,7 @@
 					ui_name = 'swallowTouchBtn';
 					flag = '';
 					x = 100.000000;
-					y = -515.000000;
+					y = -498.000000;
 					dock_point = { 0.000000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
@@ -1539,6 +1539,76 @@
 					disable = 'ui/buttons/base_btn_0103.png';
 					image_type = 1;
 				};
+				[22] =
+				{
+					[1] =
+					{
+						type = 'LabelTTF';
+						ui_name = '';
+						flag = '';
+						x = 0.000000;
+						y = -2.000000;
+						dock_point = { 0.500000; 0.500000; };
+						anchor_point = { 0.500000; 0.500000; };
+						relative_size_type = 0;
+						width = 175;
+						height = 60;
+						scale_x = 1.000000;
+						scale_y = 1.000000;
+						skew_x = 0.000000;
+						skew_y = 0.000000;
+						rotation = 0.000000;
+						visible = true;
+						screen_ui = 0;
+						lua_name = 'researchTabLabel';
+						font_name = 'font/common_font_01.ttf';
+						font_size = 22;
+						text = '연구';
+						h_alignment = 1;
+						v_alignment = 1;
+						color = { 240; 215; 159; };
+						opacity = 255;
+						dimension_width = 175;
+						dimension_height = 60;
+						letter_spacing = 0.000000;
+						has_stroke = false;
+						stroke_type = 0;
+						stroke_detail_level = 0;
+						is_sharp_text = true;
+						stroke_tickness = 1.000000;
+						stroke_color = { 255; 255; 255; };
+						has_shadow = false;
+						shadow_color = { 255; 255; 255; };
+						shadow_opacity = 255;
+						shadow_direction = 0;
+						shadow_distance = 5.000000;
+						use_auto_fontsize = false;
+						has_bold = false;
+					};
+					type = 'Button';
+					ui_name = 'swallowTouchBtn';
+					flag = '';
+					x = 100.000000;
+					y = -563.000000;
+					dock_point = { 0.000000; 0.500000; };
+					anchor_point = { 0.500000; 0.500000; };
+					relative_size_type = 0;
+					width = 195;
+					height = 65;
+					scale_x = 1.000000;
+					scale_y = 1.000000;
+					skew_x = 0.000000;
+					skew_y = 0.000000;
+					rotation = 0.000000;
+					visible = true;
+					screen_ui = 0;
+					lua_name = 'researchTabBtn';
+					enable = true;
+					normal = 'ui/buttons/base_btn_0101.png';
+					selected = 'ui/buttons/base_btn_0102.png';
+					disable = 'ui/buttons/base_btn_0103.png';
+					image_type = 1;
+				};
 				type = 'Menu';
 				ui_name = '';
 				flag = '';
@@ -1548,9 +1618,9 @@
 				anchor_point = { 0.000000; 0.500000; };
 				relative_size_type = 0;
 				width = 200;
-				height = 1257;
-				scale_x = 1.000000;
-				scale_y = 1.000000;
+				height = 1357;
+				scale_x = 0.900000;
+				scale_y = 0.900000;
 				skew_x = 0.000000;
 				skew_y = 0.000000;
 				rotation = 0.000000;
@@ -1569,7 +1639,7 @@
 				anchor_point = { 0.000000; 0.500000; };
 				relative_size_type = 2;
 				width = -1060;
-				height = 580;
+				height = 620;
 				scale_x = 1.000000;
 				scale_y = 1.000000;
 				skew_x = 0.000000;
@@ -1590,6 +1660,27 @@
 					type = 'Menu';
 					ui_name = '';
 					flag = '';
+					x = 89.000244;
+					y = 0.000000;
+					dock_point = { 0.500000; 0.500000; };
+					anchor_point = { 0.500000; 0.500000; };
+					relative_size_type = 0;
+					width = 1000;
+					height = 580;
+					scale_x = 1.000000;
+					scale_y = 1.000000;
+					skew_x = 0.000000;
+					skew_y = 0.000000;
+					rotation = 0.000000;
+					visible = true;
+					screen_ui = 0;
+					lua_name = 'researchTabMenu';
+				};
+				[2] =
+				{
+					type = 'Menu';
+					ui_name = '';
+					flag = '';
 					x = 89.000122;
 					y = 0.000000;
 					dock_point = { 0.500000; 0.500000; };
@@ -1606,7 +1697,7 @@
 					screen_ui = 0;
 					lua_name = 'lairTabMenu';
 				};
-				[2] =
+				[3] =
 				{
 					type = 'Menu';
 					ui_name = '';
@@ -1627,7 +1718,7 @@
 					screen_ui = 0;
 					lua_name = 'league_raidTabMenu';
 				};
-				[3] =
+				[4] =
 				{
 					type = 'Menu';
 					ui_name = '';
@@ -1648,7 +1739,7 @@
 					screen_ui = 0;
 					lua_name = 'dmgateTabMenu';
 				};
-				[4] =
+				[5] =
 				{
 					type = 'Menu';
 					ui_name = '';
@@ -1669,7 +1760,7 @@
 					screen_ui = 0;
 					lua_name = 'clan_raidTabMenu';
 				};
-				[5] =
+				[6] =
 				{
 					type = 'Menu';
 					ui_name = '';
@@ -1690,7 +1781,7 @@
 					screen_ui = 0;
 					lua_name = 'rune_guardianTabMenu';
 				};
-				[6] =
+				[7] =
 				{
 					type = 'Menu';
 					ui_name = '';
@@ -1711,7 +1802,7 @@
 					screen_ui = 0;
 					lua_name = 'ancient_ruinTabMenu';
 				};
-				[7] =
+				[8] =
 				{
 					type = 'Menu';
 					ui_name = '';
@@ -1732,7 +1823,7 @@
 					screen_ui = 0;
 					lua_name = 'attr_towerTabMenu';
 				};
-				[8] =
+				[9] =
 				{
 					type = 'Menu';
 					ui_name = '';
@@ -1753,7 +1844,7 @@
 					screen_ui = 0;
 					lua_name = 'challenge_modeTabMenu';
 				};
-				[9] =
+				[10] =
 				{
 					type = 'Menu';
 					ui_name = '';
@@ -1774,7 +1865,7 @@
 					screen_ui = 0;
 					lua_name = 'clanTabMenu';
 				};
-				[10] =
+				[11] =
 				{
 					type = 'Menu';
 					ui_name = '';
@@ -1795,7 +1886,7 @@
 					screen_ui = 0;
 					lua_name = 'forestTabMenu';
 				};
-				[11] =
+				[12] =
 				{
 					type = 'Menu';
 					ui_name = '';
@@ -1816,7 +1907,7 @@
 					screen_ui = 0;
 					lua_name = 'nest_nightmareTabMenu';
 				};
-				[12] =
+				[13] =
 				{
 					type = 'Menu';
 					ui_name = '';
@@ -1837,7 +1928,7 @@
 					screen_ui = 0;
 					lua_name = 'capsuleTabMenu';
 				};
-				[13] =
+				[14] =
 				{
 					type = 'Menu';
 					ui_name = '';
@@ -1858,7 +1949,7 @@
 					screen_ui = 0;
 					lua_name = 'colosseumTabMenu';
 				};
-				[14] =
+				[15] =
 				{
 					type = 'Menu';
 					ui_name = '';
@@ -1879,7 +1970,7 @@
 					screen_ui = 0;
 					lua_name = 'shop_randomTabMenu';
 				};
-				[15] =
+				[16] =
 				{
 					type = 'Menu';
 					ui_name = '';
@@ -1900,7 +1991,7 @@
 					screen_ui = 0;
 					lua_name = 'ancientTabMenu';
 				};
-				[16] =
+				[17] =
 				{
 					type = 'Menu';
 					ui_name = '';
@@ -1921,7 +2012,7 @@
 					screen_ui = 0;
 					lua_name = 'daily_shopTabMenu';
 				};
-				[17] =
+				[18] =
 				{
 					type = 'Menu';
 					ui_name = '';
@@ -1942,7 +2033,7 @@
 					screen_ui = 0;
 					lua_name = 'nest_evo_stoneTabMenu';
 				};
-				[18] =
+				[19] =
 				{
 					type = 'Menu';
 					ui_name = '';
@@ -1963,7 +2054,7 @@
 					screen_ui = 0;
 					lua_name = 'nest_treeTabMenu';
 				};
-				[19] =
+				[20] =
 				{
 					type = 'Menu';
 					ui_name = '';
@@ -1984,7 +2075,7 @@
 					screen_ui = 0;
 					lua_name = 'explorationTabMenu';
 				};
-				[20] =
+				[21] =
 				{
 					type = 'Menu';
 					ui_name = '';
@@ -2005,13 +2096,13 @@
 					screen_ui = 0;
 					lua_name = 'secret_relationTabMenu';
 				};
-				[21] =
+				[22] =
 				{
 					type = 'Menu';
 					ui_name = '';
 					flag = '';
-					x = 89.000000;
-					y = 0.000000;
+					x = 88.000000;
+					y = -4.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;

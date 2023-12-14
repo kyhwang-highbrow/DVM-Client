@@ -1,0 +1,614 @@
+
+skill_karura.png
+size: 2046,2026
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+effect_debris_00006
+  rotate: false
+  xy: 406, 618
+  size: 300, 300
+  orig: 300, 300
+  offset: 0, 0
+  index: -1
+effect_debris_00008
+  rotate: false
+  xy: 608, 1522
+  size: 300, 300
+  orig: 300, 300
+  offset: 0, 0
+  index: -1
+effect_debris_00010
+  rotate: false
+  xy: 608, 1220
+  size: 300, 300
+  orig: 300, 300
+  offset: 0, 0
+  index: -1
+effect_debris_00011
+  rotate: false
+  xy: 708, 716
+  size: 300, 300
+  orig: 300, 300
+  offset: 0, 0
+  index: -1
+effect_debris_00012
+  rotate: false
+  xy: 949, 10
+  size: 300, 300
+  orig: 300, 300
+  offset: 0, 0
+  index: -1
+effect_debris_00013
+  rotate: false
+  xy: 1251, 10
+  size: 300, 300
+  orig: 300, 300
+  offset: 0, 0
+  index: -1
+effect_debris_00014
+  rotate: false
+  xy: 910, 1522
+  size: 300, 300
+  orig: 300, 300
+  offset: 0, 0
+  index: -1
+effect_dim
+  rotate: false
+  xy: 2, 2
+  size: 8, 8
+  orig: 8, 8
+  offset: 0, 0
+  index: -1
+effect_glow_00000
+  rotate: false
+  xy: 1726, 1382
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: -1
+effect_halo_light
+  rotate: false
+  xy: 2, 1717
+  size: 296, 307
+  orig: 296, 307
+  offset: 0, 0
+  index: -1
+effect_light
+  rotate: false
+  xy: 910, 1220
+  size: 300, 300
+  orig: 300, 300
+  offset: 0, 0
+  index: -1
+effect_particle_after_00000
+  rotate: false
+  xy: 1258, 384
+  size: 512, 128
+  orig: 512, 128
+  offset: 0, 0
+  index: -1
+effect_particle_after_00001
+  rotate: true
+  xy: 1855, 1512
+  size: 512, 128
+  orig: 512, 128
+  offset: 0, 0
+  index: -1
+effect_particle_after_00002
+  rotate: false
+  xy: 1212, 1382
+  size: 512, 128
+  orig: 512, 128
+  offset: 0, 0
+  index: -1
+effect_particle_after_00003
+  rotate: false
+  xy: 1212, 1252
+  size: 512, 128
+  orig: 512, 128
+  offset: 0, 0
+  index: -1
+effect_particle_after_00004
+  rotate: true
+  xy: 1556, 1512
+  size: 512, 128
+  orig: 512, 128
+  offset: 0, 0
+  index: -1
+effect_particle_after_00005
+  rotate: true
+  xy: 1686, 1512
+  size: 512, 128
+  orig: 512, 128
+  offset: 0, 0
+  index: -1
+effect_particle_after_00006
+  rotate: false
+  xy: 1412, 820
+  size: 512, 128
+  orig: 512, 128
+  offset: 0, 0
+  index: -1
+effect_particle_after_00007
+  rotate: true
+  xy: 1916, 998
+  size: 512, 128
+  orig: 512, 128
+  offset: 0, 0
+  index: -1
+effect_particle_after_00008
+  rotate: true
+  xy: 1855, 4
+  size: 512, 128
+  orig: 512, 128
+  offset: 0, 0
+  index: -1
+effect_particle_b_00000
+  rotate: false
+  xy: 1010, 918
+  size: 300, 300
+  orig: 300, 300
+  offset: 0, 0
+  index: -1
+effect_particle_b_00001
+  rotate: false
+  xy: 1553, 82
+  size: 300, 300
+  orig: 300, 300
+  offset: 0, 0
+  index: -1
+effect_particle_b_00002
+  rotate: false
+  xy: 1212, 1522
+  size: 300, 300
+  orig: 300, 300
+  offset: 0, 0
+  index: -1
+effect_particle_b_00003
+  rotate: false
+  xy: 1312, 950
+  size: 300, 300
+  orig: 300, 300
+  offset: 0, 0
+  index: -1
+effect_particle_b_00004
+  rotate: false
+  xy: 1614, 950
+  size: 300, 300
+  orig: 300, 300
+  offset: 0, 0
+  index: -1
+effect_particle_b_00005
+  rotate: false
+  xy: 1612, 518
+  size: 300, 300
+  orig: 300, 300
+  offset: 0, 0
+  index: -1
+effect_ripple_00000
+  rotate: true
+  xy: 2, 1265
+  size: 450, 200
+  orig: 450, 200
+  offset: 0, 0
+  index: -1
+effect_ripple_00001
+  rotate: true
+  xy: 2, 813
+  size: 450, 200
+  orig: 450, 200
+  offset: 0, 0
+  index: -1
+effect_ripple_00002
+  rotate: true
+  xy: 2, 361
+  size: 450, 200
+  orig: 450, 200
+  offset: 0, 0
+  index: -1
+effect_ripple_00003
+  rotate: false
+  xy: 2, 159
+  size: 450, 200
+  orig: 450, 200
+  offset: 0, 0
+  index: -1
+effect_ripple_00004
+  rotate: true
+  xy: 204, 1265
+  size: 450, 200
+  orig: 450, 200
+  offset: 0, 0
+  index: -1
+effect_ripple_00005
+  rotate: false
+  xy: 300, 1824
+  size: 450, 200
+  orig: 450, 200
+  offset: 0, 0
+  index: -1
+effect_ripple_00006
+  rotate: true
+  xy: 204, 813
+  size: 450, 200
+  orig: 450, 200
+  offset: 0, 0
+  index: -1
+effect_ripple_00007
+  rotate: true
+  xy: 204, 361
+  size: 450, 200
+  orig: 450, 200
+  offset: 0, 0
+  index: -1
+effect_ripple_00008
+  rotate: true
+  xy: 406, 1372
+  size: 450, 200
+  orig: 450, 200
+  offset: 0, 0
+  index: -1
+effect_ripple_00009
+  rotate: true
+  xy: 406, 920
+  size: 450, 200
+  orig: 450, 200
+  offset: 0, 0
+  index: -1
+effect_spark_00000
+  rotate: false
+  xy: 406, 416
+  size: 400, 200
+  orig: 400, 200
+  offset: 0, 0
+  index: -1
+effect_spark_00002
+  rotate: false
+  xy: 454, 214
+  size: 400, 200
+  orig: 400, 200
+  offset: 0, 0
+  index: -1
+effect_spark_00004
+  rotate: false
+  xy: 547, 12
+  size: 400, 200
+  orig: 400, 200
+  offset: 0, 0
+  index: -1
+effect_spark_00006
+  rotate: false
+  xy: 752, 1824
+  size: 400, 200
+  orig: 400, 200
+  offset: 0, 0
+  index: -1
+effect_spark_00008
+  rotate: false
+  xy: 608, 1018
+  size: 400, 200
+  orig: 400, 200
+  offset: 0, 0
+  index: -1
+effect_spark_00010
+  rotate: false
+  xy: 808, 514
+  size: 400, 200
+  orig: 400, 200
+  offset: 0, 0
+  index: -1
+effect_spark_00012
+  rotate: false
+  xy: 856, 312
+  size: 400, 200
+  orig: 400, 200
+  offset: 0, 0
+  index: -1
+effect_spark_00013
+  rotate: false
+  xy: 1154, 1824
+  size: 400, 200
+  orig: 400, 200
+  offset: 0, 0
+  index: -1
+effect_spark_00015
+  rotate: false
+  xy: 1010, 716
+  size: 400, 200
+  orig: 400, 200
+  offset: 0, 0
+  index: -1
+effect_spark_00017
+  rotate: false
+  xy: 1210, 514
+  size: 400, 200
+  orig: 400, 200
+  offset: 0, 0
+  index: -1
+effect_sword_glow_blur
+  rotate: true
+  xy: 2, 12
+  size: 145, 543
+  orig: 145, 543
+  offset: 0, 0
+  index: -1
+
+skill_karura2.png
+size: 1923,1527
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+effect_particle_after_00009
+  rotate: true
+  xy: 304, 107
+  size: 512, 128
+  orig: 512, 128
+  offset: 0, 0
+  index: -1
+effect_particle_after_00010
+  rotate: true
+  xy: 434, 107
+  size: 512, 128
+  orig: 512, 128
+  offset: 0, 0
+  index: -1
+effect_particle_after_00011
+  rotate: true
+  xy: 564, 107
+  size: 512, 128
+  orig: 512, 128
+  offset: 0, 0
+  index: -1
+effect_particle_b_00006
+  rotate: false
+  xy: 2, 1225
+  size: 300, 300
+  orig: 300, 300
+  offset: 0, 0
+  index: -1
+effect_particle_b_00007
+  rotate: false
+  xy: 2, 923
+  size: 300, 300
+  orig: 300, 300
+  offset: 0, 0
+  index: -1
+effect_particle_b_00008
+  rotate: false
+  xy: 2, 621
+  size: 300, 300
+  orig: 300, 300
+  offset: 0, 0
+  index: -1
+effect_particle_b_00009
+  rotate: false
+  xy: 2, 319
+  size: 300, 300
+  orig: 300, 300
+  offset: 0, 0
+  index: -1
+effect_particle_b_00010
+  rotate: false
+  xy: 2, 17
+  size: 300, 300
+  orig: 300, 300
+  offset: 0, 0
+  index: -1
+effect_particle_b_00011
+  rotate: false
+  xy: 304, 1225
+  size: 300, 300
+  orig: 300, 300
+  offset: 0, 0
+  index: -1
+effect_particle_b_00012
+  rotate: false
+  xy: 304, 923
+  size: 300, 300
+  orig: 300, 300
+  offset: 0, 0
+  index: -1
+effect_particle_b_00013
+  rotate: false
+  xy: 304, 621
+  size: 300, 300
+  orig: 300, 300
+  offset: 0, 0
+  index: -1
+effect_radial_00000
+  rotate: false
+  xy: 606, 1269
+  size: 256, 256
+  orig: 256, 256
+  offset: 0, 0
+  index: -1
+effect_radial_00001
+  rotate: false
+  xy: 606, 1011
+  size: 256, 256
+  orig: 256, 256
+  offset: 0, 0
+  index: -1
+effect_radial_00002
+  rotate: false
+  xy: 606, 753
+  size: 256, 256
+  orig: 256, 256
+  offset: 0, 0
+  index: -1
+effect_radial_00003
+  rotate: false
+  xy: 694, 495
+  size: 256, 256
+  orig: 256, 256
+  offset: 0, 0
+  index: -1
+effect_radial_00004
+  rotate: false
+  xy: 694, 237
+  size: 256, 256
+  orig: 256, 256
+  offset: 0, 0
+  index: -1
+effect_radial_00005
+  rotate: false
+  xy: 864, 1269
+  size: 256, 256
+  orig: 256, 256
+  offset: 0, 0
+  index: -1
+effect_radial_00006
+  rotate: false
+  xy: 864, 1011
+  size: 256, 256
+  orig: 256, 256
+  offset: 0, 0
+  index: -1
+effect_radial_00007
+  rotate: false
+  xy: 864, 753
+  size: 256, 256
+  orig: 256, 256
+  offset: 0, 0
+  index: -1
+effect_radial_00008
+  rotate: false
+  xy: 952, 495
+  size: 256, 256
+  orig: 256, 256
+  offset: 0, 0
+  index: -1
+effect_radial_00009
+  rotate: false
+  xy: 952, 237
+  size: 256, 256
+  orig: 256, 256
+  offset: 0, 0
+  index: -1
+effect_rainbow
+  rotate: false
+  xy: 1122, 1269
+  size: 256, 256
+  orig: 256, 256
+  offset: 0, 0
+  index: -1
+effect_shockwave_b_00000
+  rotate: false
+  xy: 1210, 501
+  size: 250, 250
+  orig: 250, 250
+  offset: 0, 0
+  index: -1
+effect_shockwave_b_00001
+  rotate: false
+  xy: 1210, 249
+  size: 250, 250
+  orig: 250, 250
+  offset: 0, 0
+  index: -1
+effect_shockwave_b_00002
+  rotate: false
+  xy: 1380, 1275
+  size: 250, 250
+  orig: 250, 250
+  offset: 0, 0
+  index: -1
+effect_shockwave_b_00003
+  rotate: false
+  xy: 1380, 1023
+  size: 250, 250
+  orig: 250, 250
+  offset: 0, 0
+  index: -1
+effect_shockwave_b_00004
+  rotate: false
+  xy: 1380, 771
+  size: 250, 250
+  orig: 250, 250
+  offset: 0, 0
+  index: -1
+effect_shockwave_b_00005
+  rotate: false
+  xy: 1462, 519
+  size: 250, 250
+  orig: 250, 250
+  offset: 0, 0
+  index: -1
+effect_shockwave_b_00006
+  rotate: false
+  xy: 1462, 267
+  size: 250, 250
+  orig: 250, 250
+  offset: 0, 0
+  index: -1
+effect_shockwave_b_00007
+  rotate: false
+  xy: 1514, 15
+  size: 250, 250
+  orig: 250, 250
+  offset: 0, 0
+  index: -1
+effect_shockwave_b_00008
+  rotate: false
+  xy: 1632, 1275
+  size: 250, 250
+  orig: 250, 250
+  offset: 0, 0
+  index: -1
+effect_shockwave_b_00009
+  rotate: false
+  xy: 1632, 1023
+  size: 250, 250
+  orig: 250, 250
+  offset: 0, 0
+  index: -1
+effect_shockwave_b_00010
+  rotate: false
+  xy: 1632, 771
+  size: 250, 250
+  orig: 250, 250
+  offset: 0, 0
+  index: -1
+effect_sword
+  rotate: true
+  xy: 1103, 90
+  size: 145, 409
+  orig: 145, 409
+  offset: 0, 0
+  index: -1
+effect_sword_glow
+  rotate: false
+  xy: 1714, 360
+  size: 145, 409
+  orig: 145, 409
+  offset: 0, 0
+  index: -1
+effect_sword_small_glow
+  rotate: false
+  xy: 1766, 2
+  size: 155, 356
+  orig: 155, 356
+  offset: 0, 0
+  index: -1
+effect_sword_small_glow_bur
+  rotate: true
+  xy: 694, 80
+  size: 155, 407
+  orig: 155, 407
+  offset: 0, 0
+  index: -1
+effect_twinkle
+  rotate: false
+  xy: 1122, 1011
+  size: 256, 256
+  orig: 256, 256
+  offset: 0, 0
+  index: -1
+effect_twinkle_yellow
+  rotate: false
+  xy: 1122, 753
+  size: 256, 256
+  orig: 256, 256
+  offset: 0, 0
+  index: -1

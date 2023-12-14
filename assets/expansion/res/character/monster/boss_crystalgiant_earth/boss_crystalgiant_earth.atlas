@@ -1,0 +1,439 @@
+
+boss_crystalgiant_earth.png
+size: 2048,2048
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+crystalgiant_body_01
+  rotate: true
+  xy: 1058, 3
+  size: 517, 435
+  orig: 517, 435
+  offset: 0, 0
+  index: -1
+crystalgiant_body_02
+  rotate: false
+  xy: 737, 521
+  size: 184, 358
+  orig: 184, 358
+  offset: 0, 0
+  index: -1
+crystalgiant_body_03
+  rotate: true
+  xy: 510, 2
+  size: 516, 546
+  orig: 516, 546
+  offset: 0, 0
+  index: -1
+crystalgiant_body_05
+  rotate: true
+  xy: 1792, 49
+  size: 338, 252
+  orig: 338, 252
+  offset: 0, 0
+  index: -1
+crystalgiant_core_02
+  rotate: false
+  xy: 1678, 889
+  size: 46, 59
+  orig: 46, 59
+  offset: 0, 0
+  index: -1
+crystalgiant_crystal_05
+  rotate: true
+  xy: 1490, 1227
+  size: 295, 556
+  orig: 295, 556
+  offset: 0, 0
+  index: -1
+crystalgiant_crystal_08
+  rotate: true
+  xy: 1603, 886
+  size: 62, 73
+  orig: 62, 73
+  offset: 0, 0
+  index: -1
+crystalgiant_left_arm_02
+  rotate: true
+  xy: 1256, 1556
+  size: 490, 237
+  orig: 490, 237
+  offset: 0, 0
+  index: -1
+crystalgiant_leg_03
+  rotate: true
+  xy: 1256, 1265
+  size: 289, 232
+  orig: 289, 232
+  offset: 0, 0
+  index: -1
+crystalgiant_light_02
+  rotate: false
+  xy: 1256, 881
+  size: 345, 344
+  orig: 345, 344
+  offset: 0, 0
+  index: -1
+crystalgiant_light_03
+  rotate: true
+  xy: 923, 522
+  size: 357, 317
+  orig: 357, 317
+  offset: 0, 0
+  index: -1
+crystalgiant_particle_03
+  rotate: false
+  xy: 1495, 389
+  size: 526, 490
+  orig: 526, 490
+  offset: 0, 0
+  index: -1
+crystalgiant_relfect_04
+  rotate: true
+  xy: 1603, 950
+  size: 275, 430
+  orig: 275, 430
+  offset: 0, 0
+  index: -1
+crystalgiant_right_arm_02
+  rotate: false
+  xy: 2, 3
+  size: 506, 511
+  orig: 506, 511
+  offset: 0, 0
+  index: -1
+crystalgiant_right_arm_03
+  rotate: true
+  xy: 1495, 1524
+  size: 522, 530
+  orig: 522, 530
+  offset: 0, 0
+  index: -1
+crystalgiant_right_arm_heat
+  rotate: false
+  xy: 1242, 526
+  size: 251, 353
+  orig: 251, 353
+  offset: 0, 0
+  index: -1
+crystalgiant_skill_01
+  rotate: true
+  xy: 380, 520
+  size: 359, 355
+  orig: 359, 355
+  offset: 0, 0
+  index: -1
+crystalgiant_skill_03
+  rotate: false
+  xy: 380, 881
+  size: 874, 1165
+  orig: 874, 1165
+  offset: 0, 0
+  index: -1
+crystalgiant_skill_04
+  rotate: false
+  xy: 2, 516
+  size: 376, 1530
+  orig: 376, 1530
+  offset: 0, 0
+  index: -1
+crystalgiant_won
+  rotate: false
+  xy: 1495, 2
+  size: 295, 385
+  orig: 295, 385
+  offset: 0, 0
+  index: -1
+
+boss_crystalgiant_earth2.png
+size: 2030,1863
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+crystalgiant_arm_rune
+  rotate: true
+  xy: 663, 23
+  size: 167, 219
+  orig: 167, 219
+  offset: 0, 0
+  index: -1
+crystalgiant_bit
+  rotate: true
+  xy: 1566, 117
+  size: 175, 161
+  orig: 175, 161
+  offset: 0, 0
+  index: -1
+crystalgiant_body_04
+  rotate: false
+  xy: 1418, 759
+  size: 243, 313
+  orig: 243, 313
+  offset: 0, 0
+  index: -1
+crystalgiant_body_rune
+  rotate: true
+  xy: 1245, 133
+  size: 148, 139
+  orig: 148, 139
+  offset: 0, 0
+  index: -1
+crystalgiant_core_01
+  rotate: true
+  xy: 998, 2
+  size: 129, 133
+  orig: 129, 133
+  offset: 0, 0
+  index: -1
+crystalgiant_crystal_01
+  rotate: false
+  xy: 1864, 148
+  size: 104, 146
+  orig: 104, 146
+  offset: 0, 0
+  index: -1
+crystalgiant_crystal_02
+  rotate: false
+  xy: 1306, 338
+  size: 105, 191
+  orig: 105, 191
+  offset: 0, 0
+  index: -1
+crystalgiant_crystal_03
+  rotate: false
+  xy: 884, 11
+  size: 112, 179
+  orig: 112, 179
+  offset: 0, 0
+  index: -1
+crystalgiant_crystal_04
+  rotate: false
+  xy: 1374, 1074
+  size: 207, 387
+  orig: 207, 387
+  offset: 0, 0
+  index: -1
+crystalgiant_crystal_06
+  rotate: false
+  xy: 1773, 37
+  size: 69, 84
+  orig: 69, 84
+  offset: 0, 0
+  index: -1
+crystalgiant_crystal_07
+  rotate: false
+  xy: 1583, 1116
+  size: 243, 345
+  orig: 243, 345
+  offset: 0, 0
+  index: -1
+crystalgiant_effect_light
+  rotate: false
+  xy: 663, 192
+  size: 300, 300
+  orig: 300, 300
+  offset: 0, 0
+  index: -1
+crystalgiant_eye
+  rotate: true
+  xy: 1657, 19
+  size: 96, 114
+  orig: 96, 114
+  offset: 0, 0
+  index: -1
+crystalgiant_head
+  rotate: false
+  xy: 1871, 985
+  size: 150, 219
+  orig: 150, 219
+  offset: 0, 0
+  index: -1
+crystalgiant_left_arm_01
+  rotate: false
+  xy: 1871, 805
+  size: 127, 178
+  orig: 127, 178
+  offset: 0, 0
+  index: -1
+crystalgiant_left_arm_03
+  rotate: false
+  xy: 873, 1483
+  size: 645, 378
+  orig: 645, 378
+  offset: 0, 0
+  index: -1
+crystalgiant_left_arm_heat
+  rotate: true
+  xy: 1663, 801
+  size: 313, 206
+  orig: 313, 206
+  offset: 0, 0
+  index: -1
+crystalgiant_leg_01
+  rotate: false
+  xy: 1828, 1206
+  size: 200, 255
+  orig: 200, 255
+  offset: 0, 0
+  index: -1
+crystalgiant_leg_02
+  rotate: false
+  xy: 1418, 448
+  size: 246, 309
+  orig: 246, 309
+  offset: 0, 0
+  index: -1
+crystalgiant_leg_04
+  rotate: true
+  xy: 1666, 525
+  size: 274, 243
+  orig: 274, 243
+  offset: 0, 0
+  index: -1
+crystalgiant_light_01
+  rotate: false
+  xy: 2, 970
+  size: 869, 891
+  orig: 869, 891
+  offset: 0, 0
+  index: -1
+crystalgiant_light_04
+  rotate: false
+  xy: 873, 982
+  size: 499, 499
+  orig: 499, 499
+  offset: 0, 0
+  index: -1
+crystalgiant_light_dust
+  rotate: false
+  xy: 1520, 1463
+  size: 483, 398
+  orig: 483, 398
+  offset: 0, 0
+  index: -1
+crystalgiant_missile
+  rotate: true
+  xy: 1911, 584
+  size: 219, 116
+  orig: 219, 116
+  offset: 0, 0
+  index: -1
+crystalgiant_particle_01
+  rotate: false
+  xy: 1007, 531
+  size: 409, 449
+  orig: 409, 449
+  offset: 0, 0
+  index: -1
+crystalgiant_particle_02
+  rotate: false
+  xy: 599, 494
+  size: 406, 474
+  orig: 406, 474
+  offset: 0, 0
+  index: -1
+crystalgiant_reflect_01
+  rotate: false
+  xy: 1290, 56
+  size: 91, 75
+  orig: 91, 75
+  offset: 0, 0
+  index: -1
+crystalgiant_reflect_02
+  rotate: true
+  xy: 1864, 9
+  size: 137, 146
+  orig: 137, 146
+  offset: 0, 0
+  index: -1
+crystalgiant_reflect_03
+  rotate: true
+  xy: 1413, 294
+  size: 152, 221
+  orig: 152, 221
+  offset: 0, 0
+  index: -1
+crystalgiant_reflect_arm
+  rotate: true
+  xy: 1666, 296
+  size: 227, 262
+  orig: 227, 262
+  offset: 0, 0
+  index: -1
+crystalgiant_reflect_body
+  rotate: true
+  xy: 1383, 18
+  size: 104, 136
+  orig: 104, 136
+  offset: 0, 0
+  index: -1
+crystalgiant_reflect_head
+  rotate: true
+  xy: 1521, 8
+  size: 107, 134
+  orig: 107, 134
+  offset: 0, 0
+  index: -1
+crystalgiant_right_arm_01
+  rotate: false
+  xy: 1044, 283
+  size: 260, 246
+  orig: 260, 246
+  offset: 0, 0
+  index: -1
+crystalgiant_rune_01
+  rotate: false
+  xy: 965, 225
+  size: 77, 267
+  orig: 77, 267
+  offset: 0, 0
+  index: -1
+crystalgiant_rune_02
+  rotate: true
+  xy: 1133, 9
+  size: 122, 155
+  orig: 122, 155
+  offset: 0, 0
+  index: -1
+crystalgiant_rune_03
+  rotate: false
+  xy: 1729, 123
+  size: 133, 171
+  orig: 133, 171
+  offset: 0, 0
+  index: -1
+crystalgiant_rune_04
+  rotate: true
+  xy: 1044, 133
+  size: 148, 199
+  orig: 148, 199
+  offset: 0, 0
+  index: -1
+crystalgiant_shoulder_01
+  rotate: false
+  xy: 2, 26
+  size: 367, 364
+  orig: 367, 364
+  offset: 0, 0
+  index: -1
+crystalgiant_shoulder_02
+  rotate: true
+  xy: 1386, 124
+  size: 168, 178
+  orig: 168, 178
+  offset: 0, 0
+  index: -1
+crystalgiant_shoulder_03
+  rotate: false
+  xy: 371, 17
+  size: 290, 373
+  orig: 290, 373
+  offset: 0, 0
+  index: -1
+crystalgiant_skill_02
+  rotate: false
+  xy: 2, 392
+  size: 595, 576
+  orig: 595, 576
+  offset: 0, 0
+  index: -1

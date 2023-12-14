@@ -1,0 +1,167 @@
+
+lightningstatue.png
+size: 2019,1066
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+effect_00000
+  rotate: true
+  xy: 675, 814
+  size: 250, 278
+  orig: 250, 278
+  offset: 0, 0
+  index: -1
+effect_00001
+  rotate: true
+  xy: 955, 814
+  size: 250, 278
+  orig: 250, 278
+  offset: 0, 0
+  index: -1
+effect_00002
+  rotate: false
+  xy: 1235, 786
+  size: 250, 278
+  orig: 250, 278
+  offset: 0, 0
+  index: -1
+effect_00003
+  rotate: false
+  xy: 675, 534
+  size: 250, 278
+  orig: 250, 278
+  offset: 0, 0
+  index: -1
+effect_00004
+  rotate: false
+  xy: 927, 534
+  size: 250, 278
+  orig: 250, 278
+  offset: 0, 0
+  index: -1
+effect_00005
+  rotate: true
+  xy: 1179, 534
+  size: 250, 278
+  orig: 250, 278
+  offset: 0, 0
+  index: -1
+effect_00006
+  rotate: false
+  xy: 1459, 506
+  size: 250, 278
+  orig: 250, 278
+  offset: 0, 0
+  index: -1
+effect_00007
+  rotate: true
+  xy: 1487, 814
+  size: 250, 278
+  orig: 250, 278
+  offset: 0, 0
+  index: -1
+effect_00008
+  rotate: true
+  xy: 675, 282
+  size: 250, 278
+  orig: 250, 278
+  offset: 0, 0
+  index: -1
+effect_00009
+  rotate: false
+  xy: 955, 254
+  size: 250, 278
+  orig: 250, 278
+  offset: 0, 0
+  index: -1
+effect_00010
+  rotate: false
+  xy: 1207, 254
+  size: 250, 278
+  orig: 250, 278
+  offset: 0, 0
+  index: -1
+effect_00011
+  rotate: true
+  xy: 1459, 254
+  size: 250, 278
+  orig: 250, 278
+  offset: 0, 0
+  index: -1
+effect_00012
+  rotate: true
+  xy: 1711, 562
+  size: 250, 278
+  orig: 250, 278
+  offset: 0, 0
+  index: -1
+effect_00013
+  rotate: false
+  xy: 1739, 282
+  size: 250, 278
+  orig: 250, 278
+  offset: 0, 0
+  index: -1
+effect_00014
+  rotate: true
+  xy: 1739, 30
+  size: 250, 278
+  orig: 250, 278
+  offset: 0, 0
+  index: -1
+effect_00015
+  rotate: true
+  xy: 2, 168
+  size: 250, 278
+  orig: 250, 278
+  offset: 0, 0
+  index: -1
+effect_00016
+  rotate: false
+  xy: 282, 140
+  size: 250, 278
+  orig: 250, 278
+  offset: 0, 0
+  index: -1
+effect_00017
+  rotate: true
+  xy: 534, 30
+  size: 250, 278
+  orig: 250, 278
+  offset: 0, 0
+  index: -1
+effect_00018
+  rotate: true
+  xy: 814, 2
+  size: 250, 278
+  orig: 250, 278
+  offset: 0, 0
+  index: -1
+effect_00019
+  rotate: true
+  xy: 1094, 2
+  size: 250, 278
+  orig: 250, 278
+  offset: 0, 0
+  index: -1
+effect_00020
+  rotate: true
+  xy: 1374, 2
+  size: 250, 278
+  orig: 250, 278
+  offset: 0, 0
+  index: -1
+object1
+  rotate: false
+  xy: 1767, 837
+  size: 230, 227
+  orig: 230, 227
+  offset: 0, 0
+  index: -1
+object2
+  rotate: false
+  xy: 2, 420
+  size: 671, 644
+  orig: 671, 644
+  offset: 0, 0
+  index: -1

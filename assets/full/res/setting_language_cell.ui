@@ -5,13 +5,38 @@
 	{
 		[1] =
 		{
+			type = 'LayerColor';
+			ui_name = '';
+			flag = '';
+			x = 0.000000;
+			y = 0.000000;
+			dock_point = { 0.500000; 0.500000; };
+			anchor_point = { 0.500000; 0.500000; };
+			relative_size_type = 3;
+			width = -10;
+			height = -11;
+			scale_x = 1.000000;
+			scale_y = 1.000000;
+			skew_x = 0.000000;
+			skew_y = 0.000000;
+			rotation = 0.000000;
+			visible = true;
+			screen_ui = 0;
+			lua_name = '';
+			color = { 81; 63; 47; };
+			opacity = 100;
+			src_blend = 770;
+			dest_blend = 771;
+		};
+		[2] =
+		{
 			[1] =
 			{
 				type = 'LabelTTF';
 				ui_name = '';
 				flag = '';
-				x = 56.000000;
-				y = -11.000000;
+				x = 60.000000;
+				y = -13.000000;
 				dock_point = { 0.000000; 0.500000; };
 				anchor_point = { 0.000000; 0.500000; };
 				relative_size_type = 0;
@@ -54,8 +79,8 @@
 				type = 'LabelTTF';
 				ui_name = '';
 				flag = '';
-				x = 56.000000;
-				y = 15.000000;
+				x = 60.000000;
+				y = 13.000000;
 				dock_point = { 0.000000; 0.500000; };
 				anchor_point = { 0.000000; 0.500000; };
 				relative_size_type = 0;
@@ -117,15 +142,15 @@
 			disable = '';
 			image_type = 1;
 		};
-		[2] =
+		[3] =
 		{
 			[1] =
 			{
 				type = 'LabelTTF';
 				ui_name = '';
 				flag = '';
-				x = 56.000000;
-				y = 15.000000;
+				x = 60.000000;
+				y = 13.000000;
 				dock_point = { 0.000000; 0.500000; };
 				anchor_point = { 0.000000; 0.500000; };
 				relative_size_type = 0;
@@ -168,8 +193,8 @@
 				type = 'LabelTTF';
 				ui_name = '';
 				flag = '';
-				x = 56.000000;
-				y = -11.000000;
+				x = 60.000000;
+				y = -13.000000;
 				dock_point = { 0.000000; 0.500000; };
 				anchor_point = { 0.000000; 0.500000; };
 				relative_size_type = 0;
@@ -230,6 +255,62 @@
 			selected = '';
 			disable = '';
 			image_type = 1;
+		};
+		[4] =
+		{
+			type = 'Sprite';
+			ui_name = '';
+			flag = '';
+			x = 29.000000;
+			y = 0.000000;
+			dock_point = { 0.000000; 0.500000; };
+			anchor_point = { 0.500000; 0.500000; };
+			relative_size_type = 0;
+			width = 32;
+			height = 32;
+			scale_x = 1.000000;
+			scale_y = 1.000000;
+			skew_x = 0.000000;
+			skew_y = 0.000000;
+			rotation = 0.000000;
+			visible = true;
+			screen_ui = 0;
+			lua_name = '';
+			file_name = 'ui/buttons/radio_btn_0201.png';
+			color = { 255; 255; 255; };
+			opacity = 255;
+			flip_x = false;
+			flip_y = false;
+			src_blend = 770;
+			dest_blend = 771;
+		};
+		[5] =
+		{
+			type = 'Sprite';
+			ui_name = '';
+			flag = '';
+			x = 29.000000;
+			y = 0.000000;
+			dock_point = { 0.000000; 0.500000; };
+			anchor_point = { 0.500000; 0.500000; };
+			relative_size_type = 0;
+			width = 18;
+			height = 18;
+			scale_x = 1.000000;
+			scale_y = 1.000000;
+			skew_x = 0.000000;
+			skew_y = 0.000000;
+			rotation = 0.000000;
+			visible = false;
+			screen_ui = 0;
+			lua_name = 'onRadioSprite';
+			file_name = 'ui/buttons/radio_btn_0202.png';
+			color = { 255; 255; 255; };
+			opacity = 255;
+			flip_x = false;
+			flip_y = false;
+			src_blend = 770;
+			dest_blend = 771;
 		};
 		type = 'Menu';
 		ui_name = '';

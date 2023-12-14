@@ -135,7 +135,7 @@
 				ui_name = 'rich';
 				flag = '';
 				x = 0.000000;
-				y = 170.000000;
+				y = 237.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -179,7 +179,7 @@
 				ui_name = '';
 				flag = '';
 				x = 0.000000;
-				y = 209.000000;
+				y = 276.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -195,7 +195,7 @@
 				lua_name = '';
 				font_name = 'font/common_font_01.ttf';
 				font_size = 42;
-				text = '시원한 수박 패키지';
+				text = '잭-오-랜턴 패키지';
 				h_alignment = 1;
 				v_alignment = 1;
 				color = { 255; 255; 255; };
@@ -203,7 +203,7 @@
 				dimension_width = 900;
 				dimension_height = 80;
 				letter_spacing = 0.000000;
-				has_stroke = true;
+				has_stroke = false;
 				stroke_type = 0;
 				stroke_detail_level = 0;
 				is_sharp_text = true;
@@ -234,7 +234,7 @@
 				skew_x = 0.000000;
 				skew_y = 0.000000;
 				rotation = 0.000000;
-				visible = true;
+				visible = false;
 				screen_ui = 0;
 				lua_name = '';
 				file_name = 'ui/typo/ko/ribbon_summer_title_0101.png';

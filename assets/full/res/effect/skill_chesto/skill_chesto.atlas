@@ -1,0 +1,421 @@
+
+skill_chesto.png
+size: 1960,2019
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+effect_killerwhale_all_bubble_2
+  rotate: false
+  xy: 819, 80
+  size: 107, 131
+  orig: 107, 131
+  offset: 0, 0
+  index: -1
+effect_killerwhale_all_bubble_3
+  rotate: true
+  xy: 636, 71
+  size: 140, 181
+  orig: 140, 181
+  offset: 0, 0
+  index: -1
+effect_killerwhale_all_bubble_4
+  rotate: false
+  xy: 1808, 1224
+  size: 104, 107
+  orig: 104, 107
+  offset: 0, 0
+  index: -1
+effect_killerwhale_all_bubble_5
+  rotate: false
+  xy: 1808, 1477
+  size: 150, 176
+  orig: 150, 176
+  offset: 0, 0
+  index: -1
+effect_killerwhale_all_bubble_6
+  rotate: false
+  xy: 1808, 1655
+  size: 150, 362
+  orig: 150, 362
+  offset: 0, 0
+  index: -1
+effect_killerwhale_all_bubble_7
+  rotate: true
+  xy: 2, 2
+  size: 209, 430
+  orig: 209, 430
+  offset: 0, 0
+  index: -1
+effect_killerwhale_all_bubble_8
+  rotate: false
+  xy: 434, 58
+  size: 200, 153
+  orig: 200, 153
+  offset: 0, 0
+  index: -1
+effect_killerwhale_twinkle
+  rotate: false
+  xy: 1808, 1333
+  size: 139, 142
+  orig: 139, 142
+  offset: 0, 0
+  index: -1
+effect_twinkle_00001
+  rotate: false
+  xy: 2, 1417
+  size: 600, 600
+  orig: 600, 600
+  offset: 0, 0
+  index: -1
+effect_twinkle_00003
+  rotate: false
+  xy: 2, 815
+  size: 600, 600
+  orig: 600, 600
+  offset: 0, 0
+  index: -1
+effect_twinkle_00005
+  rotate: false
+  xy: 604, 1417
+  size: 600, 600
+  orig: 600, 600
+  offset: 0, 0
+  index: -1
+effect_twinkle_00007
+  rotate: false
+  xy: 2, 213
+  size: 600, 600
+  orig: 600, 600
+  offset: 0, 0
+  index: -1
+effect_twinkle_00009
+  rotate: false
+  xy: 604, 815
+  size: 600, 600
+  orig: 600, 600
+  offset: 0, 0
+  index: -1
+effect_twinkle_00011
+  rotate: false
+  xy: 1206, 1417
+  size: 600, 600
+  orig: 600, 600
+  offset: 0, 0
+  index: -1
+effect_twinkle_00013
+  rotate: false
+  xy: 604, 213
+  size: 600, 600
+  orig: 600, 600
+  offset: 0, 0
+  index: -1
+effect_twinkle_00015
+  rotate: false
+  xy: 1206, 815
+  size: 600, 600
+  orig: 600, 600
+  offset: 0, 0
+  index: -1
+effect_twinkle_00017
+  rotate: false
+  xy: 1206, 213
+  size: 600, 600
+  orig: 600, 600
+  offset: 0, 0
+  index: -1
+
+skill_chesto2.png
+size: 1808,1808
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+effect_twinkle_00019
+  rotate: false
+  xy: 2, 1206
+  size: 600, 600
+  orig: 600, 600
+  offset: 0, 0
+  index: -1
+effect_twinkle_00021
+  rotate: false
+  xy: 2, 604
+  size: 600, 600
+  orig: 600, 600
+  offset: 0, 0
+  index: -1
+effect_twinkle_00023
+  rotate: false
+  xy: 604, 1206
+  size: 600, 600
+  orig: 600, 600
+  offset: 0, 0
+  index: -1
+effect_twinkle_00025
+  rotate: false
+  xy: 2, 2
+  size: 600, 600
+  orig: 600, 600
+  offset: 0, 0
+  index: -1
+effect_twinkle_00027
+  rotate: false
+  xy: 604, 604
+  size: 600, 600
+  orig: 600, 600
+  offset: 0, 0
+  index: -1
+effect_twinkle_00029
+  rotate: false
+  xy: 1206, 1206
+  size: 600, 600
+  orig: 600, 600
+  offset: 0, 0
+  index: -1
+effect_twinkle_00031
+  rotate: false
+  xy: 604, 2
+  size: 600, 600
+  orig: 600, 600
+  offset: 0, 0
+  index: -1
+effect_twinkle_00033
+  rotate: false
+  xy: 1206, 604
+  size: 600, 600
+  orig: 600, 600
+  offset: 0, 0
+  index: -1
+effect_twinkle_00035
+  rotate: false
+  xy: 1206, 2
+  size: 600, 600
+  orig: 600, 600
+  offset: 0, 0
+  index: -1
+
+skill_chesto3.png
+size: 1808,1808
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+effect_twinkle_00037
+  rotate: false
+  xy: 2, 1206
+  size: 600, 600
+  orig: 600, 600
+  offset: 0, 0
+  index: -1
+effect_twinkle_00039
+  rotate: false
+  xy: 2, 604
+  size: 600, 600
+  orig: 600, 600
+  offset: 0, 0
+  index: -1
+effect_twinkle_00041
+  rotate: false
+  xy: 604, 1206
+  size: 600, 600
+  orig: 600, 600
+  offset: 0, 0
+  index: -1
+effect_twinkle_00043
+  rotate: false
+  xy: 2, 2
+  size: 600, 600
+  orig: 600, 600
+  offset: 0, 0
+  index: -1
+effect_twinkle_00045
+  rotate: false
+  xy: 604, 604
+  size: 600, 600
+  orig: 600, 600
+  offset: 0, 0
+  index: -1
+effect_twinkle_00047
+  rotate: false
+  xy: 1206, 1206
+  size: 600, 600
+  orig: 600, 600
+  offset: 0, 0
+  index: -1
+effect_twinkle_00049
+  rotate: false
+  xy: 604, 2
+  size: 600, 600
+  orig: 600, 600
+  offset: 0, 0
+  index: -1
+effect_twinkle_00051
+  rotate: false
+  xy: 1206, 604
+  size: 600, 600
+  orig: 600, 600
+  offset: 0, 0
+  index: -1
+effect_twinkle_00053
+  rotate: false
+  xy: 1206, 2
+  size: 600, 600
+  orig: 600, 600
+  offset: 0, 0
+  index: -1
+
+skill_chesto4.png
+size: 1808,1808
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+effect_twinkle_00055
+  rotate: false
+  xy: 2, 1206
+  size: 600, 600
+  orig: 600, 600
+  offset: 0, 0
+  index: -1
+effect_twinkle_00057
+  rotate: false
+  xy: 2, 604
+  size: 600, 600
+  orig: 600, 600
+  offset: 0, 0
+  index: -1
+effect_twinkle_00059
+  rotate: false
+  xy: 604, 1206
+  size: 600, 600
+  orig: 600, 600
+  offset: 0, 0
+  index: -1
+effect_twinkle_00061
+  rotate: false
+  xy: 2, 2
+  size: 600, 600
+  orig: 600, 600
+  offset: 0, 0
+  index: -1
+effect_twinkle_00063
+  rotate: false
+  xy: 604, 604
+  size: 600, 600
+  orig: 600, 600
+  offset: 0, 0
+  index: -1
+effect_twinkle_00065
+  rotate: false
+  xy: 1206, 1206
+  size: 600, 600
+  orig: 600, 600
+  offset: 0, 0
+  index: -1
+effect_twinkle_00067
+  rotate: false
+  xy: 604, 2
+  size: 600, 600
+  orig: 600, 600
+  offset: 0, 0
+  index: -1
+effect_twinkle_00069
+  rotate: false
+  xy: 1206, 604
+  size: 600, 600
+  orig: 600, 600
+  offset: 0, 0
+  index: -1
+effect_twinkle_00071
+  rotate: false
+  xy: 1206, 2
+  size: 600, 600
+  orig: 600, 600
+  offset: 0, 0
+  index: -1
+
+skill_chesto5.png
+size: 1808,1808
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+effect_twinkle_00073
+  rotate: false
+  xy: 2, 1206
+  size: 600, 600
+  orig: 600, 600
+  offset: 0, 0
+  index: -1
+effect_twinkle_00075
+  rotate: false
+  xy: 2, 604
+  size: 600, 600
+  orig: 600, 600
+  offset: 0, 0
+  index: -1
+effect_twinkle_00077
+  rotate: false
+  xy: 604, 1206
+  size: 600, 600
+  orig: 600, 600
+  offset: 0, 0
+  index: -1
+effect_twinkle_00079
+  rotate: false
+  xy: 2, 2
+  size: 600, 600
+  orig: 600, 600
+  offset: 0, 0
+  index: -1
+effect_twinkle_00081
+  rotate: false
+  xy: 604, 604
+  size: 600, 600
+  orig: 600, 600
+  offset: 0, 0
+  index: -1
+effect_twinkle_00083
+  rotate: false
+  xy: 1206, 1206
+  size: 600, 600
+  orig: 600, 600
+  offset: 0, 0
+  index: -1
+effect_twinkle_00085
+  rotate: false
+  xy: 604, 2
+  size: 600, 600
+  orig: 600, 600
+  offset: 0, 0
+  index: -1
+effect_twinkle_00087
+  rotate: false
+  xy: 1206, 604
+  size: 600, 600
+  orig: 600, 600
+  offset: 0, 0
+  index: -1
+effect_twinkle_00089
+  rotate: false
+  xy: 1206, 2
+  size: 600, 600
+  orig: 600, 600
+  offset: 0, 0
+  index: -1
+
+skill_chesto6.png
+size: 885,604
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+effect_killerwhale_all_bubble_1
+  rotate: true
+  xy: 604, 239
+  size: 363, 279
+  orig: 363, 279
+  offset: 0, 0
+  index: -1
+effect_twinkle_00091
+  rotate: false
+  xy: 2, 2
+  size: 600, 600
+  orig: 600, 600
+  offset: 0, 0
+  index: -1

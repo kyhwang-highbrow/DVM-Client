@@ -1412,7 +1412,7 @@
 				ui_name = '';
 				flag = '';
 				x = 0.000000;
-				y = -49.000000;
+				y = -45.000000;
 				dock_point = { 0.500000; 1.000000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -1428,10 +1428,10 @@
 				lua_name = '';
 				font_name = 'font/common_font_01.ttf';
 				font_size = 30;
-				text = '코스모의 여름 휴가';
+				text = '할로윈 이벤트';
 				h_alignment = 1;
 				v_alignment = 1;
-				color = { 255; 255; 255; };
+				color = { 255; 255; 0; };
 				opacity = 255;
 				dimension_width = 400;
 				dimension_height = 80;
@@ -1456,7 +1456,7 @@
 				ui_name = '';
 				flag = '';
 				x = 0.000000;
-				y = -142.000000;
+				y = -133.000000;
 				dock_point = { 0.500000; 1.000000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -1500,7 +1500,7 @@
 				ui_name = '';
 				flag = '';
 				x = 0.000000;
-				y = -110.000000;
+				y = -104.000000;
 				dock_point = { 0.500000; 1.000000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -1516,7 +1516,7 @@
 				lua_name = '';
 				font_name = 'font/common_font_01.ttf';
 				font_size = 22;
-				text = '비밀 스테이지에서 시원한 수박을 획득하세요!';
+				text = '할로윈 비밀 스테이지에서 잭-오-랜턴을 획득하세요!';
 				h_alignment = 1;
 				v_alignment = 1;
 				color = { 255; 222; 0; };
