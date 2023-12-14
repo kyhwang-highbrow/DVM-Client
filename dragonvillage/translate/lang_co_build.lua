@@ -1,5 +1,5 @@
-return {['클랜 이름은 한글, 영어, 숫자를 사용하여 최소{1}자부터 최대 {2}자까지 생성할 수 있습니다. \n \n 특수문자, 한자, 비속어는 사용할 수 없으며, 중간에 띄어쓰기를 할 수 없습니다.']='U nome di u clan deve aduprà solu caratteri è numeri coreani è inglesi, è deve esse longu {1}- {2} lettere. \n \n I caratteri spiciali, chinesi, slang è spazii ùn sò micca permessi.',
-['닉네임은 한글, 영어, 숫자를 사용하여 최소{1}자부터 최대 {2}자까지 생성할 수 있습니다. \n \n 특수문자, 한자, 비속어는 사용할 수 없으며, 중간에 띄어쓰기를 할 수 없습니다.']='U soprannomu hè custituitu di coreanu, inglese è numeri, è deve esse longu {1}- {2} lettere. \n \n I caratteri spiciali, chinesi, slang è spazii ùn sò micca permessi.',
+return {['클랜 이름은 한글, 영어, 숫자를 사용하여 최소{1}자부터 최대 {2}자까지 생성할 수 있습니다. \n \n 특수문자, 한자, 비속어는 사용할 수 없으며, 중간에 띄어쓰기를 할 수 없습니다.']='U nome di u clan deve aduprà solu caratteri è numeri coreani è inglesi, è deve esse longu {1}- {2} lettere. \n\nI caratteri spiciali, chinesi, slang è spazii ùn sò micca permessi.',
+['닉네임은 한글, 영어, 숫자를 사용하여 최소{1}자부터 최대 {2}자까지 생성할 수 있습니다. \n \n 특수문자, 한자, 비속어는 사용할 수 없으며, 중간에 띄어쓰기를 할 수 없습니다.']='U soprannomu hè custituitu di coreanu, inglese è numeri, è deve esse longu {1}- {2} lettere. \n\nI caratteri spiciali, chinesi, slang è spazii ùn sò micca permessi.',
 ['금칙어가 포함되었습니다. 입력을 계속하시겠습니까?\n(욕설이나 부적절한 단어 사용이 확인되었을 시 제재를 받을 수 있습니다.)']='E parolle inappropriate ponu esse incluse. Cuntinuà? \n(U vostru ghjocu pò esse ristrettu s\'è vo aduprate una lingua inappropriata o abusiva.)',
 ['패치 확인 중...']='Verificà u patch...',
 ['정상적인 시작이 불가능하여 앱을 종료합니다.\n종료 후 다시 실행해 주세요.']='A corsa Normale hè impussibile. L\'app serà chjusa.\nRiprova dopu a chiusura di l\'app.',
@@ -11,6 +11,6 @@ return {['클랜 이름은 한글, 영어, 숫자를 사용하여 최소{1}자�
 ['로딩중...']='Caricamentu...',
 ['로그인']='Login',
 ['드래곤 만나러 가기']='Andate à vede u dragone',
-['신규 서버 시작 시\n다이아 10,000개 지급!']='Uniscite à u novu servitore \ è uttene 10.000 Diamanti!',
+['신규 서버 시작 시\n다이아 10,000개 지급!']='Uniscite à u novu servitore \nè uttene 10.000 Diamanti!',
 ['서버']='Servitore',
 ['테스트 모드']='Modu di prova'}

@@ -1,5 +1,5 @@
-return {['클랜 이름은 한글, 영어, 숫자를 사용하여 최소{1}자부터 최대 {2}자까지 생성할 수 있습니다. \n \n 특수문자, 한자, 비속어는 사용할 수 없으며, 중간에 띄어쓰기를 할 수 없습니다.']='Clan Name oipuruva’erã tai ha papapy coreano ha inglés añoite, ha ipukuva’erã {1}- {2} tai. \n \n Ndojehejái tai especial, chino, argot ha espacio.',
-['닉네임은 한글, 영어, 숫자를 사용하여 최소{1}자부터 최대 {2}자까지 생성할 수 있습니다. \n \n 특수문자, 한자, 비속어는 사용할 수 없으며, 중간에 띄어쓰기를 할 수 없습니다.']='Apodo oguereko coreano, inglés ha Número, ha ipukuva’erã {1}- {2} tai. \n \n Ndojehejái tai especial, chino, argot ha espacio.',
+return {['클랜 이름은 한글, 영어, 숫자를 사용하여 최소{1}자부터 최대 {2}자까지 생성할 수 있습니다. \n \n 특수문자, 한자, 비속어는 사용할 수 없으며, 중간에 띄어쓰기를 할 수 없습니다.']='Clan Name oipuruva’erã tai ha papapy coreano ha inglés añoite, ha ipukuva’erã {1}- {2} tai. \n\nNdojehejái tai especial, chino, argot ha espacio.',
+['닉네임은 한글, 영어, 숫자를 사용하여 최소{1}자부터 최대 {2}자까지 생성할 수 있습니다. \n \n 특수문자, 한자, 비속어는 사용할 수 없으며, 중간에 띄어쓰기를 할 수 없습니다.']='Apodo oguereko coreano, inglés ha Número, ha ipukuva’erã {1}- {2} tai. \n\nNdojehejái tai especial, chino, argot ha espacio.',
 ['금칙어가 포함되었습니다. 입력을 계속하시겠습니까?\n(욕설이나 부적절한 단어 사용이 확인되었을 시 제재를 받을 수 있습니다.)']='Ikatu oike ñe’ẽ naiporãiva. Mbojoapy? \n(Ikatu ojejoko ne ñembosarái reiporúramo ñe\'ẽ naiporãiva térã ñe\'ẽ vai.)',
 ['패치 확인 중...']='Omoañete haguã Parche...',
 ['정상적인 시작이 불가능하여 앱을 종료합니다.\n종료 후 다시 실행해 주세요.']='Pe carrera Jepigua ndaikatúi. App oñembotýta.\nEñeha\'ã jey app oñemboty rire.',
@@ -11,6 +11,6 @@ return {['클랜 이름은 한글, 영어, 숫자를 사용하여 최소{1}자�
 ['로딩중...']='Ojekarga hína...',
 ['로그인']='Eike',
 ['드래곤 만나러 가기']='Tereho ehecha pe dragón',
-['신규 서버 시작 시\n다이아 10,000개 지급!']='Eike servidor pyahúpe\ha ehupyty 10.000 Diamante-kuéra rehegua!',
+['신규 서버 시작 시\n다이아 10,000개 지급!']='Eike servidor pyahúpe\nha ehupyty 10.000 Diamante-kuéra rehegua!',
 ['서버']='Servidor rehegua',
 ['테스트 모드']='Modo de Prueba rehegua'}

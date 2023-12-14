@@ -1,5 +1,5 @@
-return {['클랜 이름은 한글, 영어, 숫자를 사용하여 최소{1}자부터 최대 {2}자까지 생성할 수 있습니다. \n \n 특수문자, 한자, 비속어는 사용할 수 없으며, 중간에 띄어쓰기를 할 수 없습니다.']='Numele clanului trebuie să utilizeze numai caractere și numere coreene și engleze și trebuie să aibă lungimea de {1}- {2} litere. \n \n Caracterele speciale, chineza, argoul și spațiile nu sunt permise.',
-['닉네임은 한글, 영어, 숫자를 사용하여 최소{1}자부터 최대 {2}자까지 생성할 수 있습니다. \n \n 특수문자, 한자, 비속어는 사용할 수 없으며, 중간에 띄어쓰기를 할 수 없습니다.']='Porecla constă din coreeană, engleză și numere și trebuie să aibă {1}- {2} litere. \n \n Caracterele speciale, chineza, argoul și spațiile nu sunt permise.',
+return {['클랜 이름은 한글, 영어, 숫자를 사용하여 최소{1}자부터 최대 {2}자까지 생성할 수 있습니다. \n \n 특수문자, 한자, 비속어는 사용할 수 없으며, 중간에 띄어쓰기를 할 수 없습니다.']='Numele clanului trebuie să utilizeze numai caractere și numere coreene și engleze și trebuie să aibă lungimea de {1}- {2} litere. \n\nCaracterele speciale, chineza, argoul și spațiile nu sunt permise.',
+['닉네임은 한글, 영어, 숫자를 사용하여 최소{1}자부터 최대 {2}자까지 생성할 수 있습니다. \n \n 특수문자, 한자, 비속어는 사용할 수 없으며, 중간에 띄어쓰기를 할 수 없습니다.']='Porecla constă din coreeană, engleză și numere și trebuie să aibă {1}- {2} litere. \n\nCaracterele speciale, chineza, argoul și spațiile nu sunt permise.',
 ['금칙어가 포함되었습니다. 입력을 계속하시겠습니까?\n(욕설이나 부적절한 단어 사용이 확인되었을 시 제재를 받을 수 있습니다.)']='Pot fi incluse cuvinte nepotrivite. Continua? \n(Jocul dvs. poate fi restricționat dacă utilizați un limbaj neadecvat sau abuziv.)',
 ['패치 확인 중...']='Se verifică corecția...',
 ['정상적인 시작이 불가능하여 앱을 종료합니다.\n종료 후 다시 실행해 주세요.']='Funcționarea Normal este imposibilă. Aplicația va fi închisă.\nReîncercați după închiderea aplicației.',
@@ -11,6 +11,6 @@ return {['클랜 이름은 한글, 영어, 숫자를 사용하여 최소{1}자�
 ['로딩중...']='Se încarcă...',
 ['로그인']='Log in',
 ['드래곤 만나러 가기']='Du-te să vezi dragonul',
-['신규 서버 시작 시\n다이아 10,000개 지급!']='Alăturați-vă noului server\n și obțineți 10.000 de Diamante!',
+['신규 서버 시작 시\n다이아 10,000개 지급!']='Alăturați-vă noului server\nși obțineți 10.000 de Diamante!',
 ['서버']='Server',
 ['테스트 모드']='Modul de testare'}

@@ -1,5 +1,5 @@
-return {['클랜 이름은 한글, 영어, 숫자를 사용하여 최소{1}자부터 최대 {2}자까지 생성할 수 있습니다. \n \n 특수문자, 한자, 비속어는 사용할 수 없으며, 중간에 띄어쓰기를 할 수 없습니다.']='Název klanu by měl používat pouze korejské a anglické znaky a čísla a musí mít délku {1}- {2} písmen. \n \n Speciální znaky, čínština, slang a mezery nejsou povoleny.',
-['닉네임은 한글, 영어, 숫자를 사용하여 최소{1}자부터 최대 {2}자까지 생성할 수 있습니다. \n \n 특수문자, 한자, 비속어는 사용할 수 없으며, 중간에 띄어쓰기를 할 수 없습니다.']='Přezdívka se skládá z korejštiny, angličtiny a číslic a musí mít délku {1}- {2} písmen. \n \n Speciální znaky, čínština, slang a mezery nejsou povoleny.',
+return {['클랜 이름은 한글, 영어, 숫자를 사용하여 최소{1}자부터 최대 {2}자까지 생성할 수 있습니다. \n \n 특수문자, 한자, 비속어는 사용할 수 없으며, 중간에 띄어쓰기를 할 수 없습니다.']='Název klanu by měl používat pouze korejské a anglické znaky a čísla a musí mít délku {1}- {2} písmen. \n\nSpeciální znaky, čínština, slang a mezery nejsou povoleny.',
+['닉네임은 한글, 영어, 숫자를 사용하여 최소{1}자부터 최대 {2}자까지 생성할 수 있습니다. \n \n 특수문자, 한자, 비속어는 사용할 수 없으며, 중간에 띄어쓰기를 할 수 없습니다.']='Přezdívka se skládá z korejštiny, angličtiny a číslic a musí mít délku {1}- {2} písmen. \n\nSpeciální znaky, čínština, slang a mezery nejsou povoleny.',
 ['금칙어가 포함되었습니다. 입력을 계속하시겠습니까?\n(욕설이나 부적절한 단어 사용이 확인되었을 시 제재를 받을 수 있습니다.)']='Mohou být zahrnuta nevhodná slova. Pokračovat? \n(Vaše hra může být omezena, pokud používáte nevhodný nebo urážlivý jazyk.)',
 ['패치 확인 중...']='Ověřování opravy...',
 ['정상적인 시작이 불가능하여 앱을 종료합니다.\n종료 후 다시 실행해 주세요.']='Normální běh je nemožný. Aplikace bude uzavřena.\nZkuste to znovu po zavření aplikace.',

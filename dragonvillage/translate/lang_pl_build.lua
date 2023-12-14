@@ -1,5 +1,5 @@
-return {['클랜 이름은 한글, 영어, 숫자를 사용하여 최소{1}자부터 최대 {2}자까지 생성할 수 있습니다. \n \n 특수문자, 한자, 비속어는 사용할 수 없으며, 중간에 띄어쓰기를 할 수 없습니다.']='Nazwa klanu powinna zawierać wyłącznie koreańskie i angielskie znaki oraz cyfry i musi mieć długość od {1} do {2} liter. \n \n Znaki specjalne, chińskie, slangowe i spacje są niedozwolone.',
-['닉네임은 한글, 영어, 숫자를 사용하여 최소{1}자부터 최대 {2}자까지 생성할 수 있습니다. \n \n 특수문자, 한자, 비속어는 사용할 수 없으며, 중간에 띄어쓰기를 할 수 없습니다.']='Pseudonim składa się z języka koreańskiego, angielskiego i cyfr i musi mieć długość od {1} do {2} liter. \n \n Znaki specjalne, chińskie, slangowe i spacje są niedozwolone.',
+return {['클랜 이름은 한글, 영어, 숫자를 사용하여 최소{1}자부터 최대 {2}자까지 생성할 수 있습니다. \n \n 특수문자, 한자, 비속어는 사용할 수 없으며, 중간에 띄어쓰기를 할 수 없습니다.']='Nazwa klanu powinna zawierać wyłącznie koreańskie i angielskie znaki oraz cyfry i musi mieć długość od {1} do {2} liter. \n\nZnaki specjalne, chińskie, slangowe i spacje są niedozwolone.',
+['닉네임은 한글, 영어, 숫자를 사용하여 최소{1}자부터 최대 {2}자까지 생성할 수 있습니다. \n \n 특수문자, 한자, 비속어는 사용할 수 없으며, 중간에 띄어쓰기를 할 수 없습니다.']='Pseudonim składa się z języka koreańskiego, angielskiego i cyfr i musi mieć długość od {1} do {2} liter. \n\nZnaki specjalne, chińskie, slangowe i spacje są niedozwolone.',
 ['금칙어가 포함되었습니다. 입력을 계속하시겠습니까?\n(욕설이나 부적절한 단어 사용이 확인되었을 시 제재를 받을 수 있습니다.)']='Mogą zostać zawarte nieodpowiednie słowa. Kontynuować? \n(Twoja rozgrywka może zostać ograniczona, jeśli używasz nieodpowiedniego lub wulgarnego języka.)',
 ['패치 확인 중...']='Weryfikacja poprawki...',
 ['정상적인 시작이 불가능하여 앱을 종료합니다.\n종료 후 다시 실행해 주세요.']='Normalna bieganie jest niemożliwe. Aplikacja zostanie zamknięta.\nSpróbuj ponownie po zamknięciu aplikacji.',
@@ -11,6 +11,6 @@ return {['클랜 이름은 한글, 영어, 숫자를 사용하여 최소{1}자�
 ['로딩중...']='Ładowanie...',
 ['로그인']='Zaloguj sie',
 ['드래곤 만나러 가기']='Idź zobaczyć smoka',
-['신규 서버 시작 시\n다이아 10,000개 지급!']='Dołącz do nowego serwera\i zdobądź 10 000 Diamenty!',
+['신규 서버 시작 시\n다이아 10,000개 지급!']='Dołącz do nowego serwera\ni zdobądź 10 000 Diamenty!',
 ['서버']='serwer',
 ['테스트 모드']='Tryb testowania'}

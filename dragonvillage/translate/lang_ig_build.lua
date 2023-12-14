@@ -1,5 +1,5 @@
-return {['클랜 이름은 한글, 영어, 숫자를 사용하여 최소{1}자부터 최대 {2}자까지 생성할 수 있습니다. \n \n 특수문자, 한자, 비속어는 사용할 수 없으며, 중간에 띄어쓰기를 할 수 없습니다.']='Aha Clan kwesịrị iji naanị mkpụrụedemede Korea na Bekee na ọnụọgụ, ọ ga-abụrịrị ogologo mkpụrụedemede {1}- {2} . \n \n A naghị anabata mkpụrụedemede pụrụ iche, Chinese, slang na oghere.',
-['닉네임은 한글, 영어, 숫자를 사용하여 최소{1}자부터 최대 {2}자까지 생성할 수 있습니다. \n \n 특수문자, 한자, 비속어는 사용할 수 없으며, 중간에 띄어쓰기를 할 수 없습니다.']='Aha otutu nwere Korean, Bekee, na Nọmba, ọ ga-abụrịrị {1}- {2} ogologo mkpụrụedemede. \n \n A naghị anabata mkpụrụedemede pụrụ iche, Chinese, slang na oghere.',
+return {['클랜 이름은 한글, 영어, 숫자를 사용하여 최소{1}자부터 최대 {2}자까지 생성할 수 있습니다. \n \n 특수문자, 한자, 비속어는 사용할 수 없으며, 중간에 띄어쓰기를 할 수 없습니다.']='Aha Clan kwesịrị iji naanị mkpụrụedemede Korea na Bekee na ọnụọgụ, ọ ga-abụrịrị ogologo mkpụrụedemede {1}- {2} . \n\nA naghị anabata mkpụrụedemede pụrụ iche, Chinese, slang na oghere.',
+['닉네임은 한글, 영어, 숫자를 사용하여 최소{1}자부터 최대 {2}자까지 생성할 수 있습니다. \n \n 특수문자, 한자, 비속어는 사용할 수 없으며, 중간에 띄어쓰기를 할 수 없습니다.']='Aha otutu nwere Korean, Bekee, na Nọmba, ọ ga-abụrịrị {1}- {2} ogologo mkpụrụedemede. \n\nA naghị anabata mkpụrụedemede pụrụ iche, Chinese, slang na oghere.',
 ['금칙어가 포함되었습니다. 입력을 계속하시겠습니까?\n(욕설이나 부적절한 단어 사용이 확인되었을 시 제재를 받을 수 있습니다.)']='Enwere ike itinye okwu na-ekwesịghị ekwesị. Gaa n\'ihu? \n(Enwere ike machibido egwuregwu gị ma ọ bụrụ na ị na-eji asụsụ na-ekwesịghị ekwesị ma ọ bụ mkparị.)',
 ['패치 확인 중...']='Na-enyocha patch...',
 ['정상적인 시작이 불가능하여 앱을 종료합니다.\n종료 후 다시 실행해 주세요.']='Ịgba ọsọ Nkịtị agaghị ekwe omume. A ga-emechi ngwa.\nTigharịa ma emechie ngwa.',
@@ -11,6 +11,6 @@ return {['클랜 이름은 한글, 영어, 숫자를 사용하여 최소{1}자�
 ['로딩중...']='Na-ebu...',
 ['로그인']='Banye',
 ['드래곤 만나러 가기']='Gaa hụ dragọn ahụ',
-['신규 서버 시작 시\n다이아 10,000개 지급!']='Soro sava ọhụrụ\n wee nweta 10,000 Ola diamond!',
+['신규 서버 시작 시\n다이아 10,000개 지급!']='Soro sava ọhụrụ\nwee nweta 10,000 Ola diamond!',
 ['서버']='Ihe nkesa',
 ['테스트 모드']='Ụdị ule'}

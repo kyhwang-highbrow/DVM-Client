@@ -1,5 +1,5 @@
-return {['클랜 이름은 한글, 영어, 숫자를 사용하여 최소{1}자부터 최대 {2}자까지 생성할 수 있습니다. \n \n 특수문자, 한자, 비속어는 사용할 수 없으며, 중간에 띄어쓰기를 할 수 없습니다.']='Clan Name inofanira kushandisa mabhii nenhamba dzechiKorean nechiRungu chete, uye dzinofanira kuva {1}- {2} mavara kureba. \n \n Mabhii akakosha, chiChinese, chitauriro, nenzvimbo hazvitenderwe.',
-['닉네임은 한글, 영어, 숫자를 사용하여 최소{1}자부터 최대 {2}자까지 생성할 수 있습니다. \n \n 특수문자, 한자, 비속어는 사용할 수 없으며, 중간에 띄어쓰기를 할 수 없습니다.']='Zita remadunhurirwa rine chiKorean, Chirungu, neNhamba, uye rinofanira kuva {1}- {2} mavara kureba. \n \n Mabhii akakosha, chiChinese, chitauriro, nenzvimbo hazvitenderwe.',
+return {['클랜 이름은 한글, 영어, 숫자를 사용하여 최소{1}자부터 최대 {2}자까지 생성할 수 있습니다. \n \n 특수문자, 한자, 비속어는 사용할 수 없으며, 중간에 띄어쓰기를 할 수 없습니다.']='Clan Name inofanira kushandisa mabhii nenhamba dzechiKorean nechiRungu chete, uye dzinofanira kuva {1}- {2} mavara kureba. \n\nMabhii akakosha, chiChinese, chitauriro, nenzvimbo hazvitenderwe.',
+['닉네임은 한글, 영어, 숫자를 사용하여 최소{1}자부터 최대 {2}자까지 생성할 수 있습니다. \n \n 특수문자, 한자, 비속어는 사용할 수 없으며, 중간에 띄어쓰기를 할 수 없습니다.']='Zita remadunhurirwa rine chiKorean, Chirungu, neNhamba, uye rinofanira kuva {1}- {2} mavara kureba. \n\nMabhii akakosha, chiChinese, chitauriro, nenzvimbo hazvitenderwe.',
 ['금칙어가 포함되었습니다. 입력을 계속하시겠습니까?\n(욕설이나 부적절한 단어 사용이 확인되었을 시 제재를 받을 수 있습니다.)']='Mashoko asina kufanira anogona kuiswa. Kuenderera mberi? \n(Mutambo wako unogona kuganhurirwa kana uri kushandisa mutauro usina kufanira kana wekutuka.)',
 ['패치 확인 중...']='Verifying Patch...',
 ['정상적인 시작이 불가능하여 앱을 종료합니다.\n종료 후 다시 실행해 주세요.']='Kumhanya Normal hakugoneki. App ichavharwa.\nEdzazve kana app yavharwa.',
@@ -11,6 +11,6 @@ return {['클랜 이름은 한글, 영어, 숫자를 사용하여 최소{1}자�
 ['로딩중...']='Loading...',
 ['로그인']='Login',
 ['드래곤 만나러 가기']='Enda unoona shato',
-['신규 서버 시작 시\n다이아 10,000개 지급!']='Joinha sevha itsva\uye uwane zviuru gumi Madhaimani!',
+['신규 서버 시작 시\n다이아 10,000개 지급!']='Joinha sevha itsva\nuye uwane zviuru gumi Madhaimani!',
 ['서버']='Server',
 ['테스트 모드']='Test Mode'}

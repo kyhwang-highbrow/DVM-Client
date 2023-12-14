@@ -1,5 +1,5 @@
-return {['클랜 이름은 한글, 영어, 숫자를 사용하여 최소{1}자부터 최대 {2}자까지 생성할 수 있습니다. \n \n 특수문자, 한자, 비속어는 사용할 수 없으며, 중간에 띄어쓰기를 할 수 없습니다.']='Clan Sutix coreano ukat inglés arunakampi ukat jakhunakampikiw apnaqañapa, ukatx {1}- {2} letras largo ukhamäñapawa. \n \n Yaqha chimpunaka, chino, argot, ukat chimpunakax janiw jaysatäkiti.',
-['닉네임은 한글, 영어, 숫자를 사용하여 최소{1}자부터 최대 {2}자까지 생성할 수 있습니다. \n \n 특수문자, 한자, 비속어는 사용할 수 없으며, 중간에 띄어쓰기를 할 수 없습니다.']='Apodo ukax coreano, inglés, ukat Números ukanakat uñt’atawa, ukatx {1}- {2} letras ukanakaw utjañapa. \n \n Yaqha chimpunaka, chino, argot, ukat chimpunakax janiw jaysatäkiti.',
+return {['클랜 이름은 한글, 영어, 숫자를 사용하여 최소{1}자부터 최대 {2}자까지 생성할 수 있습니다. \n \n 특수문자, 한자, 비속어는 사용할 수 없으며, 중간에 띄어쓰기를 할 수 없습니다.']='Clan Sutix coreano ukat inglés arunakampi ukat jakhunakampikiw apnaqañapa, ukatx {1}- {2} letras largo ukhamäñapawa. \n\nYaqha chimpunaka, chino, argot, ukat chimpunakax janiw jaysatäkiti.',
+['닉네임은 한글, 영어, 숫자를 사용하여 최소{1}자부터 최대 {2}자까지 생성할 수 있습니다. \n \n 특수문자, 한자, 비속어는 사용할 수 없으며, 중간에 띄어쓰기를 할 수 없습니다.']='Apodo ukax coreano, inglés, ukat Números ukanakat uñt’atawa, ukatx {1}- {2} letras ukanakaw utjañapa. \n\nYaqha chimpunaka, chino, argot, ukat chimpunakax janiw jaysatäkiti.',
 ['금칙어가 포함되었습니다. 입력을 계속하시겠습니까?\n(욕설이나 부적절한 단어 사용이 확인되었을 시 제재를 받을 수 있습니다.)']='Inas jan walïki uka arunakax uñstchispa. Sarantaña? \n(Jan wali jan ukax jan wali arunak apnaqañax anatañax jark\'atäspawa.)',
 ['패치 확인 중...']='Chiqañchañatakix Patch...',
 ['정상적인 시작이 불가능하여 앱을 종료합니다.\n종료 후 다시 실행해 주세요.']='Nurmalaki t’ijtawix janiw lurañjamakiti. App ukax jist\'antatawa.\nApp jist\'antat qhipatx wasitat yant\'añamawa.',
@@ -11,6 +11,6 @@ return {['클랜 이름은 한글, 영어, 숫자를 사용하여 최소{1}자�
 ['로딩중...']='Ukax mä...',
 ['로그인']='Uñt’ayasiñataki',
 ['드래곤 만나러 가기']='Uka dragón uñjiri sarañamawa',
-['신규 서버 시작 시\n다이아 10,000개 지급!']='Machaq servidor ukar mantam\n ukat 10.000 Diamantenaka!',
+['신규 서버 시작 시\n다이아 10,000개 지급!']='Machaq servidor ukar mantam\nukat 10.000 Diamantenaka!',
 ['서버']='Servidor ukax mä juk’a pachanakanwa',
 ['테스트 모드']='Modo de prueba ukax mä juk’a pachanakanwa'}

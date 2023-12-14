@@ -1,5 +1,5 @@
-return {['클랜 이름은 한글, 영어, 숫자를 사용하여 최소{1}자부터 최대 {2}자까지 생성할 수 있습니다. \n \n 특수문자, 한자, 비속어는 사용할 수 없으며, 중간에 띄어쓰기를 할 수 없습니다.']='Lub npe xeem yuav tsum tsuas yog siv cov cim Korean thiab Askiv thiab cov lej, thiab nws yuav tsum yog {1}- {2} cov ntawv ntev. \n \n Cov cim tshwj xeeb, lus Suav, slang, thiab qhov chaw tsis raug tso cai.',
-['닉네임은 한글, 영어, 숫자를 사용하여 최소{1}자부터 최대 {2}자까지 생성할 수 있습니다. \n \n 특수문자, 한자, 비속어는 사용할 수 없으며, 중간에 띄어쓰기를 할 수 없습니다.']='Lub npe menyuam yaus muaj lus Kauslim, Lus Askiv, thiab Tus lej, thiab nws yuav tsum yog {1}- {2} cov ntawv ntev. \n \n Cov cim tshwj xeeb, lus Suav, slang, thiab qhov chaw tsis raug tso cai.',
+return {['클랜 이름은 한글, 영어, 숫자를 사용하여 최소{1}자부터 최대 {2}자까지 생성할 수 있습니다. \n \n 특수문자, 한자, 비속어는 사용할 수 없으며, 중간에 띄어쓰기를 할 수 없습니다.']='Lub npe xeem yuav tsum tsuas yog siv cov cim Korean thiab Askiv thiab cov lej, thiab nws yuav tsum yog {1}- {2} cov ntawv ntev. \n\nCov cim tshwj xeeb, lus Suav, slang, thiab qhov chaw tsis raug tso cai.',
+['닉네임은 한글, 영어, 숫자를 사용하여 최소{1}자부터 최대 {2}자까지 생성할 수 있습니다. \n \n 특수문자, 한자, 비속어는 사용할 수 없으며, 중간에 띄어쓰기를 할 수 없습니다.']='Lub npe menyuam yaus muaj lus Kauslim, Lus Askiv, thiab Tus lej, thiab nws yuav tsum yog {1}- {2} cov ntawv ntev. \n\nCov cim tshwj xeeb, lus Suav, slang, thiab qhov chaw tsis raug tso cai.',
 ['금칙어가 포함되었습니다. 입력을 계속하시겠습니까?\n(욕설이나 부적절한 단어 사용이 확인되었을 시 제재를 받을 수 있습니다.)']='Cov lus tsis tsim nyog yuav suav nrog. Txuas ntxiv? \n(Koj qhov kev ua si yuav raug txwv yog tias koj siv lus tsis tsim nyog lossis tsim txom.)',
 ['패치 확인 중...']='Txheeb xyuas Patch...',
 ['정상적인 시작이 불가능하여 앱을 종료합니다.\n종료 후 다시 실행해 주세요.']='Kev khiav Ib txwm ua tsis tau. App yuav raug kaw.\nThov rov qab tom qab lub app kaw.',
@@ -11,6 +11,6 @@ return {['클랜 이름은 한글, 영어, 숫자를 사용하여 최소{1}자�
 ['로딩중...']='Loading...',
 ['로그인']='Nkag mus',
 ['드래곤 만나러 가기']='Mus saib zaj',
-['신규 서버 시작 시\n다이아 10,000개 지급!']='Koom nrog lub server tshiab\n thiab tau txais 10,000 Pob zeb diamond!',
+['신규 서버 시작 시\n다이아 10,000개 지급!']='Koom nrog lub server tshiab\nthiab tau txais 10,000 Pob zeb diamond!',
 ['서버']='Server',
 ['테스트 모드']='Test hom'}

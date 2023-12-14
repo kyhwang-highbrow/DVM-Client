@@ -1,5 +1,5 @@
-return {['클랜 이름은 한글, 영어, 숫자를 사용하여 최소{1}자부터 최대 {2}자까지 생성할 수 있습니다. \n \n 특수문자, 한자, 비속어는 사용할 수 없으며, 중간에 띄어쓰기를 할 수 없습니다.']='Cha bu chòir Ainm a’ Chinnidh a bhith a’ cleachdadh ach caractaran agus àireamhan Coirèanais is Beurla, agus feumaidh e a bhith {1}- {2} litrichean a dh’fhaid. \n \n Chan eil caractaran sònraichte, Sìonais, slang is beàrnan ceadaichte.',
-['닉네임은 한글, 영어, 숫자를 사용하여 최소{1}자부터 최대 {2}자까지 생성할 수 있습니다. \n \n 특수문자, 한자, 비속어는 사용할 수 없으며, 중간에 띄어쓰기를 할 수 없습니다.']='Tha am far-ainm air a dhèanamh suas de Korean, Beurla, agus Àireamhan, agus feumaidh e a bhith {1}- {2} litrichean a dh\'fhaid. \n \n Chan eil caractaran sònraichte, Sìonais, slang is beàrnan ceadaichte.',
+return {['클랜 이름은 한글, 영어, 숫자를 사용하여 최소{1}자부터 최대 {2}자까지 생성할 수 있습니다. \n \n 특수문자, 한자, 비속어는 사용할 수 없으며, 중간에 띄어쓰기를 할 수 없습니다.']='Cha bu chòir Ainm a’ Chinnidh a bhith a’ cleachdadh ach caractaran agus àireamhan Coirèanais is Beurla, agus feumaidh e a bhith {1}- {2} litrichean a dh’fhaid. \n\nChan eil caractaran sònraichte, Sìonais, slang is beàrnan ceadaichte.',
+['닉네임은 한글, 영어, 숫자를 사용하여 최소{1}자부터 최대 {2}자까지 생성할 수 있습니다. \n \n 특수문자, 한자, 비속어는 사용할 수 없으며, 중간에 띄어쓰기를 할 수 없습니다.']='Tha am far-ainm air a dhèanamh suas de Korean, Beurla, agus Àireamhan, agus feumaidh e a bhith {1}- {2} litrichean a dh\'fhaid. \n\nChan eil caractaran sònraichte, Sìonais, slang is beàrnan ceadaichte.',
 ['금칙어가 포함되었습니다. 입력을 계속하시겠습니까?\n(욕설이나 부적절한 단어 사용이 확인되었을 시 제재를 받을 수 있습니다.)']='Faodar faclan neo-iomchaidh a thoirt a-steach. Lean air adhart? \n(Dh’ fhaodadh gun tèid do chluich-chluich a chuingealachadh ma tha thu a’ cleachdadh cànan neo-iomchaidh no maslach.)',
 ['패치 확인 중...']='A\' dearbhadh Patch...',
 ['정상적인 시작이 불가능하여 앱을 종료합니다.\n종료 후 다시 실행해 주세요.']='Tha ruith àbhaisteach do-dhèanta. Bidh an aplacaid dùinte.\nFeuch ris a-rithist às deidh don aplacaid dùnadh.',
@@ -11,6 +11,6 @@ return {['클랜 이름은 한글, 영어, 숫자를 사용하여 최소{1}자�
 ['로딩중...']='A\' luchdachadh...',
 ['로그인']='Log a-steach',
 ['드래곤 만나러 가기']='Thig a choimhead an dràgon',
-['신규 서버 시작 시\n다이아 10,000개 지급!']='Thig còmhla ris an t-seirbheisiche ùr\n agus faigh 10,000 Daoimeanan!',
+['신규 서버 시작 시\n다이아 10,000개 지급!']='Thig còmhla ris an t-seirbheisiche ùr\nagus faigh 10,000 Daoimeanan!',
 ['서버']='Frithealaidh',
 ['테스트 모드']='Modh deuchainn'}

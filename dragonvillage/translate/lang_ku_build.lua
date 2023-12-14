@@ -1,5 +1,5 @@
-return {['클랜 이름은 한글, 영어, 숫자를 사용하여 최소{1}자부터 최대 {2}자까지 생성할 수 있습니다. \n \n 특수문자, 한자, 비속어는 사용할 수 없으며, 중간에 띄어쓰기를 할 수 없습니다.']='Navê Klanê divê tenê tîp û hejmarên Koreyî û Îngilîzî bikar bîne, û divê {1}- {2} tîp dirêj be. \n \n Tîpên taybet, Çînî, zargotinî û valahî nayên destûr kirin.',
-['닉네임은 한글, 영어, 숫자를 사용하여 최소{1}자부터 최대 {2}자까지 생성할 수 있습니다. \n \n 특수문자, 한자, 비속어는 사용할 수 없으며, 중간에 띄어쓰기를 할 수 없습니다.']='Nasnav ji Koreyî, Îngilîzî û Jimaran pêk tê, û divê ew {1}- {2} tîp be. \n \n Tîpên taybet, Çînî, zargotinî û valahî nayên destûr kirin.',
+return {['클랜 이름은 한글, 영어, 숫자를 사용하여 최소{1}자부터 최대 {2}자까지 생성할 수 있습니다. \n \n 특수문자, 한자, 비속어는 사용할 수 없으며, 중간에 띄어쓰기를 할 수 없습니다.']='Navê Klanê divê tenê tîp û hejmarên Koreyî û Îngilîzî bikar bîne, û divê {1}- {2} tîp dirêj be. \n\nTîpên taybet, Çînî, zargotinî û valahî nayên destûr kirin.',
+['닉네임은 한글, 영어, 숫자를 사용하여 최소{1}자부터 최대 {2}자까지 생성할 수 있습니다. \n \n 특수문자, 한자, 비속어는 사용할 수 없으며, 중간에 띄어쓰기를 할 수 없습니다.']='Nasnav ji Koreyî, Îngilîzî û Jimaran pêk tê, û divê ew {1}- {2} tîp be. \n\nTîpên taybet, Çînî, zargotinî û valahî nayên destûr kirin.',
 ['금칙어가 포함되었습니다. 입력을 계속하시겠습니까?\n(욕설이나 부적절한 단어 사용이 확인되었을 시 제재를 받을 수 있습니다.)']='Dibe ku peyvên negunca jî tê de bin. Berdewamkirin? \n.',
 ['패치 확인 중...']='Verastkirina Patchê...',
 ['정상적인 시작이 불가능하여 앱을 종료합니다.\n종료 후 다시 실행해 주세요.']='Rêveçûna Normal ne pêkan e. Serlêdan dê bê girtin.\nPiştî ku sepan biqede dîsa biceribîne.',

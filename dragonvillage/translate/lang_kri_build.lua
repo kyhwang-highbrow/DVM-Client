@@ -1,5 +1,5 @@
-return {['클랜 이름은 한글, 영어, 숫자를 사용하여 최소{1}자부터 최대 {2}자까지 생성할 수 있습니다. \n \n 특수문자, 한자, 비속어는 사용할 수 없으며, 중간에 띄어쓰기를 할 수 없습니다.']='Klan Nem fɔ yuz Korian ɛn Inglish aks ɛn nɔmba dɛn nɔmɔ, ɛn i fɔ lɔng {1}- {2} lɛta dɛn. \n \n Dɛn nɔ alaw spɛshal aks, Chaynish, slang, ɛn spɛs.',
-['닉네임은 한글, 영어, 숫자를 사용하여 최소{1}자부터 최대 {2}자까지 생성할 수 있습니다. \n \n 특수문자, 한자, 비속어는 사용할 수 없으며, 중간에 띄어쓰기를 할 수 없습니다.']='Niknem gɛt Korian, Inglish, ɛn Nɔmba, ɛn i fɔ lɔng {1}- {2} lɛta. \n \n Dɛn nɔ alaw spɛshal aks, Chaynish, slang, ɛn spɛs.',
+return {['클랜 이름은 한글, 영어, 숫자를 사용하여 최소{1}자부터 최대 {2}자까지 생성할 수 있습니다. \n \n 특수문자, 한자, 비속어는 사용할 수 없으며, 중간에 띄어쓰기를 할 수 없습니다.']='Klan Nem fɔ yuz Korian ɛn Inglish aks ɛn nɔmba dɛn nɔmɔ, ɛn i fɔ lɔng {1}- {2} lɛta dɛn. \n\nDɛn nɔ alaw spɛshal aks, Chaynish, slang, ɛn spɛs.',
+['닉네임은 한글, 영어, 숫자를 사용하여 최소{1}자부터 최대 {2}자까지 생성할 수 있습니다. \n \n 특수문자, 한자, 비속어는 사용할 수 없으며, 중간에 띄어쓰기를 할 수 없습니다.']='Niknem gɛt Korian, Inglish, ɛn Nɔmba, ɛn i fɔ lɔng {1}- {2} lɛta. \n\nDɛn nɔ alaw spɛshal aks, Chaynish, slang, ɛn spɛs.',
 ['금칙어가 포함되었습니다. 입력을 계속하시겠습니까?\n(욕설이나 부적절한 단어 사용이 확인되었을 시 제재를 받을 수 있습니다.)']='Sɔntɛm dɛn kin put wɔd dɛn we nɔ fayn. Kɔntinyu? \n(Dɛn kin stɔp yu fɔ ple gem if yu de yuz langwej we nɔ fayn ɔ we de tɔk bad.)',
 ['패치 확인 중...']='Verifying Patch we yu de du...',
 ['정상적인 시작이 불가능하여 앱을 종료합니다.\n종료 후 다시 실행해 주세요.']='Nɔmal rɔn nɔ pɔsibul. Di ap go lɔk.\nTray bak afta di ap dɔn lɔk.',
@@ -11,6 +11,6 @@ return {['클랜 이름은 한글, 영어, 숫자를 사용하여 최소{1}자�
 ['로딩중...']='We yu de lod...',
 ['로그인']='Login fɔ yu',
 ['드래곤 만나러 가기']='Go si di dragon',
-['신규 서버 시작 시\n다이아 10,000개 지급!']='Join di nyu sava\n gɛt 10,000 Daymɔnd dɛn!',
+['신규 서버 시작 시\n다이아 10,000개 지급!']='Join di nyu sava\ngɛt 10,000 Daymɔnd dɛn!',
 ['서버']='Sava',
 ['테스트 모드']='Test Mod'}

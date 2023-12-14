@@ -1,5 +1,5 @@
-return {['클랜 이름은 한글, 영어, 숫자를 사용하여 최소{1}자부터 최대 {2}자까지 생성할 수 있습니다. \n \n 특수문자, 한자, 비속어는 사용할 수 없으며, 중간에 띄어쓰기를 할 수 없습니다.']='Non klan ta dwe itilize sèlman karaktè ak nimewo Koreyen ak Angle, epi li dwe gen {1}- {2} lèt. \n \n Karaktè espesyal, Chinwa, jagon, ak espas pa gen dwa.',
-['닉네임은 한글, 영어, 숫자를 사용하여 최소{1}자부터 최대 {2}자까지 생성할 수 있습니다. \n \n 특수문자, 한자, 비속어는 사용할 수 없으며, 중간에 띄어쓰기를 할 수 없습니다.']='Ti non konsiste de Kore, Angle, ak Nimewo, epi li dwe gen {1}- {2} lèt. \n \n Karaktè espesyal, Chinwa, jagon, ak espas pa gen dwa.',
+return {['클랜 이름은 한글, 영어, 숫자를 사용하여 최소{1}자부터 최대 {2}자까지 생성할 수 있습니다. \n \n 특수문자, 한자, 비속어는 사용할 수 없으며, 중간에 띄어쓰기를 할 수 없습니다.']='Non klan ta dwe itilize sèlman karaktè ak nimewo Koreyen ak Angle, epi li dwe gen {1}- {2} lèt. \n\nKaraktè espesyal, Chinwa, jagon, ak espas pa gen dwa.',
+['닉네임은 한글, 영어, 숫자를 사용하여 최소{1}자부터 최대 {2}자까지 생성할 수 있습니다. \n \n 특수문자, 한자, 비속어는 사용할 수 없으며, 중간에 띄어쓰기를 할 수 없습니다.']='Ti non konsiste de Kore, Angle, ak Nimewo, epi li dwe gen {1}- {2} lèt. \n\nKaraktè espesyal, Chinwa, jagon, ak espas pa gen dwa.',
 ['금칙어가 포함되었습니다. 입력을 계속하시겠습니까?\n(욕설이나 부적절한 단어 사용이 확인되었을 시 제재를 받을 수 있습니다.)']='Yo ka enkli mo ki pa apwopriye. Kontinye? \n(Jeu ou ka gen restriksyon si w ap itilize langaj ki pa apwopriye oswa abizif.)',
 ['패치 확인 중...']='Verifikasyon patch...',
 ['정상적인 시작이 불가능하여 앱을 종료합니다.\n종료 후 다시 실행해 주세요.']='Kouri Nòmal se enposib. Aplikasyon an ap fèmen.\nReesye apre aplikasyon an fèmen.',
@@ -11,6 +11,6 @@ return {['클랜 이름은 한글, 영어, 숫자를 사용하여 최소{1}자�
 ['로딩중...']='Chaje...',
 ['로그인']='Ouvri sesyon an',
 ['드래곤 만나러 가기']='Ale wè dragon an',
-['신규 서버 시작 시\n다이아 10,000개 지급!']='Antre nan nouvo sèvè a\n epi jwenn 10,000 Diamonds!',
+['신규 서버 시작 시\n다이아 10,000개 지급!']='Antre nan nouvo sèvè a\nepi jwenn 10,000 Diamonds!',
 ['서버']='Sèvè',
 ['테스트 모드']='Mòd tès la'}

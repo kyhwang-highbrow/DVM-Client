@@ -1,5 +1,5 @@
-return {['클랜 이름은 한글, 영어, 숫자를 사용하여 최소{1}자부터 최대 {2}자까지 생성할 수 있습니다. \n \n 특수문자, 한자, 비속어는 사용할 수 없으며, 중간에 띄어쓰기를 할 수 없습니다.']='Orukọ idile yẹ ki o lo awọn lẹta Korean ati Gẹẹsi nikan ati awọn nọmba, ati pe o gbọdọ jẹ {1}- {2} awọn lẹta gigun. \n \n Àwọn ọ̀rọ̀ àkànṣe, Ṣáínà, ọ̀rọ̀ ọ̀rọ̀-ẹ̀kọ́, àti àwọn àlàfo ni a kò gbà láàyè.',
-['닉네임은 한글, 영어, 숫자를 사용하여 최소{1}자부터 최대 {2}자까지 생성할 수 있습니다. \n \n 특수문자, 한자, 비속어는 사용할 수 없으며, 중간에 띄어쓰기를 할 수 없습니다.']='Orukọ apeso ni Korean, English, ati Awọn nọmba, ati pe o gbọdọ jẹ {1}- {2} awọn lẹta gigun. \n \n Àwọn ọ̀rọ̀ àkànṣe, Ṣáínà, ọ̀rọ̀ ọ̀rọ̀-ẹ̀kọ́, àti àwọn àlàfo ni a kò gbà láàyè.',
+return {['클랜 이름은 한글, 영어, 숫자를 사용하여 최소{1}자부터 최대 {2}자까지 생성할 수 있습니다. \n \n 특수문자, 한자, 비속어는 사용할 수 없으며, 중간에 띄어쓰기를 할 수 없습니다.']='Orukọ idile yẹ ki o lo awọn lẹta Korean ati Gẹẹsi nikan ati awọn nọmba, ati pe o gbọdọ jẹ {1}- {2} awọn lẹta gigun. \n\nÀwọn ọ̀rọ̀ àkànṣe, Ṣáínà, ọ̀rọ̀ ọ̀rọ̀-ẹ̀kọ́, àti àwọn àlàfo ni a kò gbà láàyè.',
+['닉네임은 한글, 영어, 숫자를 사용하여 최소{1}자부터 최대 {2}자까지 생성할 수 있습니다. \n \n 특수문자, 한자, 비속어는 사용할 수 없으며, 중간에 띄어쓰기를 할 수 없습니다.']='Orukọ apeso ni Korean, English, ati Awọn nọmba, ati pe o gbọdọ jẹ {1}- {2} awọn lẹta gigun. \n\nÀwọn ọ̀rọ̀ àkànṣe, Ṣáínà, ọ̀rọ̀ ọ̀rọ̀-ẹ̀kọ́, àti àwọn àlàfo ni a kò gbà láàyè.',
 ['금칙어가 포함되었습니다. 입력을 계속하시겠습니까?\n(욕설이나 부적절한 단어 사용이 확인되었을 시 제재를 받을 수 있습니다.)']='Awọn ọrọ ti ko yẹ le wa pẹlu. Tesiwaju bi? \n(O le jẹ ihamọ imuṣere ori kọmputa rẹ ti o ba nlo ede ti ko yẹ tabi ti o ni ilokulo.)',
 ['패치 확인 중...']='Ijerisi Patch...',
 ['정상적인 시작이 불가능하여 앱을 종료합니다.\n종료 후 다시 실행해 주세요.']='Ṣiṣe Deede ko ṣee ṣe. App yoo wa ni pipade.\nTungbiyanju lẹhin ti app ba tilekun.',
@@ -11,6 +11,6 @@ return {['클랜 이름은 한글, 영어, 숫자를 사용하여 최소{1}자�
 ['로딩중...']='Nkojọpọ...',
 ['로그인']='Wo ile',
 ['드래곤 만나러 가기']='Lọ wo dragoni naa',
-['신규 서버 시작 시\n다이아 10,000개 지급!']='Darapọ mọ olupin tuntun \n ati gba Awọn okuta iyebiye 10,000!',
+['신규 서버 시작 시\n다이아 10,000개 지급!']='Darapọ mọ olupin tuntun \nati gba Awọn okuta iyebiye 10,000!',
 ['서버']='Olupin',
 ['테스트 모드']='Ipo Idanwo'}

@@ -1,5 +1,5 @@
-return {['클랜 이름은 한글, 영어, 숫자를 사용하여 최소{1}자부터 최대 {2}자까지 생성할 수 있습니다. \n \n 특수문자, 한자, 비속어는 사용할 수 없으며, 중간에 띄어쓰기를 할 수 없습니다.']='De clannaam mag alleen Koreaanse en Engelse tekens en cijfers bevatten, en moet uit {1}- {2} letters bestaan. \n \n Speciale tekens, Chinees, straattaal en spaties zijn niet toegestaan.',
-['닉네임은 한글, 영어, 숫자를 사용하여 최소{1}자부터 최대 {2}자까지 생성할 수 있습니다. \n \n 특수문자, 한자, 비속어는 사용할 수 없으며, 중간에 띄어쓰기를 할 수 없습니다.']='Bijnaam bestaat uit Koreaans, Engels en cijfers en moet uit {1}- {2} letters bestaan. \n \n Speciale tekens, Chinees, straattaal en spaties zijn niet toegestaan.',
+return {['클랜 이름은 한글, 영어, 숫자를 사용하여 최소{1}자부터 최대 {2}자까지 생성할 수 있습니다. \n \n 특수문자, 한자, 비속어는 사용할 수 없으며, 중간에 띄어쓰기를 할 수 없습니다.']='De clannaam mag alleen Koreaanse en Engelse tekens en cijfers bevatten, en moet uit {1}- {2} letters bestaan. \n\nSpeciale tekens, Chinees, straattaal en spaties zijn niet toegestaan.',
+['닉네임은 한글, 영어, 숫자를 사용하여 최소{1}자부터 최대 {2}자까지 생성할 수 있습니다. \n \n 특수문자, 한자, 비속어는 사용할 수 없으며, 중간에 띄어쓰기를 할 수 없습니다.']='Bijnaam bestaat uit Koreaans, Engels en cijfers en moet uit {1}- {2} letters bestaan. \n\nSpeciale tekens, Chinees, straattaal en spaties zijn niet toegestaan.',
 ['금칙어가 포함되었습니다. 입력을 계속하시겠습니까?\n(욕설이나 부적절한 단어 사용이 확인되었을 시 제재를 받을 수 있습니다.)']='Er kunnen ongepaste woorden in voorkomen. Doorgaan? \n(Je gameplay kan beperkt zijn als je ongepast of beledigend taalgebruik gebruikt.)',
 ['패치 확인 중...']='Patch verifiëren...',
 ['정상적인 시작이 불가능하여 앱을 종료합니다.\n종료 후 다시 실행해 주세요.']='Normaal rennen is onmogelijk. De app wordt gesloten.\nProbeer het opnieuw nadat de app is gesloten.',

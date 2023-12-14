@@ -1,5 +1,5 @@
-return {['클랜 이름은 한글, 영어, 숫자를 사용하여 최소{1}자부터 최대 {2}자까지 생성할 수 있습니다. \n \n 특수문자, 한자, 비속어는 사용할 수 없으며, 중간에 띄어쓰기를 할 수 없습니다.']='Dylai Enw Clan ddefnyddio nodau a rhifau Corea a Saesneg yn unig, a rhaid iddo fod yn {1}- {2} llythyren o hyd. \n \n chaniateir nodau arbennig, Tsieinëeg, bratiaith, a bylchau.',
-['닉네임은 한글, 영어, 숫자를 사용하여 최소{1}자부터 최대 {2}자까지 생성할 수 있습니다. \n \n 특수문자, 한자, 비속어는 사용할 수 없으며, 중간에 띄어쓰기를 할 수 없습니다.']='Mae llysenw yn cynnwys Corëeg, Saesneg, a Rhifau, a rhaid iddo fod yn {1}- {2} llythrennau o hyd. \n \n chaniateir nodau arbennig, Tsieinëeg, bratiaith, a bylchau.',
+return {['클랜 이름은 한글, 영어, 숫자를 사용하여 최소{1}자부터 최대 {2}자까지 생성할 수 있습니다. \n \n 특수문자, 한자, 비속어는 사용할 수 없으며, 중간에 띄어쓰기를 할 수 없습니다.']='Dylai Enw Clan ddefnyddio nodau a rhifau Corea a Saesneg yn unig, a rhaid iddo fod yn {1}- {2} llythyren o hyd. \n\nchaniateir nodau arbennig, Tsieinëeg, bratiaith, a bylchau.',
+['닉네임은 한글, 영어, 숫자를 사용하여 최소{1}자부터 최대 {2}자까지 생성할 수 있습니다. \n \n 특수문자, 한자, 비속어는 사용할 수 없으며, 중간에 띄어쓰기를 할 수 없습니다.']='Mae llysenw yn cynnwys Corëeg, Saesneg, a Rhifau, a rhaid iddo fod yn {1}- {2} llythrennau o hyd. \n\nchaniateir nodau arbennig, Tsieinëeg, bratiaith, a bylchau.',
 ['금칙어가 포함되었습니다. 입력을 계속하시겠습니까?\n(욕설이나 부적절한 단어 사용이 확인되었을 시 제재를 받을 수 있습니다.)']='Gellir cynnwys geiriau anaddas. Parhau? \n(Mae\'n bosibl y bydd eich gêm yn gyfyngedig os ydych yn defnyddio iaith amhriodol neu sarhaus.)',
 ['패치 확인 중...']='Wrthi\'n gwirio Patch...',
 ['정상적인 시작이 불가능하여 앱을 종료합니다.\n종료 후 다시 실행해 주세요.']='Mae rhedeg Arferol yn amhosibl. Bydd yr ap ar gau.\nCeisiwch eto ar ôl i\'r ap gau.',

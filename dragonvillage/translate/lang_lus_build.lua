@@ -1,5 +1,5 @@
-return {['클랜 이름은 한글, 영어, 숫자를 사용하여 최소{1}자부터 최대 {2}자까지 생성할 수 있습니다. \n \n 특수문자, 한자, 비속어는 사용할 수 없으며, 중간에 띄어쓰기를 할 수 없습니다.']='Clan Name hian Korean leh English character leh number chauh a hmang tur a ni a, {1}- {2} letters a sei tur a ni. \n \n Character bik, Chinese, slang, leh space dah phal a ni lo.',
-['닉네임은 한글, 영어, 숫자를 사용하여 최소{1}자부터 최대 {2}자까지 생성할 수 있습니다. \n \n 특수문자, 한자, 비속어는 사용할 수 없으며, 중간에 띄어쓰기를 할 수 없습니다.']='Nickname hi Korean, English, leh Numbers atanga siam a ni a, {1}- {2} letters a sei a ni tur a ni. \n \n Character bik, Chinese, slang, leh space dah phal a ni lo.',
+return {['클랜 이름은 한글, 영어, 숫자를 사용하여 최소{1}자부터 최대 {2}자까지 생성할 수 있습니다. \n \n 특수문자, 한자, 비속어는 사용할 수 없으며, 중간에 띄어쓰기를 할 수 없습니다.']='Clan Name hian Korean leh English character leh number chauh a hmang tur a ni a, {1}- {2} letters a sei tur a ni. \n\nCharacter bik, Chinese, slang, leh space dah phal a ni lo.',
+['닉네임은 한글, 영어, 숫자를 사용하여 최소{1}자부터 최대 {2}자까지 생성할 수 있습니다. \n \n 특수문자, 한자, 비속어는 사용할 수 없으며, 중간에 띄어쓰기를 할 수 없습니다.']='Nickname hi Korean, English, leh Numbers atanga siam a ni a, {1}- {2} letters a sei a ni tur a ni. \n\nCharacter bik, Chinese, slang, leh space dah phal a ni lo.',
 ['금칙어가 포함되었습니다. 입력을 계속하시겠습니까?\n(욕설이나 부적절한 단어 사용이 확인되었을 시 제재를 받을 수 있습니다.)']='Thumal dik lo pawh a tel thei. Chhunzawm? \n(Tawngkam mawi lo emaw, tawngkam mawi lo emaw i hman chuan i gameplay khap theih a ni.)',
 ['패치 확인 중...']='Patch chu a dik tih finfiah a ni...',
 ['정상적인 시작이 불가능하여 앱을 종료합니다.\n종료 후 다시 실행해 주세요.']='Pangngai running hi a theih loh. App kha khar a ni ang.\nAp khar hnuah han tum leh rawh.',

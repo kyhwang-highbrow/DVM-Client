@@ -1,5 +1,5 @@
-return {['클랜 이름은 한글, 영어, 숫자를 사용하여 최소{1}자부터 최대 {2}자까지 생성할 수 있습니다. \n \n 특수문자, 한자, 비속어는 사용할 수 없으며, 중간에 띄어쓰기를 할 수 없습니다.']='Nama Klan hendaklah hanya menggunakan aksara dan nombor Korea dan Inggeris, dan panjangnya mestilah {1}- {2} huruf. \n \n Aksara khas, bahasa Cina, slanga dan ruang tidak dibenarkan.',
-['닉네임은 한글, 영어, 숫자를 사용하여 최소{1}자부터 최대 {2}자까지 생성할 수 있습니다. \n \n 특수문자, 한자, 비속어는 사용할 수 없으며, 중간에 띄어쓰기를 할 수 없습니다.']='Nama panggilan terdiri daripada bahasa Korea, Inggeris dan Numbers, dan panjangnya mestilah {1}- {2} huruf. \n \n Aksara khas, bahasa Cina, slanga dan ruang tidak dibenarkan.',
+return {['클랜 이름은 한글, 영어, 숫자를 사용하여 최소{1}자부터 최대 {2}자까지 생성할 수 있습니다. \n \n 특수문자, 한자, 비속어는 사용할 수 없으며, 중간에 띄어쓰기를 할 수 없습니다.']='Nama Klan hendaklah hanya menggunakan aksara dan nombor Korea dan Inggeris, dan panjangnya mestilah {1}- {2} huruf. \n\nAksara khas, bahasa Cina, slanga dan ruang tidak dibenarkan.',
+['닉네임은 한글, 영어, 숫자를 사용하여 최소{1}자부터 최대 {2}자까지 생성할 수 있습니다. \n \n 특수문자, 한자, 비속어는 사용할 수 없으며, 중간에 띄어쓰기를 할 수 없습니다.']='Nama panggilan terdiri daripada bahasa Korea, Inggeris dan Numbers, dan panjangnya mestilah {1}- {2} huruf. \n\nAksara khas, bahasa Cina, slanga dan ruang tidak dibenarkan.',
 ['금칙어가 포함되었습니다. 입력을 계속하시겠습니까?\n(욕설이나 부적절한 단어 사용이 확인되었을 시 제재를 받을 수 있습니다.)']='Perkataan yang tidak sesuai boleh dimasukkan. teruskan? \n(Permainan anda mungkin dihadkan jika anda menggunakan bahasa yang tidak sesuai atau kesat.)',
 ['패치 확인 중...']='Mengesahkan Tampalan...',
 ['정상적인 시작이 불가능하여 앱을 종료합니다.\n종료 후 다시 실행해 주세요.']='Larian Biasalah adalah mustahil. Apl akan ditutup.\nCuba semula selepas apl ditutup.',
@@ -11,6 +11,6 @@ return {['클랜 이름은 한글, 영어, 숫자를 사용하여 최소{1}자�
 ['로딩중...']='Memuatkan...',
 ['로그인']='Log masuk',
 ['드래곤 만나러 가기']='Pergi jumpa naga',
-['신규 서버 시작 시\n다이아 10,000개 지급!']='Sertai pelayan baharu\n dapatkan 10,000 berlian!',
+['신규 서버 시작 시\n다이아 10,000개 지급!']='Sertai pelayan baharu\ndapatkan 10,000 berlian!',
 ['서버']='pelayan',
 ['테스트 모드']='Mod percubaan'}

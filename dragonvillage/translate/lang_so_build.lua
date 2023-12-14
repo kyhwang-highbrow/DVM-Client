@@ -1,5 +1,5 @@
-return {['클랜 이름은 한글, 영어, 숫자를 사용하여 최소{1}자부터 최대 {2}자까지 생성할 수 있습니다. \n \n 특수문자, 한자, 비속어는 사용할 수 없으며, 중간에 띄어쓰기를 할 수 없습니다.']='Magaca Qabiilku waa inuu isticmaalo oo keliya xuruufta Kuuriya iyo Ingiriisiga, waana inuu ahaadaa {1}- {2} xaraf dheer. \n \n Jilayaasha gaarka ah, Shiineeska, af-heerka, iyo meelaha bannaan lama ogola.',
-['닉네임은 한글, 영어, 숫자를 사용하여 최소{1}자부터 최대 {2}자까지 생성할 수 있습니다. \n \n 특수문자, 한자, 비속어는 사용할 수 없으며, 중간에 띄어쓰기를 할 수 없습니다.']='Naanaysta waxay ka kooban tahay Kuuriyaan, Ingiriisi, iyo Nambaro, waana inay ahaataa {1}- {2} xaraf dheer. \n \n Jilayaasha gaarka ah, Shiineeska, af-heerka, iyo meelaha bannaan lama ogola.',
+return {['클랜 이름은 한글, 영어, 숫자를 사용하여 최소{1}자부터 최대 {2}자까지 생성할 수 있습니다. \n \n 특수문자, 한자, 비속어는 사용할 수 없으며, 중간에 띄어쓰기를 할 수 없습니다.']='Magaca Qabiilku waa inuu isticmaalo oo keliya xuruufta Kuuriya iyo Ingiriisiga, waana inuu ahaadaa {1}- {2} xaraf dheer. \n\nJilayaasha gaarka ah, Shiineeska, af-heerka, iyo meelaha bannaan lama ogola.',
+['닉네임은 한글, 영어, 숫자를 사용하여 최소{1}자부터 최대 {2}자까지 생성할 수 있습니다. \n \n 특수문자, 한자, 비속어는 사용할 수 없으며, 중간에 띄어쓰기를 할 수 없습니다.']='Naanaysta waxay ka kooban tahay Kuuriyaan, Ingiriisi, iyo Nambaro, waana inay ahaataa {1}- {2} xaraf dheer. \n\nJilayaasha gaarka ah, Shiineeska, af-heerka, iyo meelaha bannaan lama ogola.',
 ['금칙어가 포함되었습니다. 입력을 계속하시겠습니까?\n(욕설이나 부적절한 단어 사용이 확인되었을 시 제재를 받을 수 있습니다.)']='Erayada aan habboonayn ayaa laga yaabaa in lagu daro. Sii wad? \n(Ciyaartaada waxaa laga yaabaa in la xaddido haddii aad isticmaalayso luuqad aan habboonayn ama aflagaado ah.)',
 ['패치 확인 중...']='Xaqiijinta balastar',
 ['정상적인 시작이 불가능하여 앱을 종료합니다.\n종료 후 다시 실행해 주세요.']='Orodka Caadi ah waa wax aan macquul aheyn. Abka waa la xidhi doonaa',
@@ -11,6 +11,6 @@ return {['클랜 이름은 한글, 영어, 숫자를 사용하여 최소{1}자�
 ['로딩중...']='Soodejinaya...',
 ['로그인']='Soo gal',
 ['드래곤 만나러 가기']='Tag oo arag masduulaagii',
-['신규 서버 시작 시\n다이아 10,000개 지급!']='Ku biir server-ka cusub\n oo hel 10,000 Dheemman!',
+['신규 서버 시작 시\n다이아 10,000개 지급!']='Ku biir server-ka cusub\noo hel 10,000 Dheemman!',
 ['서버']='Adeegaha',
 ['테스트 모드']='Habka tijaabada'}

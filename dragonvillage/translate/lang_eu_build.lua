@@ -1,5 +1,5 @@
-return {['클랜 이름은 한글, 영어, 숫자를 사용하여 최소{1}자부터 최대 {2}자까지 생성할 수 있습니다. \n \n 특수문자, 한자, 비속어는 사용할 수 없으며, 중간에 띄어쓰기를 할 수 없습니다.']='Klan izenak karaktere eta zenbakiak soilik erabili behar ditu koreera eta ingelesa, eta {1}- {2} letra izan behar ditu. \n \n Karaktere bereziak, txinera, argota eta zuriuneak ez dira onartzen.',
-['닉네임은 한글, 영어, 숫자를 사용하여 최소{1}자부터 최대 {2}자까지 생성할 수 있습니다. \n \n 특수문자, 한자, 비속어는 사용할 수 없으며, 중간에 띄어쓰기를 할 수 없습니다.']='Ezizenak koreera, ingelesa eta zenbakiak ditu, eta {1}- {2} letra izan behar ditu. \n \n Karaktere bereziak, txinera, argota eta zuriuneak ez dira onartzen.',
+return {['클랜 이름은 한글, 영어, 숫자를 사용하여 최소{1}자부터 최대 {2}자까지 생성할 수 있습니다. \n \n 특수문자, 한자, 비속어는 사용할 수 없으며, 중간에 띄어쓰기를 할 수 없습니다.']='Klan izenak karaktere eta zenbakiak soilik erabili behar ditu koreera eta ingelesa, eta {1}- {2} letra izan behar ditu. \n\nKaraktere bereziak, txinera, argota eta zuriuneak ez dira onartzen.',
+['닉네임은 한글, 영어, 숫자를 사용하여 최소{1}자부터 최대 {2}자까지 생성할 수 있습니다. \n \n 특수문자, 한자, 비속어는 사용할 수 없으며, 중간에 띄어쓰기를 할 수 없습니다.']='Ezizenak koreera, ingelesa eta zenbakiak ditu, eta {1}- {2} letra izan behar ditu. \n\nKaraktere bereziak, txinera, argota eta zuriuneak ez dira onartzen.',
 ['금칙어가 포함되었습니다. 입력을 계속하시겠습니까?\n(욕설이나 부적절한 단어 사용이 확인되었을 시 제재를 받을 수 있습니다.)']='Hitz desegokiak sar daitezke. Jarraitu nahi duzu? \n(Hizkuntza desegokia edo abusua erabiltzen ari bazara, baliteke zure jokoa mugatuta egotea.)',
 ['패치 확인 중...']='Adabakia egiaztatzen...',
 ['정상적인 시작이 불가능하여 앱을 종료합니다.\n종료 후 다시 실행해 주세요.']='Korrika Normala ezinezkoa da. Aplikazioa itxi egingo da.\nSaiatu berriro aplikazioa itxi ondoren.',
@@ -11,6 +11,6 @@ return {['클랜 이름은 한글, 영어, 숫자를 사용하여 최소{1}자�
 ['로딩중...']='Kargatzen...',
 ['로그인']='Saioa hasi',
 ['드래곤 만나러 가기']='Zoaz herensugea ikustera',
-['신규 서버 시작 시\n다이아 10,000개 지급!']='Sartu zerbitzari berrian\n eta lortu 10.000 Diamanteak!',
+['신규 서버 시작 시\n다이아 10,000개 지급!']='Sartu zerbitzari berrian\neta lortu 10.000 Diamanteak!',
 ['서버']='Zerbitzaria',
 ['테스트 모드']='Proba modua'}

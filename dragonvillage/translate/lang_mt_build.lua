@@ -1,5 +1,5 @@
-return {['클랜 이름은 한글, 영어, 숫자를 사용하여 최소{1}자부터 최대 {2}자까지 생성할 수 있습니다. \n \n 특수문자, 한자, 비속어는 사용할 수 없으며, 중간에 띄어쓰기를 할 수 없습니다.']='L-Isem tal-Klann għandu juża biss karattri u numri Koreani u Ingliżi, u għandu jkun twil {1} ​​- {2} ittri. \n \n Karattri speċjali, Ċiniż, slang, u spazji mhumiex permessi.',
-['닉네임은 한글, 영어, 숫자를 사용하여 최소{1}자부터 최대 {2}자까지 생성할 수 있습니다. \n \n 특수문자, 한자, 비속어는 사용할 수 없으며, 중간에 띄어쓰기를 할 수 없습니다.']='Il-laqam jikkonsisti minn Korean, Ingliż u Numri, u għandu jkun twil {1} ​​- {2} ittri. \n \n Karattri speċjali, Ċiniż, slang, u spazji mhumiex permessi.',
+return {['클랜 이름은 한글, 영어, 숫자를 사용하여 최소{1}자부터 최대 {2}자까지 생성할 수 있습니다. \n \n 특수문자, 한자, 비속어는 사용할 수 없으며, 중간에 띄어쓰기를 할 수 없습니다.']='L-Isem tal-Klann għandu juża biss karattri u numri Koreani u Ingliżi, u għandu jkun twil {1} ​​- {2} ittri. \n\nKarattri speċjali, Ċiniż, slang, u spazji mhumiex permessi.',
+['닉네임은 한글, 영어, 숫자를 사용하여 최소{1}자부터 최대 {2}자까지 생성할 수 있습니다. \n \n 특수문자, 한자, 비속어는 사용할 수 없으며, 중간에 띄어쓰기를 할 수 없습니다.']='Il-laqam jikkonsisti minn Korean, Ingliż u Numri, u għandu jkun twil {1} ​​- {2} ittri. \n\nKarattri speċjali, Ċiniż, slang, u spazji mhumiex permessi.',
 ['금칙어가 포함되었습니다. 입력을 계속하시겠습니까?\n(욕설이나 부적절한 단어 사용이 확인되었을 시 제재를 받을 수 있습니다.)']='Jista\' jiġi inkluż kliem mhux xieraq. Kompli? \n(Il-logħba tiegħek tista\' tkun ristretta jekk qed tuża lingwaġġ mhux xieraq jew abbużiv.)',
 ['패치 확인 중...']='Nivverifikaw il-garża...',
 ['정상적인 시작이 불가능하여 앱을 종료합니다.\n종료 후 다시 실행해 주세요.']='It-tħaddim Normali huwa impossibbli. L-app se tingħalaq.\nErġa\' pprova wara li tagħlaq l-app.',
@@ -11,6 +11,6 @@ return {['클랜 이름은 한글, 영어, 숫자를 사용하여 최소{1}자�
 ['로딩중...']='Tagħbija...',
 ['로그인']='Idħol',
 ['드래곤 만나러 가기']='Mur ara d-dragun',
-['신규 서버 시작 시\n다이아 10,000개 지급!']='Ingħaqad mas-server il-ġdid\u ġib 10,000 Djamanti!',
+['신규 서버 시작 시\n다이아 10,000개 지급!']='Ingħaqad mas-server il-ġdid\nu ġib 10,000 Djamanti!',
 ['서버']='Server',
 ['테스트 모드']='Modalità tat-Test'}

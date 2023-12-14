@@ -1,5 +1,5 @@
-return {['클랜 이름은 한글, 영어, 숫자를 사용하여 최소{1}자부터 최대 {2}자까지 생성할 수 있습니다. \n \n 특수문자, 한자, 비속어는 사용할 수 없으며, 중간에 띄어쓰기를 할 수 없습니다.']='Clan Numm soll nëmmen Koreanesch an Englesch Zeechen an Zuelen benotzen, an et muss {1}- {2} Buschtawen laang sinn. \n \n Spezialzeechen, Chinesesch, Schlaang, a Raum sinn net erlaabt.',
-['닉네임은 한글, 영어, 숫자를 사용하여 최소{1}자부터 최대 {2}자까지 생성할 수 있습니다. \n \n 특수문자, 한자, 비속어는 사용할 수 없으며, 중간에 띄어쓰기를 할 수 없습니다.']='Spëtznumm besteet aus Koreanesch, Englesch an Zuelen, an et muss {1}- {2} Buschtawen laang sinn. \n \n Spezialzeechen, Chinesesch, Schlaang, a Raum sinn net erlaabt.',
+return {['클랜 이름은 한글, 영어, 숫자를 사용하여 최소{1}자부터 최대 {2}자까지 생성할 수 있습니다. \n \n 특수문자, 한자, 비속어는 사용할 수 없으며, 중간에 띄어쓰기를 할 수 없습니다.']='Clan Numm soll nëmmen Koreanesch an Englesch Zeechen an Zuelen benotzen, an et muss {1}- {2} Buschtawen laang sinn. \n\nSpezialzeechen, Chinesesch, Schlaang, a Raum sinn net erlaabt.',
+['닉네임은 한글, 영어, 숫자를 사용하여 최소{1}자부터 최대 {2}자까지 생성할 수 있습니다. \n \n 특수문자, 한자, 비속어는 사용할 수 없으며, 중간에 띄어쓰기를 할 수 없습니다.']='Spëtznumm besteet aus Koreanesch, Englesch an Zuelen, an et muss {1}- {2} Buschtawen laang sinn. \n\nSpezialzeechen, Chinesesch, Schlaang, a Raum sinn net erlaabt.',
 ['금칙어가 포함되었습니다. 입력을 계속하시겠습니까?\n(욕설이나 부적절한 단어 사용이 확인되었을 시 제재를 받을 수 있습니다.)']='Onpassend Wierder kënne mat abegraff sinn. Fuert weider? \n(Äert Spillspill kann limitéiert sinn wann Dir onpassend oder beleidegend Sprooch benotzt.)',
 ['패치 확인 중...']='Verifizéiert Patch ...',
 ['정상적인 시작이 불가능하여 앱을 종료합니다.\n종료 후 다시 실행해 주세요.']='Normal Lafen ass onméiglech. D\'App gëtt zou.\nProbéiert nach eng Kéier nodeems d\'App zou ass.',
@@ -11,6 +11,6 @@ return {['클랜 이름은 한글, 영어, 숫자를 사용하여 최소{1}자�
 ['로딩중...']='Lueden...',
 ['로그인']='Login',
 ['드래곤 만나러 가기']='Gitt den Draach gesinn',
-['신규 서버 시작 시\n다이아 10,000개 지급!']='Maacht mat op den neie Server\n a kritt 10,000 Diamanten!',
+['신규 서버 시작 시\n다이아 10,000개 지급!']='Maacht mat op den neie Server\na kritt 10,000 Diamanten!',
 ['서버']='Server',
 ['테스트 모드']='Test Modus'}

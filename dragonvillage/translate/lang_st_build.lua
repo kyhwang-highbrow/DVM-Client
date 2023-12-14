@@ -1,5 +1,5 @@
-return {['클랜 이름은 한글, 영어, 숫자를 사용하여 최소{1}자부터 최대 {2}자까지 생성할 수 있습니다. \n \n 특수문자, 한자, 비속어는 사용할 수 없으며, 중간에 띄어쓰기를 할 수 없습니다.']='Clan Name e tlameha ho sebelisa litlhaku le linomoro tsa Sekorea le Senyesemane feela, \'me e tlameha ho ba bolelele ba litlhaku tse {1}- {2} . \n \n Litlhaku tse khethehileng, Sechaena, slang, le libaka ha lia lumelloa.',
-['닉네임은 한글, 영어, 숫자를 사용하여 최소{1}자부터 최대 {2}자까지 생성할 수 있습니다. \n \n 특수문자, 한자, 비속어는 사용할 수 없으며, 중간에 띄어쓰기를 할 수 없습니다.']='Nickname e na le Sekorea, Senyesemane, le Linomoro, \'me e tlameha ho ba bolelele ba litlhaku tse {1}- {2} . \n \n Litlhaku tse khethehileng, Sechaena, slang, le libaka ha lia lumelloa.',
+return {['클랜 이름은 한글, 영어, 숫자를 사용하여 최소{1}자부터 최대 {2}자까지 생성할 수 있습니다. \n \n 특수문자, 한자, 비속어는 사용할 수 없으며, 중간에 띄어쓰기를 할 수 없습니다.']='Clan Name e tlameha ho sebelisa litlhaku le linomoro tsa Sekorea le Senyesemane feela, \'me e tlameha ho ba bolelele ba litlhaku tse {1}- {2} . \n\nLitlhaku tse khethehileng, Sechaena, slang, le libaka ha lia lumelloa.',
+['닉네임은 한글, 영어, 숫자를 사용하여 최소{1}자부터 최대 {2}자까지 생성할 수 있습니다. \n \n 특수문자, 한자, 비속어는 사용할 수 없으며, 중간에 띄어쓰기를 할 수 없습니다.']='Nickname e na le Sekorea, Senyesemane, le Linomoro, \'me e tlameha ho ba bolelele ba litlhaku tse {1}- {2} . \n\nLitlhaku tse khethehileng, Sechaena, slang, le libaka ha lia lumelloa.',
 ['금칙어가 포함되었습니다. 입력을 계속하시겠습니까?\n(욕설이나 부적절한 단어 사용이 확인되었을 시 제재를 받을 수 있습니다.)']='Ho ka kenyelletsoa mantsoe a sa lokelang. Na u batla ho tsoela pele? \n(Sebapali sa hau se ka thibeloa haeba u sebelisa puo e sa nepahalang kapa e nyefolang.)',
 ['패치 확인 중...']='E netefatsa Patch...',
 ['정상적인 시작이 불가능하여 앱을 종료합니다.\n종료 후 다시 실행해 주세요.']='Ho matha Tloaelehileng ha ho khonehe. Sesebelisoa se tla koaloa.\nLeka hape kamora hore sesebelisoa se koale.',
@@ -11,6 +11,6 @@ return {['클랜 이름은 한글, 영어, 숫자를 사용하여 최소{1}자�
 ['로딩중...']='E ea kenya...',
 ['로그인']='Kena',
 ['드래곤 만나러 가기']='Eya o bone drakone',
-['신규 서버 시작 시\n다이아 10,000개 지급!']='Eba setho sa seva e ncha\\'me u fumane Litaemane 10,000 !',
+['신규 서버 시작 시\n다이아 10,000개 지급!']='Eba setho sa seva e ncha\n\'me u fumane Litaemane 10,000 !',
 ['서버']='Seva',
 ['테스트 모드']='Mokhoa oa Teko'}

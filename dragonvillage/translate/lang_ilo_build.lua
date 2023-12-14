@@ -1,5 +1,5 @@
-return {['클랜 이름은 한글, 영어, 숫자를 사용하여 최소{1}자부터 최대 {2}자까지 생성할 수 있습니다. \n \n 특수문자, 한자, 비속어는 사용할 수 없으며, 중간에 띄어쓰기를 할 수 없습니다.']='Ti Nagan ti Klan ket rumbeng laeng nga agusar kadagiti karakter ken numero a Koreano ken Ingles, ken masapul nga {1}- {2} a letra ti kaatiddogna. \n \n Saan a maipalubos dagiti naisangayan a karakter, Insik, slang, ken espasio.',
-['닉네임은 한글, 영어, 숫자를 사용하여 최소{1}자부터 최대 {2}자까지 생성할 수 있습니다. \n \n 특수문자, 한자, 비속어는 사용할 수 없으며, 중간에 띄어쓰기를 할 수 없습니다.']='Ti palayaw ket buklen ti Koreano, Ingles, ken Numero, ken masapul nga {1}- {2} a letra ti kaatiddogna. \n \n Saan a maipalubos dagiti naisangayan a karakter, Insik, slang, ken espasio.',
+return {['클랜 이름은 한글, 영어, 숫자를 사용하여 최소{1}자부터 최대 {2}자까지 생성할 수 있습니다. \n \n 특수문자, 한자, 비속어는 사용할 수 없으며, 중간에 띄어쓰기를 할 수 없습니다.']='Ti Nagan ti Klan ket rumbeng laeng nga agusar kadagiti karakter ken numero a Koreano ken Ingles, ken masapul nga {1}- {2} a letra ti kaatiddogna. \n\nSaan a maipalubos dagiti naisangayan a karakter, Insik, slang, ken espasio.',
+['닉네임은 한글, 영어, 숫자를 사용하여 최소{1}자부터 최대 {2}자까지 생성할 수 있습니다. \n \n 특수문자, 한자, 비속어는 사용할 수 없으며, 중간에 띄어쓰기를 할 수 없습니다.']='Ti palayaw ket buklen ti Koreano, Ingles, ken Numero, ken masapul nga {1}- {2} a letra ti kaatiddogna. \n\nSaan a maipalubos dagiti naisangayan a karakter, Insik, slang, ken espasio.',
 ['금칙어가 포함되었습니다. 입력을 계속하시겠습니까?\n(욕설이나 부적절한 단어 사용이 확인되었을 시 제재를 받을 수 있습니다.)']='Mabalin a mairaman dagiti di maitutop a sasao. Ituloy? \n(Mabalin a nainget ti panagay-ayammo no agus-usarka iti saan a maitutop wenno abusado a pagsasao.)',
 ['패치 확인 중...']='Panangpaneknek ti Patch...',
 ['정상적인 시작이 불가능하여 앱을 종료합니다.\n종료 후 다시 실행해 주세요.']='Imposible ti Normal a panagtaray. Serraan ti app.\nPadasen manen kalpasan ti panagserra ti app.',
@@ -11,6 +11,6 @@ return {['클랜 이름은 한글, 영어, 숫자를 사용하여 최소{1}자�
 ['로딩중...']='Karga ti...',
 ['로그인']='Aglog-in',
 ['드래곤 만나러 가기']='Inka kitaen ti dragon',
-['신규 서버 시작 시\n다이아 10,000개 지급!']='Sumali iti baro a serbidor\ken makagun-od iti 10,000 a Dagiti Diamante!',
+['신규 서버 시작 시\n다이아 10,000개 지급!']='Sumali iti baro a serbidor\nken makagun-od iti 10,000 a Dagiti Diamante!',
 ['서버']='Serbidor',
 ['테스트 모드']='Modo ti Pannubok'}

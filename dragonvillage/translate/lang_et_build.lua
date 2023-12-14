@@ -1,5 +1,5 @@
-return {['클랜 이름은 한글, 영어, 숫자를 사용하여 최소{1}자부터 최대 {2}자까지 생성할 수 있습니다. \n \n 특수문자, 한자, 비속어는 사용할 수 없으며, 중간에 띄어쓰기를 할 수 없습니다.']='Klanni nimi peaks kasutama ainult korea- ja ingliskeelseid tähemärke ja numbreid ning see peab olema {1}– {2} tähte pikk. \n \n Erimärgid, hiina keel, släng ja tühikud pole lubatud.',
-['닉네임은 한글, 영어, 숫자를 사용하여 최소{1}자부터 최대 {2}자까지 생성할 수 있습니다. \n \n 특수문자, 한자, 비속어는 사용할 수 없으며, 중간에 띄어쓰기를 할 수 없습니다.']='Hüüdnimi koosneb korea, inglise ja numbritest ning see peab olema {1}– {2} tähte pikk. \n \n Erimärgid, hiina keel, släng ja tühikud pole lubatud.',
+return {['클랜 이름은 한글, 영어, 숫자를 사용하여 최소{1}자부터 최대 {2}자까지 생성할 수 있습니다. \n \n 특수문자, 한자, 비속어는 사용할 수 없으며, 중간에 띄어쓰기를 할 수 없습니다.']='Klanni nimi peaks kasutama ainult korea- ja ingliskeelseid tähemärke ja numbreid ning see peab olema {1}– {2} tähte pikk. \n\nErimärgid, hiina keel, släng ja tühikud pole lubatud.',
+['닉네임은 한글, 영어, 숫자를 사용하여 최소{1}자부터 최대 {2}자까지 생성할 수 있습니다. \n \n 특수문자, 한자, 비속어는 사용할 수 없으며, 중간에 띄어쓰기를 할 수 없습니다.']='Hüüdnimi koosneb korea, inglise ja numbritest ning see peab olema {1}– {2} tähte pikk. \n\nErimärgid, hiina keel, släng ja tühikud pole lubatud.',
 ['금칙어가 포함되었습니다. 입력을 계속하시겠습니까?\n(욕설이나 부적절한 단어 사용이 확인되었을 시 제재를 받을 수 있습니다.)']='Võib sisaldada sobimatuid sõnu. Kas jätkata? \n(Teie mängimist võidakse piirata, kui kasutate sobimatut või solvavat keelt.)',
 ['패치 확인 중...']='Plaastri kinnitamine...',
 ['정상적인 시작이 불가능하여 앱을 종료합니다.\n종료 후 다시 실행해 주세요.']='Tavaline jooksmine on võimatu. Rakendus suletakse.\nProovige pärast rakenduse sulgemist uuesti.',

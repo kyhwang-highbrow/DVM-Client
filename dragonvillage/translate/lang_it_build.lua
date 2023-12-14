@@ -1,5 +1,5 @@
-return {['클랜 이름은 한글, 영어, 숫자를 사용하여 최소{1}자부터 최대 {2}자까지 생성할 수 있습니다. \n \n 특수문자, 한자, 비속어는 사용할 수 없으며, 중간에 띄어쓰기를 할 수 없습니다.']='Il nome del clan deve utilizzare solo caratteri e numeri coreani e inglesi e deve contenere da {1} a {2} lettere. \n \n Non sono ammessi caratteri speciali, cinese, slang e spazi.',
-['닉네임은 한글, 영어, 숫자를 사용하여 최소{1}자부터 최대 {2}자까지 생성할 수 있습니다. \n \n 특수문자, 한자, 비속어는 사용할 수 없으며, 중간에 띄어쓰기를 할 수 없습니다.']='Il soprannome è composto da coreano, inglese e numeri e deve contenere da {1} a {2} lettere. \n \n Non sono ammessi caratteri speciali, cinese, slang e spazi.',
+return {['클랜 이름은 한글, 영어, 숫자를 사용하여 최소{1}자부터 최대 {2}자까지 생성할 수 있습니다. \n \n 특수문자, 한자, 비속어는 사용할 수 없으며, 중간에 띄어쓰기를 할 수 없습니다.']='Il nome del clan deve utilizzare solo caratteri e numeri coreani e inglesi e deve contenere da {1} a {2} lettere. \n\nNon sono ammessi caratteri speciali, cinese, slang e spazi.',
+['닉네임은 한글, 영어, 숫자를 사용하여 최소{1}자부터 최대 {2}자까지 생성할 수 있습니다. \n \n 특수문자, 한자, 비속어는 사용할 수 없으며, 중간에 띄어쓰기를 할 수 없습니다.']='Il soprannome è composto da coreano, inglese e numeri e deve contenere da {1} a {2} lettere. \n\nNon sono ammessi caratteri speciali, cinese, slang e spazi.',
 ['금칙어가 포함되었습니다. 입력을 계속하시겠습니까?\n(욕설이나 부적절한 단어 사용이 확인되었을 시 제재를 받을 수 있습니다.)']='Potrebbero essere incluse parole inappropriate. Continua? \n(Il tuo gameplay potrebbe essere limitato se utilizzi un linguaggio inappropriato o offensivo.)',
 ['패치 확인 중...']='Verifica patch...',
 ['정상적인 시작이 불가능하여 앱을 종료합니다.\n종료 후 다시 실행해 주세요.']='La corsa Normale è impossibile. L\'app verrà chiusa.\nRiprova dopo la chiusura dell\'app.',
