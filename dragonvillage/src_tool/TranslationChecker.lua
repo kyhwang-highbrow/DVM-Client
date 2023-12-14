@@ -66,7 +66,7 @@ function TranslationChecker:run(target_path)
         end
     end
 
-    print(string.format('## {%d} languages load check perfect !!', file_cnt))
+    print(string.format('## {%d} language files load check perfect !!', file_cnt))
 end
 
 -------------------------------------
