@@ -316,12 +316,18 @@ def main():
         }
 
     if len(translation_zip_file_list) > 0:
+        r = requests.get(TOOL_SERVER_PATH + '/upload_patch_dv')
+        print(r)
+
         data = {
         'app_ver': app_ver,
         'is_update': True
         }
         r = requests.post(SERVER_PATH + '/manage/patch_language', data = data)
         print(r)
+
+
+
 
     print(f'### 언어 패치 생성 완료 {len(translation_zip_file_list)}개 파일')
 
