@@ -59,7 +59,14 @@ function TranslationChecker:run(target_path)
                 if string.find(file,'checkLua') == nil then
                     -- 파일이면 require
                     local moduleName = file:gsub("%.lua$", "") -- 파일 확장자 제거               
-                    require(folderPath .. '/' .. moduleName)
+                    --require(folderPath .. '/' .. moduleName)
+                    local success, module = pcall(require, folderPath .. '/' .. moduleName)
+                    if not success then
+                        cclog(module)
+                        print(string.format('## {%s} language require error !!', moduleName))
+                        os.exit(101)
+                    end
+
                     file_cnt = file_cnt + 1
                 end
             end
