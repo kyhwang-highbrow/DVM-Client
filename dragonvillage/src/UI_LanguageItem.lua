@@ -37,6 +37,12 @@ function UI_LanguageItem:initUI()
 
     do -- 언어 이름 (영어로 표기, TTF)
         local en_name = struct_language:getLanguageEnglishDisplayName()
+        local lang_code = struct_language:getLanguageCode()
+
+        if IS_TEST_MODE() == true  then
+            en_name = string.format('%s (%s)', en_name, lang_code)            
+        end
+        
         vars['onLabel2']:setString(en_name)
         vars['offLabel2']:setString(en_name)
     end

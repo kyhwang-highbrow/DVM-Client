@@ -44,7 +44,11 @@ end
 -------------------------------------
 function UI_LanguagePopup:initUI()
     local vars = self.vars
-    local map = TableLanguageConfig.getInstance():getStructLanguageMap()
+    --local map = TableLanguageConfig.getInstance():getStructLanguageMap()
+    if IS_TEST_MODE() == true then
+        vars['deviceLangLabel']:setVisible(true)
+        vars['deviceLangLabel']:setString(Translate:getDeviceLang())
+    end
 end
 
 -------------------------------------
@@ -86,20 +90,6 @@ function UI_LanguagePopup:initTableView()
     local item_list = Translate:getActiveLangList()
     table_view:setItemList(item_list, true)
     table_view:relocateContainerFromIndex(selected_idx)
-
-    cclog('현재 가용 언어 갯수', table.count(item_list))
-
---[[     table_view:makeAllItemUICoroutine(function()
-        local relocate_idx = 1
-        for idx, item in ipairs(item_list) do
-            if (item:getLanguageCode() == self.m_selectedLang) then
-                relocate_idx = idx
-                break
-            end
-        end
-        table_view:relocateContainerFromIndex(relocate_idx, true)
-    end) ]]
-
     self.m_tvd = table_view
 end
 
