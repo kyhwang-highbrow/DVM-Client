@@ -9,6 +9,9 @@ UI_Package_Bundle = class(PARENT,{
         m_data = 'table',
         m_pids = 'table',
 
+        m_dependencyProductList = 'List[StructProduct]',        
+        m_dependencyProductIdx = 'number',
+
         m_package_name = 'string',
 
         m_mailSelectType = "MAIL_SELECT_TYPE",
@@ -51,9 +54,13 @@ function UI_Package_Bundle:init(package_name, is_popup, custom_struct, is_full_p
         g_currScene:pushBackKeyListener(self, function() self:click_closeBtn() end, 'UI_Package_Bundle')
     end
 
+    self.m_dependencyProductList = self:makeDependencyProductList()    
+    self.m_dependencyProductIdx = 1
+
     self:initUI()
 	self:initButton()
     self:refresh()
+    self:refresh_dependency()
 
     self:customInit(package_name, is_popup)
 
@@ -80,6 +87,32 @@ function UI_Package_Bundle:refresh_time()
         vars['timeLabel']:setString(struct_product:getEndDateStr())
     end
 end
+
+
+-------------------------------------
+--- @function makeDependencyProductList
+-------------------------------------
+function UI_Package_Bundle:makeDependencyProductList()
+    local struct_product = self.m_customStruct
+    local product_list = {}
+
+    if struct_product == nil then
+        return product_list
+    end
+
+    table.insert(product_list, struct_product)
+    if struct_product:getClassName() == 'StructProduct' then
+        local dependency = struct_product:getDependency()
+        while dependency ~= nil do
+            local struct_product_next = g_shopDataNew:getTargetProduct(dependency)
+            dependency = struct_product_next:getDependency()
+            table.insert(product_list, struct_product_next)
+        end
+    end
+    
+    return product_list
+end
+
 
 -------------------------------------
 -- function initUI
@@ -155,6 +188,20 @@ function UI_Package_Bundle:initButton()
     if (vars['rewardBtn']) then
 		vars['rewardBtn']:registerScriptTapHandler(function() self:click_rewardBtn() end)
 	end
+
+    if (vars['prevPackageBtn']) then
+		vars['prevPackageBtn']:registerScriptTapHandler(function() self:click_nextPackageBtn(-1) end)
+	end
+
+    if (vars['nextPackageBtn']) then
+		vars['nextPackageBtn']:registerScriptTapHandler(function() self:click_nextPackageBtn(1) end)
+	end   
+
+    if vars['dependencyBtnMenu'] ~= nil then
+        local action = cca.repeatScaleInOut(2, 1, 0.95)
+        vars['dependencyBtnMenu']:stopAllActions()
+        vars['dependencyBtnMenu']:runAction(action)
+    end
 
     -- 보상 보기
     for i, pid in ipairs(self.m_pids) do 
@@ -393,6 +440,26 @@ function UI_Package_Bundle:refresh()
     self:refresh_time()
 end
 
+
+-------------------------------------
+-- function refresh_dependency
+-------------------------------------
+function UI_Package_Bundle:refresh_dependency()
+    local vars  = self.vars
+    local count = #self.m_dependencyProductList
+    local idx = self.m_dependencyProductIdx
+
+    if (vars['prevPackageBtn']) then
+		vars['prevPackageBtn']:setVisible(idx > 1)
+	end
+
+    if (vars['nextPackageBtn']) then
+		vars['nextPackageBtn']:setVisible(idx < count)
+	end
+end
+
+
+
 -------------------------------------
 -- function click_packageInfoBtn
 -------------------------------------
@@ -557,6 +624,57 @@ end
 function UI_Package_Bundle:click_leagueRaidInfoBtn()
     UI_Package_LeagueRaidHelp()
 
+end
+
+
+-------------------------------------
+-- function click_nextPackageBtn
+-- @brief 단계별 상품 정보
+-------------------------------------
+function UI_Package_Bundle:click_nextPackageBtn(num)
+    local vars = self.vars
+    local next_idx = self.m_dependencyProductIdx + num
+    if self.m_dependencyProductList[next_idx] == nil then
+        return
+    end
+
+    self.m_dependencyProductIdx = next_idx
+    self:refresh_dependency()
+
+    if next_idx == 1 then
+        vars['dependencyMenu']:removeAllChildren()
+        return
+    end
+
+    local struct_product = self.m_dependencyProductList[next_idx]
+    local ui = UI_Package({struct_product}, nil, self.m_package_name)
+    
+    if ui.vars['prevPackageBtn'] ~= nil then
+        ui.vars['prevPackageBtn']:setVisible(false)
+    end
+
+    if ui.vars['nextPackageBtn'] ~= nil then
+        ui.vars['nextPackageBtn']:setVisible(false)
+    end
+
+    if ui.vars['buyBtn1'] ~= nil then
+        ui.vars['buyBtn1']:setVisible(false)
+    end
+
+    if ui.vars['dependancyLabel'] ~= nil then
+        local struct_product_rev = self.m_dependencyProductList[next_idx - 1]
+        if struct_product_rev ~= nil then            
+            ui.vars['dependancyLabel']:setString(Str('이전 단계의 패키지 구매 시 구매가 가능합니다. '))
+            ui.vars['dependancyLabel']:setVisible(true)
+        end
+    end
+
+    vars['dependencyMenu']:removeAllChildren()
+    vars['dependencyMenu']:addChild(ui.root)
+
+    -- 블록 추가
+    local block_ui = UI_BlockObject(800,800)
+    vars['dependencyMenu']:addChild(block_ui.root)
 end
 
 
