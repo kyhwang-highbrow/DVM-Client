@@ -232,6 +232,8 @@
                         [
                             "Global.lua"
                             ,"ScenePatch.lua"
+                            ,"PatchCore.lua"
+                            ,"PatchCoreNew.lua"
                         ]
                     }
                     ,{
