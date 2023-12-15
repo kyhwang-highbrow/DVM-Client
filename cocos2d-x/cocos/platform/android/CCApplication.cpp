@@ -88,10 +88,13 @@ Application* Application::sharedApplication()
 
 const char * Application::getCurrentLanguageCode()
 {
-    static char code[3]={0};
-    strncpy(code,getCurrentLanguageJNI().c_str(),2);
-    code[2]='\0';
-    return code;
+    //strncpy(code,getCurrentLanguageJNI().c_str(),2);
+    std::string languageName = getCurrentLanguageJNI();
+    if (languageName.find("zh") != std::string::npos) {
+        return "zh";
+    }
+
+    return languageName.c_str();
 }
 
 LanguageType Application::getCurrentLanguage()
