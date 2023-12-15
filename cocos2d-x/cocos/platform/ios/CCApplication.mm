@@ -80,7 +80,7 @@ Application* Application::sharedApplication()
 
 const char * Application::getCurrentLanguageCode()
 {
-    static char code[3]={0};
+    //static char code[12]={0};
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     NSArray *languages = [defaults objectForKey:@"AppleLanguages"];
     NSString *currentLanguage = [languages objectAtIndex:0];
@@ -88,9 +88,16 @@ const char * Application::getCurrentLanguageCode()
     // get the current language code.(such as English is "en", Chinese is "zh" and so on)
     NSDictionary* temp = [NSLocale componentsFromLocaleIdentifier:currentLanguage];
     NSString * languageCode = [temp objectForKey:NSLocaleLanguageCode];
-    [languageCode getCString:code maxLength:3 encoding:NSASCIIStringEncoding];
-    code[2]='\0';
-    return code;
+    
+    //[languageCode getCString:code maxLength:3 encoding:NSASCIIStringEncoding];
+    //code[2]='\0';
+    
+    if ([languageCode rangeOfString:@"zh"].location != NSNotFound) {
+        // 'zh'가 포함되어 있다면 'zh'로 반환
+        return "zh";
+    }
+    
+    return [languageCode UTF8String];
 }
 
 LanguageType Application::getCurrentLanguage()
