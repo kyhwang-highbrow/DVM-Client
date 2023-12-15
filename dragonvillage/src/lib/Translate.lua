@@ -28,7 +28,7 @@ function Translate:init()
 	-- getCurrentLanguageCode 함수를 사용하기로 함
 
 	-- 디바이스 언어
-    self.m_deviceLang = cc.Application:sharedApplication():getCurrentLanguageCode()
+    self.m_deviceLang = self:makeDeviceLanguage()
 	
 	-- 기준 언어 (한국어)
 	self.m_stdLang = 'ko'
@@ -86,6 +86,27 @@ function Translate:makeUsable(id)
     id = id:gsub("\'", "'")
     id = id:gsub('\"', '"')
     return id
+end
+
+-------------------------------------
+--- @function makeDeviceLanguage
+--- @brief 디바이스 언어 얻어오는 함수
+-------------------------------------
+function Translate:makeDeviceLanguage()
+    local lang_code = cc.Application:sharedApplication():getCurrentLanguageCode()
+    if Translate.use133Languages == false then
+        return lang_code
+    end
+
+    if lang_code == 'zh' then
+        local locale = CppFunctionsClass:getLocale()
+        if isExistValue(locale, 'Hans', 'CN') then
+            lang_code = 'zh-CN'
+        else
+            lang_code = 'zh-TW'
+        end
+    end
+    return lang_code
 end
 
 -------------------------------------
