@@ -47,7 +47,7 @@ function UI_LanguagePopup:initUI()
     --local map = TableLanguageConfig.getInstance():getStructLanguageMap()
     if IS_TEST_MODE() == true then
         vars['deviceLangLabel']:setVisible(true)
-        vars['deviceLangLabel']:setString(Translate:getDeviceLang())
+        vars['deviceLangLabel']:setString(Translate:getDeviceLang() .. ',' .. CppFunctionsClass:getLocale())
     end
 end
 
