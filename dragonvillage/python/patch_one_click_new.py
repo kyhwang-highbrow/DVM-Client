@@ -326,10 +326,10 @@ def main():
         r = requests.post(SERVER_PATH + '/manage/patch_language', data = data)
         print(r)
 
+        print(f'### 언어 패치 생성 완료 {len(translation_zip_file_list)}개 파일')
+        send_slack(f'\n언어 패치 생성 완료 {len(translation_zip_file_list)}개 파일')
 
-
-
-    print(f'### 언어 패치 생성 완료 {len(translation_zip_file_list)}개 파일')
+    return
 
     # 2. 패치정보 받아오기
     latest_patch_ver = get_patch_info(app_ver)
