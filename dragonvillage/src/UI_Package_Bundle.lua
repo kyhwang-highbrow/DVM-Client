@@ -203,6 +203,11 @@ function UI_Package_Bundle:initButton()
         vars['dependencyBtnMenu']:runAction(action)
     end
 
+    if vars['dragonSelectInfoBtn'] ~= nil then
+        vars['dragonSelectInfoBtn']:registerScriptTapHandler(function() self:click_selectInfoBtn() end)
+    end
+
+
     -- 보상 보기
     for i, pid in ipairs(self.m_pids) do 
         local str_btn_name = string.format('infoBtn%d', i)
@@ -641,14 +646,16 @@ function UI_Package_Bundle:click_nextPackageBtn(num)
     self.m_dependencyProductIdx = next_idx
     self:refresh_dependency()
 
+    vars['buyBtn1']:setVisible(true)
     if next_idx == 1 then
         vars['dependencyMenu']:removeAllChildren()
         return
     end
 
     local struct_product = self.m_dependencyProductList[next_idx]
-    local ui = UI_Package({struct_product}, nil, self.m_package_name)
-    
+    local ui = UI_Package_Bundle(self.m_package_name, self.m_isPopup, struct_product)
+    vars['buyBtn1']:setVisible(false)
+
     if ui.vars['prevPackageBtn'] ~= nil then
         ui.vars['prevPackageBtn']:setVisible(false)
     end
@@ -659,6 +666,8 @@ function UI_Package_Bundle:click_nextPackageBtn(num)
 
     if ui.vars['buyBtn1'] ~= nil then
         ui.vars['buyBtn1']:setVisible(false)
+        ui.vars['buyBtn1']:setEnabled(false)
+        ui.vars['buyBtn1']:registerScriptTapHandler(function() end)
     end
 
     if ui.vars['dependancyLabel'] ~= nil then
@@ -669,14 +678,48 @@ function UI_Package_Bundle:click_nextPackageBtn(num)
         end
     end
 
+    local l_product = ServerData_Item:parsePackageItemStr(struct_product['mail_content'])
+    for i, product in ipairs(l_product) do
+        local label = ui.vars['itemLabel' .. tostring(i)]
+        local name = TableItem:getItemName(product['item_id'])
+        local cnt = product['count']
+        local string_result = Str('{1} {2}개', name, comma_value(cnt))       
+        if (label) then label:setString(string_result) end
+    end
+
+    if ui.vars['buyLabel'] ~= nil then
+        ui.vars['buyLabel']:setString('')
+    end
+
+    if ui.vars['completeNode1'] ~= nil then
+        ui.vars['completeNode1']:setVisible(false)
+    end
+
     vars['dependencyMenu']:removeAllChildren()
     vars['dependencyMenu']:addChild(ui.root)
-
-    -- 블록 추가
-    local block_ui = UI_BlockObject(800,800)
-    vars['dependencyMenu']:addChild(block_ui.root)
 end
 
+-------------------------------------
+-- function click_selectInfoBtn
+-------------------------------------
+function UI_Package_Bundle:click_selectInfoBtn()
+    if #self.m_dependencyProductList == 0 then
+        return
+    end
+
+    local struct_product = self.m_dependencyProductList[#self.m_dependencyProductList]
+    if struct_product == nil then
+        return
+    end
+
+    local item_list = struct_product:getItemList()
+    if item_list[1] == nil then
+        return
+    end
+
+    local item_id = item_list[1].item_id
+    UI_PickDragon(nil, item_id, nil, true)
+end
 
 -------------------------------------
 -- function click_closeBtn
