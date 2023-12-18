@@ -52,6 +52,14 @@ function UI_AccountDeleteRequestPopup:initUI()
  
         vars['noticeLabel']:setString(msg)
     end
+
+    do -- 탈퇴 예정 시간
+        local current_sec = ServerTime:getInstance():getMidnightTimeStampSeconds()
+        local seven_days_after_sec = current_sec + (7*(60*60*24))
+        --local msg = ServerTime:getInstance():timestampSecToDatestrExceptTime(seven_days_after_sec)
+        local remain_msg = ServerTime:getInstance():getRemainTimeDesc((seven_days_after_sec)*1000)
+        vars['expireDateLabel']:setString(Str('{1} 후에 계정 정보가 완전히 삭제됩니다.', remain_msg))
+    end
 end
 
 -------------------------------------
@@ -84,7 +92,16 @@ function UI_AccountDeleteRequestPopup:click_okBtn()
         return
     end
 
-    MakeSimplePopup(POPUP_TYPE.YES_NO, Str('계정 탈퇴를 정말로 진행하시겠습니까?'), function() LoginHelper:requestDeleteAccount() end)
+
+    local current_sec = ServerTime:getInstance():getMidnightTimeStampSeconds()
+    local seven_days_after_sec = current_sec + (7*(60*60*24))
+    --local msg = ServerTime:getInstance():timestampSecToDatestrExceptTime(seven_days_after_sec)
+    local msg = Str('계정 탈퇴를 정말로 진행하시겠습니까?')  
+    local remain_msg = ServerTime:getInstance():getRemainTimeDesc((seven_days_after_sec)*1000)
+    local sub_msg = Str('{1} 후에 계정 정보가 완전히 삭제됩니다.', remain_msg)
+    --vars['expireDateLabel']:setString(Str('{1} 후에 삭제될 예정입니다.', remain_msg))
+
+    MakeSimplePopup2(POPUP_TYPE.YES_NO, msg, sub_msg, function() LoginHelper:requestDeleteAccount() end)
 end
 
 -------------------------------------
