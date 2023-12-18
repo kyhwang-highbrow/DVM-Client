@@ -231,8 +231,8 @@ end
 -- function getPositionForStatusIcon
 -------------------------------------
 function UI_LeagueRaidDamageInfo:getPositionForStatusIcon(bLeftFormation, idx)
-    local x = 50 * (idx - 1)
-    local y = 0
+    local x = 50 * ((idx-1) % 7)
+    local y = -(math_floor((idx-1)/7) * 50)
     	
     return x, y
 end
