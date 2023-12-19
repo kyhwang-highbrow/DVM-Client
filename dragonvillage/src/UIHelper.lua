@@ -451,12 +451,12 @@ function UIHelper:setDifficultyLabelWithColor(label_node, stage_id)
         elseif (difficulty == 4) then
             label_node:setColor(COLOR['diff_hellfire'])
             label_node:setString(Str('불지옥'))
-        -- elseif (difficulty == 5) then
-        --     label_node:setColor(COLOR['diff_abyss_0'])
-        --     label_node:setString(Str('심연'))
-        -- elseif (difficulty == 6) then
-        --     label_node:setColor(COLOR['diff_abyss_1'])
-        --     label_node:setString(Str('심연 1'))
+        elseif (difficulty == 5) then
+            label_node:setColor(COLOR['diff_abyss_0'])
+            label_node:setString(Str('심연'))
+        elseif (difficulty == 6) then
+            label_node:setColor(COLOR['diff_abyss_1'])
+            label_node:setString(Str('심연 1'))
 
 
         end
