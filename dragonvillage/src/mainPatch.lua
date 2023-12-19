@@ -132,9 +132,7 @@ local function main()
 		Analytics:firstTimeExperience('StartApp')
 	
 		-- 대체 폰트 설정
-		cc.Label:setDefaultFallbackFontTTF('res/font/common_font_01_ja.ttf', 'res/font/common_font_01.ttf')
-		cc.Label:setDefaultFallbackFontTTF('res/font/common_font_01_cn.ttf', 'res/font/common_font_01.ttf')
-
+		Translate:setDefaultFallbackFont()
 		stop_watch:record('patch : load module')
 	end
 	-- 로고 후 패치 시작
