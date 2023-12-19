@@ -260,6 +260,24 @@ def move_translation_files_to_origin_path():
         shutil.copy(src + f, dest)
 
 
+def delete_all_files_in_folder():
+    folder_path = '../translate_temp'
+    # 폴더 내의 파일 목록 가져오기
+    file_list = os.listdir(folder_path)
+
+    # 각 파일을 순회하며 삭제
+    for file_name in file_list:
+        file_path = os.path.join(folder_path, file_name)
+        try:
+            if os.path.isfile(file_path):
+                os.remove(file_path)
+                #print(f"{file_path} 삭제 완료")
+        except Exception as e:
+            print(f"삭제 중 오류 발생: {e}")
+
+
+
+
 # 메인 함수
 def main():
     global latest_patch_ver
@@ -271,6 +289,7 @@ def main():
     send_slack('\n빌드 진행 중..')
 
     print('# [tool] move translation files')
+    delete_all_files_in_folder()
     move_translation_files()
     
     #리소스 유효성 검사
