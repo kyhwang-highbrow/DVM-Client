@@ -84,4 +84,5 @@ return {['[맛있는 도넛!]이 자신을 제외한 아군 전체의 첫번째 
 ['나태한 불']='Umlilo ovilaphayo',
 ['나태한 불 레슬로']='I-indolent fire leslo',
 ['레슬로 스킨']='isikhumba se-leslo',
-['빛의 검으로 적에게 피해를 줍니다.\n{1}% 확률로 공격 후 {2}초간 대상의 방어력을 감소시킵니다. \n보스에게는 2.3배의 피해를 줍니다.']='Yenza umonakalo esitheni ngenkemba yokukhanya.\nNgemva kokuhlasela, kunethuba elingu- {1}% lokunciphisa ukuzivikela kwalowo oqondiwe amasekhondi angu- {2} .\nIsebenza ngokuphindwe izikhathi ezingu-2.3 kunomonakalo kumphathi.'}
+['빛의 검으로 적에게 피해를 줍니다.\n{1}% 확률로 공격 후 {2}초간 대상의 방어력을 감소시킵니다. \n보스에게는 2.3배의 피해를 줍니다.']='Yenza umonakalo esitheni ngenkemba yokukhanya.\nNgemva kokuhlasela, kunethuba elingu- {1}% lokunciphisa ukuzivikela kwalowo oqondiwe amasekhondi angu- {2} .\nIsebenza ngokuphindwe izikhathi ezingu-2.3 kunomonakalo kumphathi.',
+['집중 베기+']='Isiteleka esigxilisiwe+'}

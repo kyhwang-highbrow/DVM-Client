@@ -85,6 +85,7 @@ return {['[맛있는 도넛!]이 자신을 제외한 아군 전체의 첫번째 
 ['나태한 불 레슬로']='Egy indolens tűz leslo',
 ['레슬로 스킨']='leslo bőr',
 ['빛의 검으로 적에게 피해를 줍니다.\n{1}% 확률로 공격 후 {2}초간 대상의 방어력을 감소시킵니다. \n보스에게는 2.3배의 피해를 줍니다.']='Fénykarddal sebesítsd meg az ellenséget.\nA támadás után {1}% esély van a célpont védelmének csökkentésére {2} másodpercre.\nA bossnak 2,3-szoros sebzést okoz.',
+['집중 베기+']='Koncentrált sztrájk+',
 ['\'그녀가 눈이 부신 빛이라면 나 자신은 그 뒤를 지키는 어둠이 되리라\'']='– Ha ő egy vakító fény, akkor én leszek a sötétség, amely megvédi.',
 ['\'너무나도 한심하다... 이리 나약한 존재가 삶을 살아간다니!\'']='– Annyira szánalmas... ilyen gyenge életet élni!',
 ['\'당신의 어둠은 빛이 닿을 수 없는 곳을 지켜주겠죠.\'']='– Megvédem azt a helyet, ahol a sötétségedet nem érheti el a fény.',

@@ -85,6 +85,7 @@ return {['[맛있는 도넛!]이 자신을 제외한 아군 전체의 첫번째 
 ['나태한 불 레슬로']='Een lui vuurleslo',
 ['레슬로 스킨']='leslo huid',
 ['빛의 검으로 적에게 피해를 줍니다.\n{1}% 확률로 공격 후 {2}초간 대상의 방어력을 감소시킵니다. \n보스에게는 2.3배의 피해를 줍니다.']='Breng schade toe aan de vijand met een zwaard van licht.\nNa de aanval is er een kans van {1}% om de verdediging van het doelwit gedurende {2} seconden te verminderen.\nHet veroorzaakt 2,3 maal zoveel schade aan de baas.',
+['집중 베기+']='Geconcentreerde aanval+',
 ['\'그녀가 눈이 부신 빛이라면 나 자신은 그 뒤를 지키는 어둠이 되리라\'']='\'Als ze een verblindend licht is, dan zal ik de duisternis worden die haar beschermt.\'',
 ['\'너무나도 한심하다... 이리 나약한 존재가 삶을 살아간다니!\'']='\'Het is zo zielig... om zo\'n zwak leven als dit te leiden!\'',
 ['\'당신의 어둠은 빛이 닿을 수 없는 곳을 지켜주겠죠.\'']='\'Ik zal de plek beschermen waar jouw duisternis niet door licht kan worden bereikt.\'',

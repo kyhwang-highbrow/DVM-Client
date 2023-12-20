@@ -85,6 +85,7 @@ return {['[맛있는 도넛!]이 자신을 제외한 아군 전체의 첫번째 
 ['나태한 불 레슬로']='He ahi mangere leslo',
 ['레슬로 스킨']='kiri iti',
 ['빛의 검으로 적에게 피해를 줍니다.\n{1}% 확률로 공격 후 {2}초간 대상의 방어력을 감소시킵니다. \n보스에게는 2.3배의 피해를 줍니다.']='Tukuna he kino ki te hoariri me te hoari marama.\nI muri i te whakaekenga, he {1}% te tupono ki te whakaiti i te parepare o te whainga mo {2} hēkona.\nKa 2.3 nga wa e pa ana ki te rangatira.',
+['집중 베기+']='Patua kukū+',
 ['\'그녀가 눈이 부신 빛이라면 나 자신은 그 뒤를 지키는 어둠이 되리라\'']='\'Mehemea he marama kanapa ia, ka waiho ahau hei pouri hei tiaki i a ia.\'',
 ['\'너무나도 한심하다... 이리 나약한 존재가 삶을 살아간다니!\'']='\'He tino pouri... te noho ngoikore penei!\'',
 ['\'당신의 어둠은 빛이 닿을 수 없는 곳을 지켜주겠죠.\'']='\'Maku e tiaki te wahi e kore nei e tae atu to pouri ki te marama.\'',

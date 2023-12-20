@@ -85,6 +85,7 @@ return {['[맛있는 도넛!]이 자신을 제외한 아군 전체의 첫번째 
 ['나태한 불 레슬로']='Nar indolent leslo',
 ['레슬로 스킨']='leslo ġilda',
 ['빛의 검으로 적에게 피해를 줍니다.\n{1}% 확률로 공격 후 {2}초간 대상의 방어력을 감소시킵니다. \n보스에게는 2.3배의 피해를 줍니다.']='Ikkaġuna ħsara lill-ghadu b\'xabla tad-dawl.\nWara l-attakk, hemm ċans ta\' {1}% li titnaqqas id-difiża tal-mira għal {2} sekondi.\nJagħmel 2.3 darbiet il-ħsara lill-boxxla.',
+['집중 베기+']='Strajk ikkonċentrat+',
 ['\'그녀가 눈이 부신 빛이라면 나 자신은 그 뒤를 지키는 어둠이 되리라\'']='\'Jekk hi dawl li jgħammex, allura jien insir id-dlam li jipproteġiha.\'',
 ['\'너무나도 한심하다... 이리 나약한 존재가 삶을 살아간다니!\'']='\'Tan patetiku... li tgħix ħajja dgħajfa daqs din!\'',
 ['\'당신의 어둠은 빛이 닿을 수 없는 곳을 지켜주겠죠.\'']='\'Se nipproteġi l-post fejn id-dlam tiegħek ma jistax jintlaħaq bid-dawl.\'',

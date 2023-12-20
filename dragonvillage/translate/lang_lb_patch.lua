@@ -85,6 +85,7 @@ return {['[맛있는 도넛!]이 자신을 제외한 아군 전체의 첫번째 
 ['나태한 불 레슬로']='En indolent Feier leslo',
 ['레슬로 스킨']='leslo Haut',
 ['빛의 검으로 적에게 피해를 줍니다.\n{1}% 확률로 공격 후 {2}초간 대상의 방어력을 감소시킵니다. \n보스에게는 2.3배의 피해를 줍니다.']='Gëtt dem Feind Schued mat engem Liichtschwert.\nNom Attack gëtt et eng {1}% Chance fir d\'Verteidegung vum Zil fir {2} Sekonnen ze reduzéieren.\nEt beschäftegt de Patron 2,3 Mol de Schued.',
+['집중 베기+']='Konzentréiert Streik +',
 ['\'그녀가 눈이 부신 빛이라면 나 자신은 그 뒤를 지키는 어둠이 되리라\'']='\'Wann si e blendend Liicht ass, da wäert ech d\'Däischtert ginn, déi hatt schützt.\'',
 ['\'너무나도 한심하다... 이리 나약한 존재가 삶을 살아간다니!\'']='\'Et ass sou pathetesch ... e Liewen esou schwaach wéi dëst ze liewen!\'',
 ['\'당신의 어둠은 빛이 닿을 수 없는 곳을 지켜주겠죠.\'']='\'Ech wäert d\'Plaz schützen, wou Är Däischtert net vum Liicht erreecht ka ginn.\'',

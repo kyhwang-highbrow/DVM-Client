@@ -85,4 +85,5 @@ return {['[맛있는 도넛!]이 자신을 제외한 아군 전체의 첫번째 
 ['나태한 불 레슬로']='An indolent fire leslo',
 ['레슬로 스킨']='leslo skin',
 ['빛의 검으로 적에게 피해를 줍니다.\n{1}% 확률로 공격 후 {2}초간 대상의 방어력을 감소시킵니다. \n보스에게는 2.3배의 피해를 줍니다.']='Inflict damage to the enemy with a sword of light.\nAfter the attack, there is a {1}% chance to reduce the target\'s defense for {2} seconds.\nIt deals 2.3 times the damage to the boss.',
+['집중 베기+']='Concentrated strike+',
 ['누리 님도 분명 최선을 다하고 있을 거에요!']='I\'m sure Nuri is trying her best!'}

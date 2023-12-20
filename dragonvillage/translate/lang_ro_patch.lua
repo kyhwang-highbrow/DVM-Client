@@ -85,6 +85,7 @@ return {['[맛있는 도넛!]이 자신을 제외한 아군 전체의 첫번째 
 ['나태한 불 레슬로']='Un foc indolent leslo',
 ['레슬로 스킨']='pielea leslo',
 ['빛의 검으로 적에게 피해를 줍니다.\n{1}% 확률로 공격 후 {2}초간 대상의 방어력을 감소시킵니다. \n보스에게는 2.3배의 피해를 줍니다.']='Daune inamicului cu o sabie luminoasă.\nDupă atac, există o șansă de {1}% de a reduce apărarea țintei timp de {2} secunde.\nAfectează de 2,3 ori mai mult daune șefului.',
+['집중 베기+']='Greva concentrată+',
 ['\'그녀가 눈이 부신 빛이라면 나 자신은 그 뒤를 지키는 어둠이 되리라\'']='„Dacă ea este o lumină orbitoare, atunci voi deveni întunericul care o protejează”.',
 ['\'너무나도 한심하다... 이리 나약한 존재가 삶을 살아간다니!\'']='„Este atât de jalnic... să trăiești o viață la fel de slabă ca asta!”',
 ['\'당신의 어둠은 빛이 닿을 수 없는 곳을 지켜주겠죠.\'']='„Voi proteja locul unde întunericul tău nu poate fi atins de lumină”.',

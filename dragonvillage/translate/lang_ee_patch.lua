@@ -85,6 +85,7 @@ return {['[맛있는 도넛!]이 자신을 제외한 아군 전체의 첫번째 
 ['나태한 불 레슬로']='Dzo leslo si me kuviawɔwɔ le',
 ['레슬로 스킨']='leslo ŋutigbalẽ',
 ['빛의 검으로 적에게 피해를 줍니다.\n{1}% 확률로 공격 후 {2}초간 대상의 방어력을 감소시킵니다. \n보스에게는 2.3배의 피해를 줍니다.']='Tsɔ kekeli ƒe yi gblẽ nu le futɔ ŋu.\nLe amedzidzedzea megbe la, mɔnukpɔkpɔ li be {1}% naɖe taɖodzinua ƒe ametakpɔkpɔ dzi akpɔtɔ hena sɛkɛnd {2} .\nEwɔa nusiwo gblẽ le dɔdzikpɔla ŋu ƒe teƒe 2.3.',
+['집중 베기+']='Streated strike+ si ŋu woƒo nu tsoe',
 ['\'그녀가 눈이 부신 빛이라면 나 자신은 그 뒤를 지키는 어둠이 되리라\'']='‘Ne kekeli si klẽna la, ekema mazu viviti si kpɔa eta.’',
 ['\'너무나도 한심하다... 이리 나약한 존재가 삶을 살아간다니!\'']='\'Ewɔ nublanui ŋutɔ... be woanɔ agbe si gbɔdzɔ abe esia ene!\'',
 ['\'당신의 어둠은 빛이 닿을 수 없는 곳을 지켜주겠죠.\'']='‘Makpɔ teƒe si kekeli mate ŋu aɖo wò viviti la gbɔ o la ta.’',

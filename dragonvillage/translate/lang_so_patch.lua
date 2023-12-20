@@ -85,6 +85,7 @@ return {['[맛있는 도넛!]이 자신을 제외한 아군 전체의 첫번째 
 ['나태한 불 레슬로']='Leslo dab aan caadi ahayn',
 ['레슬로 스킨']='maqaarka leslo',
 ['빛의 검으로 적에게 피해를 줍니다.\n{1}% 확률로 공격 후 {2}초간 대상의 방어력을 감소시킵니다. \n보스에게는 2.3배의 피해를 줍니다.']='Waxyeelo {2} ku gaadhsii {1} iftiinka',
+['집중 베기+']='Shaqo joojin xoog leh+',
 ['\'그녀가 눈이 부신 빛이라면 나 자신은 그 뒤를 지키는 어둠이 되리라\'']='Hadday tahay iftiin dhalaalaya, markaas anigu waxaan ahaan doonaa gudcurka iyada ilaaliya.',
 ['\'너무나도 한심하다... 이리 나약한 존재가 삶을 살아간다니!\'']='\'Waa arrin naxariis badan... in aad ku noolaato nolol tabar daran sida tan!\'',
 ['\'당신의 어둠은 빛이 닿을 수 없는 곳을 지켜주겠죠.\'']='Waxaan dhawri doonaa meel aan gudcurkaaga iftiinku ka soo gaadhi karin.',

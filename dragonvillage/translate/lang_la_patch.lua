@@ -85,6 +85,7 @@ return {['[맛있는 도넛!]이 자신을 제외한 아군 전체의 첫번째 
 ['나태한 불 레슬로']='Ignis iners leslo',
 ['레슬로 스킨']='leslo pellis',
 ['빛의 검으로 적에게 피해를 줍니다.\n{1}% 확률로 공격 후 {2}초간 대상의 방어력을 감소시킵니다. \n보스에게는 2.3배의 피해를 줍니다.']='Gladio lucis hostibus damnum inferes.\nPost impetum, est {1}% facultas reducendi scopum defensionem pro {2} II} secundis.',
+['집중 베기+']='Attenti percutiens+',
 ['망각의 서를 {1}개 사용하여\n드래곤의 특성 스킬을 초기화 하시겠습니까?']='Vin \'} Libros Oblivionis retedere peritia tua Draconis?',
 ['\'그녀가 눈이 부신 빛이라면 나 자신은 그 뒤를 지키는 어둠이 되리라\'']='\"Si lux clara est, fiam tenebrae, quae custodiunt eam.\"',
 ['\'너무나도 한심하다... 이리 나약한 존재가 삶을 살아간다니!\'']='\'Ita est misella ... vitam degere quam infirmam!\'',

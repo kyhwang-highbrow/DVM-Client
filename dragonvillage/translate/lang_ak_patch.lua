@@ -84,4 +84,5 @@ return {['[맛있는 도넛!]이 자신을 제외한 아군 전체의 첫번째 
 ['나태한 불']='Ogya a ɛyɛ mmerɛw',
 ['나태한 불 레슬로']='An indolent ogya leslo',
 ['레슬로 스킨']='leslo honam ani hwɛbea',
-['빛의 검으로 적에게 피해를 줍니다.\n{1}% 확률로 공격 후 {2}초간 대상의 방어력을 감소시킵니다. \n보스에게는 2.3배의 피해를 줍니다.']='Fa hann nkrante to ɔtamfo no so.\nNtuo no akyi no, {1}% hokwan wɔ hɔ sɛ wobɛtew botae no ahobammɔ so sikani {2} .\nƐsɛe ɔpanyin no mmɔho 2.3.'}
+['빛의 검으로 적에게 피해를 줍니다.\n{1}% 확률로 공격 후 {2}초간 대상의 방어력을 감소시킵니다. \n보스에게는 2.3배의 피해를 줍니다.']='Fa hann nkrante to ɔtamfo no so.\nNtuo no akyi no, {1}% hokwan wɔ hɔ sɛ wobɛtew botae no ahobammɔ so sikani {2} .\nƐsɛe ɔpanyin no mmɔho 2.3.',
+['집중 베기+']='Concentrated strike + a wɔde wɔn adwene asi so'}

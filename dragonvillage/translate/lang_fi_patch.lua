@@ -85,6 +85,7 @@ return {['[맛있는 도넛!]이 자신을 제외한 아군 전체의 첫번째 
 ['나태한 불 레슬로']='Laiska tuli leslo',
 ['레슬로 스킨']='leslo iho',
 ['빛의 검으로 적에게 피해를 줍니다.\n{1}% 확률로 공격 후 {2}초간 대상의 방어력을 감소시킵니다. \n보스에게는 2.3배의 피해를 줍니다.']='Tee vahinkoa viholliselle valomiekalla.\nHyökkäämisen jälkeen on {1}%:n mahdollisuus vähentää kohteen puolustusta {2} sekunniksi.\nSe aiheuttaa 2,3 kertaa enemmän vahinkoa pomolle.',
+['집중 베기+']='Keskitetty lakko+',
 ['\'그녀가 눈이 부신 빛이라면 나 자신은 그 뒤를 지키는 어둠이 되리라\'']='\"Jos hän on häikäisevä valo, minusta tulee pimeys, joka suojelee häntä.\"',
 ['\'너무나도 한심하다... 이리 나약한 존재가 삶을 살아간다니!\'']='\"On niin säälittävää... elää näin heikkoa elämää!\"',
 ['\'당신의 어둠은 빛이 닿을 수 없는 곳을 지켜주겠죠.\'']='\"Minä suojelen paikkaa, jossa valo ei pääse pimeyteenne.\"',

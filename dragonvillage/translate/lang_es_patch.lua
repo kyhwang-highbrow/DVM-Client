@@ -84,4 +84,5 @@ return {['[맛있는 도넛!]이 자신을 제외한 아군 전체의 첫번째 
 ['나태한 불']='Un fuego indolente',
 ['나태한 불 레슬로']='Un fuego indolente leslo',
 ['레슬로 스킨']='piel leslo',
-['빛의 검으로 적에게 피해를 줍니다.\n{1}% 확률로 공격 후 {2}초간 대상의 방어력을 감소시킵니다. \n보스에게는 2.3배의 피해를 줍니다.']='Inflige daño al enemigo con una espada de luz.\nDespués del ataque, hay un {1}% de probabilidad de reducir la defensa del objetivo durante {2} segundos.\nInflige 2,3 veces el daño al jefe.'}
+['빛의 검으로 적에게 피해를 줍니다.\n{1}% 확률로 공격 후 {2}초간 대상의 방어력을 감소시킵니다. \n보스에게는 2.3배의 피해를 줍니다.']='Inflige daño al enemigo con una espada de luz.\nDespués del ataque, hay un {1}% de probabilidad de reducir la defensa del objetivo durante {2} segundos.\nInflige 2,3 veces el daño al jefe.',
+['집중 베기+']='Huelga concentrada+'}

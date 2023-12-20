@@ -84,4 +84,5 @@ return {['[맛있는 도넛!]이 자신을 제외한 아군 전체의 첫번째 
 ['나태한 불']='\'n Indolente vuur',
 ['나태한 불 레슬로']='\'n Indolente vuur leslo',
 ['레슬로 스킨']='leslo vel',
-['빛의 검으로 적에게 피해를 줍니다.\n{1}% 확률로 공격 후 {2}초간 대상의 방어력을 감소시킵니다. \n보스에게는 2.3배의 피해를 줍니다.']='Bring skade aan die vyand aan met \'n swaard van lig.\nNa die aanval is daar \'n {1}% kans om die teiken se verdediging vir {2} sekondes te verminder.\nDit gee 2.3 keer die skade aan die baas.'}
+['빛의 검으로 적에게 피해를 줍니다.\n{1}% 확률로 공격 후 {2}초간 대상의 방어력을 감소시킵니다. \n보스에게는 2.3배의 피해를 줍니다.']='Bring skade aan die vyand aan met \'n swaard van lig.\nNa die aanval is daar \'n {1}% kans om die teiken se verdediging vir {2} sekondes te verminder.\nDit gee 2.3 keer die skade aan die baas.',
+['집중 베기+']='Gekonsentreerde staking+'}
