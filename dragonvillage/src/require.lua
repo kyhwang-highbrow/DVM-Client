@@ -1086,6 +1086,7 @@ local t_module = {
     'UI_DragonGoodbyeResult',
     'UI_QuickPopupNew',
     'UI_CouponPopup',
+    'UI_CodeCouponPopup',
     'UI_CouponPopup_Confirm',
     'UI_CouponPopupPreOccupancyNick',
     'UI_AdvertisingPopup',

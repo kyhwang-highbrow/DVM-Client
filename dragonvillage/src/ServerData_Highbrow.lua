@@ -236,3 +236,24 @@ function ServerData_Highbrow:request_couponUse(coupon, success_cb, result_cb)
 
     return ui_network
 end
+
+-------------------------------------
+-- function request_cardCouponUse
+-------------------------------------
+function ServerData_Highbrow:request_cardCouponUse(coupon, success_cb, result_cb)
+    -- 유저 ID
+    local uid = g_userData:get('uid')
+
+    -- 네트워크 통신
+    local ui_network = UI_Network()
+    ui_network:setUrl('/collabo/coupon/use')
+    ui_network:setParam('uid', uid)
+    ui_network:setParam('coupon_code', coupon)
+    ui_network:setSuccessCB(success_cb)
+    ui_network:setResponseStatusCB(result_cb)
+    ui_network:setRevocable(true)
+    ui_network:setReuse(false)
+    ui_network:request()
+
+    return ui_network
+end

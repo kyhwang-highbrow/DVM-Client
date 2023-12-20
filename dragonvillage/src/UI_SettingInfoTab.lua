@@ -15,14 +15,15 @@ function UI_Setting:init_infoTab()
     vars['couponBtn']:registerScriptTapHandler(function() self:click_couponBtn() end)
     vars['serviceBtn']:registerScriptTapHandler(function() self:click_serviceBtn() end) 
     vars['communityBtn']:registerScriptTapHandler(function() self:click_communityBtn() end) 
+    vars['codeCouponBtn']:registerScriptTapHandler(function() self:click_codeCouponBtn() end)
     self:init_infoTab_buttons()
 
     -- 표준시간 표시
     local utc_desc = datetime.getTimeUTCDesc()
     vars['utcLabel']:setString(utc_desc)
 
-    local timezone = Timer:getTimeZone()
-    vars['timezoneLabel']:setString(Str('({1})', timezone))
+    --local timezone = Timer:getTimeZone()
+    --vars['timezoneLabel']:setString(Str('({1})', timezone))
 end
 
 -------------------------------------
@@ -108,6 +109,16 @@ end
 function UI_Setting:click_couponBtn()
     -- 하이브로 쿠폰의 경우 하이브로 상점내에서 UI_CouponPopup('highbrow')로 호출해야 함
     UI_CouponPopup()
+end
+
+
+-------------------------------------
+--- @function click_codeCouponBtn
+--- @brief 카드 쿠폰 입력
+-------------------------------------
+function UI_Setting:click_codeCouponBtn()
+    -- 하이브로 쿠폰의 경우 하이브로 상점내에서 UI_CouponPopup('highbrow')로 호출해야 함
+    UI_CodeCouponPopup()
 end
 
 -------------------------------------

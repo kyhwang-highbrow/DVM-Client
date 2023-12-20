@@ -108,8 +108,6 @@ end
 function UI_CouponPopup:click_okBtn()
     -- 쿠폰코드 길이 검증
     local len = string.len(self.m_couponCode or '')
-
-    cclog('self.m_couponCode', self.m_couponCode, len)
     if len ~= 12 and len ~= self.m_maxCodeLength then
         MakeSimplePopup2(POPUP_TYPE.OK, self.m_errText, self.m_errSubText)
         return
