@@ -85,4 +85,8 @@ return {['[맛있는 도넛!]이 자신을 제외한 아군 전체의 첫번째 
 ['나태한 불 레슬로']='An indolent ogya leslo',
 ['레슬로 스킨']='leslo honam ani hwɛbea',
 ['빛의 검으로 적에게 피해를 줍니다.\n{1}% 확률로 공격 후 {2}초간 대상의 방어력을 감소시킵니다. \n보스에게는 2.3배의 피해를 줍니다.']='Fa hann nkrante to ɔtamfo no so.\nNtuo no akyi no, {1}% hokwan wɔ hɔ sɛ wobɛtew botae no ahobammɔ so sikani {2} .\nƐsɛe ɔpanyin no mmɔho 2.3.',
-['집중 베기+']='Concentrated strike + a wɔde wɔn adwene asi so'}
+['집중 베기+']='Concentrated strike + a wɔde wɔn adwene asi so',
+['재빠른 찌르기로 적에게 피해를 줍니다. 이 스킬은 발동할 때 마다 위력이 {1}% 증가하며(최대 {2}%),\n자신의 효과 저항(최대 200)에 따라 피해량이 크게 증가합니다.']='Ɔde sekan bɔ atamfo ntɛmntɛm. Saa ahokokwaw yi tumi kɔ soro {1}%, kɔsi {2}%, bere biara a wɔbɛtow.\nAfei nso, ne sɛe no kɔ soro kɛse, egyina ɔtweaseɛ no Nsunsuansoɔ a ɛko tia (Maximum 200) so.',
+['지급되는 상품은 \'우편함\'에서 수령 가능하며,\n입력 시 쿠폰의 유효기한 및 횟수 제한을 확인하시기 바랍니다.']='wobetumi anya nneɛma afi \"Inbox.\"\nHwɛ da a ɛbɛba awiei ne anohyeto a wɔde di dwuma ma coupons bere nyinaa.',
+['코드쿠폰 입력']='Hyehyɛ Kood Kupon no mu',
+['문제가 지속될 경우 고객센터로 문의해주시기를 바랍니다.']='Sɛ ɔhaw no kɔ so a, yɛsrɛ wo, kɔ adetɔfo adwumayɛbea hɔ.'}

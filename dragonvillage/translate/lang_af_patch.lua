@@ -85,4 +85,8 @@ return {['[맛있는 도넛!]이 자신을 제외한 아군 전체의 첫번째 
 ['나태한 불 레슬로']='\'n Indolente vuur leslo',
 ['레슬로 스킨']='leslo vel',
 ['빛의 검으로 적에게 피해를 줍니다.\n{1}% 확률로 공격 후 {2}초간 대상의 방어력을 감소시킵니다. \n보스에게는 2.3배의 피해를 줍니다.']='Bring skade aan die vyand aan met \'n swaard van lig.\nNa die aanval is daar \'n {1}% kans om die teiken se verdediging vir {2} sekondes te verminder.\nDit gee 2.3 keer die skade aan die baas.',
-['집중 베기+']='Gekonsentreerde staking+'}
+['집중 베기+']='Gekonsentreerde staking+',
+['재빠른 찌르기로 적에게 피해를 줍니다. 이 스킬은 발동할 때 마다 위력이 {1}% 증가하며(최대 {2}%),\n자신의 효과 저항(최대 200)에 따라 피해량이 크게 증가합니다.']='Steek vinnig na vyande. Hierdie vaardigheid se krag neem toe met {1}%, met tot {2}%, elke keer as dit gewerp word.\nDie skade neem ook aansienlik toe, afhangend van die draak se effekweerstand (Maksimum 200).',
+['지급되는 상품은 \'우편함\'에서 수령 가능하며,\n입력 시 쿠폰의 유효기한 및 횟수 제한을 확인하시기 바랍니다.']='items kan vanaf die \"Inkassie\" ontvang word.\nGaan altyd die vervaldatum en gebruikslimiete vir koepons na.',
+['코드쿠폰 입력']='Voer kodekoepon in',
+['문제가 지속될 경우 고객센터로 문의해주시기를 바랍니다.']='As die probleem voortduur, kontak asseblief kliëntediens.'}

@@ -86,4 +86,8 @@ return {['[맛있는 도넛!]이 자신을 제외한 아군 전체의 첫번째 
 ['레슬로 스킨']='leslo skin',
 ['빛의 검으로 적에게 피해를 줍니다.\n{1}% 확률로 공격 후 {2}초간 대상의 방어력을 감소시킵니다. \n보스에게는 2.3배의 피해를 줍니다.']='Inflict damage to the enemy with a sword of light.\nAfter the attack, there is a {1}% chance to reduce the target\'s defense for {2} seconds.\nIt deals 2.3 times the damage to the boss.',
 ['집중 베기+']='Concentrated strike+',
+['재빠른 찌르기로 적에게 피해를 줍니다. 이 스킬은 발동할 때 마다 위력이 {1}% 증가하며(최대 {2}%),\n자신의 효과 저항(최대 200)에 따라 피해량이 크게 증가합니다.']='Quickly stabs at enemies. This skill\'s power increases by {1}%, by up to {2}%, every time it\'s cast.\nAlso, its damage significantly increases, depending on the dragon\'s Effect Resistance (Maximum 200).',
+['지급되는 상품은 \'우편함\'에서 수령 가능하며,\n입력 시 쿠폰의 유효기한 및 횟수 제한을 확인하시기 바랍니다.']='items can be received from the \"Inbox.\"\nAlways check the expiration date and usage limits for coupons.',
+['코드쿠폰 입력']='Enter Code Coupon',
+['문제가 지속될 경우 고객센터로 문의해주시기를 바랍니다.']='If the problem persists, please contact customer service.',
 ['누리 님도 분명 최선을 다하고 있을 거에요!']='I\'m sure Nuri is trying her best!'}
