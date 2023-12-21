@@ -61,7 +61,7 @@ function UI_Setting:init_infoTab_buttons()
     local l_btn_list = {}
     for _,btn_name in ipairs(l_btn_name_list) do
         if (nil ~= vars[btn_name]) then
-            if btn_name == 'couponBtn' or btn_name == 'codeCouponBtn' then
+            if isExistValue(btn_name, 'couponBtn', 'codeCouponBtn') then
                 if (false == g_remoteConfig:hideCouponBtn()) and (false == LocalData.getInstance():isInAppReview()) then
                     table.insert(l_btn_list, vars[btn_name])
                     vars[btn_name]:setVisible(true)
