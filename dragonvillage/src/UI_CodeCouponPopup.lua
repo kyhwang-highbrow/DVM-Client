@@ -43,7 +43,9 @@ function UI_CodeCouponPopup:click_okBtn()
     end
 
     local function result_cb(ret)
-        local msg = ''
+        local msg = Str('쿠폰 번호를 처리하는 과정에 오류가 발생하였습니다.\n다시 시도해 주세요.')
+        msg = msg .. '\n' .. Str('문제가 지속될 경우 고객센터로 문의해주시기를 바랍니다.')
+
         if (ret['status'] == -3167) then
             msg = Str('이미 사용된 쿠폰 번호입니다.\n다시 입력해 주세요.')            
         elseif (ret['status'] == -1167) then
@@ -53,9 +55,7 @@ function UI_CodeCouponPopup:click_okBtn()
         elseif (ret['status'] == -1767) then
             msg = Str('사용 가능한 횟수가 초과된 쿠폰 번호입니다.\n다시 입력해 주세요.')
         elseif (ret['status'] == -1367) then
-            msg = Str('쿠폰 번호를 처리하는 과정에 오류가 발생하였습니다.\n다시 시도해 주세요.')
-        else
-            return false;
+            msg = Str('유효하지 않은 쿠폰 번호입니다.\n다시 입력해 주세요.')
         end
 
         MakeSimplePopup(POPUP_TYPE.OK, msg)
