@@ -257,7 +257,7 @@ def move_translation_files_to_origin_path():
         os.mkdir(dest)
 
     for f in files:        
-        shutil.copy(src + f, dest)
+        shutil.move(src + f, dest)
 
 
 def delete_all_files_in_folder():
