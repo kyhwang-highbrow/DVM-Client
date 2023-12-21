@@ -72,7 +72,9 @@ function UI_DragonSkinListItem:refresh()
     local is_skin_on = self.m_structDragon:isSkinOn(skin_data:getSkinID())
     vars['useSprite']:setVisible(is_skin_on)
 
-    local is_open = skin_data:isDragonSkinOwned()
+
+    local is_owned = skin_data:isDragonSkinOwned()
+    local is_open = is_owned
     -- local is_open = true
     local is_default = skin_data:isDefaultSkin()
     if is_default then
@@ -113,7 +115,12 @@ function UI_DragonSkinListItem:refresh()
 
     do -- 버튼 처리
         if is_valid_purchase == false then
-            vars['priceLabel']:setString(Str('보유 중'))
+            if is_owned == false then
+                vars['priceLabel']:setString(Str('구매 불가'))
+            else
+                vars['priceLabel']:setString(Str('보유 중'))
+            end
+            
             vars['buyBtn']:setEnabled(false)
         else
             vars['priceLabel']:setString(Str('구매하기'))
