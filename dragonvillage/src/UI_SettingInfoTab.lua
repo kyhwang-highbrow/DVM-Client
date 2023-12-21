@@ -38,11 +38,11 @@ function UI_Setting:init_infoTab_buttons()
     
     do -- 버튼들의 활성 여부를 visible로 설정한다. ui 파일에서는 기본값을 true로 간주한다.
         -- [쿠폰 입력] - ios 정책 강화로 ios에선 쿠폰 입력 버튼을 숨겨야 하는 경우가 있다.
-        if (false == g_remoteConfig:hideCouponBtn()) and (false == LocalData.getInstance():isInAppReview()) then
-            table.insert(l_btn_name_list, 'couponBtn')
-        end
+
     end
 
+    table.insert(l_btn_name_list, 'couponBtn')
+    table.insert(l_btn_name_list, 'codeCouponBtn')
     table.insert(l_btn_name_list, 'helpBtn')
     table.insert(l_btn_name_list, 'communityBtn')
     table.insert(l_btn_name_list, 'agreementBtn')
@@ -61,8 +61,15 @@ function UI_Setting:init_infoTab_buttons()
     local l_btn_list = {}
     for _,btn_name in ipairs(l_btn_name_list) do
         if (nil ~= vars[btn_name]) then
-            table.insert(l_btn_list, vars[btn_name])
-            vars[btn_name]:setVisible(true)
+            if btn_name == 'couponBtn' or btn_name == 'codeCouponBtn' then
+                if (false == g_remoteConfig:hideCouponBtn()) and (false == LocalData.getInstance():isInAppReview()) then
+                    table.insert(l_btn_list, vars[btn_name])
+                    vars[btn_name]:setVisible(true)
+                end
+            else
+                table.insert(l_btn_list, vars[btn_name])
+                vars[btn_name]:setVisible(true)
+            end
         end
     end
 
