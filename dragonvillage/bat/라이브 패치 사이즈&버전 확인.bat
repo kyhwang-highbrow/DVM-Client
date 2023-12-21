@@ -4,5 +4,6 @@ chcp 65001
 cd..
 cd python
 py -3 GetPatchFileSizeList.py 1.4.4
+py -3 GetPatchFileSizeList.py 1.4.5
 
 pause
