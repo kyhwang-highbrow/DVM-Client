@@ -246,7 +246,7 @@ function ServerData_Highbrow:request_cardCouponUse(coupon, success_cb, result_cb
 
     -- 네트워크 통신
     local ui_network = UI_Network()
-    ui_network:setUrl('/collabo/coupon/use')
+    ui_network:setUrl('/code/coupon/use')
     ui_network:setParam('uid', uid)
     ui_network:setParam('coupon_code', coupon)
     ui_network:setSuccessCB(success_cb)
