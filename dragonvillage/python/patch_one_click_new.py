@@ -4,6 +4,7 @@ import os
 import sys
 import shutil
 import zipfile
+import time
 import module.md5_log_maker_new as md5
 import module.utility as utils
 import send_slack_message as slack
@@ -316,13 +317,20 @@ def main():
         }
 
     if len(translation_zip_file_list) > 0:
+        # 2초 정도 있다가 요청
+        time.sleep(2)
+
         r = requests.get(TOOL_SERVER_PATH + '/upload_patch_dv')
         print(r)
+
+        # 2초 정도 있다가 요청
+        time.sleep(2)
 
         data = {
         'app_ver': app_ver,
         'is_update': True
         }
+        
         r = requests.post(SERVER_PATH + '/manage/patch_language', data = data)
         print(r)
 
