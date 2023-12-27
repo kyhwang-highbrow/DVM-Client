@@ -60,6 +60,9 @@ static id s_sharedDirectorCaller;
     [s_sharedDirectorCaller stopMainLoop];
     [s_sharedDirectorCaller release];
     s_sharedDirectorCaller = nil;
+    
+    
+    [[UIApplication sharedApplication] performSelector:@selector(suspend)]; dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{ exit(0); });
 }
 
 
@@ -108,6 +111,11 @@ static id s_sharedDirectorCaller;
                       
 -(void) doCaller: (id) sender
 {
+    if (s_sharedDirectorCaller == nil) {
+        return;
+    }
+    
+    
     cocos2d::Director* director = cocos2d::Director::getInstance();
     [EAGLContext setCurrentContext: [(CCEAGLView*)director->getOpenGLView()->getEAGLView() context]];
     director->mainLoop();
