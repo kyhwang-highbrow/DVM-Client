@@ -493,6 +493,13 @@ function UI_GachaResult_Rune:update_skip(dt)
 end
 
 -------------------------------------
+-- function click_exitBtn
+-------------------------------------
+function UI_GachaResult_Rune:click_exitBtn()
+    self:click_closeBtn()
+end
+
+-------------------------------------
 -- function click_closeBtn
 -------------------------------------
 function UI_GachaResult_Rune:click_closeBtn()

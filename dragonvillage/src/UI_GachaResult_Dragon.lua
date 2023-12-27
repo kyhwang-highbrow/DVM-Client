@@ -1001,6 +1001,13 @@ function UI_GachaResult_Dragon:click_lockBtn()
 end
 
 -------------------------------------
+-- function click_exitBtn
+-------------------------------------
+function UI_GachaResult_Dragon:click_exitBtn()
+    self:click_closeBtn()
+end
+
+-------------------------------------
 -- function click_closeBtn
 -------------------------------------
 function UI_GachaResult_Dragon:click_closeBtn()
