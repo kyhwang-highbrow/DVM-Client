@@ -1,0 +1,10 @@
+/* 
+  InfoPlist.strings
+  DragonHeroes
+
+  Created by perplelab on 2015. 6. 9..
+
+*/
+
+CFBundleDisplayName = "Dragon Village M";
+NSUserTrackingUsageDescription = "Used to interpose personalized advertisements.";
