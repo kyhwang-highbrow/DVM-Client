@@ -12,6 +12,7 @@ ErrorTracker = class({
     m_lFailedResList = 'list<string>',
     m_tDeviceInfo = 'table',
     m_bErrorPopupOpen = 'bool',
+    m_bErrorSended = 'bool',
 
     m_lBattleHistoryList = 'list<table>',
     m_battleLogHistoryTime = 'number',
@@ -31,6 +32,7 @@ function ErrorTracker:init()
     self.m_lAPIList = {}
     self.m_lFailedResList = {}
     self.m_bErrorPopupOpen = false
+    self.m_bErrorSended = false
 
     -- @ generator
     -- getsetGenerator(ErrorTracker, 'ErrorTracker')
@@ -374,6 +376,13 @@ function ErrorTracker:cleanupIngameBattleLog()
 end
 
 -------------------------------------
+--- @function isErrorSended
+------------------------------------- 
+function ErrorTracker:isErrorSended()
+    return self.m_bErrorSended
+end
+
+-------------------------------------
 -- function openErrorPopup
 ------------------------------------- 
 function ErrorTracker:openErrorPopup(error_msg)
@@ -406,6 +415,7 @@ function ErrorTracker:openErrorPopup(error_msg)
     else
         local msg = error_msg
         UI_ErrorPopup_Live(error_msg):setCloseCB(close_cb)
+        self.m_bErrorSended = true
 
     end
     cclog('############## openErrorPopup end')

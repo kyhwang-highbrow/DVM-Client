@@ -41,6 +41,16 @@ end
 -------------------------------------
 function UI_ErrorPopup_Live:setErrorStr(str)
     self.m_errorStr = str
+
+    -- 에러 팝업이 열리자마자 그냥 바로 보내도록 수정 kyhwang 23.12.27
+    -- 다른 유아이들에 의해서 버튼 클릭이 불가한 경우도 있을 수 있음
+    -- 대신 로그인 중 한번만 보내도록 하여 무분별하게 쌓이지 않도록 처리
+    if g_errorTracker:isErrorSended() == true then
+        return
+    end
+
+    local error_str = self.m_errorStr
+    g_errorTracker:sendErrorLog(error_str, function() end)
 end
 
 -------------------------------------
@@ -52,11 +62,12 @@ function UI_ErrorPopup_Live:click_reportBtn()
 
     local error_str = self.m_errorStr
     local function cb_func()
-        local toast_str = Str('전송이 완료되었다고라.')
-        UIManager:toastNotificationGreen(toast_str)
-        self:click_closeBtn()
     end
-    g_errorTracker:sendErrorLog(error_str, cb_func)
+    --g_errorTracker:sendErrorLog(error_str, cb_func)
+
+    local toast_str = Str('전송이 완료되었다고라.')
+    UIManager:toastNotificationGreen(toast_str)
+    self:click_closeBtn()
 end
 
 -------------------------------------
