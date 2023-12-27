@@ -657,6 +657,14 @@ end
 function UI_DragonRunes:refreshEquippedRunes()
     local vars = self.vars
     local dragon_obj = g_dragonsData:getDragonDataFromUid(self.m_selectDragonOID)
+    if dragon_obj == nil then
+        return
+    end
+
+    if dragon_obj:getObjectType() ~= 'dragon' then
+        return
+    end
+
     local rune_set_obj = dragon_obj:getStructRuneSetObject()
     local active_set_list = rune_set_obj:getActiveRuneSetList()
 
