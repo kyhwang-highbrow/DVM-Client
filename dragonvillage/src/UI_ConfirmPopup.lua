@@ -97,7 +97,7 @@ function UI_ConfirmPopup:refresh()
 	end
 
     -- 마일리지류의 아이템은 확인 팝업에서 아이콘 표시를 하지 않도록 처리
-    if string.find(self.m_itemKey, '_mileage') ~= nil then
+    if self.m_itemKey ~= nil and string.find(self.m_itemKey, '_mileage') ~= nil then
         vars['iconNode']:setVisible(false)
     end
 end
