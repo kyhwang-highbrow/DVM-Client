@@ -357,7 +357,7 @@ function ServerData_Dragons:applyDragonData(t_dragon_data)
     local dragon_obj = StructDragonObject(t_dragon_data)
     self.m_serverData:applyServerData(dragon_obj, 'dragons', doid)
     -- 드래곤 정렬 데이터 수정
-    self:setDragonsSortData(doid)
+    -- self:setDragonsSortData(doid)
 
     -- 드래곤 did별 갯수 갱신 필요
     self.m_bDirtyNumOfDragonsByDid = true
@@ -568,6 +568,14 @@ function ServerData_Dragons:isMaxGrade(dragon_object_id)
     local t_dragon_data = self:getDragonDataFromUid(dragon_object_id)
     local is_max_grade = (t_dragon_data['grade'] >= MAX_DRAGON_GRADE)
     return is_max_grade
+end
+
+-------------------------------------
+--- @function clearSortMap
+--- @breif 모든 정렬 정보 제거(이 함수 호출로 정렬 시에 드래곤 소팅 정보를 다시 계산)
+-------------------------------------
+function ServerData_Dragons:clearSortMap()
+    self.m_lSortData = {}
 end
 
 -------------------------------------

@@ -297,6 +297,9 @@ function ServerData_Research:request_researchUpgrade(research_id, price, finish_
         g_highlightData:setDirty(true)
         self:response_researchInfo(ret)
 
+        -- 드래곤 정렬 정보 갱신
+        g_dragonsData:clearSortMap()
+
         if finish_cb then
             finish_cb(ret)
         end
@@ -331,6 +334,10 @@ function ServerData_Research:request_researchReset(finish_cb, fail_cb)
         g_highlightData:setDirty(true)
         self.m_lastResearchIdList = {}
         self.m_availableResearchIdList = {}
+
+        -- 드래곤 정렬 정보 갱신
+        g_dragonsData:clearSortMap()
+        
         if finish_cb then
             finish_cb(ret)
         end

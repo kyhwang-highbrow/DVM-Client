@@ -648,6 +648,9 @@ function ServerData_Lair:request_lairStatPick(ids, finish_cb, fail_cb)
 
         self:applyLairInfo(ret['lair'])
 
+        -- 드래곤 정렬 정보 갱신
+        g_dragonsData:clearSortMap()
+
         -- 사운드 재생
         SoundMgr:playEffect('EFFECT', 'fever')
 
@@ -726,6 +729,9 @@ function ServerData_Lair:request_lairStatReset(ids, finish_cb, fail_cb)
         -- dirty flag
         self:setAvailableRegisterDragonsDirty(true)
 
+        -- 드래곤 정렬 정보 갱신
+        g_dragonsData:clearSortMap()
+
         if finish_cb then
             finish_cb(ret)
         end
@@ -763,6 +769,9 @@ function ServerData_Lair:request_lairSeasonReset(finish_cb, fail_cb)
         -- dirty flag
         self:setAvailableRegisterDragonsDirty(true)
 
+        -- 드래곤 정렬 정보 갱신
+        g_dragonsData:clearSortMap()
+
         if finish_cb then
             finish_cb(ret)
         end
@@ -798,6 +807,9 @@ function ServerData_Lair:request_lairSeasonResetManage(finish_cb, fail_cb)
         
         -- dirty flag
         self:setAvailableRegisterDragonsDirty(true)
+        
+        -- 드래곤 정렬 정보 갱신
+        g_dragonsData:clearSortMap()
 
         if finish_cb then
             finish_cb(ret)
