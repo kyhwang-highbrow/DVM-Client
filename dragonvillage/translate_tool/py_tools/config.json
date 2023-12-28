@@ -181,8 +181,6 @@
         [
             "only_ingame"
             ,"only_scenario"
-            ,"only_ingame_backup"   
-            ,"only_scenario_backup"
         ]
 
         ,"key_value_list" : 

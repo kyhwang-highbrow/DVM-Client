@@ -130,11 +130,12 @@ def get_lua_to_dic(path):
     return result
 
 def make_delta_lua(index, all_data_list, compare_file_name, lang_code):
-    compare_data_dic = get_lua_to_dic(os.path.join(compare_root, compare_file_name))
-    change_data_list = compare_data(all_data_list[index], compare_data_dic)
-    print_str = "({0})Delta lua table text count :".format(lang_code)
-    print(print_str, len(change_data_list))
-    lua_table = convert(change_data_list)
+    # 전체 번역 파일을 불러와서 중복 제거하는 로직인데
+    # 쓸데없이 오래걸리고 패치 파일 만드는 과정에서는 필요가 없다고 판단됨
+    # 중복 제거는 다른 프로세스(merge_sheet)에서 하는 것이 좋을듯    
+    # compare_data_dic = get_lua_to_dic(os.path.join(compare_root, compare_file_name))
+    # change_data_list = compare_data(all_data_list[index], compare_data_dic)
+    lua_table = convert(all_data_list[index])
     return lua_table
 
 def save_file(file_name, data):
