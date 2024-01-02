@@ -61,10 +61,39 @@ function __G__TRACKBACK__(msg)
 end
 
 -------------------------------------
+-- @perplesdk
+-------------------------------------
+gPatchPerpleSDKSchedulerID = 0
+
+-- Call this function in entry point (ex. main())
+function StartPerpleSDKPatchScheduler()
+	local sharedScheduler = cc.Director:getInstance():getScheduler()
+    gPatchPerpleSDKSchedulerID = sharedScheduler:scheduleScriptFunc(function()
+        PerpleSDK:updateLuaCallbacks()
+    end, 0, false)
+end
+
+-- Call this function in closing application
+function EndPerpleSDKPatchScheduler()
+	local app_ver = getAppVerNum()
+	if (app_ver >= 1004006 or (app_ver < 1000000 and app_ver >= 9007)) then
+		local sharedScheduler = cc.Director:getInstance():getScheduler()
+		sharedScheduler:unscheduleScriptEntry(gPatchPerpleSDKSchedulerID)
+		gPatchPerpleSDKSchedulerID = 0
+	end
+end
+
+-------------------------------------
 -- function closeApplication
 -------------------------------------
 function closeApplication()
 	cclog('CloseApplication')
+
+	-- @perpelsdk
+	if isAndroid() or isIos() then
+		EndPerpleSDKPatchScheduler()
+	end
+
 	cc.Director:getInstance():endToLua()
 end
 
@@ -96,6 +125,7 @@ local function main()
 	require 'LocalData'
     require 'StructLanguage'
 	require 'lib/Translate'
+	require 'lib/math'
 	require 'Global'
 	require 'ErrorTracker'
 	require 'CppFunctions'
@@ -103,6 +133,8 @@ local function main()
 	require 'SceneLogo'
 	require 'ScenePatch'
 	require 'Stopwatch'
+
+
 	pl = require 'pl.import_into'()
 
 	local stop_watch = Stopwatch()
@@ -114,6 +146,15 @@ local function main()
 	stop_watch:record('ErrorTracker:getInstance()')
     PatchChecker:getInstance()
 	stop_watch:record('PatchChecker:getInstance()')
+
+	-- @perpelsdk 루아 파일이 require된 후에 동작해야 함
+	if isAndroid() or isIos() then		
+		local app_ver = getAppVerNum()
+		if (app_ver >= 1004006 or (app_ver < 1000000 and app_ver >= 9007)) then
+			PerpleSDK:resetLuaBinding()
+			StartPerpleSDKPatchScheduler()
+		end
+	end
 
     -- 설정 언어를 가져오기 위해 localData 불러옴
     LocalData:getInstance()

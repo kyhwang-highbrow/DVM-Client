@@ -90,6 +90,11 @@ function ScenePatch:setWorkList()
     self.m_workIdx = 0
     self.m_lWorkList = {}
 
+    local app_ver = getAppVerNum()
+    if (app_ver >= 1004006 or (app_ver < 1000000 and app_ver >= 9007)) and (CppFunctions:isIos() or CppFunctions:isAndroid()) then
+        table.insert(self.m_lWorkList, 'workAskConsent')
+    end
+
     if (CppFunctions:isIos() == true) then
         table.insert(self.m_lWorkList, 'workRequestIosAppTrackingTransparency')
     end
@@ -108,6 +113,23 @@ end
 function ScenePatch:doNextWork()
     local work_idx = (self.m_workIdx + 1)
     self:doWorkByIdx(work_idx)
+end
+
+-------------------------------------
+-- function retryCurrWork
+-------------------------------------
+function ScenePatch:retryCurrWork()
+    local func_name = self.m_lWorkList[self.m_workIdx]
+
+    if func_name and (self[func_name]) then
+        cclog('\n')
+        cclog('############################################################')
+        cclog('retry')
+        cclog('# idx : ' .. self.m_workIdx .. ', func_name : ' .. func_name)
+        cclog('############################################################')
+        self[func_name](self)
+        return
+    end
 end
 
 -------------------------------------
@@ -130,6 +152,21 @@ function ScenePatch:doWorkByIdx(work_idx)
         self[func_name](self)
         return
     end
+end
+
+-------------------------------------
+---@function workAskConsent
+---GDPR 등 개인 정보 보호를 위한 법률에 따른 동의 요청 처리
+-------------------------------------
+function ScenePatch:workAskConsent()
+    ConsentPlatform.getInstance():requestConsentForm(
+        function()
+            -- @nextfunc
+            self:doNextWork()
+        end,
+        function(info)
+            self:retryCurrWork()
+        end)
 end
 
 -------------------------------------

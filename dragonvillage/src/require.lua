@@ -547,6 +547,9 @@ local t_module = {
     'SceneGameClanWar',
     'SceneDmgate',
 
+
+    'ConsentPlatform',
+
     -- Phys
 	'PhysWorld',
     'PhysObject',
@@ -1947,7 +1950,7 @@ function loadModuleForPatchScene()
 		'ServerData_Adventure',
 
 		-- Util
-		'SDKManager',
+		'SDKManager',        
 		--'ErrorTracker',
         'ServerTime',
 		'TimeLib',
@@ -1972,6 +1975,8 @@ function loadModuleForPatchScene()
 		-- Scene
 		--'SceneLogo',
 		--'ScenePatch',
+
+        'ConsentPlatform',
 
 		-- Animator
 		'Animator',
