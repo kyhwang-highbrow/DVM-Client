@@ -388,7 +388,7 @@ function UI_ClanRaid:showDungeonStateUI()
     elseif (state == CLAN_RAID_STATE.CLEAR) then
 
         -- 끝까지 클리어한 경우
-        if (struct_raid:isClearAllClanRaidStage() and stage_id == MAX_STAGE_ID) then
+        if (struct_raid:isClearAllClanRaidStage() and stage_id == g_clanRaidData:getClanRaidMaxStageId()) then
             local status_text = g_clanRaidData:getClanRaidStatusText()
             vars['atkLabel']:setString(status_text)
             vars['atkLabel']:setVisible(true)
@@ -432,7 +432,7 @@ function UI_ClanRaid:refreshBtn()
 
     -- 시작버튼 활성화/비활성화, 
     -- 해당 스테이지가 마지막이고, 마지막 스테이지 클리어한 상태라면 준비버튼 비활성화
-    if (struct_raid:isClearAllClanRaidStage() and stage_id == MAX_STAGE_ID) then
+    if (struct_raid:isClearAllClanRaidStage() and stage_id == g_clanRaidData:getClanRaidMaxStageId()) then
         vars['readyBtn']:setEnabled(false) 
     else
         vars['readyBtn']:setEnabled(stage_id == curr_stage_id)       

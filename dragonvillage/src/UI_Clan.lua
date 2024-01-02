@@ -336,7 +336,7 @@ function UI_Clan:initRaidInfo()
     local rate = struct_raid:getHpRate()
     hp_label:setNumber(rate, false)
 
-    if (struct_raid:isClearAllClanRaidStage() and stage_id == MAX_STAGE_ID) then
+    if (struct_raid:isClearAllClanRaidStage() and stage_id == g_clanRaidData:getClanRaidMaxStageId()) then
         vars['bossHpLabel']:setString(Str('마지막 스테이지를 클리어 했습니다.'))
     end
 end

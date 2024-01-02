@@ -1,8 +1,5 @@
 local PARENT = Structure
 
-MAX_STAGE_ID = 1500200
-MAX_STAGE = 200
-
 CLAN_RAID_STATE = {
     NORMAL = 1, -- 입장 가능
     CHALLENGE = 2, -- 유저 도전중
@@ -437,7 +434,7 @@ function StructClanRaid:isOverMaxStage(stage_id)
         stage_id = self.stage
     end
 
-    if (tonumber(stage_id) > MAX_STAGE_ID) then
+    if (tonumber(stage_id) > g_clanRaidData:getClanRaidMaxStageId()) then
         return true
     else
         return false

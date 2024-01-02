@@ -921,3 +921,21 @@ function ServerData_ClanRaid:isClanDungeonDarkRewardAvailable(dungeon_score)
     return self.m_myDarkClanDungeonScore >= dungeon_score
 end
 --#endregion @dhkim 클랜던전 점수 저장
+
+
+-------------------------------------
+--- @function getClanRaidMaxStageId
+--- @return number 최대 스테이지 아이디
+-------------------------------------
+function ServerData_ClanRaid:getClanRaidMaxStageId()
+    local date_str = '2024-01-07 00:00:00'
+    local start_time = ServerTime:getInstance():datestrToTimestampSec(date_str)
+    local cur_time = ServerTime:getInstance():getCurrentTimestampSeconds()    
+
+    if start_time < cur_time then
+        return 1500200
+    end
+
+    --return 1500150
+    return 1500200
+end
