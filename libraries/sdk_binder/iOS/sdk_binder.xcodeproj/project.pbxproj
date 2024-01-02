@@ -27,6 +27,9 @@
 		37BA05AC1F73B3900048FF81 /* PerpleAdColony.m in Sources */ = {isa = PBXBuildFile; fileRef = 37BA05AB1F73B3900048FF81 /* PerpleAdColony.m */; };
 		3C67A60C269DF6AC00C9558C /* TapjoyAdapter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3C67A60B269DF6AC00C9558C /* TapjoyAdapter.framework */; };
 		3E8FC35C250733E000785D38 /* HbApple.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E8FC35B250733E000785D38 /* HbApple.swift */; };
+		8555834E2B43F3E900643675 /* HbrwCMPWrapper.m in Sources */ = {isa = PBXBuildFile; fileRef = 8555834D2B43F3E900643675 /* HbrwCMPWrapper.m */; };
+		857ACD5B2B3EBE450008DC87 /* HbrwCMP.swift in Sources */ = {isa = PBXBuildFile; fileRef = 857ACD5A2B3EBE450008DC87 /* HbrwCMP.swift */; };
+		857ACD632B3EC5870008DC87 /* HbrwPropertyWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 857ACD622B3EC5870008DC87 /* HbrwPropertyWrapper.swift */; };
 		9C38D33D2533F95B004C2A62 /* lua_perplesdk.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9C38D2F4252F0B8D004C2A62 /* lua_perplesdk.cpp */; };
 /* End PBXBuildFile section */
 
@@ -45,7 +48,7 @@
 /* Begin PBXFileReference section */
 		04330404290E9DB100F37564 /* AdMobRewardAdUnit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AdMobRewardAdUnit.h; sourceTree = "<group>"; };
 		04330405290E9DEA00F37564 /* AdMobRewardAdUnit.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AdMobRewardAdUnit.m; sourceTree = "<group>"; };
-		04330430290F0E6F00F37564 /* libsdk_binder.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; name = libsdk_binder.a; path = "/Users/mac/Desktop/Highbrow/DVM/DVM_Client/libraries/sdk_binder/iOS/build/Debug-iphoneos/libsdk_binder.a"; sourceTree = "<absolute>"; };
+		17C63386E91F4D207A6C1495 /* libPods-sdk_binder.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-sdk_binder.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		1C445F211D7B9ACA00714F62 /* PerpleGameCenter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PerpleGameCenter.h; sourceTree = "<group>"; };
 		1C445F221D7B9ACA00714F62 /* PerpleGameCenter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PerpleGameCenter.m; sourceTree = "<group>"; };
 		1C445F241D7B9D6400714F62 /* PerpleBilling.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PerpleBilling.h; sourceTree = "<group>"; };
@@ -84,6 +87,11 @@
 		3E8FC35A250733DF00785D38 /* sdk_binder-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "sdk_binder-Bridging-Header.h"; sourceTree = "<group>"; };
 		3E8FC35B250733E000785D38 /* HbApple.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HbApple.swift; sourceTree = "<group>"; };
 		6A198FA8D52FEC37C31F9BBF /* Pods-sdk_binder.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-sdk_binder.release.xcconfig"; path = "Target Support Files/Pods-sdk_binder/Pods-sdk_binder.release.xcconfig"; sourceTree = "<group>"; };
+		8531A59029CD426A009C77FC /* libsdk_binder.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libsdk_binder.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		8555834C2B43F3C400643675 /* HbrwCMPWrapper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HbrwCMPWrapper.h; sourceTree = "<group>"; };
+		8555834D2B43F3E900643675 /* HbrwCMPWrapper.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HbrwCMPWrapper.m; sourceTree = "<group>"; };
+		857ACD5A2B3EBE450008DC87 /* HbrwCMP.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HbrwCMP.swift; sourceTree = "<group>"; };
+		857ACD622B3EC5870008DC87 /* HbrwPropertyWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HbrwPropertyWrapper.swift; sourceTree = "<group>"; };
 		9C38D2F1252F0B80004C2A62 /* lua_perplesdk.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lua_perplesdk.h; sourceTree = "<group>"; };
 		9C38D2F2252F0B80004C2A62 /* lua_perplesdk_macro.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lua_perplesdk_macro.h; sourceTree = "<group>"; };
 		9C38D2F4252F0B8D004C2A62 /* lua_perplesdk.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = lua_perplesdk.cpp; sourceTree = "<group>"; };
@@ -144,6 +152,10 @@
 				37450C7B2047D26000960316 /* PerpleTwitter.m */,
 				3773CD1321E774E000B22F35 /* PerpleCrashlytics.h */,
 				3773CD1421E7763D00B22F35 /* PerpleCrashlytics.m */,
+				857ACD5A2B3EBE450008DC87 /* HbrwCMP.swift */,
+				857ACD622B3EC5870008DC87 /* HbrwPropertyWrapper.swift */,
+				8555834C2B43F3C400643675 /* HbrwCMPWrapper.h */,
+				8555834D2B43F3E900643675 /* HbrwCMPWrapper.m */,
 			);
 			path = ios;
 			sourceTree = "<group>";
@@ -155,6 +167,7 @@
 				1CB7275D1D45449000994916 /* ios */,
 				B46B37E319A24343E1E59F3F /* Frameworks */,
 				B4B3379B084F5A3AADDC707A /* Pods */,
+				8531A59029CD426A009C77FC /* libsdk_binder.a */,
 			);
 			sourceTree = "<group>";
 		};
@@ -186,6 +199,7 @@
 			isa = PBXGroup;
 			children = (
 				3C67A60B269DF6AC00C9558C /* TapjoyAdapter.framework */,
+				17C63386E91F4D207A6C1495 /* libPods-sdk_binder.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -217,7 +231,7 @@
 			);
 			name = sdk_binder;
 			productName = PerpleSDK;
-			productReference = 04330430290F0E6F00F37564 /* libsdk_binder.a */;
+			productReference = 8531A59029CD426A009C77FC /* libsdk_binder.a */;
 			productType = "com.apple.product-type.library.static";
 		};
 /* End PBXNativeTarget section */
@@ -287,10 +301,12 @@
 				9C38D33D2533F95B004C2A62 /* lua_perplesdk.cpp in Sources */,
 				37AA47E01D4903F6008C7214 /* PerpleCore.cpp in Sources */,
 				3706B2411D75232E006D1143 /* PerpleGoogle.m in Sources */,
+				857ACD5B2B3EBE450008DC87 /* HbrwCMP.swift in Sources */,
 				37311F271D76706A0085C073 /* PerpleFacebook.m in Sources */,
 				3773CD2721EE1A8F00B22F35 /* PerpleAdMobRewardedVideoAd.m in Sources */,
 				37993CCD1D743076005AC547 /* runtime_ios.mm in Sources */,
 				375E09721F4488A30085A2FE /* PerpleUnityAds.m in Sources */,
+				8555834E2B43F3E900643675 /* HbrwCMPWrapper.m in Sources */,
 				3759CDEB1D7950C200D0945A /* PerpleTapjoy.m in Sources */,
 				37B4B815201B2A8C008B58E6 /* PerpleAdjust.m in Sources */,
 				3773CD2B21EE26AA00B22F35 /* PerpleAdMobInterstitialAd.m in Sources */,
@@ -303,6 +319,7 @@
 				1C445F231D7B9ACA00714F62 /* PerpleGameCenter.m in Sources */,
 				37AC8D7A2096289400258021 /* PerpleAdMob.m in Sources */,
 				3E8FC35C250733E000785D38 /* HbApple.swift in Sources */,
+				857ACD632B3EC5870008DC87 /* HbrwPropertyWrapper.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

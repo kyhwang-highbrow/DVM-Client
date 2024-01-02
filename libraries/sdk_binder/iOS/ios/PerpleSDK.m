@@ -1309,6 +1309,10 @@ static PerpleSDKCallback sFCMTokenRefreshCallback;
     return mySharedInstance;
 }
 
++ (PerpleSDK *) shared {
+    return [PerpleSDK sharedInstance];
+}
+
 + (void) resetProcessId {
     sProcessId++;
     if (sProcessId > 65534) {

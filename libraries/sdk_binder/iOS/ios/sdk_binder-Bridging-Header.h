@@ -3,3 +3,7 @@
 //
 #import "PerpleSDK.h"
 #import "PerpleFirebase.h"
+
+#import "GoogleMobileAds/GoogleMobileAds.h"
+#import "CoreLocation/CoreLocation.h"
+

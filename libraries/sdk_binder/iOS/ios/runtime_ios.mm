@@ -11,6 +11,8 @@
 #import <Foundation/Foundation.h>
 #import <AppTrackingTransparency/AppTrackingTransparency.h>
 #import <FBSDKCoreKit/FBSDKSettings.h>
+#import "sdk_binder-swift.h"
+
 
 // autoLogin, loginWithGoogle
 // "success" :
@@ -936,4 +938,29 @@ void appleLogin(int funcID) {
 void appleLogout(int funcID) {
     [[PerpleSDK sharedInstance] appleLogout];
 }
- 
+
+#pragma mark - Google CMP
+void cmpLoadConsentIfNeeded(int funcID) {
+    [[HbrwCMP shared] loadConsentIfNeeded:^(NSString *result, NSString *info) {
+        if ([PerpleSDK isCurrentProcessId:[PerpleSDK getProcessId]]) {
+            PerpleCore::OnSDKResult(funcID, [result UTF8String], [info UTF8String]);
+        }
+    }];
+}
+
+bool cmpCanRequestAds(int funcID) {
+    return [[HbrwCMP shared] canRequestAds];
+}
+
+bool cmpRequirePrivacyOption(int funcID) {
+    return [[HbrwCMP shared] requirePrivacyOption];
+}
+
+void cmpPresentPrivacyOptionForm(int funcID) {
+    [[HbrwCMP shared] presentPrivacyOptionForm:^(NSString *result, NSString *info) {
+        if ([PerpleSDK isCurrentProcessId:[PerpleSDK getProcessId]]) {
+            PerpleCore::OnSDKResult(funcID, [result UTF8String], [info UTF8String]);
+        }
+    }];
+}
+

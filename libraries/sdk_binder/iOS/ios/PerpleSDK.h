@@ -289,6 +289,7 @@ typedef void(^PerpleSDKCallback)(NSString *result, NSString *info);
 #pragma mark - Static methods
 
 + (id) sharedInstance;
++ (PerpleSDK *) shared;
 + (void) resetProcessId;
 + (int) getProcessId;
 + (BOOL) isCurrentProcessId:(int)processId;

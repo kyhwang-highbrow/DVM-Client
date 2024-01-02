@@ -15,6 +15,8 @@
 #import "DeviceDetector.h"
 #import <AdSupport/ASIdentifierManager.h>
 #import "DragonVillage-Swift.h"
+#import <HbrwCMPWrapper.h>
+
 #elif (CC_TARGET_PLATFORM == CC_PLATFORM_MAC)
 #import "SimulatorApp.h"
 #endif
@@ -254,10 +256,29 @@ void sdkEvent(const char *id, const char *arg0, const char *arg1)
         bool b = [HBAppTrackingTransparency isNotDetermined];
         sdkEventResult(id, b ? "success" : "fail", "");
         
+        
+    } else if (strcmp(id, "cmpPresentPrivacyOptionForm") == 0) {
+        //[[HbrwCMPWrapper shared] loadConsentIfNeeded:^(NSString *result, NSString *info) {
+        //}];
+        
+    } else if (strcmp(id, "cmpPresentPrivacyOptionForm") == 0) {
+        //[[HbrwCMPWrapper shared] presentPrivacyOptionForm:^(NSString *result, NSString *info) {
+        //}];
+        
+    } else if (strcmp(id, "cmpCanRequestAds") == 0) {
+        bool b = [[HbrwCMPWrapper shared] canRequestAds];
+        sdkEventResult(id, b ? "success" : "fail", "");
+        
+    } else if (strcmp(id, "cmpRequirePrivacyOption") == 0) {
+        bool b = [[HbrwCMPWrapper shared] requirePrivacyOption];
+        sdkEventResult(id, b ? "success" : "fail", "");
     }
     
 #endif
 }
+
+
+
 
 // Fix iOS simulator link error
 extern "C"

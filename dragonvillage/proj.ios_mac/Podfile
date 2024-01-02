@@ -1,5 +1,5 @@
 # Uncomment this line to define a global platform for your project
-platform :ios, '10.0'
+platform :ios, '11.0'
 
 project 'DragonVillageM'
 
@@ -33,19 +33,20 @@ target 'DragonVillageM iOS' do
     ## ADS
     # Pods for AdMob
     pod 'Google-Mobile-Ads-SDK'#, '= 7.50.0'
-    pod 'GoogleMobileAdsMediationUnity'#, '= 3.0.0.3'
-    #AdColony 4.1.1에 해당하는 AdMob SDK 버전이 없어서 미디에이션에서 제외
+    # pod 'GoogleMobileAdsMediationUnity'#, '= 3.0.0.3'
+    # AdColony 4.1.1에 해당하는 AdMob SDK 버전이 없어서 미디에이션에서 제외
     # https://cocoapods.org/pods/GoogleMobileAdsMediationAdColony
-    #pod 'GoogleMobileAdsMediationAdColony'#, '= 3.3.6.0'
-    #pod 'GoogleMobileAdsMediationTapjoy'#, '=12.3.3.0'
+    # pod 'GoogleMobileAdsMediationAdColony'#, '= 3.3.6.0'
+    # pod 'GoogleMobileAdsMediationTapjoy'#, '=12.3.3.0'
     # Pods for UnityAds
-    pod 'UnityAds'#, '= 3.0.0'
+    # pod 'UnityAds'#, '= 3.0.0'
     
     # Pods for AdColony
     # https://github.com/AdColony/AdColony-iOS-SDK
     # https://github.com/AdColony/AdColony-iOS-SDK/blob/master/CHANGELOG.md
     # sgkim 2019.10.14 (3.3.6 -> 4.1.1)
     pod 'AdColony'#, '= 4.1.1'
+    pod 'GoogleUserMessagingPlatform', '~> 2.1.0'
 
 
     ## STATISTIC

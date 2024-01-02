@@ -62,6 +62,7 @@ extern void sdkEventResult(const char *id, const char *result, const char *info)
 
 @class HBAppTrackingTransparency;
 
+
 #pragma mark - Application lifecycle
 
 // cocos2d application instance

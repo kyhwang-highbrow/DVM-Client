@@ -6,9 +6,13 @@
 //  Copyright © 2016년 PerpleLab. All rights reserved.
 //
 
-@import Foundation;
-@import UIKit;
-@import Firebase;
+
+#import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
+#import <FirebaseCore/FirebaseCore.h>
+#import <FirebaseAuth/FirebaseAuth.h>
+#import <FirebaseMessaging/FirebaseMessaging.h>
+#import <FirebaseAnalytics/FirebaseAnalytics.h>
 
 #import "PerpleSDK.h"
 
