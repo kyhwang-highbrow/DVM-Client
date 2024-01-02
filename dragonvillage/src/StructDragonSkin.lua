@@ -439,18 +439,18 @@ function StructDragonSkin:getUIPriority()
     local did = self:getDragonSkinDId()
 
     -- 보유중인 드래곤일 경우
-    if g_dragonsData:getNumOfDragonsByDid(did) > 0 then
-        order = order + 1000
+    if g_dragonsData:getNumOfDragonsByDid(did) <= 0 then
+        order = order - 1
     end
 
     -- 소유한 스킨일 경우
     if self:isDragonSkinOwned() == true then
-        order = order - 1000
+        order = order - 100
     end
 
-    -- 구매가 가능한 상태일 경우
-    if self:checkDragonSkinPurchaseValidation() == true then
-        order = order + 10
+    -- 구매가 불가능한 상태일 경우
+    if self:checkDragonSkinPurchaseValidation() == false then
+        order = order - 10000
     end
 
     return order
