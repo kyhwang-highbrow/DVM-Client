@@ -183,6 +183,10 @@ function Translate:a2dTranslate(full_path)
         return
     end
 
+    if string.find(game_lang, 'zh') ~= nil then
+        game_lang = 'zh'
+    end
+
     local path, file_name, extension = self:getFileNameInfo(full_path)
     path = string.gsub(path,'res/','')
     path = string.gsub(path,'res\\','')
@@ -224,6 +228,10 @@ function Translate:getTranslatedPath(full_path)
 
     -- 대상 언어의 경로로 변환
 	local game_lang = self:getGameLang()
+    if string.find(game_lang, 'zh') ~= nil then
+        game_lang = 'zh'
+    end
+    
 	local translated_path = string.gsub(full_path, 'typo/ko', 'typo/' .. game_lang)
     local translated_sub_path = string.gsub(full_path, 'typo/ko', 'typo/' .. 'en')
 
