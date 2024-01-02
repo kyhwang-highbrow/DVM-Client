@@ -936,6 +936,5 @@ function ServerData_ClanRaid:getClanRaidMaxStageId()
         return 1500200
     end
 
-    --return 1500150
-    return 1500200
+    return 1500150
 end
