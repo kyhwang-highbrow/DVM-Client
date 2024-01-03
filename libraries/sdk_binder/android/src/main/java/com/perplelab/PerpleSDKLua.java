@@ -4,8 +4,11 @@ import android.util.Log;
 import org.json.JSONObject;
 import com.perplelab.firebase.PerpleCrashlytics;
 import com.perplelab.firebase.PerpleFirebase;
+import com.perplelab.google.HbrwCMP;
 import com.perplelab.tapjoy.PerpleTapjoyPlacementCallback;
 import com.perplelab.util.PerpleUtil;
+import com.perplelab.google.HbrwCMP;
+
 
 public class PerpleSDKLua {
     private static final String LOG_TAG = "PerpleSDKLua";
@@ -1746,5 +1749,47 @@ public class PerpleSDKLua {
         });
     }
 
+    //--------------------------------------------------------------------------------
+    // Google - CMP
+    //--------------------------------------------------------------------------------
+    public static void cmpLoadConsentIfNeeded(final int funcID) {
+
+        final int pID = PerpleSDK.ProcessId;
+        HbrwCMP.INSTANCE.loadConsentIfNeeded(new PerpleSDKCallback() {
+            @Override
+            public void onSuccess(String info) {
+                PerpleSDK.callSDKResult(pID, funcID, "success", info);
+            }
+
+            @Override
+            public void onFail(String info) {
+
+                PerpleSDK.callSDKResult(pID, funcID, "fail", info);
+
+            }
+        });
+    }
+
+    public static void cmpPresentPrivacyOptionForm(final int funcID) {
+        HbrwCMP.INSTANCE.presentPrivacyOptionForm(new PerpleSDKCallback() {
+            @Override
+            public void onSuccess(String info) {
+                PerpleSDK.callSDKResult(PerpleSDK.ProcessId, funcID, "success", info);
+            }
+
+            @Override
+            public void onFail(String info) {
+                PerpleSDK.callSDKResult(PerpleSDK.ProcessId, funcID, "fail", info);
+            }
+        });
+    }
+
+    public static boolean cmpCanRequestAds(int funcID) {
+        return HbrwCMP.INSTANCE.canRequestAds();
+    }
+
+    public static boolean cmpRequirePrivacyOption(int funcID) {
+        return HbrwCMP.INSTANCE.requirePrivacyOption();
+    }
 }
 

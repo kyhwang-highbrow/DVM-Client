@@ -13,7 +13,7 @@ buildscript {
         // @mskim 현재 3.4.x 만 사용 가능함
         classpath 'com.android.tools.build:gradle:4.1.1'
         // @firebase
-        classpath "com.google.gms:google-services:4.3.4"
+        classpath "com.google.gms:google-services:4.3.10"
         // @crashlytics
         classpath 'com.google.firebase:firebase-crashlytics-gradle:2.4.1'
     }

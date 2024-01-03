@@ -23,11 +23,14 @@ import com.perplelab.facebook.PerpleFacebook;
 import com.perplelab.firebase.PerpleCrashlytics;
 import com.perplelab.firebase.PerpleFirebase;
 import com.perplelab.google.PerpleGoogle;
+import com.perplelab.google.HbrwCMP;
 import com.perplelab.onestore.PerpleOnestore;
+
 //import com.perplelab.tapjoy.PerpleTapjoy;
 import com.perplelab.twitter.PerpleTwitter;
 import com.perplelab.adjust.PerpleAdjust;
 import com.perplelab.xsolla.PerpleXsolla;
+
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -706,7 +709,6 @@ public class PerpleSDK {
 
         return false;
     }
-    //--------------------------------------------------------------------------------
 
     private static native int nativeInitJNI(Activity activity);
     private static native int nativeInitSDK();
