@@ -679,25 +679,25 @@ end
 -- CMP
 -------------------------------------
 function UI_SettingTestCode:cmpLoadConsentIfNeeded()
-    PerpleSDK:cmpLoadConsentIfNeeded('cmpLoadConsentIfNeeded', function(ret, info)
-        self:addLogMessage('cmpLoadConsentIfNeeded : ' .. ret)
-        self:addLogMessage(luadump(info))
+    PerpleSDK:cmpLoadConsentIfNeeded(function(ret, info)
+        cclog('cmpLoadConsentIfNeeded : ' .. ret)
+        cclog(luadump(info))
     end)
 end
 
 function UI_SettingTestCode:cmpCanRequestAds()
-    local ret = PerpleSDK:cmpLoadConsentIfNeeded('cmpCanRequestAds')
-    self:addLogMessage('cmpCanRequestAds : ' .. tostring(ret))
+    local ret = PerpleSDK:cmpCanRequestAds()
+    cclog('cmpCanRequestAds : ' .. tostring(ret))
 end
 
 function UI_SettingTestCode:cmpRequirePrivacyOption()
-    local ret = PerpleSDK:cmpLoadConsentIfNeeded('cmpRequirePrivacyOption')
-    self:addLogMessage('cmpRequirePrivacyOption : ' .. tostring(ret))
+    local ret = PerpleSDK:cmpRequirePrivacyOption()
+    cclog('cmpRequirePrivacyOption : ' .. tostring(ret))
 end
 
 function UI_SettingTestCode:cmpPresentPrivacyOptionForm()
-    PerpleSDK:callPerpleSDKFunc('cmpPresentPrivacyOptionForm', function(ret, info)
-        self:addLogMessage('cmpPresentPrivacyOptionForm : ' .. ret)
-        self:addLogMessage(luadump(info))
+    PerpleSDK:cmpPresentPrivacyOptionForm(function(ret, info)
+        cclog('cmpPresentPrivacyOptionForm : ' .. ret)
+        cclog(luadump(info))
     end)
 end
