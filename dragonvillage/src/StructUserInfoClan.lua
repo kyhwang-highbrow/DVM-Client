@@ -37,8 +37,8 @@ function StructUserInfoClan:create(t_data)
     user_info.m_lastActiveTime = t_data['last_active']
     user_info.m_leaderDragonObject = StructDragonObject(t_data['leader'])
 
-    if (t_data['info'] and t_data['info']['last_arena_tier']) then
-        user_info.m_lastArenaTier = t_data['info']['last_arena_tier']
+    if (t_data['info'] and t_data['info']['arena_new_last_tier']) then
+        user_info.m_lastArenaTier = t_data['info']['arena_new_last_tier']
     else
         user_info.m_lastArenaTier = 'beginner'
     end
@@ -187,7 +187,7 @@ function StructUserInfoClan:makeDungeonInfo(data)
     -- 콜로세움 플레이 정보
     t_dungeon['arena_play'] = data['arena_play'] or 0
     t_dungeon['arena_score'] = data['arena_score'] or 0
-    t_dungeon['arena_tier'] = data['arena_tier'] or 'beginner'
+    t_dungeon['arena_new_tier'] = data['arena_new_tier'] or 'beginner'
     t_dungeon['arena_rate'] = data['arena_rate'] or 0
     t_dungeon['arena_rank'] = data['arena_rank'] or 0
 
@@ -219,13 +219,13 @@ function StructUserInfoClan:getArenaPlayText()
     end
 
     local user_info = StructUserInfoArena()
-    user_info.m_tier = t_dungeon['arena_tier']
+    user_info.m_tier = t_dungeon['arena_new_tier']
     user_info.m_rank = t_dungeon['arena_rank']
     user_info.m_rp = t_dungeon['arena_score']
     user_info.m_rankPercent = t_dungeon['arena_rate']
 
     local param_1 = Str('콜로세움')
-    local param_2 = user_info:getTierName(t_dungeon['arena_tier'])
+    local param_2 = user_info:getTierName(t_dungeon['arena_new_tier'])
     local param_3 = user_info:getRankText(true)
     local param_4 = user_info:getRPText()
 
@@ -338,7 +338,7 @@ function StructUserInfoClan:getArenaTier()
         return 'beginner'
     end
 
-    if (t_dungeon['arena_tier']) then return t_dungeon['arena_tier'] end
+    if (t_dungeon['arena_new_tier']) then return t_dungeon['arena_new_tier'] end
 
     return 'beginner'
 end
