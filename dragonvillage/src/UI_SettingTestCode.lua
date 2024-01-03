@@ -90,6 +90,10 @@ function UI_SettingTestCode:initButton()
     self:makeButtonAutomatic('드래곤 획득 패키지 : 글루토니', function() self:click_GetDragonPackage(121821) end)
 
     self:makeButtonAutomatic('드래곤 획득 패키지 등록 드래곤', function() self:click_GetDragonPackageList() end)    
+    self:makeButtonAutomatic('CMP : cmpLoadConsentIfNeeded', function() self:cmpLoadConsentIfNeeded() end)
+    self:makeButtonAutomatic('CMP : cmpCanRequestAds', function() self:cmpCanRequestAds() end)
+    self:makeButtonAutomatic('CMP : cmpRequirePrivacyOption', function() self:cmpRequirePrivacyOption() end)
+    self:makeButtonAutomatic('CMP : cmpPresentPrivacyOptionForm', function() self:cmpPresentPrivacyOptionForm() end) 
 end
 
 -------------------------------------
@@ -668,4 +672,32 @@ function UI_SettingTestCode:click_GetDragonPackageList()
         UI_GetDragonPackage(package, PopupPackage)
     end
     PopupPackage()
+end
+
+
+-------------------------------------
+-- CMP
+-------------------------------------
+function UI_SettingTestCode:cmpLoadConsentIfNeeded()
+    PerpleSDK:cmpLoadConsentIfNeeded('cmpLoadConsentIfNeeded', function(ret, info)
+        self:addLogMessage('cmpLoadConsentIfNeeded : ' .. ret)
+        self:addLogMessage(luadump(info))
+    end)
+end
+
+function UI_SettingTestCode:cmpCanRequestAds()
+    local ret = PerpleSDK:cmpLoadConsentIfNeeded('cmpCanRequestAds')
+    self:addLogMessage('cmpCanRequestAds : ' .. tostring(ret))
+end
+
+function UI_SettingTestCode:cmpRequirePrivacyOption()
+    local ret = PerpleSDK:cmpLoadConsentIfNeeded('cmpRequirePrivacyOption')
+    self:addLogMessage('cmpRequirePrivacyOption : ' .. tostring(ret))
+end
+
+function UI_SettingTestCode:cmpPresentPrivacyOptionForm()
+    PerpleSDK:callPerpleSDKFunc('cmpPresentPrivacyOptionForm', function(ret, info)
+        self:addLogMessage('cmpPresentPrivacyOptionForm : ' .. ret)
+        self:addLogMessage(luadump(info))
+    end)
 end

@@ -62,8 +62,6 @@ function ConsentPlatform:requestConsentForm(on_success, on_fail)
         else
             SafeFuncCall(on_fail, info)
         end
-
-        cclog('이리로 들어오나??', ret)
     end)
 end
 
