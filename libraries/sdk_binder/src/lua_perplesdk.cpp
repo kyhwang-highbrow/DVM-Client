@@ -193,6 +193,12 @@ IMPL_LUABINDING_FUNC_V_S(billingGetItemListForOnestore)
 IMPL_LUABINDING_FUNC_V_SS(billingPurchaseSubscriptionForOnestore)
 IMPL_LUABINDING_FUNC_V_S(cancelSubscriptionForOnestore)
 
+IMPL_LUABINDING_FUNC_V_V(cmpLoadConsentIfNeeded)
+IMPL_LUABINDING_FUNC_Z_V(cmpCanRequestAds)
+IMPL_LUABINDING_FUNC_Z_V(cmpRequirePrivacyOption)
+IMPL_LUABINDING_FUNC_V_V(cmpPresentPrivacyOptionForm)
+
+
 int registerAllPerpleSdk(lua_State* L)
 {
     if (nullptr == L)
@@ -324,6 +330,11 @@ int registerAllPerpleSdk(lua_State* L)
             DECL_LUABINDING_FUNC(onestoreGetPurchases)
             DECL_LUABINDING_FUNC(billingPurchaseSubscriptionForOnestore)
             DECL_LUABINDING_FUNC(cancelSubscriptionForOnestore)
+
+            DECL_LUABINDING_FUNC(cmpLoadConsentIfNeeded)
+            DECL_LUABINDING_FUNC(cmpCanRequestAds)
+            DECL_LUABINDING_FUNC(cmpRequirePrivacyOption)
+            DECL_LUABINDING_FUNC(cmpPresentPrivacyOptionForm)
 
         tolua_endmodule(L);
     tolua_endmodule(L);
