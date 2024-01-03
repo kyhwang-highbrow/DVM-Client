@@ -1246,10 +1246,10 @@
 					skew_x = 0.000000;
 					skew_y = 0.000000;
 					rotation = 0.000000;
-					visible = true;
+					visible = false;
 					screen_ui = 0;
 					lua_name = 'titleSprite';
-					file_name = 'ui/typo/ko/ribbon_package_title_0101.png';
+					file_name = 'ui/typo/ko/ribbon_winter_0101.png';
 					color = { 255; 255; 255; };
 					opacity = 255;
 					flip_x = false;

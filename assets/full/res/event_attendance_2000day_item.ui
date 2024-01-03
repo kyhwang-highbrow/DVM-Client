@@ -95,12 +95,12 @@
 				text = '1일 차';
 				h_alignment = 1;
 				v_alignment = 1;
-				color = { 139; 0; 0; };
+				color = { 255; 255; 255; };
 				opacity = 255;
 				dimension_width = 128;
 				dimension_height = 48;
 				letter_spacing = 0.000000;
-				has_stroke = true;
+				has_stroke = false;
 				stroke_type = 0;
 				stroke_detail_level = 0;
 				is_sharp_text = false;

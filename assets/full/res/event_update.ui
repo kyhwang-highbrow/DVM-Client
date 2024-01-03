@@ -91,7 +91,7 @@
 				skew_x = 0.000000;
 				skew_y = 0.000000;
 				rotation = 0.000000;
-				visible = true;
+				visible = false;
 				screen_ui = 0;
 				lua_name = '';
 				stencil_type = 0;
@@ -205,6 +205,112 @@
 			};
 			[5] =
 			{
+				[1] =
+				{
+					type = 'Visual';
+					ui_name = '';
+					flag = '';
+					x = 564.000000;
+					y = -438.000000;
+					dock_point = { 0.500000; 0.500000; };
+					anchor_point = { 0.500000; 0.500000; };
+					relative_size_type = 0;
+					width = 0;
+					height = 0;
+					scale_x = 1.000000;
+					scale_y = 1.000000;
+					skew_x = 0.000000;
+					skew_y = 0.000000;
+					rotation = 0.000000;
+					visible = true;
+					screen_ui = 0;
+					lua_name = '';
+					file_name = 'ui/a2d/clan_war/clan_war.vrp';
+					auto_play = true;
+					is_repeat = true;
+					visual_id = 'group;light_01';
+					color = { 255; 255; 0; };
+					opacity = 255;
+				};
+				[2] =
+				{
+					type = 'Visual';
+					ui_name = '';
+					flag = '';
+					x = -148.000000;
+					y = -439.000000;
+					dock_point = { 0.500000; 0.500000; };
+					anchor_point = { 0.500000; 0.500000; };
+					relative_size_type = 0;
+					width = 0;
+					height = 0;
+					scale_x = 1.000000;
+					scale_y = 1.000000;
+					skew_x = 0.000000;
+					skew_y = 0.000000;
+					rotation = 0.000000;
+					visible = true;
+					screen_ui = 0;
+					lua_name = '';
+					file_name = 'ui/a2d/clan_war/clan_war.vrp';
+					auto_play = true;
+					is_repeat = true;
+					visual_id = 'group;light_01';
+					color = { 255; 173; 91; };
+					opacity = 255;
+				};
+				[3] =
+				{
+					type = 'Visual';
+					ui_name = '';
+					flag = '';
+					x = 0.000000;
+					y = -320.000000;
+					dock_point = { 0.500000; 0.500000; };
+					anchor_point = { 0.500000; 0.500000; };
+					relative_size_type = 0;
+					width = 0;
+					height = 0;
+					scale_x = 1.000000;
+					scale_y = 1.000000;
+					skew_x = 0.000000;
+					skew_y = 0.000000;
+					rotation = 0.000000;
+					visible = true;
+					screen_ui = 0;
+					lua_name = '';
+					file_name = 'ui/a2d/clan_war/clan_war.vrp';
+					auto_play = true;
+					is_repeat = true;
+					visual_id = 'group;light_01';
+					color = { 255; 104; 32; };
+					opacity = 255;
+				};
+				type = 'ClippingNode';
+				ui_name = '불';
+				flag = '';
+				x = 0.000000;
+				y = 0.000000;
+				dock_point = { 0.500000; 0.500000; };
+				anchor_point = { 0.500000; 0.500000; };
+				relative_size_type = 0;
+				width = 930;
+				height = 640;
+				scale_x = 1.000000;
+				scale_y = 1.000000;
+				skew_x = 0.000000;
+				skew_y = 0.000000;
+				rotation = 0.000000;
+				visible = true;
+				screen_ui = 0;
+				lua_name = '';
+				stencil_type = 0;
+				stencil_img = '';
+				alpha_threshold = 1.000000;
+				is_invert = false;
+			};
+			[6] =
+			{
 				type = 'LabelTTF';
 				ui_name = '';
 				flag = '';
@@ -228,7 +334,7 @@
 				text = '자세한 내용은 업데이트 공지를 확인해주세요.';
 				h_alignment = 1;
 				v_alignment = 1;
-				color = { 109; 148; 205; };
+				color = { 102; 102; 102; };
 				opacity = 255;
 				dimension_width = 590;
 				dimension_height = 37;
@@ -247,7 +353,7 @@
 				use_auto_fontsize = false;
 				has_bold = false;
 			};
-			[6] =
+			[7] =
 			{
 				type = 'LabelTTF';
 				ui_name = '';
@@ -291,7 +397,7 @@
 				use_auto_fontsize = false;
 				has_bold = false;
 			};
-			[7] =
+			[8] =
 			{
 				type = 'LabelTTF';
 				ui_name = '';
@@ -335,7 +441,7 @@
 				use_auto_fontsize = false;
 				has_bold = false;
 			};
-			[8] =
+			[9] =
 			{
 				type = 'LabelTTF';
 				ui_name = '';
@@ -379,7 +485,7 @@
 				use_auto_fontsize = false;
 				has_bold = false;
 			};
-			[9] =
+			[10] =
 			{
 				type = 'LabelTTF';
 				ui_name = 'rich';
@@ -423,7 +529,7 @@
 				use_auto_fontsize = false;
 				has_bold = false;
 			};
-			[10] =
+			[11] =
 			{
 				type = 'Sprite';
 				ui_name = '';

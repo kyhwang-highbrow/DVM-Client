@@ -39,7 +39,7 @@
 				ui_name = '';
 				flag = '';
 				x = 0.000000;
-				y = -79.000000;
+				y = -101.000000;
 				dock_point = { 0.500000; 1.000000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -54,7 +54,7 @@
 				screen_ui = 0;
 				lua_name = '';
 				font_name = 'font/common_font_01.ttf';
-				font_size = 52;
+				font_size = 42;
 				text = '수집 이벤트';
 				h_alignment = 1;
 				v_alignment = 1;
@@ -83,7 +83,7 @@
 				ui_name = '';
 				flag = '';
 				x = 0.000000;
-				y = -185.000000;
+				y = -170.000000;
 				dock_point = { 0.500000; 1.000000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -107,7 +107,7 @@
 				dimension_width = 550;
 				dimension_height = 45;
 				letter_spacing = 0.000000;
-				has_stroke = true;
+				has_stroke = false;
 				stroke_type = 0;
 				stroke_detail_level = 0;
 				is_sharp_text = true;
@@ -127,7 +127,7 @@
 				ui_name = '';
 				flag = '';
 				x = 0.000000;
-				y = -145.000000;
+				y = -140.000000;
 				dock_point = { 0.500000; 1.000000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -142,7 +142,7 @@
 				screen_ui = 0;
 				lua_name = '';
 				font_name = 'font/common_font_01.ttf';
-				font_size = 24;
+				font_size = 22;
 				text = '게임을 플레이하고 아이템을 모아보세요.';
 				h_alignment = 1;
 				v_alignment = 1;
@@ -215,7 +215,7 @@
 				ui_name = '';
 				flag = '';
 				x = 40.000000;
-				y = -240.000000;
+				y = -224.000000;
 				dock_point = { 0.500000; 1.000000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -259,7 +259,7 @@
 				ui_name = '';
 				flag = '';
 				x = -146.000000;
-				y = 677.000000;
+				y = 696.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.000000; 0.500000; };
 				relative_size_type = 0;
@@ -1347,7 +1347,7 @@
 						ui_name = '';
 						flag = '';
 						x = 335.000000;
-						y = 12.000000;
+						y = 13.000000;
 						dock_point = { 0.500000; 0.500000; };
 						anchor_point = { 0.500000; 0.500000; };
 						relative_size_type = 0;
@@ -1874,7 +1874,7 @@
 				ui_name = '';
 				flag = '';
 				x = -188.000000;
-				y = 679.000000;
+				y = 697.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;

@@ -484,7 +484,7 @@
 				skew_x = 0.000000;
 				skew_y = 0.000000;
 				rotation = 0.000000;
-				visible = true;
+				visible = false;
 				screen_ui = 0;
 				lua_name = 'itemLabel5';
 				font_name = 'font/common_font_01.ttf';
@@ -528,7 +528,7 @@
 				skew_x = 0.000000;
 				skew_y = 0.000000;
 				rotation = 0.000000;
-				visible = true;
+				visible = false;
 				screen_ui = 0;
 				lua_name = 'itemLabel4';
 				font_name = 'font/common_font_01.ttf';
@@ -560,7 +560,7 @@
 				type = 'LabelTTF';
 				ui_name = '';
 				flag = '';
-				x = -75.000000;
+				x = 77.000000;
 				y = -150.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
@@ -604,7 +604,7 @@
 				type = 'LabelTTF';
 				ui_name = '';
 				flag = '';
-				x = -230.000000;
+				x = -77.000000;
 				y = -150.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
@@ -849,7 +849,7 @@
 				visible = true;
 				screen_ui = 0;
 				lua_name = '';
-				file_name = 'ui/typo/ko/ribbon_2000day.png';
+				file_name = 'ui/typo/ko/ribbon_new_year_title_0101.png';
 				color = { 255; 255; 255; };
 				opacity = 255;
 				flip_x = false;

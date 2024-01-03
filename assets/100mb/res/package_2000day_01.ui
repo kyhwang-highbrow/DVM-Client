@@ -528,7 +528,7 @@
 				skew_x = 0.000000;
 				skew_y = 0.000000;
 				rotation = 0.000000;
-				visible = true;
+				visible = false;
 				screen_ui = 0;
 				lua_name = 'itemLabel4';
 				font_name = 'font/common_font_01.ttf';
@@ -560,7 +560,7 @@
 				type = 'LabelTTF';
 				ui_name = '';
 				flag = '';
-				x = 0.000000;
+				x = 77.000000;
 				y = -150.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
@@ -604,7 +604,7 @@
 				type = 'LabelTTF';
 				ui_name = '';
 				flag = '';
-				x = -155.000000;
+				x = -77.000000;
 				y = -150.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
@@ -687,7 +687,7 @@
 				skew_x = 0.000000;
 				skew_y = 0.000000;
 				rotation = 0.000000;
-				visible = true;
+				visible = false;
 				screen_ui = 0;
 				lua_name = '';
 				file_name = 'item/egg/egg_high_legend/egg_high_legend.vrp';
@@ -703,21 +703,21 @@
 				ui_name = '';
 				flag = '';
 				x = 0.000000;
-				y = 40.000000;
+				y = 111.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
-				width = 150;
-				height = 150;
-				scale_x = 1.400000;
-				scale_y = 1.400000;
+				width = 746;
+				height = 410;
+				scale_x = 0.600000;
+				scale_y = 0.600000;
 				skew_x = 0.000000;
 				skew_y = 0.000000;
 				rotation = 0.000000;
-				visible = false;
+				visible = true;
 				screen_ui = 0;
 				lua_name = '';
-				file_name = 'ui/icons/item/ticket_legend_choice.png';
+				file_name = 'ui/icons/rune_forge_gacha/rune_forge_0201.png';
 				color = { 255; 255; 255; };
 				opacity = 255;
 				flip_x = false;
@@ -877,7 +877,7 @@
 				visible = true;
 				screen_ui = 0;
 				lua_name = '';
-				file_name = 'ui/typo/ko/ribbon_2000day.png';
+				file_name = 'ui/typo/ko/ribbon_new_year_title_0101.png';
 				color = { 255; 255; 255; };
 				opacity = 255;
 				flip_x = false;
@@ -932,7 +932,7 @@
 					skew_x = 0.000000;
 					skew_y = 0.000000;
 					rotation = 10.000000;
-					visible = true;
+					visible = false;
 					screen_ui = 0;
 					lua_name = '';
 					file_name = 'ui/icons/item/ticket_myth_choice.png';
@@ -953,7 +953,7 @@
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
-					width = 164;
+					width = 220;
 					height = 54;
 					scale_x = 1.000000;
 					scale_y = 1.000000;
@@ -965,12 +965,12 @@
 					lua_name = '';
 					font_name = 'font/common_font_01.ttf';
 					font_size = 22;
-					text = '3대 신룡 한정\n신화 드래곤 선택권';
+					text = '신화 드래곤 선택권';
 					h_alignment = 1;
 					v_alignment = 0;
 					color = { 255; 255; 255; };
 					opacity = 255;
-					dimension_width = 164;
+					dimension_width = 220;
 					dimension_height = 54;
 					letter_spacing = 0.000000;
 					has_stroke = true;
@@ -1061,32 +1061,6 @@
 				};
 				[6] =
 				{
-					type = 'Button';
-					ui_name = '';
-					flag = '';
-					x = 0.000000;
-					y = 0.000000;
-					dock_point = { 0.500000; 0.500000; };
-					anchor_point = { 0.500000; 0.500000; };
-					relative_size_type = 0;
-					width = 100;
-					height = 100;
-					scale_x = 1.000000;
-					scale_y = 1.000000;
-					skew_x = 0.000000;
-					skew_y = 0.000000;
-					rotation = 0.000000;
-					visible = true;
-					screen_ui = 0;
-					lua_name = 'dragonSelectInfoBtn';
-					enable = true;
-					normal = '';
-					selected = '';
-					disable = '';
-					image_type = 1;
-				};
-				[7] =
-				{
 					type = 'LabelTTF';
 					ui_name = 'rich';
 					flag = '';
@@ -1128,6 +1102,53 @@
 					shadow_distance = 5.000000;
 					use_auto_fontsize = false;
 					has_bold = false;
+				};
+				[7] =
+				{
+					[1] =
+					{
+						type = 'Button';
+						ui_name = '';
+						flag = '';
+						x = -0.000061;
+						y = 6.000000;
+						dock_point = { 0.500000; 0.500000; };
+						anchor_point = { 0.500000; 0.500000; };
+						relative_size_type = 0;
+						width = 150;
+						height = 150;
+						scale_x = 0.800000;
+						scale_y = 0.800000;
+						skew_x = 0.000000;
+						skew_y = 0.000000;
+						rotation = 0.000000;
+						visible = true;
+						screen_ui = 0;
+						lua_name = 'dragonSelectInfoBtn';
+						enable = true;
+						normal = 'ui/icons/item/ticket_myth_choice.png';
+						selected = '';
+						disable = '';
+						image_type = 1;
+					};
+					type = 'Menu';
+					ui_name = '';
+					flag = '';
+					x = 0.000000;
+					y = 0.000000;
+					dock_point = { 0.500000; 0.500000; };
+					anchor_point = { 0.500000; 0.500000; };
+					relative_size_type = 0;
+					width = 300;
+					height = 300;
+					scale_x = 1.000000;
+					scale_y = 1.000000;
+					skew_x = 0.000000;
+					skew_y = 0.000000;
+					rotation = 10.000000;
+					visible = true;
+					screen_ui = 0;
+					lua_name = '';
 				};
 				type = 'Menu';
 				ui_name = '';

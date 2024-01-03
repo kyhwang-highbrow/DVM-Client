@@ -278,7 +278,7 @@
 				text = '보상 아이템은 우편함에서 받으실 수 있습니다';
 				h_alignment = 1;
 				v_alignment = 1;
-				color = { 150; 139; 209; };
+				color = { 255; 255; 224; };
 				opacity = 255;
 				dimension_width = 850;
 				dimension_height = 40;
@@ -318,7 +318,7 @@
 				screen_ui = 0;
 				lua_name = '';
 				font_name = 'font/common_font_01.ttf';
-				font_size = 36;
+				font_size = 40;
 				text = '출석 이벤트';
 				h_alignment = 1;
 				v_alignment = 1;
@@ -361,7 +361,7 @@
 				visible = true;
 				screen_ui = 0;
 				lua_name = 'titleSprite';
-				file_name = 'ui/typo/ko/ribbon_package_title_0101.png';
+				file_name = 'ui/typo/ko/ribbon_winter_0101.png';
 				color = { 255; 255; 255; };
 				opacity = 255;
 				flip_x = false;
