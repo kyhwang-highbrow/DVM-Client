@@ -139,10 +139,16 @@ end
 function MailHelper.makeNoticeMail(struct_mail)
     local t_custom = struct_mail:getCustom()
     local lang = Translate:getGameLang()
+    if string.find(game_lang, 'zh') ~= nil then
+        game_lang = 'zh'
+    end
 
     local title = Str(t_custom['title_' .. lang])
-    local content = ""
-    
+    if title == nil then
+        title = Str(t_custom['title_en'])
+    end
+
+    local content = ""    
 	return {title = title, content = content}
 end
 

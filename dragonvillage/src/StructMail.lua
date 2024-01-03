@@ -574,14 +574,24 @@ function StructMail:hasValidNoticeMessage(t_mail)
     end
 
     local lang = g_localData:getLang()
+    if string.find(lang, 'zh') ~= nil then
+        lang = 'zh'
+    end
+
     local title = t_mail['custom']['title_' .. lang]
     local msg = t_mail['custom']['popup_msg_' .. lang]
 
+    if title == nil then
+        title = t_mail['custom']['title_en']
+    end
+
+    if msg == nil then
+        msg = t_mail['custom']['popup_msg_en']
+    end
+
     -- return false if title or msg string is numm or empty
     if (title == nil or msg == nil) then return false end
-
     if (title == '' or msg == '') then return false end
-
     return true
 end
 

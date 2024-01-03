@@ -270,8 +270,6 @@ function UI_IngameNoticeFullPopup:deleteOldData()
     g_settingData:applySettingData(t_result, 'lobby_ingame_notice')
 end
 
-
-
 -------------------------------------
 -- function click_communityButton
 -------------------------------------
@@ -292,12 +290,12 @@ end
 -------------------------------------
 function UI_IngameNoticeFullPopup:getStringByLanguage(key)
     local result = 'en'
-    
     local t_custom = self.m_data.custom
     local lang = Translate:getGameLang()
+    if string.find(lang, 'zh') ~= nil then
+        lang = 'zh'
+    end
     local searchKeyword = key .. '_' .. lang
-
-    result = t_custom[searchKeyword]
-
+    result = t_custom[searchKeyword] or t_custom[key .. '_en']
     return result
 end
