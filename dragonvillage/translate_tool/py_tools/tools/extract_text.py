@@ -22,6 +22,7 @@ from util.util_quote import quote_row_dics
 from functools import cmp_to_key
 from tools.util.util_sort import cmp_scenario
 from lang_codes.lang_codes import get_language_code_list
+from apps_script.apps_script import execute_apps_script
 
 
 plain_text_list = []
@@ -31,6 +32,7 @@ with open('config.json', 'r', encoding='utf-8') as f: # config.json으로부터 
     spreadsheet_id = config_json['spreadsheet_id']
     extract_config_list = config_json['extract_config_list']
     integration_spreadsheet_id = config_json['integration_spreadsheet_id']
+    apps_script_id = config_json['apps_script_id']
     locale_list = get_language_code_list()
 
 def start_upload(upload_method, patch_sheet_name, backup_sheet_name, all_data_list):
@@ -111,8 +113,16 @@ def find_all_color_codes():
     #print(text_color_list)
 
 def extract_text_from_config_lists():
+    extracted_count = 0
     for extract_config in extract_config_list:
-        extract_text(extract_config)
+        extracted_text_list = extract_text(extract_config)
+        extracted_count = extracted_count + len(extracted_text_list)
+
+    if extracted_count > 0:
+        print('앱스 스크립트 실행 : [텍스트 이동] 분할 시트 -> 번역 시트')
+        execute_apps_script(apps_script_id, "import_all")
+        print('앱스 스크립트 실행 : [텍스트 이동] 분할 시트 -> 번역 시트 완료')
+        
     # 통합 시트에 올리기
     # upload_integration_sheet()
     # 색상 코드 추출

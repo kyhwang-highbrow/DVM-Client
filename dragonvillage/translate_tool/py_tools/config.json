@@ -2,6 +2,7 @@
     "table_language_config_file" : "..\\..\\data\\table_language_config.csv"
     ,"spreadsheet_id" : "1Ydu5g8DNdQEtqMJFYB9OSRGSg9z159L2Gyn8xrSZ0Bs"
     ,"integration_spreadsheet_id" : "10EmCk8BJJ890Pd--ouRRfPjnwnlBxsIC8TQEfNfkECs"
+    ,"apps_script_id" : "AKfycby_OfwWR2lN2OzILmyCt6YWDMnapi4NS81zfFY3Lo2nGD6iYJaC1qWpnU7M9igy67qN"
 
     ,"extract_config_list" :
     [

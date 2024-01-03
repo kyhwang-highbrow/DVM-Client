@@ -16,7 +16,7 @@ import G_sheet.spread_sheet as spread_sheet
 import util.util_file as util_file
 from util.util_quote import quote_row_dics
 from lang_codes.lang_codes import get_translation_file_dict
-
+from apps_script.apps_script import execute_apps_script
 
 with open('config.json', 'r', encoding='utf-8') as f: # config.json으로부터 데이터 읽기
     config_json = json.load(f)
@@ -28,6 +28,7 @@ with open('config.json', 'r', encoding='utf-8') as f: # config.json으로부터 
     sheet_name_list = lua_table_config['sheet_name_list']
 
     make_patch_file_name_dict = get_translation_file_dict("_patch")
+    apps_script_id = config_json['apps_script_id']
 
 print ("make directory :", make_root)
 sheet = None
@@ -177,13 +178,15 @@ def make_delta_lua_table():
 
     print('\n*** 작업이 종료되었습니다.')
 
-
 if __name__ == '__main__':
     import tools.G_sheet.setup
 
+    print('앱스 스크립트 실행 : [텍스트 이동] 번역 시트 -> 분할 시트')
+    execute_apps_script(apps_script_id, "export_all")
+    print('앱스 스크립트 실행 : [텍스트 이동] 번역 시트 -> 분할 시트 완료')
+
     print('\n*** 작업      : 패치 번역 파일을 생성합니다.' 
     +     '\n*** 작업 시트 : [', ', '.join(sheet_name_list), '].')
-
     make_delta_lua_table()
     
     os.system('pause')
