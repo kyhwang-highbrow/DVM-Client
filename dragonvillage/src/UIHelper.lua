@@ -423,7 +423,6 @@ function UIHelper:CreateParticle(node, file_name)
     end
 end
 
-
 -------------------------------------
 -- function setDifficultyLabelWithColor
 -- @brief 
@@ -461,4 +460,13 @@ function UIHelper:setDifficultyLabelWithColor(label_node, stage_id)
 
         end
      end
+end
+
+-------------------------------------
+--- @function getProfileScrollItemHeight
+--- @brief 8퍼센트 늘림
+-------------------------------------
+function UIHelper:getProfileScrollItemHeight(height, percent)
+    percent = percent or 8
+    return height + math_floor(height * percent/100)
 end

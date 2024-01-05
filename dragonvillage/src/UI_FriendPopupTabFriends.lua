@@ -78,7 +78,7 @@ function UI_FriendPopupTabFriends:init_tableView()
 
     -- 테이블 뷰 인스턴스 생성
     local table_view = UIC_TableView(node)
-    table_view.m_defaultCellSize = cc.size(1170, 108)
+    table_view.m_defaultCellSize = cc.size(1170, UIHelper:getProfileScrollItemHeight(108))
     table_view:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
     table_view:setCellUIClass(UI_FriendListItem, create_func)
     table_view:setItemList(l_item_list)

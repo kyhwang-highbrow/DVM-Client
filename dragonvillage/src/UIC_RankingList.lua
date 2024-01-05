@@ -187,7 +187,7 @@ function UIC_RankingList:makeRankList(node)
 
     -- 테이블 뷰 인스턴스 생성
     local table_view = UIC_TableView(node)
-    table_view.m_defaultCellSize = cc.size(550, 55 + 5)
+    table_view.m_defaultCellSize = cc.size(550, UIHelper:getProfileScrollItemHeight(55 + 5, 15))
     table_view:setCellUIClass(self.m_cellUIClass, create_func)
     table_view:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
     table_view:makeDefaultEmptyDescLabel(self.m_emptyMsg)
