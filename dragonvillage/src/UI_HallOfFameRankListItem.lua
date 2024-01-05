@@ -43,10 +43,12 @@ function UI_HallOfFameRankListItem:initUI()
     end
     
     if (self.m_tRankInfo['leader']) then
+        local struct_user = StructUserInfo()
+        struct_user:setLeaderDragonObject(self.m_tRankInfo['leader'])
+        
 	    -- 리더 드래곤 아이콘
-	    local dragon_icon = UI_DragonCard(self.m_tRankInfo['leader'])
-	    vars['profileNode']:addChild(dragon_icon.root)
-	    dragon_icon.root:setSwallowTouch(false)
+	    local dragon_card = struct_user:getLeaderDragonCard()--UI_DragonCard(self.m_tRankInfo['leader'], nil, nil, nil, true)
+	    vars['profileNode']:addChild(dragon_card.root)
     end
 
 	-- 유저 이름
