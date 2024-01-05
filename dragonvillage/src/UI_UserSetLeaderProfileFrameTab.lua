@@ -44,6 +44,7 @@ function UI_UserSetLeaderProfileFrameTab:initTableView()
         ui:setSelect(self.m_selectProfileFrameId == data)
 	end
 
+    vars['listNode']:removeAllChildren()
     local l_item_list = TableProfileFrame:getInstance():getAllProfileIdList()
     local table_view_td = UIC_TableViewTD(vars['listNode'])
     table_view_td.m_cellSize = cc.size(120, 120)
@@ -68,7 +69,6 @@ function UI_UserSetLeaderProfileFrameTab:refreshTableView()
     self.m_tableView:mergeItemList(l_item_list, refresh_func)
 end
 
-
 -------------------------------------
 -- function initButton
 -------------------------------------
@@ -85,18 +85,19 @@ end
 function UI_UserSetLeaderProfileFrameTab:onEnterTab(first)
     local vars = self.vars
     if first == true then
-        do -- 드래곤
-            local dragon_obj = g_dragonsData:getLeaderDragon()
-            vars['dragonNode']:removeAllChildren()
-            if dragon_obj ~= nil then
-                local card = UI_DragonCard(dragon_obj, nil, nil, nil,true)
-                card.vars['clickBtn']:setEnabled(false)
-                vars['dragonNode']:addChild(card.root)
-            end
-        end
-
-        self:initTableView()
     end
+
+    do -- 드래곤
+        local dragon_obj = g_dragonsData:getLeaderDragon()
+        vars['dragonNode']:removeAllChildren()
+        if dragon_obj ~= nil then
+            local card = UI_DragonCard(dragon_obj, nil, nil, nil,true)
+            card.vars['clickBtn']:setEnabled(false)
+            vars['dragonNode']:addChild(card.root)
+        end
+    end
+
+    self:initTableView()
 end
 
 -------------------------------------
@@ -166,7 +167,7 @@ function UI_UserSetLeaderProfileFrameTab:click_equipBtn()
     end
 
     local success_cb = function(ret)
-        UIManager:toastNotificationGreen(Str('테두리가 변경되었습니다.'))
+        UIManager:toastNotificationGreen(Str('테두리를 착용하였습니다.'))
     end
 
     g_profileFrameData:request_equip(self.m_selectProfileFrameId, success_cb)
@@ -176,6 +177,11 @@ end
 -- function click_equipBtn
 -------------------------------------
 function UI_UserSetLeaderProfileFrameTab:click_unequipBtn()
+    local success_cb = function(ret)
+        UIManager:toastNotificationGreen(Str('착용이 해제되었습니다.'))
+    end
+
+    g_profileFrameData:request_equip(0, success_cb)
 end
 
 

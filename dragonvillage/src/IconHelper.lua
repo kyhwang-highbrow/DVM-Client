@@ -339,6 +339,12 @@ function IconHelper:getItemIcon(item_id, t_sub_data)
         local res_name = t_item['icon']
         sprite = self:getIcon(res_name)
 
+    -- 프로필 프레임
+    elseif (item_type == 'profile_frame') then
+        local animator = IconHelper:getProfileFrameAnimator(item_id)
+        animator:setScale(0.8)
+        sprite = animator.m_node
+
     -- 기타 아이템 아이콘 생성
     else
         local type_str = t_item['full_type']
