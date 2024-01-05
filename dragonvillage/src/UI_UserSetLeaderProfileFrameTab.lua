@@ -74,13 +74,27 @@ end
 -------------------------------------
 function UI_UserSetLeaderProfileFrameTab:initButton()
     local vars = self.vars
+
+    vars['equipBtn']:registerScriptTapHandler(function() self:click_equipBtn() end)
+    vars['unequipBtn']:registerScriptTapHandler(function() self:click_unequipBtn() end)
 end
 
 -------------------------------------
 -- function onEnterTab
 -------------------------------------
 function UI_UserSetLeaderProfileFrameTab:onEnterTab(first)
+    local vars = self.vars
     if first == true then
+        do -- 드래곤
+            local dragon_obj = g_dragonsData:getLeaderDragon()
+            vars['dragonNode']:removeAllChildren()
+            if dragon_obj ~= nil then
+                local card = UI_DragonCard(dragon_obj, nil, nil, nil,true)
+                card.vars['clickBtn']:setEnabled(false)
+                vars['dragonNode']:addChild(card.root)
+            end
+        end
+
         self:initTableView()
     end
 end
@@ -96,6 +110,40 @@ end
 -------------------------------------
 function UI_UserSetLeaderProfileFrameTab:refresh()
     local vars = self.vars
+
+    do -- 이름
+        if self.m_selectProfileFrameId == 0 then
+            vars['nameLabel']:setString('')
+        else
+            local name = TableItem:getItemName(self.m_selectProfileFrameId)
+            vars['nameLabel']:setString(name)
+        end
+    end
+
+    do -- 프레임
+        local profile_frame_animator = IconHelper:getProfileFrameAnimator(self.m_selectProfileFrameId)
+        vars['frameNode']:removeAllChildren()
+        if profile_frame_animator ~= nil then
+            vars['frameNode']:addChild(profile_frame_animator.m_node)
+        end
+    end
+
+    do -- 버튼
+        local profile_frame = g_profileFrameData:getSelectedProfileFrame()
+        local is_equpped = profile_frame == self.m_selectProfileFrameId
+        local is_select = self.m_selectProfileFrameId ~= 0
+        local is_owned = g_profileFrameData:isOwnedProfileFrame(self.m_selectProfileFrameId)
+
+        vars['equipBtn']:setVisible(not is_equpped and is_select)
+        vars['unequipBtn']:setVisible(is_equpped and is_select)
+        vars['stateLabel']:setVisible(is_select)
+
+        if is_owned == true then
+            vars['stateLabel']:setString(string.format('%s%s', '{@GREEN}' ,Str('보유')))
+        else
+            vars['stateLabel']:setString(string.format('%s%s', '{@RED}' ,Str('미보유')))
+        end
+    end
 end
 
 -------------------------------------
@@ -103,16 +151,32 @@ end
 -------------------------------------
 function UI_UserSetLeaderProfileFrameTab:click_selectBtn(profile_frame_id)
     self.m_selectProfileFrameId = profile_frame_id
+    self:refresh()
     self:refreshTableView()
 end
 
 -------------------------------------
 -- function click_equipBtn
 -------------------------------------
-function UI_UserSetLeaderProfileFrameTab:click_equipBtn(profile_frame_id)
+function UI_UserSetLeaderProfileFrameTab:click_equipBtn()
+    -- 소유 중인 프로필 테두리냐?
+    if g_profileFrameData:isOwnedProfileFrame(self.m_selectProfileFrameId) == false then
+        UIManager:toastNotificationRed(Str('현재 보유 중인 테두리가 아닙니다.'))
+        return
+    end
 
+    local success_cb = function(ret)
+        UIManager:toastNotificationGreen(Str('테두리가 변경되었습니다.'))
+    end
+
+    g_profileFrameData:request_equip(self.m_selectProfileFrameId, success_cb)
 end
 
+-------------------------------------
+-- function click_equipBtn
+-------------------------------------
+function UI_UserSetLeaderProfileFrameTab:click_unequipBtn()
+end
 
 
 --@CHECK

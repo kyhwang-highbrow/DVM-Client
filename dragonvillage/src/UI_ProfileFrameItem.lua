@@ -26,30 +26,12 @@ end
 function UI_ProfileFrameItem:initUI()
     local vars = self.vars
     -- 프로필 테두리 추가
-    local profile_frame_animator = self:makeProfileFrameAnimator()
+    local profile_frame_id = self.m_profileFrameId
+    local profile_frame_animator = IconHelper:getProfileFrameAnimator(profile_frame_id)
     vars['profileFrameNode']:removeAllChildren()
     if profile_frame_animator ~= nil then
         vars['profileFrameNode']:addChild(profile_frame_animator.m_node)
     end
-end
-
--------------------------------------
---- @function makeProfileFrameAnimator
---- @brief 프로필 프레임 에니메이터 생성
---- @return table
--------------------------------------
-function UI_ProfileFrameItem:makeProfileFrameAnimator()    
-    local profile_frame_id = self.m_profileFrameId
-    local res = TableProfileFrame:getInstance():getProfileFrameRes(profile_frame_id)
-
-    local animator = MakeAnimator(res)
-    if (animator) then
-        animator:setDockPoint(cc.p(0.5, 0.5))
-        animator:setAnchorPoint(cc.p(0.5, 0.5))
-        animator:setScale(1.1)
-        animator:changeAni('idle', true)
-    end
-    return animator
 end
 
 --------------------------------------------------------------------------

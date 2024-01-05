@@ -792,3 +792,23 @@ function IconHelper:getClanBuffIcon(clan_buff_type)
 
 	return res and IconHelper:getIcon(res) or nil
 end
+
+-------------------------------------
+--- @function getProfileFrameAnimator
+--- @brief 프로필 프레임 애니메이터
+-------------------------------------
+function IconHelper:getProfileFrameAnimator(profile_frame_id)
+    if profile_frame_id == 0 then
+        return nil
+    end
+
+    local res = TableProfileFrame:getInstance():getProfileFrameRes(profile_frame_id)
+    local animator = MakeAnimator(res)
+    if (animator) then
+        animator:setDockPoint(cc.p(0.5, 0.5))
+        animator:setAnchorPoint(cc.p(0.5, 0.5))
+        animator:setScale(1.1)
+        animator:changeAni('idle', true)
+    end
+    return animator
+end
