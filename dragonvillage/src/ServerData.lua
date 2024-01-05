@@ -760,6 +760,11 @@ function ServerData:networkCommonRespone(ret)
         if ret['research_item'] then
             self:applyServerData(ret['research_item'], 'user', 'research_item')
         end
+
+        -- 프로필 프레임
+        if ret['profile_frames'] then
+            self:applyServerData(ret['profile_frames'], 'user', 'profile_frames')
+        end
     end
 
 	-- 퀘스트 갱신
@@ -776,6 +781,8 @@ function ServerData:networkCommonRespone(ret)
     if (ret['tamers_costume']) then
         g_tamerCostumeData:applyTamersCostume(ret['tamers_costume'])
     end
+
+
 
     -- UI 하일라이트 정보 갱신
     g_highlightData:applyHighlightInfo(ret)
@@ -987,6 +994,10 @@ function ServerData:networkCommonRespone_addedItems(ret)
 
     -- 연구 소모 재화
    RefreshGoods(t_added_items, 'research_item')
+
+    -- 프로필 프레임
+    RefreshGoods(t_added_items, 'profile_frames')
+
 
     -- 드래곤 (추가)
     if t_added_items['dragons'] then

@@ -184,6 +184,5 @@ function UI_UserSetLeaderProfileFrameTab:click_unequipBtn()
     g_profileFrameData:request_equip(0, success_cb)
 end
 
-
 --@CHECK
 UI:checkCompileError(UI_UserSetLeaderProfileFrameTab)

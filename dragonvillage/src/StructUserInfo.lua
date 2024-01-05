@@ -129,7 +129,7 @@ function StructUserInfo:makeProfileFrameAnimator()
         profile_frame_id = self:getProfileFrame()
     end
 
-    profile_frame_id = 900002
+    --profile_frame_id = 900002
     return IconHelper:getProfileFrameAnimator(profile_frame_id)
 end
 

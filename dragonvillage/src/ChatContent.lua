@@ -183,7 +183,8 @@ end
 --- @return table
 -------------------------------------
 function ChatContent:makeProfileFrameAnimator()
-    local profile_frame_id = 900002 --self:getProfileFrame()
+    --900002
+    local profile_frame_id = self:getProfileFrame()
     return IconHelper:getProfileFrameAnimator(profile_frame_id)
 end
 
