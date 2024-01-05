@@ -135,6 +135,10 @@ function StructUserInfoClanWar:createUserInfo(t_data)
     user_info.m_rank = t_data['rank']
     user_info.m_rankPercent = t_data['rate']
     user_info.m_tier = t_data['tier']
+    user_info.m_profileFrame = t_data['profile_frame']
+    user_info.m_profileFrameExpiredAt = t_data['profile_frame_expired_at']
+
+
     if (t_data['debris'] and t_data['debris']['tier']) then user_info.m_tier = t_data['debris']['tier'] end
 
     local has_last_info = false

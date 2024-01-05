@@ -378,6 +378,9 @@ function ServerData:getInstance()
     -- 연구
     g_researchData = ServerData_Research(g_serverData)
 
+    -- 프로필 프레임
+    g_profileFrameData = ServerData_ProfileFrame(g_serverData)
+
     return g_serverData
 end
 

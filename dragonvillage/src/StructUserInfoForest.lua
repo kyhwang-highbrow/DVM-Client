@@ -20,6 +20,8 @@ function StructUserInfoForest:create(t_data)
     user_info.m_tamerCostumeID = t_data['costume_id']
     user_info.m_leaderDragonObject = StructDragonObject(t_data['leader'])
     user_info.m_lastArenaTier = t_data['arena_new_last_tier']
+    user_info.m_profileFrame = t_data['profile_frame']
+    user_info.m_profileFrameExpiredAt = t_data['profile_frame_expired_at']
 
     return user_info
 end

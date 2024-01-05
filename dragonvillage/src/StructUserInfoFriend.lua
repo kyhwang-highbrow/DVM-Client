@@ -42,6 +42,8 @@ function StructUserInfoFriend:create(t_data)
     user_info.m_arenaTier = t_data['debris']['tier'] and t_data['debris']['tier'] or 'beginner'
     user_info.m_lairStats = t_data['lair_stats']
     user_info.m_researchStats = t_data['research_stats']
+    user_info.m_profileFrame = t_data['profile_frame']
+    user_info.m_profileFrameExpiredAt = t_data['profile_frame_expired_at']
 
     -- 친구 드래곤 룬 세팅
     user_info.m_leaderDragonObject:setRuneObjects(t_data['runes'])
@@ -186,7 +188,7 @@ end
 -------------------------------------
 function StructUserInfoFriend:getDragonCard()
     local t_dragon_data = self.m_leaderDragonObject
-    local card = UI_DragonCard(t_dragon_data)
+    local card = UI_DragonCard(t_dragon_data, nil, nil, nil, true)
     card.root:setSwallowTouch(false)
 
 	-- 버튼 콜백 등록
@@ -194,6 +196,12 @@ function StructUserInfoFriend:getDragonCard()
 		local is_visit = true
 		UI_UserInfoDetailPopup:open(self, is_visit, nil)
 	end)
+    
+    -- 프로필 테두리 추가
+    local profile_frame_animator = self:makeProfileFrameAnimator()
+    if profile_frame_animator ~= nil then
+        card.root:addChild(profile_frame_animator.m_node)
+    end
 
     return card.root
 end

@@ -12,6 +12,8 @@ StructUserInfo = class({
         m_nickname = 'string',
         m_tamerTitleID = 'number', --> 서버에는 user - tamer_title 로 저장
         m_leaderDragonObject = '',
+        m_profileFrame = 'number', -- 프로필 프레임
+        m_profileFrameExpiredAt = 'timestamp', -- 프로필 프레임 만료 기간
 
         -- 로비 채팅에서 사용
         m_tamerID = 'number',
@@ -65,6 +67,8 @@ function StructUserInfo:applyTableData(data)
     replacement['leader_dragon_object'] = 'm_leaderDragonObject'
     replacement['lair_stats'] = 'm_lairStats'
     replacement['research_stats'] = 'm_researchStats'
+    replacement['profile_frame'] = 'm_profileFrame'
+    replacement['profile_frame_expired_at'] = 'm_profileFrameExpiredAt'
     
     for i,v in pairs(data) do
         local key = replacement[i] and replacement[i] or i
@@ -97,9 +101,48 @@ function StructUserInfo:getLeaderDragonCard()
         return nil
     end
 
-    local card = UI_DragonCard(dragon_obj)
+    local card = UI_DragonCard(dragon_obj, nil, nil, nil,true)
     card.root:setSwallowTouch(false)
+
+    -- 프로필 테두리 추가
+    local profile_frame_animator = self:makeProfileFrameAnimator()
+    if profile_frame_animator ~= nil then
+        card.root:addChild(profile_frame_animator.m_node)
+    end
+
     return card
+end
+
+-------------------------------------
+--- @function makeProfileFrameAnimator
+--- @brief 프로필 프레임 에니메이터 생성
+--- @return table
+-------------------------------------
+function StructUserInfo:makeProfileFrameAnimator()
+    local dragon_obj = self.m_leaderDragonObject
+    local profile_frame_id = 0
+
+    -- 플레이어 유저인지 확인
+    if (not dragon_obj) and (g_userData:get('uid') == self.m_uid) then
+        dragon_obj = g_dragonsData:getLeaderDragon()
+        profile_frame_id = g_profileFrameData:getSelectedProfileFrame()
+    else
+        profile_frame_id = self:getProfileFrame()
+    end
+
+    if profile_frame_id == 0 then
+        return nil
+    end
+
+    local res = TableProfileFrame:getInstance():getProfileFrameRes(profile_frame_id)    
+    local animator = MakeAnimator(res)
+    if (animator) then
+        animator:setDockPoint(cc.p(0.5, 0.5))
+        animator:setAnchorPoint(cc.p(0.5, 0.5))
+        animator:setScale(1.1)
+        animator:changeAni('idle', true)
+    end
+    return animator
 end
 
 -------------------------------------
@@ -235,6 +278,32 @@ end
 function StructUserInfo:getTamerTitleStr()
     local tamer_title_id = self.m_tamerTitleID
     return TableTamerTitle:getTamerTitleStr(tamer_title_id)
+end
+
+-------------------------------------
+--- @function getProfileFrame
+--- @breif 프로필 프레임
+-------------------------------------
+function StructUserInfo:getProfileFrame()
+    if self:isProfileFrameExpired() == true then
+        return 0
+    end
+
+    return self.m_profileFrame or 0
+end
+
+-------------------------------------
+--- @function isProfileFrameExpired
+--- @breif 프로필 프레임 만료기간 체크
+-------------------------------------
+function StructUserInfo:isProfileFrameExpired()
+    local expired_at = self.m_profileFrameExpiredAt or 0
+    if expired_at == 0 then
+        return false
+    end
+
+    local curr_time = ServerTime:getInstance():getCurrentTimestampMilliseconds()
+    return curr_time > expired_at
 end
 
 -------------------------------------

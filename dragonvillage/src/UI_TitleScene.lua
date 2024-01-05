@@ -1587,6 +1587,9 @@ function UI_TitleScene:workGetServerInfo()
                 cclog('# 광고 룰렛 정보 갱신')
                 g_advRouletteData:response_rouletteInfo(ret)
 
+                cclog('# 프로필 프레임 보유 정보')
+                g_profileFrameData:response_info(ret)
+
                 co.NEXT()
 			end)
 			ui_network:setFailCB(fail_cb)

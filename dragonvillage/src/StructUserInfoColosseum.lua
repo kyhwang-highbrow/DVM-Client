@@ -73,6 +73,8 @@ function StructUserInfoColosseum:create_forRanking(t_data)
     user_info.m_rankPercent = t_data['rate']
     user_info.m_tier = t_data['tier']
     user_info.m_rp = t_data['rp']
+    user_info.m_profileFrame = t_data['profile_frame']
+    user_info.m_profileFrameExpiredAt = t_data['profile_frame_expired_at']
 
     user_info.m_leaderDragonObject = StructDragonObject(t_data['leader'])
 
@@ -103,6 +105,8 @@ function StructUserInfoColosseum:create_forHistory(t_data)
     user_info.m_rankPercent = t_data['rate']
     user_info.m_tier = t_data['tier']
     user_info.m_rp = t_data['rp']
+    user_info.m_profileFrame = t_data['profile_frame']
+    user_info.m_profileFrameExpiredAt = t_data['profile_frame_expired_at']
 
     user_info.m_leaderDragonObject = StructDragonObject(t_data['leader'])
     
@@ -143,6 +147,8 @@ function StructUserInfoColosseum:create(t_data, deck_type)
     user_info.m_rankPercent = t_data['rate']
     user_info.m_tier = t_data['tier']
     user_info.m_rp = t_data['rp']
+    user_info.m_profileFrame = t_data['profile_frame']
+    user_info.m_profileFrameExpiredAt = t_data['profile_frame_expired_at']
 
     user_info.m_leaderDragonObject = StructDragonObject(t_data['leader'])
     

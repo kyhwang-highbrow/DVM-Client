@@ -31,6 +31,8 @@ function StructUserInfoClanRaid:create_forRanking(t_data)
     user_info.m_rank = t_data['rank']
     user_info.m_rankPercent = t_data['rate']
     user_info.m_score = t_data['score']
+    user_info.m_profileFrame = t_data['profile_frame']
+    user_info.m_profileFrameExpiredAt = t_data['profile_frame_expired_at']
 
     user_info.m_leaderDragonObject = StructDragonObject(t_data['leader'])
 

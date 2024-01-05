@@ -44,15 +44,17 @@ UI_CharacterCard = class(PARENT, {
         m_charLevelNumber = 'number',
         m_charSkinIconRes = 'string',
         m_isFriendDragon = 'boolean',
+        m_isProfileIcon = 'boolean',
         m_tag = '',
     })
 
 -------------------------------------
 -- function init
 -------------------------------------
-function UI_CharacterCard:init(t_dragon_data)
+function UI_CharacterCard:init(t_dragon_data, is_profile_icon)
     self.ui_res = 'card_char.ui'
     self.m_isFriendDragon = false
+    self.m_isProfileIcon = is_profile_icon or false
 
     self:getUIInfo()
 
@@ -106,6 +108,11 @@ function UI_CharacterCard:refreshDragonInfo()
     -- if rarity == 'myth' then
     --     self:makeMythFrame()
     -- end
+
+    -- 프로필 아이콘일 경우 그리지 않음
+    if self.m_isProfileIcon == true then
+        return
+    end
 
     -- 리더 여부
     self:refresh_LeaderIcon()
@@ -767,12 +774,12 @@ end
 -------------------------------------
 -- function UI_DragonCard
 -------------------------------------
-function UI_DragonCard(t_dragon_data, struct_user_info, is_tooltop, click_func)
+function UI_DragonCard(t_dragon_data, struct_user_info, is_tooltop, click_func, is_profile_icon)
     if t_dragon_data and (not t_dragon_data.m_objectType) then
         t_dragon_data = StructDragonObject(t_dragon_data)
     end
 
-    local ui = UI_CharacterCard(t_dragon_data)
+    local ui = UI_CharacterCard(t_dragon_data, is_profile_icon)
     local did = t_dragon_data['did']
     local rarity = TableDragon:getValue(did, 'rarity')
 

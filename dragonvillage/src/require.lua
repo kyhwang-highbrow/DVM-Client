@@ -297,6 +297,7 @@ local t_module = {
     'ServerData_Lair', -- 라테아
     'ServerData_EventDealking', -- 딜킹 이벤트
     'ServerData_Research', -- 연구
+    'ServerData_ProfileFrame', -- 프로필 프레임
 
     -- Interface
     'IEventDispatcher',
@@ -523,6 +524,7 @@ local t_module = {
     'TableLanguageConfig', -- 언어 코드
     'TableDealkingBuff', -- 딜킹 스테이지 버프
     'TableResearch', -- 연구
+    'TableProfileFrame', -- 프로필 프레임
 
     -- Scene
     'SceneCommon',
@@ -1578,8 +1580,11 @@ local t_module = {
 
 	-- UI: 유저 상세 정보
 	'UI_UserInfoDetailPopup',
-	'UI_UserInfoDetailPopup_SetLeader',
+	'UI_UserSetLeader',
+    'UI_UserSetLeaderDragonTab',
+    'UI_UserSetLeaderProfileFrameTab',
     'UI_UserInfoDetailPopup_SetTitle',
+    'UI_ProfileFrameItem',
 
     -- UI : 탐험(exploration)
     'UI_Exploration',

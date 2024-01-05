@@ -36,6 +36,8 @@ function StructUserInfoClan:create(t_data)
     user_info.m_tamerID = t_data['tamer']
     user_info.m_lastActiveTime = t_data['last_active']
     user_info.m_leaderDragonObject = StructDragonObject(t_data['leader'])
+    user_info.m_profileFrame = t_data['profile_frame']
+    user_info.m_profileFrameExpiredAt = t_data['profile_frame_expired_at']
 
     if (t_data['info'] and t_data['info']['arena_new_last_tier']) then
         user_info.m_lastArenaTier = t_data['info']['arena_new_last_tier']
