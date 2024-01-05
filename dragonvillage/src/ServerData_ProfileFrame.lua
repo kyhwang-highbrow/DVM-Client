@@ -34,13 +34,27 @@ function ServerData_ProfileFrame:isExpiredProfileFrame(profile_frame_id)
     local profile_frame_map = g_userData:get('profile_frames') or {}
     local expired_at = profile_frame_map[tostring(profile_frame_id)] or 0
     if expired_at == 0 then
-        return false
+        return false, 0
     end
 
     local curr_time = ServerTime:getInstance():getCurrentTimestampMilliseconds()
-    return curr_time > expired_at
+    return curr_time > expired_at, expired_at - curr_time
 end
 
+
+-------------------------------------
+--- @function isExpiredProfileFrame
+--- @brief 프로필 프레임 아이디 만료 기한
+-------------------------------------
+function ServerData_ProfileFrame:getRemainTimeStr(profile_frame_id)
+    local _, remain_time_mil_sec = self:isExpiredProfileFrame(profile_frame_id)
+    if remain_time_mil_sec > 0 then
+        local remain_time_sec = remain_time_mil_sec/1000
+        msg = Str('{1} 남음', ServerTime:getInstance():makeTimeDescToSec(remain_time_sec))
+        return msg
+    end
+    return ''
+end
 
 -------------------------------------
 --- @function isOwnedProfileFrame

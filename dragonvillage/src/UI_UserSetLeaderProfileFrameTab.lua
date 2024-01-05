@@ -19,7 +19,8 @@ function UI_UserSetLeaderProfileFrameTab:init(t_user_info)
     self.m_tableView = nil
     self:initUI()
     self:initButton()
-    self:refresh()
+    self:refresh()    
+    
 end
 
 -------------------------------------
@@ -77,6 +78,7 @@ function UI_UserSetLeaderProfileFrameTab:initButton()
 
     vars['equipBtn']:registerScriptTapHandler(function() self:click_equipBtn() end)
     vars['unequipBtn']:registerScriptTapHandler(function() self:click_unequipBtn() end)
+    vars['unequipBtn']:setEnabled(false)
 end
 
 -------------------------------------
@@ -85,6 +87,7 @@ end
 function UI_UserSetLeaderProfileFrameTab:onEnterTab(first)
     local vars = self.vars
     if first == true then
+        self.root:scheduleUpdateWithPriorityLua(function () self:update() end, 1)
     end
 
     do -- 드래곤
@@ -133,14 +136,30 @@ function UI_UserSetLeaderProfileFrameTab:refresh()
         local profile_frame = g_profileFrameData:getSelectedProfileFrame()
         local is_equpped = profile_frame == self.m_selectProfileFrameId
         local is_select = self.m_selectProfileFrameId ~= 0
-        local is_owned = g_profileFrameData:isOwnedProfileFrame(self.m_selectProfileFrameId)
+        --local is_owned = g_profileFrameData:isOwnedProfileFrame(self.m_selectProfileFrameId)
 
         vars['equipBtn']:setVisible(not is_equpped and is_select)
         vars['unequipBtn']:setVisible(is_equpped and is_select)
         vars['stateLabel']:setVisible(is_select)
+    end
+end
 
+-------------------------------------
+-- function refresh
+-------------------------------------
+function UI_UserSetLeaderProfileFrameTab:update()
+    local vars = self.vars
+    do -- 버튼
+        local profile_frame = self.m_selectProfileFrameId
+        if profile_frame == 0 then
+            vars['stateLabel']:setString('')
+            return
+        end
+
+        local is_owned = g_profileFrameData:isOwnedProfileFrame(self.m_selectProfileFrameId)
         if is_owned == true then
-            vars['stateLabel']:setString(string.format('%s%s', '{@GREEN}' ,Str('보유')))
+            local msg = g_profileFrameData:getRemainTimeStr(profile_frame)
+            vars['stateLabel']:setString(string.format('%s%s', '{@green}' ,msg))
         else
             vars['stateLabel']:setString(string.format('%s%s', '{@RED}' ,Str('미보유')))
         end
@@ -152,6 +171,7 @@ end
 -------------------------------------
 function UI_UserSetLeaderProfileFrameTab:click_selectBtn(profile_frame_id)
     self.m_selectProfileFrameId = profile_frame_id
+    self:update()
     self:refresh()
     self:refreshTableView()
 end
