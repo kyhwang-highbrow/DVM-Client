@@ -41,7 +41,7 @@ function UI_UserSetLeaderProfileFrameTab:initTableView()
         ui.vars['clickBtn']:registerScriptTapHandler(function() 
             self:click_selectBtn(data)
         end)
-        ui:setCheckSpriteVisible(self.m_selectProfileFrameId == data)
+        ui:setSelect(self.m_selectProfileFrameId == data)
 	end
 
     local l_item_list = TableProfileFrame:getInstance():getAllProfileIdList()
@@ -60,7 +60,7 @@ end
 function UI_UserSetLeaderProfileFrameTab:refreshTableView()
     local refresh_func = function(t_data, data)
         if t_data['ui'] ~= nil then
-            t_data['ui']:setCheckSpriteVisible(self.m_selectProfileFrameId == data)
+            t_data['ui']:setSelect(self.m_selectProfileFrameId == data)
         end
     end
 
