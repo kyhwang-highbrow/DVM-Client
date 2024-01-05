@@ -123,26 +123,14 @@ function StructUserInfo:makeProfileFrameAnimator()
     local profile_frame_id = 0
 
     -- 플레이어 유저인지 확인
-    if (not dragon_obj) and (g_userData:get('uid') == self.m_uid) then
-        dragon_obj = g_dragonsData:getLeaderDragon()
+    if (not dragon_obj) and (g_userData:get('uid') == self.m_uid) then        
         profile_frame_id = g_profileFrameData:getSelectedProfileFrame()
     else
         profile_frame_id = self:getProfileFrame()
     end
 
-    if profile_frame_id == 0 then
-        return nil
-    end
-
-    local res = TableProfileFrame:getInstance():getProfileFrameRes(profile_frame_id)    
-    local animator = MakeAnimator(res)
-    if (animator) then
-        animator:setDockPoint(cc.p(0.5, 0.5))
-        animator:setAnchorPoint(cc.p(0.5, 0.5))
-        animator:setScale(1.1)
-        animator:changeAni('idle', true)
-    end
-    return animator
+    profile_frame_id = 900002
+    return IconHelper:getProfileFrameAnimator(profile_frame_id)
 end
 
 -------------------------------------

@@ -24,6 +24,8 @@ ChatContent = class({
         did = '',
         transform = '',
         json = 'string',
+        profile_frame = 'number',
+        profile_frame_expired_at = 'number',
 
         -- 귓속말에서 사용
         to = '',
@@ -149,7 +151,41 @@ function ChatContent:getChannelName()
     return self['channelName']
 end
 
+-------------------------------------
+--- @function getProfileFrame
+--- @breif 프로필 프레임
+-------------------------------------
+function ChatContent:getProfileFrame()
+    if self:isProfileFrameExpired() == true then
+        return 0
+    end
 
+    return self['profile_frame'] or 0
+end
+
+-------------------------------------
+--- @function isProfileFrameExpired
+--- @breif 프로필 프레임 만료기간 체크
+-------------------------------------
+function ChatContent:isProfileFrameExpired()
+    local expired_at = self['profile_frame_expired_at'] or 0
+    if expired_at == 0 then
+        return false
+    end
+
+    local curr_time = ServerTime:getInstance():getCurrentTimestampMilliseconds()
+    return curr_time > expired_at
+end
+
+-------------------------------------
+--- @function makeProfileFrameAnimator
+--- @brief 프로필 프레임 에니메이터 생성
+--- @return table
+-------------------------------------
+function ChatContent:makeProfileFrameAnimator()
+    local profile_frame_id = 900002 --self:getProfileFrame()
+    return IconHelper:getProfileFrameAnimator(profile_frame_id)
+end
 
 -------------------------------------
 -- function getUserInfoStr

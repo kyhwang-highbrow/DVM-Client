@@ -71,6 +71,11 @@ function UI_ChatListItem_msg:init(chat_content)
         icon:setDockPoint(cc.p(0.5, 0.5))
         icon:setAnchorPoint(cc.p(0.5, 0.5))
         vars['profileNode']:addChild(icon)
+
+        local profile_frame_animator = chat_content:makeProfileFrameAnimator()
+        if profile_frame_animator ~= nil then
+            vars['profileNode']:addChild(profile_frame_animator.m_node)
+        end
     end
 
     self:initButton()
