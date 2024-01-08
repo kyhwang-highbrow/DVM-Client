@@ -732,17 +732,30 @@ function SettingData:isSkipWarningTodayConfimPopup(key)
 end
 
 -------------------------------------
--- function setAutoFarewell
+--- @function setAutoFarewell
 -------------------------------------
-function SettingData:setAutoFarewell(is_active, dragon_rarity)
-    self:applySettingData(is_active, 'farewell', 'auto_farewell', dragon_rarity)
+function SettingData:setAutoFarewell(dragon_rarity)
+    self:applySettingData(dragon_rarity, 'farewell', 'auto_farewell_new')
 end
 
 -------------------------------------
--- function getAutoFarewell
+--- @function isSettingAutoFarewell
 -------------------------------------
-function SettingData:getAutoFarewell(dragon_rarity)
-    return self:get('farewell', 'auto_farewell', dragon_rarity)
+function SettingData:isSettingAutoFarewell()
+    return self:getAutoFarewelBirthGrade() > 0
+end
+
+-------------------------------------
+--- @function getAutoFarewelBirthGrade
+-------------------------------------
+function SettingData:getAutoFarewelBirthGrade()
+    local rarity_str =  self:get('farewell', 'auto_farewell_new') or 'none'
+    if rarity_str == 'rare' then
+        return 3
+    elseif rarity_str == 'hero' then
+        return 4
+    end
+    return 0
 end
 
 -------------------------------------

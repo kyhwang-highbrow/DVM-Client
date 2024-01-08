@@ -400,8 +400,9 @@ function UI_GachaResult_Dragon:refresh_dragon(t_dragon_data)
     local evolution = t_dragon_data['evolution']
 
     local is_lock_visible
-    if g_hatcheryData.m_isAutomaticFarewell then
-        is_lock_visible = (t_dragon_data['grade'] > 3)
+    local auto_farewell_birth_grade = g_settingData:getAutoFarewelBirthGrade()
+    if auto_farewell_birth_grade > 0 then
+        is_lock_visible = (t_dragon_data['grade'] > auto_farewell_birth_grade)
     else
         is_lock_visible = (t_dragon_data['grade'] > 2)
     end
@@ -606,9 +607,11 @@ function UI_GachaResult_Dragon:setDragonCardList()
 
         -- 자동작별 시 노출할 경험치 UI 추가
         if (self.m_type == 'cash') or (self.m_type == 'pickup') or (self.m_type == 'summon_dragon_ticket') then
-            if g_hatcheryData.m_isAutomaticFarewell and (t_data['grade'] <= 3) then
+
+            local auto_farewell_birth_grade = g_settingData:getAutoFarewelBirthGrade()
+            if auto_farewell_birth_grade > 0 and (t_data['grade'] <= auto_farewell_birth_grade) then
                 local dragon_exp_table = TableDragonExp()
-                local exp = dragon_exp_table:getDragonGivingExp(3, 1)	
+                local exp = dragon_exp_table:getDragonGivingExp(t_data['grade'], 1)	
                 local exp_card = UI_ItemCard(700017, exp)
                 local tint_action = cca.repeatFadeInOutRuneOpt(3.2)
                 card.root:addChild(exp_card.root)
@@ -641,8 +644,9 @@ function UI_GachaResult_Dragon:setDragonCardList()
                 local refreshed_data = g_dragonsData:getDragonDataFromUid(doid)
 
                 local is_lock_visible
-                if g_hatcheryData.m_isAutomaticFarewell then
-                    is_lock_visible = (t_data['grade'] > 3)
+                local auto_farewell_birth_grade = g_settingData:getAutoFarewelBirthGrade()
+                if auto_farewell_birth_grade > 0 then
+                    is_lock_visible = (t_data['grade'] > auto_farewell_birth_grade)
                 else
                     is_lock_visible = (t_data['grade'] > 2)
                 end

@@ -9,9 +9,7 @@ ServerData_Hatchery = class({
 
         m_selectedPickup = 'table', -- 픽업드래곤 선택 정보 ex.{"normal":"120221","unique":"120455"}
 
-        m_isDefinitePickup = 'boolean', -- 다음 픽업 100%
-
-        m_isAutomaticFarewell = 'boolean',
+        m_isDefinitePickup = 'boolean', -- 다음 픽업 100%       
 
         -- 확률업 소환
         CASH__EVENT_SUMMON_PRICE = 300,
@@ -43,8 +41,6 @@ function ServerData_Hatchery:init(server_data)
     self.m_serverData = server_data
     self.m_dirtyHacheryInfo = true
     self.m_updatedAt = nil
-
-    self.m_isAutomaticFarewell = g_settingData:getAutoFarewell('rare') or false
 end
 
 -------------------------------------
@@ -198,7 +194,7 @@ function ServerData_Hatchery:request_summonCash(is_bundle, is_ad, is_sale, picku
     local is_sale = is_sale or false
     local prev_mileage = g_userData:get('mileage')
 	local tutorial = TutorialManager.getInstance():isDoing()
-    local auto_farewell_lv = 3
+    local auto_farewell_lv = g_settingData:getAutoFarewelBirthGrade()
 
     -- 성공 콜백
     local function success_cb(ret)
@@ -255,7 +251,7 @@ function ServerData_Hatchery:request_summonCash(is_bundle, is_ad, is_sale, picku
         ui_network:setParam('pickup_id', pickup_id)
     end
     
-    if (self.m_isAutomaticFarewell and is_bundle) then
+    if (g_settingData:isSettingAutoFarewell() and is_bundle) then
         ui_network:setParam('auto_goodbye', auto_farewell_lv)
     end
 
@@ -280,10 +276,11 @@ end
 function ServerData_Hatchery:makeAddedDragonTable(org_list, is_bundle)
     local result = {}
     
-    if (not self.m_isAutomaticFarewell) or (not is_bundle) then return org_list end
+    if (not g_settingData:isSettingAutoFarewell()) or (not is_bundle) then return org_list end
 
+    local auto_farewell_birth_grade = g_settingData:getAutoFarewelBirthGrade()
     for key, value in pairs(org_list) do
-        if (value['grade'] > 3) then
+        if (value['grade'] > auto_farewell_birth_grade) then
             result[key] = value
         end
     end
@@ -301,7 +298,7 @@ function ServerData_Hatchery:request_summonCashEvent(is_bundle, is_sale, finish_
     local is_bundle = is_bundle or false
     local is_sale = is_sale or false
     local prev_mileage = g_userData:get('mileage')
-    local auto_farewell_lv = 3
+    local auto_farewell_lv = g_settingData:getAutoFarewelBirthGrade()
 
     -- 성공 콜백
     local function success_cb(ret)
@@ -346,7 +343,7 @@ function ServerData_Hatchery:request_summonCashEvent(is_bundle, is_sale, finish_
     ui_network:setParam('uid', uid)
     ui_network:setParam('bundle', is_bundle)
     ui_network:setParam('sale', is_sale)
-    if (self.m_isAutomaticFarewell and is_bundle) then
+    if (g_settingData:isSettingAutoFarewell() and is_bundle) then
         ui_network:setParam('auto_goodbye', auto_farewell_lv)
     end
     ui_network:setMethod('POST')
@@ -369,7 +366,7 @@ function ServerData_Hatchery:request_summonPickup(is_bundle, is_sale, pickup_id,
     local is_bundle = is_bundle or false
     local is_sale = is_sale or false
     local prev_mileage = g_userData:get('mileage')
-    local auto_farewell_lv = 3
+    local auto_farewell_lv = g_settingData:getAutoFarewelBirthGrade()
     local normal_did, unique_did = self:getSelectedPickup()
 
     -- 성공 콜백
@@ -428,7 +425,7 @@ function ServerData_Hatchery:request_summonPickup(is_bundle, is_sale, pickup_id,
     -- if pickup_id then
     --     ui_network:setParam('pickup_id', pickup_id)
     -- end
-    if (self.m_isAutomaticFarewell and is_bundle) then
+    if (auto_farewell_lv > 0 and is_bundle) then
         ui_network:setParam('auto_goodbye', auto_farewell_lv)
     end
     ui_network:setMethod('POST')
@@ -1134,19 +1131,6 @@ function ServerData_Hatchery:isPickupEmpty()
 
     return (normal == nil) and (unique == nil)
 end
-
--------------------------------------
--- function switchHatcheryAutoFarewell
--- @breif 픽업 드래곤 선택 하나도 안되어 있는가?
--------------------------------------
-function ServerData_Hatchery:switchHatcheryAutoFarewell(bReset)
-    if (bReset) then
-        self.m_isAutomaticFarewell = false
-    else
-        self.m_isAutomaticFarewell = not self.m_isAutomaticFarewell
-    end
-end
-
 
 -------------------------------------
 -- function response_pickupScheduleTable

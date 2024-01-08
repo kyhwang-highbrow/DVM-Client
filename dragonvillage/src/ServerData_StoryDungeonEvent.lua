@@ -5,8 +5,7 @@ ServerData_StoryDungeonEvent = class({
     m_serverData = 'ServerData',
     m_cachedStageIdListMap = 'table',
     m_ceilingInfo = 'table',
-    m_ceilingMax = 'number',
-    m_isAutomaticFarewell = 'boolean',
+    m_ceilingMax = 'number',    
     m_isItemReplaced = 'boolean',
     m_tableQuest = '',
     m_questList = 'List<StructQuest>',
@@ -19,8 +18,7 @@ ServerData_StoryDungeonEvent = class({
 -------------------------------------
 function ServerData_StoryDungeonEvent:init(server_data)
     self.m_serverData = server_data
-    self.m_cachedStageIdListMap = {}    
-    self.m_isAutomaticFarewell = false
+    self.m_cachedStageIdListMap = {}
     self.m_ceilingInfo = {}
     self.m_ceilingMax = 100
     self.m_isItemReplaced = false
@@ -314,11 +312,11 @@ end
 -------------------------------------
 function ServerData_StoryDungeonEvent:makeAddedDragonTable(org_list, is_bundle)
     local result = {}
-    
-    if (not self.m_isAutomaticFarewell) or (not is_bundle) then return org_list end
+    if (not g_settingData:isSettingAutoFarewell()) or (not is_bundle) then return org_list end
 
+    local auto_farewell_birth_grade = g_settingData:getAutoFarewelBirthGrade()
     for key, value in pairs(org_list) do
-        if (value['grade'] > 3) then
+        if (value['grade'] > auto_farewell_birth_grade) then
             result[key] = value
         end
     end

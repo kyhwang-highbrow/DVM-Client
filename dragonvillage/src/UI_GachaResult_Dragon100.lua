@@ -278,8 +278,9 @@ function UI_GachaResult_Dragon100:initDragonCardList()
             local ui = UI_SimpleDragonInfoPopup(struct_dragon_object)
 
             local is_lock_visible
-            if g_hatcheryData.m_isAutomaticFarewell then
-                is_lock_visible = (struct_dragon_object['grade'] > 3)
+            local auto_farewell_birth_grade = g_settingData:getAutoFarewelBirthGrade()
+            if auto_farewell_birth_grade > 0 then
+                is_lock_visible = (struct_dragon_object['grade'] > auto_farewell_birth_grade)
             else
                 is_lock_visible = (struct_dragon_object['grade'] > 2)
             end
@@ -375,10 +376,10 @@ function UI_GachaResult_Dragon100:initDragonCardList()
 
             -- 자동작별 시 노출할 경험치 UI 추가
             if (self.m_type == 'cash') or (self.m_type == 'pickup') or (self.m_type == 'summon_dragon_ticket')then
-            
-                if g_hatcheryData.m_isAutomaticFarewell and (struct_dragon_object['grade'] <= 3) then
+                local auto_farewell_birth_grade = g_settingData:getAutoFarewelBirthGrade()            
+                if auto_farewell_birth_grade > 0 and (struct_dragon_object['grade'] <= auto_farewell_birth_grade) then
                     local dragon_exp_table = TableDragonExp()
-                    local exp = dragon_exp_table:getDragonGivingExp(3, 1)	
+                    local exp = dragon_exp_table:getDragonGivingExp(struct_dragon_object['grade'], 1)	
                     local exp_card = UI_ItemCard(700017, exp)
                     local tint_action = cca.repeatFadeInOutRuneOpt(3.2)
                     -- 덤프를 찍어보니 exp_card 에 icon metadata가 
