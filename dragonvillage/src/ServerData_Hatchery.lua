@@ -194,7 +194,7 @@ function ServerData_Hatchery:request_summonCash(is_bundle, is_ad, is_sale, picku
     local is_sale = is_sale or false
     local prev_mileage = g_userData:get('mileage')
 	local tutorial = TutorialManager.getInstance():isDoing()
-    local auto_farewell_lv = g_settingData:getAutoFarewelBirthGrade()
+    local auto_farewell_birth_grade = g_settingData:getAutoFarewelBirthGrade()
 
     -- 성공 콜백
     local function success_cb(ret)
@@ -251,8 +251,8 @@ function ServerData_Hatchery:request_summonCash(is_bundle, is_ad, is_sale, picku
         ui_network:setParam('pickup_id', pickup_id)
     end
     
-    if (g_settingData:isSettingAutoFarewell() and is_bundle) then
-        ui_network:setParam('auto_goodbye', auto_farewell_lv)
+    if (auto_farewell_birth_grade > 0 and is_bundle) then
+        ui_network:setParam('auto_goodbye', auto_farewell_birth_grade)
     end
 
     if (is_ad) then
@@ -298,7 +298,7 @@ function ServerData_Hatchery:request_summonCashEvent(is_bundle, is_sale, finish_
     local is_bundle = is_bundle or false
     local is_sale = is_sale or false
     local prev_mileage = g_userData:get('mileage')
-    local auto_farewell_lv = g_settingData:getAutoFarewelBirthGrade()
+    local auto_farewell_birth_grade = g_settingData:getAutoFarewelBirthGrade()
 
     -- 성공 콜백
     local function success_cb(ret)
@@ -343,8 +343,8 @@ function ServerData_Hatchery:request_summonCashEvent(is_bundle, is_sale, finish_
     ui_network:setParam('uid', uid)
     ui_network:setParam('bundle', is_bundle)
     ui_network:setParam('sale', is_sale)
-    if (g_settingData:isSettingAutoFarewell() and is_bundle) then
-        ui_network:setParam('auto_goodbye', auto_farewell_lv)
+    if (auto_farewell_birth_grade > 0 and is_bundle) then
+        ui_network:setParam('auto_goodbye', auto_farewell_birth_grade)
     end
     ui_network:setMethod('POST')
     ui_network:setSuccessCB(success_cb)
@@ -366,7 +366,7 @@ function ServerData_Hatchery:request_summonPickup(is_bundle, is_sale, pickup_id,
     local is_bundle = is_bundle or false
     local is_sale = is_sale or false
     local prev_mileage = g_userData:get('mileage')
-    local auto_farewell_lv = g_settingData:getAutoFarewelBirthGrade()
+    local auto_farewell_birth_grade = g_settingData:getAutoFarewelBirthGrade()
     local normal_did, unique_did = self:getSelectedPickup()
 
     -- 성공 콜백
@@ -425,8 +425,8 @@ function ServerData_Hatchery:request_summonPickup(is_bundle, is_sale, pickup_id,
     -- if pickup_id then
     --     ui_network:setParam('pickup_id', pickup_id)
     -- end
-    if (auto_farewell_lv > 0 and is_bundle) then
-        ui_network:setParam('auto_goodbye', auto_farewell_lv)
+    if (auto_farewell_birth_grade > 0 and is_bundle) then
+        ui_network:setParam('auto_goodbye', auto_farewell_birth_grade)
     end
     ui_network:setMethod('POST')
     ui_network:setSuccessCB(success_cb)
