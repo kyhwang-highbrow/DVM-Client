@@ -7,15 +7,17 @@ UI_DragonGoodbyeSelectPopup = class(PARENT,{
 		m_doids = 'string',
         m_expSum = 'number',
         m_cbFunc = 'function',
+        m_isUncheckLock = 'boolean',
     })
 
 -------------------------------------
 -- function init
 -------------------------------------
-function UI_DragonGoodbyeSelectPopup:init(doids, exp_sum, cb_func)
+function UI_DragonGoodbyeSelectPopup:init(doids, exp_sum, is_uncheck_lock, cb_func)
     self.m_doids = doids
     self.m_expSum = exp_sum
     self.m_cbFunc = cb_func
+    self.m_isUncheckLock = is_uncheck_lock
 
     local vars = self:load('dragon_goodbye_select_confirm_popup.ui')
     UIManager:open(self, UIManager.POPUP)
@@ -78,7 +80,7 @@ function UI_DragonGoodbyeSelectPopup:click_okBtn()
         end
     end
 
-    g_dragonsData:request_goodbye('exp', doids, cb_func) -- params : target, doids, cb_func
+    g_dragonsData:request_goodbye('exp', doids, cb_func, self.m_isUncheckLock) -- params : target, doids, cb_func
 
     self:close()
 end

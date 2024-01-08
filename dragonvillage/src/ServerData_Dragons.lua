@@ -2054,7 +2054,7 @@ end
 -- @param doids string 드래곤 오브젝트 ID를 ','로 연결한 문자열
 -- @param cb_func function(ret)
 -------------------------------------
-function ServerData_Dragons:request_goodbye(target, doids, is_uncheck_lock, cb_func)
+function ServerData_Dragons:request_goodbye(target, doids, cb_func, is_uncheck_lock)
 	local uid = g_userData:get('uid')
 	
     local function success_cb(ret)
