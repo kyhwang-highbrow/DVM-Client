@@ -91,8 +91,16 @@ end
 -- function isContainsInTableview
 -------------------------------------
 function UI_DragonGoodbyeSelect:isContainsInTableview(struct_dragon)
+	local vars = self.vars
+	local is_uncheck_lock = false 
+
+	-- 잠김 아닌 드래곤
+	if vars['lockCheckBtn'] ~= nil then
+		is_uncheck_lock = vars['lockCheckBtn']:isChecked()
+	end
+
 	-- 잠금 상태인 드래곤 제외
-	if struct_dragon:getLock() then
+	if is_uncheck_lock == false and struct_dragon:getLock() then
 		return false
 
 	-- 리더 드래곤 제외
@@ -187,7 +195,7 @@ function UI_DragonGoodbyeSelect:initButton()
 	end
 	vars['goodbyeBtn']:registerScriptTapHandler(function() self:click_farewellBtn() end)
 	vars['autoSelectBtn']:registerScriptTapHandler(function() self:click_autoSelectBtn() end)
-	vars['infoBtn']:registerScriptTapHandler(function() self:click_infoBtn() end)
+	vars['infoBtn']:registerScriptTapHandler(function() self:click_infoBtn() end)	
 end
 
 -------------------------------------
@@ -273,6 +281,10 @@ function UI_DragonGoodbyeSelect:initFilterButton()
 
 	vars['allCheckBtn'] = UIC_CheckBox(vars['allCheckBtn'].m_node, vars['allCheckSprite'], is_all_checked)
 	vars['allCheckBtn']:registerScriptTapHandler(function() self:click_allFilterCheckbox() end)
+
+	vars['lockCheckBtn'] = UIC_CheckBox(vars['lockCheckBtn'].m_node, vars['lockCheckSprite'], false)
+	vars['lockCheckBtn']:registerScriptTapHandler(function() self:click_lockFilterCheckbox() end)
+
 end
 
 -------------------------------------
@@ -443,17 +455,6 @@ function UI_DragonGoodbyeSelect:click_tabBtn(tab_type)
 	self:refresh()
 end
 
-
--------------------------------------
--- function click_infoBtn
--------------------------------------
-function UI_DragonGoodbyeSelect:click_infoBtn()
-	require('UI_DragonGoodbyeSelectInfoPopup')
-	local type = self.m_currTabType
-	UI_DragonGoodbyeSelectInfoPopup(type)
-end
-
-
 -------------------------------------
 -- function click_filterCheckbox
 -------------------------------------
@@ -490,6 +491,7 @@ function UI_DragonGoodbyeSelect:click_filterCheckbox()
 	self:refresh()
 end
 
+
 -------------------------------------
 -- function click_allFilterCheckbox
 -------------------------------------
@@ -518,6 +520,18 @@ function UI_DragonGoodbyeSelect:click_allFilterCheckbox()
 	self:refresh()
 end
 
+
+-------------------------------------
+--- @function click_lockFilterCheckbox
+-------------------------------------
+function UI_DragonGoodbyeSelect:click_lockFilterCheckbox()
+	local vars = self.vars 
+	self:refresh()
+end
+
+-------------------------------------
+--- @function checkRelationPoint
+-------------------------------------
 function UI_DragonGoodbyeSelect:checkRelationPoint(did)
 	if (self.m_currTabType == 'relation') then
 		local curr_relation = g_bookData:getBookData(did):getRelation()
@@ -696,7 +710,13 @@ function UI_DragonGoodbyeSelect:click_farewellBtn()
 			end
 		end
 
-		g_dragonsData:request_goodbye(target, doid_list, success_callback)
+		local is_uncheck_lock = false 
+		-- 잠김 아닌 드래곤
+		if self.vars['lockCheckBtn'] ~= nil then
+			is_uncheck_lock = vars['lockCheckBtn']:isChecked()
+		end
+		
+		g_dragonsData:request_goodbye(target, doid_list, is_uncheck_lock, success_callback)
 	end
 
 	local function confirm_callback()
