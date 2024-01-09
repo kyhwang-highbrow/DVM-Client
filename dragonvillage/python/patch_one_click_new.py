@@ -296,7 +296,7 @@ def main():
     utils.install_and_import('requests', globals())
 
     print('### 언어 패치 생성 시작')
-    translation_zip_file_list = translation_patch_maker.make_language_patch(app_ver, SERVER_PATH, os.path.curdir)
+    translation_zip_file_list = translation_patch_maker.make_language_patch(app_ver, SERVER_PATH, os.path.curdir, dest_path, TOOL_SERVER_PATH)
     is_need_translate_patch = len(translation_zip_file_list) > 0
 
     # Nas에 복사 및 패치 정보 전송
