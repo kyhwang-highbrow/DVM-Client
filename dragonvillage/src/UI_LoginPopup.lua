@@ -54,7 +54,7 @@ function UI_LoginPopup:initButton()
     vars['googleBtn']:registerScriptTapHandler(function() LoginHelper:loginWithGoogle() end)
 	vars['facebookBtn']:registerScriptTapHandler(function() LoginHelper:loginWithFacebook() end)
     vars['twitterBtn']:registerScriptTapHandler(function() LoginHelper:loginWithTwitter() end)
-    vars['gamecenterBtn']:registerScriptTapHandler(function() LoginHelper:loginWithGameCenter() end)
+    vars['gamecenterBtn']:registerScriptTapHandler(function() self:click_gameCenter() end)
     vars['appleBtn']:registerScriptTapHandler(function() LoginHelper:loginWithApple() end)
     vars['guestBtn']:registerScriptTapHandler(function() LoginHelper:loginAsGuest() end)
     vars['serverBtn']:registerScriptTapHandler(function() self:click_changeServer() end)
@@ -117,6 +117,28 @@ function UI_LoginPopup:close(is_back_key)
         end
         MakeSimplePopup(POPUP_TYPE.YES_NO, Str('종료하시겠습니까?'), yes_cb)
     --]]
+end
+
+-------------------------------------
+-- function click_gameCenter
+-------------------------------------
+function UI_LoginPopup:click_gameCenter()
+    local ok_btn_cb = function()
+        LoginHelper:loginWithGameCenter()
+    end
+
+    -- 혹시 검수 반려 사항이 될 수도 있기 때문에 검수 모드일 때에는 경고 팝업 노출시키지 않음
+    if (true == g_remoteConfig:hideCouponBtn()) or (true == LocalData.getInstance():isInAppReview()) then
+        ok_btn_cb()
+        return
+    end
+
+    local msg = 'Game Center'
+    -- 현재 게임 센터 연동 시 다른 계정으로 전환을 막아놓음
+    -- 기술적으로 불가능해 보이지 않지만 공수나 리스크를 고려해 아래와 같은 경고 문구 띄움
+    -- 나중에는 전환이 가능하도록 지원을 고려해야 함(by kyhwang)
+    local submsg = Str('게임센터 연동 시 다른 계정으로의 전환이 어렵습니다.\n그래도 연동을 진행하시겠습니까?')
+    MakeSimplePopup2(POPUP_TYPE.YES_NO, msg, submsg, ok_btn_cb)
 end
 
 -------------------------------------
