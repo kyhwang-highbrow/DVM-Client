@@ -91,12 +91,12 @@ def __check_lang_patch_updated(app_ver, target_server_url, zip_path):
     if patch_info == None:
         return False
     
-    print("\n키-값 쌍 출력:")
-    for key, value in patch_info.items():
-        print(f"{key}: {value}")
+    # print("\n키-값 쌍 출력:")
+    # for key, value in patch_info.items():
+    #     print(f"{key}: {value}")
     
-    print('# db file : ', patch_info['name'])
-    print('# new file : ', os.path.basename(zip_path))
+    # print('# db file : ', patch_info['name'])
+    # print('# new file : ', os.path.basename(zip_path))
 
     return os.path.basename(zip_path) in patch_info['name']
 
@@ -181,9 +181,9 @@ def make_language_patch(app_ver, target_server_url, curr_dir, nas_dest_path, too
         os.remove(dst)
 
         # 서버에 있는 패치 파일과 같다면 삭제
-        print(zip_path)
+        # print(zip_path)
         is_same = __check_lang_patch_same(app_ver, target_server_url, zip_path)
-        local_checksum = md5.file2md5(zip_path)
+        #local_checksum = md5.file2md5(zip_path)
         #print(local_checksum)
         
         if (is_same):
@@ -191,7 +191,7 @@ def make_language_patch(app_ver, target_server_url, curr_dir, nas_dest_path, too
         else:
             is_need_translate_patch = True
             zip_path_list.append(zip_path)
-            print(f'{idx}. processing {translate_file}', local_checksum)
+            print(f'{idx}. processing {translate_file}')
 
         idx = idx + 1
 
