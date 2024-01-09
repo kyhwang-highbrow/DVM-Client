@@ -646,7 +646,7 @@ function UI_DragonGoodbyeSelect:click_autoSelectBtn()
 		local comb_did = TableDragonCombine:getCombinationDid(did)
 
 		if (not item['data']:isRaisedByUser()) and self:checkRelationPoint(did) 
-		and ((not comb_did) or (comb_did and self.m_bIgnoreCombMaterial))  then
+		and ((not comb_did) or (comb_did and self.m_bIgnoreCombMaterial)) and (not item['data']:getLock()) then
 			if item['ui'] then
 				item['ui']:setCheckSpriteVisible(self.m_isAutoSelected)
 			end
