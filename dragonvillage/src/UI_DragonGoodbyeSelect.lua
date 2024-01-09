@@ -519,10 +519,25 @@ end
 --- @function click_lockFilterCheckbox
 -------------------------------------
 function UI_DragonGoodbyeSelect:click_lockFilterCheckbox()
-	local vars = self.vars 
-	self.m_isCheckUnlock = vars['lockCheckBtn']:isChecked()
-	vars['lockInfoLabel']:setVisible(not self.m_isCheckUnlock)
-	self:refresh()
+	local vars = self.vars
+
+	local ok_btn_cb = function()
+		vars['lockCheckBtn']:setChecked(true)
+		self.m_isCheckUnlock = true
+		vars['lockInfoLabel']:setVisible(not self.m_isCheckUnlock)
+		self:refresh()
+	end
+
+	if vars['lockCheckBtn']:isChecked() == true then
+		vars['lockCheckBtn']:setChecked(false)
+		local msg = Str('잠금 된 드래곤도 {@RED}작별{@DESC}이 가능해집니다.\n포함하겠습니까?')
+		MakeSimplePopup(POPUP_TYPE.YES_NO, msg, ok_btn_cb)
+	else
+		self.m_isCheckUnlock = false
+		vars['lockCheckBtn']:setChecked(false)
+		vars['lockInfoLabel']:setVisible(not self.m_isCheckUnlock)
+		self:refresh()
+	end
 end
 
 -------------------------------------
