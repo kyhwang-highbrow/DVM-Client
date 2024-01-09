@@ -96,6 +96,19 @@ def __check_lang_patch_updated(app_ver, target_server_url, zip_path):
     
     return patch_info['filename'] == os.path.basename(zip_path)
 
+#특정 디렉토리 내의 모든 파일을 삭제
+def delete_all_files_in_directory(directory_path):
+    try:
+        # 해당 디렉토리의 모든 파일 목록을 얻음
+        file_list = os.listdir(directory_path)
+        # 모든 파일을 순회하면서 삭제
+        for file_name in file_list:
+            file_path = os.path.join(directory_path, file_name)
+            if os.path.isfile(file_path):
+                os.remove(file_path)
+    except Exception as e:
+        print(f"오류 발생: {e}")
+
 #NAS에 복사
 def copy_to_nas(src_file, dst_dir):
     LOCAL_MACHINE_DOMAIN = 'dragonvillagem'
@@ -145,6 +158,7 @@ def make_language_patch(app_ver, target_server_url, curr_dir, nas_dest_path, too
     # 패치 폴더로 에셋 카피 후 압축
     idx = 1
     zip_path_list = []
+    is_need_translate_patch = False
     now = datetime.datetime.now().strftime('%y%m%d%H%M%S')
     for translate_file in file_list:
         src = os.path.join(src_dir, translate_file)
@@ -171,19 +185,21 @@ def make_language_patch(app_ver, target_server_url, curr_dir, nas_dest_path, too
         if (is_same):
             os.remove(zip_path)            
         else:
+            is_need_translate_patch = True
             zip_path_list.append(zip_path)
             print(f'{idx}. processing {translate_file}', local_checksum)
 
         idx = idx + 1
 
     # Nas에 복사 및 패치 정보 전송
-    is_need_translate_patch = False
-    for zip_file_path in zip_path_list:
-        # 언어 패치 NAS에 복사
+    if is_need_translate_patch == True:
         dst_forder = 'patch_' + app_ver_dash
         dst_dir = os.path.join(nas_dest_path, dst_forder, 'translate')
-        copy_to_nas(zip_file_path, dst_dir)
-        is_need_translate_patch = True
+        # Nas에 모든 파일 삭제
+        delete_all_files_in_directory(dst_dir)
+        # 언어 패치 NAS에 복사
+        for zip_file_path in zip_path_list:
+            copy_to_nas(zip_file_path, dst_dir)
 
     #update to db
     __PATCH_INFO_DIC = {}
@@ -198,8 +214,10 @@ def make_language_patch(app_ver, target_server_url, curr_dir, nas_dest_path, too
                 'is_update': True
             }
             r = requests.post(target_server_url + '/manage/patch_language', data = data)
+            time.sleep(3)
             is_updated_all = is_db_updated_all(app_ver, target_server_url, zip_file_path)
             if is_updated_all == False:
-                 time.sleep(3)
+                 print("DB 매칭실패, 재요청!!")
+                 
 
     return zip_path_list
