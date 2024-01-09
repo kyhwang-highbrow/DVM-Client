@@ -422,9 +422,9 @@ function UI_TitleScene:setWorkList()
                 table.insert(self.m_lWorkList, 'workGetMarketInfo') -- perple sdk
                 table.insert(self.m_lWorkList, 'workGetMarketInfo_Monthly') -- perple sdk
             end
-        end
 
-        table.insert(self.m_lWorkList, 'workAdManagerInitialize') -- 광고 모듈 초기화
+            table.insert(self.m_lWorkList, 'workAdManagerInitialize') -- 광고 모듈 초기화
+        end
     end
 
     table.insert(self.m_lWorkList, 'workSoundPreload')
