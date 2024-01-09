@@ -91,6 +91,11 @@ def __check_lang_patch_updated(app_ver, target_server_url, zip_path):
     if patch_info == None:
         return False
     
+    print("\n키-값 쌍 출력:")
+    for key, value in patch_info.items():
+        print(f"{key}: {value}")
+
+    
     print('# db file : ', patch_info['filename'])
     print('# new file : ', os.path.basename(zip_path))
     
