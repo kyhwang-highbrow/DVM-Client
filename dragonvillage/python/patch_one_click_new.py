@@ -297,43 +297,10 @@ def main():
 
     print('### 언어 패치 생성 시작')
     translation_zip_file_list = translation_patch_maker.make_language_patch(app_ver, SERVER_PATH, os.path.curdir)
+    is_need_translate_patch = len(translation_zip_file_list) > 0
+
     # Nas에 복사 및 패치 정보 전송
-    for zip_file_path in translation_zip_file_list:
-        # 언어 패치 NAS에 복사
-        dst_forder = 'patch_' + app_ver.replace('.', '_')
-        dst_dir = os.path.join(dest_path, dst_forder, 'translate')
-        copy(zip_file_path, dst_dir)        
-
-        zip_file_name = os.path.basename(zip_file_path)
-        zip_path = '%s/translate/%s' % (dst_forder, zip_file_name)
-        zip_md5 = md5.file2md5(zip_file_path)
-        zip_size = os.path.getsize(zip_file_path)
-        data = {
-            'app_ver': app_ver,
-            'version' : 0,
-            'name' : zip_path,
-            'md5' : zip_md5,
-            'size' : zip_size
-        }
-
-    if len(translation_zip_file_list) > 0:
-        # 4초 정도 있다가 요청
-        time.sleep(4)
-
-        r = requests.get(TOOL_SERVER_PATH + '/upload_patch_dv')
-        print(r)
-
-        # 4초 정도 있다가 요청
-        time.sleep(4)
-
-        data = {
-        'app_ver': app_ver,
-        'is_update': True
-        }
-
-        r = requests.post(SERVER_PATH + '/manage/patch_language', data = data)
-        print(r)
-
+    if is_need_translate_patch == True:
         print(f'### 언어 패치 생성 완료 {len(translation_zip_file_list)}개 파일')
         send_slack(f'\n언어 패치 생성 완료 {len(translation_zip_file_list)}개 파일')
     

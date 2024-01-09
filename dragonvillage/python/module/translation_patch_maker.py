@@ -11,6 +11,7 @@ import datetime
 import re
 import module.md5_log_maker as md5
 import module.utility as utils
+import time
 
 # import requests
 utils.install_and_import('requests', globals())
@@ -72,9 +73,51 @@ def __check_lang_patch_same(app_ver, target_server_url, zip_path):
 
     return server_checksum == local_checksum
 
+# db에 올라갔는지 체크
+def __check_lang_patch_updated(app_ver, target_server_url, zip_path):
+    # language code 구분
+    lang_code = __REG_LANG.search(zip_path).group("lang")
+    # getPatchInfo 중복 호출 하지 않도록 캐싱하기 위한 키
+    # langcode or langcode_patch
+    patch_info_key = None
+    if (zip_path.find('_patch') == -1):
+        patch_info_key = lang_code
+    else:
+        patch_info_key = lang_code + '_patch'
+
+    # language patch 정보 획득 - 동일한 패치 생성하지 않도록 하기 위함
+    __get_language_patch_info(target_server_url, app_ver, lang_code)
+    patch_info = __PATCH_INFO_DIC.get(patch_info_key)
+    if patch_info == None:
+        return False
+    
+    print('# db file : ', patch_info['filename'])
+    print('# new file : ', os.path.basename(zip_path))
+    
+    return patch_info['filename'] == os.path.basename(zip_path)
+
+#NAS에 복사
+def copy_to_nas(src_file, dst_dir):
+    LOCAL_MACHINE_DOMAIN = 'dragonvillagem'
+    LOCAL_MACHINE_ID = 'dvm'
+    LOCAL_MACHINE_PASSWD = 'perple!1'
+    file_name = os.path.basename(src_file)
+    dst_file = os.path.join(dst_dir, file_name)
+    print('# copy patch zip ...')
+    os.system(r"NET USE P: %s %s /USER:%s\%s" % (dst_dir, LOCAL_MACHINE_PASSWD, LOCAL_MACHINE_DOMAIN, LOCAL_MACHINE_ID))
+    print(os.path.isdir(dst_dir))
+    shutil.copy(src_file, dst_file)
+    os.system(r"NET USE P: /DELETE")
 
 # 언어 패치 생성
-def make_language_patch(app_ver, target_server_url, curr_dir):
+def is_db_updated_all(app_ver, target_server_url, zip_path_list):
+    for zip_file_path in zip_path_list:
+        if __check_lang_patch_updated(app_ver, target_server_url, zip_file_path) == False:
+            return False
+    return True
+
+# 언어 패치 생성
+def make_language_patch(app_ver, target_server_url, curr_dir, nas_dest_path, tool_server_url):
     app_ver_dash = app_ver.replace('.', '_')
     src_dir = os.path.abspath(os.path.join(curr_dir, '../translate'))
     dst_dir = os.path.abspath(os.path.join(curr_dir, f'../../patch/patch_{app_ver_dash}/translate'))
@@ -130,7 +173,33 @@ def make_language_patch(app_ver, target_server_url, curr_dir):
         else:
             zip_path_list.append(zip_path)
             print(f'{idx}. processing {translate_file}', local_checksum)
-            
+
         idx = idx + 1
+
+    # Nas에 복사 및 패치 정보 전송
+    is_need_translate_patch = False
+    for zip_file_path in zip_path_list:
+        # 언어 패치 NAS에 복사
+        dst_forder = 'patch_' + app_ver_dash
+        dst_dir = os.path.join(nas_dest_path, dst_forder, 'translate')
+        copy_to_nas(zip_file_path, dst_dir)
+        is_need_translate_patch = True
+
+    #update to db
+    __PATCH_INFO_DIC = {}
+    if is_need_translate_patch == True:
+        r = requests.get(tool_server_url + '/upload_patch_dv')
+        print(r)
+
+        is_updated_all = False
+        while is_updated_all == False:        
+            data = {
+                'app_ver': app_ver,
+                'is_update': True
+            }
+            r = requests.post(target_server_url + '/manage/patch_language', data = data)
+            is_updated_all = is_db_updated_all(app_ver, target_server_url, zip_file_path)
+            if is_updated_all == False:
+                 time.sleep(3)
 
     return zip_path_list
