@@ -106,7 +106,7 @@ function UI_Setting:click_gameCenter()
     -- 현재 게임 센터 연동 시 다른 계정으로 전환을 막아놓음
     -- 기술적으로 불가능해 보이지 않지만 공수나 리스크를 고려해 아래와 같은 경고 문구 띄움
     -- 나중에는 전환이 가능하도록 지원을 고려해야 함(by kyhwang)
-    local submsg = Str('게임센터 연동 시 다른 계정으로의 전환이 어렵습니다.\n그래도 연동을 진행하시겠습니까?')
+    local submsg = Str('게임센터 연동 시 다른 연동으로 전환이 어렵습니다.\n그래도 연동을 진행하시겠습니까?')
     MakeSimplePopup2(POPUP_TYPE.YES_NO, msg, submsg, ok_btn_cb)
 end
 
