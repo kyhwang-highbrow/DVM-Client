@@ -1,5 +1,4 @@
 #-*- coding:utf-8 -*-
-
 import os
 import sys
 import shutil
@@ -201,6 +200,7 @@ def patch_files_copy_and_zip(source_path, patch_work_path, app_ver, latest_patch
     print('\t zip ...')    
     return zipdirectory(dst_base_dir)
 
+# Nas 카피
 def copy(src_file, dst_dir):
     file_name = os.path.basename(src_file)
     dst_file = os.path.join(dst_dir, file_name)
@@ -214,56 +214,7 @@ def copy(src_file, dst_dir):
 def send_slack(msg):
     str_title_build = '[{0}] {1} 젠킨스 패치'.format(TARGET_SERVER, app_ver)
     slack.send_slack_message(str_title_build + msg, 'good')
-
-
-# 슬랙 함수
-def is_ignore_translation_files(file_name):
-    ignore_list = [
-        'checkLua'
-        'lang_en',
-        'lang_jp',
-        'lang_th',
-        'lang_zhtw',
-        'lang_fa',
-        'lang_es'
-    ]
-
-    for name in ignore_list:
-        if file_name.startswith(name) == True:
-            return True
-    return False
-
-# # 패치 대상 파일만 남기고 translate -> translate_temp 로 이동
-# def move_translation_files():
-#     src = '../translate/'
-#     dest = '../translate_temp/'
-#     files = os.listdir(src)
-    
-#     if os.path.exists(dest) == False:
-#         os.mkdir(dest)
-
-#     for f in files:
-#         filename = os.path.basename(f)
-#         if is_ignore_translation_files(filename) == False:
-#             if os.path.exists(os.path.join(dest, f)) == True:
-#                 os.remove(os.path.join(dest, f))
-#             shutil.move(src + f, dest)
-
-# # translate_temp -> translate 로 이동
-# def move_translation_files_to_origin_path():
-#     src = '../translate_temp/'
-#     dest = '../translate/'    
-#     files = os.listdir(src)
-    
-#     if os.path.exists(dest) == False:
-#         os.mkdir(dest)
-
-#     for f in files:        
-#         if os.path.exists(os.path.join(dest, f)) == True:
-#             os.remove(os.path.join(dest, f))
-#         shutil.move(src + f, dest)
-
-    
+   
 # 메인 함수
 def main():
     global latest_patch_ver
