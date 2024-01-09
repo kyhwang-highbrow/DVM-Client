@@ -215,7 +215,7 @@ def make_language_patch(app_ver, target_server_url, curr_dir, nas_dest_path, too
             }
             r = requests.post(target_server_url + '/manage/patch_language', data = data)
             time.sleep(3)
-            is_updated_all = is_db_updated_all(app_ver, target_server_url, zip_file_path)
+            is_updated_all = is_db_updated_all(app_ver, target_server_url, zip_path_list)
             if is_updated_all == False:
                  print("DB 매칭실패, manage/patch_language 재요청!!")
                  
