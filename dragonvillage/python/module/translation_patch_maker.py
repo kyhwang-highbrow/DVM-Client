@@ -94,12 +94,11 @@ def __check_lang_patch_updated(app_ver, target_server_url, zip_path):
     print("\n키-값 쌍 출력:")
     for key, value in patch_info.items():
         print(f"{key}: {value}")
-
     
-    print('# db file : ', patch_info['filename'])
+    print('# db file : ', patch_info['name'])
     print('# new file : ', os.path.basename(zip_path))
-    
-    return patch_info['filename'] == os.path.basename(zip_path)
+
+    return os.path.basename(zip_path) in patch_info['name']
 
 #특정 디렉토리 내의 모든 파일을 삭제
 def delete_all_files_in_directory(directory_path):
