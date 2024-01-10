@@ -298,6 +298,7 @@ local t_module = {
     'ServerData_EventDealking', -- 딜킹 이벤트
     'ServerData_Research', -- 연구
     'ServerData_ProfileFrame', -- 프로필 프레임
+    'ServerData_WorldRaid', -- 월드 레이드
 
     -- Interface
     'IEventDispatcher',
@@ -1846,6 +1847,9 @@ local t_module = {
     'UI_ResearchItem',
     'UI_ResearchConfirmPopup',
     'UI_ResearchAbilityPopup',
+
+    -- 월드 레이드
+    'UI_WorldRaid',
 }
 
 -------------------------------------

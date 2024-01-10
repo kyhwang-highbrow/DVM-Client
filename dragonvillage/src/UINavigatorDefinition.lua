@@ -2448,10 +2448,48 @@ function UINavigatorDefinition:goTo_slime_combine(...)
     end
 end
 
+-------------------------------------
+--- @function goTo_world_raid
+--- @brief 월드 레이드로 이동
+--- @usage UINavigatorDefinition:goTo('world_raid')
+-------------------------------------
+function UINavigatorDefinition:goTo_world_raid(...)
+    local args = {...}
+    local stage_id = args[1]
 
+    -- 해당 UI가 열려있을 경우
+    local is_opened, index, ui = self:findOpendUI('UI_WorldRaid')
+    if is_opened then 
+        self:closeUIList(index)
+        return
+    end
 
+    -- 진입 가능 여부 체크
+    if (g_contentLockData:isContentLock('world_raid')) then
+        UINavigatorDefinition:goTo('lobby')
+        UIManager:toastNotificationRed(Str('이벤트가 종료되었습니다.'))
+        return
+    end
 
+    do -- Scene으로 동작
+        -- 전투 메뉴가 열려 있을 경우
+        local is_opened, index, ui = self:findOpendUI('UI_BattleMenu')
+        if is_opened then
+            self:closeUIList(index) 
+            ui:setTab('competition')
+            ui:resetButtonsPosition()
+            UI_WorldRaid()
+            return
+        end
 
+        local function close_cb()
+            UINavigatorDefinition:goTo('lobby')
+        end
+
+        local scene = SceneCommon(UI_WorldRaid, close_cb, stage_id)
+        scene:runScene()
+    end
+end
 
 -------------------------------------
 -- function findOpendUI

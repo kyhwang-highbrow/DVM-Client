@@ -381,6 +381,9 @@ function ServerData:getInstance()
     -- 프로필 프레임
     g_profileFrameData = ServerData_ProfileFrame(g_serverData)
 
+    -- 월드 레이드
+    g_worldRaidData = ServerData_WorldRaid(g_serverData)
+
     return g_serverData
 end
 

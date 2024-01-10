@@ -60,7 +60,12 @@ function ServerData_ContentLock:isContentLock(content_name)
         local is_open = g_eventDragonStoryDungeon:isStoryDungeonEventDoing()
         return (not is_open)
     end
-    
+
+    -- [월드 레이드]
+    if (content_name == 'world_raid') then
+        local is_open = g_worldRaidData:isAvailableWorldRaid()
+        return (not is_open)
+    end
 
     -- 테이블에 있어서 조건 검사해야하는 던전들 =====================
     

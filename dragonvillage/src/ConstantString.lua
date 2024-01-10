@@ -405,6 +405,9 @@ function getContentName(content_type)
         local season_id = g_eventDragonStoryDungeon:getStoryDungeonSeasonId()
         content_name = TableStoryDungeonEvent:getStoryDungeonEventName(season_id)
 
+    elseif (content_type == 'world_raid') then
+        content_name = Str('월드 레이드')
+
     else
         error('content_type : ' .. content_type)
     end

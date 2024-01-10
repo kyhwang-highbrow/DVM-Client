@@ -187,7 +187,6 @@ function UI_BattleMenuItem:click_enterBtn()
         return
     end
 
-
     -- 모험
     if (content_type == 'adventure') then
         UINavigator:goTo('adventure')
@@ -266,6 +265,11 @@ function UI_BattleMenuItem:click_enterBtn()
     -- 스토리 던전
     elseif (content_type == 'story_dungeon') then
         UINavigator:goTo('story_dungeon')
+
+    -- 월드 레이드
+    elseif (content_type == 'world_raid') then
+        UINavigator:goTo('world_raid')
+
     else
         error('content_type : ' .. content_type)
     end
