@@ -526,6 +526,8 @@ local t_module = {
     'TableDealkingBuff', -- 딜킹 스테이지 버프
     'TableResearch', -- 연구
     'TableProfileFrame', -- 프로필 프레임
+    'TableWorldRaidInfo', -- 월드 레이드
+    'TableWorldRaidBuff', -- 월드 레이드 버프
 
     -- Scene
     'SceneCommon',

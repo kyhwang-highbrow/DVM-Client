@@ -154,6 +154,10 @@ local TableInfo = {
 
         -- 프로필 테두리
         table_profile_frame = {'table_profile_frame', 'id', false},
+
+        -- 월드 레이드
+        table_world_raid_info = {'table_world_raid_info', 'wrid', false},
+        table_world_raid_buff = {'table_world_raid_buff', 'stage', false},
     }
 
 -------------------------------------
