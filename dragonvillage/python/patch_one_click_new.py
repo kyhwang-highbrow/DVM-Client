@@ -7,6 +7,7 @@ import time
 import module.md5_log_maker_new as md5
 import module.utility as utils
 import send_slack_message as slack
+import svn as svn
 from ui_resource_validator import check_ui_resource_validate
 import module.translation_patch_maker as translation_patch_maker
 
@@ -320,6 +321,9 @@ def main():
     print(data)
     r = requests.post(PLATFORM_SERVER_PATH + '/versions/addPatchInfo', data = data)
     print(r.text)
+
+    #log 파일 svn 커밋
+    svn.svn_add_and_commit(latest_plg_path, "commit md5 log file")
 
     print('----------------------------------------')
     print('DONE')
