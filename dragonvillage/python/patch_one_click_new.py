@@ -323,7 +323,7 @@ def main():
     print(r.text)
 
     #log 파일 svn 커밋
-    svn.svn_add_and_commit(latest_plg_path, "commit md5 log file")
+    svn.svn_add_and_commit(next_plg_path, "commit md5 log file")
 
     print('----------------------------------------')
     print('DONE')
