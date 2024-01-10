@@ -383,7 +383,7 @@ function UI_DragonGoodbyeSelect:init_dragonMaterialTableView()
 
 		ui.vars['clickBtn']:registerScriptTapHandler(function() self:click_dragonCard(ui, data) end)
 
-		if (not data:isRaisedByUser()) then
+		if (not data:isRaisedByUser(true)) then
 			ui:setCheckSpriteVisible(self.m_isAutoSelected)
 		end
 		
@@ -645,8 +645,8 @@ function UI_DragonGoodbyeSelect:click_autoSelectBtn()
 		local did = item['data']:getDid()
 		local comb_did = TableDragonCombine:getCombinationDid(did)
 
-		if (not item['data']:isRaisedByUser()) and self:checkRelationPoint(did) 
-		and ((not comb_did) or (comb_did and self.m_bIgnoreCombMaterial)) and (not item['data']:getLock()) then
+		if (not item['data']:isRaisedByUser(true)) and self:checkRelationPoint(did) 
+		and ((not comb_did) or (comb_did and self.m_bIgnoreCombMaterial)) then
 			if item['ui'] then
 				item['ui']:setCheckSpriteVisible(self.m_isAutoSelected)
 			end

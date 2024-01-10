@@ -1304,7 +1304,7 @@ end
 -- @brief 드래곤이 성장되었는지 확인
 -- @brief 룬 장착 여부, 레벨, 경험치, 진화, 친밀도, 강화, 스킬 레벨업 여부 체크
 -------------------------------------
-function StructDragonObject:isRaisedByUser()
+function StructDragonObject:isRaisedByUser(is_lock_check)
     -- 레벨
     if (self:getLv() > 1) then
         return true
@@ -1312,6 +1312,10 @@ function StructDragonObject:isRaisedByUser()
 
     -- 경험치
     if (self['exp'] > 0) then
+        return true
+    end
+
+    if is_lock_check == true and self:getLock() == true then
         return true
     end
 
