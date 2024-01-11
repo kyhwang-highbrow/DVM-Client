@@ -12,6 +12,7 @@ UIC_RankingList = class({
         m_prevCb = 'function',
         m_nextCb = 'function',
         m_makeMyRankCb = 'function',
+        m_defaultCellSize = '',
 
     })
 
@@ -145,7 +146,7 @@ end
 -------------------------------------
 -- function makeRankList
 -------------------------------------
-function UIC_RankingList:makeRankList(node)
+function UIC_RankingList:makeRankList(node, default_size)
     local l_item = self.m_itemList
     if (not l_item) then
         l_item = {}
@@ -187,7 +188,7 @@ function UIC_RankingList:makeRankList(node)
 
     -- 테이블 뷰 인스턴스 생성
     local table_view = UIC_TableView(node)
-    table_view.m_defaultCellSize = cc.size(550, UIHelper:getProfileScrollItemHeight(55 + 5, 23))
+    table_view.m_defaultCellSize = default_size or cc.size(550, UIHelper:getProfileScrollItemHeight(55 + 5, 23))
     table_view:setCellUIClass(self.m_cellUIClass, create_func)
     table_view:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
     table_view:makeDefaultEmptyDescLabel(self.m_emptyMsg)
