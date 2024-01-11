@@ -106,7 +106,7 @@ function UI_HallOfFameRank:makeTableViewRanking(tab)
 
         -- 테이블 뷰 인스턴스 생성
         local table_view = UIC_TableView(node)
-        table_view.m_defaultCellSize = cc.size(995, UIHelper:getProfileScrollItemHeight(55 + 5, 15))
+        table_view.m_defaultCellSize = cc.size(995, UIHelper:getProfileScrollItemHeight(55 + 5, 23))
         table_view:setCellUIClass(UI_HallOfFameRankListItem, create_cb)
         table_view:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
         table_view:setItemList(l_rank)
