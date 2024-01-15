@@ -895,7 +895,7 @@ function LobbyMap:updateUserTamerActionArea()
         if (user_x <= 650) then            
             self.m_targetTamer:setRightArrow()
         else
-            self.m_targetTamer:setLeftArrow()            
+            self.m_targetTamer:setLeftArrow()
         end
 
     -- 클랜 로비 -> 마을 

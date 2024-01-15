@@ -10,6 +10,7 @@ LobbyTamer = class(PARENT, {
         m_idleTimer = 'number', -- 5초동안 정지 상태일 때 'pose_1'을 재생
         m_idleMotionCnt = 'number',
         m_arrowAnimator = 'Animator',
+        m_arrowDirection = 'number',
      })
 
 LobbyTamer.MOVE_ACTION = 100
@@ -21,6 +22,7 @@ function LobbyTamer:init(user_data)
     self.m_userData = user_data
     self.m_idleTimer = 0
     self.m_arrowAnimator = nil
+    self.m_arrowDirection = 0
 
     if (user_data.m_lastArenaTier == 'legend') then
         -- Ranker Animator 생성
@@ -148,6 +150,11 @@ function LobbyTamer:setLeftArrow()
         return
     end
 
+    if self.m_arrowDirection == -1 then
+        return
+    end
+
+    self.m_arrowDirection = -1
     self.m_arrowAnimator:setPosition(cc.p(-100, 100))
     self.m_arrowAnimator:changeAni('arrow_left', true)
     self.m_arrowAnimator:setVisible(true)
@@ -161,6 +168,11 @@ function LobbyTamer:setRightArrow()
         return
     end
 
+    if self.m_arrowDirection == 1 then
+        return
+    end
+
+    self.m_arrowDirection = 1
     self.m_arrowAnimator:setPosition(cc.p(100, 100))
     self.m_arrowAnimator:changeAni('arrow_right', true)
     self.m_arrowAnimator:setVisible(true)
