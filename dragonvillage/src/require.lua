@@ -527,7 +527,7 @@ local t_module = {
     'TableResearch', -- 연구
     'TableProfileFrame', -- 프로필 프레임
     'TableWorldRaidInfo', -- 월드 레이드
-    'TableWorldRaidBuff', -- 월드 레이드 버프
+    'TableContentAttr', -- 속성 상성에 따른 버프
 
     -- Scene
     'SceneCommon',
@@ -582,6 +582,10 @@ local t_module = {
     'GameWorldEventArena',
     'GameWorld_Illusion',
     'GameWorldDealkingEvent',
+    'GameWorldWorldRaid',
+    'GameWorldWorldRaidNormal',
+    'GameWorldWorldRaidLinger',
+    'GameWorldWorldRaidCooperation',
     'GameState',
     'GameState_AncientRuin',
     'GameState_AncientTower',
@@ -607,6 +611,9 @@ local t_module = {
     'GameState_LeagueRaid',
     'GameState_StoryDungeonEvent',
     'GameState_DealkingEvent',
+    'GameState_WorldRaid_Normal',
+    'GameState_WorldRaid_Linger',
+    'GameState_WorldRaid_Cooperation',
     'GameAuto',
     'GameAuto_Hero',
     'GameAuto_Enemy',
@@ -1278,6 +1285,10 @@ local t_module = {
 
 	-- UI : 모험 준비
     'UI_ReadySceneNew',
+    'UI_ReadySceneWorldRaid', -- 월드 레이드
+    'UI_ReadySceneWorldRaidNormal', -- 월드 레이드
+
+
     'UI_ReadySceneNew_Deck',
     'UI_ReadySceneNew_Deck_Illusion',
     'UI_ReadySceneNew_Deck_Raid',
@@ -1398,6 +1409,10 @@ local t_module = {
     'UI_GameEventArena',
     'UI_GameClanRaid',
     'UI_GameEventGold',
+    'UI_GameWorldRaidNormal',
+    'UI_GameWorldRaidLinger',
+    'UI_GameWorldRaidCooperation',
+
     'UI_GameResultNew',
     'UI_GameResult_Adventure',
     'UI_GameResult_AncientTower',
@@ -1409,6 +1424,8 @@ local t_module = {
     'UI_GameResult_ClanWar',
     'UI_GameResult_Dmgate',
     'UI_GameResult_StoryDungeon',
+
+
     'UI_GamePause',
     'UI_GamePause_AncientTower',
     'UI_GamePause_NestDungeon',
@@ -1851,7 +1868,11 @@ local t_module = {
     'UI_ResearchAbilityPopup',
 
     -- 월드 레이드
-    'UI_WorldRaid',
+    'UI_WorldRaid', -- 씬
+    'UI_WorldRaidRanking', -- 랭킹
+    'UI_WorldRaidRankingBoardItem', -- 월드 레이드 랭킹 게시판
+    'UI_WorldRaidRankingListItem', -- 랭킹 리스트 아이템
+    'UI_WorldRaidRankingRewardItem', -- 보상 리스트 아이템
 }
 
 -------------------------------------

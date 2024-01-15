@@ -3,9 +3,9 @@ local PARENT = class(UI, ITopUserInfo_EventListener:getCloneTable(), ITabUI:getC
 -------------------------------------
 -- class UI_WorldRaid
 -------------------------------------
-UI_WorldRaid = class(PARENT, {
-    m_stageId =  'number',
+UI_WorldRaid = class(PARENT, {    
     m_rewardTableView = 'TableView',
+    m_rankingTableView = 'TableView'
     })
 
 -------------------------------------
@@ -28,7 +28,6 @@ end
 -------------------------------------
 function UI_WorldRaid:init()
     local vars = self:load_keepZOrder('world_raid_scene.ui')
-    self.m_stageId = 3100101
     UIManager:open(self, UIManager.SCENE)
     -- backkey 지정
     g_currScene:pushBackKeyListener(self, function() self:click_exitBtn() end, 'UI_WorldRaid')
@@ -66,24 +65,47 @@ function UI_WorldRaid:click_exitBtn()
 end
 
 -------------------------------------
+-- function initButton
+-------------------------------------
+function UI_WorldRaid:initButton()
+    local vars = self.vars
+    vars['infoBtn']:registerScriptTapHandler(function () self:click_helpBtn() end)
+    vars['readyBtn']:registerScriptTapHandler(function () self:click_readyBtn() end)
+    vars['synastryInfoBtn']:registerScriptTapHandler(function () self:click_attrInfoBtn() end)
+end
+
+-------------------------------------
 -- function initUI
 -------------------------------------
 function UI_WorldRaid:initUI()
     local vars = self.vars
 
-    local stage_id = self.m_stageId
+    local world_raid_id = g_worldRaidData:getWorldRaidId()
+    local stage_id = g_worldRaidData:getWorldRaidStageId()
     local monster_id_list = g_stageData:getMonsterIDList(stage_id)
     local boss_id = monster_id_list[1]
-    local attr = 'fire'
+    local attr = TableStageData:getStageAttr(stage_id)
+    
+    do -- 보스 이름
+        local boss_name = TableMonster():getMonsterName(boss_id)
+        vars['bossNameLabel']:setString(boss_name)
+    end
 
-    -- -- 보스 이름
-    -- local boss_name = TableMonster():getMonsterName(boss_id)
-    -- vars['bossNameLabel']:setString(boss_name)
+    do -- 보스 레벨
+        local level = TableStageData:getStageLevel(stage_id) - 1
+        vars['levelLabel']:setString(string.format('Lv.%d', level))
+    end
 
-    -- -- 속성
-    -- local attr = self.m_selectedAttr
-    -- local icon = IconHelper:getAttributeIconButton(attr)
-    -- vars['attrNode']:addChild(icon)
+    do -- 속성
+        local icon = IconHelper:getAttributeIconButton(attr)
+        vars['attrNode']:removeAllChildren()
+        vars['attrNode']:addChild(icon)
+    end
+
+    do -- 파티 타입
+        local str = TableWorldRaidInfo:getInstance():getWorldRaidPartyTypeStr(world_raid_id)
+        vars['typeLabel']:setString(str)
+    end
 
     -- 랭크
     -- local rank = g_eventDealkingData:getMyRank(self.m_bossType, attr)
@@ -102,12 +124,11 @@ function UI_WorldRaid:initUI()
     -- else
     --     score = comma_value(score)
     -- end
-    -- vars['scoreLabel']:setString(Str('{1}점', score))
-
+    -- vars['scoreLabel']:setString(Str('{1}점', score)) 
 
     do -- 보너스 속성
-        local bonus_str, map_attr = 
-                TableWorldRaidBuff:getInstance():getBonusInfo(self.m_stageId, attr, true)
+        local buff_key = TableWorldRaidInfo:getInstance():getBuffKey(world_raid_id)
+        local bonus_str, map_attr = TableContentAttr:getInstance():getBonusInfo(buff_key, true)
         for k, v in pairs(map_attr) do
             -- 속성 아이콘
             local icon = IconHelper:getAttributeIconButton(k)
@@ -117,12 +138,12 @@ function UI_WorldRaid:initUI()
         end
 
         -- 보너스 속성        
-        vars['bonusTipsDscLabel']:setString(bonus_str)    
+        vars['bonusTipsDscLabel']:setString(bonus_str)
     end
 
     do -- 패널티 속성  
-        local penalty_str, map_attr =
-            TableWorldRaidBuff:getInstance():getBonusInfo(self.m_stageId, attr, false)
+        local debuff_key = TableWorldRaidInfo:getInstance():getDebuffKey(world_raid_id)
+        local penalty_str, map_attr = TableContentAttr:getInstance():getBonusInfo(debuff_key , false)
         local cnt = table.count(map_attr)
         local idx = 0
 
@@ -140,73 +161,108 @@ function UI_WorldRaid:initUI()
             target_node:addChild(icon)
         end
 
-        -- 패널티 속성      
+        -- 패널티 속성
         vars['panaltyTipsDscLabel']:setString(penalty_str)
     end
+
+    do  -- 몬스터 스파인
+        for _, mid in ipairs(monster_id_list) do
+            local res, attr, evolution = TableMonster:getMonsterRes(mid)
+            local animator = AnimatorHelper:makeMonsterAnimator(res, attr, evolution)
+            if (animator) then
+                ---animator:setScale(0.5)
+                vars['bossNode']:addChild(animator.m_node)
+                animator:changeAni('idle', true)
+                
+                --animator:setPositionY(-800)
+                local action = cc.EaseExponentialOut:create(cc.MoveTo:create(1.0, cc.p(0, 0)))
+                animator:stopAllActions()
+                animator:runAction(action)
+            end
+        end
+    end
 end
 
 -------------------------------------
--- function initButton
+-- function makeRankingTableView
 -------------------------------------
-function UI_WorldRaid:initButton()
+function UI_WorldRaid:makeRankingTableView()
     local vars = self.vars
-end
+    require('UI_WorldRaidRankingListItem')
 
--------------------------------------
--- function makeRewardTableView
--------------------------------------
-function UI_WorldRaid:makeRewardTableView()
-    local vars = self.vars
-    local node = vars['reawardNode']
-
-    -- 최조 한 번만 생성
-    if (self.m_rewardTableView) then
-        return
+    local rank_node = vars['userRankNode']
+    local uid = g_userData:get('uid')
+    local create_cb = function(ui, data)
+        if (data['uid'] == uid) then
+            ui.vars['meSprite']:setVisible(true)
+        end
     end
 
-    -- 랭킹 보상 테이블
-    local table_event_rank = g_eventDealkingData.m_tRewardInfo
-    local struct_rank_reward = StructRankReward(table_event_rank, true)
-    local l_event_rank = self.m_bossType == 0 and struct_rank_reward:getRankRewardList() or {}
-    self.m_structRankReward = struct_rank_reward
+    local make_my_rank_cb = function()
+        local my_data = g_worldRaidData:getCurrentMyRanking()
+        local me_rank = UI_WorldRaidRankingListItem(my_data)
+        vars['userMeNode']:addChild(me_rank.root)
+        me_rank.vars['meSprite']:setVisible(true)
+    end
 
-    local my_rank = myRankInfo['rank'] or 0
-    local my_ratio = myRankInfo['rate'] or 0
+    local l_rank_list = g_worldRaidData:getCurrentRankingList()
 
-    local create_func = function(ui, data)
-        self:createRewardFunc(ui, data, myRankInfo)
-	end
+    local rank_list = UIC_RankingList()    
+    rank_list:setRankUIClass(UI_WorldRaidRankingListItem, create_cb)
+    rank_list:setRankList(l_rank_list)
+    rank_list:setEmptyStr(Str('랭킹 정보가 없습니다'))
+    rank_list:setMyRank(make_my_rank_cb)
 
-    -- 테이블 뷰 인스턴스 생성
-    local table_view = UIC_TableView(node)
-    table_view.m_defaultCellSize = cc.size(640, 60 + 5)
-    table_view:setCellUIClass(UI_EventDealkingRankingTotalTabRewardListItem, create_func)
-    table_view:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
-    table_view:setItemList(l_event_rank)
-    --table_view:makeDefaultEmptyDescLabel(Str('보스에 대한 랭킹 보상은 제공되지 않습니다.'))
-
-    table_view:update(0) -- 맨 처음 각 아이템별 위치값을 계산해줌
-    table_view:relocateContainerFromIndex(idx) -- 해당하는 보상에 포커싱
-
-    self.m_rewardTableView = table_view
-    local reward_data, ind = self.m_structRankReward:getPossibleReward(my_rank, my_ratio)
-
-    self.m_rewardTableView:update(0) -- 인덱스 포커싱을 위해 한번의 계산이 필요하다고 한다.
-    self.m_rewardTableView:relocateContainerFromIndex(ind)
+    --rank_list:setOffset(self.m_rankOffset)
+    --rank_list:makeRankMoveBtn(func_prev_cb, func_next_cb, RANK_OFFSET_GAP)
+    rank_list:makeRankList(rank_node)
 end
 
 -------------------------------------
--- function refresh
+--- @function refresh
 -------------------------------------
 function UI_WorldRaid:refresh()
 end
 
 -------------------------------------
--- function refresh
+--- @function click_helpBtn
+-------------------------------------
+function UI_WorldRaid:click_helpBtn()
+    local vars = self.vars
+    UI_Help('vs')
+end
+
+-------------------------------------
+--- @function click_applyBtn
+-------------------------------------
+function UI_WorldRaid:click_readyBtn()
+    -- 스테이지 시간 세팅
+    -- UI_ReadySceneNew UI가 열려있을 경우, 닫고 다시 연다
+    local stage_id = g_worldRaidData:getWorldRaidStageId()
+    local is_opend, idx, ui = UINavigatorDefinition:findOpendUI('UI_ReadySceneNew')
+    if (is_opend == true) then
+        ui:close()
+        UI_ReadySceneWorldRaidNormal(stage_id, nil)
+        self:close()
+    else
+        UI_ReadySceneWorldRaidNormal(stage_id, nil)
+    end
+end
+
+-------------------------------------
+--- @function click_attrInfoBtn
+-------------------------------------
+function UI_WorldRaid:click_attrInfoBtn()
+    require('UI_WorldRaidAttrPopup')
+    UI_WorldRaidAttrPopup()
+end
+
+-------------------------------------
+--- @function refresh
 -------------------------------------
 function UI_WorldRaid:update()
     local vars = self.vars
-    local str = g_eventDealkingData:getRemainTimeString()
+    local str = g_worldRaidData:getRemainTimeString()
     vars['timeLabel']:setString(str)
 end
 

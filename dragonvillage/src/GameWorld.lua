@@ -354,6 +354,16 @@ function GameWorld:createComponents()
         elseif (self.m_gameMode ==  GAME_MODE_EVENT_DEALKING) then
             self.m_gameState = GameState_DealkingEvent(self)
 
+        -- 10. 월드 레이드
+        elseif (self.m_gameMode == GAME_MODE_WORLD_RAID) then
+            local stage_mode = g_worldRaidData:getWorldRaidStageMode(self.m_stageID)
+            if stage_mode == WORLD_RAID_NORMAL then
+                self.m_gameState = GameState_WorldRaid_Normal(self)
+            elseif stage_mode == WORLD_RAID_LINGER then
+                self.m_gameState = GameState_WorldRaid_Linger(self)
+            elseif stage_mode == WORLD_RAID_COOPERATION then
+                self.m_gameState = GameState_WorldRaid_Cooperation(self)
+            end
         end
         
         -- 7. 깜짝 출현 던전

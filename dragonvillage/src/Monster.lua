@@ -292,7 +292,8 @@ function Monster:makeHPGauge(hp_ui_offset, force)
         end
 
         return
-    elseif (g_gameScene.m_gameMode == GAME_MODE_EVENT_DEALKING) then 
+    elseif (g_gameScene.m_gameMode == GAME_MODE_EVENT_DEALKING or
+            g_gameScene.m_gameMode == GAME_MODE_WORLD_RAID ) then 
         PARENT.makeHPGauge(self, hp_ui_offset)
         return
     end

@@ -636,6 +636,12 @@ function UI_ReadySceneNew_Deck:makeSettedDragonCard(t_dragon_data, idx)
             ui:setEventIllusionVisibleForDeck(true, true)
             ui:setEventIllusionFrameVisible(true)
         end
+
+    elseif (self.m_gameMode == GAME_MODE_WORLD_RAID) then
+        local _, bonus_info = g_worldRaidData:getWorldRaidBuff()
+        local _, penalty_info = g_worldRaidData:getWorldRaidDebuff()
+        ui:setAttrSynastry(getCounterAttribute_ClanRaid(dragon_attr, bonus_info, penalty_info))
+
 	else
         ui:setAttrSynastry(getCounterAttribute(dragon_attr, stage_attr))
     end

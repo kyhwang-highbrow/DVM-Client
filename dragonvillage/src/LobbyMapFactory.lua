@@ -58,9 +58,9 @@ function LobbyMapFactory:createLobbyWorld(parent_node, ui_lobby)
 end
 
 -------------------------------------
--- function setDeco
+--- @function setDeco
 -------------------------------------
-function LobbyMapFactory:setDeco(lobby_map, ui_lobby)
+function LobbyMapFactory:setDeco(lobby_map, ui_lobby, entry_count)
     local lobby_ground = lobby_map.m_groudNode
     self.m_lobbyMap = lobby_map
 
@@ -94,6 +94,11 @@ function LobbyMapFactory:setDeco(lobby_map, ui_lobby)
         --lobby_map:addLayer(self:makeLobbyDecoLayer(deco_type), 1) -- 근경 레이어
     end
 
+    -- 랭킹 게시판 정보
+    if entry_count ~= nil and entry_count == 1 then
+        self:makeLobbyBoard_onLayer(lobby_ground)
+    end
+    
     return lobby_map
 end
 
@@ -384,6 +389,29 @@ function LobbyMapFactory:makeLobbyDeco_onLayer(node, deco_type)
             local movement = cc.RepeatForever:create(action)
             animator.m_node:runAction(movement)
         end
+    end
+end
+
+-------------------------------------
+--- @function makeLobbyBoard_onLayer
+--- @brief 랭킹 보드 정보 게시판
+-------------------------------------
+function LobbyMapFactory:makeLobbyBoard_onLayer(node)
+    local click_cb = function()
+        local ui = UI_WorldRaidRanking()
+    end
+
+    local ui = UI_WorldRaidRankingBoardItem(click_cb)
+    if (ui) then
+        ui.root:setDockPoint(CENTER_POINT)
+        ui.root:setAnchorPoint(CENTER_POINT)
+        ui.root:setPosition(620, 100)
+        ui.root:setScale(0.85)
+        node:addChild(ui.root, 1)
+
+        -- self:makeBoardTouchEvent(ui.root, function ()
+        --     UINavigator:goTo('story_dungeon')
+        -- end)
     end
 end
 
@@ -697,8 +725,8 @@ function LobbyMapFactory:makeTouchEvent(animator, touch_cb)
 end
 
 -------------------------------------
--- function makeSwordTouchEvent
--- @brief 로비의 빛의 검 구조물에 터치 이벤트 생성
+--- @function makeSwordTouchEvent
+--- @brief 로비의 빛의 검 구조물에 터치 이벤트 생성
 -------------------------------------
 function LobbyMapFactory:makeSwordTouchEvent(animator, touch_cb)
     local is_requested = false
@@ -727,5 +755,37 @@ function LobbyMapFactory:makeSwordTouchEvent(animator, touch_cb)
 
     if (self.m_lobbyMap) then
         self.m_lobbyMap:makeTouchLayer(animator, touch_event)
+    end
+end
+
+-------------------------------------
+--- @function makeBoardTouchEvent
+-------------------------------------
+function LobbyMapFactory:makeBoardTouchEvent(node, touch_cb)
+    local is_requested = false
+    local function touch_event(touches, event)
+        if (is_requested == true) then
+            is_requested = false
+            return
+        end
+
+        local touch_pos = touches[1]:getLocation()
+
+        -- 빛의 검 구조물의 바운드 박스 안에 터치가 있을 때만 터치 이벤트되도록 구현
+        local bounding_box = node:getBoundingBox()
+        local local_location = node:getParent():convertToNodeSpace(touch_pos)
+        local is_contain = cc.rectContainsPoint(bounding_box, local_location)
+        if (is_contain ~= true) then
+            return
+        end
+
+        is_requested = true
+        if touch_cb ~= nil then
+            touch_cb()
+        end
+    end
+
+    if (self.m_lobbyMap) then
+        self.m_lobbyMap:makeTouchLayer(node, touch_event)
     end
 end

@@ -772,7 +772,8 @@ function GameDragonSkill:doPlay(unit, skip)
         end
 
         if (self.m_world.m_gameMode == GAME_MODE_CLAN_RAID or 
-            self.m_world.m_gameMode == GAME_MODE_EVENT_DEALKING) then
+            self.m_world.m_gameMode == GAME_MODE_EVENT_DEALKING or 
+            self.m_world.m_gameMode == GAME_MODE_WORLD_RAID) then
             -- 클랜 던전의 경우 무조건 스킵
             skip_mode = true
 

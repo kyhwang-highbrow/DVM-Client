@@ -265,6 +265,9 @@ function SceneGame:onEnter()
         self.m_inGameUI = UI_GameEventGold(self)
     elseif self.m_gameMode == GAME_MODE_EVENT_DEALKING then
         self.m_inGameUI = UI_GameEventDealking(self)
+    elseif self.m_gameMode == GAME_MODE_WORLD_RAID then
+        self.m_inGameUI = UI_GameWorldRaidNormal(self)
+
     else
         self.m_inGameUI = UI_Game(self)
     end
@@ -331,6 +334,16 @@ function SceneGame:prepare()
         elseif (self.m_gameMode == GAME_MODE_EVENT_DEALKING) then -- 딜킹 이벤트
             self.m_gameWorld = GameWorldDealkingEvent(self.m_gameMode, self.m_stageID, self.m_worldLayer, self.m_gameNode1, self.m_gameNode2, self.m_gameNode3, self.m_inGameUI, self.m_bDevelopMode)
 
+        elseif (self.m_gameMode == GAME_MODE_WORLD_RAID) then -- 월드 레이드
+            local stage_mode = g_worldRaidData:getWorldRaidStageMode(self.m_stageID)
+
+            if stage_mode == WORLD_RAID_NORMAL then
+                self.m_gameWorld = GameWorldWorldRaidNormal(self.m_gameMode, self.m_stageID, self.m_worldLayer, self.m_gameNode1, self.m_gameNode2, self.m_gameNode3, self.m_inGameUI, self.m_bDevelopMode)
+            elseif stage_mode == WORLD_RAID_LINGER then
+                self.m_gameWorld = GameWorldWorldRaidLinger(self.m_gameMode, self.m_stageID, self.m_worldLayer, self.m_gameNode1, self.m_gameNode2, self.m_gameNode3, self.m_inGameUI, self.m_bDevelopMode)
+            elseif stage_mode == WORLD_RAID_COOPERATION then
+                self.m_gameWorld = GameWorldWorldRaidCooperation(self.m_gameMode, self.m_stageID, self.m_worldLayer, self.m_gameNode1, self.m_gameNode2, self.m_gameNode3, self.m_inGameUI, self.m_bDevelopMode)
+            end
         else
             self.m_gameWorld = GameWorld(self.m_gameMode, self.m_stageID, self.m_worldLayer, self.m_gameNode1, self.m_gameNode2, self.m_gameNode3, self.m_inGameUI, self.m_bDevelopMode)
         end
@@ -752,6 +765,12 @@ function SceneGame:networkGameFinish(t_param, t_result_ref, next_func)
         api_url = '/event/dealking/finish'
         self.m_gameKey = nil
         ui_network:setParam('damage', math_floor(t_param['damage'])) -- 소수점 아래는 버려야 함
+
+    elseif (game_mode == GAME_MODE_WORLD_RAID) then -- 월드 레이드
+        api_url = '/world_raid/finish'
+        self.m_gameKey = nil
+        ui_network:setParam('damage', math_floor(t_param['damage'])) -- 소수점 아래는 버려야 함
+
     end
     
     ui_network:setUrl(api_url)

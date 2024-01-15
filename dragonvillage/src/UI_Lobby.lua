@@ -617,7 +617,7 @@ function UI_Lobby:entryCoroutine_requestUsersLobby(co)
             if (lobbyType == LOBBY_TYPE.NORMAL) then
                 if (ENTRY_LOBBY_CNT == 1) then
                     local lobby_map = self.m_lobbyWorldAdapter:getLobbymap()
-                    LobbyMapFactory:setDeco(lobby_map, self)
+                    LobbyMapFactory:setDeco(lobby_map, self, ENTRY_LOBBY_CNT)
                 end
             end
 

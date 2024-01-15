@@ -588,6 +588,8 @@ function UI_Game:click_pauseButton()
         self.m_pauseUI = UI_GamePause_EventDealking(stage_id, gamekey, start_cb, end_cb)
     elseif (game_mode == GAME_MODE_EVENT_GOLD) then
         self.m_pauseUI = UI_GamePause_EventGoldDungeon(stage_id, gamekey, start_cb, end_cb)
+    elseif (game_mode == GAME_MODE_WORLD_RAID) then
+        self.m_pauseUI = UI_GamePause_WorldRaid(stage_id, gamekey, start_cb, end_cb)
     else
         self.m_pauseUI = UI_GamePause(stage_id, gamekey, start_cb, end_cb)
     end
