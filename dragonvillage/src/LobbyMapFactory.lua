@@ -53,6 +53,9 @@ function LobbyMapFactory:createLobbyWorld(parent_node, ui_lobby)
     lobby_map:addLayer(self:makeLobbyLayer(0), 1) -- 근경
 
     self:setDeco(lobby_map, ui_lobby)
+
+    -- 랭킹 게시판 정보
+    self:makeLobbyBoard_onLayer(lobby_ground)
     return lobby_map
 end
 
@@ -93,8 +96,7 @@ function LobbyMapFactory:setDeco(lobby_map, ui_lobby, entry_count)
         --lobby_map:addLayer(self:makeLobbyDecoLayer(deco_type), 1) -- 근경 레이어
     end
 
-    -- 랭킹 게시판 정보
-    self:makeLobbyBoard_onLayer(lobby_ground)
+
     return lobby_map
 end
 
@@ -397,17 +399,22 @@ function LobbyMapFactory:makeLobbyBoard_onLayer(node)
         local ui = UI_WorldRaidRanking()
     end
 
+    local parent_node = cc.Node:create()
+    parent_node:setDockPoint(CENTER_POINT)
+    parent_node:setAnchorPoint(CENTER_POINT)
+    parent_node:setPosition(650, 200)
+    parent_node:setContentSize(320, 500)
+    parent_node:setScale(1)    
+    node:addChild(parent_node, 1)
+
     local ui = UI_WorldRaidRankingBoardItem(click_cb)
     if (ui) then
         ui.root:setDockPoint(CENTER_POINT)
         ui.root:setAnchorPoint(CENTER_POINT)
-        ui.root:setPosition(620, 100)
-        ui.root:setScale(0.85)
-        node:addChild(ui.root, 1)
+        ui.root:setScale(1)
 
-        -- self:makeBoardTouchEvent(ui.root, function ()
-        --     UINavigator:goTo('story_dungeon')
-        -- end)
+        parent_node:addChild(ui.root, 1)
+        self:makeBoardTouchEvent(parent_node, click_cb)
     end
 end
 
@@ -765,9 +772,8 @@ function LobbyMapFactory:makeBoardTouchEvent(node, touch_cb)
             return
         end
 
-        local touch_pos = touches[1]:getLocation()
-
         -- 빛의 검 구조물의 바운드 박스 안에 터치가 있을 때만 터치 이벤트되도록 구현
+        local touch_pos = touches[1]:getLocation()
         local bounding_box = node:getBoundingBox()
         local local_location = node:getParent():convertToNodeSpace(touch_pos)
         local is_contain = cc.rectContainsPoint(bounding_box, local_location)
@@ -776,9 +782,7 @@ function LobbyMapFactory:makeBoardTouchEvent(node, touch_cb)
         end
 
         is_requested = true
-        if touch_cb ~= nil then
-            touch_cb()
-        end
+        SafeFuncCall(touch_cb)
     end
 
     if (self.m_lobbyMap) then

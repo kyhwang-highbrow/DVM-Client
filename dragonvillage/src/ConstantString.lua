@@ -201,6 +201,8 @@ function dragonAttributeName(attr)
         return Str('어둠')
     elseif (attr == 'light') then
         return Str('빛')
+    elseif (attr == 'none') then
+        return Str('없음')
     else
         error('rarity: ' .. attr)
     end

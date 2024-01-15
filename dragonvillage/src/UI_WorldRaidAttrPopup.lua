@@ -40,12 +40,15 @@ function UI_WorldRaidAttrPopup:initUI()
     -- -- 보스 이름
     local boss_name = TableMonster():getMonsterName(boss_id)
     vars['bossNameLabel']:setString(boss_name)
-
     
     do -- 보스 속성    
         local icon = IconHelper:getAttributeIconButton(attr)
         vars['attrNode']:removeAllChildren()
         vars['attrNode']:addChild(icon)
+    end
+
+    do -- 속성        
+        vars['bossAttrLabel']:setString(dragonAttributeName(attr))
     end
 
     do -- 보스 레벨

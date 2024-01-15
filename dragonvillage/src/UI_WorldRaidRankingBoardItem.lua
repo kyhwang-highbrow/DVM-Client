@@ -11,19 +11,7 @@ UI_WorldRaidRankingBoardItem = class(PARENT,{
 -------------------------------------
 function UI_WorldRaidRankingBoardItem:init(click_cb)
     self.m_clickCB = click_cb
-    local vars = self:load('world_raid_ranking_board.ui')
-    --if (UIManager.m_toastPopup) then
-    --    UIManager.m_toastPopup:closeWithAction()
-    --end
-	--UIManager.m_toastPopup = self
-
-	-- -- @UI_ACTION
-    -- self:addAction(self.root, UI_ACTION_TYPE_OPACITY, 0, 0.5)
-    -- self:doActionReset()
-    -- self:doAction(nil, false)
-
-	--self.m_toastMsg = toast_str or Str('보상을 수령하였습니다')
-
+    self:load('world_raid_ranking_board.ui')
     self:initUI()
     self:initButton()
     self:refresh()
@@ -34,9 +22,18 @@ end
 -------------------------------------
 function UI_WorldRaidRankingBoardItem:initUI()
     local vars = self.vars
-    vars['listBtn']:registerScriptTapHandler(function () 
-        SafeFuncCall(self.m_clickCB)
-    end)
+
+    local node = IconHelper:getItemIcon(700001)
+    vars['iconNode']:removeAllChildren()
+    vars['iconNode']:addChild(node)
+
+    -- vars['listBtn']:registerScriptTapHandler(function () 
+    --     SafeFuncCall(self.m_clickCB)
+    -- end)
+
+    local tint_action = cca.buttonShakeAction(1 ,3.0)
+    self.root:stopAllActions()
+    self.root:runAction(tint_action)
 end
 
 -------------------------------------
