@@ -341,6 +341,7 @@ function LobbyMap:update(dt)
         self:setPosition(x, y, true)
     end
 
+    
     self:updateUserTamerArea()
     self:updateUserTamerActionArea()
 end
@@ -888,6 +889,13 @@ function LobbyMap:updateUserTamerActionArea()
             -- 현재 붙어있는 채팅서버 테이머 위치 랜덤으로
             g_lobbyManager:requestCharacterMove(self:getRandomSpot())
             g_lobbyChangeMgr:changeTypeAndGotoLobby(LOBBY_TYPE.CLAN)
+        end
+
+        -- 게시판 위치에 따라 화살표 애니메이션 재생
+        if (user_x <= 650) then            
+            self.m_targetTamer:setRightArrow()
+        else
+            self.m_targetTamer:setLeftArrow()            
         end
 
     -- 클랜 로비 -> 마을 

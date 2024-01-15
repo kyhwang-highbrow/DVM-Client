@@ -9,6 +9,7 @@ LobbyTamer = class(PARENT, {
         m_ui = '',
         m_idleTimer = 'number', -- 5초동안 정지 상태일 때 'pose_1'을 재생
         m_idleMotionCnt = 'number',
+        m_arrowAnimator = 'Animator',
      })
 
 LobbyTamer.MOVE_ACTION = 100
@@ -19,6 +20,7 @@ LobbyTamer.MOVE_ACTION = 100
 function LobbyTamer:init(user_data)
     self.m_userData = user_data
     self.m_idleTimer = 0
+    self.m_arrowAnimator = nil
 
     if (user_data.m_lastArenaTier == 'legend') then
         -- Ranker Animator 생성
@@ -58,6 +60,17 @@ function LobbyTamer:initAnimator(file_name)
         if (curr_animation ~= nil) and (curr_flip ~= nil) then
             self.m_animator:changeAni(curr_animation, true)
             self.m_animator:setFlip(curr_flip)
+        end
+    end
+
+    -- 방향 화살표 생성
+    if g_userData:get('uid') == self.m_userData:getUid() then
+        do -- 오른쪽
+            local guide_animator = MakeAnimator('res/ui/a2d/lobby/lobby.vrp')
+            guide_animator:changeAni('arrow_right', true)
+            guide_animator:setPosition(cc.p(100, 100))
+            self.m_rootNode:addChild(guide_animator.m_node, 3)
+            self.m_arrowAnimator = guide_animator
         end
     end
 end
@@ -125,6 +138,32 @@ LobbyTamer.st_move = LobbyCharacter.st_move
 function LobbyTamer:onMoveEnd()
     self:changeState('idle')
     return true
+end
+
+-------------------------------------
+--- @function setLeftArrow
+-------------------------------------
+function LobbyTamer:setLeftArrow()
+    if self.m_arrowAnimator == nil then
+        return
+    end
+
+    self.m_arrowAnimator:setPosition(cc.p(-100, 100))
+    self.m_arrowAnimator:changeAni('arrow_left', true)
+    self.m_arrowAnimator:setVisible(true)
+end
+
+-------------------------------------
+--- @function setRightArrow
+-------------------------------------
+function LobbyTamer:setRightArrow()
+    if self.m_arrowAnimator == nil then
+        return
+    end
+
+    self.m_arrowAnimator:setPosition(cc.p(100, 100))
+    self.m_arrowAnimator:changeAni('arrow_right', true)
+    self.m_arrowAnimator:setVisible(true)
 end
 
 -------------------------------------
