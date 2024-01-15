@@ -611,6 +611,7 @@ local t_module = {
     'GameState_LeagueRaid',
     'GameState_StoryDungeonEvent',
     'GameState_DealkingEvent',
+    'GameState_WorldRaid',
     'GameState_WorldRaid_Normal',
     'GameState_WorldRaid_Linger',
     'GameState_WorldRaid_Cooperation',
@@ -677,6 +678,7 @@ local t_module = {
     'Monster_AncientRuinDragonBodyPart',
     'Monster_DealkingBoss',
     'Monster_Bomb', -- 정방향, 역방향 폭탄
+    'Monster_WorldRaidBoss', -- 월드 레이드 보스
     'SummonedCreature',
     'Tamer',
 	'TamerSkill',
