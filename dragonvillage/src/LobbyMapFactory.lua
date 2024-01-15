@@ -53,7 +53,6 @@ function LobbyMapFactory:createLobbyWorld(parent_node, ui_lobby)
     lobby_map:addLayer(self:makeLobbyLayer(0), 1) -- 근경
 
     self:setDeco(lobby_map, ui_lobby)
-
     return lobby_map
 end
 
@@ -95,10 +94,7 @@ function LobbyMapFactory:setDeco(lobby_map, ui_lobby, entry_count)
     end
 
     -- 랭킹 게시판 정보
-    if entry_count ~= nil and entry_count == 1 then
-        self:makeLobbyBoard_onLayer(lobby_ground)
-    end
-    
+    self:makeLobbyBoard_onLayer(lobby_ground)
     return lobby_map
 end
 
