@@ -207,7 +207,7 @@ function GameState_WorldRaid_Normal:makeResultUI(is_success)
         local damage = total_damage
         local boss = world.m_waveMgr.m_lBoss[1]
 
-        local ui = UI_EventDealkingResult(
+        local ui = UI_WorldRaidResult(
             stage_id,
             boss,
             damage,

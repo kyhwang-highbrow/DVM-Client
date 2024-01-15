@@ -45,7 +45,7 @@ end
 --- @brief 보너스 상성 정보
 -------------------------------------
 function TableContentAttr:getBonusInfo(key, is_buff)
-    local ret = self:makeBuffList(key)    
+    local ret = self:makeBuffList(key)
 
     local map_attr = {}
     local map_buff_type = {}
@@ -77,13 +77,12 @@ function TableContentAttr:getBonusInfo(key, is_buff)
     return str, map_attr
 end
 
-
 -------------------------------------
 --- @function makeStageStageBuffList
 --- @brief 버프 리스트
 -------------------------------------
-function TableContentAttr:makeBuffList(key)
-    local attr_list = self:getAttrList(key)
+function TableContentAttr:makeBuffList(buff_key)
+    local attr_list = self:getAttrList(buff_key)
     local l_buff = {}
     local table_buff_list = {
         'atk_multi',
@@ -93,7 +92,7 @@ function TableContentAttr:makeBuffList(key)
     }
 
     for _, buff in ipairs(table_buff_list) do
-        local value = self:getValue(key, buff)
+        local value = self:getValue(buff_key, buff)
         local buff_name = buff
 
         if value < 0 then

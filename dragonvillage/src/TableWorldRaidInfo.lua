@@ -99,3 +99,21 @@ function TableWorldRaidInfo:getWorldRaidPartyTypeStr(world_raid_id)
     end
     return ''
 end
+
+-------------------------------------
+--- @function getWorldRaidBuffAll
+-------------------------------------
+function TableWorldRaidInfo:getWorldRaidBuffAll(world_raid_id)
+    function table_merge(dest, src)
+        for k, v in pairs(src) do
+            dest[k] = v
+        end
+    end
+
+    local buff_key = self:getBuffKey(world_raid_id)
+    local debuff_key = self:getDebuffKey(world_raid_id)
+    local l_buff = TableContentAttr:getInstance():makeBuffList(buff_key)
+    local l_debuff = TableContentAttr:getInstance():makeBuffList(debuff_key)
+    table_merge(l_buff, l_debuff)
+    return l_buff
+end

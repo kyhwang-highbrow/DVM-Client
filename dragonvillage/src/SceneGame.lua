@@ -770,7 +770,6 @@ function SceneGame:networkGameFinish(t_param, t_result_ref, next_func)
         api_url = '/world_raid/finish'
         self.m_gameKey = nil
         ui_network:setParam('damage', math_floor(t_param['damage'])) -- 소수점 아래는 버려야 함
-
     end
     
     ui_network:setUrl(api_url)

@@ -1425,7 +1425,6 @@ local t_module = {
     'UI_GameResult_Dmgate',
     'UI_GameResult_StoryDungeon',
 
-
     'UI_GamePause',
     'UI_GamePause_AncientTower',
     'UI_GamePause_NestDungeon',
@@ -1434,6 +1433,7 @@ local t_module = {
     'UI_GamePause_Arena',
     'UI_GamePause_ClanRaid',
     'UI_GamePause_EventGoldDungeon',
+    'UI_GamePause_WorldRaid',
 	'UI_GameDPSPopup',
 	'UI_GameDPSListItem',
     'UI_GameDebug',
@@ -1873,6 +1873,7 @@ local t_module = {
     'UI_WorldRaidRankingBoardItem', -- 월드 레이드 랭킹 게시판
     'UI_WorldRaidRankingListItem', -- 랭킹 리스트 아이템
     'UI_WorldRaidRankingRewardItem', -- 보상 리스트 아이템
+    'UI_WorldRaidResult', -- 전투 결과 화면
 }
 
 -------------------------------------

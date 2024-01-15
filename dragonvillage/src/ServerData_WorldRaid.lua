@@ -87,7 +87,7 @@ end
 -------------------------------------
 --- @function request_WorldRaidInfo
 -------------------------------------
-function ServerData_EventDealking:request_WorldRaidInfo(_success_cb, _fail_cb)
+function ServerData_WorldRaid:request_WorldRaidInfo(_success_cb, _fail_cb)
     local uid = g_userData:get('uid')
 
     -- 콜백
@@ -111,7 +111,7 @@ end
 -------------------------------------
 --- @function request_WorldRaidStart
 -------------------------------------
-function ServerData_EventDealking:request_WorldRaidStart(stage_id, deck_name, _success_cb, _fail_cb)
+function ServerData_WorldRaid:request_WorldRaidStart(stage_id, deck_name, _success_cb, _fail_cb)
     local uid = g_userData:get('uid')
     local token = g_stageData:makeDragonToken(deck_name)
 
@@ -139,7 +139,7 @@ function ServerData_EventDealking:request_WorldRaidStart(stage_id, deck_name, _s
     local api_url = '/world_raid/start'
     ui_network:setUrl(api_url)
     ui_network:setParam('uid', uid)
-    ui_network:setParam('stage', stage)    
+    ui_network:setParam('stage', stage_id)    
     ui_network:setParam('deck_name', deck_name)    
     ui_network:setParam('token', token)
     ui_network:setResponseStatusCB(response_status_cb)
@@ -155,7 +155,7 @@ end
 --- @param param_success_cb : 받은 데이터를 이용하여 처리할 콜백 함수
 --- @param param_fail_cb : 통신 실패 처리할 콜백 함수
 -------------------------------------
-function ServerData_EventDealking:request_WorldRaidRanking(search_type, offset, limit, param_success_cb, param_fail_cb)
+function ServerData_WorldRaid:request_WorldRaidRanking(search_type, offset, limit, param_success_cb, param_fail_cb)
     local uid = g_userData:get('uid')
     local type = search_type -- default : world
     local offset = offset -- default : 0
@@ -164,7 +164,7 @@ function ServerData_EventDealking:request_WorldRaidRanking(search_type, offset, 
     -- 콜백
     local function success_cb(ret)
         g_serverData:networkCommonRespone(ret)
-        self:response_eventDealkingInfo(ret)
+        --self:response_eventDealkingInfo(ret)
         if param_success_cb then
             param_success_cb(ret)
         end

@@ -21,12 +21,6 @@ end
 -- function getGameMode
 -------------------------------------
 function ServerData_Stage:getGameMode(stage_id)
-
---     WORLD_RAID_NORMAL_STAGE_ID = 3200001
--- WORLD_RAID_ELITE_STAGE_ID = 3200002
--- WORLD_RAID_COOPERATION_STAGE_ID = 3200003
-
-
     if (stage_id == ARENA_STAGE_ID) then
         return GAME_MODE_ARENA
     elseif (stage_id == ARENA_NEW_STAGE_ID) then
@@ -43,15 +37,6 @@ function ServerData_Stage:getGameMode(stage_id)
     --  레이드 스테이지
 	elseif (math.floor(stage_id/10000) == GAME_MODE_LEAGUE_RAID) then
 		return GAME_MODE_LEAGUE_RAID
-        -- 월드 레이드 일반
-    elseif stage_id == WORLD_RAID_NORMAL_STAGE_ID then
-        return GAME_MODE_WORLD_RAID_NORMAL
-        -- 월드 레이드 정예
-    elseif stage_id == WORLD_RAID_ELITE_STAGE_ID then
-        return GAME_MODE_WORLD_RAID_ELITE
-        -- 월드 레이드 협동
-    elseif stage_id == WORLD_RAID_COOPERATION_STAGE_ID then
-        return GAME_MODE_WORLD_RAID_COOPERATION
     end
 
     -- 10만 자리부터 2자리의 숫자를 가져옴
@@ -255,7 +240,7 @@ function ServerData_Stage:isOpenStage(stage_id)
 
     -- 월드 레이드
     elseif (game_mode == GAME_MODE_WORLD_RAID) then
-        ret = g_eventDealkingData:isAvailableWorldRaid()
+        ret = g_worldRaidData:isAvailableWorldRaid()
         
     end
 

@@ -69,7 +69,13 @@ function UI_ReadySceneWorldRaid:networkGameStart()
         self:replaceGameScene(game_key)
     end
 
+    --삼뉴체크
+    do
+        finish_cb('ss')
+        return
+    end
+
     local deck_name = g_deckData:getSelectedDeckName()
     local combat_power = self.m_readySceneDeck:getDeckCombatPower()
-    g_stageData:request_WorldRaidStart(self.m_stageID, deck_name, combat_power, finish_cb)
+    g_worldRaidData:request_WorldRaidStart(self.m_stageID, deck_name, combat_power, finish_cb)
 end

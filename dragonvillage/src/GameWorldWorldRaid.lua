@@ -28,7 +28,7 @@ end
 -------------------------------------
 function GameWorldWorldRaid:applyWorldRaidBonus(dragon)
     local world_raid_id = g_worldRaidData:getWorldRaidId()
-    local l_buff = TableContentAttr:getInstance():makeBuffList(world_raid_id)
+    local l_buff = TableWorldRaidInfo:getInstance():getWorldRaidBuffAll(world_raid_id)
 
     for i, v in ipairs(l_buff) do
         local condition_type = v['condition_type']
