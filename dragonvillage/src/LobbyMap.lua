@@ -253,6 +253,35 @@ end
 
 
 -------------------------------------
+--- @function isNeerUserTamer
+-------------------------------------
+function LobbyMap:isNeerUserTamer(obj_node)
+    if self.m_lobbyTamerUser == nil then
+        return false
+    end
+
+    if self.m_lobbyTamerUser.m_rootNode == nil then
+        return false
+    end
+
+    local root_node = self.m_lobbyTamerUser.m_rootNode
+
+    --dragon.m_rootNode:getPosition()
+    local world_pos = convertToWorldSpace(root_node)
+    local world_pos_obj = convertToWorldSpace(obj_node)
+
+    local std_distance = 400
+    local distance = getDistance(world_pos_obj['x'], world_pos_obj['y'], world_pos['x'], world_pos['y'])    
+
+    if (distance <= std_distance) then
+        return true
+    else
+        return false
+    end
+end
+
+
+-------------------------------------
 -- function getGroundRange
 -------------------------------------
 function LobbyMap:getGroundRange()

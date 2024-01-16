@@ -772,7 +772,10 @@ function LobbyMapFactory:makeBoardTouchEvent(node, touch_cb)
             return
         end
 
-        -- 빛의 검 구조물의 바운드 박스 안에 터치가 있을 때만 터치 이벤트되도록 구현
+        if self.m_lobbyMap:isNeerUserTamer(node) == false then
+            return
+        end
+
         local touch_pos = touches[1]:getLocation()
         local bounding_box = node:getBoundingBox()
         local local_location = node:getParent():convertToNodeSpace(touch_pos)
