@@ -157,7 +157,6 @@ local TableInfo = {
 
         -- 월드 레이드
         table_world_raid_info = {'table_world_raid_info', 'wrid', false},
-        table_world_raid_buff = {'table_world_raid_buff', 'stage', false},
 
         -- 컨텐츠별 속성 관리
         table_content_attr = {'table_content_attr', 'key', false},
