@@ -1,73 +1,250 @@
--------------------------------------
---- @class ServerData_WorldRaid
--- g_worldRaidData
--------------------------------------
-ServerData_WorldRaid = class({
-})
+local PARENT = class(UI, ITopUserInfo_EventListener:getCloneTable(), ITabUI:getCloneTable())
 
 -------------------------------------
--- function init
+-- class UI_WorldRaidBoard
 -------------------------------------
-function ServerData_WorldRaid:init()
+UI_WorldRaidBoard = class(PARENT, {    
+    m_rewardTableView = 'TableView',
+    m_rankingTableView = 'TableView',
+    m_searchType = 'number',
+    m_rankOffset = 'number',
+    })
+
+-------------------------------------
+--- @function initParentVariable
+--- @brief 자식 클래스에서 반드시 구현할 것
+-------------------------------------
+function UI_WorldRaidBoard:initParentVariable()
+    -- ITopUserInfo_EventListener의 맴버 변수들 설정
+    self.m_uiName = 'UI_WorldRaidBoard'
+    self.m_titleStr = Str('월드 레이드')
+	self.m_staminaType = 'cldg'
+    self.m_bVisible = true
+    self.m_bUseExitBtn = true
+    self.m_subCurrency = 'clancoin'
+    self.m_uiBgm = 'bgm_lobby'
 end
 
 -------------------------------------
---- @function isAvailableWorldRaid
+--- @function init
 -------------------------------------
-function ServerData_WorldRaid:isAvailableWorldRaid()
-    return true --g_hotTimeData:isActiveEvent('world_raid')
-end
+function UI_WorldRaidBoard:init(ret)
+    local vars = self:load_keepZOrder('world_raid_total_ranking.ui')
+    self.m_searchType = 1
+    self.m_rankOffset = 1
+    UIManager:open(self, UIManager.SCENE)
+    -- backkey 지정
+    g_currScene:pushBackKeyListener(self, function() self:click_exitBtn() end, 'UI_WorldRaidBoard')
 
+    -- @UI_ACTION
+    self:doActionReset()
+    self:doAction(nil, false)
 
--------------------------------------
---- @function getCurrentMyRanking
--------------------------------------
-function ServerData_WorldRaid:getCurrentMyRanking()
-    return {
-        lv = 31,
-        tier = "bronze_3",
-        clan_info = {
-          id = "5ddb4931970c6204bef38543",
-          name = "testctwar56",
-          mark = ""
-        },
-        tamer = 110002,
-        costume = 730204,
-        rp = -1,
-        clear_time = -1,
-        challenge_score = 0,
-        rate = "-Infinity",
-        last_tier = "beginner",
-        arena_score = 0,
-        ancient_score = 0,
-        beginner = false,
-        un = 9463,
-        score = -1,
-        total = 0,
-        nick = "ksjang3",
-        leader = {
-          lv = 60,
-          mastery_lv = 0,
-          grade = 6,
-          rlv = 6,
-          eclv = 0,
-          dragon_skin = 0,
-          did = 121854,
-          transform = 3,
-          mastery_skills = { },
-          evolution = 3,
-          mastery_point = 0
-        },
-        uid = "ksjang3",
-        rank = -1
-      }
+    self:initUI()
+    self:initButton()    
+    self:refresh()
+    
+    self:makeRankHallOfFameView(ret)
+    self:makeRankTableView(ret)
+
+    -- 보상 안내 팝업
+    local function finich_cb()
+        self:checkEnterEvent()
+    end
+
+    self:sceneFadeInAction(nil, finich_cb)
 end
 
 -------------------------------------
---- @function getCurrentRankingList
+--- @function checkEnterEvent
 -------------------------------------
-function ServerData_WorldRaid:getCurrentRankingList()
+function UI_WorldRaidBoard:checkEnterEvent()
+end
 
+-------------------------------------
+--- @function click_exitBtn
+-------------------------------------
+function UI_WorldRaidBoard:click_exitBtn()
+    self:close()
+end
+
+-------------------------------------
+--- @function initButton
+-------------------------------------
+function UI_WorldRaidBoard:initButton()
+    local vars = self.vars    
+
+    vars['infoBtn']:registerScriptTapHandler(function() self:click_infoBtn() end)
+    vars['cheerBtn']:registerScriptTapHandler(function() self:click_cheerBtn() end)
+end
+
+-------------------------------------
+--- @function initUI
+-------------------------------------
+function UI_WorldRaidBoard:initUI()
+    local vars = self.vars
+end
+
+-------------------------------------
+--- @function makeRankHallOfFameView
+--- @brife 명예의 전당 형식으로 노출
+-------------------------------------
+function UI_WorldRaidBoard:makeRankHallOfFameView(rank_data)
+    local vars = self.vars
+    --vars['fameMenu']:setVisible(true)
+    local l_rank_list = rank_data['total_list'] or {}
+    local rank_info = l_rank_list[1]
+    -- if (l_rank_list[idx]) then
+    -- else
+    --     -- 랭킹 정보가 없다면 없다는 표시를 출력
+    --     local ui = UI_HallOfFameListItem(nil)
+    -- end
+    --local rank = rank_info['rank']
+    if (vars['itemNode'] ~= nil) then
+        local ui = UI_HallOfFameListItem(rank_info, 1)
+        vars['itemNode']:addChild(ui.root)
+    end
+
+    local t_rank_info = StructUserInfoArena:create_forRanking(rank_info)
+
+    -- 유저 정보 표시 (레벨, 닉네임)
+    vars['userLabel']:setString(t_rank_info:getUserText())
+
+    -- 점수 표시
+    vars['scoreLabel']:setString(t_rank_info:getRPText())
+
+    -- 순위 표시
+    vars['rankLabel']:setString(t_rank_info:getRankText())
+
+    do -- 리더 드래곤 아이콘
+        local ui = t_rank_info:getLeaderDragonCard()
+        if ui then
+            ui.root:setSwallowTouch(false)
+            vars['profileNode']:addChild(ui.root)
+            
+			ui.vars['clickBtn']:registerScriptTapHandler(function() 
+				local is_visit = true
+				UI_UserInfoDetailPopup:open(t_rank_info, is_visit, nil)
+			end)
+        end
+    end
+
+    -- 클랜 정보
+    local struct_clan = t_rank_info:getStructClan()
+    if (struct_clan) then
+        
+        local clan_name = struct_clan:getClanName()
+        vars['clanLabel']:setString(clan_name)
+        
+        -- 클랜 마크
+        local icon = struct_clan:makeClanMarkIcon()
+        if (icon) then
+            vars['markNode']:addChild(icon)
+        end
+    else
+        vars['clanLabel']:setVisible(false)
+    end
+end
+
+-------------------------------------
+--- @function makeRankTableView
+-------------------------------------
+function UI_WorldRaidBoard:makeRankTableView(data)
+    local vars = self.vars
+    local rank_node = vars['rankListNode']
+    local rank_data = data
+    local my_rank_data = data['total_my_info'] or g_worldRaidData:getCurrentMyRanking()    
+
+    local make_my_rank_cb = function()        
+        local me_rank = UI_WorldRaidRankingListItem(my_rank_data)
+        vars['rankMeNode']:addChild(me_rank.root)
+        me_rank.vars['meSprite']:setVisible(true)
+    end
+    
+    local l_rank_list = rank_data['total_list'] or {}
+    
+    -- 이전 랭킹 버튼 누른 후 콜백
+    local function func_prev_cb(offset)
+        self.m_rankOffset = offset
+        self:request_ranking()
+    end
+
+    -- 다음 랭킹 버튼 누른 후 콜백
+    local function func_next_cb(offset)
+        self.m_rankOffset = offset
+        self:request_ranking()
+    end
+
+    local uid = g_userData:get('uid')
+    local create_cb = function(ui, data)
+        if (data['uid'] == uid) then
+            ui.vars['meSprite']:setVisible(true)
+        end
+    end
+    
+    local rank_list = UIC_RankingList()
+    rank_list:setRankUIClass(UI_WorldRaidRankingListItem, create_cb)
+    rank_list:setRankList(l_rank_list)
+    rank_list:setEmptyStr(Str('랭킹 정보가 없습니다.'))
+    rank_list:setMyRank(make_my_rank_cb)
+    rank_list:setOffset(self.m_rankOffset)
+    rank_list:makeRankMoveBtn(func_prev_cb, func_next_cb, 20)
+    rank_list:makeRankList(rank_node)
+
+    
+    local idx = 0
+    for i,v in ipairs(l_rank_list) do
+		 if (v['uid'] == uid) then
+             idx = i
+             break
+         end
+    end
+
+   -- 최상위 랭킹일 경우에는 포커싱을 1위에 함
+   if (self.m_searchType == 'world') and (self.m_rankOffset == 1) then
+        idx = 1
+   end
+
+   rank_list.m_rankTableView:update(0) -- 강제로 호출해서 최초에 보이지 않는 cell idx로 이동시킬 position을 가져올수 있도록 한다.
+   rank_list.m_rankTableView:relocateContainerFromIndex(idx)
+end
+
+-------------------------------------
+--- @function refresh
+-------------------------------------
+function UI_WorldRaidBoard:refresh()
+    local vars = self.vars
+    vars['likeLabel']:setString(comma_value(0))
+end
+
+-------------------------------------
+--- @function request_ranking
+-------------------------------------
+function UI_WorldRaidBoard:request_ranking()
+
+end
+
+-------------------------------------
+--- @function open
+-------------------------------------
+function UI_WorldRaidBoard.open()
+    local function finish_cb(ret)
+        local ui = UI_WorldRaidBoard(UI_WorldRaidBoard.getDummyRanking())
+    end
+   
+    local function fail_cb()
+    end
+
+    -- 삼뉴체크
+    g_adventureData:request_adventureInfo(finish_cb, fail_cb)
+end
+
+-------------------------------------
+--- @function getDummyRanking
+-------------------------------------
+function UI_WorldRaidBoard.getDummyRanking()
+
+    
     local list = { {
         lv = 31,
         tier = "bronze_3",
@@ -445,194 +622,28 @@ function ServerData_WorldRaid:getCurrentRankingList()
         rank = -1
       } }
 
-    return list
+    local t_data = {}
+    t_data['total_list'] = list
+    return t_data
 end
 
 -------------------------------------
---- @function getWorldRaidId
+--- @function click_infoBtn
 -------------------------------------
-function ServerData_WorldRaid:getWorldRaidId()
-    return 1001
+function UI_WorldRaidBoard:click_infoBtn()
+    local vars = self.vars
+    local str = Str('테이머들로부터 축하를 받은 횟수입니다.')
+    local tool_tip = UI_Tooltip_Skill(0, 0, str)
+    -- 자동 위치 지정
+    tool_tip:autoPositioning(self.vars['infoBtn'])
 end
 
 -------------------------------------
---- @function getWorldRaidStageId
+--- @function click_cheerBtn
 -------------------------------------
-function ServerData_WorldRaid:getWorldRaidStageId()
-    local world_raid_id = self:getWorldRaidId()
-    return TableWorldRaidInfo:getInstance():getWorldRaidStageId(world_raid_id)
+function UI_WorldRaidBoard:click_cheerBtn()
+    local vars = self.vars
 end
 
--------------------------------------
---- @function getRemainTimeString
--------------------------------------
-function ServerData_WorldRaid:getRemainTimeString()
-    local time = g_hotTimeData:getEventRemainTime('world_raid') or 0
-    return Str('이벤트 종료까지 {1} 남음', ServerTime:getInstance():makeTimeDescToSec(time, true))
-end
-
-
--------------------------------------
---- @function getWorldRaidStageMode
--------------------------------------
-function ServerData_WorldRaid:getWorldRaidStageMode(stage_id)
-    return (stage_id % 10)
-end
-
--------------------------------------
---- @function getWorldRaidBuff
--------------------------------------
-function ServerData_WorldRaid:getWorldRaidBuff()
-    local world_raid_id = self:getWorldRaidId()
-    local buff_key = TableWorldRaidInfo:getInstance():getBuffKey(world_raid_id)
-    local bonus_str, map_attr = TableContentAttr:getInstance():getBonusInfo(buff_key, true)
-    return bonus_str, map_attr
-end
-
--------------------------------------
---- @function getWorldRaidDebuff
--------------------------------------
-function ServerData_WorldRaid:getWorldRaidDebuff()
-    local world_raid_id = self:getWorldRaidId()
-    local debuff_key = TableWorldRaidInfo:getInstance():getDebuffKey(world_raid_id)
-    local penalty_str, map_attr = TableContentAttr:getInstance():getBonusInfo(debuff_key , false)
-    return penalty_str, map_attr
-end
-
--------------------------------------
---- @function request_WorldRaidInfo
--------------------------------------
-function ServerData_WorldRaid:request_WorldRaidInfo(_success_cb, _fail_cb)
-    local uid = g_userData:get('uid')
-
-    -- 콜백
-    local function success_cb(ret)
-        g_serverData:networkCommonRespone(ret)
-        SafeFuncCall(_success_cb)
-    end
-
-    -- 네트워크 통신
-    local ui_network = UI_Network()
-    ui_network:setUrl('/world_raid/info')
-    ui_network:setParam('uid', uid)
-    ui_network:setSuccessCB(success_cb)
-    ui_network:setFailCB(_fail_cb)
-    ui_network:setRevocable(true)
-    ui_network:setReuse(false)
-    ui_network:hideBGLayerColor()
-    ui_network:request()
-end
-
--------------------------------------
---- @function request_WorldRaidStart
--------------------------------------
-function ServerData_WorldRaid:request_WorldRaidStart(stage_id, deck_name, _success_cb, _fail_cb)
-    local uid = g_userData:get('uid')
-    local token = g_stageData:makeDragonToken(deck_name)
-
-    local function success_cb(ret)
-        --self.m_gameState = true
-        SafeFuncCall(_success_cb, ret)
-    end
-
-    local function response_status_cb(ret)
-        -- 요일에 맞지 않는 속성
-        if (ret['status'] == -2150) then
-            -- 로비로 이동
-            local function ok_cb()
-                UINavigator:goTo('lobby')
-            end 
-
-            MakeSimplePopup(POPUP_TYPE.OK, Str('이미 종료된 던전입니다.'), ok_cb)
-            return true
-        end
-
-        return false
-    end
-
-    local ui_network = UI_Network()
-    local api_url = '/world_raid/start'
-    ui_network:setUrl(api_url)
-    ui_network:setParam('uid', uid)
-    ui_network:setParam('stage', stage_id)    
-    ui_network:setParam('deck_name', deck_name)    
-    ui_network:setParam('token', token)
-    ui_network:setResponseStatusCB(response_status_cb)
-    ui_network:setSuccessCB(success_cb)
-    ui_network:setFailCB(_fail_cb)
-    ui_network:request()
-end
-
--------------------------------------
---- @function request_WorldRaidRanking
---- @param search_type : 랭킹을 조회할 그룹 (world, clan, friend)
---- @param offset : 랭킹 리스트의 offset 값 (-1 : 내 랭킹 기준, 0 : 상위 랭킹 기준, 20 : 랭킹의 20번째부터 조회..) 
---- @param param_success_cb : 받은 데이터를 이용하여 처리할 콜백 함수
---- @param param_fail_cb : 통신 실패 처리할 콜백 함수
--------------------------------------
-function ServerData_WorldRaid:request_WorldRaidRanking(search_type, offset, limit, param_success_cb, param_fail_cb)
-    local uid = g_userData:get('uid')
-    local type = search_type -- default : world
-    local offset = offset -- default : 0
-    local limit = limit -- default : 20
-
-    -- 콜백
-    local function success_cb(ret)
-        g_serverData:networkCommonRespone(ret)
-        --self:response_eventDealkingInfo(ret)
-        if param_success_cb then
-            param_success_cb(ret)
-        end
-    end
-
-    -- 네트워크 통신
-    local ui_network = UI_Network()
-    ui_network:setUrl('/world_raid/ranking')
-    ui_network:setParam('uid', uid)
-    ui_network:setParam('filter', type)
-    ui_network:setParam('offset', offset)
-    ui_network:setParam('limit', limit)
-    ui_network:setSuccessCB(success_cb)
-    ui_network:setFailCB(param_fail_cb)
-    ui_network:setRevocable(true)
-    ui_network:setReuse(false)
-    ui_network:hideBGLayerColor()
-    ui_network:request()
-end
-
--------------------------------------
---- @function request_WorldRaidBoardRanking
---- @param search_type : 랭킹을 조회할 그룹 (world, clan, friend)
---- @param offset : 랭킹 리스트의 offset 값 (-1 : 내 랭킹 기준, 0 : 상위 랭킹 기준, 20 : 랭킹의 20번째부터 조회..) 
---- @param param_success_cb : 받은 데이터를 이용하여 처리할 콜백 함수
---- @param param_fail_cb : 통신 실패 처리할 콜백 함수
--------------------------------------
-function ServerData_WorldRaid:request_WorldRaidBoardRanking(search_type, offset, limit, param_success_cb, param_fail_cb)
-    local uid = g_userData:get('uid')
-    local type = search_type -- default : world
-    local offset = offset -- default : 0
-    local limit = limit -- default : 20
-
-    -- 콜백
-    local function success_cb(ret)
-        g_serverData:networkCommonRespone(ret)
-        --self:response_eventDealkingInfo(ret)
-        if param_success_cb then
-            param_success_cb(ret)
-        end
-    end
-
-    -- 네트워크 통신
-    local ui_network = UI_Network()
-    ui_network:setUrl('/world_raid/board_ranking')
-    ui_network:setParam('uid', uid)
-    ui_network:setParam('filter', type)
-    ui_network:setParam('offset', offset)
-    ui_network:setParam('limit', limit)
-    ui_network:setSuccessCB(success_cb)
-    ui_network:setFailCB(param_fail_cb)
-    ui_network:setRevocable(true)
-    ui_network:setReuse(false)
-    ui_network:hideBGLayerColor()
-    ui_network:request()
-end
+--@CHECK
+UI:checkCompileError(UI_WorldRaidBoard)

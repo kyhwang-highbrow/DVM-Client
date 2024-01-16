@@ -79,7 +79,7 @@ function UI_BattleMenuItem:initUI()
         ani_num = '_03'
     end
 
-    cclog(content_type .. ani_num)
+    --cclog(content_type .. ani_num)
 
     vars['itemVisual']:changeAni(content_type .. ani_num, true)   
     vars['titleLabel']:setString(getContentName(content_type))

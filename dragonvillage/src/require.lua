@@ -1876,6 +1876,7 @@ local t_module = {
     'UI_WorldRaidRankingListItem', -- 랭킹 리스트 아이템
     'UI_WorldRaidRankingRewardItem', -- 보상 리스트 아이템
     'UI_WorldRaidResult', -- 전투 결과 화면
+    'UI_WorldRaidBoard', -- 월드 레이드 게시판
 }
 
 -------------------------------------

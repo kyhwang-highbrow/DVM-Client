@@ -12,7 +12,7 @@ UI_WorldRaidRankingListItem = class(PARENT, {
 -------------------------------------
 function UI_WorldRaidRankingListItem:init(t_rank_info)
     self.m_rankInfo = t_rank_info
-    local vars = self:load('world_raid_scene_new_rank.ui')
+    local vars = self:load('world_raid_scene_rank_item.ui')
 
     -- 닉네임 정보가 없다면, 다음/이전 버튼 데이터
     if (not self.m_rankInfo['nick']) then

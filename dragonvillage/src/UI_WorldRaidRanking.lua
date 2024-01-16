@@ -84,7 +84,7 @@ function UI_WorldRaidRanking:makeRankTableView(data)
     local make_my_rank_cb = function()        
         local me_rank = UI_WorldRaidRankingListItem(my_rank_data)
         vars['userMeNode']:addChild(me_rank.root)
-        --me_rank.vars['meSprite']:setVisible(true)
+        me_rank.vars['meSprite']:setVisible(true)
     end
     
     local l_rank_list = rank_data['total_list'] or g_worldRaidData:getCurrentRankingList()
@@ -104,7 +104,7 @@ function UI_WorldRaidRanking:makeRankTableView(data)
     local uid = g_userData:get('uid')
     local create_cb = function(ui, data)
         if (data['uid'] == uid) then
-            --ui.vars['meSprite']:setVisible(true)
+            ui.vars['meSprite']:setVisible(true)
         end
     end
     

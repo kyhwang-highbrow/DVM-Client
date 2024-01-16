@@ -396,7 +396,7 @@ end
 -------------------------------------
 function LobbyMapFactory:makeLobbyBoard_onLayer(node)
     local click_cb = function()
-        local ui = UI_WorldRaidRanking()
+        UI_WorldRaidBoard.open()
     end
 
     local parent_node = cc.Node:create()
