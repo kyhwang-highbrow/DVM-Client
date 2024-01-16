@@ -2457,38 +2457,51 @@ function UINavigatorDefinition:goTo_world_raid(...)
     local args = {...}
     local stage_id = args[1]
 
-    -- 해당 UI가 열려있을 경우
-    local is_opened, index, ui = self:findOpendUI('UI_WorldRaid')
-    if is_opened then 
-        self:closeUIList(index)
+    -- 모험 모드가 열려있을 경우
+    local is_opend, idx, ui = self:findOpendUI('UI_WorldRaid')
+    if (is_opend == true) then
+        self:closeUIList(idx)
         return
     end
 
-    -- 진입 가능 여부 체크
-    if (g_contentLockData:isContentLock('world_raid')) then
-        UINavigatorDefinition:goTo('lobby')
-        UIManager:toastNotificationRed(Str('이벤트가 종료되었습니다.'))
-        return
-    end
-
-    do -- Scene으로 동작
-        -- 전투 메뉴가 열려 있을 경우
-        local is_opened, index, ui = self:findOpendUI('UI_BattleMenu')
-        if is_opened then
-            self:closeUIList(index) 
+    local function finish_cb()
+        -- 전투 메뉴가 열려있을 경우
+        local is_opend, idx, ui = self:findOpendUI('UI_BattleMenu')
+        if (is_opend == true) then
+            self:closeUIList(idx)
             ui:setTab('competition')
             ui:resetButtonsPosition()
             UI_WorldRaid()
             return
         end
 
-        local function close_cb()
-            UINavigatorDefinition:goTo('lobby')
+        -- 로비가 열려있을 경우
+        local is_opend, idx, ui = self:findOpendUI('UI_Lobby')
+        if (is_opend == true) then
+            self:closeUIList(idx)
+            local battle_menu_ui = UI_BattleMenu()
+            battle_menu_ui:setTab('competition')
+            battle_menu_ui:resetButtonsPosition()
+            UI_WorldRaid()
+            return
         end
 
-        local scene = SceneCommon(UI_WorldRaid, close_cb, stage_id)
-        scene:runScene()
+        
+        do-- Scene으로 모험 모드 동작
+            local function close_cb()
+                UINavigatorDefinition:goTo('lobby')
+            end
+
+            local scene = SceneCommon(UI_WorldRaid, close_cb)
+            scene:runScene()
+        end
     end
+
+    local function fail_cb()
+    end
+
+    -- 삼뉴체크
+    g_adventureData:request_adventureInfo(finish_cb, fail_cb)
 end
 
 -------------------------------------
