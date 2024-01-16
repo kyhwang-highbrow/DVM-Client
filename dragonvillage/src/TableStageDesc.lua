@@ -220,3 +220,12 @@ function TableStageDesc:getPreloadStageList()
 
     return l_stage
 end
+
+-------------------------------------
+--- @function getRecommendedCombatPower
+--- @brief 스테이지 권장 전투력
+-------------------------------------
+function TableStageDesc:getRecommendedCombatPower(stage_id)
+    local combat_power = self:getValue(stage_id, 'recomm_power')
+    return combat_power
+end
