@@ -165,7 +165,8 @@ function ScenePatch:workAskConsent()
             self:doNextWork()
         end,
         function(info)
-            self:retryCurrWork()
+            cclog('failed workAskConsent')
+            self:doNextWork()
         end)
 end
 
