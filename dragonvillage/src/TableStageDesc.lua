@@ -226,6 +226,6 @@ end
 --- @brief 스테이지 권장 전투력
 -------------------------------------
 function TableStageDesc:getRecommendedCombatPower(stage_id)
-    local combat_power = self:getValue(stage_id, 'recomm_power')
+    local combat_power = tonumber(self:getValue(stage_id, 'recomm_power')) or 0
     return combat_power
 end
