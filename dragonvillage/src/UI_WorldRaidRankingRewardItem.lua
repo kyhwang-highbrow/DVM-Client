@@ -12,8 +12,7 @@ UI_WorldRaidRankingRewardItem = class(PARENT,{
 -------------------------------------
 function UI_WorldRaidRankingRewardItem:init(t_reward_info)
     self.m_rewardInfo = t_reward_info
-    local vars = self:load('world_raid_ranking_popup_item_reward.ui')
-    
+    self:load('world_raid_ranking_popup_item_reward.ui')
     self:initUI()
 end
 

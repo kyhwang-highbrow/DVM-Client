@@ -39,6 +39,7 @@ function UI_WorldRaid:init()
     self:initUI()
     self:initButton()    
     self:refresh()
+    self:makeRankingTableView()
     self:update()
 
     self.root:scheduleUpdateWithPriorityLua(function () self:update() end, 1)
@@ -72,6 +73,9 @@ function UI_WorldRaid:initButton()
     vars['infoBtn']:registerScriptTapHandler(function () self:click_helpBtn() end)
     vars['readyBtn']:registerScriptTapHandler(function () self:click_readyBtn() end)
     vars['synastryInfoBtn']:registerScriptTapHandler(function () self:click_attrInfoBtn() end)
+    vars['rankBtn']:registerScriptTapHandler(function () self:click_rankingBtn() end)
+
+    
 end
 
 -------------------------------------
@@ -194,15 +198,15 @@ function UI_WorldRaid:makeRankingTableView()
     local uid = g_userData:get('uid')
     local create_cb = function(ui, data)
         if (data['uid'] == uid) then
-            ui.vars['meSprite']:setVisible(true)
+            --ui.vars['meSprite']:setVisible(true)
         end
     end
 
     local make_my_rank_cb = function()
         local my_data = g_worldRaidData:getCurrentMyRanking()
         local me_rank = UI_WorldRaidRankingListItem(my_data)
-        vars['userMeNode']:addChild(me_rank.root)
-        me_rank.vars['meSprite']:setVisible(true)
+        vars['myRankNode']:addChild(me_rank.root)
+        --me_rank.vars['meSprite']:setVisible(true)
     end
 
     local l_rank_list = g_worldRaidData:getCurrentRankingList()
@@ -212,8 +216,7 @@ function UI_WorldRaid:makeRankingTableView()
     rank_list:setRankList(l_rank_list)
     rank_list:setEmptyStr(Str('랭킹 정보가 없습니다'))
     rank_list:setMyRank(make_my_rank_cb)
-
-    --rank_list:setOffset(self.m_rankOffset)
+    rank_list:setOffset(1)
     --rank_list:makeRankMoveBtn(func_prev_cb, func_next_cb, RANK_OFFSET_GAP)
     rank_list:makeRankList(rank_node)
 end
@@ -255,6 +258,13 @@ end
 function UI_WorldRaid:click_attrInfoBtn()
     require('UI_WorldRaidAttrPopup')
     UI_WorldRaidAttrPopup()
+end
+
+-------------------------------------
+--- @function click_rankingBtn
+-------------------------------------
+function UI_WorldRaid:click_rankingBtn()
+    local ui = UI_WorldRaidRanking()
 end
 
 -------------------------------------

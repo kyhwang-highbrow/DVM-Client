@@ -155,7 +155,7 @@ function LobbyTamer:setLeftArrow()
     end
 
     self.m_arrowDirection = -1
-    self.m_arrowAnimator:setPosition(cc.p(-100, 100))
+    self.m_arrowAnimator:setPosition(cc.p(-150, 100))
     self.m_arrowAnimator:changeAni('arrow_left', true)
     self.m_arrowAnimator:setVisible(true)
 end
@@ -173,7 +173,7 @@ function LobbyTamer:setRightArrow()
     end
 
     self.m_arrowDirection = 1
-    self.m_arrowAnimator:setPosition(cc.p(100, 100))
+    self.m_arrowAnimator:setPosition(cc.p(150, 100))
     self.m_arrowAnimator:changeAni('arrow_right', true)
     self.m_arrowAnimator:setVisible(true)
 end

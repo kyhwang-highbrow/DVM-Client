@@ -1132,6 +1132,7 @@ function UI_ReadySceneNew:getLeaderBuffDesc()
 	leader_buff = skill_info:getSkillDesc()
 	return leader_buff	    
 end
+
 -------------------------------------
 -- function refresh_buffInfo_TamerBuff
 -------------------------------------

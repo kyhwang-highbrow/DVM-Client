@@ -37,7 +37,7 @@ function UI_WorldRaidRankingListItem:initUI()
     vars['userLabel']:setString(t_rank_info:getUserText())
 
     -- 순위 표시
-    vars['rankingLabel']:setString(t_rank_info:getRankText())
+    vars['rankLabel']:setString(t_rank_info:getRankText())
 
     do -- 리더 드래곤 아이콘
         local ui = t_rank_info:getLeaderDragonCard()
@@ -52,13 +52,13 @@ function UI_WorldRaidRankingListItem:initUI()
         end
     end
 
-    do -- 티어 아이콘
-        local icon = t_rank_info:makeTierIcon(nil)
-        if (icon) then
-            vars['tierNode']:addChild(icon)
-        end
-        vars['tierLabel']:setString(t_rank_info:getTierName())
-    end
+    -- do -- 티어 아이콘
+    --     local icon = t_rank_info:makeTierIcon(nil)
+    --     if (icon) then
+    --         vars['tierNode']:addChild(icon)
+    --     end
+    --     vars['tierLabel']:setString(t_rank_info:getTierName())
+    -- end
 
 
     local struct_clan = t_rank_info:getStructClan()
