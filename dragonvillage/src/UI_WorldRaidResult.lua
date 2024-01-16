@@ -415,7 +415,7 @@ function UI_WorldRaidResult:direction_end()
 
     -- 내 순위 정보가 내려오면 무조건 노출
     if self.m_lCloseRankers['me_ranker'] ~= nil then
-        local my_ranking = g_eventDealkingData:getMyRankInfoTotal()
+        local my_ranking = g_worldRaidData:getCurrentMyRanking()
         local prev_score = my_ranking['score']
         local new_score = self.m_lCloseRankers['me_ranker']['score']
         if new_score > prev_score then
@@ -553,7 +553,7 @@ function UI_WorldRaidResult:showLeaderBoard(ret)
     end
 
     -- 게임 전 내 정보    
-    local t_ex_me = g_eventDealkingData:getMyRankInfoTotal()
+    local t_ex_me = g_worldRaidData:getCurrentMyRanking()
     if (not t_ex_me) then -- 처음 때린 사람
         t_ex_me = {['score'] = 0, ['rank'] = t_me['rank'] + 1000, ['rate'] = 1}
     end
