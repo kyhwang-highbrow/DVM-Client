@@ -272,7 +272,7 @@ end
 -------------------------------------
 function UI_WorldRaid:click_infinitegBtn()
     local vars = self.vars
-    local str = Str('무한의 체력을 가지고 있습니다.')
+    local str = Str('보스 몬스터의 체력이 무한입니다.')
     local tool_tip = UI_Tooltip_Skill(0, 0, str)
     -- 자동 위치 지정
     tool_tip:autoPositioning(self.vars['infiniteBtn'])
