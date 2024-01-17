@@ -198,6 +198,10 @@ function UI_UserSetLeaderProfileFrameTab:click_equipBtn()
     end
 
     local success_cb = function(ret)
+        self:update()
+        self:refresh()
+
+
         local rotate_to = cc.EaseElasticOut:create(cc.RotateTo:create(0.2, 720), 0.1)
         local scale_up = cc.EaseElasticOut:create(cc.ScaleTo:create(0.2, 1.2), 0.1)
         local scale_down = cc.EaseElasticIn:create(cc.ScaleTo:create(0.2, 1), 0.1)
@@ -213,7 +217,12 @@ function UI_UserSetLeaderProfileFrameTab:click_equipBtn()
     end
 
     vars['selectEffect1Visual']:setVisible(true)
+    vars['selectEffect1Visual']:changeAni('yellow_05', false)
+    vars['selectEffect1Visual']:addAniHandler(function() vars['selectEffect1Visual']:setVisible(false) end)
+
     vars['selectEffect2Visual']:setVisible(true)
+    vars['selectEffect2Visual']:changeAni('pack_idle_03', false)
+    vars['selectEffect2Visual']:addAniHandler(function() vars['selectEffect2Visual']:setVisible(false) end)
 
     g_profileFrameData:request_equip(self.m_selectProfileFrameId, success_cb)
 end
