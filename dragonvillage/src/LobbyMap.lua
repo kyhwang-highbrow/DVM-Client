@@ -251,7 +251,6 @@ function LobbyMap:checkDragonTouch(touch_pos, tamer)
     end
 end
 
-
 -------------------------------------
 --- @function isNeerUserTamer
 -------------------------------------
@@ -279,7 +278,6 @@ function LobbyMap:isNeerUserTamer(obj_node)
         return false
     end
 end
-
 
 -------------------------------------
 -- function getGroundRange
@@ -921,6 +919,7 @@ function LobbyMap:updateUserTamerActionArea()
         end
 
         -- 게시판 위치에 따라 화살표 애니메이션 재생
+        cclog('user_x diff', user_x - 650)
         if (user_x <= 650) then            
             self.m_targetTamer:setRightArrow()
         else
