@@ -164,7 +164,7 @@ function UI_UserSetLeaderProfileFrameTab:update()
         if is_owned == true then
             local msg = g_profileFrameData:getRemainTimeStr(profile_frame)
             vars['stateLabel']:setString(Str('보유 중'))
-            vars['timeLabel']:setString(string.format('%s%s', '{@green}' ,msg))
+            vars['timeLabel']:setString(msg)
         else
             vars['stateLabel']:setString(string.format('%s%s', '{@RED}' ,Str('미보유')))
         end
@@ -175,10 +175,14 @@ end
 -- function click_selectBtn
 -------------------------------------
 function UI_UserSetLeaderProfileFrameTab:click_selectBtn(profile_frame_id)
+    local vars = self.vars
     self.m_selectProfileFrameId = profile_frame_id
     self:update()
     self:refresh()
     self:refreshTableView()
+
+    vars['selectEffect1Visual']:setVisible(false)
+    vars['selectEffect2Visual']:setVisible(false)
 end
 
 -------------------------------------
@@ -207,6 +211,9 @@ function UI_UserSetLeaderProfileFrameTab:click_equipBtn()
         vars['frameNode']:stopAllActions()
         vars['frameNode']:runAction(seq)
     end
+
+    vars['selectEffect1Visual']:setVisible(true)
+    vars['selectEffect2Visual']:setVisible(true)
 
     g_profileFrameData:request_equip(self.m_selectProfileFrameId, success_cb)
 end

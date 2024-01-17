@@ -918,8 +918,7 @@ function LobbyMap:updateUserTamerActionArea()
             g_lobbyChangeMgr:changeTypeAndGotoLobby(LOBBY_TYPE.CLAN)
         end
 
-        -- 게시판 위치에 따라 화살표 애니메이션 재생
-        cclog('user_x diff', user_x - 650)
+        -- 게시판 위치에 따라 화살표 애니메이션 재생        
         if (user_x <= 650) then            
             self.m_targetTamer:setRightArrow()
         else

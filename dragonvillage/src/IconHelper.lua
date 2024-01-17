@@ -807,11 +807,15 @@ function IconHelper:getProfileFrameAnimator(profile_frame_id)
     local llist = {0, 900002, 900003, 900004}
     local random_idx = math_random(1, 4)
 
-    if llist[random_idx] == 0 then
+    -- if llist[random_idx] == 0 then
+    --     return nil
+    -- end
+
+    if profile_frame_id == 0 then
         return nil
     end
 
-    local res = TableProfileFrame:getInstance():getProfileFrameRes(llist[random_idx])
+    local res = TableProfileFrame:getInstance():getProfileFrameRes(profile_frame_id)
     local animator = MakeAnimator(res)
     if (animator) then
         animator:setDockPoint(cc.p(0.5, 0.5))
