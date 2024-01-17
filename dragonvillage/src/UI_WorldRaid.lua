@@ -74,6 +74,7 @@ function UI_WorldRaid:initButton()
     vars['readyBtn']:registerScriptTapHandler(function () self:click_readyBtn() end)
     vars['synastryInfoBtn']:registerScriptTapHandler(function () self:click_attrInfoBtn() end)
     vars['rankBtn']:registerScriptTapHandler(function () self:click_rankingBtn() end)
+    vars['infiniteBtn']:registerScriptTapHandler(function () self:click_infinitegBtn() end)
 
     
 end
@@ -264,6 +265,17 @@ end
 -------------------------------------
 function UI_WorldRaid:click_rankingBtn()
     local ui = UI_WorldRaidRanking()
+end
+
+-------------------------------------
+--- @function click_infinitegBtn
+-------------------------------------
+function UI_WorldRaid:click_infinitegBtn()
+    local vars = self.vars
+    local str = Str('무한의 체력을 가지고 있습니다.')
+    local tool_tip = UI_Tooltip_Skill(0, 0, str)
+    -- 자동 위치 지정
+    tool_tip:autoPositioning(self.vars['infiniteBtn'])
 end
 
 -------------------------------------

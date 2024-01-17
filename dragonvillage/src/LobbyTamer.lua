@@ -65,16 +65,16 @@ function LobbyTamer:initAnimator(file_name)
         end
     end
 
-    -- 방향 화살표 생성
-    if g_userData:get('uid') == self.m_userData:getUid() then
-        do -- 오른쪽
-            local guide_animator = MakeAnimator('res/ui/a2d/lobby/lobby.vrp')
-            guide_animator:changeAni('arrow_right', true)
-            guide_animator:setPosition(cc.p(100, 100))
-            self.m_rootNode:addChild(guide_animator.m_node, 3)
-            self.m_arrowAnimator = guide_animator
-        end
-    end
+    -- -- 방향 화살표 생성
+    -- if g_userData:get('uid') == self.m_userData:getUid() then
+    --     do -- 오른쪽
+    --         local guide_animator = MakeAnimator('res/ui/a2d/lobby/lobby.vrp')
+    --         guide_animator:changeAni('arrow_right', true)
+    --         guide_animator:setPosition(cc.p(100, 100))
+    --         self.m_rootNode:addChild(guide_animator.m_node, 3)
+    --         self.m_arrowAnimator = guide_animator
+    --     end
+    -- end
 end
 
 -------------------------------------

@@ -10,7 +10,7 @@ UI_WorldRaidAttrPopup = class(PARENT,{
 -------------------------------------
 function UI_WorldRaidAttrPopup:init()
     local vars = self:load('world_raid_attr_popup.ui')
-    UIManager:open(self, UIManager.NORMAL)
+    UIManager:open(self, UIManager.POPUP)
 
 	-- @UI_ACTION
     self:addAction(self.root, UI_ACTION_TYPE_OPACITY, 0, 0.5)
