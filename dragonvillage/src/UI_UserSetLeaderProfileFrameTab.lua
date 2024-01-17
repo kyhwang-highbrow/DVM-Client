@@ -185,6 +185,8 @@ end
 -- function click_equipBtn
 -------------------------------------
 function UI_UserSetLeaderProfileFrameTab:click_equipBtn()
+    local vars = self.vars
+
     -- 소유 중인 프로필 테두리냐?
     if g_profileFrameData:isOwnedProfileFrame(self.m_selectProfileFrameId) == false then
         UIManager:toastNotificationRed(Str('현재 보유 중인 테두리가 아닙니다.'))
@@ -192,7 +194,18 @@ function UI_UserSetLeaderProfileFrameTab:click_equipBtn()
     end
 
     local success_cb = function(ret)
-        UIManager:toastNotificationGreen(Str('테두리를 착용하였습니다.'))
+        local rotate_to = cc.EaseElasticOut:create(cc.RotateTo:create(0.2, 720), 0.1)
+        local scale_up = cc.EaseElasticOut:create(cc.ScaleTo:create(0.2, 1.2), 0.1)
+        local scale_down = cc.EaseElasticIn:create(cc.ScaleTo:create(0.2, 1), 0.1)
+        local call_func = cc.CallFunc:create(function () 
+            UIManager:toastNotificationGreen(Str('테두리를 착용하였습니다.'))
+        end)
+    
+        local delay = cc.DelayTime:create(0.1)
+        local seq = cc.Sequence:create(rotate_to, delay, scale_up, scale_down, call_func)
+    
+        vars['frameNode']:stopAllActions()
+        vars['frameNode']:runAction(seq)
     end
 
     g_profileFrameData:request_equip(self.m_selectProfileFrameId, success_cb)
