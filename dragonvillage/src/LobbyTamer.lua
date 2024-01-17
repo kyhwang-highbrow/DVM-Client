@@ -9,8 +9,9 @@ LobbyTamer = class(PARENT, {
         m_ui = '',
         m_idleTimer = 'number', -- 5초동안 정지 상태일 때 'pose_1'을 재생
         m_idleMotionCnt = 'number',
-        m_arrowAnimator = 'Animator',
-        m_arrowDirection = 'number',
+        m_lobbyMap = 'LobbyMap',
+        m_milestoneUI = 'UI_WorldRaidBoardMilestonItem',
+
      })
 
 LobbyTamer.MOVE_ACTION = 100
@@ -18,11 +19,11 @@ LobbyTamer.MOVE_ACTION = 100
 -------------------------------------
 -- function init
 -------------------------------------
-function LobbyTamer:init(user_data)
+function LobbyTamer:init(user_data, lobby_map)
     self.m_userData = user_data
     self.m_idleTimer = 0
-    self.m_arrowAnimator = nil
-    self.m_arrowDirection = 0
+    self.m_milestoneUI = nil
+    self.m_lobbyMap = lobby_map
 
     if (user_data.m_lastArenaTier == 'legend') then
         -- Ranker Animator 생성
@@ -68,11 +69,11 @@ function LobbyTamer:initAnimator(file_name)
     -- 방향 화살표 생성
     if g_userData:get('uid') == self.m_userData:getUid() then
         do -- 오른쪽
-            local guide_animator = MakeAnimator('res/ui/a2d/lobby/lobby.vrp')
-            guide_animator:changeAni('arrow_right', true)
-            guide_animator:setPosition(cc.p(100, 100))
-            self.m_rootNode:addChild(guide_animator.m_node, 3)
-            self.m_arrowAnimator = guide_animator
+            if self.m_milestoneUI == nil then
+                local ui = UI_WorldRaidBoardMilestonItem(self)
+                self.m_rootNode:addChild(ui.root, 1)
+                self.m_milestoneUI = ui
+            end
         end
     end
 end
@@ -119,6 +120,8 @@ function LobbyTamer.st_idle(self, dt)
             end)
         end
     end
+
+
 end
 
 -------------------------------------
@@ -132,7 +135,45 @@ end
 -------------------------------------
 -- function st_move
 -------------------------------------
-LobbyTamer.st_move = LobbyCharacter.st_move
+function LobbyTamer:st_move(dt)
+    if (self.m_stateTimer == 0) then
+
+        self:dispatch('lobby_character_move_start', {}, self)
+
+        local function finich_cb()
+            local x, y = self.m_rootNode:getPosition()
+            self:dispatch('lobby_character_move', {}, self, x, y)
+            
+            if (self:onMoveEnd() == true) then
+                return
+            end
+
+            self:changeState('idle')
+        end
+
+        local cur_x, cur_y = self.m_rootNode:getPosition()
+        local tar_x, tar_y = self.m_moveX, self.m_moveY
+        local distance = getDistance(cur_x, cur_y, tar_x, tar_y)
+        local duration = (distance / self.m_moveSpeed)
+        local action = cc.Sequence:create(cc.MoveTo:create(duration, cc.p(tar_x, tar_y)), cc.CallFunc:create(finich_cb))
+        cca.runAction(self.m_rootNode, action, LobbyTamer.MOVE_ACTION)
+        action:step(dt)
+
+        -- 방향 지정
+        local flip
+        if (cur_x == tar_x) then
+            flip = self.m_animator.m_bFlip
+        else
+            flip = (cur_x > tar_x)
+        end
+
+        self.m_animator:setFlip(flip)
+    end
+
+    local x, y = self.m_rootNode:getPosition()
+    self:dispatch('lobby_character_move', {}, self, x, y)
+end
+
 
 -------------------------------------
 -- function onMoveEnd
@@ -140,42 +181,6 @@ LobbyTamer.st_move = LobbyCharacter.st_move
 function LobbyTamer:onMoveEnd()
     self:changeState('idle')
     return true
-end
-
--------------------------------------
---- @function setLeftArrow
--------------------------------------
-function LobbyTamer:setLeftArrow()
-    if self.m_arrowAnimator == nil then
-        return
-    end
-
-    if self.m_arrowDirection == -1 then
-        return
-    end
-
-    self.m_arrowDirection = -1
-    self.m_arrowAnimator:setPosition(cc.p(-150, 100))
-    self.m_arrowAnimator:changeAni('arrow_left', true)
-    self.m_arrowAnimator:setVisible(true)
-end
-
--------------------------------------
---- @function setRightArrow
--------------------------------------
-function LobbyTamer:setRightArrow()
-    if self.m_arrowAnimator == nil then
-        return
-    end
-
-    if self.m_arrowDirection == 1 then
-        return
-    end
-
-    self.m_arrowDirection = 1
-    self.m_arrowAnimator:setPosition(cc.p(150, 100))
-    self.m_arrowAnimator:changeAni('arrow_right', true)
-    self.m_arrowAnimator:setVisible(true)
 end
 
 -------------------------------------
@@ -193,6 +198,34 @@ function LobbyTamer:refresh(struct_user_info)
     -- UI 갱신
     self.m_ui:refreshUI(struct_user_info)
 end
+
+-------------------------------------
+--- @function updateWorldRaidMilestone
+--- @brief 이정표
+-------------------------------------
+function LobbyTamer:updateWorldRaidMilestone()
+    -- 방향 화살표 생성
+    if g_userData:get('uid') == self.m_userData:getUid() then
+        local visibleSize = cc.Director:getInstance():getVisibleSize()
+
+        local pos_x = visibleSize['width'] - 50
+        local pos_y = 500
+        local point = cc.p(pos_x, pos_y)
+
+        -- item들은 game node 2에 위치함
+        local node_pos = self.m_rootNode:convertToNodeSpace(point)
+        self.m_arrowAnimator:setPositionX(node_pos.x)
+    end
+end
+
+
+-------------------------------------
+-- function getLobbyMap
+-------------------------------------
+function LobbyTamer:getLobbyMap()
+    return self.m_lobbyMap
+end
+
 
 -------------------------------------
 -- function release

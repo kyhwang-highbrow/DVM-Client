@@ -254,7 +254,7 @@ end
 -------------------------------------
 --- @function isNeerUserTamer
 -------------------------------------
-function LobbyMap:isNeerUserTamer(obj_node)
+function LobbyMap:isNeerUserTamer(obj_node, dist)
     if self.m_lobbyTamerUser == nil then
         return false
     end
@@ -269,7 +269,7 @@ function LobbyMap:isNeerUserTamer(obj_node)
     local world_pos = convertToWorldSpace(root_node)
     local world_pos_obj = convertToWorldSpace(obj_node)
 
-    local std_distance = 400
+    local std_distance = dist
     local distance = getDistance(world_pos_obj['x'], world_pos_obj['y'], world_pos['x'], world_pos['y'])    
 
     if (distance <= std_distance) then
@@ -446,9 +446,9 @@ function LobbyMap:makeLobbyTamerBot(struct_user_info)
     local tamer
     if is_bot then
         --tamer = LobbyTamerBot(struct_user_info)
-        tamer = LobbyTamer(struct_user_info)
+        tamer = LobbyTamer(struct_user_info, self)
     else
-        tamer = LobbyTamer(struct_user_info)
+        tamer = LobbyTamer(struct_user_info, self)
     end
 
     -- 테이머 리소스 (tamer id에 따라 받아옴)
@@ -918,14 +918,7 @@ function LobbyMap:updateUserTamerActionArea()
             g_lobbyChangeMgr:changeTypeAndGotoLobby(LOBBY_TYPE.CLAN)
         end
 
-        -- 게시판 위치에 따라 화살표 애니메이션 재생        
-        if (user_x <= 650) then            
-            self.m_targetTamer:setRightArrow()
-        else
-            self.m_targetTamer:setLeftArrow()
-        end
-
-    -- 클랜 로비 -> 마을 
+        -- 클랜 로비 -> 마을 
     elseif (cur_lobby == LOBBY_TYPE.CLAN) then
         local lobby_spot_pos = self.m_lobbySpotPos
 

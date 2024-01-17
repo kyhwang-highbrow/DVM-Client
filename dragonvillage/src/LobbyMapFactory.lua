@@ -772,7 +772,7 @@ function LobbyMapFactory:makeBoardTouchEvent(node, touch_cb)
             return
         end
 
-        if self.m_lobbyMap:isNeerUserTamer(node) == false then
+        if self.m_lobbyMap:isNeerUserTamer(node, 400) == false then
             return
         end
 
