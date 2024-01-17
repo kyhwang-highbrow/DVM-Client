@@ -10,7 +10,7 @@ LobbyTamer = class(PARENT, {
         m_idleTimer = 'number', -- 5초동안 정지 상태일 때 'pose_1'을 재생
         m_idleMotionCnt = 'number',
         m_lobbyMap = 'LobbyMap',
-        m_milestoneUI = 'UI_WorldRaidBoardMilestonItem',
+        m_milestoneUI = 'LobbyMilestone',
 
      })
 
@@ -63,17 +63,6 @@ function LobbyTamer:initAnimator(file_name)
         if (curr_animation ~= nil) and (curr_flip ~= nil) then
             self.m_animator:changeAni(curr_animation, true)
             self.m_animator:setFlip(curr_flip)
-        end
-    end
-
-    -- 방향 화살표 생성
-    if g_userData:get('uid') == self.m_userData:getUid() then
-        do -- 오른쪽
-            if self.m_milestoneUI == nil then
-                local ui = UI_WorldRaidBoardMilestonItem(self)
-                self.m_rootNode:addChild(ui.root, 1)
-                self.m_milestoneUI = ui
-            end
         end
     end
 end
@@ -240,6 +229,12 @@ function LobbyTamer:release()
         self.m_ui:release()
         self.m_ui = nil
     end
+
+    if self.m_milestoneUI then
+        self.m_milestoneUI:release()
+        self.m_milestoneUI = nil
+    end
+
 
     PARENT.release(self)
 end

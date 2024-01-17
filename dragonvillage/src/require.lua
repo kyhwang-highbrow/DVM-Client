@@ -968,6 +968,7 @@ local t_module = {
     'LobbyTamerBot',
     'LobbyDragon',
     'LobbyShadow',
+    'LobbyMilestone',
     'LobbyUserStatusUI',
     'LobbyManager',
     'LobbyManager_Clan',
@@ -1877,7 +1878,7 @@ local t_module = {
     'UI_WorldRaidRankingRewardItem', -- 보상 리스트 아이템
     'UI_WorldRaidResult', -- 전투 결과 화면
     'UI_WorldRaidBoard', -- 월드 레이드 게시판
-    'UI_WorldRaidBoardMilestonItem', -- 월드 레이드 마일 스톤
+    
 }
 
 -------------------------------------

@@ -466,7 +466,7 @@ function LobbyMap:makeLobbyTamerBot(struct_user_info)
     tamer.m_animator:setFlip(flip)
 
     self:addLobbyTamer(tamer, is_bot, struct_user_info)
-    self:addLobbyDragon(tamer, is_bot, struct_user_info)
+    self:addLobbyDragon(tamer, is_bot, struct_user_info)    
 
     if is_bot then
         --[[
@@ -529,6 +529,20 @@ function LobbyMap:addLobbyTamer(tamer, is_bot, t_user_info)
         tamer:addListener('lobby_character_move', lobby_user_status_ui)
 
         tamer.m_ui = lobby_user_status_ui
+    end
+
+    do -- UI 마일스톤 유아이 생성
+        if is_bot == false then
+            local lobby_user_status_ui = LobbyMilestone(self)
+            self.m_groudNode:addChild(lobby_user_status_ui.m_rootNode, 100000)
+
+            -- UI 이동 이벤트 등록
+            lobby_user_status_ui:addListener('lobby_user_status_ui_move', self)
+
+            -- 테이머가 이동하면 UI도 함께 이동
+            tamer:addListener('lobby_character_move', lobby_user_status_ui)
+        end
+        
     end
 
     -- 유저 테이머에만 추가
