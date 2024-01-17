@@ -140,7 +140,7 @@ function UI_UserSetLeaderProfileFrameTab:refresh()
 
         vars['equipBtn']:setVisible(not is_equpped and is_select)
         vars['unequipBtn']:setVisible(is_equpped and is_select)
-        vars['stateLabel']:setVisible(is_select)
+        vars['stateLabel']:setVisible(is_select)        
     end
 end
 
@@ -151,15 +151,20 @@ function UI_UserSetLeaderProfileFrameTab:update()
     local vars = self.vars
     do -- 버튼
         local profile_frame = self.m_selectProfileFrameId
+        vars['infoLabel']:setVisible(profile_frame == 0)
+
         if profile_frame == 0 then
             vars['stateLabel']:setString('')
+            vars['timeLabel']:setString('')
             return
         end
 
         local is_owned = g_profileFrameData:isOwnedProfileFrame(self.m_selectProfileFrameId)
+        vars['timeLabel']:setString('')
         if is_owned == true then
             local msg = g_profileFrameData:getRemainTimeStr(profile_frame)
-            vars['stateLabel']:setString(string.format('%s%s', '{@green}' ,msg))
+            vars['stateLabel']:setString(Str('보유 중'))
+            vars['timeLabel']:setString(string.format('%s%s', '{@green}' ,msg))
         else
             vars['stateLabel']:setString(string.format('%s%s', '{@RED}' ,Str('미보유')))
         end
