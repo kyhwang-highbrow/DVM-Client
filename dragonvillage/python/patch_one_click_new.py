@@ -224,14 +224,14 @@ def main():
     init_global_var()
 
     #빌드 시작 슬랙 메시지 보내기
-    send_slack('\n빌드 진행 중..')
+    send_slack('\n패치 생성 진행 중..')
     
     #리소스 유효성 검사
     os.chdir("../bat")
     result = os.system('0_PATCH_VALIDATOR.bat')
     
     if result == 101:
-        str_text = '\n빌드 실패 by Resource Validation Failed!!' + '😡😡😡'
+        str_text = '\n패치 생성 실패 by Resource Validation Failed!!' + '😡😡😡'
         send_slack(str_text)
         exit(-1)
 
@@ -269,7 +269,7 @@ def main():
         md5.makePatchLog(source_path, latest_plg_path)
         print('ERROR: The latest "plg file" does not exist. : ' + latest_plg_path)
 
-        str_text = '\n빌드 실패 by ERROR: The latest "plg file" does not exist.' + latest_plg_path + '😡😡😡'
+        str_text = '\n패치 생성 실패 by ERROR: The latest "plg file" does not exist.' + latest_plg_path + '😡😡😡'
         send_slack(str_text)
 
         exit(-1)
@@ -283,7 +283,7 @@ def main():
     if len(new_plg_hash) == 0:
         os.remove(next_plg_path)
         print('# No changes file!! (patch_idx ' + str(latest_patch_ver) + ')')
-        str_text = '\n빌드 실패 by ' + '# No changes file!! (patch_idx ' + str(latest_patch_ver) + ')' + '😡😡😡'
+        str_text = '\n패치 생성 실패 by ' + '# No changes file!! (patch_idx ' + str(latest_patch_ver) + ')' + '😡😡😡'
         send_slack(str_text)
         exit(-1)
     
@@ -331,7 +331,7 @@ def main():
 
     #빌드 종료 슬랙 메시지 보내기
     zip_size = zip_size/(1024*1024)
-    str_text = '\n빌드 성공 patch {:d}, size {:.2f} MB'.format(new_patch_ver, zip_size) + '😄😄😄'
+    str_text = '\n패치 생성 성공 patch {:d}, size {:.2f} MB'.format(new_patch_ver, zip_size) + '😄😄😄'
 
     #패치 사이즈가 20MB가 넘을 경우 경고
     if zip_size > 20:
