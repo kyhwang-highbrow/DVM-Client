@@ -142,6 +142,17 @@ function UI_UserSetLeaderProfileFrameTab:refresh()
         vars['unequipBtn']:setVisible(is_equpped and is_select)
         vars['stateLabel']:setVisible(is_select)        
     end
+
+    do -- 설명
+        vars['infoLabel']:setString('')
+        local is_select = self.m_selectProfileFrameId ~= 0
+        if is_select == true then
+            local str_desc = TableItem:getItemDesc(self.m_selectProfileFrameId)            
+            vars['infoLabel']:setString(str_desc)
+        else
+            vars['infoLabel']:setString(Str('착용 중인 프로필 테두리가 없습니다.'))
+        end
+    end
 end
 
 -------------------------------------
@@ -151,8 +162,6 @@ function UI_UserSetLeaderProfileFrameTab:update()
     local vars = self.vars
     do -- 버튼
         local profile_frame = self.m_selectProfileFrameId
-        vars['infoLabel']:setVisible(profile_frame == 0)
-
         if profile_frame == 0 then
             vars['stateLabel']:setString('')
             vars['timeLabel']:setString('')
