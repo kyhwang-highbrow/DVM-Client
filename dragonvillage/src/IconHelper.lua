@@ -821,7 +821,9 @@ function IconHelper:getProfileFrameAnimator(profile_frame_id)
         animator:setDockPoint(cc.p(0.5, 0.5))
         animator:setAnchorPoint(cc.p(0.5, 0.5))
         animator:setScale(1.1)
-        animator:changeAni('idle', true)
+        if string.find(res, '.spine') ~= nil then
+            animator:changeAni('idle', true)
+        end
     end
     return animator
 end
