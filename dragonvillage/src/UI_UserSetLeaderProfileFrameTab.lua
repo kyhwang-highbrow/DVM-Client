@@ -37,7 +37,7 @@ function UI_UserSetLeaderProfileFrameTab:initTableView()
     local vars = self.vars
 
     local create_cb = function(ui, data)
-        ui.root:setScale(0.5)
+        --ui.root:setScale(0.7)
         ui.root:setSwallowTouch(true)        
         ui.vars['clickBtn']:registerScriptTapHandler(function() 
             self:click_selectBtn(data)
