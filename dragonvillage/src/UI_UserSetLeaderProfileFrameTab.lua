@@ -49,7 +49,7 @@ function UI_UserSetLeaderProfileFrameTab:initTableView()
     local l_item_list = TableProfileFrame:getInstance():getAllProfileIdList()
     local table_view_td = UIC_TableViewTD(vars['listNode'])
     table_view_td.m_cellSize = cc.size(120, 120)
-    table_view_td.m_nItemPerCell = 4
+    table_view_td.m_nItemPerCell = 5
     table_view_td:setCellUIClass(UI_ProfileFrameItem, create_cb)
     table_view_td:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
     table_view_td:setItemList(l_item_list)
