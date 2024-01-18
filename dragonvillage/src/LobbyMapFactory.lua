@@ -395,8 +395,11 @@ end
 --- @brief 랭킹 보드 정보 게시판
 -------------------------------------
 function LobbyMapFactory:makeLobbyBoard_onLayer(node)
-    local click_cb = function()
-        UI_WorldRaidBoard.open()
+    local click_cb = function(parent_node)
+        cclog('여기 들어오나??')
+        if self.m_lobbyMap:isNeerUserTamer(parent_node, 400) == false then
+            return
+        end
     end
 
     local parent_node = cc.Node:create()
@@ -404,7 +407,7 @@ function LobbyMapFactory:makeLobbyBoard_onLayer(node)
     parent_node:setAnchorPoint(CENTER_POINT)
     parent_node:setPosition(650, 200)
     parent_node:setContentSize(320, 500)
-    parent_node:setScale(1)    
+    parent_node:setScale(1)
     node:addChild(parent_node, 1)
 
     local ui = UI_WorldRaidRankingBoardItem(click_cb)
@@ -413,8 +416,11 @@ function LobbyMapFactory:makeLobbyBoard_onLayer(node)
         ui.root:setAnchorPoint(CENTER_POINT)
         ui.root:setScale(1)
 
+        ui.vars['listBtn']:registerScriptTapHandler(function() 
+            UI_WorldRaidBoard.open() 
+        end)
         parent_node:addChild(ui.root, 1)
-        self:makeBoardTouchEvent(parent_node, click_cb)
+        --self:makeBoardTouchEvent(parent_node, click_cb)
     end
 end
 
@@ -765,30 +771,30 @@ end
 --- @function makeBoardTouchEvent
 -------------------------------------
 function LobbyMapFactory:makeBoardTouchEvent(node, touch_cb)
-    local is_requested = false
-    local function touch_event(touches, event)
-        if (is_requested == true) then
-            is_requested = false
-            return
-        end
+    -- local is_requested = false
+    -- local function touch_event(touches, event)
+    --     if (is_requested == true) then
+    --         is_requested = false
+    --         return
+    --     end
 
-        if self.m_lobbyMap:isNeerUserTamer(node, 400) == false then
-            return
-        end
+    --     if self.m_lobbyMap:isNeerUserTamer(node, 400) == false then
+    --         return
+    --     end
 
-        local touch_pos = touches[1]:getLocation()
-        local bounding_box = node:getBoundingBox()
-        local local_location = node:getParent():convertToNodeSpace(touch_pos)
-        local is_contain = cc.rectContainsPoint(bounding_box, local_location)
-        if (is_contain ~= true) then
-            return
-        end
+    --     local touch_pos = touches[1]:getLocation()
+    --     local bounding_box = node:getBoundingBox()
+    --     local local_location = node:getParent():convertToNodeSpace(touch_pos)
+    --     local is_contain = cc.rectContainsPoint(bounding_box, local_location)
+    --     if (is_contain ~= true) then
+    --         return
+    --     end
 
-        is_requested = true
-        SafeFuncCall(touch_cb)
-    end
+    --     is_requested = true
+    --     SafeFuncCall(touch_cb)
+    -- end
 
-    if (self.m_lobbyMap) then
-        self.m_lobbyMap:makeTouchLayer(node, touch_event)
-    end
+    -- if (self.m_lobbyMap) then
+    --     self.m_lobbyMap:makeTouchLayer(node, touch_event)
+    -- end
 end

@@ -124,45 +124,7 @@ end
 -------------------------------------
 -- function st_move
 -------------------------------------
-function LobbyTamer:st_move(dt)
-    if (self.m_stateTimer == 0) then
-
-        self:dispatch('lobby_character_move_start', {}, self)
-
-        local function finich_cb()
-            local x, y = self.m_rootNode:getPosition()
-            self:dispatch('lobby_character_move', {}, self, x, y)
-            
-            if (self:onMoveEnd() == true) then
-                return
-            end
-
-            self:changeState('idle')
-        end
-
-        local cur_x, cur_y = self.m_rootNode:getPosition()
-        local tar_x, tar_y = self.m_moveX, self.m_moveY
-        local distance = getDistance(cur_x, cur_y, tar_x, tar_y)
-        local duration = (distance / self.m_moveSpeed)
-        local action = cc.Sequence:create(cc.MoveTo:create(duration, cc.p(tar_x, tar_y)), cc.CallFunc:create(finich_cb))
-        cca.runAction(self.m_rootNode, action, LobbyTamer.MOVE_ACTION)
-        action:step(dt)
-
-        -- 방향 지정
-        local flip
-        if (cur_x == tar_x) then
-            flip = self.m_animator.m_bFlip
-        else
-            flip = (cur_x > tar_x)
-        end
-
-        self.m_animator:setFlip(flip)
-    end
-
-    local x, y = self.m_rootNode:getPosition()
-    self:dispatch('lobby_character_move', {}, self, x, y)
-end
-
+LobbyTamer.st_move = LobbyCharacter.st_move
 
 -------------------------------------
 -- function onMoveEnd
@@ -189,32 +151,11 @@ function LobbyTamer:refresh(struct_user_info)
 end
 
 -------------------------------------
---- @function updateWorldRaidMilestone
---- @brief 이정표
--------------------------------------
-function LobbyTamer:updateWorldRaidMilestone()
-    -- 방향 화살표 생성
-    if g_userData:get('uid') == self.m_userData:getUid() then
-        local visibleSize = cc.Director:getInstance():getVisibleSize()
-
-        local pos_x = visibleSize['width'] - 50
-        local pos_y = 500
-        local point = cc.p(pos_x, pos_y)
-
-        -- item들은 game node 2에 위치함
-        local node_pos = self.m_rootNode:convertToNodeSpace(point)
-        self.m_arrowAnimator:setPositionX(node_pos.x)
-    end
-end
-
-
--------------------------------------
 -- function getLobbyMap
 -------------------------------------
 function LobbyTamer:getLobbyMap()
     return self.m_lobbyMap
 end
-
 
 -------------------------------------
 -- function release

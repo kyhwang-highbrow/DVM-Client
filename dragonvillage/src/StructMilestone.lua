@@ -46,7 +46,6 @@ function StructMilestone:getObjectLobbyType()
     return self.m_objectLobbyType
 end
 
-
 -------------------------------------
 --- @function getObjectLobbyDirection
 -------------------------------------
@@ -56,7 +55,7 @@ function StructMilestone:getObjectLobbyDirection()
     if self.m_objectLobbyType == cur_lobby_type then
         return 0
     end
-
+    
     if self.m_objectLobbyType == LOBBY_TYPE.NORMAL then
         return 1
     end
@@ -67,7 +66,6 @@ function StructMilestone:getObjectLobbyDirection()
 
     return 0
 end
-
 
 -------------------------------------
 --- @function isActivate

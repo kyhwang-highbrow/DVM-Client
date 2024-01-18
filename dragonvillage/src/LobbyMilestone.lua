@@ -74,8 +74,11 @@ function LobbyMilestone:refresh(tamer_world_pos)
         return
     end
 
-    self.m_rootNode:setVisible(true)
+    if g_lobbyChangeMgr:getLobbyEntering() == true then
+        return
+    end
 
+    self.m_rootNode:setVisible(true)
     local object_pos = self.m_milstone:getObjectPos()
     local lobby_direction = self.m_milstone:getObjectLobbyDirection()
     local board_world_pos = lobby_map.m_groudNode:convertToWorldSpaceAR(object_pos)    
@@ -88,7 +91,7 @@ function LobbyMilestone:refresh(tamer_world_pos)
 
     local x = 150 * diff
     if self.root:getPositionX() ~= x  then
-        local str = diff_x < 0 and 'arrow_left' or 'arrow_right'
+        local str = diff < 0 and 'arrow_left' or 'arrow_right'
         self.root:setPosition(cc.p(x, 100))
         self.m_arrowAnimator:changeAni(str, true)
     end
