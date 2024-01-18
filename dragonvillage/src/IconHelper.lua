@@ -804,23 +804,19 @@ end
 --- @brief 프로필 프레임 애니메이터
 -------------------------------------
 function IconHelper:getProfileFrameAnimator(profile_frame_id)
-    local llist = {0, 900002, 900003, 900004}
-    local random_idx = math_random(1, 4)
-
-    -- if llist[random_idx] == 0 then
-    --     return nil
-    -- end
-
+    -- local llist = {900001, 900002, 900003, 900004, 900004, 0}
+    -- local random_idx = math_random(1, 6)
+    -- profile_frame_id = llist[random_idx]
     if profile_frame_id == 0 then
         return nil
     end
 
-    local res = TableProfileFrame:getInstance():getProfileFrameRes(profile_frame_id)
+    local res, scale = TableProfileFrame:getInstance():getProfileFrameRes(profile_frame_id)
     local animator = MakeAnimator(res)
     if (animator) then
         animator:setDockPoint(cc.p(0.5, 0.5))
         animator:setAnchorPoint(cc.p(0.5, 0.5))
-        animator:setScale(1.1)
+        animator:setScale(scale)
         if string.find(res, '.spine') ~= nil then
             animator:changeAni('idle', true)
         end

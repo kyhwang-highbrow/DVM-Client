@@ -32,7 +32,17 @@ end
 -------------------------------------
 function TableProfileFrame:getProfileFrameRes(profile_frame_id)
     local res = self:getValue(profile_frame_id, 'frame_res')
-    return 'res/frames/' .. res
+    local scale = self:getProfileFrameScale(profile_frame_id)
+    return 'res/frames/' .. res, scale
+end
+
+-------------------------------------
+---@function getProfileFrameScale
+---@brief 프로필 프레임 리소스 스케일
+-------------------------------------
+function TableProfileFrame:getProfileFrameScale(profile_frame_id)
+    local num = self:getValue(profile_frame_id, 'scale') or 1
+    return num
 end
 
 -------------------------------------
