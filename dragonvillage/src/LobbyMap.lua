@@ -533,7 +533,7 @@ function LobbyMap:addLobbyTamer(tamer, is_bot, t_user_info)
 
     do -- UI 마일스톤 유아이 생성
         if is_bot == false then
-            local lobby_user_status_ui = LobbyMilestone(self)
+            local lobby_user_status_ui = LobbyMilestone(self, StructMilestone.getAllMilestoneList())
             self.m_groudNode:addChild(lobby_user_status_ui.m_rootNode, 100000)
 
             -- UI 이동 이벤트 등록

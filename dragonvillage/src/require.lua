@@ -173,6 +173,8 @@ local t_module = {
     'StructRunePresetGroup',
     'StructLairStat',
     'StructBattleSelectFriend',
+    'StructMilestone',
+    'StructMilestoneWorldRaidBoard',
 
 	-- ServerData 
     'ServerData',

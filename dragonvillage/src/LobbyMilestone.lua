@@ -6,18 +6,22 @@ local PARENT = class(UI, IEventDispatcher:getCloneTable(), IEventListener:getClo
 LobbyMilestone = class(PARENT, {
     m_rootNode = 'cc.Node',
     m_lobbyMap = 'm_lobbyMap',
+    m_milestoneList = 'List<StructMilestone>',
+    m_milstone = 'StructMilestone',
     m_arrowAnimator = '',
      })
 
 -------------------------------------
 -- function init
 -------------------------------------
-function LobbyMilestone:init(lobby_map)
+function LobbyMilestone:init(lobby_map, struct_milestone_list)
     self:load('world_raid_ranking_board_milestone.ui')
     -- rootNode 생성
     self.m_rootNode = cc.Node:create()
     self.m_rootNode:addChild(self.root)
     self.m_lobbyMap = lobby_map
+    self.m_milestoneList = struct_milestone_list
+    self.m_milstone = self:getActiveMilstone()
     self.m_arrowAnimator = self.vars['arrowVisual']
 end
 
@@ -38,22 +42,51 @@ function LobbyMilestone:onEvent(event_name, t_event, ...)
 end
 
 -------------------------------------
+--- @function getActiveMilstone
+-------------------------------------
+function LobbyMilestone:getActiveMilstone()
+    for _, v in ipairs(self.m_milestoneList) do
+        if v:isActivate() == true then
+            return v
+        end
+    end
+
+    return nil
+end
+
+-------------------------------------
 --- @function refresh
 -------------------------------------
 function LobbyMilestone:refresh(tamer_world_pos)
     local vars = self.vars
     local lobby_map = self.m_lobbyMap
+    self.m_rootNode:setVisible(false)
+
     if lobby_map == nil then
         return
     end
 
-    local board_world_pos = lobby_map.m_groudNode:convertToWorldSpaceAR(cc.p(650, 200))
-    --local tamer_world_pos = convertToWorldSpace(tamer_pos)    
+    if self.m_milstone == nil then
+        return
+    end
 
+    if self.m_milstone:isActivate() == false then        
+        return
+    end
+
+    self.m_rootNode:setVisible(true)
+
+    local object_pos = self.m_milstone:getObjectPos()
+    local lobby_direction = self.m_milstone:getObjectLobbyDirection()
+    local board_world_pos = lobby_map.m_groudNode:convertToWorldSpaceAR(object_pos)    
     local diff_x = board_world_pos.x - tamer_world_pos.x
     local diff = diff_x < 0 and -1 or 1
-    local x = 150 * diff
 
+    if lobby_direction ~= 0 then
+        diff = lobby_direction
+    end
+
+    local x = 150 * diff
     if self.root:getPositionX() ~= x  then
         local str = diff_x < 0 and 'arrow_left' or 'arrow_right'
         self.root:setPosition(cc.p(x, 100))
