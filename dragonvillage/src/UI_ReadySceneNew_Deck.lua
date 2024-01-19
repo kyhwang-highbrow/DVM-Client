@@ -1309,12 +1309,12 @@ function UI_ReadySceneNew_Deck:onTouchEnded(touch, event)
         local selected_idx_doid = self.m_lDeckList[near_idx]
 
         -- 둘 다 해제
-        self:setSlot(near_idx, nil)
-        self:setSlot(self.m_selectedDragonSlotIdx, nil)
+        self:setSlot(near_idx, nil, true)
+        self:setSlot(self.m_selectedDragonSlotIdx, nil, true)
 
         -- 다시 입력
-        self:setSlot(near_idx, near_idx_doid)
-        self:setSlot(self.m_selectedDragonSlotIdx, selected_idx_doid)
+        self:setSlot(near_idx, near_idx_doid, true)
+        self:setSlot(self.m_selectedDragonSlotIdx, selected_idx_doid, true)
 
         self:refreshFocusDeckSlot()
     end
