@@ -60,22 +60,21 @@ function ServerData_StoryDungeonEvent:getStoryDungeonStageIdList(season_id)
 
     local t_season_info = self:getStoryDungeonSeasonInfo(season_id)
     local t_clear_info = t_season_info['stage_play_count']
-    local list = {}
 
     if t_clear_info == nil then
         return {}
     end
 
-    local table_drop = TableDrop()
-
-    for stage_id, _ in pairs(t_clear_info) do
-        local num_stage_id = tonumber(stage_id)
-        --if table_drop:exists(num_stage_id) then
-        table.insert(list, num_stage_id)
-        --else
-            --error('table_drop에 없는 스테이지 아이디가 내려오고 있음 stage id : ' .. num_stage_id)
-        --end
-    end
+    --local table_drop = TableDrop()
+    local list = TableDrop:getStageListBySeasonID(season_id)
+    -- for stage_id, _ in pairs(t_clear_info) do
+    --     local num_stage_id = tonumber(stage_id)
+    --     --if table_drop:exists(num_stage_id) then
+    --     table.insert(list, num_stage_id)
+    --     --else
+    --         --error('table_drop에 없는 스테이지 아이디가 내려오고 있음 stage id : ' .. num_stage_id)
+    --     --end
+    -- end
 
     table.sort(list, function (a, b) 
         return a < b
@@ -223,7 +222,7 @@ function ServerData_StoryDungeonEvent:getStoryDungeonStageClearCount(season_id, 
         return 0
     end
 
-    local clear_count = t_clear_info[tostring(stage_id)]
+    local clear_count = t_clear_info[tostring(stage_id)] or 0
     return clear_count
 end
 

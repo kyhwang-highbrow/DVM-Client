@@ -118,3 +118,15 @@ function TableDrop:getStageBonusGoldInfo(stage_id)
 
     return gold_per_hit, gold_per_damage, gold_per_limit
 end
+
+-------------------------------------
+-- function getStageListBySeasonID
+-------------------------------------
+function TableDrop:getStageListBySeasonID(season_id)
+    if (self == THIS) then
+        self = THIS()
+    end
+    
+    local list = self:filterColumnList('season_id', season_id, 'stage')
+    return list
+end
