@@ -58,12 +58,12 @@ function ServerData_StoryDungeonEvent:getStoryDungeonStageIdList(season_id)
         return self.m_cachedStageIdListMap[season_id]
     end
 
-    local t_season_info = self:getStoryDungeonSeasonInfo(season_id)
-    local t_clear_info = t_season_info['stage_play_count']
+    -- local t_season_info = self:getStoryDungeonSeasonInfo(season_id)
+    -- local t_clear_info = t_season_info['stage_play_count']
 
-    if t_clear_info == nil then
-        return {}
-    end
+    -- if t_clear_info == nil then
+    --     return {}
+    -- end
 
     --local table_drop = TableDrop()
     local list = TableDrop:getStageListBySeasonID(season_id)
