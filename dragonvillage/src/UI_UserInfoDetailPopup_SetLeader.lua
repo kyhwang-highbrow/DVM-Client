@@ -22,7 +22,7 @@ end
 function UI_UserInfoDetailPopup_SetLeader:init(t_user_info)
     self.m_uiName = 'UI_UserInfoDetailPopup_SetLeader'
 
-    local vars = self:load('user_info_dragon.ui')
+    local vars = self:load('user_info_dragon_old.ui')
     UIManager:open(self, UIManager.POPUP)
 
     -- backkey 지정

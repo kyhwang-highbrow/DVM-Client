@@ -395,8 +395,11 @@ end
 --- @brief 랭킹 보드 정보 게시판
 -------------------------------------
 function LobbyMapFactory:makeLobbyBoard_onLayer(node)
-    local click_cb = function(parent_node)
-        cclog('여기 들어오나??')
+    if g_worldRaidData:isAvailableWorldRaid() == false then
+        return
+    end
+
+    local click_cb = function(parent_node)        
         if self.m_lobbyMap:isNeerUserTamer(parent_node, 400) == false then
             return
         end

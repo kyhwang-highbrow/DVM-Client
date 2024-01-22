@@ -15,14 +15,14 @@ end
 --- @function isAvailableWorldRaid
 -------------------------------------
 function ServerData_WorldRaid:isAvailableWorldRaid()
-    return true --g_hotTimeData:isActiveEvent('world_raid')
+    return false --g_hotTimeData:isActiveEvent('world_raid')
 end
 
 -------------------------------------
 --- @function isAvailableWorldRaidReward
 -------------------------------------
 function ServerData_WorldRaid:isAvailableWorldRaidReward()
-  return true --g_hotTimeData:isActiveEvent('world_raid')
+  return false --g_hotTimeData:isActiveEvent('world_raid')
 end
 
 -------------------------------------
