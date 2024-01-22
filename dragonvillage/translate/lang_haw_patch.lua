@@ -295,6 +295,8 @@ return {['[맛있는 도넛!]이 자신을 제외한 아군 전체의 첫번째 
 ['일정시간마다 가장 방어력이 높은 대상에게 10회에 걸쳐 튕기는 구체가 모든 방어 수단을 무시한 피해를 가합니다. 대상의 방어력이 낮을수록 피해량이 상승하며, 만약 대상의 방어력이 13000이상일 경우 피해가 무효화 됩니다.']='ʻO kēlā me kēia manawa o ka manawa, he pōʻai pōʻino e hoʻopōʻino i ka pahuhopu me ka pale kiʻekiʻe loa ma mua o 10 paʻi me ka nānā ʻole ʻana i nā hana pale āpau. Piʻi ka pōʻino i ka emi ʻana o ka pale o ka pahu hopu, a inā he 13,000 a ʻoi paha ka pale o ka pahu hopu, ua hoʻopau ʻia ka pōʻino.',
 ['진정한 힘에 눈을 뜬 뒤 자신의 힘을 필요로 하는 곳으로 향하는 무한의 드래곤이다. 생명의 기운과 공명하고자 했던 파워드래곤은 탐욕적인 몬스터들이 자신의 힘에 이끌림을 느끼고, 자신의 힘을 숨기고자 했다. 그러나 생명의 근원을 만남으로써 진정한 힘은 감추는 것이 아니라 수호의 의지에서 비롯됨을 깨달았다. 조화를 이루어 무한한 힘을 이끌어낸 파워드래곤은 무한의 힘을 거머쥐어 무한의 파워드래곤으로써 성장해 자신의 힘을 펼쳐내기 시작한다. ']='He deragona pau ʻole ia e wehe ana i kona mau maka i ka ikaika maoli a hele i kahi e pono ai kona mana ponoʻī. ʻO ka Mana Mana, ka mea i makemake e hoʻohauʻoli me ka ikaika o ke ola, ua manaʻo i ka hoʻowalewale ʻana o nā monsters a hoʻāʻo e hūnā i kona mana. Eia naʻe, ma ka ʻike ʻana i ke kumu o ke ola, ua ʻike ʻo ia ʻaʻole hūnā ʻia ka mana maoli akā mai ka makemake o ka pale. I ka loaʻa ʻana o ka lokahi, hoʻokuʻu ka Mana Mana i ka mana pau ʻole a hoʻomaka e wehe i kona mana ponoʻī e like me ka Infinite Mana Mana.',
 ['파워드래곤의 시험입니다. 방어형 드래곤의 주는 피해량이 900% 증가합니다.']='He hoao keia o ka deragona mana. ʻO ka pōʻino i hana ʻia e nā hoʻouka kaua a ka defensive dragon e hoʻonui ʻia e 900%.',
+['너의 강인함은 어느정도인가!']='너의 강인함은 어느정도인가!',
+['적을 거대한 바위 발로 강하게 타격합니다. 자신의 생명력에 따라 위력이 크게 증가합니다. 대상에게 100% 확률로 20초간 회피와 방어력 감소를 부여합니다.']='적을 거대한 바위 발로 강하게 타격합니다. 자신의 생명력에 따라 위력이 크게 증가합니다. 대상에게 100% 확률로 20초간 회피와 방어력 감소를 부여합니다.',
 ['파워드래곤은 무의식적으로 자신의 힘을 나누는 것이 수호자의 능력이라 여겼다.']='Ua noʻonoʻo ka Mana Mana i ka puʻunaue ʻana i kona mana me ka ʻike ʻole i ka hiki ke kahu.',
 ['하지만 자신의 능력이 오히려 죄 없는 생명들을 희생시키자 깊은 슬픔과 후회를 느꼈다.']='Akā naʻe, ua kaumaha nui ʻo ia a me ka mihi ʻoiai ʻo kona hiki ke hoʻopau i nā ola hala ʻole.',
 ['자신의 힘을 더 잘 통제하지 못해 몬스터들이 저지른 만행에 대한 자책감을 느꼈고,']='Manaʻo hewa no ka hiki ʻole ke hoʻomalu maikaʻi i ko lākou mana ponoʻī a me ka pōʻino i hana ʻia e nā monsters,',
@@ -312,7 +314,7 @@ return {['[맛있는 도넛!]이 자신을 제외한 아군 전체의 첫번째 
 ['허나 몬스터들은 더욱 날뛸 뿐이었다.']='Akā naʻe, ua lele wale nā ​​monsters i luna.',
 ['몬스터는 무기를 쥔 채 죄 없는 생명들을 위협하고 있었다.']='Ua hoʻoweliweli ka monster i nā ola hala ʻole me ka paʻa ʻana i kahi mea kaua.',
 ['파워드래곤은 자신의 힘을 사용하지 않으리라 맹세했기에 생명들에게 힘을 전할 수 없었다.']='ʻAʻole hiki i Mana Mana ke hāʻawi i kona mana i nā mea ola no ka mea ua hoʻohiki ʻo ia ʻaʻole e hoʻohana i kona mana ponoʻī.',
-['나의 힘이 또 다른 악행으로 이어진다면...\'']='Ina e alakai ko\'u mana i kekahi hana ino...',
+['나의 힘이 또 다른 악행으로 이어진다면...']='Ina e alakai ko\'u mana i kekahi hana ino...',
 ['파워드래곤']='Mana Mana',
 ['자신의 힘을 사용하지 않는 파워드래곤은 점차 무너져 내렸다.']='ʻO ka deragona mana ʻole i hoʻohana ʻole i kona ikaika ponoʻī ua hāʻule mālie a hāʻule.',
 ['나의 힘이 더는 그 누구에게도 닿지 못하도록 능력을 숨겨야 한다.']='Pono au e hūnā i koʻu hiki i ʻole e hiki hou koʻu mana i kekahi.',
@@ -355,7 +357,7 @@ return {['[맛있는 도넛!]이 자신을 제외한 아군 전체의 첫번째 
 ['무한의 파워드래곤은 무한의 돌로 붉은 방패를 만들어 파워드래곤의 힘을 방어했다.']='Ua pale ka Infinite Mana Mana i kona mana me ka Pale ʻulaʻula i hana ʻia me nā pōhaku pau ʻole.',
 ['그 방패를 깨트리기 위하여 파워드래곤은 백 번이고, 천 번이고 돌진했다.']='Ua hoʻopiʻi ka deragona mana i nā haneli mau manawa e wāwahi i kēlā pale.',
 ['더 이상 포기하지도, 두려워하지도, 숨지도 않겠다!']='ʻAʻole au e haʻalele hou, e makaʻu, a e hūnā!',
-['내 자신을 뛰어넘어 무한의 힘을 거머쥘 것이다! ']='E ʻoi aku au ma mua oʻu iho a hoʻohana i ka mana o ka palena ʻole!',
+['내 자신을 뛰어넘어 무한의 힘을 거머쥘 것이다!']='E ʻoi aku au ma mua oʻu iho a hoʻohana i ka mana o ka palena ʻole!',
 ['파워드래곤의 포효로 대지와 공기가 부서질 듯 진동했다.']='Haalulu ka Honua a me ka lewa i ka uwo ana o ka Mana Mana .',
 ['마지막에 온 힘을 다하여 두 주먹이 붉은 방패에 닿았을 때.']='I koʻu hoʻokomo ʻana i koʻu ikaika a pau a paʻi koʻu mau lima i ka pale ʻulaʻula ma ka hopena.',
 ['방패는 단숨에 금이 가 많은 조각으로 나뉘어저 부서졌다.']='Ua wāwahi koke ʻia ka pale i nā ʻāpana gula.',
@@ -368,4 +370,4 @@ return {['[맛있는 도넛!]이 자신을 제외한 아군 전체의 첫번째 
 ['무한의 파워드래곤은 파워드래곤의 앞에 엄청난 자태를 뽐내며 서 있었다.']='Ua kū ka Mana Mana i mua o ka Mana Mana, e hōʻike ana i kona kino nui.',
 ['이것이 진정한 힘을 이끌어낸 나의 모습이란 말인가?']='ʻO ia ke ʻano o koʻu ʻano ʻoiaʻiʻo e lawe mai i ka mana maoli?',
 ['자신을 넘어서라. 자신을 넘어 두려움을 이겨낸 자만이 무한의 힘을 이끌어낼 수 있을 것이다.']='E hele ma mua o ʻoe iho. ʻO ka poʻe i lanakila wale i ko lākou hopohopo e hiki ke hoʻokuʻu i ka mana pau ʻole.',
-['파워드래곤은 무고한 생명들에게만 힘을 분배하며 몬스터들을 물리쳐 나아갔다.']='Hāʻawi ʻo Mana Mana i kona ikaika i nā mea hala ʻole a lanakila i nā monsters i kona neʻe ʻana i mua.'}
+['파워드래곤은 무고한 생명들에게만 힘을 분배하며 몬스터들을 물리쳐 나아갔다.']='Hāʻawi ʻo Mana Mana i ka mana i nā mea hala ʻole a lanakila i nā monsters i kona neʻe ʻana i mua.'}

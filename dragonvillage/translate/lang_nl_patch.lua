@@ -295,6 +295,8 @@ return {['[맛있는 도넛!]이 자신을 제외한 아군 전체의 첫번째 
 ['일정시간마다 가장 방어력이 높은 대상에게 10회에 걸쳐 튕기는 구체가 모든 방어 수단을 무시한 피해를 가합니다. 대상의 방어력이 낮을수록 피해량이 상승하며, 만약 대상의 방어력이 13000이상일 경우 피해가 무효화 됩니다.']='Elke bepaalde periode is er een stuiterende bol die schade toebrengt aan het doelwit met de hoogste verdediging over 10 treffers, waarbij alle verdedigingsmaatregelen worden genegeerd. De schade neemt toe naarmate de verdediging van het doelwit afneemt, en als de verdediging van het doelwit 13.000 of hoger is, wordt de schade tenietgedaan.',
 ['진정한 힘에 눈을 뜬 뒤 자신의 힘을 필요로 하는 곳으로 향하는 무한의 드래곤이다. 생명의 기운과 공명하고자 했던 파워드래곤은 탐욕적인 몬스터들이 자신의 힘에 이끌림을 느끼고, 자신의 힘을 숨기고자 했다. 그러나 생명의 근원을 만남으로써 진정한 힘은 감추는 것이 아니라 수호의 의지에서 비롯됨을 깨달았다. 조화를 이루어 무한한 힘을 이끌어낸 파워드래곤은 무한의 힘을 거머쥐어 무한의 파워드래곤으로써 성장해 자신의 힘을 펼쳐내기 시작한다. ']='Het is een oneindige draak die zijn ogen opent voor ware kracht en op weg is naar een plek waar zijn eigen kracht nodig is. De Macht Draak, die wilde resoneren met de energie van het leven, voelde de aantrekkingskracht van hebzuchtige monsters en probeerde zijn kracht te verbergen. Door de bron van het leven te ontmoeten, realiseerde het zich echter dat ware macht niet verborgen is, maar voortkomt uit de wil tot bescherming. Door harmonie te bereiken, ontketent de Macht Draak oneindige kracht en begint zijn eigen kracht te ontvouwen als de Infinite Macht Draak.',
 ['파워드래곤의 시험입니다. 방어형 드래곤의 주는 피해량이 900% 증가합니다.']='Dit is een proef van de aangedreven draak. De schade die wordt toegebracht door de aanvallen van de verdedigende draak neemt toe met 900%.',
+['너의 강인함은 어느정도인가!']='너의 강인함은 어느정도인가!',
+['적을 거대한 바위 발로 강하게 타격합니다. 자신의 생명력에 따라 위력이 크게 증가합니다. 대상에게 100% 확률로 20초간 회피와 방어력 감소를 부여합니다.']='적을 거대한 바위 발로 강하게 타격합니다. 자신의 생명력에 따라 위력이 크게 증가합니다. 대상에게 100% 확률로 20초간 회피와 방어력 감소를 부여합니다.',
 ['파워드래곤은 무의식적으로 자신의 힘을 나누는 것이 수호자의 능력이라 여겼다.']='De Macht Draak beschouwde het onbewust verdelen van zijn macht als het vermogen van een beschermer.',
 ['하지만 자신의 능력이 오히려 죄 없는 생명들을 희생시키자 깊은 슬픔과 후회를 느꼈다.']='Hij voelde echter diepe droefheid en spijt toen zijn capaciteiten uiteindelijk onschuldige levens opofferden.',
 ['자신의 힘을 더 잘 통제하지 못해 몬스터들이 저지른 만행에 대한 자책감을 느꼈고,']='Zich schuldig voelen omdat ze hun eigen macht niet beter kunnen beheersen en de verwoesting die de monsters hebben aangericht,',
@@ -312,7 +314,7 @@ return {['[맛있는 도넛!]이 자신을 제외한 아군 전체의 첫번째 
 ['허나 몬스터들은 더욱 날뛸 뿐이었다.']='De monsters sprongen echter alleen maar hoger.',
 ['몬스터는 무기를 쥔 채 죄 없는 생명들을 위협하고 있었다.']='Het monster bedreigde onschuldige levens terwijl hij een wapen vasthield.',
 ['파워드래곤은 자신의 힘을 사용하지 않으리라 맹세했기에 생명들에게 힘을 전할 수 없었다.']='Macht Draak kon zijn macht niet doorgeven aan levende wezens, omdat hij had gezworen zijn eigen macht niet te gebruiken.',
-['나의 힘이 또 다른 악행으로 이어진다면...\'']='Als mijn macht tot nog een slechte daad leidt...',
+['나의 힘이 또 다른 악행으로 이어진다면...']='Als mijn macht tot nog een slechte daad leidt...',
 ['파워드래곤']='Macht Draak',
 ['자신의 힘을 사용하지 않는 파워드래곤은 점차 무너져 내렸다.']='De machteloze draak die zijn eigen kracht niet gebruikte, brokkelde geleidelijk af en viel.',
 ['나의 힘이 더는 그 누구에게도 닿지 못하도록 능력을 숨겨야 한다.']='Ik moet mijn capaciteiten verbergen, zodat mijn macht niemand meer bereikt.',
@@ -355,7 +357,7 @@ return {['[맛있는 도넛!]이 자신을 제외한 아군 전체의 첫번째 
 ['무한의 파워드래곤은 무한의 돌로 붉은 방패를 만들어 파워드래곤의 힘을 방어했다.']='De Oneindige Macht Draak verdedigde zijn macht met het Rode Schild gemaakt van oneindige stenen.',
 ['그 방패를 깨트리기 위하여 파워드래곤은 백 번이고, 천 번이고 돌진했다.']='De aangedreven draak stormde honderden keren aan om dat schild te breken.',
 ['더 이상 포기하지도, 두려워하지도, 숨지도 않겠다!']='Ik zal niet langer opgeven, bang zijn of me verstoppen!',
-['내 자신을 뛰어넘어 무한의 힘을 거머쥘 것이다! ']='Ik zal mezelf overtreffen en de kracht van oneindigheid benutten!',
+['내 자신을 뛰어넘어 무한의 힘을 거머쥘 것이다!']='Ik zal mezelf overtreffen en de kracht van oneindigheid benutten!',
 ['파워드래곤의 포효로 대지와 공기가 부서질 듯 진동했다.']='De Aarde en de lucht trilden terwijl de Macht Draak brulde.',
 ['마지막에 온 힘을 다하여 두 주먹이 붉은 방패에 닿았을 때.']='Toen ik er al mijn kracht in stopte en mijn vuisten het rode schild aan het uiteinde raakten.',
 ['방패는 단숨에 금이 가 많은 조각으로 나뉘어저 부서졌다.']='Het schild werd snel in stukken van goud gebroken.',
@@ -368,4 +370,4 @@ return {['[맛있는 도넛!]이 자신을 제외한 아군 전체의 첫번째 
 ['무한의 파워드래곤은 파워드래곤의 앞에 엄청난 자태를 뽐내며 서 있었다.']='De Oneindige Macht Draak stond voor de Macht Draak en pronkte met zijn immense gestalte.',
 ['이것이 진정한 힘을 이끌어낸 나의 모습이란 말인가?']='Betekent dit dat dit mijn ware vorm is die echte kracht naar voren brengt?',
 ['자신을 넘어서라. 자신을 넘어 두려움을 이겨낸 자만이 무한의 힘을 이끌어낼 수 있을 것이다.']='Ga verder dan jezelf. Alleen degenen die hun angsten overwinnen, kunnen oneindige macht ontketenen.',
-['파워드래곤은 무고한 생명들에게만 힘을 분배하며 몬스터들을 물리쳐 나아갔다.']='Macht Draak verdeelde zijn kracht alleen onder onschuldige wezens en versloeg monsters terwijl hij verder ging.'}
+['파워드래곤은 무고한 생명들에게만 힘을 분배하며 몬스터들을 물리쳐 나아갔다.']='Macht Draak verdeelde de macht alleen onder onschuldige wezens en versloeg monsters terwijl hij verder ging.'}

@@ -295,6 +295,8 @@ return {['[맛있는 도넛!]이 자신을 제외한 아군 전체의 첫번째 
 ['일정시간마다 가장 방어력이 높은 대상에게 10회에 걸쳐 튕기는 구체가 모든 방어 수단을 무시한 피해를 가합니다. 대상의 방어력이 낮을수록 피해량이 상승하며, 만약 대상의 방어력이 13000이상일 경우 피해가 무효화 됩니다.']='Cứ sau một khoảng thời gian nhất định, một quả cầu nảy gây sát thương cho mục tiêu có chỉ số phòng thủ cao nhất trên 10 đòn đánh bỏ qua mọi biện pháp phòng thủ. Sát thương tăng lên khi khả năng phòng thủ của mục tiêu giảm và nếu khả năng phòng thủ của mục tiêu từ 13.000 trở lên thì sát thương sẽ bị vô hiệu hóa.',
 ['진정한 힘에 눈을 뜬 뒤 자신의 힘을 필요로 하는 곳으로 향하는 무한의 드래곤이다. 생명의 기운과 공명하고자 했던 파워드래곤은 탐욕적인 몬스터들이 자신의 힘에 이끌림을 느끼고, 자신의 힘을 숨기고자 했다. 그러나 생명의 근원을 만남으로써 진정한 힘은 감추는 것이 아니라 수호의 의지에서 비롯됨을 깨달았다. 조화를 이루어 무한한 힘을 이끌어낸 파워드래곤은 무한의 힘을 거머쥐어 무한의 파워드래곤으로써 성장해 자신의 힘을 펼쳐내기 시작한다. ']='Đó là một con rồng vô hạn mở rộng tầm mắt để thấy được sức mạnh thực sự và hướng tới một nơi cần đến sức mạnh của chính nó. Mãnh Long, người muốn cộng hưởng với năng lượng của sự sống, cảm nhận được sự hấp dẫn của những con quái vật tham lam và cố gắng che giấu sức mạnh của nó. Tuy nhiên, khi chạm trán với nguồn sống, nó nhận ra rằng sức mạnh thực sự không hề bị che giấu mà bắt nguồn từ ý chí bảo vệ. Đạt được sự hài hòa, Mãnh Long giải phóng sức mạnh vô hạn và bắt đầu phát huy sức mạnh của chính mình với tư cách là Mãnh Long vô hạn.',
 ['파워드래곤의 시험입니다. 방어형 드래곤의 주는 피해량이 900% 증가합니다.']='Đây là cuộc thử nghiệm sức mạnh của rồng. Sát thương gây ra bởi các đòn tấn công của rồng phòng thủ tăng 900%.',
+['너의 강인함은 어느정도인가!']='너의 강인함은 어느정도인가!',
+['적을 거대한 바위 발로 강하게 타격합니다. 자신의 생명력에 따라 위력이 크게 증가합니다. 대상에게 100% 확률로 20초간 회피와 방어력 감소를 부여합니다.']='적을 거대한 바위 발로 강하게 타격합니다. 자신의 생명력에 따라 위력이 크게 증가합니다. 대상에게 100% 확률로 20초간 회피와 방어력 감소를 부여합니다.',
 ['파워드래곤은 무의식적으로 자신의 힘을 나누는 것이 수호자의 능력이라 여겼다.']='Mãnh Long coi việc phân chia sức mạnh của mình trong tiềm thức là khả năng của một người bảo vệ.',
 ['하지만 자신의 능력이 오히려 죄 없는 생명들을 희생시키자 깊은 슬픔과 후회를 느꼈다.']='Tuy nhiên, anh cảm thấy vô cùng đau buồn và hối hận vì khả năng của anh cuối cùng lại phải hy sinh những mạng sống vô tội.',
 ['자신의 힘을 더 잘 통제하지 못해 몬스터들이 저지른 만행에 대한 자책감을 느꼈고,']='Cảm thấy tội lỗi vì không thể kiểm soát sức mạnh của mình tốt hơn và sự tàn phá mà lũ quái vật gây ra,',
@@ -312,7 +314,7 @@ return {['[맛있는 도넛!]이 자신을 제외한 아군 전체의 첫번째 
 ['허나 몬스터들은 더욱 날뛸 뿐이었다.']='Tuy nhiên, lũ quái vật chỉ nhảy cao hơn.',
 ['몬스터는 무기를 쥔 채 죄 없는 생명들을 위협하고 있었다.']='Con quái vật đang đe dọa mạng sống vô tội trong khi cầm vũ khí.',
 ['파워드래곤은 자신의 힘을 사용하지 않으리라 맹세했기에 생명들에게 힘을 전할 수 없었다.']='Mãnh Long không thể truyền sức mạnh của mình cho sinh vật sống vì nó thề không sử dụng sức mạnh của chính mình.',
-['나의 힘이 또 다른 악행으로 이어진다면...\'']='Nếu sức mạnh của tôi dẫn đến một hành động xấu xa khác...',
+['나의 힘이 또 다른 악행으로 이어진다면...']='Nếu sức mạnh của tôi dẫn đến một hành động xấu xa khác...',
 ['파워드래곤']='Mãnh Long',
 ['자신의 힘을 사용하지 않는 파워드래곤은 점차 무너져 내렸다.']='Con rồng bất lực không sử dụng sức mạnh của mình dần dần vỡ vụn và ngã xuống.',
 ['나의 힘이 더는 그 누구에게도 닿지 못하도록 능력을 숨겨야 한다.']='Tôi phải che giấu khả năng của mình để sức mạnh của tôi không còn đến được với ai nữa.',
@@ -355,7 +357,7 @@ return {['[맛있는 도넛!]이 자신을 제외한 아군 전체의 첫번째 
 ['무한의 파워드래곤은 무한의 돌로 붉은 방패를 만들어 파워드래곤의 힘을 방어했다.']='Mãnh Long vô hạn bảo vệ sức mạnh của mình bằng Khiên đỏ làm từ đá vô hạn.',
 ['그 방패를 깨트리기 위하여 파워드래곤은 백 번이고, 천 번이고 돌진했다.']='Con rồng mạnh mẽ lao tới hàng trăm lần để phá vỡ tấm khiên đó.',
 ['더 이상 포기하지도, 두려워하지도, 숨지도 않겠다!']='Tôi sẽ không bỏ cuộc, sợ hãi hay trốn tránh nữa!',
-['내 자신을 뛰어넘어 무한의 힘을 거머쥘 것이다! ']='Tôi sẽ vượt qua chính mình và khai thác sức mạnh vô tận!',
+['내 자신을 뛰어넘어 무한의 힘을 거머쥘 것이다!']='Tôi sẽ vượt qua chính mình và khai thác sức mạnh vô tận!',
 ['파워드래곤의 포효로 대지와 공기가 부서질 듯 진동했다.']='Thổ và không khí rung chuyển khi Mãnh Long gầm lên.',
 ['마지막에 온 힘을 다하여 두 주먹이 붉은 방패에 닿았을 때.']='Khi tôi dồn hết sức lực vào đó và cuối cùng nắm đấm của tôi đã chạm vào chiếc khiên màu đỏ.',
 ['방패는 단숨에 금이 가 많은 조각으로 나뉘어저 부서졌다.']='Chiếc khiên nhanh chóng bị vỡ thành từng mảnh bằng vàng.',
@@ -368,4 +370,4 @@ return {['[맛있는 도넛!]이 자신을 제외한 아군 전체의 첫번째 
 ['무한의 파워드래곤은 파워드래곤의 앞에 엄청난 자태를 뽐내며 서 있었다.']='Mãnh Long vô hạn đứng trước mặt Mãnh Long, khoe tầm vóc to lớn của nó.',
 ['이것이 진정한 힘을 이끌어낸 나의 모습이란 말인가?']='Phải chăng điều này có nghĩa đây là hình dạng thực sự của tôi mang lại sức mạnh thực sự?',
 ['자신을 넘어서라. 자신을 넘어 두려움을 이겨낸 자만이 무한의 힘을 이끌어낼 수 있을 것이다.']='Vượt xa chính mình. Chỉ những người vượt qua nỗi sợ hãi mới có thể giải phóng sức mạnh vô hạn.',
-['파워드래곤은 무고한 생명들에게만 힘을 분배하며 몬스터들을 물리쳐 나아갔다.']='Mãnh Long chỉ phân bổ sức mạnh của nó cho những sinh vật vô tội và đánh bại quái vật khi nó tiến về phía trước.'}
+['파워드래곤은 무고한 생명들에게만 힘을 분배하며 몬스터들을 물리쳐 나아갔다.']='Mãnh Long chỉ phân phối sức mạnh cho những sinh vật vô tội và đánh bại quái vật khi nó tiến về phía trước.'}

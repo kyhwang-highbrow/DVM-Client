@@ -295,6 +295,8 @@ return {['[맛있는 도넛!]이 자신을 제외한 아군 전체의 첫번째 
 ['일정시간마다 가장 방어력이 높은 대상에게 10회에 걸쳐 튕기는 구체가 모든 방어 수단을 무시한 피해를 가합니다. 대상의 방어력이 낮을수록 피해량이 상승하며, 만약 대상의 방어력이 13000이상일 경우 피해가 무효화 됩니다.']='Waati dɔ o waati dɔ, bɔgɔdaga min bɛ panpan min bɛ tiɲɛni Kɛ laɲini na ni lafasalitɔnba ye min ka ca ni 10 ye, k’a sɔrɔ lafasali fɛɛrɛ bɛɛ ma jate. Tiɲɛni bɛ bonya ni laɲini lafasali bɛ dɔgɔya, wa ni laɲini lafasali ye 13 000 ye walima ka tɛmɛ o kan, tiɲɛni bɛ kɛ fu ye.',
 ['진정한 힘에 눈을 뜬 뒤 자신의 힘을 필요로 하는 곳으로 향하는 무한의 드래곤이다. 생명의 기운과 공명하고자 했던 파워드래곤은 탐욕적인 몬스터들이 자신의 힘에 이끌림을 느끼고, 자신의 힘을 숨기고자 했다. 그러나 생명의 근원을 만남으로써 진정한 힘은 감추는 것이 아니라 수호의 의지에서 비롯됨을 깨달았다. 조화를 이루어 무한한 힘을 이끌어낸 파워드래곤은 무한의 힘을 거머쥐어 무한의 파워드래곤으로써 성장해 자신의 힘을 펼쳐내기 시작한다. ']='O ye sa dan tɛ min na, min b’a ɲɛw da fanga lakika kan, k’a ɲɛsin yɔrɔ ma, a yɛrɛ ka fanga mago bɛ yɔrɔ min na. The Seko ni dɔnko Dragon, min tun b’a fɛ ka mankan bɔ ɲɛnamaya fanga la, o ye waraba namaratɔw samali ye, wa a y’a ɲini k’a fanga dogo. Nka, a kɛlen ka ɲɛnamaya sɔrɔyɔrɔ kunbɛn, a y’a faamu ko fanga lakika tɛ dogo, nka a bɔra lakanani nege de la. Bɛn sɔrɔli la, Seko ni dɔnko Dragon bɛ fanga danma bɔ kɛnɛ kan ani k’a daminɛ k’a yɛrɛ ka fanga dabɔ i n’a fɔ Seko ni dɔnko Dragon.',
 ['파워드래곤의 시험입니다. 방어형 드래곤의 주는 피해량이 900% 증가합니다.']='Nin ye sa fangatigi kɔrɔbɔli ye. Tiɲɛni min bɛ Kɛ ni lafasalikɛla ka binkanniw ye, o bɛ bonya ni 900% ye.',
+['너의 강인함은 어느정도인가!']='너의 강인함은 어느정도인가!',
+['적을 거대한 바위 발로 강하게 타격합니다. 자신의 생명력에 따라 위력이 크게 증가합니다. 대상에게 100% 확률로 20초간 회피와 방어력 감소를 부여합니다.']='적을 거대한 바위 발로 강하게 타격합니다. 자신의 생명력에 따라 위력이 크게 증가합니다. 대상에게 100% 확률로 20초간 회피와 방어력 감소를 부여합니다.',
 ['파워드래곤은 무의식적으로 자신의 힘을 나누는 것이 수호자의 능력이라 여겼다.']='Seko ni dɔnko Dragon y’a jate Minɛ k’a ka fanga tila-tila a hakili la k’o Kɛ kɔrɔsibaga ka seko ye.',
 ['하지만 자신의 능력이 오히려 죄 없는 생명들을 희생시키자 깊은 슬픔과 후회를 느꼈다.']='Nka, a dusu tiɲɛna kosɛbɛ ani a nimisara k’a sɔrɔ a ka sekow labanna ka mɔgɔ jalakibaliw ka ɲɛnamaya saraka o nɔ na.',
 ['자신의 힘을 더 잘 통제하지 못해 몬스터들이 저지른 만행에 대한 자책감을 느꼈고,']='U jalakilen don k’a sababu kɛ u ma se k’u yɛrɛ ka fanga mara ka ɲɛ ani tiɲɛni min kɛra jinɛw fɛ,',
@@ -312,7 +314,7 @@ return {['[맛있는 도넛!]이 자신을 제외한 아군 전체의 첫번째 
 ['허나 몬스터들은 더욱 날뛸 뿐이었다.']='Nka, jinɛw tùn bɛ pan ka Taa san fɛ dɔrɔn.',
 ['몬스터는 무기를 쥔 채 죄 없는 생명들을 위협하고 있었다.']='O waraba tun bɛ ka mɔgɔ jalakibaliw ka ɲɛnamaya bagabaga k’a sɔrɔ a tun bɛ marifa minɛ.',
 ['파워드래곤은 자신의 힘을 사용하지 않으리라 맹세했기에 생명들에게 힘을 전할 수 없었다.']='Seko ni dɔnko Dragon ma Se k\'a ka fanga Di fɛnɲɛnamaw ma bari a ye kalifa Kɛ ko a tɛna baara Kɛ n\'a yɛrɛ ka fanga ye.',
-['나의 힘이 또 다른 악행으로 이어진다면...\'']='Ni ne ka fanga bɛ na ni wale jugu wɛrɛ ye...',
+['나의 힘이 또 다른 악행으로 이어진다면...']='Ni ne ka fanga bɛ na ni wale jugu wɛrɛ ye...',
 ['파워드래곤']='Seko ni dɔnko Dragon',
 ['자신의 힘을 사용하지 않는 파워드래곤은 점차 무너져 내렸다.']='Sa fanga tɛ min na, n’a ma baara kɛ n’a yɛrɛ ka fanga ye, o binna dɔɔni dɔɔni ka bin.',
 ['나의 힘이 더는 그 누구에게도 닿지 못하도록 능력을 숨겨야 한다.']='Ne ka kan ka ne sekow dogo walisa ne ka fanga kana se mɔgɔ si ma tugun.',
@@ -355,7 +357,7 @@ return {['[맛있는 도넛!]이 자신을 제외한 아군 전체의 첫번째 
 ['무한의 파워드래곤은 무한의 돌로 붉은 방패를 만들어 파워드래곤의 힘을 방어했다.']='Sebaaya Seko ni dɔnko Dragon y’a ka fanga Lafasa ni Kɛlɛ bilenman ye min dilannen don ni kabakurun danma ye.',
 ['그 방패를 깨트리기 위하여 파워드래곤은 백 번이고, 천 번이고 돌진했다.']='Sa fangatigi ye charge kɛ siɲɛ kɛmɛ caman walasa k’o kala kari.',
 ['더 이상 포기하지도, 두려워하지도, 숨지도 않겠다!']='Ne tɛna n fari faga tugun, ka siran, wala ka dogo tun!',
-['내 자신을 뛰어넘어 무한의 힘을 거머쥘 것이다! ']='Ne bɛna tɛmɛ ne yɛrɛ kan ani ka dan tɛ fanga la!',
+['내 자신을 뛰어넘어 무한의 힘을 거머쥘 것이다!']='Ne bɛna tɛmɛ ne yɛrɛ kan ani ka dan tɛ fanga la!',
 ['파워드래곤의 포효로 대지와 공기가 부서질 듯 진동했다.']='Dugukolo ni fiɲɛ yɛrɛyɛrɛla tuma min na Seko ni dɔnko Dragon bɛ ka mankanba bɔ.',
 ['마지막에 온 힘을 다하여 두 주먹이 붉은 방패에 닿았을 때.']='Ni n ye n fanga bɛɛ don a la ani n bolokɔnincininw ye kala bilenman gosi a laban na.',
 ['방패는 단숨에 금이 가 많은 조각으로 나뉘어저 부서졌다.']='O kala tun karilen don joona ka kɛ fɛnw ye minnu dilalen don ni sanu ye.',
@@ -368,4 +370,4 @@ return {['[맛있는 도넛!]이 자신을 제외한 아군 전체의 첫번째 
 ['무한의 파워드래곤은 파워드래곤의 앞에 엄청난 자태를 뽐내며 서 있었다.']='Seko dan tɛ Seko ni dɔnko Dragon jɔlen tora Seko ni dɔnko Dragon ɲɛfɛ , k’a janyaba jira.',
 ['이것이 진정한 힘을 이끌어낸 나의 모습이란 말인가?']='Yala o kɔrɔ ye ko nin ye ne cogo lakika ye min bɛ fanga lakika bɔ kɛnɛ kan wa?',
 ['자신을 넘어서라. 자신을 넘어 두려움을 이겨낸 자만이 무한의 힘을 이끌어낼 수 있을 것이다.']='I ka tɛmɛ i yɛrɛ kan. Minnu bɛ se sɔrɔ u ka siranw kan, olu dɔrɔn de bɛ se ka fanga danma bɔ kɛnɛ kan.',
-['파워드래곤은 무고한 생명들에게만 힘을 분배하며 몬스터들을 물리쳐 나아갔다.']='Seko ni dɔnko Dragon y’a fanga tila-tila danfɛn jalakibaliw dɔrɔn de la ani ka se sɔrɔ jinɛw kan n’a bɛ taa ɲɛfɛ.'}
+['파워드래곤은 무고한 생명들에게만 힘을 분배하며 몬스터들을 물리쳐 나아갔다.']='Seko ni dɔnko Dragon ye fanga tila-tila danfɛn jalakibaliw dɔrɔn de ma ani ka se sɔrɔ jinɛw kan n’a bɛ taa ɲɛ.'}

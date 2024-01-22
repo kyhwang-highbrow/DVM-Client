@@ -295,6 +295,8 @@ return {['[맛있는 도넛!]이 자신을 제외한 아군 전체의 첫번째 
 ['일정시간마다 가장 방어력이 높은 대상에게 10회에 걸쳐 튕기는 구체가 모든 방어 수단을 무시한 피해를 가합니다. 대상의 방어력이 낮을수록 피해량이 상승하며, 만약 대상의 방어력이 13000이상일 경우 피해가 무효화 됩니다.']='So\'o se taimi fa\'apitoa, o se si\'osi\'omaga fa\'afefe e fa\'aleagaina ai le sini ma le puipuiga maualuga i luga o le 10 taia e le amana\'ia uma puipuiga. E faʻateleina le faʻaleagaina pe a faʻaitiitia le puipuiga a le sini, ma afai o le puipuiga a le sini e 13,000 pe sili atu, o le faʻaleagaina o le a faʻaumatia.',
 ['진정한 힘에 눈을 뜬 뒤 자신의 힘을 필요로 하는 곳으로 향하는 무한의 드래곤이다. 생명의 기운과 공명하고자 했던 파워드래곤은 탐욕적인 몬스터들이 자신의 힘에 이끌림을 느끼고, 자신의 힘을 숨기고자 했다. 그러나 생명의 근원을 만남으로써 진정한 힘은 감추는 것이 아니라 수호의 의지에서 비롯됨을 깨달았다. 조화를 이루어 무한한 힘을 이끌어낸 파워드래곤은 무한의 힘을 거머쥐어 무한의 파워드래곤으로써 성장해 자신의 힘을 펼쳐내기 시작한다. ']='O se tarako e le gata e pupula ona mata i le malosi moni ma agai atu i se nofoaga e manaʻomia ai lona lava malosi. O le Tarako Malosi, o le na manaʻo e faʻalogo i le malosi o le ola, na lagona le tosina mai o monsters matapeʻapeʻa ma taumafai e nana lona malosi. Peitaʻi, e ala i le feiloaʻi atu i le puna o le ola, na ia iloa ai o le mana moni e lē natia ae e afua mai i le finagalo o le puipuiga. O le mauaina o le lotogatasi, o le Tarako Malosi e faʻaalia ai le mana e le gata ma amata ona faʻaalia lona lava malosi e pei o le Infinite Tarako Malosi.',
 ['파워드래곤의 시험입니다. 방어형 드래곤의 주는 피해량이 900% 증가합니다.']='Ole tofotofoga lea ole tarako malosi. O le faʻaleagaina na faia e osofaʻiga a le tarako puipui e faʻateleina i le 900%.',
+['너의 강인함은 어느정도인가!']='너의 강인함은 어느정도인가!',
+['적을 거대한 바위 발로 강하게 타격합니다. 자신의 생명력에 따라 위력이 크게 증가합니다. 대상에게 100% 확률로 20초간 회피와 방어력 감소를 부여합니다.']='적을 거대한 바위 발로 강하게 타격합니다. 자신의 생명력에 따라 위력이 크게 증가합니다. 대상에게 100% 확률로 20초간 회피와 방어력 감소를 부여합니다.',
 ['파워드래곤은 무의식적으로 자신의 힘을 나누는 것이 수호자의 능력이라 여겼다.']='Na manatu le Tarako Malosi e vaevaeina lona malosi i lalo o le mafaufau e avea ma gafatia o se leoleo.',
 ['하지만 자신의 능력이 오히려 죄 없는 생명들을 희생시키자 깊은 슬픔과 후회를 느꼈다.']='Peitaʻi, na ia lagonaina le matuā faanoanoa ma le faanoanoa ona o ona tomai na iʻu ai i le ositaulagaina o ola lē sala.',
 ['자신의 힘을 더 잘 통제하지 못해 몬스터들이 저지른 만행에 대한 자책감을 느꼈고,']='Ua lagona le tausalaina ona o le le mafai ona pulea lelei o latou lava malosi ma le malaia na mafua mai i monsters,',
@@ -312,7 +314,7 @@ return {['[맛있는 도넛!]이 자신을 제외한 아군 전체의 첫번째 
 ['허나 몬스터들은 더욱 날뛸 뿐이었다.']='Ae ui i lea, na o le oso maualuga o sauʻai.',
 ['몬스터는 무기를 쥔 채 죄 없는 생명들을 위협하고 있었다.']='Sa faamata’u e le sau’ai ola le sala a’o ia uuina se auupega.',
 ['파워드래곤은 자신의 힘을 사용하지 않으리라 맹세했기에 생명들에게 힘을 전할 수 없었다.']='E le\'i mafai e Tarako Malosi ona tu\'uina atu lona malosi i mea ola ona sa ia tauto e le fa\'aaogaina lona lava malosi.',
-['나의 힘이 또 다른 악행으로 이어진다면...\'']='Afai o loʻu mana e taʻitaʻia ai se isi mea leaga ...',
+['나의 힘이 또 다른 악행으로 이어진다면...']='Afai o loʻu mana e taʻitaʻia ai se isi mea leaga ...',
 ['파워드래곤']='Tarako Malosi',
 ['자신의 힘을 사용하지 않는 파워드래곤은 점차 무너져 내렸다.']='O le tarako leai se malosi e leʻi faʻaaogaina lona lava malosi na faasolosolo malie lava ona malepelepe ma pa\'ū.',
 ['나의 힘이 더는 그 누구에게도 닿지 못하도록 능력을 숨겨야 한다.']='E tatau ona ou natia oʻu tomai ina ia le toe oʻo atu loʻu mana i se tasi.',
@@ -355,7 +357,7 @@ return {['[맛있는 도넛!]이 자신을 제외한 아군 전체의 첫번째 
 ['무한의 파워드래곤은 무한의 돌로 붉은 방패를 만들어 파워드래곤의 힘을 방어했다.']='Na puipuia e le Infinite Tarako Malosi lona malosi i le Talita Mumu na faia i maa e le gata.',
 ['그 방패를 깨트리기 위하여 파워드래곤은 백 번이고, 천 번이고 돌진했다.']='O le tarako malosi na tau faaselau taimi e talepeina lena talita.',
 ['더 이상 포기하지도, 두려워하지도, 숨지도 않겠다!']='Ou te le toe fiu, fefe, pe lafi!',
-['내 자신을 뛰어넘어 무한의 힘을 거머쥘 것이다! ']='O le a ou sili atu ia te aʻu lava ma faʻaaogaina le mana o le le gata!',
+['내 자신을 뛰어넘어 무한의 힘을 거머쥘 것이다!']='O le a ou sili atu ia te aʻu lava ma faʻaaogaina le mana o le le gata!',
 ['파워드래곤의 포효로 대지와 공기가 부서질 듯 진동했다.']='Na gatete le Lalolagi ma le ea a o gogolo le Tarako Malosi .',
 ['마지막에 온 힘을 다하여 두 주먹이 붉은 방패에 닿았을 때.']='Ina ua ou tuuina atu lo\'u malosi atoa i ai ma tau ai o\'u moto i le talipupuni mumu i le pito.',
 ['방패는 단숨에 금이 가 많은 조각으로 나뉘어저 부서졌다.']='Sa vave ona talepeina le talita i ni fasi auro.',
@@ -368,4 +370,4 @@ return {['[맛있는 도넛!]이 자신을 제외한 아군 전체의 첫번째 
 ['무한의 파워드래곤은 파워드래곤의 앞에 엄청난 자태를 뽐내며 서 있었다.']='O le Tarako Malosi e le i\'u na tu i luma o le Tarako Malosi, ma faʻaalia lona maualuga tele.',
 ['이것이 진정한 힘을 이끌어낸 나의 모습이란 말인가?']='O lona uiga la o lo\'u tino moni lea e aumaia ai le mana moni?',
 ['자신을 넘어서라. 자신을 넘어 두려움을 이겨낸 자만이 무한의 힘을 이끌어낼 수 있을 것이다.']='Alu i tua atu o oe lava. E na o i latou e faatoilaloina lo latou fefe e mafai ona tatalaina le mana e le gata.',
-['파워드래곤은 무고한 생명들에게만 힘을 분배하며 몬스터들을 물리쳐 나아갔다.']='Na tufatufa atu e Tarako Malosi lona malosi i meaola mama ma faatoilaloina sauʻai ao agai i luma.'}
+['파워드래곤은 무고한 생명들에게만 힘을 분배하며 몬스터들을 물리쳐 나아갔다.']='Na tufatufa atu e Tarako Malosi le mana i meaola mama ma faʻatoʻilaloina sauʻai ao agai i luma.'}

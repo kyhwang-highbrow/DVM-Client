@@ -295,6 +295,8 @@ return {['[맛있는 도넛!]이 자신을 제외한 아군 전체의 첫번째 
 ['일정시간마다 가장 방어력이 높은 대상에게 10회에 걸쳐 튕기는 구체가 모든 방어 수단을 무시한 피해를 가합니다. 대상의 방어력이 낮을수록 피해량이 상승하며, 만약 대상의 방어력이 13000이상일 경우 피해가 무효화 됩니다.']='Gach tréimhse áirithe ama, sféar preabadh a dhéileálann damáiste don sprioc leis an gcosaint is airde thar 10 amas gan neamhaird a dhéanamh ar na bearta cosanta go léir. Méadaíonn an damáiste de réir mar a laghdaíonn cosaint an sprice, agus má tá cosaint an sprice 13,000 nó níos airde, cuirtear an damáiste ar neamhní.',
 ['진정한 힘에 눈을 뜬 뒤 자신의 힘을 필요로 하는 곳으로 향하는 무한의 드래곤이다. 생명의 기운과 공명하고자 했던 파워드래곤은 탐욕적인 몬스터들이 자신의 힘에 이끌림을 느끼고, 자신의 힘을 숨기고자 했다. 그러나 생명의 근원을 만남으로써 진정한 힘은 감추는 것이 아니라 수호의 의지에서 비롯됨을 깨달았다. 조화를 이루어 무한한 힘을 이끌어낸 파워드래곤은 무한의 힘을 거머쥐어 무한의 파워드래곤으로써 성장해 자신의 힘을 펼쳐내기 시작한다. ']='Is dragan gan teorainn é a osclaíonn a shúile chuig fíor-neart agus a théann i dtreo áit a bhfuil gá lena chumhacht féin. An Cluiche Cumhacht Dragon, a bhí ag iarraidh a resonate le fuinneamh na beatha, bhraith a mhealladh arrachtaigh greedy agus iarracht a cheilt a chumhacht. Mar sin féin, trí dhul i ngleic le foinse na beatha, thuig sé nach bhfuil fíorchumhacht i bhfolach ach gur tháinig sé ó thoil na cosanta. Agus comhchuibheas á bhaint amach aige, scaoileann an Cluiche Cumhacht Dragon cumhacht éigríochta agus tosaíonn ag scaoileadh a chumhacht féin mar an Infinite Cluiche Cumhacht Dragon.',
 ['파워드래곤의 시험입니다. 방어형 드래곤의 주는 피해량이 900% 증가합니다.']='Is triail é seo an dragan faoi thiomáint. Méadaíonn an damáiste a dhéileálann ionsaithe na dragan cosanta 900%.',
+['너의 강인함은 어느정도인가!']='너의 강인함은 어느정도인가!',
+['적을 거대한 바위 발로 강하게 타격합니다. 자신의 생명력에 따라 위력이 크게 증가합니다. 대상에게 100% 확률로 20초간 회피와 방어력 감소를 부여합니다.']='적을 거대한 바위 발로 강하게 타격합니다. 자신의 생명력에 따라 위력이 크게 증가합니다. 대상에게 100% 확률로 20초간 회피와 방어력 감소를 부여합니다.',
 ['파워드래곤은 무의식적으로 자신의 힘을 나누는 것이 수호자의 능력이라 여겼다.']='Mheas an Cluiche Cumhacht Dragon gur chumas caomhnóra a chumhacht a roinnt go fo-chomhfhiosach.',
 ['하지만 자신의 능력이 오히려 죄 없는 생명들을 희생시키자 깊은 슬픔과 후회를 느꼈다.']='Mar sin féin, bhraith sé brón agus brón mór mar a chríochnaigh a chumais suas a íobairt saol neamhchiontach ina ionad.',
 ['자신의 힘을 더 잘 통제하지 못해 몬스터들이 저지른 만행에 대한 자책감을 느꼈고,']='Ag mothú ciontach as gan a bheith in ann a gcumhacht féin a rialú ar bhealach níos fearr agus as an gcumhacht a rinne na monsters,',
@@ -312,7 +314,7 @@ return {['[맛있는 도넛!]이 자신을 제외한 아군 전체의 첫번째 
 ['허나 몬스터들은 더욱 날뛸 뿐이었다.']='Mar sin féin, níor léim na arrachtaigh ach níos airde.',
 ['몬스터는 무기를 쥔 채 죄 없는 생명들을 위협하고 있었다.']='Bhí an ollphéist ag bagairt ar shaolta neamhchiontach agus arm á shealbhú.',
 ['파워드래곤은 자신의 힘을 사용하지 않으리라 맹세했기에 생명들에게 힘을 전할 수 없었다.']='Ní raibh Cluiche Cumhacht Dragon in ann a chumhacht a thabhairt do dhaoine beo toisc gur mhionnaigh sé gan a chumhacht féin a úsáid.',
-['나의 힘이 또 다른 악행으로 이어진다면...\'']='Má thagann gníomhas olc eile as mo chumhacht ...',
+['나의 힘이 또 다른 악행으로 이어진다면...']='Má thagann gníomhas olc eile as mo chumhacht ...',
 ['파워드래곤']='Cluiche Cumhacht Dragon',
 ['자신의 힘을 사용하지 않는 파워드래곤은 점차 무너져 내렸다.']='An dragan gan chumhacht nár úsáid a neart féin de réir a chéile crumbled agus thit.',
 ['나의 힘이 더는 그 누구에게도 닿지 못하도록 능력을 숨겨야 한다.']='Caithfidh mé mo chumas a cheilt ionas nach sroicheann mo chumhacht aon duine a thuilleadh.',
@@ -355,7 +357,7 @@ return {['[맛있는 도넛!]이 자신을 제외한 아군 전체의 첫번째 
 ['무한의 파워드래곤은 무한의 돌로 붉은 방패를 만들어 파워드래곤의 힘을 방어했다.']='Chosain an Infinite Cluiche Cumhacht Dragon a chumhacht leis an Red Shield déanta as clocha gan teorainn.',
 ['그 방패를 깨트리기 위하여 파워드래곤은 백 번이고, 천 번이고 돌진했다.']='Chuir an dragan cumhachtaithe na céadta uair as an sciath sin a bhriseadh.',
 ['더 이상 포기하지도, 두려워하지도, 숨지도 않겠다!']='Ní bheidh mé a thabhairt suas a thuilleadh, eagla, nó i bhfolach!',
-['내 자신을 뛰어넘어 무한의 힘을 거머쥘 것이다! ']='Sáróidh mé mé féin agus bainfidh mé leas as cumhacht na héigríochta!',
+['내 자신을 뛰어넘어 무한의 힘을 거머쥘 것이다!']='Sáróidh mé mé féin agus bainfidh mé leas as cumhacht na héigríochta!',
 ['파워드래곤의 포효로 대지와 공기가 부서질 듯 진동했다.']='Chrith an Domhan agus an t-aer de réir mar a roar an Cluiche Cumhacht Dragon .',
 ['마지막에 온 힘을 다하여 두 주먹이 붉은 방패에 닿았을 때.']='Nuair a chuir mé mo neart go léir isteach ann agus mo dhorn bhuail an sciath dearg ag an deireadh.',
 ['방패는 단숨에 금이 가 많은 조각으로 나뉘어저 부서졌다.']='Bhí an sciath briste go tapa i bpíosaí déanta as óir.',
@@ -368,4 +370,4 @@ return {['[맛있는 도넛!]이 자신을 제외한 아군 전체의 첫번째 
 ['무한의 파워드래곤은 파워드래곤의 앞에 엄청난 자태를 뽐내며 서 있었다.']='Sheas an Infinite Cluiche Cumhacht Dragon os comhair an Cluiche Cumhacht Dragon, ag taispeáint a stádas ollmhór.',
 ['이것이 진정한 힘을 이끌어낸 나의 모습이란 말인가?']='An gciallaíonn sé seo gurb í seo m’fhíorfhoirm a thugann amach fíorchumhacht?',
 ['자신을 넘어서라. 자신을 넘어 두려움을 이겨낸 자만이 무한의 힘을 이끌어낼 수 있을 것이다.']='Téigh níos faide ná tú féin. Ní féidir ach le daoine a sháraíonn a n-eagla cumhacht gan teorainn a scaoileadh.',
-['파워드래곤은 무고한 생명들에게만 힘을 분배하며 몬스터들을 물리쳐 나아갔다.']='Dháil Cluiche Cumhacht Dragon a neart ar chréatúir neamhchiontach amháin agus chuir sé ruaig ar arrachtaigh agus é ag dul ar aghaidh.'}
+['파워드래곤은 무고한 생명들에게만 힘을 분배하며 몬스터들을 물리쳐 나아갔다.']='Dháil Cluiche Cumhacht Dragon cumhacht ar chréatúir neamhchiontacha amháin agus sháraigh sé arrachtaigh agus é ag dul ar aghaidh.'}

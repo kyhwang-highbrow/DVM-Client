@@ -295,6 +295,8 @@ return {['[맛있는 도넛!]이 자신을 제외한 아군 전체의 첫번째 
 ['일정시간마다 가장 방어력이 높은 대상에게 10회에 걸쳐 튕기는 구체가 모든 방어 수단을 무시한 피해를 가합니다. 대상의 방어력이 낮을수록 피해량이 상승하며, 만약 대상의 방어력이 13000이상일 경우 피해가 무효화 됩니다.']='Bere pɔtee biara, bouncing sphere a ɛsɛe botae no a ɛwɔ ahobammɔ a ɛkorɔn sen biara bɛboro 10 hits a ebu n’ani gu ahobammɔ nhyehyɛe nyinaa so. Ɔsɛe no kɔ soro bere a botae no ahobammɔ so tew, na sɛ botae no ahobammɔ yɛ 13,000 anaa nea ɛboro saa a, ɔsɛe no yɛ kwa.',
 ['진정한 힘에 눈을 뜬 뒤 자신의 힘을 필요로 하는 곳으로 향하는 무한의 드래곤이다. 생명의 기운과 공명하고자 했던 파워드래곤은 탐욕적인 몬스터들이 자신의 힘에 이끌림을 느끼고, 자신의 힘을 숨기고자 했다. 그러나 생명의 근원을 만남으로써 진정한 힘은 감추는 것이 아니라 수호의 의지에서 비롯됨을 깨달았다. 조화를 이루어 무한한 힘을 이끌어낸 파워드래곤은 무한의 힘을 거머쥐어 무한의 파워드래곤으로써 성장해 자신의 힘을 펼쳐내기 시작한다. ']='Ɛyɛ ɔtweaseɛ a enni ano a obue n’ani ma ahoɔden ankasa na ɔde n’ani kyerɛ baabi a n’ankasa tumi ho hia. Tumi Ɔtweaseɛ, a na ɔpɛ sɛ ɔde asetra mu ahoɔden di dwuma no tee nka sɛ mmoa a wɔyɛ keka a wɔyɛ adifudepɛfo twetwe no na ɔbɔɔ mmɔden sɛ ɔde ne tumi besie. Nanso, ɛdenam nkwa fibea a ohyiaa no so no, ehui sɛ nokware tumi nsie na mmom efi ahobammɔ apɛde mu. Bere a Tumi Ɔtweaseɛ nya biakoyɛ no, ɔda tumi a enni ano adi na ofi ase da n’ankasa tumi adi sɛ Tumi Ɔtweaseɛ a Enni Ano .',
 ['파워드래곤의 시험입니다. 방어형 드래곤의 주는 피해량이 900% 증가합니다.']='Eyi yɛ ɔtweaseɛ a ɔwɔ tumi no sɔhwɛ. Ɔsɛe a ɔtweaseɛ a ɔbɔ ne ho ban no ntua de ba no kɔ soro 900%.',
+['너의 강인함은 어느정도인가!']='How strong are you?!',
+['적을 거대한 바위 발로 강하게 타격합니다. 자신의 생명력에 따라 위력이 크게 증가합니다. 대상에게 100% 확률로 20초간 회피와 방어력 감소를 부여합니다.']='I will deliver a powerful blow to the enemy with a massive rock kick. The power will greatly increase depending on my vitality. It will grant the target a 100% chance to have reduced evasion and defense for 20 seconds.',
 ['파워드래곤은 무의식적으로 자신의 힘을 나누는 것이 수호자의 능력이라 여겼다.']='Tumi Ɔtweaseɛ buu ne tumi a ɔbɛkyekyɛ wɔ n’adwene mu no sɛ ɛyɛ ɔwɛmfo tumi.',
 ['하지만 자신의 능력이 오히려 죄 없는 생명들을 희생시키자 깊은 슬픔과 후회를 느꼈다.']='Nanso, ɔtee awerɛhow ne ahonu kɛse nka bere a nea otumi yɛe no kowiee sɛ ɔde nnipa a wɔn ho nni asɛm nkwa bɔɔ afɔre mmom no.',
 ['자신의 힘을 더 잘 통제하지 못해 몬스터들이 저지른 만행에 대한 자책감을 느꼈고,']='Esiane sɛ wɔte afobu nka sɛ wɔantumi nni wɔn ankasa tumi so yiye ne ɔsɛe a mmoa a wɔyɛ keka no de bae no nti, .',
@@ -312,7 +314,7 @@ return {['[맛있는 도넛!]이 자신을 제외한 아군 전체의 첫번째 
 ['허나 몬스터들은 더욱 날뛸 뿐이었다.']='Nanso, mmoa a wɔyɛ keka no huruw kɔɔ soro ara kwa.',
 ['몬스터는 무기를 쥔 채 죄 없는 생명들을 위협하고 있었다.']='Ná aboa kɛse no de nnipa a wɔn ho nni asɛm nkwa reto asiane mu bere a okura akode no.',
 ['파워드래곤은 자신의 힘을 사용하지 않으리라 맹세했기에 생명들에게 힘을 전할 수 없었다.']='Tumi Ɔtweaseɛ antumi amfa ne tumi ankɔma abɔde a nkwa wom efisɛ ɔkaa ntam sɛ ɔremfa n’ankasa tumi nni dwuma.',
-['나의 힘이 또 다른 악행으로 이어진다면...\'']='Sɛ me tumi de kɔ adebɔne foforo mu a...',
+['나의 힘이 또 다른 악행으로 이어진다면...']='Sɛ me tumi de kɔ adebɔne foforo mu a...',
 ['파워드래곤']='Tumi Ɔtweaseɛ',
 ['자신의 힘을 사용하지 않는 파워드래곤은 점차 무너져 내렸다.']='Ɔtweaseɛ a onni tumi a ɔmfa n’ankasa ahoɔden anni dwuma no de nkakrankakra bubui na ɔhwee ase.',
 ['나의 힘이 더는 그 누구에게도 닿지 못하도록 능력을 숨겨야 한다.']='Ɛsɛ sɛ mede me tumi sie sɛnea ɛbɛyɛ a me tumi renkɔ obiara nkyɛn bio.',
@@ -355,7 +357,7 @@ return {['[맛있는 도넛!]이 자신을 제외한 아군 전체의 첫번째 
 ['무한의 파워드래곤은 무한의 돌로 붉은 방패를 만들어 파워드래곤의 힘을 방어했다.']='Tumi a Enni Ano Tumi Ɔtweaseɛ de Kyɛm Kɔkɔɔ a wɔde abo a enni ano ayɛ no bɔɔ ne tumi ho ban.',
 ['그 방패를 깨트리기 위하여 파워드래곤은 백 번이고, 천 번이고 돌진했다.']='Ɔtweaseɛ a ɔwɔ ahoɔden no bɔɔ ɔhaha pii de bubuu saa kyɛm no.',
 ['더 이상 포기하지도, 두려워하지도, 숨지도 않겠다!']='Merempa abaw, merensuro, na merenhintaw bio!',
-['내 자신을 뛰어넘어 무한의 힘을 거머쥘 것이다! ']='Mɛboro me ho na mede tumi a enni ano no adi dwuma!',
+['내 자신을 뛰어넘어 무한의 힘을 거머쥘 것이다!']='Mɛboro me ho na mede tumi a enni ano no adi dwuma!',
 ['파워드래곤의 포효로 대지와 공기가 부서질 듯 진동했다.']='Asase ne mframa wosow bere a Tumi Ɔtweaseɛ rebobom no.',
 ['마지막에 온 힘을 다하여 두 주먹이 붉은 방패에 닿았을 때.']='Bere a mede m’ahoɔden nyinaa hyɛɛ mu na me nsateaa bɔɔ kyɛm kɔkɔɔ no wɔ awiei no.',
 ['방패는 단숨에 금이 가 많은 조각으로 나뉘어저 부서졌다.']='Wɔbubuu kyɛm no ntɛmntɛm yɛɛ no ​​asinasin a wɔde sika kɔkɔɔ ayɛ.',
@@ -368,4 +370,4 @@ return {['[맛있는 도넛!]이 자신을 제외한 아군 전체의 첫번째 
 ['무한의 파워드래곤은 파워드래곤의 앞에 엄청난 자태를 뽐내며 서 있었다.']='Tumi a Ɛnni Ano Tumi Ɔtweaseɛ gyinaa Tumi Ɔtweaseɛ anim , na ɔdaa ne tenten kɛse adi.',
 ['이것이 진정한 힘을 이끌어낸 나의 모습이란 말인가?']='So eyi kyerɛ sɛ eyi ne me su ankasa a ɛde tumi ankasa ba?',
 ['자신을 넘어서라. 자신을 넘어 두려움을 이겨낸 자만이 무한의 힘을 이끌어낼 수 있을 것이다.']='Kɔ akyiri sen wo ho. Wɔn a wodi wɔn suro so nkutoo na wobetumi ayi tumi a enni ano adi.',
-['파워드래곤은 무고한 생명들에게만 힘을 분배하며 몬스터들을 물리쳐 나아갔다.']='Tumi Ɔtweaseɛ kyekyɛɛ n’ahoɔden maa abɔde a wɔn ho nni asɛm nkutoo na odii mmoa a wɔyɛ keka so nkonim bere a ɛrekɔ n’anim no.'}
+['파워드래곤은 무고한 생명들에게만 힘을 분배하며 몬스터들을 물리쳐 나아갔다.']='Tumi Ɔtweaseɛ kyekyɛɛ tumi maa abɔde a wɔn ho nni asɛm nkutoo na odii mmoa a wɔyɛ keka so nkonim bere a ɛrekɔ n’anim no.'}

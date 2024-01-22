@@ -295,6 +295,8 @@ return {['[맛있는 도넛!]이 자신을 제외한 아군 전체의 첫번째 
 ['일정시간마다 가장 방어력이 높은 대상에게 10회에 걸쳐 튕기는 구체가 모든 방어 수단을 무시한 피해를 가합니다. 대상의 방어력이 낮을수록 피해량이 상승하며, 만약 대상의 방어력이 13000이상일 경우 피해가 무효화 됩니다.']='Elke sekere tydperk, \'n bonsende sfeer wat skade aan die teiken gee met die hoogste verdediging oor 10 treffers wat alle verdedigingsmaatreëls ignoreer. Die skade neem toe soos die teiken se verdediging afneem, en as die teiken se verdediging 13 000 of hoër is, word die skade nietig verklaar.',
 ['진정한 힘에 눈을 뜬 뒤 자신의 힘을 필요로 하는 곳으로 향하는 무한의 드래곤이다. 생명의 기운과 공명하고자 했던 파워드래곤은 탐욕적인 몬스터들이 자신의 힘에 이끌림을 느끼고, 자신의 힘을 숨기고자 했다. 그러나 생명의 근원을 만남으로써 진정한 힘은 감추는 것이 아니라 수호의 의지에서 비롯됨을 깨달았다. 조화를 이루어 무한한 힘을 이끌어낸 파워드래곤은 무한의 힘을 거머쥐어 무한의 파워드래곤으로써 성장해 자신의 힘을 펼쳐내기 시작한다. ']='Dit is \'n oneindige draak wat sy oë oopmaak vir ware krag en op pad is na \'n plek waar sy eie krag nodig is. Die Krag Draak, wat wou resoneer met die energie van die lewe, het die aantrekkingskrag van gulsige monsters gevoel en probeer om sy krag weg te steek. Deur die bron van lewe te ontmoet, het dit egter besef dat ware krag nie verborge is nie, maar uit die wil van beskerming ontstaan ​​het. Om harmonie te bereik, ontketen die Krag Draak oneindige krag en begin sy eie krag as die Oneindige Krag Draak ontvou.',
 ['파워드래곤의 시험입니다. 방어형 드래곤의 주는 피해량이 900% 증가합니다.']='Dit is \'n verhoor van die aangedrewe draak. Die skade wat deur die verdedigende draak se aanvalle aangerig word, neem met 900% toe.',
+['너의 강인함은 어느정도인가!']='How strong are you?!',
+['적을 거대한 바위 발로 강하게 타격합니다. 자신의 생명력에 따라 위력이 크게 증가합니다. 대상에게 100% 확률로 20초간 회피와 방어력 감소를 부여합니다.']='I will deliver a powerful blow to the enemy with a massive rock kick. The power will greatly increase depending on my vitality. It will grant the target a 100% chance to have reduced evasion and defense for 20 seconds.',
 ['파워드래곤은 무의식적으로 자신의 힘을 나누는 것이 수호자의 능력이라 여겼다.']='Die Krag Draak het die vermoë van \'n voog beskou om sy krag onbewustelik te verdeel.',
 ['하지만 자신의 능력이 오히려 죄 없는 생명들을 희생시키자 깊은 슬픔과 후회를 느꼈다.']='Hy het egter diep hartseer en spyt gevoel omdat sy vermoëns uiteindelik onskuldige lewens opgeoffer het.',
 ['자신의 힘을 더 잘 통제하지 못해 몬스터들이 저지른 만행에 대한 자책감을 느꼈고,']='Om skuldig te voel omdat hulle nie hul eie krag beter kon beheer nie en die verwoesting wat die monsters veroorsaak het,',
@@ -312,7 +314,7 @@ return {['[맛있는 도넛!]이 자신을 제외한 아군 전체의 첫번째 
 ['허나 몬스터들은 더욱 날뛸 뿐이었다.']='Die monsters het egter net hoër gespring.',
 ['몬스터는 무기를 쥔 채 죄 없는 생명들을 위협하고 있었다.']='Die monster het onskuldige lewens gedreig terwyl hy \'n wapen vasgehou het.',
 ['파워드래곤은 자신의 힘을 사용하지 않으리라 맹세했기에 생명들에게 힘을 전할 수 없었다.']='Krag Draak kon nie sy krag aan lewende wesens oordra nie, want hy het gesweer om nie sy eie krag te gebruik nie.',
-['나의 힘이 또 다른 악행으로 이어진다면...\'']='As my krag lei tot \'n ander bose daad...',
+['나의 힘이 또 다른 악행으로 이어진다면...']='As my krag lei tot \'n ander bose daad...',
 ['파워드래곤']='Krag Draak',
 ['자신의 힘을 사용하지 않는 파워드래곤은 점차 무너져 내렸다.']='Die magtelose draak wat nie sy eie krag gebruik het nie, het geleidelik verkrummel en geval.',
 ['나의 힘이 더는 그 누구에게도 닿지 못하도록 능력을 숨겨야 한다.']='Ek moet my vermoëns wegsteek sodat my krag niemand meer bereik nie.',
@@ -355,7 +357,7 @@ return {['[맛있는 도넛!]이 자신을 제외한 아군 전체의 첫번째 
 ['무한의 파워드래곤은 무한의 돌로 붉은 방패를 만들어 파워드래곤의 힘을 방어했다.']='Die Oneindige Krag Draak het sy krag verdedig met die Rooi Skild gemaak van oneindige klippe.',
 ['그 방패를 깨트리기 위하여 파워드래곤은 백 번이고, 천 번이고 돌진했다.']='Die aangedrewe draak het honderde kere gelaai om daardie skild te breek.',
 ['더 이상 포기하지도, 두려워하지도, 숨지도 않겠다!']='Ek sal nie meer opgee, bang wees of wegkruip nie!',
-['내 자신을 뛰어넘어 무한의 힘을 거머쥘 것이다! ']='Ek sal myself oortref en die krag van oneindigheid inspan!',
+['내 자신을 뛰어넘어 무한의 힘을 거머쥘 것이다!']='Ek sal myself oortref en die krag van oneindigheid inspan!',
 ['파워드래곤의 포효로 대지와 공기가 부서질 듯 진동했다.']='Die Aarde en lug het gebewe toe die Krag Draak gebrul het.',
 ['마지막에 온 힘을 다하여 두 주먹이 붉은 방패에 닿았을 때.']='Toe ek al my krag daarin sit en my vuiste die rooi skild aan die einde tref.',
 ['방패는 단숨에 금이 가 많은 조각으로 나뉘어저 부서졌다.']='Die skild is vinnig in stukke van goud gebreek.',
@@ -368,4 +370,4 @@ return {['[맛있는 도넛!]이 자신을 제외한 아군 전체의 첫번째 
 ['무한의 파워드래곤은 파워드래곤의 앞에 엄청난 자태를 뽐내며 서 있었다.']='Die Oneindige Krag Draak het voor die Krag Draak gestaan ​​en sy enorme statuur gewys.',
 ['이것이 진정한 힘을 이끌어낸 나의 모습이란 말인가?']='Beteken dit dat dit my ware vorm is wat ware krag na vore bring?',
 ['자신을 넘어서라. 자신을 넘어 두려움을 이겨낸 자만이 무한의 힘을 이끌어낼 수 있을 것이다.']='Gaan verder as jouself. Slegs diegene wat hul vrese oorkom, kan oneindige krag ontketen.',
-['파워드래곤은 무고한 생명들에게만 힘을 분배하며 몬스터들을 물리쳐 나아갔다.']='Krag Draak het sy krag net aan onskuldige wesens versprei en monsters verslaan terwyl dit vorentoe beweeg het.'}
+['파워드래곤은 무고한 생명들에게만 힘을 분배하며 몬스터들을 물리쳐 나아갔다.']='Krag Draak het krag net aan onskuldige wesens versprei en monsters verslaan terwyl dit vorentoe beweeg het.'}

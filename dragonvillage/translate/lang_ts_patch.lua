@@ -295,6 +295,8 @@ return {['[맛있는 도넛!]이 자신을 제외한 아군 전체의 첫번째 
 ['일정시간마다 가장 방어력이 높은 대상에게 10회에 걸쳐 튕기는 구체가 모든 방어 수단을 무시한 피해를 가합니다. 대상의 방어력이 낮을수록 피해량이 상승하며, 만약 대상의 방어력이 13000이상일 경우 피해가 무효화 됩니다.']='Nkarhi wun’wana na wun’wana wo karhi, xirhendzevutani lexi tlulaka lexi endlaka ku onha eka xikongomelo lexi nga na vusirheleri bya le henhla eka 10 wa ku ba hi ku honisa magoza hinkwawo ya vusirheleri. Ku onhaka ku andza loko vusirheleri bya xikongomelo byi ya byi hunguteka, naswona loko vusirheleri bya xikongomelo byi ri 13 000 kumbe ku tlula, ku onhaka ku nga ha tirhi.',
 ['진정한 힘에 눈을 뜬 뒤 자신의 힘을 필요로 하는 곳으로 향하는 무한의 드래곤이다. 생명의 기운과 공명하고자 했던 파워드래곤은 탐욕적인 몬스터들이 자신의 힘에 이끌림을 느끼고, 자신의 힘을 숨기고자 했다. 그러나 생명의 근원을 만남으로써 진정한 힘은 감추는 것이 아니라 수호의 의지에서 비롯됨을 깨달았다. 조화를 이루어 무한한 힘을 이끌어낸 파워드래곤은 무한의 힘을 거머쥐어 무한의 파워드래곤으로써 성장해 자신의 힘을 펼쳐내기 시작한다. ']='I dragona leyi nga heriki leyi pfulaka mahlo ya yona eka matimba ya ntiyiso naswona yi kongoma endhawini leyi ku lavekaka matimba ya yona. Dragon ya matimba, leyi a yi lava ku twala ni matimba ya vutomi, yi twe ku kokiwa hi swiharhi swa nhova leswi nga ni makwanga naswona yi ringete ku tumbeta matimba ya yona. Hambiswiritano, hi ku hlangana ni xihlovo xa vutomi, yi xiye leswaku matimba ya ntiyiso a ma fihliwile kambe ma huma eka ku navela ka nsirhelelo. Hi ku fikelela ku twanana, Dragon ya matimba yi humesa matimba lama nga heriki naswona yi sungula ku paluxa matimba ya yona tanihi Dragon ya matimba lama nga Heriki .',
 ['파워드래곤의 시험입니다. 방어형 드래곤의 주는 피해량이 900% 증가합니다.']='Lowu i ndzingo wa dragona leyi nga ni matimba. Ku onhaka loku endliwaka hi minhlaselo ya dragon yo sirhelela ku tlakuka hi 900%.',
+['너의 강인함은 어느정도인가!']='너의 강인함은 어느정도인가!',
+['적을 거대한 바위 발로 강하게 타격합니다. 자신의 생명력에 따라 위력이 크게 증가합니다. 대상에게 100% 확률로 20초간 회피와 방어력 감소를 부여합니다.']='적을 거대한 바위 발로 강하게 타격합니다. 자신의 생명력에 따라 위력이 크게 증가합니다. 대상에게 100% 확률로 20초간 회피와 방어력 감소를 부여합니다.',
 ['파워드래곤은 무의식적으로 자신의 힘을 나누는 것이 수호자의 능력이라 여겼다.']='Dragon ya matimba a yi teka ku avanyisa matimba ya yona hi ku nga swi tivi tanihi vuswikoti bya murindzi.',
 ['하지만 자신의 능력이 오히려 죄 없는 생명들을 희생시키자 깊은 슬픔과 후회를 느꼈다.']='Hambiswiritano, u titwe a ri ni gome lerikulu ni ku tisola tanihi leswi vuswikoti byakwe byi heteleleke a nyikele hi vutomi lebyi nga riki na nandzu ematshan’weni ya sweswo.',
 ['자신의 힘을 더 잘 통제하지 못해 몬스터들이 저지른 만행에 대한 자책감을 느꼈고,']='Hi ku titwa va ri ni nandzu hikwalaho ko tsandzeka ku lawula matimba ya vona ku antswa ni ku onhaka loku swivandzana leswi swi ku vangeleke, .',
@@ -312,7 +314,7 @@ return {['[맛있는 도넛!]이 자신을 제외한 아군 전체의 첫번째 
 ['허나 몬스터들은 더욱 날뛸 뿐이었다.']='Hambiswiritano, swivandzana leswi swi tlulele ehenhla ntsena.',
 ['몬스터는 무기를 쥔 채 죄 없는 생명들을 위협하고 있었다.']='Xiharhi lexi xa nhova a xi xungeta vutomi bya vanhu lava nga riki na nandzu loko xi khome tlhari.',
 ['파워드래곤은 자신의 힘을 사용하지 않으리라 맹세했기에 생명들에게 힘을 전할 수 없었다.']='Dragon ya matimba a yi swi kotanga ku hundzisela matimba ya yona eka swivumbiwa leswi hanyaka hikuva yi hlambanyile leswaku a yi nge tirhisi matimba ya yona.',
-['나의 힘이 또 다른 악행으로 이어진다면...\'']='Loko matimba ya mina ya yisa eka xiendlo xin\'wana xo biha...',
+['나의 힘이 또 다른 악행으로 이어진다면...']='Loko matimba ya mina ya yisa eka xiendlo xin\'wana xo biha...',
 ['파워드래곤']='Dragon ya matimba',
 ['자신의 힘을 사용하지 않는 파워드래곤은 점차 무너져 내렸다.']='Dragona leyi nga riki na matimba leyi a yi nga tirhisi matimba ya yona hakatsongo-tsongo yi tshovekile yi wa.',
 ['나의 힘이 더는 그 누구에게도 닿지 못하도록 능력을 숨겨야 한다.']='Ndzi fanele ndzi tumbeta vuswikoti bya mina leswaku matimba ya mina ma nga ha fiki eka munhu.',
@@ -355,7 +357,7 @@ return {['[맛있는 도넛!]이 자신을 제외한 아군 전체의 첫번째 
 ['무한의 파워드래곤은 무한의 돌로 붉은 방패를 만들어 파워드래곤의 힘을 방어했다.']='Dragon ya matimba lama nga Heriki yi sirhelele matimba ya yona hi Xitlhangu xo Tshwuka lexi endliweke hi maribye lama nga heriki.',
 ['그 방패를 깨트리기 위하여 파워드래곤은 백 번이고, 천 번이고 돌진했다.']='Dragona leyi nga ni matimba yi hlasele madzana ya minkarhi leswaku yi tshova xitlhangu xexo.',
 ['더 이상 포기하지도, 두려워하지도, 숨지도 않겠다!']='A ndzi nge he tshiki, ndzi chava kumbe ku tumbela!',
-['내 자신을 뛰어넘어 무한의 힘을 거머쥘 것이다! ']='Ndzi ta ti tlula ndzi tirhisa matimba ya ku nga heli!',
+['내 자신을 뛰어넘어 무한의 힘을 거머쥘 것이다!']='Ndzi ta ti tlula ndzi tirhisa matimba ya ku nga heli!',
 ['파워드래곤의 포효로 대지와 공기가 부서질 듯 진동했다.']='Misava na moya swi rhurhumela loko Dragon ya matimba yi ri karhi yi rhurhumela.',
 ['마지막에 온 힘을 다하여 두 주먹이 붉은 방패에 닿았을 때.']='Loko ndzi nghenisa matimba ya mina hinkwawo eka yona naswona swibakele swa mina swi ba xitlhangu xo tshwuka emakumu.',
 ['방패는 단숨에 금이 가 많은 조각으로 나뉘어저 부서졌다.']='Xitlhangu lexi xi hatle xi tshoveka xi va swiphemu leswi endliweke hi nsuku.',
@@ -368,4 +370,4 @@ return {['[맛있는 도넛!]이 자신을 제외한 아군 전체의 첫번째 
 ['무한의 파워드래곤은 파워드래곤의 앞에 엄청난 자태를 뽐내며 서 있었다.']='Dragon ya matimba leyi nga Heriki yi yime emahlweni ka Dragon ya matimba, yi kombisa ku leha ka yona lokukulu.',
 ['이것이 진정한 힘을 이끌어낸 나의 모습이란 말인가?']='Xana leswi swi vula leswaku lexi i xivumbeko xa mina xa ntiyiso lexi humesaka matimba ya xiviri?',
 ['자신을 넘어서라. 자신을 넘어 두려움을 이겨낸 자만이 무한의 힘을 이끌어낼 수 있을 것이다.']='Hundza eka wena n’wini. I lava hlulaka ku chava ka vona ntsena lava nga humesaka matimba lama nga pimekiki.',
-['파워드래곤은 무고한 생명들에게만 힘을 분배하며 몬스터들을 물리쳐 나아갔다.']='Dragon ya matimba yi hangalase matimba ya yona ntsena eka swivumbiwa leswi nga riki na nandzu naswona yi hlule swiharhi swa nhova loko yi ri karhi yi ya emahlweni.'}
+['파워드래곤은 무고한 생명들에게만 힘을 분배하며 몬스터들을 물리쳐 나아갔다.']='Dragon ya matimba yi hangalase matimba ntsena eka swivumbiwa leswi nga riki na nandzu naswona yi hlule swiharhi swa nhova loko yi ri karhi yi ya emahlweni.'}

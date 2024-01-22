@@ -295,6 +295,8 @@ return {['[맛있는 도넛!]이 자신을 제외한 아군 전체의 첫번째 
 ['일정시간마다 가장 방어력이 높은 대상에게 10회에 걸쳐 튕기는 구체가 모든 방어 수단을 무시한 피해를 가합니다. 대상의 방어력이 낮을수록 피해량이 상승하며, 만약 대상의 방어력이 13000이상일 경우 피해가 무효화 됩니다.']='Setiap jangka waktu tertentu, bola memantul yang memberikan kerusakan pada target dengan pertahanan tertinggi lebih dari 10 pukulan mengabaikan semua tindakan pertahanan. Kerusakan meningkat seiring menurunnya pertahanan target, dan jika pertahanan target mencapai 13.000 atau lebih, kerusakan akan dibatalkan.',
 ['진정한 힘에 눈을 뜬 뒤 자신의 힘을 필요로 하는 곳으로 향하는 무한의 드래곤이다. 생명의 기운과 공명하고자 했던 파워드래곤은 탐욕적인 몬스터들이 자신의 힘에 이끌림을 느끼고, 자신의 힘을 숨기고자 했다. 그러나 생명의 근원을 만남으로써 진정한 힘은 감추는 것이 아니라 수호의 의지에서 비롯됨을 깨달았다. 조화를 이루어 무한한 힘을 이끌어낸 파워드래곤은 무한의 힘을 거머쥐어 무한의 파워드래곤으로써 성장해 자신의 힘을 펼쳐내기 시작한다. ']='Itu adalah naga tanpa batas yang membuka matanya terhadap kekuatan sejati dan menuju ke tempat di mana kekuatannya sendiri dibutuhkan. Naga Power, yang ingin beresonansi dengan energi kehidupan, merasakan ketertarikan monster serakah dan mencoba menyembunyikan kekuatannya. Namun, dengan menjumpai sumber kehidupan, ia menyadari bahwa kekuatan sejati tidak tersembunyi melainkan berasal dari kemauan perlindungan. Mencapai harmoni, Naga Power melepaskan kekuatan tak terbatas dan mulai mengembangkan kekuatannya sendiri sebagai Naga Power Tak Terbatas.',
 ['파워드래곤의 시험입니다. 방어형 드래곤의 주는 피해량이 900% 증가합니다.']='Ini adalah uji coba naga bertenaga. Kerusakan yang ditimbulkan oleh serangan naga pertahanan meningkat sebesar 900%.',
+['너의 강인함은 어느정도인가!']='너의 강인함은 어느정도인가!',
+['적을 거대한 바위 발로 강하게 타격합니다. 자신의 생명력에 따라 위력이 크게 증가합니다. 대상에게 100% 확률로 20초간 회피와 방어력 감소를 부여합니다.']='적을 거대한 바위 발로 강하게 타격합니다. 자신의 생명력에 따라 위력이 크게 증가합니다. 대상에게 100% 확률로 20초간 회피와 방어력 감소를 부여합니다.',
 ['파워드래곤은 무의식적으로 자신의 힘을 나누는 것이 수호자의 능력이라 여겼다.']='Naga Power menganggap membagi kekuatannya secara tidak sadar sebagai kemampuan seorang penjaga.',
 ['하지만 자신의 능력이 오히려 죄 없는 생명들을 희생시키자 깊은 슬픔과 후회를 느꼈다.']='Namun, dia merasakan kesedihan dan penyesalan yang mendalam karena kemampuannya malah mengorbankan nyawa orang yang tidak bersalah.',
 ['자신의 힘을 더 잘 통제하지 못해 몬스터들이 저지른 만행에 대한 자책감을 느꼈고,']='Merasa bersalah karena tidak mampu mengendalikan kekuatannya sendiri dengan lebih baik dan kekacauan yang disebabkan oleh monster,',
@@ -312,7 +314,7 @@ return {['[맛있는 도넛!]이 자신을 제외한 아군 전체의 첫번째 
 ['허나 몬스터들은 더욱 날뛸 뿐이었다.']='Namun, monster-monster itu hanya melompat lebih tinggi.',
 ['몬스터는 무기를 쥔 채 죄 없는 생명들을 위협하고 있었다.']='Monster itu mengancam nyawa tak berdosa sambil memegang senjata.',
 ['파워드래곤은 자신의 힘을 사용하지 않으리라 맹세했기에 생명들에게 힘을 전할 수 없었다.']='Naga Power tidak dapat mewariskan kekuatannya kepada makhluk hidup karena bersumpah untuk tidak menggunakan kekuatannya sendiri.',
-['나의 힘이 또 다른 악행으로 이어진다면...\'']='Jika kekuatanku mengarah pada perbuatan jahat lainnya...',
+['나의 힘이 또 다른 악행으로 이어진다면...']='Jika kekuatanku mengarah pada perbuatan jahat lainnya...',
 ['파워드래곤']='Naga Power',
 ['자신의 힘을 사용하지 않는 파워드래곤은 점차 무너져 내렸다.']='Naga tak berdaya yang tidak menggunakan kekuatannya sendiri perlahan-lahan hancur dan jatuh.',
 ['나의 힘이 더는 그 누구에게도 닿지 못하도록 능력을 숨겨야 한다.']='Aku harus menyembunyikan kemampuanku agar kekuatanku tidak lagi menjangkau siapa pun.',
@@ -355,7 +357,7 @@ return {['[맛있는 도넛!]이 자신을 제외한 아군 전체의 첫번째 
 ['무한의 파워드래곤은 무한의 돌로 붉은 방패를 만들어 파워드래곤의 힘을 방어했다.']='Naga Power Tak Terbatas mempertahankan kekuatannya dengan Perisai Merah yang terbuat dari batu tak terbatas.',
 ['그 방패를 깨트리기 위하여 파워드래곤은 백 번이고, 천 번이고 돌진했다.']='Naga bertenaga itu menyerang ratusan kali untuk menghancurkan perisai itu.',
 ['더 이상 포기하지도, 두려워하지도, 숨지도 않겠다!']='Saya tidak akan lagi menyerah, takut, atau bersembunyi!',
-['내 자신을 뛰어넘어 무한의 힘을 거머쥘 것이다! ']='Saya akan melampaui diri saya sendiri dan memanfaatkan kekuatan ketidakterbatasan!',
+['내 자신을 뛰어넘어 무한의 힘을 거머쥘 것이다!']='Saya akan melampaui diri saya sendiri dan memanfaatkan kekuatan ketidakterbatasan!',
 ['파워드래곤의 포효로 대지와 공기가 부서질 듯 진동했다.']='Tanah dan udara bergetar saat Naga Power meraung.',
 ['마지막에 온 힘을 다하여 두 주먹이 붉은 방패에 닿았을 때.']='Saat aku mengerahkan seluruh kekuatanku ke dalamnya dan tinjuku mengenai perisai merah di bagian akhir.',
 ['방패는 단숨에 금이 가 많은 조각으로 나뉘어저 부서졌다.']='Perisai itu dengan cepat dipecah menjadi beberapa bagian yang terbuat dari emas.',
@@ -368,4 +370,4 @@ return {['[맛있는 도넛!]이 자신을 제외한 아군 전체의 첫번째 
 ['무한의 파워드래곤은 파워드래곤의 앞에 엄청난 자태를 뽐내며 서 있었다.']='Naga Power Tak Terbatas berdiri di depan Naga Power, memamerkan perawakannya yang sangat besar.',
 ['이것이 진정한 힘을 이끌어낸 나의 모습이란 말인가?']='Apakah ini berarti wujud asliku yang mengeluarkan kekuatan asli?',
 ['자신을 넘어서라. 자신을 넘어 두려움을 이겨낸 자만이 무한의 힘을 이끌어낼 수 있을 것이다.']='Lampaui dirimu sendiri. Hanya mereka yang mengatasi ketakutannya yang dapat mengeluarkan kekuatan tak terbatas.',
-['파워드래곤은 무고한 생명들에게만 힘을 분배하며 몬스터들을 물리쳐 나아갔다.']='Naga Power mendistribusikan kekuatannya hanya kepada makhluk tak berdosa dan mengalahkan monster saat ia bergerak maju.'}
+['파워드래곤은 무고한 생명들에게만 힘을 분배하며 몬스터들을 물리쳐 나아갔다.']='Naga Power mendistribusikan kekuatan hanya kepada makhluk tak berdosa dan mengalahkan monster saat ia bergerak maju.'}

@@ -295,6 +295,8 @@ return {['[맛있는 도넛!]이 자신을 제외한 아군 전체의 첫번째 
 ['일정시간마다 가장 방어력이 높은 대상에게 10회에 걸쳐 튕기는 구체가 모든 방어 수단을 무시한 피해를 가합니다. 대상의 방어력이 낮을수록 피해량이 상승하며, 만약 대상의 방어력이 13000이상일 경우 피해가 무효화 됩니다.']='À intervalles réguliers, une sphère rebondissante inflige des dégâts à la cible ayant la défense la plus élevée sur 10 coups, ignorant toutes les mesures de défense. Les dégâts augmentent à mesure que la défense de la cible diminue, et si la défense de la cible est de 13 000 ou plus, les dégâts sont annulés.',
 ['진정한 힘에 눈을 뜬 뒤 자신의 힘을 필요로 하는 곳으로 향하는 무한의 드래곤이다. 생명의 기운과 공명하고자 했던 파워드래곤은 탐욕적인 몬스터들이 자신의 힘에 이끌림을 느끼고, 자신의 힘을 숨기고자 했다. 그러나 생명의 근원을 만남으로써 진정한 힘은 감추는 것이 아니라 수호의 의지에서 비롯됨을 깨달았다. 조화를 이루어 무한한 힘을 이끌어낸 파워드래곤은 무한의 힘을 거머쥐어 무한의 파워드래곤으로써 성장해 자신의 힘을 펼쳐내기 시작한다. ']='C\'est un dragon infini qui ouvre les yeux sur la vraie force et se dirige vers un endroit où son propre pouvoir est nécessaire. Le Dragon Power, qui voulait entrer en résonance avec l\'énergie de la vie, ressentit l\'attirance des monstres avides et tenta de cacher son pouvoir. Cependant, en rencontrant la source de la vie, il réalisa que le véritable pouvoir n’est pas caché mais provient de la volonté de protection. Atteignant l\'harmonie, le Dragon Power libère un pouvoir infini et commence à déployer son propre pouvoir en tant que Dragon Power infini.',
 ['파워드래곤의 시험입니다. 방어형 드래곤의 주는 피해량이 900% 증가합니다.']='Il s\'agit d\'un essai du dragon motorisé. Les dégâts infligés par les attaques du dragon défensif augmentent de 900 %.',
+['너의 강인함은 어느정도인가!']='너의 강인함은 어느정도인가!',
+['적을 거대한 바위 발로 강하게 타격합니다. 자신의 생명력에 따라 위력이 크게 증가합니다. 대상에게 100% 확률로 20초간 회피와 방어력 감소를 부여합니다.']='적을 거대한 바위 발로 강하게 타격합니다. 자신의 생명력에 따라 위력이 크게 증가합니다. 대상에게 100% 확률로 20초간 회피와 방어력 감소를 부여합니다.',
 ['파워드래곤은 무의식적으로 자신의 힘을 나누는 것이 수호자의 능력이라 여겼다.']='Le Dragon Power considérait que diviser son pouvoir inconsciemment était la capacité d\'un gardien.',
 ['하지만 자신의 능력이 오히려 죄 없는 생명들을 희생시키자 깊은 슬픔과 후회를 느꼈다.']='Cependant, il a ressenti une profonde tristesse et des regrets car ses capacités ont fini par sacrifier des vies innocentes.',
 ['자신의 힘을 더 잘 통제하지 못해 몬스터들이 저지른 만행에 대한 자책감을 느꼈고,']='Se sentant coupable de ne pas pouvoir mieux contrôler son propre pouvoir et les ravages causés par les monstres,',
@@ -312,7 +314,7 @@ return {['[맛있는 도넛!]이 자신을 제외한 아군 전체의 첫번째 
 ['허나 몬스터들은 더욱 날뛸 뿐이었다.']='Cependant, les monstres n’ont fait que sauter plus haut.',
 ['몬스터는 무기를 쥔 채 죄 없는 생명들을 위협하고 있었다.']='Le monstre menaçait des vies innocentes tout en tenant une arme.',
 ['파워드래곤은 자신의 힘을 사용하지 않으리라 맹세했기에 생명들에게 힘을 전할 수 없었다.']='Dragon Power était incapable de transmettre son pouvoir aux êtres vivants car il avait juré de ne pas utiliser son propre pouvoir.',
-['나의 힘이 또 다른 악행으로 이어진다면...\'']='Si mon pouvoir mène à une autre mauvaise action...',
+['나의 힘이 또 다른 악행으로 이어진다면...']='Si mon pouvoir mène à une autre mauvaise action...',
 ['파워드래곤']='Dragon Power',
 ['자신의 힘을 사용하지 않는 파워드래곤은 점차 무너져 내렸다.']='Le dragon impuissant qui n’utilisait pas sa propre force s’effondra progressivement et tomba.',
 ['나의 힘이 더는 그 누구에게도 닿지 못하도록 능력을 숨겨야 한다.']='Je dois cacher mes capacités pour que mon pouvoir n\'atteigne plus personne.',
@@ -355,7 +357,7 @@ return {['[맛있는 도넛!]이 자신을 제외한 아군 전체의 첫번째 
 ['무한의 파워드래곤은 무한의 돌로 붉은 방패를 만들어 파워드래곤의 힘을 방어했다.']='Le Dragon Power Infini a défendu son pouvoir avec le Bouclier Rouge fait de pierres infinies.',
 ['그 방패를 깨트리기 위하여 파워드래곤은 백 번이고, 천 번이고 돌진했다.']='Le dragon motorisé chargea des centaines de fois pour briser ce bouclier.',
 ['더 이상 포기하지도, 두려워하지도, 숨지도 않겠다!']='Je n’abandonnerai plus, n’aurai plus peur ou ne me cacherai plus !',
-['내 자신을 뛰어넘어 무한의 힘을 거머쥘 것이다! ']='Je vais me surpasser et exploiter le pouvoir de l\'infini !',
+['내 자신을 뛰어넘어 무한의 힘을 거머쥘 것이다!']='Je vais me surpasser et exploiter le pouvoir de l\'infini !',
 ['파워드래곤의 포효로 대지와 공기가 부서질 듯 진동했다.']='La Terre et l’air tremblaient alors que le Dragon Power rugissait.',
 ['마지막에 온 힘을 다하여 두 주먹이 붉은 방패에 닿았을 때.']='Quand j\'y ai mis toutes mes forces et que mes poings ont touché le bouclier rouge à la fin.',
 ['방패는 단숨에 금이 가 많은 조각으로 나뉘어저 부서졌다.']='Le bouclier fut rapidement brisé en morceaux d\'or.',
@@ -368,4 +370,4 @@ return {['[맛있는 도넛!]이 자신을 제외한 아군 전체의 첫번째 
 ['무한의 파워드래곤은 파워드래곤의 앞에 엄청난 자태를 뽐내며 서 있었다.']='L’Infinite Dragon Power se tenait devant le Dragon Power, montrant son immense stature.',
 ['이것이 진정한 힘을 이끌어낸 나의 모습이란 말인가?']='Cela signifie-t-il que c\'est ma vraie forme qui fait ressortir un véritable pouvoir ?',
 ['자신을 넘어서라. 자신을 넘어 두려움을 이겨낸 자만이 무한의 힘을 이끌어낼 수 있을 것이다.']='Allez au-delà de vous-même. Seuls ceux qui surmontent leurs peurs peuvent libérer un pouvoir infini.',
-['파워드래곤은 무고한 생명들에게만 힘을 분배하며 몬스터들을 물리쳐 나아갔다.']='Dragon Power a distribué sa force uniquement aux créatures innocentes et aux monstres vaincus au fur et à mesure de son avancée.'}
+['파워드래곤은 무고한 생명들에게만 힘을 분배하며 몬스터들을 물리쳐 나아갔다.']='Dragon Power distribuait le pouvoir uniquement aux créatures innocentes et battait les monstres à mesure qu\'il avançait.'}

@@ -295,6 +295,8 @@ return {['[맛있는 도넛!]이 자신을 제외한 아군 전체의 첫번째 
 ['일정시간마다 가장 방어력이 높은 대상에게 10회에 걸쳐 튕기는 구체가 모든 방어 수단을 무시한 피해를 가합니다. 대상의 방어력이 낮을수록 피해량이 상승하며, 만약 대상의 방어력이 13000이상일 경우 피해가 무효화 됩니다.']='Cada cierto período de tiempo, se lanza una esfera que rebota y que inflige daño al objetivo con mayor defensa durante 10 golpes ignorando todas las medidas de defensa. El daño aumenta a medida que disminuye la defensa del objetivo, y si la defensa del objetivo es 13.000 o más, el daño se anula.',
 ['진정한 힘에 눈을 뜬 뒤 자신의 힘을 필요로 하는 곳으로 향하는 무한의 드래곤이다. 생명의 기운과 공명하고자 했던 파워드래곤은 탐욕적인 몬스터들이 자신의 힘에 이끌림을 느끼고, 자신의 힘을 숨기고자 했다. 그러나 생명의 근원을 만남으로써 진정한 힘은 감추는 것이 아니라 수호의 의지에서 비롯됨을 깨달았다. 조화를 이루어 무한한 힘을 이끌어낸 파워드래곤은 무한의 힘을 거머쥐어 무한의 파워드래곤으로써 성장해 자신의 힘을 펼쳐내기 시작한다. ']='Es un dragón infinito que abre sus ojos a la verdadera fuerza y ​​se dirige hacia un lugar donde se necesita su propio poder. El Potendra, que quería resonar con la energía de la vida, sintió la atracción de monstruos codiciosos y trató de ocultar su poder. Sin embargo, al encontrar la fuente de la vida, se dio cuenta de que el verdadero poder no está oculto sino que se origina en la voluntad de protección. Al lograr la armonía, el Potendra desata un poder infinito y comienza a desplegar su propio poder como el Potendra Infinito.',
 ['파워드래곤의 시험입니다. 방어형 드래곤의 주는 피해량이 900% 증가합니다.']='Esta es una prueba del dragón potenciado. El daño infligido por los ataques del dragón defensivo aumenta en un 900%.',
+['너의 강인함은 어느정도인가!']='How strong are you?!',
+['적을 거대한 바위 발로 강하게 타격합니다. 자신의 생명력에 따라 위력이 크게 증가합니다. 대상에게 100% 확률로 20초간 회피와 방어력 감소를 부여합니다.']='I will deliver a powerful blow to the enemy with a massive rock kick. The power will greatly increase depending on my vitality. It will grant the target a 100% chance to have reduced evasion and defense for 20 seconds.',
 ['파워드래곤은 무의식적으로 자신의 힘을 나누는 것이 수호자의 능력이라 여겼다.']='El Potendra consideró dividir su poder inconscientemente como la habilidad de un guardián.',
 ['하지만 자신의 능력이 오히려 죄 없는 생명들을 희생시키자 깊은 슬픔과 후회를 느꼈다.']='Sin embargo, sintió una profunda tristeza y arrepentimiento porque sus habilidades terminaron sacrificando vidas inocentes.',
 ['자신의 힘을 더 잘 통제하지 못해 몬스터들이 저지른 만행에 대한 자책감을 느꼈고,']='Sintiéndose culpable por no poder controlar mejor su propio poder y los estragos que causaron los monstruos,',
@@ -312,7 +314,7 @@ return {['[맛있는 도넛!]이 자신을 제외한 아군 전체의 첫번째 
 ['허나 몬스터들은 더욱 날뛸 뿐이었다.']='Sin embargo, los monstruos sólo saltaron más alto.',
 ['몬스터는 무기를 쥔 채 죄 없는 생명들을 위협하고 있었다.']='El monstruo amenazaba vidas inocentes mientras empuñaba un arma.',
 ['파워드래곤은 자신의 힘을 사용하지 않으리라 맹세했기에 생명들에게 힘을 전할 수 없었다.']='Potendra no pudo transmitir su poder a los seres vivos porque juró no usar su propio poder.',
-['나의 힘이 또 다른 악행으로 이어진다면...\'']='Si mi poder conduce a otra mala acción...',
+['나의 힘이 또 다른 악행으로 이어진다면...']='Si mi poder conduce a otra mala acción...',
 ['파워드래곤']='Potendra',
 ['자신의 힘을 사용하지 않는 파워드래곤은 점차 무너져 내렸다.']='El dragón impotente que no usó su propia fuerza gradualmente se desmoronó y cayó.',
 ['나의 힘이 더는 그 누구에게도 닿지 못하도록 능력을 숨겨야 한다.']='Debo ocultar mis habilidades para que mi poder ya no llegue a nadie.',
@@ -355,7 +357,7 @@ return {['[맛있는 도넛!]이 자신을 제외한 아군 전체의 첫번째 
 ['무한의 파워드래곤은 무한의 돌로 붉은 방패를 만들어 파워드래곤의 힘을 방어했다.']='El Potendra Infinito defendió su poder con el Escudo Rojo hecho de piedras infinitas.',
 ['그 방패를 깨트리기 위하여 파워드래곤은 백 번이고, 천 번이고 돌진했다.']='El dragón poderoso cargó cientos de veces para romper ese escudo.',
 ['더 이상 포기하지도, 두려워하지도, 숨지도 않겠다!']='¡Ya no me rendiré, ni tendré miedo ni me esconderé!',
-['내 자신을 뛰어넘어 무한의 힘을 거머쥘 것이다! ']='¡Me superaré a mí mismo y aprovecharé el poder del infinito!',
+['내 자신을 뛰어넘어 무한의 힘을 거머쥘 것이다!']='¡Me superaré a mí mismo y aprovecharé el poder del infinito!',
 ['파워드래곤의 포효로 대지와 공기가 부서질 듯 진동했다.']='La Tierra y el aire temblaron cuando el Potendra rugió.',
 ['마지막에 온 힘을 다하여 두 주먹이 붉은 방패에 닿았을 때.']='Cuando puse todas mis fuerzas en ello y mis puños golpearon el escudo rojo al final.',
 ['방패는 단숨에 금이 가 많은 조각으로 나뉘어저 부서졌다.']='El escudo se rompió rápidamente en pedazos de oro.',
@@ -368,4 +370,4 @@ return {['[맛있는 도넛!]이 자신을 제외한 아군 전체의 첫번째 
 ['무한의 파워드래곤은 파워드래곤의 앞에 엄청난 자태를 뽐내며 서 있었다.']='El Potendra Infinito se paró frente al Potendra, mostrando su inmensa estatura.',
 ['이것이 진정한 힘을 이끌어낸 나의 모습이란 말인가?']='¿Significa esto que esta es mi verdadera forma que genera poder genuino?',
 ['자신을 넘어서라. 자신을 넘어 두려움을 이겨낸 자만이 무한의 힘을 이끌어낼 수 있을 것이다.']='Ve más allá de ti mismo. Sólo aquellos que superan sus miedos pueden desatar un poder infinito.',
-['파워드래곤은 무고한 생명들에게만 힘을 분배하며 몬스터들을 물리쳐 나아갔다.']='Potendra distribuyó su fuerza solo a criaturas inocentes y derrotó a los monstruos a medida que avanzaba.'}
+['파워드래곤은 무고한 생명들에게만 힘을 분배하며 몬스터들을 물리쳐 나아갔다.']='Potendra distribuyó poder solo a criaturas inocentes y derrotó a los monstruos a medida que avanzaba.'}

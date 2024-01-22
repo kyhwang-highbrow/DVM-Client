@@ -295,6 +295,8 @@ return {['[맛있는 도넛!]이 자신을 제외한 아군 전체의 첫번째 
 ['일정시간마다 가장 방어력이 높은 대상에게 10회에 걸쳐 튕기는 구체가 모든 방어 수단을 무시한 피해를 가합니다. 대상의 방어력이 낮을수록 피해량이 상승하며, 만약 대상의 방어력이 13000이상일 경우 피해가 무효화 됩니다.']='Kowane ɗan lokaci, wani yanki na bouncing wanda ke yin lalata ga manufa tare da mafi girman tsaro sama da 10 yana yin watsi da duk matakan tsaro. Lalacewar tana ƙaruwa yayin da abin da ake buƙata ya ragu, kuma idan abin da ake so ya kare ya kai 13,000 ko sama da haka, lalacewar ta lalace.',
 ['진정한 힘에 눈을 뜬 뒤 자신의 힘을 필요로 하는 곳으로 향하는 무한의 드래곤이다. 생명의 기운과 공명하고자 했던 파워드래곤은 탐욕적인 몬스터들이 자신의 힘에 이끌림을 느끼고, 자신의 힘을 숨기고자 했다. 그러나 생명의 근원을 만남으로써 진정한 힘은 감추는 것이 아니라 수호의 의지에서 비롯됨을 깨달았다. 조화를 이루어 무한한 힘을 이끌어낸 파워드래곤은 무한의 힘을 거머쥐어 무한의 파워드래곤으로써 성장해 자신의 힘을 펼쳐내기 시작한다. ']='Dodon ne mara iyaka wanda yake buɗe idanunsa zuwa ga ƙarfi na gaskiya kuma ya nufi wurin da ake buƙatar ikonsa. Dragon Power, wanda yake so ya sake yin amfani da makamashi na rayuwa, ya ji sha\'awar dodanni masu haɗama kuma ya yi ƙoƙari ya ɓoye ikonsa. Duk da haka, ta hanyar saduwa da tushen rayuwa, ya gane cewa iko na gaskiya ba a ɓoye yake ba amma ya samo asali daga nufin kariya. Samun jituwa, Dragon Power ya buɗe iko marar iyaka kuma ya fara buɗe ikonsa a matsayin Dragon Power.',
 ['파워드래곤의 시험입니다. 방어형 드래곤의 주는 피해량이 900% 증가합니다.']='Wannan gwaji ne na dodanni mai ƙarfi. Lalacewar da hare-haren dodanni na kare ya yi yana ƙaruwa da kashi 900%.',
+['너의 강인함은 어느정도인가!']='너의 강인함은 어느정도인가!',
+['적을 거대한 바위 발로 강하게 타격합니다. 자신의 생명력에 따라 위력이 크게 증가합니다. 대상에게 100% 확률로 20초간 회피와 방어력 감소를 부여합니다.']='적을 거대한 바위 발로 강하게 타격합니다. 자신의 생명력에 따라 위력이 크게 증가합니다. 대상에게 100% 확률로 20초간 회피와 방어력 감소를 부여합니다.',
 ['파워드래곤은 무의식적으로 자신의 힘을 나누는 것이 수호자의 능력이라 여겼다.']='Dragon Power ya ɗauki rarraba ikonsa a hankali a matsayin ikon mai kulawa.',
 ['하지만 자신의 능력이 오히려 죄 없는 생명들을 희생시키자 깊은 슬픔과 후회를 느꼈다.']='Duk da haka, ya ji baƙin ciki sosai da nadama yayin da iyawarsa ta ƙare ya sadaukar da rayukan marasa laifi maimakon haka.',
 ['자신의 힘을 더 잘 통제하지 못해 몬스터들이 저지른 만행에 대한 자책감을 느꼈고,']='Jin laifin rashin iya sarrafa nasu ikon da kyau da kuma barnar da dodanni suka haifar,',
@@ -312,7 +314,7 @@ return {['[맛있는 도넛!]이 자신을 제외한 아군 전체의 첫번째 
 ['허나 몬스터들은 더욱 날뛸 뿐이었다.']='Duk da haka, dodanni sun yi tsalle sama sama.',
 ['몬스터는 무기를 쥔 채 죄 없는 생명들을 위협하고 있었다.']='Dodon yana barazana ga rayukan marasa laifi yayin da yake rike da makami.',
 ['파워드래곤은 자신의 힘을 사용하지 않으리라 맹세했기에 생명들에게 힘을 전할 수 없었다.']='Dragon Power ya kasa mika ikonsa ga masu rai saboda ya rantse ba zai yi amfani da ikonsa ba.',
-['나의 힘이 또 다른 악행으로 이어진다면...\'']='Idan ikona ya kai ga wani mummunan aiki...',
+['나의 힘이 또 다른 악행으로 이어진다면...']='Idan ikona ya kai ga wani mummunan aiki...',
 ['파워드래곤']='Dragon Power',
 ['자신의 힘을 사용하지 않는 파워드래곤은 점차 무너져 내렸다.']='Dodon mara ƙarfi da bai yi amfani da ƙarfinsa ba a hankali ya ruɗe ya faɗi.',
 ['나의 힘이 더는 그 누구에게도 닿지 못하도록 능력을 숨겨야 한다.']='Dole ne in ɓoye iyawa don kada ikona ya kai ga kowa.',
@@ -355,7 +357,7 @@ return {['[맛있는 도넛!]이 자신을 제외한 아군 전체의 첫번째 
 ['무한의 파워드래곤은 무한의 돌로 붉은 방패를 만들어 파워드래곤의 힘을 방어했다.']='Dragon Power Ƙarfi ya kare ikonsa tare da Jan Garkuwan da aka yi da duwatsu marasa iyaka.',
 ['그 방패를 깨트리기 위하여 파워드래곤은 백 번이고, 천 번이고 돌진했다.']='Dodon da ke da iko ya yi cajin ɗaruruwan lokuta don karya wannan garkuwar.',
 ['더 이상 포기하지도, 두려워하지도, 숨지도 않겠다!']='Ba zan ƙara yin kasala ba, ba zan ji tsoro, ko ɓoyewa ba!',
-['내 자신을 뛰어넘어 무한의 힘을 거머쥘 것이다! ']='Zan zarce kaina kuma in yi amfani da ikon marar iyaka!',
+['내 자신을 뛰어넘어 무한의 힘을 거머쥘 것이다!']='Zan zarce kaina kuma in yi amfani da ikon marar iyaka!',
 ['파워드래곤의 포효로 대지와 공기가 부서질 듯 진동했다.']='Duniya da iska sun yi rawar jiki yayin da Dragon Power ya yi ruri.',
 ['마지막에 온 힘을 다하여 두 주먹이 붉은 방패에 닿았을 때.']='Lokacin da na sa duk ƙarfina a ciki kuma nawa hannu na buga garkuwar ja a ƙarshen.',
 ['방패는 단숨에 금이 가 많은 조각으로 나뉘어저 부서졌다.']='Garkuwar da sauri ta karye gunduwa-gunduwa da zinariya.',
@@ -368,4 +370,4 @@ return {['[맛있는 도넛!]이 자신을 제외한 아군 전체의 첫번째 
 ['무한의 파워드래곤은 파워드래곤의 앞에 엄청난 자태를 뽐내며 서 있었다.']='Dragon Power Ƙarfi ya tsaya a gaban Dragon Power, yana nuna girman girmansa.',
 ['이것이 진정한 힘을 이끌어낸 나의 모습이란 말인가?']='Shin wannan yana nufin cewa wannan shine ainihin siffata wanda ke fitar da iko na gaske?',
 ['자신을 넘어서라. 자신을 넘어 두려움을 이겨낸 자만이 무한의 힘을 이끌어낼 수 있을 것이다.']='Ka wuce kanka. Wadanda suka shawo kan tsoronsu ne kawai zasu iya sakin iko mara iyaka.',
-['파워드래곤은 무고한 생명들에게만 힘을 분배하며 몬스터들을 물리쳐 나아갔다.']='Dragon Power yana rarraba ƙarfinsa kawai ga halittu marasa laifi da kuma dodanni da suka ci nasara yayin da yake ci gaba.'}
+['파워드래곤은 무고한 생명들에게만 힘을 분배하며 몬스터들을 물리쳐 나아갔다.']='Dragon Power yana rarraba iko kawai ga halittu marasa laifi da dodanni da suka ci nasara yayin da yake ci gaba.'}

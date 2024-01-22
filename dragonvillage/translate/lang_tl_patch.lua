@@ -295,6 +295,8 @@ return {['[맛있는 도넛!]이 자신을 제외한 아군 전체의 첫번째 
 ['일정시간마다 가장 방어력이 높은 대상에게 10회에 걸쳐 튕기는 구체가 모든 방어 수단을 무시한 피해를 가합니다. 대상의 방어력이 낮을수록 피해량이 상승하며, 만약 대상의 방어력이 13000이상일 경우 피해가 무효화 됩니다.']='Bawat tiyak na tagal ng panahon, isang tumatalbog na globo na humaharap sa pinsala sa target na may pinakamataas na depensa na higit sa 10 mga hit na hindi pinapansin ang lahat ng mga hakbang sa pagtatanggol. Tumataas ang pinsala habang bumababa ang depensa ng target, at kung ang depensa ng target ay 13,000 o mas mataas, mawawalan ng bisa ang pinsala.',
 ['진정한 힘에 눈을 뜬 뒤 자신의 힘을 필요로 하는 곳으로 향하는 무한의 드래곤이다. 생명의 기운과 공명하고자 했던 파워드래곤은 탐욕적인 몬스터들이 자신의 힘에 이끌림을 느끼고, 자신의 힘을 숨기고자 했다. 그러나 생명의 근원을 만남으로써 진정한 힘은 감추는 것이 아니라 수호의 의지에서 비롯됨을 깨달았다. 조화를 이루어 무한한 힘을 이끌어낸 파워드래곤은 무한의 힘을 거머쥐어 무한의 파워드래곤으로써 성장해 자신의 힘을 펼쳐내기 시작한다. ']='Ito ay isang walang katapusang dragon na nagbubukas ng kanyang mga mata sa tunay na lakas at patungo sa isang lugar kung saan kailangan ang sarili nitong kapangyarihan. Ang Power Dragon, na gustong sumasalamin sa enerhiya ng buhay, nadama ang pagkahumaling ng mga sakim na halimaw at sinubukang itago ang kapangyarihan nito. Gayunpaman, sa pamamagitan ng pagharap sa pinagmulan ng buhay, napagtanto nito na ang tunay na kapangyarihan ay hindi nakatago ngunit nagmula sa kalooban ng proteksyon. Sa pagkamit ng pagkakaisa, ang Power Dragon ay naglalabas ng walang katapusang kapangyarihan at nagsimulang magbukas ng sarili nitong kapangyarihan bilang ang Infinite Power Dragon.',
 ['파워드래곤의 시험입니다. 방어형 드래곤의 주는 피해량이 900% 증가합니다.']='Ito ay isang pagsubok ng pinalakas na dragon. Ang pinsalang natamo ng mga pag-atake ng nagtatanggol na dragon ay tumataas ng 900%.',
+['너의 강인함은 어느정도인가!']='너의 강인함은 어느정도인가!',
+['적을 거대한 바위 발로 강하게 타격합니다. 자신의 생명력에 따라 위력이 크게 증가합니다. 대상에게 100% 확률로 20초간 회피와 방어력 감소를 부여합니다.']='적을 거대한 바위 발로 강하게 타격합니다. 자신의 생명력에 따라 위력이 크게 증가합니다. 대상에게 100% 확률로 20초간 회피와 방어력 감소를 부여합니다.',
 ['파워드래곤은 무의식적으로 자신의 힘을 나누는 것이 수호자의 능력이라 여겼다.']='Itinuring ng Power Dragon na hatiin ang kapangyarihan nito nang hindi sinasadya bilang kakayahan ng isang tagapag-alaga.',
 ['하지만 자신의 능력이 오히려 죄 없는 생명들을 희생시키자 깊은 슬픔과 후회를 느꼈다.']='Gayunpaman, nakaramdam siya ng matinding kalungkutan at panghihinayang dahil ang kanyang mga kakayahan ay nauwi sa pagsasakripisyo ng mga inosenteng buhay.',
 ['자신의 힘을 더 잘 통제하지 못해 몬스터들이 저지른 만행에 대한 자책감을 느꼈고,']='Nakonsensya dahil hindi nila makontrol ang sarili nilang kapangyarihan at ang kalituhan na dulot ng mga halimaw,',
@@ -312,7 +314,7 @@ return {['[맛있는 도넛!]이 자신을 제외한 아군 전체의 첫번째 
 ['허나 몬스터들은 더욱 날뛸 뿐이었다.']='Gayunpaman, tumalon lamang ng mas mataas ang mga halimaw.',
 ['몬스터는 무기를 쥔 채 죄 없는 생명들을 위협하고 있었다.']='Ang halimaw ay nagbabanta ng mga inosenteng buhay habang may hawak na sandata.',
 ['파워드래곤은 자신의 힘을 사용하지 않으리라 맹세했기에 생명들에게 힘을 전할 수 없었다.']='Hindi naipasa ng Power Dragon ang kapangyarihan nito sa mga buhay na nilalang dahil nanumpa itong hindi gagamit ng sarili nitong kapangyarihan.',
-['나의 힘이 또 다른 악행으로 이어진다면...\'']='Kung ang aking kapangyarihan ay humantong sa isa pang masamang gawa...',
+['나의 힘이 또 다른 악행으로 이어진다면...']='Kung ang aking kapangyarihan ay humantong sa isa pang masamang gawa...',
 ['파워드래곤']='Power Dragon',
 ['자신의 힘을 사용하지 않는 파워드래곤은 점차 무너져 내렸다.']='Ang walang kapangyarihan na dragon na hindi gumamit ng sariling lakas ay unti-unting gumuho at nahulog.',
 ['나의 힘이 더는 그 누구에게도 닿지 못하도록 능력을 숨겨야 한다.']='Dapat kong itago ang aking mga kakayahan upang ang aking kapangyarihan ay hindi na umabot sa sinuman.',
@@ -355,7 +357,7 @@ return {['[맛있는 도넛!]이 자신을 제외한 아군 전체의 첫번째 
 ['무한의 파워드래곤은 무한의 돌로 붉은 방패를 만들어 파워드래곤의 힘을 방어했다.']='Ipinagtanggol ng Infinite Power Dragon ang kapangyarihan nito gamit ang Red Shield na gawa sa walang katapusang mga bato.',
 ['그 방패를 깨트리기 위하여 파워드래곤은 백 번이고, 천 번이고 돌진했다.']='Ang pinalakas na dragon ay naniningil ng daan-daang beses upang basagin ang kalasag na iyon.',
 ['더 이상 포기하지도, 두려워하지도, 숨지도 않겠다!']='Hindi na ako susuko, matatakot, o magtatago!',
-['내 자신을 뛰어넘어 무한의 힘을 거머쥘 것이다! ']='Malalampasan ko ang aking sarili at gagamitin ang kapangyarihan ng infinity!',
+['내 자신을 뛰어넘어 무한의 힘을 거머쥘 것이다!']='Malalampasan ko ang aking sarili at gagamitin ang kapangyarihan ng infinity!',
 ['파워드래곤의 포효로 대지와 공기가 부서질 듯 진동했다.']='Nanginginig ang Lupa at hangin habang umuungal ang Power Dragon.',
 ['마지막에 온 힘을 다하여 두 주먹이 붉은 방패에 닿았을 때.']='Nang ibuhos ko ang lahat ng lakas ko dito at tumama ang mga kamao ko sa pulang kalasag sa dulo.',
 ['방패는 단숨에 금이 가 많은 조각으로 나뉘어저 부서졌다.']='Ang kalasag ay mabilis na nabasag sa mga pirasong gawa sa ginto.',
@@ -368,4 +370,4 @@ return {['[맛있는 도넛!]이 자신을 제외한 아군 전체의 첫번째 
 ['무한의 파워드래곤은 파워드래곤의 앞에 엄청난 자태를 뽐내며 서 있었다.']='Ang Infinite Power Dragon ay nakatayo sa harap ng Power Dragon, na nagpapakita ng napakalaki nitong tangkad.',
 ['이것이 진정한 힘을 이끌어낸 나의 모습이란 말인가?']='Nangangahulugan ba ito na ito ang aking tunay na anyo na naglalabas ng tunay na kapangyarihan?',
 ['자신을 넘어서라. 자신을 넘어 두려움을 이겨낸 자만이 무한의 힘을 이끌어낼 수 있을 것이다.']='Higitan mo ang iyong sarili. Tanging ang mga nagtagumpay sa kanilang mga takot ang maaaring magpakawala ng walang katapusang kapangyarihan.',
-['파워드래곤은 무고한 생명들에게만 힘을 분배하며 몬스터들을 물리쳐 나아갔다.']='Ipinamahagi lamang ng Power Dragon ang lakas nito sa mga inosenteng nilalang at natalo ang mga halimaw habang sumusulong ito.'}
+['파워드래곤은 무고한 생명들에게만 힘을 분배하며 몬스터들을 물리쳐 나아갔다.']='Ang Power Dragon ay namahagi lamang ng kapangyarihan sa mga inosenteng nilalang at natalo ang mga halimaw habang sumusulong ito.'}

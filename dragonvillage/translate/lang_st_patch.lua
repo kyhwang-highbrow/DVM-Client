@@ -295,6 +295,8 @@ return {['[맛있는 도넛!]이 자신을 제외한 아군 전체의 첫번째 
 ['일정시간마다 가장 방어력이 높은 대상에게 10회에 걸쳐 튕기는 구체가 모든 방어 수단을 무시한 피해를 가합니다. 대상의 방어력이 낮을수록 피해량이 상승하며, 만약 대상의 방어력이 13000이상일 경우 피해가 무효화 됩니다.']='Nako e \'ngoe le e\' ngoe e itseng, sebaka sa bouncing se sebetsanang le tšenyo ho sepheo se nang le ts\'ireletso e phahameng ka ho fetisisa ho feta 10 hits e hlokomoloha mehato eohle ea tšireletso. Tšenyo e eketseha ha ts\'ireletso ea sepheo e fokotseha, \'me haeba ts\'ireletso ea sepheo e le 13,000 kapa ho feta, ts\'enyehelo e felisitsoe.',
 ['진정한 힘에 눈을 뜬 뒤 자신의 힘을 필요로 하는 곳으로 향하는 무한의 드래곤이다. 생명의 기운과 공명하고자 했던 파워드래곤은 탐욕적인 몬스터들이 자신의 힘에 이끌림을 느끼고, 자신의 힘을 숨기고자 했다. 그러나 생명의 근원을 만남으로써 진정한 힘은 감추는 것이 아니라 수호의 의지에서 비롯됨을 깨달았다. 조화를 이루어 무한한 힘을 이끌어낸 파워드래곤은 무한의 힘을 거머쥐어 무한의 파워드래곤으로써 성장해 자신의 힘을 펼쳐내기 시작한다. ']='Ke drakone e sa feleng e bulang mahlo a eona ho matla a \'nete le ho leba sebakeng seo matla a eona a hlokahalang. Dragon ea Matla, e neng e batla ho ikamahanya le matla a bophelo, e ile ea ikutloa e khahloa ke liphoofolo tsa litonanahali tse meharo \'me ea leka ho pata matla a eona. Leha ho le joalo, ka ho kopana le mohloli oa bophelo, e ile ea hlokomela hore matla a ’nete ha aa patoa empa a simolohile thatong ea tšireletso. Ho fihlela kutloano, Dragon ea Matla e lokolla matla a sa feleng \'me e qala ho senola matla a eona e le Dragon ea Matla a sa Feleng.',
 ['파워드래곤의 시험입니다. 방어형 드래곤의 주는 피해량이 900% 증가합니다.']='Ena ke teko ea drakone e matla. Tšenyo e bakiloeng ke litlhaselo tsa drakone e itšireletsang e eketseha ka 900%.',
+['너의 강인함은 어느정도인가!']='너의 강인함은 어느정도인가!',
+['적을 거대한 바위 발로 강하게 타격합니다. 자신의 생명력에 따라 위력이 크게 증가합니다. 대상에게 100% 확률로 20초간 회피와 방어력 감소를 부여합니다.']='적을 거대한 바위 발로 강하게 타격합니다. 자신의 생명력에 따라 위력이 크게 증가합니다. 대상에게 100% 확률로 20초간 회피와 방어력 감소를 부여합니다.',
 ['파워드래곤은 무의식적으로 자신의 힘을 나누는 것이 수호자의 능력이라 여겼다.']='Dragon ea Matla e ne e nka ho arola matla a eona ka mokhoa o sa tsebeng e le bokhoni ba mohlokomeli.',
 ['하지만 자신의 능력이 오히려 죄 없는 생명들을 희생시키자 깊은 슬픔과 후회를 느꼈다.']='Leha ho le joalo, o ile a utloa bohloko bo tebileng le ho ikoahlaea ha bokhoni ba hae bo qetella bo fane ka bophelo bo se nang molato ho e-na le hoo.',
 ['자신의 힘을 더 잘 통제하지 못해 몬스터들이 저지른 만행에 대한 자책감을 느꼈고,']='Ho ikutloa ba le molato ka ho se khone ho laola matla a bona hamolemo le tšenyo e bakiloeng ke liphoofolo tsa litonanahali,',
@@ -312,7 +314,7 @@ return {['[맛있는 도넛!]이 자신을 제외한 아군 전체의 첫번째 
 ['허나 몬스터들은 더욱 날뛸 뿐이었다.']='Leha ho le joalo, liphoofolo tsa litonanahali li ile tsa qhomela holimo feela.',
 ['몬스터는 무기를 쥔 채 죄 없는 생명들을 위협하고 있었다.']='Sebata se ne se sokela maphelo a se nang molato ha se ntse se tšoere sebetsa.',
 ['파워드래곤은 자신의 힘을 사용하지 않으리라 맹세했기에 생명들에게 힘을 전할 수 없었다.']='Dragon ea Matla ha ea ka ea khona ho fetisetsa matla a eona ho libōpuoa tse phelang hobane e ile ea hlapanya hore e ke ke ea sebelisa matla a eona.',
-['나의 힘이 또 다른 악행으로 이어진다면...\'']='Haeba matla a ka a lebisa ketsong e \'ngoe e mpe ...',
+['나의 힘이 또 다른 악행으로 이어진다면...']='Haeba matla a ka a lebisa ketsong e \'ngoe e mpe ...',
 ['파워드래곤']='Dragon ea Matla',
 ['자신의 힘을 사용하지 않는 파워드래곤은 점차 무너져 내렸다.']='Drakone e se nang matla e sa kang ea sebelisa matla a eona e ile ea putlama butle-butle ’me ea oa.',
 ['나의 힘이 더는 그 누구에게도 닿지 못하도록 능력을 숨겨야 한다.']='Ke tlameha ho pata bokhoni ba ka e le hore matla a ka a se ke a hlola a fihla ho mang kapa mang.',
@@ -355,7 +357,7 @@ return {['[맛있는 도넛!]이 자신을 제외한 아군 전체의 첫번째 
 ['무한의 파워드래곤은 무한의 돌로 붉은 방패를 만들어 파워드래곤의 힘을 방어했다.']='Infinite Dragon ea Matla e ile ea sireletsa matla a eona ka Red Shield e entsoeng ka majoe a se nang moeli.',
 ['그 방패를 깨트리기 위하여 파워드래곤은 백 번이고, 천 번이고 돌진했다.']='Drakone e matla e ile ea qosa ka makhetlo a makholo ho roba thebe eo.',
 ['더 이상 포기하지도, 두려워하지도, 숨지도 않겠다!']='Ha ke sa tla hlola ke tela, ke tšoha, kapa ke ipate!',
-['내 자신을 뛰어넘어 무한의 힘을 거머쥘 것이다! ']='Ke tla itlholla \'me ke sebelise matla a se nang moeli!',
+['내 자신을 뛰어넘어 무한의 힘을 거머쥘 것이다!']='Ke tla itlholla \'me ke sebelise matla a se nang moeli!',
 ['파워드래곤의 포효로 대지와 공기가 부서질 듯 진동했다.']='Lefatshe le moya tsa thothomela ha Dragon ea Matla e ntse e rora.',
 ['마지막에 온 힘을 다하여 두 주먹이 붉은 방패에 닿았을 때.']='Ha ke kenya matla a ka kaofela ho yona mme mabole a ka a otla thebe e kgubedu qetellong.',
 ['방패는 단숨에 금이 가 많은 조각으로 나뉘어저 부서졌다.']='Thebe e ile ea robeha ka potlako likotoana tse entsoeng ka khauta.',
@@ -368,4 +370,4 @@ return {['[맛있는 도넛!]이 자신을 제외한 아군 전체의 첫번째 
 ['무한의 파워드래곤은 파워드래곤의 앞에 엄청난 자태를 뽐내며 서 있었다.']='Dragon ea Matla a sa Feleng e ile ea ema ka pel\'a Dragon ea Matla, e bonts\'a boemo ba eona bo boholo.',
 ['이것이 진정한 힘을 이끌어낸 나의 모습이란 말인가?']='Na see se bolela hore sena ke sebopeho sa ka sa \'nete se hlahisang matla a\' nete?',
 ['자신을 넘어서라. 자신을 넘어 두려움을 이겨낸 자만이 무한의 힘을 이끌어낼 수 있을 것이다.']='Fetela ho feta wena. Ke feela ba hlolang tšabo ea bona ba ka lokollang matla a sa feleng.',
-['파워드래곤은 무고한 생명들에게만 힘을 분배하며 몬스터들을 물리쳐 나아갔다.']='Dragon ea Matla e ile ea abela matla a eona feela ho libopuoa tse se nang molato le liphoofolo tsa litonanahali tse hlotsoeng ha e ntse e tsoela pele.'}
+['파워드래곤은 무고한 생명들에게만 힘을 분배하며 몬스터들을 물리쳐 나아갔다.']='Dragon ea Matla e ile ea abela libopuoa tse se nang molato feela matla le liphoofolo tsa litonanahali tse hlotsoeng ha e ntse e tsoela pele.'}

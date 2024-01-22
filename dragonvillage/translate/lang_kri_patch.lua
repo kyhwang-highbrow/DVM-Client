@@ -295,6 +295,8 @@ return {['[맛있는 도넛!]이 자신을 제외한 아군 전체의 첫번째 
 ['일정시간마다 가장 방어력이 높은 대상에게 10회에 걸쳐 튕기는 구체가 모든 방어 수단을 무시한 피해를 가합니다. 대상의 방어력이 낮을수록 피해량이 상승하며, 만약 대상의 방어력이 13000이상일 경우 피해가 무효화 됩니다.']='Ɛvri patikyula tɛm, wan bounce sphere we de du damej to di target wit di ays difens ova 10 hits ignore ɔl di difɛns mɛsej dɛn. Di damej de go ɔp as di target in difens de go dɔŋ, ɛn if di target in difens na 13,000 ɔ pas dat, di damej de nullified.',
 ['진정한 힘에 눈을 뜬 뒤 자신의 힘을 필요로 하는 곳으로 향하는 무한의 드래곤이다. 생명의 기운과 공명하고자 했던 파워드래곤은 탐욕적인 몬스터들이 자신의 힘에 이끌림을 느끼고, 자신의 힘을 숨기고자 했다. 그러나 생명의 근원을 만남으로써 진정한 힘은 감추는 것이 아니라 수호의 의지에서 비롯됨을 깨달았다. 조화를 이루어 무한한 힘을 이끌어낸 파워드래곤은 무한의 힘을 거머쥐어 무한의 파워드래곤으로써 성장해 자신의 힘을 펼쳐내기 시작한다. ']='Na dragon we nɔ gɛt ɛnd we de opin in yay fɔ tru tru trɛnk ɛn de go na ples usay dɛn nid in yon pawa. Di Pawa Dragon we gɛt pawa, we bin want fɔ rɛsɔn wit di ɛnaji we layf gɛt, bin fil di atrakshɔn fɔ di monsta dɛn we gridi ɛn tray fɔ ayd in pawa. Bɔt we i mit di say we layf kɔmɔt, i kam fɔ no se tru tru pawa nɔ de ayd bɔt i kɔmɔt frɔm di wil fɔ protɛkt am. We di Pawa Dragon we gɛt pawa ebul fɔ gɛt wanwɔd, i de pul pawa we nɔ gɛt ɛnd ɛn bigin fɔ opin in yon pawa as di Pawa Dragon we gɛt pawa we nɔ gɛt ɛnd .',
 ['파워드래곤의 시험입니다. 방어형 드래곤의 주는 피해량이 900% 증가합니다.']='Dis na trial fɔ di pawaful dragon. Di damej we di difensiv dragon in atak dɛn kin du kin go ɔp bay 900%.',
+['너의 강인함은 어느정도인가!']='너의 강인함은 어느정도인가!',
+['적을 거대한 바위 발로 강하게 타격합니다. 자신의 생명력에 따라 위력이 크게 증가합니다. 대상에게 100% 확률로 20초간 회피와 방어력 감소를 부여합니다.']='적을 거대한 바위 발로 강하게 타격합니다. 자신의 생명력에 따라 위력이 크게 증가합니다. 대상에게 100% 확률로 20초간 회피와 방어력 감소를 부여합니다.',
 ['파워드래곤은 무의식적으로 자신의 힘을 나누는 것이 수호자의 능력이라 여겼다.']='Di Pawa Dragon we gɛt pawa bin tink se fɔ sheb in pawa subkɔshɔs as di abiliti fɔ pɔsin we de gayd am.',
 ['하지만 자신의 능력이 오히려 죄 없는 생명들을 희생시키자 깊은 슬픔과 후회를 느꼈다.']='Bɔt i bin fil bad ɛn rigrɛt as di tin dɛn we i bin ebul fɔ du bin dɔn ɛnd ɔp fɔ sakrifays inosɛnt layf insted.',
 ['자신의 힘을 더 잘 통제하지 못해 몬스터들이 저지른 만행에 대한 자책감을 느꼈고,']='Fɔ fil gilti fɔ we dɛn nɔ ebul fɔ kɔntrol dɛn yon pawa bɛtɛ ɛn di bad bad tin dɛn we di monsta dɛn bin de mek, .',
@@ -312,7 +314,7 @@ return {['[맛있는 도넛!]이 자신을 제외한 아군 전체의 첫번째 
 ['허나 몬스터들은 더욱 날뛸 뿐이었다.']='Bɔt, di monsta dɛn bin jɔs jomp ay pas dat.',
 ['몬스터는 무기를 쥔 채 죄 없는 생명들을 위협하고 있었다.']='Di monsta bin de trɛtin inosɛnt layf we i ol wan wɛpɔn.',
 ['파워드래곤은 자신의 힘을 사용하지 않으리라 맹세했기에 생명들에게 힘을 전할 수 없었다.']='Pawa Dragon we gɛt pawa nɔ bin ebul fɔ pas in pawa to pipul dɛn we gɛt layf bikɔs i bin swɛ se i nɔ go yuz in yon pawa.',
-['나의 힘이 또 다른 악행으로 이어진다면...\'']='If mi pawa de lid to ɔda bad tin...',
+['나의 힘이 또 다른 악행으로 이어진다면...']='If mi pawa de lid to ɔda bad tin...',
 ['파워드래곤']='Pawa Dragon we gɛt pawa',
 ['자신의 힘을 사용하지 않는 파워드래곤은 점차 무너져 내렸다.']='Di dragɔn we nɔ gɛt pawa we nɔ bin de yuz in yon trɛnk bin de brok brok smɔl smɔl ɛn fɔdɔm.',
 ['나의 힘이 더는 그 누구에게도 닿지 못하도록 능력을 숨겨야 한다.']='A fɔ ayd di tin dɛn we a ebul fɔ du so dat mi pawa nɔ go rich ɛnibɔdi igen.',
@@ -355,7 +357,7 @@ return {['[맛있는 도넛!]이 자신을 제외한 아군 전체의 첫번째 
 ['무한의 파워드래곤은 무한의 돌로 붉은 방패를 만들어 파워드래곤의 힘을 방어했다.']='Di Infinite Pawa Dragon we gɛt pawa bin difend in pawa wit di Rɛd Shild we dɛn mek wit ston dɛn we nɔ gɛt ɛnd.',
 ['그 방패를 깨트리기 위하여 파워드래곤은 백 번이고, 천 번이고 돌진했다.']='Di dragon we gɛt pawa bin chaj bɔku bɔku tɛm fɔ brok da shild de.',
 ['더 이상 포기하지도, 두려워하지도, 숨지도 않겠다!']='A nɔ go giv ɔp, fred, ɔ ayd igen!',
-['내 자신을 뛰어넘어 무한의 힘을 거머쥘 것이다! ']='A go pas misɛf ɛn yuz di pawa we nɔ gɛt ɛnd!',
+['내 자신을 뛰어넘어 무한의 힘을 거머쥘 것이다!']='A go pas misɛf ɛn yuz di pawa we nɔ gɛt ɛnd!',
 ['파워드래곤의 포효로 대지와 공기가 부서질 듯 진동했다.']='Di Dunya ɛn di briz bin de shek shek as di Pawa Dragon we gɛt pawa bin de ala.',
 ['마지막에 온 힘을 다하여 두 주먹이 붉은 방패에 닿았을 때.']='We a put ɔl mi trɛnk insay ɛn mi fist dɛn hit di rɛd shild na di ɛnd.',
 ['방패는 단숨에 금이 가 많은 조각으로 나뉘어저 부서졌다.']='Di shild bin brok kwik kwik wan ɛn mek am wit gold.',
@@ -368,4 +370,4 @@ return {['[맛있는 도넛!]이 자신을 제외한 아군 전체의 첫번째 
 ['무한의 파워드래곤은 파워드래곤의 앞에 엄청난 자태를 뽐내며 서 있었다.']='Di Infinite Pawa Dragon we gɛt pawa bin tinap bifo di Pawa Dragon we gɛt pawa, de sho in big big ayt.',
 ['이것이 진정한 힘을 이끌어낸 나의 모습이란 말인가?']='Dis min se dis na mi tru tru fɔm we de briŋ tru tru pawa?',
 ['자신을 넘어서라. 자신을 넘어 두려움을 이겨낸 자만이 무한의 힘을 이끌어낼 수 있을 것이다.']='Go pas yusɛf. Na di wan dɛn nɔmɔ we dɔn win dɛn fred go ebul fɔ pul pawa we nɔ gɛt ɛnd.',
-['파워드래곤은 무고한 생명들에게만 힘을 분배하며 몬스터들을 물리쳐 나아갔다.']='Pawa Dragon we gɛt pawa bin sheb in trɛnk to inosɛnt krichɔ dɛn nɔmɔ ɛn i bin win monsta dɛn as i de go bifo.'}
+['파워드래곤은 무고한 생명들에게만 힘을 분배하며 몬스터들을 물리쳐 나아갔다.']='Pawa Dragon we gɛt pawa bin de sheb pawa to inosɛnt krichɔ dɛn nɔmɔ ɛn i bin de win monsta dɛn as i de go bifo.'}
