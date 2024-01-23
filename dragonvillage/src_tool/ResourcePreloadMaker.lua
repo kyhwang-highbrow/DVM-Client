@@ -44,7 +44,6 @@ local table_dragon = TableDragon()
 local table_monster = TableMonster()
 local table_monster_skill = TableMonsterSkill()
 local table_status_effect = TableStatusEffect()
-local table_stage_data = TableStageData()
 
 -------------------------------------
 -- function makePreloadFile
@@ -52,18 +51,18 @@ local table_stage_data = TableStageData()
 function ResourcePreloadMaker:makePreloadFile()
     -- 초기화
     local l_preload_list = {}
-    local table_stage_desc = TableStageDesc()
 
     -- 공용 리소스 리스트 삽입
+    print("# make common list")
     l_preload_list['common'] = self:getPreloadList_Common()
 
     -- 인트로 스테이지 리소스 생성
     local intro_stage_id = 1010001
+    print("# make intro stage")
     l_preload_list[intro_stage_id] = self:getPreloadList_Stage(intro_stage_id)
-
-
     local l_stage = TableStageDesc:getPreloadStageList()
     -- 스테이지 별 리소스 생성
+    print("# make all stage")
     for _,stage_id in ipairs(l_stage) do
         l_preload_list[stage_id] = self:getPreloadList_Stage(stage_id)
     end
@@ -77,10 +76,9 @@ function ResourcePreloadMaker:makePreloadFile()
     end
     cclog('RES PRELOAD COUNT .. ' .. count)
 
-    -- 파일로 저장
-    local preload_file_path = '../src/table/preload.lua'
+    -- 파일로 저장    
     local contents = util.makeLuaTableStr(l_preload_list)
-
+    local preload_file_path = '../src/table/preload.lua'
     pl.file.write(preload_file_path, 'return ' .. contents)
 end
 
@@ -233,7 +231,13 @@ function ResourcePreloadMaker:getPreloadList_Stage(stage_id)
     -- 인덱스 테이블
     local l_ret = {}
     for res_name, _ in pairs(t_ret) do
-        table.insert(l_ret, res_name)
+        local res, count = string.gsub(res_name, '\\', '/')        
+        table.insert(l_ret, res)
+
+        -- 역슬래시가 포함되었는지 체크 (경고로 끝냄)
+        if count ~= nil and count > 0 then
+            print('resource file name error .. file name is ', res_name)
+        end
     end
 
     return l_ret
