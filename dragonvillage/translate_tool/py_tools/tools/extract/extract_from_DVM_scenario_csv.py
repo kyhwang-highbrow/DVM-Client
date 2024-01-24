@@ -28,22 +28,6 @@ def parse(result_data, file_path, header_datas, important_header_index, body_dat
         if len(t_text) > 0 and reg_check.search(t_text):
             invert_text = t_text.replace('\r\n', r'\n').replace('\n', r'\n')
             result_data.append([file_name, page, t_char_name, invert_text] ) # [파일이름, 페이지, 캐릭터이름, 대사]
-
-        # 2. 이펙트 이름 부분 한글 데이터 추출하기 (현재 필요없는 더미 코드라고 생각하여 주석 처리함)
-        # effect_index = 1
-        # effect_header = 'effect_' + str(effect_index)
-        # while effect_header in important_header_index.keys():
-        #     effect_value = body[important_header_index[effect_header]]
-
-        #     if len(effect_value) > 0 and reg_check.match(effect_value):
-        #         effect_list = effect_value.split(';')
-        #         for effect_text in effect_list:
-        #             if reg_check.match(effect_text):
-        #                 invert_text = effect_text.replace('\r\n', r'\n').replace('\n', r'\n')
-        #                 result_data.append([file_name, page, '', invert_text])
-
-        #     effect_index += 1
-        #     effect_header = 'effect_' + str(effect_index)
         
 
 def get_str(result_data, file_path, ignore_krs):
