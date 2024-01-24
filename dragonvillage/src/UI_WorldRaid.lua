@@ -4,6 +4,7 @@ local PARENT = class(UI, ITopUserInfo_EventListener:getCloneTable(), ITabUI:getC
 -- class UI_WorldRaid
 -------------------------------------
 UI_WorldRaid = class(PARENT, {    
+    m_worldRaidId = 'number',
     m_rewardTableView = 'TableView',
     m_rankingTableView = 'TableView'
     })
@@ -14,6 +15,7 @@ UI_WorldRaid = class(PARENT, {
 -------------------------------------
 function UI_WorldRaid:initParentVariable()
     -- ITopUserInfo_EventListener의 맴버 변수들 설정
+    
     self.m_uiName = 'UI_WorldRaid'
     self.m_titleStr = Str('월드 레이드')
 	self.m_staminaType = 'cldg'
@@ -27,6 +29,7 @@ end
 -- function init
 -------------------------------------
 function UI_WorldRaid:init()
+    self.m_worldRaidId = g_worldRaidData:getWorldRaidId()
     local vars = self:load_keepZOrder('world_raid_scene.ui')
     UIManager:open(self, UIManager.SCENE)
     -- backkey 지정
@@ -39,7 +42,7 @@ function UI_WorldRaid:init()
     self:initUI()
     self:initButton()    
     self:refresh()
-    self:makeRankingTableView()
+    self:makeRankingTableView({})
     self:update()
 
     self.root:scheduleUpdateWithPriorityLua(function () self:update() end, 1)
@@ -56,6 +59,14 @@ end
 -- function checkEnterEvent
 -------------------------------------
 function UI_WorldRaid:checkEnterEvent()
+    if g_worldRaidData:isExpiredRankingUpdate() == true then
+        local success_cb = function(ret)            
+            local curr_rank_list = g_worldRaidData:getCurrentRankingList()
+            self:makeRankingTableView(curr_rank_list)
+        end
+
+        g_worldRaidData:request_WorldRaidRanking(self.m_worldRaidId, 'world', 1, 20, success_cb)
+    end
 end
 
 -------------------------------------
@@ -75,8 +86,6 @@ function UI_WorldRaid:initButton()
     vars['synastryInfoBtn']:registerScriptTapHandler(function () self:click_attrInfoBtn() end)
     vars['rankBtn']:registerScriptTapHandler(function () self:click_rankingBtn() end)
     vars['infiniteBtn']:registerScriptTapHandler(function () self:click_infinitegBtn() end)
-
-    
 end
 
 -------------------------------------
@@ -191,7 +200,7 @@ end
 -------------------------------------
 -- function makeRankingTableView
 -------------------------------------
-function UI_WorldRaid:makeRankingTableView()
+function UI_WorldRaid:makeRankingTableView(rank_list)
     local vars = self.vars
     require('UI_WorldRaidRankingListItem')
 
@@ -241,14 +250,17 @@ end
 function UI_WorldRaid:click_readyBtn()
     -- 스테이지 시간 세팅
     -- UI_ReadySceneNew UI가 열려있을 경우, 닫고 다시 연다
+
+    local t_sub_info = {world_raid_id = self.m_worldRaidId}
+
     local stage_id = g_worldRaidData:getWorldRaidStageId()
     local is_opend, idx, ui = UINavigatorDefinition:findOpendUI('UI_ReadySceneNew')
     if (is_opend == true) then
         ui:close()
-        UI_ReadySceneWorldRaidNormal(stage_id, nil)
+        UI_ReadySceneWorldRaidNormal(stage_id, t_sub_info)
         self:close()
     else
-        UI_ReadySceneWorldRaidNormal(stage_id, nil)
+        UI_ReadySceneWorldRaidNormal(stage_id, t_sub_info)
     end
 end
 
@@ -264,7 +276,7 @@ end
 --- @function click_rankingBtn
 -------------------------------------
 function UI_WorldRaid:click_rankingBtn()
-    local ui = UI_WorldRaidRanking()
+    UI_WorldRaidRanking.open(self.m_worldRaidId)
 end
 
 -------------------------------------

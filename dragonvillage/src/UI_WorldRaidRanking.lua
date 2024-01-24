@@ -5,6 +5,7 @@ local PARENT = UI
 UI_WorldRaidRanking = class(PARENT, {
     m_rewardTableView = 'UIC_TableView',
     m_structRankReward = 'StructRankReward',
+    m_worldRaidId = 'number',
 
     m_ownerUI = 'UI_WorldRaidRanking', -- 현재 검색 타입에 대해 받아올 때 필요
     m_bossType = 'number', -- 보스 타입 (0 전체, 1 단일, 2 다중)
@@ -17,7 +18,8 @@ UI_WorldRaidRanking = class(PARENT, {
 -------------------------------------
 --- @function init
 -------------------------------------
-function UI_WorldRaidRanking:init()
+function UI_WorldRaidRanking:init(world_raid_id, ret)
+    self.m_worldRaidId = world_raid_id
     local vars = self:load('world_raid_ranking_popup.ui')
     UIManager:open(self, UIManager.POPUP)
     -- backkey 지정
@@ -31,11 +33,8 @@ function UI_WorldRaidRanking:init()
     self:initButton()    
     self:refresh()
 
-    self:makeRankTableView({})
-    self:makeRewardTableView({})
-
-    -- self:update()
-    -- self.root:scheduleUpdateWithPriorityLua(function () self:update() end, 1)
+    self:makeRankTableView(ret)
+    self:makeRewardTableView(g_worldRaidData:getTableWorldRaidRank())
 
     -- 보상 안내 팝업
     local function finich_cb()
@@ -79,7 +78,7 @@ function UI_WorldRaidRanking:makeRankTableView(data)
     local vars = self.vars
     local rank_node = vars['userListNode']
     local rank_data = data
-    local my_rank_data = data['total_my_info'] or g_worldRaidData:getCurrentMyRanking()
+    local my_rank_data = data['my_info'] or {}
 
     local make_my_rank_cb = function()        
         local me_rank = UI_WorldRaidRankingListItem(my_rank_data)
@@ -114,7 +113,7 @@ function UI_WorldRaidRanking:makeRankTableView(data)
     rank_list:setEmptyStr(Str('랭킹 정보가 없습니다.'))
     rank_list:setMyRank(make_my_rank_cb)
     rank_list:setOffset(self.m_rankOffset)
-    --rank_list:makeRankMoveBtn(func_prev_cb, func_next_cb, 0)
+    rank_list:makeRankMoveBtn(func_prev_cb, func_next_cb, 0)
     rank_list:makeRankList(rank_node)
 
     
@@ -165,7 +164,6 @@ function UI_WorldRaidRanking:request_total_ranking()
     g_worldRaidData:request_WorldRaidRanking(searchType, self.m_rankOffset, 0, success_cb, nil)
 end
 
-
 -------------------------------------
 -- function createRewardFunc
 -------------------------------------
@@ -187,7 +185,7 @@ end
 -------------------------------------
 --- @function makeRewardTableView
 -------------------------------------
-function UI_WorldRaidRanking:makeRewardTableView(ret)
+function UI_WorldRaidRanking:makeRewardTableView(table_world_raid_rank)
     local vars = self.vars
     local node = vars['userRewardNode']
 
@@ -200,8 +198,7 @@ function UI_WorldRaidRanking:makeRewardTableView(ret)
     local my_rank = g_worldRaidData:getCurrentMyRanking()
 
     -- 랭킹 보상 테이블
-    local table_event_rank = self:getRewardTable(ret)
-    cclog('#table_event_rank', #table_event_rank)
+    local table_event_rank = table_world_raid_rank    
     local struct_rank_reward = StructRankReward(table_event_rank, true)
     local l_event_rank = struct_rank_reward:getRankRewardList() or {}
     self.m_structRankReward = struct_rank_reward
@@ -246,199 +243,15 @@ function UI_WorldRaidRanking:click_closeBtn()
 end
 
 -------------------------------------
---- @function getRewardTable
+--- @function open
 -------------------------------------
-function UI_WorldRaidRanking:getRewardTable(ret)
-    local table_rank = 
-    { 
-        {
-            rank_min = 1,
-            ratio_max = "",
-            rank_max = 1,
-            version = "s_20231102",
-            rank_id = 1,
-            ratio_min = "",
-            reward = "779265;1,cash;30000,700651;7"
-        }, {
-            rank_min = 2,
-            ratio_max = "",
-            rank_max = 2,
-            version = "s_20231102",
-            rank_id = 2,
-            ratio_min = "",
-            reward = "703042;1,cash;30000,700651;7"
-        }, {
-            rank_min = 3,
-            ratio_max = "",
-            rank_max = 3,
-            version = "s_20231102",
-            rank_id = 3,
-            ratio_min = "",
-            reward = "703042;1,cash;26000,700651;6"
-        }, {
-            rank_min = 4,
-            ratio_max = "",
-            rank_max = 4,
-            version = "s_20231102",
-            rank_id = 4,
-            ratio_min = "",
-            reward = "703042;1,cash;23000,700651;5"
-        }, {
-            rank_min = 5,
-            ratio_max = "",
-            rank_max = 5,
-            version = "s_20231102",
-            rank_id = 5,
-            ratio_min = "",
-            reward = "703042;1,cash;21000,700651;4"
-        }, {
-            rank_min = 6,
-            ratio_max = "",
-            rank_max = 10,
-            version = "s_20231102",
-            rank_id = 6,
-            ratio_min = "",
-            reward = "703041;2,cash;20000,700651;4"
-        }, {
-            rank_min = 11,
-            ratio_max = "",
-            rank_max = 20,
-            version = "s_20231102",
-            rank_id = 7,
-            ratio_min = "",
-            reward = "703041;1,cash;20000,700651;3"
-        }, {
-            rank_min = 21,
-            ratio_max = "",
-            rank_max = 30,
-            version = "s_20231102",
-            rank_id = 8,
-            ratio_min = "",
-            reward = "703041;1,cash;17000,700651;3"
-        }, {
-            rank_min = 31,
-            ratio_max = "",
-            rank_max = 40,
-            version = "s_20231102",
-            rank_id = 9,
-            ratio_min = "",
-            reward = "703041;1,cash;15000,700651;2"
-        }, {
-            rank_min = 41,
-            ratio_max = "",
-            rank_max = 50,
-            version = "s_20231102",
-            rank_id = 10,
-            ratio_min = "",
-            reward = "703041;1,cash;13000,700651;2"
-        }, {
-            rank_min = 51,
-            ratio_max = "",
-            rank_max = 100,
-            version = "s_20231102",
-            rank_id = 11,
-            ratio_min = "",
-            reward = "703001;1,cash;12000,700651;2"
-        }, {
-            rank_min = 101,
-            ratio_max = "",
-            rank_max = 150,
-            version = "s_20231102",
-            rank_id = 12,
-            ratio_min = "",
-            reward = "703001;1,cash;11000,700651;2"
-        }, {
-            rank_min = 151,
-            ratio_max = "",
-            rank_max = 200,
-            version = "s_20231102",
-            rank_id = 13,
-            ratio_min = "",
-            reward = "703001;1,cash;10000,700651;2"
-        }, {
-            rank_min = 201,
-            ratio_max = "",
-            rank_max = 250,
-            version = "s_20231102",
-            rank_id = 14,
-            ratio_min = "",
-            reward = "703001;1,cash;9000,700651;2"
-        }, {
-            rank_min = 251,
-            ratio_max = "",
-            rank_max = 300,
-            version = "s_20231102",
-            rank_id = 15,
-            ratio_min = "",
-            reward = "703001;1,cash;8000,700651;2"
-        }, {
-            rank_min = "",
-            ratio_max = 5,
-            rank_max = "",
-            version = "s_20231102",
-            rank_id = 16,
-            ratio_min = 0,
-            reward = "703005;1,cash;6000,700651;2"
-        }, {
-            rank_min = "",
-            ratio_max = 10,
-            rank_max = "",
-            version = "s_20231102",
-            rank_id = 17,
-            ratio_min = 5,
-            reward = "703005;1,cash;5000,700651;1"
-        }, {
-            rank_min = "",
-            ratio_max = 20,
-            rank_max = "",
-            version = "s_20231102",
-            rank_id = 18,
-            ratio_min = 10,
-            reward = "703005;1,cash;4000,700651;1"
-        }, {
-            rank_min = "",
-            ratio_max = 30,
-            rank_max = "",
-            version = "s_20231102",
-            rank_id = 19,
-            ratio_min = 20,
-            reward = "703005;1,cash;3000,700651;1"
-        }, {
-            rank_min = "",
-            ratio_max = 40,
-            rank_max = "",
-            version = "s_20231102",
-            rank_id = 20,
-            ratio_min = 30,
-            reward = "703005;1,cash;2000,700651;1"
-        }, {
-            rank_min = "",
-            ratio_max = 50,
-            rank_max = "",
-            version = "s_20231102",
-            rank_id = 21,
-            ratio_min = 40,
-            reward = "cash;1000,700651;1"
-        }, {
-            rank_min = "",
-            ratio_max = 100,
-            rank_max = "",
-            version = "s_20231102",
-            rank_id = 22,
-            ratio_min = 50,
-            reward = "700651;1"
-        } 
-    }    
-    return table_rank
-end
+function UI_WorldRaidRanking.open(world_raid_id)
+    local success_cb = function(ret)
+        local ui = UI_WorldRaidRanking(world_raid_id, ret)
+    end
 
+    g_worldRaidData:request_WorldRaidRanking(world_raid_id, 'world', 1, 20, success_cb)
+end
 
 --@CHECK
 UI:checkCompileError(UI_WorldRaidRanking)
-
-
-
-
-
-
-

@@ -769,6 +769,8 @@ function SceneGame:networkGameFinish(t_param, t_result_ref, next_func)
     elseif (game_mode == GAME_MODE_WORLD_RAID) then -- 월드 레이드
         api_url = '/world_raid/finish'
         self.m_gameKey = nil
+        local wrid = g_worldRaidData:getWorldRaidId()
+        ui_network:setParam('wrid', wrid)
         ui_network:setParam('damage', math_floor(t_param['damage'])) -- 소수점 아래는 버려야 함
     end
     

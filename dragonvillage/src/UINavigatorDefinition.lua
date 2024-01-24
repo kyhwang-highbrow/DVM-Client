@@ -2500,8 +2500,7 @@ function UINavigatorDefinition:goTo_world_raid(...)
     local function fail_cb()
     end
 
-    -- 삼뉴체크
-    g_adventureData:request_adventureInfo(finish_cb, fail_cb)
+    g_worldRaidData:request_WorldRaidInfo(finish_cb, fail_cb)
 end
 
 -------------------------------------

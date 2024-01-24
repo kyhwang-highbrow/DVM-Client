@@ -480,7 +480,6 @@ function UI_UserInfoDetailPopup:click_dragonBtn()
 			self:refresh_dragon()
 		end
 	end
-
     
 	local ui = UI_UserSetLeader(self.m_tUserInfo)
 	ui:setCloseCB(close_cb)

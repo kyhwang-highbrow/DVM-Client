@@ -3,462 +3,169 @@
 -- g_worldRaidData
 -------------------------------------
 ServerData_WorldRaid = class({
+	m_includeRewardTableReq = 'boolean',
+	m_rankingUpdateAt = '',
+	m_rankList = '',
+	m_myRank = '',
+	m_tableWorldRaidRank = 'Table',
+	m_tableWorldRaidSchedule = 'Table',
+	m_curWorldRaidInfo = 'Table',
 })
 
 -------------------------------------
--- function init
+--- @function init
 -------------------------------------
 function ServerData_WorldRaid:init()
+	self.m_includeRewardTableReq = true
+	self.m_rankingUpdateAt = ExperationTime:createWithUpdatedAyInitialized()
+	self.m_tableWorldRaidRank = {}
+	self.m_rankList = {}
+	self.m_myRank = {}
+	self.m_tableWorldRaidSchedule = {}
+	self.m_curWorldRaidInfo = {}
+end
+
+-------------------------------------
+--- @function isExpiredRankingUpdate
+-------------------------------------
+function ServerData_WorldRaid:isExpiredRankingUpdate()
+  if self.m_rankingUpdateAt:isExpired() == true then
+      self.m_rankingUpdateAt:setUpdatedAt()
+      self.m_rankingUpdateAt:applyExperationTime_SecondsLater(10)
+      return true
+  end
+
+  return false
+end
+
+-------------------------------------
+--- @function isActive
+-------------------------------------
+function ServerData_WorldRaid:isActive()
+	return g_hotTimeData:isActiveEvent('world_raid')
 end
 
 -------------------------------------
 --- @function isAvailableWorldRaid
 -------------------------------------
 function ServerData_WorldRaid:isAvailableWorldRaid()
-    return true -- g_hotTimeData:isActiveEvent('world_raid')
+	-- 핫타임 설정
+	if self:isActive() == false then
+		return false
+	end
+
+	-- 현제 월드 레이드 정보가 존재하는지 여부
+	if self.m_curWorldRaidInfo == nil then
+		return false
+	end
+
+	-- 월드 레이드 시간이 유효한지?
+	if self:checkWorldRaidTime(self.m_curWorldRaidInfo) == false then
+		return false
+	end
+
+    return true
 end
 
 -------------------------------------
 --- @function isAvailableWorldRaidReward
 -------------------------------------
 function ServerData_WorldRaid:isAvailableWorldRaidReward()
-  return true --g_hotTimeData:isActiveEvent('world_raid')
+	return g_hotTimeData:isActiveEvent('world_raid_reward')
 end
 
 -------------------------------------
 --- @function getCurrentMyRanking
 -------------------------------------
 function ServerData_WorldRaid:getCurrentMyRanking()
-    return {
-        lv = 31,
-        tier = "bronze_3",
-        clan_info = {
-          id = "5ddb4931970c6204bef38543",
-          name = "testctwar56",
-          mark = ""
-        },
-        tamer = 110002,
-        costume = 730204,
-        rp = -1,
-        clear_time = -1,
-        challenge_score = 0,
-        rate = "-Infinity",
-        last_tier = "beginner",
-        arena_score = 0,
-        ancient_score = 0,
-        beginner = false,
-        un = 9463,
-        score = -1,
-        total = 0,
-        nick = "ksjang3",
-        leader = {
-          lv = 60,
-          mastery_lv = 0,
-          grade = 6,
-          rlv = 6,
-          eclv = 0,
-          dragon_skin = 0,
-          did = 121854,
-          transform = 3,
-          mastery_skills = { },
-          evolution = 3,
-          mastery_point = 0
-        },
-        uid = "ksjang3",
-        rank = -1
-      }
+    return self.m_myRank
 end
 
 -------------------------------------
 --- @function getCurrentRankingList
 -------------------------------------
 function ServerData_WorldRaid:getCurrentRankingList()
+    return self.m_rankList
+end
 
-    local list = { {
-        lv = 31,
-        tier = "bronze_3",
-        clan_info = {
-          id = "5ddb4931970c6204bef38543",
-          name = "testctwar56",
-          mark = ""
-        },
-        tamer = 110002,
-        costume = 730204,
-        rp = -1,
-        clear_time = -1,
-        challenge_score = 0,
-        rate = "-Infinity",
-        last_tier = "beginner",
-        arena_score = 0,
-        ancient_score = 0,
-        beginner = false,
-        un = 9463,
-        score = -1,
-        total = 0,
-        nick = "ksjang3",
-        leader = {
-          lv = 60,
-          mastery_lv = 0,
-          grade = 6,
-          rlv = 6,
-          eclv = 0,
-          dragon_skin = 0,
-          did = 121854,
-          transform = 3,
-          mastery_skills = { },
-          evolution = 3,
-          mastery_point = 0
-        },
-        uid = "ksjang3",
-        rank = -1
-      }, {
-        lv = 99,
-        tier = "bronze_3",
-        clan_info = {
-          id = "5ddb4931970c6204bef38543",
-          name = "testctwar56",
-          mark = ""
-        },
-        tamer = 110003,
-        costume = 730300,
-        rp = -1,
-        clear_time = -1,
-        challenge_score = 0,
-        rate = "-Infinity",
-        last_tier = "beginner",
-        arena_score = 0,
-        ancient_score = 0,
-        beginner = false,
-        un = 130839362,
-        score = -1,
-        total = 0,
-        nick = "l은달lHenesK",
-        leader = {
-          lv = 60,
-          mastery_lv = 0,
-          grade = 6,
-          rlv = 0,
-          eclv = 0,
-          dragon_skin = 0,
-          did = 122055,
-          transform = 3,
-          mastery_skills = { },
-          evolution = 3,
-          mastery_point = 0
-        },
-        uid = "MFqooDQK9maoJkK3UzMKQ5zFhLB2",
-        rank = -1
-      }, {
-        lv = 99,
-        tier = "beginner",
-        clan_info = {
-          id = "5ddb4931970c6204bef38543",
-          name = "testctwar56",
-          mark = ""
-        },
-        tamer = 110001,
-        costume = 730100,
-        rp = -1,
-        clear_time = -1,
-        challenge_score = 0,
-        rate = "-Infinity",
-        last_tier = "beginner",
-        arena_score = 0,
-        ancient_score = 0,
-        beginner = true,
-        un = 9443,
-        score = -1,
-        total = 0,
-        nick = "ksjang112",
-        leader = {
-          lv = 60,
-          mastery_lv = 0,
-          grade = 6,
-          rlv = 6,
-          eclv = 0,
-          dragon_skin = 0,
-          did = 121683,
-          transform = 3,
-          mastery_skills = { },
-          evolution = 3,
-          mastery_point = 0
-        },
-        uid = "ksjang",
-        rank = -1
-      }, {
-        lv = 99,
-        tier = "beginner",
-        clan_info = {
-          id = "5ddb4931970c6204bef38543",
-          name = "testctwar56",
-          mark = ""
-        },
-        tamer = 110004,
-        costume = 730406,
-        rp = -1,
-        clear_time = -1,
-        challenge_score = 0,
-        rate = "-Infinity",
-        last_tier = "beginner",
-        arena_score = 0,
-        ancient_score = 0,
-        beginner = true,
-        un = 1956459,
-        score = -1,
-        total = 0,
-        nick = "TEST001",
-        leader = {
-          lv = 60,
-          mastery_lv = 0,
-          grade = 6,
-          rlv = 0,
-          eclv = 0,
-          dragon_skin = 0,
-          did = 121962,
-          transform = 3,
-          mastery_skills = { },
-          evolution = 3,
-          mastery_point = 0
-        },
-        uid = "vEH4nldukuRKrj032pVBAhetafz1",
-        rank = -1
-      }, {
-        lv = 99,
-        tier = "beginner",
-        clan_info = {
-          id = "5ddb4931970c6204bef38543",
-          name = "testctwar56",
-          mark = ""
-        },
-        tamer = 110004,
-        costume = 730400,
-        rp = -1,
-        clear_time = -1,
-        challenge_score = 0,
-        rate = "-Infinity",
-        last_tier = "beginner",
-        arena_score = 0,
-        ancient_score = 0,
-        beginner = true,
-        un = 9223,
-        score = -1,
-        total = 0,
-        nick = "고니",
-        leader = {
-          lv = 60,
-          mastery_lv = 0,
-          grade = 6,
-          rlv = 0,
-          eclv = 0,
-          dragon_skin = 0,
-          did = 121752,
-          transform = 3,
-          mastery_skills = { },
-          evolution = 3,
-          mastery_point = 0
-        },
-        uid = "ykil",
-        rank = -1
-      }, {
-        lv = 34,
-        tier = "beginner",
-        clan_info = {
-          id = "5ddb4931970c6204bef38543",
-          name = "testctwar56",
-          mark = ""
-        },
-        tamer = 110002,
-        costume = 730200,
-        rp = -1,
-        clear_time = -1,
-        challenge_score = 0,
-        rate = "-Infinity",
-        last_tier = "beginner",
-        arena_score = 0,
-        ancient_score = 0,
-        beginner = true,
-        un = 9698,
-        score = -1,
-        total = 0,
-        nick = "test1228",
-        leader = {
-          lv = 60,
-          mastery_lv = 0,
-          grade = 6,
-          rlv = 0,
-          eclv = 0,
-          dragon_skin = 0,
-          did = 121954,
-          transform = 3,
-          mastery_skills = { },
-          evolution = 3,
-          mastery_point = 0
-        },
-        uid = "test1228",
-        rank = -1
-      }, {
-        lv = 97,
-        tier = "beginner",
-        clan_info = {
-          id = "5ddb4931970c6204bef38543",
-          name = "testctwar56",
-          mark = ""
-        },
-        tamer = 110003,
-        costume = 730300,
-        rp = -1,
-        clear_time = -1,
-        challenge_score = 0,
-        rate = "-Infinity",
-        last_tier = "beginner",
-        arena_score = 0,
-        ancient_score = 0,
-        beginner = true,
-        un = 141049,
-        score = -1,
-        total = 0,
-        nick = "HeinCheese",
-        leader = {
-          lv = 60,
-          mastery_lv = 0,
-          grade = 6,
-          rlv = 0,
-          eclv = 0,
-          dragon_skin = 0,
-          did = 122055,
-          transform = 3,
-          mastery_skills = { },
-          evolution = 3,
-          mastery_point = 0
-        },
-        uid = "2I5hY6XUrnTnEjnixGUkVrbUSB73",
-        rank = -1
-      }, {
-        lv = 99,
-        tier = "beginner",
-        clan_info = {
-          id = "5ddb4931970c6204bef38543",
-          name = "testctwar56",
-          mark = ""
-        },
-        tamer = 110005,
-        costume = 730502,
-        rp = -1,
-        clear_time = -1,
-        challenge_score = 0,
-        rate = "-Infinity",
-        last_tier = "beginner",
-        arena_score = 0,
-        ancient_score = 0,
-        beginner = true,
-        un = 71984,
-        score = -1,
-        total = 0,
-        nick = "꿔바로우",
-        leader = {
-          lv = 60,
-          mastery_lv = 10,
-          grade = 6,
-          rlv = 6,
-          eclv = 0,
-          dragon_skin = 0,
-          did = 121595,
-          transform = 3,
-          mastery_skills = { },
-          evolution = 3,
-          mastery_point = 10
-        },
-        uid = "1hFq4remJYO0v85189RfUbofist1",
-        rank = -1
-      }, {
-        lv = 99,
-        tier = "beginner",
-        clan_info = {
-          id = "5ddb4931970c6204bef38543",
-          name = "testctwar56",
-          mark = ""
-        },
-        tamer = 110004,
-        costume = 730403,
-        rp = -1,
-        clear_time = -1,
-        challenge_score = 0,
-        rate = "-Infinity",
-        last_tier = "beginner",
-        arena_score = 0,
-        ancient_score = 0,
-        beginner = true,
-        un = 130862025,
-        score = -1,
-        total = 0,
-        nick = "kamari",
-        leader = {
-          lv = 60,
-          mastery_lv = 0,
-          grade = 6,
-          rlv = 0,
-          eclv = 0,
-          dragon_skin = 0,
-          did = 121792,
-          transform = 3,
-          mastery_skills = { },
-          evolution = 3,
-          mastery_point = 0
-        },
-        uid = "YeoFSrDmUxZY3nM02LEjh5zrSft2",
-        rank = -1
-      }, {
-        lv = 99,
-        tier = "beginner",
-        clan_info = {
-          id = "5ddb4931970c6204bef38543",
-          name = "testctwar56",
-          mark = ""
-        },
-        tamer = 110005,
-        costume = 730503,
-        rp = -1,
-        clear_time = -1,
-        challenge_score = 0,
-        rate = "-Infinity",
-        last_tier = "beginner",
-        arena_score = 0,
-        ancient_score = 0,
-        beginner = true,
-        un = 2176990,
-        score = -1,
-        total = 0,
-        nick = "I은달I동그라미",
-        leader = {
-          lv = 60,
-          mastery_lv = 10,
-          grade = 6,
-          rlv = 6,
-          eclv = 0,
-          dragon_skin = 0,
-          did = 120185,
-          transform = 3,
-          mastery_skills = {
-            ["110301"] = 3,
-            ["110101"] = 3,
-            ["110203"] = 3,
-            ["110402"] = 1
-          },
-          evolution = 3,
-          mastery_point = 0
-        },
-        uid = "cqKc3TF98AZDRsmjfBBiF3OcwK62",
-        rank = -1
-      } }
+-------------------------------------
+--- @function getTableWorldRaidRank
+-------------------------------------
+function ServerData_WorldRaid:getTableWorldRaidRank()
+  return self.m_tableWorldRaidRank or {}
+end
 
-    return list
+-------------------------------------
+--- @function applyCurrentRankingList
+-------------------------------------
+function ServerData_WorldRaid:applyCurrentRankingList(t_ret)
+	-- 랭크 리스트
+	if t_ret['list'] ~= nil then
+		self.m_rankList = clone(t_ret['list'])
+	end
+
+	-- 내 랭킹
+	if t_ret['my_info'] ~= nil then
+		self.m_myRank = StructUserInfoArena:create_forRanking(t_ret['my_info'])
+	end
+end
+
+-------------------------------------
+--- @function applyResponse
+-------------------------------------
+function ServerData_WorldRaid:applyResponse(t_ret)
+  -- 랭크 리스트
+	if t_ret['table_world_raid_rank'] ~= nil then
+		self.m_tableWorldRaidRank = clone(t_ret['table_world_raid_rank'])
+	end
+
+	-- 랭크 리스트
+	if t_ret['table_world_raid'] ~= nil then
+		self.m_tableWorldRaidSchedule = clone(t_ret['table_world_raid'])
+	end
+end
+
+-------------------------------------
+--- @function makeCurrentWorldRaidInfo
+-------------------------------------
+function ServerData_WorldRaid:makeCurrentWorldRaidInfo()	
+	self.m_curWorldRaidInfo = nil
+	for _, v in pairs(self.m_tableWorldRaidSchedule) do
+		if self:checkWorldRaidTime(v) == true then
+			self.m_curWorldRaidInfo = v
+			return
+		end
+	end
+end
+
+-------------------------------------
+--- @function checkWorldRaidTime
+-------------------------------------
+function ServerData_WorldRaid:checkWorldRaidTime(info)
+	if info == nil then
+		return false, 0
+	end
+
+	local cur_time = ServerTime:getInstance():getCurrentTimestampMilliseconds()
+	local date_min = 0 --info['date_min']
+	local date_max = 100000000000 --info['date_max']
+
+	if cur_time > date_min and cur_time < date_max then
+		return true, date_max - cur_time
+	end
+
+	return false, 0
 end
 
 -------------------------------------
 --- @function getWorldRaidId
 -------------------------------------
 function ServerData_WorldRaid:getWorldRaidId()
-    return 1001
+	if self.m_curWorldRaidInfo == nil then
+		return 0
+	end
+
+    return self.m_curWorldRaidInfo['wrid'] or 0
 end
 
 -------------------------------------
@@ -473,10 +180,9 @@ end
 --- @function getRemainTimeString
 -------------------------------------
 function ServerData_WorldRaid:getRemainTimeString()
-    local time = g_hotTimeData:getEventRemainTime('world_raid') or 0
+    local _, time = self:checkWorldRaidTime(self.m_curWorldRaidInfo)
     return Str('이벤트 종료까지 {1} 남음', ServerTime:getInstance():makeTimeDescToSec(time, true))
 end
-
 
 -------------------------------------
 --- @function getWorldRaidStageMode
@@ -514,13 +220,19 @@ function ServerData_WorldRaid:request_WorldRaidInfo(_success_cb, _fail_cb)
     -- 콜백
     local function success_cb(ret)
         g_serverData:networkCommonRespone(ret)
+        self:applyResponse(ret)
+		self:makeCurrentWorldRaidInfo()
+
         SafeFuncCall(_success_cb)
+        self.m_includeRewardTableReq = false
     end
 
     -- 네트워크 통신
     local ui_network = UI_Network()
     ui_network:setUrl('/world_raid/info')
     ui_network:setParam('uid', uid)
+    ui_network:setParam('include_tables', self.m_includeRewardTableReq)
+
     ui_network:setSuccessCB(success_cb)
     ui_network:setFailCB(_fail_cb)
     ui_network:setRevocable(true)
@@ -532,7 +244,7 @@ end
 -------------------------------------
 --- @function request_WorldRaidStart
 -------------------------------------
-function ServerData_WorldRaid:request_WorldRaidStart(stage_id, deck_name, _success_cb, _fail_cb)
+function ServerData_WorldRaid:request_WorldRaidStart(wrid, stage_id, deck_name, _success_cb, _fail_cb)
     local uid = g_userData:get('uid')
     local token = g_stageData:makeDragonToken(deck_name)
 
@@ -560,7 +272,8 @@ function ServerData_WorldRaid:request_WorldRaidStart(stage_id, deck_name, _succe
     local api_url = '/world_raid/start'
     ui_network:setUrl(api_url)
     ui_network:setParam('uid', uid)
-    ui_network:setParam('stage', stage_id)    
+    ui_network:setParam('wrid', wrid)
+    ui_network:setParam('stage', stage_id)
     ui_network:setParam('deck_name', deck_name)    
     ui_network:setParam('token', token)
     ui_network:setResponseStatusCB(response_status_cb)
@@ -576,63 +289,26 @@ end
 --- @param param_success_cb : 받은 데이터를 이용하여 처리할 콜백 함수
 --- @param param_fail_cb : 통신 실패 처리할 콜백 함수
 -------------------------------------
-function ServerData_WorldRaid:request_WorldRaidRanking(search_type, offset, limit, param_success_cb, param_fail_cb)
+function ServerData_WorldRaid:request_WorldRaidRanking(wrid , search_type, offset, limit, param_success_cb, param_fail_cb)
     local uid = g_userData:get('uid')
-    local type = search_type -- default : world
-    local offset = offset -- default : 0
-    local limit = limit -- default : 20
 
     -- 콜백
     local function success_cb(ret)
-        g_serverData:networkCommonRespone(ret)
-        --self:response_eventDealkingInfo(ret)
-        if param_success_cb then
-            param_success_cb(ret)
-        end
+		if wrid == self:getWorldRaidId() and search_type == 'world' then
+			self:applyCurrentRankingList(ret)
+		end
+
+		if param_success_cb then
+			param_success_cb(ret)
+		end
     end
 
     -- 네트워크 통신
     local ui_network = UI_Network()
     ui_network:setUrl('/world_raid/ranking')
     ui_network:setParam('uid', uid)
-    ui_network:setParam('filter', type)
-    ui_network:setParam('offset', offset)
-    ui_network:setParam('limit', limit)
-    ui_network:setSuccessCB(success_cb)
-    ui_network:setFailCB(param_fail_cb)
-    ui_network:setRevocable(true)
-    ui_network:setReuse(false)
-    ui_network:hideBGLayerColor()
-    ui_network:request()
-end
-
--------------------------------------
---- @function request_WorldRaidBoardRanking
---- @param search_type : 랭킹을 조회할 그룹 (world, clan, friend)
---- @param offset : 랭킹 리스트의 offset 값 (-1 : 내 랭킹 기준, 0 : 상위 랭킹 기준, 20 : 랭킹의 20번째부터 조회..) 
---- @param param_success_cb : 받은 데이터를 이용하여 처리할 콜백 함수
---- @param param_fail_cb : 통신 실패 처리할 콜백 함수
--------------------------------------
-function ServerData_WorldRaid:request_WorldRaidBoardRanking(search_type, offset, limit, param_success_cb, param_fail_cb)
-    local uid = g_userData:get('uid')
-    local type = search_type -- default : world
-    local offset = offset -- default : 0
-    local limit = limit -- default : 20
-
-    -- 콜백
-    local function success_cb(ret)
-        g_serverData:networkCommonRespone(ret)
-        --self:response_eventDealkingInfo(ret)
-        if param_success_cb then
-            param_success_cb(ret)
-        end
-    end
-
-    -- 네트워크 통신
-    local ui_network = UI_Network()
-    ui_network:setUrl('/world_raid/board_ranking')
-    ui_network:setParam('uid', uid)
-    ui_network:setParam('filter', type)
+    ui_network:setParam('wrid', wrid)
+    ui_network:setParam('filter', search_type)
     ui_network:setParam('offset', offset)
     ui_network:setParam('limit', limit)
     ui_network:setSuccessCB(success_cb)
