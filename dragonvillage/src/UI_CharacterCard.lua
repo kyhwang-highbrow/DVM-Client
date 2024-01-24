@@ -110,10 +110,9 @@ function UI_CharacterCard:refreshDragonInfo()
     -- end
 
     -- 프로필 아이콘일 경우 그리지 않음
-    -- 삼뉴체크
-    -- if self.m_isProfileIcon == true then
-    --     return
-    -- end
+    if self.m_isProfileIcon == true then
+        return
+    end
 
     -- 리더 여부
     self:refresh_LeaderIcon()

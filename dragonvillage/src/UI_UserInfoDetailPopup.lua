@@ -481,8 +481,8 @@ function UI_UserInfoDetailPopup:click_dragonBtn()
 		end
 	end
 
-    require('UI_UserInfoDetailPopup_SetLeader')
-	local ui = UI_UserInfoDetailPopup_SetLeader(self.m_tUserInfo)
+    
+	local ui = UI_UserSetLeader(self.m_tUserInfo)
 	ui:setCloseCB(close_cb)
 end
 
