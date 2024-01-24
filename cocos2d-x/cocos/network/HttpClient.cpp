@@ -384,7 +384,7 @@ void HttpClient::enableCookies(const char* cookieFile) {
 HttpClient::HttpClient()
     : _isInited(false)
     , _timeoutForConnect(30)
-    , _timeoutForRead(60)
+    , _timeoutForRead(9999)
     , _threadCount(0)
     //, _cookie(nullptr)
     , _requestSentinel(new HttpRequest())
