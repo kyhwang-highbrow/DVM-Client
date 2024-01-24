@@ -5,5 +5,6 @@ cd..
 cd python
 py -3 GetPatchFileSizeList.py 1.4.5
 py -3 GetPatchFileSizeList.py 1.4.6
+py -3 GetPatchFileSizeList.py 1.4.7
 
 pause
