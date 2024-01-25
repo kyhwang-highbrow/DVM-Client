@@ -42,7 +42,7 @@ function UI_WorldRaid:init()
     self:initUI()
     self:initButton()    
     self:refresh()
-    self:makeRankingTableView({})
+    self:makeRankingTableView(g_worldRaidData:getCurrentRankingList())
     self:update()
 
     self.root:scheduleUpdateWithPriorityLua(function () self:update() end, 1)
@@ -63,7 +63,7 @@ function UI_WorldRaid:checkEnterEvent()
         local success_cb = function(ret)            
             local curr_rank_list = g_worldRaidData:getCurrentRankingList()
             self:makeRankingTableView(curr_rank_list)
-            local ui = UI_WorldRaidRewardPopup({})
+            --local ui = UI_WorldRaidRewardPopup({})
         end
 
         g_worldRaidData:request_WorldRaidRanking(self.m_worldRaidId, 'world', 1, 20, success_cb)
