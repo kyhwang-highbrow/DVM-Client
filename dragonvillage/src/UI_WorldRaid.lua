@@ -256,15 +256,15 @@ function UI_WorldRaid:click_readyBtn()
 
     local stage_id = g_worldRaidData:getWorldRaidStageId()
     local is_opend, idx, ui = UINavigatorDefinition:findOpendUI('UI_ReadySceneNew')
-    -- if (is_opend == true) then
-    --     ui:close()
-    --     UI_ReadySceneWorldRaidNormal(stage_id, t_sub_info)
-    --     self:close()
-    -- else
-    --     UI_ReadySceneWorldRaidNormal(stage_id, t_sub_info)
-    -- end
+    if (is_opend == true) then
+        ui:close()
+        UI_ReadySceneWorldRaidNormal(stage_id, t_sub_info)
+        self:close()
+    else
+        UI_ReadySceneWorldRaidNormal(stage_id, t_sub_info)
+    end
 
-    UI_ReadySceneWorldRaidCooperation(stage_id, t_sub_info)
+    --UI_ReadySceneWorldRaidCooperation(stage_id, t_sub_info)
 end
 
 -------------------------------------
