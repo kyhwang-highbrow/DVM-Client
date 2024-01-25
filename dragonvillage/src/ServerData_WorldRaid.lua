@@ -22,7 +22,7 @@ function ServerData_WorldRaid:init()
 	self.m_rankList = {}
 	self.m_myRank = {}
 	self.m_tableWorldRaidSchedule = {}
-	self.m_curWorldRaidInfo = {}
+	self.m_curWorldRaidInfo = nil
 end
 
 -------------------------------------
@@ -147,10 +147,10 @@ function ServerData_WorldRaid:checkWorldRaidTime(info)
 	end
 
 	local cur_time = ServerTime:getInstance():getCurrentTimestampMilliseconds()
-	local date_min = 0 --info['date_min']
-	local date_max = 100000000000 --info['date_max']
+	local date_min = info['date_min']
+	local date_max = info['date_max']
 
-	if cur_time > date_min and cur_time < date_max then
+    if cur_time > date_min and cur_time < date_max then
 		return true, date_max - cur_time
 	end
 
@@ -181,6 +181,7 @@ end
 -------------------------------------
 function ServerData_WorldRaid:getRemainTimeString()
     local _, time = self:checkWorldRaidTime(self.m_curWorldRaidInfo)
+    time = math_floor(time/1000)
     return Str('이벤트 종료까지 {1} 남음', ServerTime:getInstance():makeTimeDescToSec(time, true))
 end
 

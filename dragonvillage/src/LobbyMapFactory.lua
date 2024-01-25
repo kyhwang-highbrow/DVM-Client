@@ -395,7 +395,7 @@ end
 --- @brief 랭킹 보드 정보 게시판
 -------------------------------------
 function LobbyMapFactory:makeLobbyBoard_onLayer(node)
-    if g_worldRaidData:isAvailableWorldRaid() == false then
+    do --if g_worldRaidData:isAvailableWorldRaid() == false then
         return
     end
 
