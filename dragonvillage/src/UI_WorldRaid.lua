@@ -63,6 +63,7 @@ function UI_WorldRaid:checkEnterEvent()
         local success_cb = function(ret)            
             local curr_rank_list = g_worldRaidData:getCurrentRankingList()
             self:makeRankingTableView(curr_rank_list)
+            local ui = UI_WorldRaidRewardPopup({})
         end
 
         g_worldRaidData:request_WorldRaidRanking(self.m_worldRaidId, 'world', 1, 20, success_cb)
@@ -220,7 +221,7 @@ function UI_WorldRaid:makeRankingTableView(rank_list)
     end
 
     local l_rank_list = g_worldRaidData:getCurrentRankingList()
-    local rank_list = UIC_RankingList()    
+    local rank_list = UIC_RankingList()
     rank_list:setRankUIClass(UI_WorldRaidRankingListItem, create_cb)
     rank_list:setRankList(l_rank_list)
     rank_list:setEmptyStr(Str('랭킹 정보가 없습니다'))
@@ -255,13 +256,15 @@ function UI_WorldRaid:click_readyBtn()
 
     local stage_id = g_worldRaidData:getWorldRaidStageId()
     local is_opend, idx, ui = UINavigatorDefinition:findOpendUI('UI_ReadySceneNew')
-    if (is_opend == true) then
-        ui:close()
-        UI_ReadySceneWorldRaidNormal(stage_id, t_sub_info)
-        self:close()
-    else
-        UI_ReadySceneWorldRaidNormal(stage_id, t_sub_info)
-    end
+    -- if (is_opend == true) then
+    --     ui:close()
+    --     UI_ReadySceneWorldRaidNormal(stage_id, t_sub_info)
+    --     self:close()
+    -- else
+    --     UI_ReadySceneWorldRaidNormal(stage_id, t_sub_info)
+    -- end
+
+    UI_ReadySceneWorldRaidCooperation(stage_id, t_sub_info)
 end
 
 -------------------------------------
@@ -301,6 +304,8 @@ end
 
 --@CHECK
 UI:checkCompileError(UI_WorldRaid)
+
+
 
 
 

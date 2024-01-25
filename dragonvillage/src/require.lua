@@ -405,6 +405,7 @@ local t_module = {
     'IllusionScoreCalc',
 	'MultiDeckMgr',
     'MultiDeckMgr_Raid',
+    'MultiDeckMgr_WorldRaid',
     'MatchCardPlayer',
     'WorkListHelper',
     'WorkUnit',
@@ -1291,12 +1292,14 @@ local t_module = {
 	-- UI : 모험 준비
     'UI_ReadySceneNew',
     'UI_ReadySceneWorldRaid', -- 월드 레이드
-    'UI_ReadySceneWorldRaidNormal', -- 월드 레이드
+    'UI_ReadySceneWorldRaidNormal', -- 월드 레이드 (정예)
+    'UI_ReadySceneWorldRaidCooperation', -- 월드 레이드 (협동)
 
 
     'UI_ReadySceneNew_Deck',
     'UI_ReadySceneNew_Deck_Illusion',
     'UI_ReadySceneNew_Deck_Raid',
+    'UI_ReadySceneNew_Deck_WorldRaid',
     'UI_ReadySceneNew_Select',
     'UI_ReadyScene_LeaderPopup',
 	'UI_ReadySceneNew_IllusionDungeon',
@@ -1880,6 +1883,7 @@ local t_module = {
     'UI_WorldRaidRankingRewardItem', -- 보상 리스트 아이템
     'UI_WorldRaidResult', -- 전투 결과 화면
     'UI_WorldRaidBoard', -- 월드 레이드 게시판
+    'UI_WorldRaidRewardPopup', -- 월드 레이드 보상 화면
     
 }
 

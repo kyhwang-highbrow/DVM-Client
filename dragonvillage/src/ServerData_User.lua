@@ -889,6 +889,28 @@ function ServerData_User:getDropInfoMaxItemByType(item_type)
     end
 end
 
+-------------------------------------
+--- @function makeDummyProfileRankingData
+-------------------------------------
+function ServerData_User:makeDummyProfileRankingData()
+    local t_user = {} 
+    t_user['lv'] = self:get('lv')
+
+    local struct_clan = g_clanData:getClanStruct()
+    t_user['clan_info'] = {}
+
+    if struct_clan ~= nil then        
+        t_user['clan_info']['id'] = struct_clan:getClanObjectID()
+        t_user['clan_info']['name'] = struct_clan:getClanName()
+        t_user['clan_info']['mark'] = struct_clan:getClanMark()
+    end
+
+    t_user['uid'] = self:get('uid')
+    t_user['nick'] = self:get('nick')
+    t_user['leader'] = g_dragonsData:getLeaderDragon()
+    t_user['rank'] = 0
+    return t_user
+end
 
 -------------------------------------
 -- function request_termsInfo

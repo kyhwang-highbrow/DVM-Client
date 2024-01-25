@@ -26,6 +26,9 @@ MULTI_DECK_MODE = {
     ANCIENT_RUIN = 'ancient_ruin',  -- 고대 유적 던전
     EVENT_ARENA = 'grand_arena',    -- 그랜드 콜로세움 (이벤트 PvP 10대10)
     LEAGUE_RAID = 'league_raid',    -- 레이드 3덱
+
+    WORLD_RAID_COOPERATION = 'world_raid_cooperation',    -- 월드 레이드 2덱
+    WORLD_RAID_LINGER = 'world_raid_linger',    -- 월드 레이드 3덱
 }
 
 -------------------------------------
@@ -42,6 +45,10 @@ function MultiDeckMgr:init(deck_mode, make_deck, sub_data)
     if (make_deck) then
         if (self.m_mode == MULTI_DECK_MODE.LEAGUE_RAID) then
             self:makeDeckMap_raid()
+        elseif (self.m_mode == MULTI_DECK_MODE.WORLD_RAID_COOPERATION) then
+            self:makeDeckMap_worldRaid(2)
+        elseif (self.m_mode == MULTI_DECK_MODE.WORLD_RAID_LINGER) then
+            self:makeDeckMap_worldRaid(3)
         else
             self:makeDeckMap()
         end
@@ -87,6 +94,12 @@ function MultiDeckMgr:makeDeckMap()
             end
         end
     end
+end
+
+-------------------------------------
+-- function makeDeckMap_worldRaid
+-------------------------------------
+function MultiDeckMgr:makeDeckMap_worldRaid()
 end
 
 -------------------------------------

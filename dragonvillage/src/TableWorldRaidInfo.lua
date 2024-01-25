@@ -86,10 +86,18 @@ function TableWorldRaidInfo:getWorldRaidAttr(world_raid_id)
 end
 
 -------------------------------------
+--- @function getWorldRaidPartyType
+-------------------------------------
+function TableWorldRaidInfo:getWorldRaidPartyType(world_raid_id)
+    local party_type = self:getValue(world_raid_id, 'party_type')
+    return party_type
+end
+
+-------------------------------------
 --- @function getWorldRaidPartyTypeStr
 -------------------------------------
 function TableWorldRaidInfo:getWorldRaidPartyTypeStr(world_raid_id)
-    local party_type = self:getValue(world_raid_id, 'party_type')
+    local party_type = self:getWorldRaidPartyType(world_raid_id)
     if party_type == 1 then
         return Str('정예전')
     elseif party_type == 2 then

@@ -263,6 +263,12 @@ function UI_ReadySceneNew:checkDeckProper()
         g_deckData:setSelectedDeck(self.m_subInfo)
         return
     end
+    
+    -- 월드 레이드
+    if (self.m_gameMode == GAME_MODE_WORLD_RAID) then        
+        g_deckData:setSelectedDeck('world_raid_1')
+        return
+    end
 
     -- 멀티덱 예외처리 (클랜 던전, 고대 유적 던전)
     local multi_deck_mgr = self.m_multiDeckMgr 
@@ -275,7 +281,6 @@ function UI_ReadySceneNew:checkDeckProper()
     end
 
     local curr_mode = TableDrop():getValue(self.m_stageID, 'mode')
-
     
     -- 차원문
     if (g_dmgateData:isStageDimensionGate(self.m_stageID)) then
@@ -293,7 +298,7 @@ function UI_ReadySceneNew:checkDeckProper()
         end
     end
 
-	local curr_deck_name = g_deckData:getSelectedDeckName()
+	local curr_deck_name = g_deckData:getSelectedDeckName()        
 	if not (curr_mode == curr_deck_name) then
 		g_deckData:setSelectedDeck(curr_mode)
 	end

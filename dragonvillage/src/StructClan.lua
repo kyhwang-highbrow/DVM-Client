@@ -45,6 +45,7 @@ local THIS = StructClan
 -------------------------------------
 function StructClan:init(data)
     if (data['mark']) then
+        self.mark = data['mark']
         self.m_structClanMark = StructClanMark:create(data['mark'])
     else
         self.m_structClanMark = StructClanMark()
@@ -77,6 +78,13 @@ end
 -------------------------------------
 function StructClan:getClanName()
     return self['name']
+end
+
+-------------------------------------
+-- function getClanMark
+-------------------------------------
+function StructClan:getClanMark()
+    return self['mark']
 end
 
 -------------------------------------

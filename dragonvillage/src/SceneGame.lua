@@ -665,6 +665,7 @@ function SceneGame:networkGameFinish(t_param, t_result_ref, next_func)
     local attr
     local multi_deck_mgr -- 멀티덱 모드
     local auto -- 온전한 연속 전투인지 판단
+    local set_deck_param = false
 
     local function success_cb(ret)
         -- 클리어 타입은 서버에서 안줌
@@ -682,14 +683,21 @@ function SceneGame:networkGameFinish(t_param, t_result_ref, next_func)
     -- true를 리턴하면 자체적으로 처리를 완료했다는 뜻
     local function response_status_cb(ret)
         -- invalid season
+        local function ok_cb()
+            UINavigator:goTo('lobby')
+        end 
+
         if (ret['status'] == -1364) then
             -- 로비로 이동
-            local function ok_cb()
-                UINavigator:goTo('lobby')
-            end 
             MakeSimplePopup(POPUP_TYPE.OK, Str('시즌이 종료되었습니다.'), ok_cb)
             return true
         end
+
+        if (ret['status'] == -2128) then
+            MakeSimplePopup(POPUP_TYPE.OK, Str('이벤트가 종료되었습니다.'), ok_cb)
+            return true
+        end
+
         return false
     end
 
@@ -770,8 +778,14 @@ function SceneGame:networkGameFinish(t_param, t_result_ref, next_func)
         api_url = '/world_raid/finish'
         self.m_gameKey = nil
         local wrid = g_worldRaidData:getWorldRaidId()
+        local deck_name_map = g_worldRaidData:getWorldRaidDeckMap()
+
         ui_network:setParam('wrid', wrid)
         ui_network:setParam('damage', math_floor(t_param['damage'])) -- 소수점 아래는 버려야 함
+        set_deck_param = true
+        for key, val in pairs(deck_name_map) do
+            ui_network:setParam(key, val)
+        end
     end
     
     ui_network:setUrl(api_url)
@@ -779,12 +793,15 @@ function SceneGame:networkGameFinish(t_param, t_result_ref, next_func)
     ui_network:setParam('stage', self.m_stageID)
     ui_network:setParam('oid', oid)
     -- 멀티덱 사용한 경우 - 덱네임 2개 보냄 (상단, 하단)
-    if (multi_deck_mgr) then
-        ui_network:setParam('deck_name1', multi_deck_mgr:getDeckName('up'))
-        ui_network:setParam('deck_name2', multi_deck_mgr:getDeckName('down'))
-    else
-        ui_network:setParam('deck_name', t_param['deck_name'])
+    if set_deck_param == false then
+        if (multi_deck_mgr) then
+            ui_network:setParam('deck_name1', multi_deck_mgr:getDeckName('up'))
+            ui_network:setParam('deck_name2', multi_deck_mgr:getDeckName('down'))
+        else
+            ui_network:setParam('deck_name', t_param['deck_name'])
+        end
     end
+
     ui_network:setParam('clear_type', t_param['clear_type'])
     ui_network:setParam('clear_wave', t_param['clear_wave'])
     ui_network:setParam('exp_rate', t_param['exp_rate'])

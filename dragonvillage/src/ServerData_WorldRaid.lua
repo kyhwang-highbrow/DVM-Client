@@ -17,10 +17,10 @@ ServerData_WorldRaid = class({
 -------------------------------------
 function ServerData_WorldRaid:init()
 	self.m_includeRewardTableReq = true
-	self.m_rankingUpdateAt = ExperationTime:createWithUpdatedAyInitialized()
+	self.m_rankingUpdateAt = ExperationTime()
 	self.m_tableWorldRaidRank = {}
 	self.m_rankList = {}
-	self.m_myRank = {}
+	self.m_myRank = nil
 	self.m_tableWorldRaidSchedule = {}
 	self.m_curWorldRaidInfo = nil
 end
@@ -78,7 +78,45 @@ end
 --- @function getCurrentMyRanking
 -------------------------------------
 function ServerData_WorldRaid:getCurrentMyRanking()
-    return self.m_myRank
+    return self.m_myRank or g_userData:makeDummyProfileRankingData()
+    -- return {
+    --     lv = 31,
+    --     tier = "bronze_3",
+    --     clan_info = {
+    --       id = "5ddb4931970c6204bef38543",
+    --       name = "testctwar56",
+    --       mark = ""
+    --     },
+    --     tamer = 110002,
+    --     costume = 730204,
+    --     rp = -1,
+    --     clear_time = -1,
+    --     challenge_score = 0,
+    --     rate = "-Infinity",
+    --     last_tier = "beginner",
+    --     arena_score = 0,
+    --     ancient_score = 0,
+    --     beginner = false,
+    --     un = 9463,
+    --     score = -1,
+    --     total = 0,
+    --     nick = "ksjang3",
+    --     leader = {
+    --       lv = 60,
+    --       mastery_lv = 0,
+    --       grade = 6,
+    --       rlv = 6,
+    --       eclv = 0,
+    --       dragon_skin = 0,
+    --       did = 121854,
+    --       transform = 3,
+    --       mastery_skills = { },
+    --       evolution = 3,
+    --       mastery_point = 0
+    --     },
+    --     uid = "ksjang3",
+    --     rank = -1
+    --   }
 end
 
 -------------------------------------
@@ -193,6 +231,28 @@ function ServerData_WorldRaid:getWorldRaidStageMode(stage_id)
 end
 
 -------------------------------------
+--- @function getWorldRaidDeckMap
+-------------------------------------
+function ServerData_WorldRaid:getWorldRaidDeckMap()
+    local world_raid_id = self:getWorldRaidId()
+    local stage_mode = TableWorldRaidInfo:getInstance():getWorldRaidPartyType(world_raid_id)
+    local deck_name_map = {}
+
+    for i = 1, stage_mode do
+        deck_name_map['deck_name' .. i]  = 'world_raid_' .. i
+    end
+
+    return deck_name_map
+end
+
+-------------------------------------
+--- @function getDeckName
+-------------------------------------
+function ServerData_WorldRaid:getDeckName()
+    return 'world_raid_1'
+end
+
+-------------------------------------
 --- @function getWorldRaidBuff
 -------------------------------------
 function ServerData_WorldRaid:getWorldRaidBuff()
@@ -245,24 +305,20 @@ end
 -------------------------------------
 --- @function request_WorldRaidStart
 -------------------------------------
-function ServerData_WorldRaid:request_WorldRaidStart(wrid, stage_id, deck_name, _success_cb, _fail_cb)
+function ServerData_WorldRaid:request_WorldRaidStart(wrid, stage_id, _success_cb, _fail_cb)
     local uid = g_userData:get('uid')
-    local token = g_stageData:makeDragonToken(deck_name)
-
+    
+    local deck_name_map = self:getWorldRaidDeckMap()
     local function success_cb(ret)
         --self.m_gameState = true
         SafeFuncCall(_success_cb, ret)
     end
 
-    local function response_status_cb(ret)
-        -- 요일에 맞지 않는 속성
-        if (ret['status'] == -2150) then
-            -- 로비로 이동
-            local function ok_cb()
+    local function response_status_cb(ret)        
+        if ret['status'] == -2128 then
+            MakeSimplePopup(POPUP_TYPE.OK, Str('이벤트가 종료되었습니다.'), function () 
                 UINavigator:goTo('lobby')
-            end 
-
-            MakeSimplePopup(POPUP_TYPE.OK, Str('이미 종료된 던전입니다.'), ok_cb)
+            end)
             return true
         end
 
@@ -275,8 +331,14 @@ function ServerData_WorldRaid:request_WorldRaidStart(wrid, stage_id, deck_name, 
     ui_network:setParam('uid', uid)
     ui_network:setParam('wrid', wrid)
     ui_network:setParam('stage', stage_id)
-    ui_network:setParam('deck_name', deck_name)    
-    ui_network:setParam('token', token)
+
+    for key, val in pairs(deck_name_map) do
+        ui_network:setParam(key, val)
+        local toke_param = string.gsub(key, 'deck_name', 'token')
+        local token = g_stageData:makeDragonToken(val)
+        ui_network:setParam(toke_param, token)
+    end
+    
     ui_network:setResponseStatusCB(response_status_cb)
     ui_network:setSuccessCB(success_cb)
     ui_network:setFailCB(_fail_cb)

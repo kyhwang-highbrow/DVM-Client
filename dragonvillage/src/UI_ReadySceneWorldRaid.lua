@@ -11,7 +11,6 @@ UI_ReadySceneWorldRaid = class(PARENT,{
 -------------------------------------
 function UI_ReadySceneWorldRaid:initUI()
     local vars = self.vars
-    local world_raid_id = self.m_subInfo['world_raid_id'] or 0
 
     do -- 스테이지에 해당하는 스테미나 아이콘 생성
         local vars = self.vars
@@ -70,8 +69,9 @@ function UI_ReadySceneWorldRaid:networkGameStart()
         self:replaceGameScene(game_key)
     end
 
+
+
     local world_raid_id = self.m_subInfo['world_raid_id']
-    local deck_name = g_deckData:getSelectedDeckName()
-    local combat_power = self.m_readySceneDeck:getDeckCombatPower()
-    g_worldRaidData:request_WorldRaidStart(world_raid_id, self.m_stageID, deck_name, combat_power, finish_cb)
+    --local deck_name = g_deckData:getSelectedDeckName()
+    g_worldRaidData:request_WorldRaidStart(world_raid_id, self.m_stageID, finish_cb)
 end
