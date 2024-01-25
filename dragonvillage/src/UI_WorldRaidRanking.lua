@@ -19,7 +19,7 @@ local SCORE_OFFSET_GAP = 20
 -------------------------------------
 --- @function init
 -------------------------------------
-function UI_WorldRaidRanking:init(world_raid_id, ret)
+function UI_WorldRaidRanking:init(world_raid_id)
     self.m_worldRaidId = world_raid_id
     self.m_rankOffset = 1
     local vars = self:load('world_raid_ranking_popup.ui')
@@ -35,8 +35,9 @@ function UI_WorldRaidRanking:init(world_raid_id, ret)
     self:initButton()    
     self:refresh()
 
-    self:makeRankTableView(ret)
-    self:makeRewardTableView(g_worldRaidData:getTableWorldRaidRank())
+    self:makeRankTableView()
+    self:makeRewardTableView()
+    self:refreshRanking()
 
     -- 보상 안내 팝업
     local function finich_cb()
@@ -51,6 +52,22 @@ end
 -------------------------------------
 function UI_WorldRaidRanking:checkEnterEvent()
 end
+
+-------------------------------------
+-- function refreshRanking
+-------------------------------------
+function UI_WorldRaidRanking:refreshRanking()
+    if g_worldRaidData:isExpiredRankingUpdate() == true then
+        local success_cb = function(ret)            
+            local curr_rank_list = g_worldRaidData:getCurrentRankingList()
+            local curr_my_rank =g_worldRaidData:getCurrentMyRanking()
+            self:makeRankTableView(curr_my_rank, curr_rank_list)
+        end
+
+        g_worldRaidData:request_WorldRaidRanking(self.m_worldRaidId, 'world', 1, 20, success_cb)
+    end
+end
+
 
 -------------------------------------
 --- @function initUI
@@ -76,11 +93,11 @@ end
 -------------------------------------
 --- @function makeRankTableView
 -------------------------------------
-function UI_WorldRaidRanking:makeRankTableView(data)
+function UI_WorldRaidRanking:makeRankTableView(my_rank, ranking_list)
     local vars = self.vars
     local rank_node = vars['userListNode']
-    local rank_data = data
-    local my_rank_data = data['my_info'] or {}
+    --local rank_data = data
+    local my_rank_data = my_rank or g_worldRaidData:getCurrentMyRanking()
 
     local make_my_rank_cb = function()        
         local me_rank = UI_WorldRaidRankingListItem(my_rank_data)
@@ -88,7 +105,7 @@ function UI_WorldRaidRanking:makeRankTableView(data)
         me_rank.vars['meSprite']:setVisible(true)
     end
     
-    local l_rank_list = rank_data['total_list'] or g_worldRaidData:getCurrentRankingList()
+    local l_rank_list = ranking_list or g_worldRaidData:getCurrentRankingList()
     
     -- 이전 랭킹 버튼 누른 후 콜백
     local function func_prev_cb(offset)
@@ -157,8 +174,8 @@ function UI_WorldRaidRanking:request_total_ranking()
         end
 
         -- 랭킹 테이블 다시 만듬
-        self:makeRankTableView(ret)
-        self:makeRewardTableView(ret)
+        self:makeRankTableView(ret['my_rank'], ret['list'])
+        self:makeRewardTableView()
         self.m_rankOffset = tonumber(ret['total_offset'])
     end
 
@@ -186,7 +203,7 @@ end
 -------------------------------------
 --- @function makeRewardTableView
 -------------------------------------
-function UI_WorldRaidRanking:makeRewardTableView(table_world_raid_rank)
+function UI_WorldRaidRanking:makeRewardTableView()
     local vars = self.vars
     local node = vars['userRewardNode']
 
@@ -199,7 +216,7 @@ function UI_WorldRaidRanking:makeRewardTableView(table_world_raid_rank)
     local my_rank = g_worldRaidData:getCurrentMyRanking()
 
     -- 랭킹 보상 테이블
-    local table_event_rank = table_world_raid_rank    
+    local table_event_rank = g_worldRaidData:getTableWorldRaidRank()    
     local struct_rank_reward = StructRankReward(table_event_rank, true)
     local l_event_rank = struct_rank_reward:getRankRewardList() or {}
     self.m_structRankReward = struct_rank_reward
@@ -247,11 +264,8 @@ end
 --- @function open
 -------------------------------------
 function UI_WorldRaidRanking.open(world_raid_id)
-    local success_cb = function(ret)
-        local ui = UI_WorldRaidRanking(world_raid_id, ret)
-    end
-
-    g_worldRaidData:request_WorldRaidRanking(world_raid_id, 'world', 1, 20, success_cb)
+    local ui = UI_WorldRaidRanking(world_raid_id)
+    return ui
 end
 
 --@CHECK

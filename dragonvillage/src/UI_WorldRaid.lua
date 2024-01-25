@@ -40,10 +40,11 @@ function UI_WorldRaid:init()
     self:doAction(nil, false)
 
     self:initUI()
-    self:initButton()    
+    self:initButton()
     self:refresh()
-    self:makeRankingTableView(g_worldRaidData:getCurrentRankingList())
+    self:makeRankingTableView()
     self:update()
+    self:refreshRanking()
 
     self.root:scheduleUpdateWithPriorityLua(function () self:update() end, 1)
 
@@ -59,10 +60,15 @@ end
 -- function checkEnterEvent
 -------------------------------------
 function UI_WorldRaid:checkEnterEvent()
+end
+
+-------------------------------------
+-- function refreshRanking
+-------------------------------------
+function UI_WorldRaid:refreshRanking()
     if g_worldRaidData:isExpiredRankingUpdate() == true then
-        local success_cb = function(ret)            
-            local curr_rank_list = g_worldRaidData:getCurrentRankingList()
-            self:makeRankingTableView(curr_rank_list)
+        local success_cb = function(ret)                        
+            self:makeRankingTableView()
             --local ui = UI_WorldRaidRewardPopup({})
         end
 
@@ -201,7 +207,7 @@ end
 -------------------------------------
 -- function makeRankingTableView
 -------------------------------------
-function UI_WorldRaid:makeRankingTableView(l_rank_list)
+function UI_WorldRaid:makeRankingTableView()
     local vars = self.vars
     require('UI_WorldRaidRankingListItem')
 
@@ -220,7 +226,7 @@ function UI_WorldRaid:makeRankingTableView(l_rank_list)
         me_rank.vars['meSprite']:setVisible(true)
     end
 
-    --local l_rank_list = g_worldRaidData:getCurrentRankingList()
+    local l_rank_list = g_worldRaidData:getCurrentRankingList()
     local rank_list = UIC_RankingList()
     rank_list:setRankUIClass(UI_WorldRaidRankingListItem, create_cb)
     rank_list:setRankList(l_rank_list)
@@ -279,7 +285,10 @@ end
 --- @function click_rankingBtn
 -------------------------------------
 function UI_WorldRaid:click_rankingBtn()
-    UI_WorldRaidRanking.open(self.m_worldRaidId)
+    local ui = UI_WorldRaidRanking.open(self.m_worldRaidId)
+    ui:setCloseCB(function() 
+        self:makeRankingTableView()
+    end)
 end
 
 -------------------------------------
