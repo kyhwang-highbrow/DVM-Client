@@ -30,14 +30,30 @@ function UI_WorldRaidRankingListItem:initUI()
     local vars = self.vars
     local t_rank_info = StructUserInfoArena:create_forRanking(self.m_rankInfo)
 
+    ccdump(self.m_rankInfo)
+
     -- 점수 표시
-    vars['scoreLabel']:setString(t_rank_info:getRPText())
+    local score = tonumber(self.m_rankInfo['score'])
+
+    if (score < 0) then
+        score = '-'
+    else
+        score = comma_value(score)
+    end
+
+    vars['scoreLabel']:setString(score)
 
     -- 유저 정보 표시 (레벨, 닉네임)
-    vars['userLabel']:setString(t_rank_info:getUserText())
+    vars['userLabel']:setString(self.m_rankInfo['nick'])
 
     -- 순위 표시
-    vars['rankLabel']:setString(t_rank_info:getRankText())
+    local rankStr = tostring(comma_value(self.m_rankInfo['rank']))
+    if (self.m_rankInfo['rank'] < 0) then
+        rankStr = '-'
+    end
+
+    vars['rankLabel']:setString(rankStr)
+
 
     do -- 리더 드래곤 아이콘
         local ui = t_rank_info:getLeaderDragonCard()
@@ -51,15 +67,6 @@ function UI_WorldRaidRankingListItem:initUI()
 			end)
         end
     end
-
-    -- do -- 티어 아이콘
-    --     local icon = t_rank_info:makeTierIcon(nil)
-    --     if (icon) then
-    --         vars['tierNode']:addChild(icon)
-    --     end
-    --     vars['tierLabel']:setString(t_rank_info:getTierName())
-    -- end
-
 
     local struct_clan = t_rank_info:getStructClan()
     if (struct_clan) then
