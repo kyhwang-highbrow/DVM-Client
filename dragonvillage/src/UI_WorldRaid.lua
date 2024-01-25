@@ -201,7 +201,7 @@ end
 -------------------------------------
 -- function makeRankingTableView
 -------------------------------------
-function UI_WorldRaid:makeRankingTableView(rank_list)
+function UI_WorldRaid:makeRankingTableView(l_rank_list)
     local vars = self.vars
     require('UI_WorldRaidRankingListItem')
 
@@ -220,7 +220,7 @@ function UI_WorldRaid:makeRankingTableView(rank_list)
         me_rank.vars['meSprite']:setVisible(true)
     end
 
-    local l_rank_list = g_worldRaidData:getCurrentRankingList()
+    --local l_rank_list = g_worldRaidData:getCurrentRankingList()
     local rank_list = UIC_RankingList()
     rank_list:setRankUIClass(UI_WorldRaidRankingListItem, create_cb)
     rank_list:setRankList(l_rank_list)

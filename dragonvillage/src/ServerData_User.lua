@@ -909,6 +909,7 @@ function ServerData_User:makeDummyProfileRankingData()
     t_user['nick'] = self:get('nick')
     t_user['leader'] = g_dragonsData:getLeaderDragon()
     t_user['rank'] = 0
+    t_user['score'] = 0
     return t_user
 end
 

@@ -78,7 +78,7 @@ end
 --- @function getCurrentMyRanking
 -------------------------------------
 function ServerData_WorldRaid:getCurrentMyRanking()
-    return self.m_myRank or g_userData:makeDummyProfileRankingData()
+    return self.m_myRank and self.m_myRank or g_userData:makeDummyProfileRankingData()
     -- return {
     --     lv = 31,
     --     tier = "bronze_3",
