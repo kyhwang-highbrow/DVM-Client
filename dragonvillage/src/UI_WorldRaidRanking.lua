@@ -15,11 +15,13 @@ UI_WorldRaidRanking = class(PARENT, {
     m_rankOffset = 'number', -- 오프셋
 })
 
+local SCORE_OFFSET_GAP = 20
 -------------------------------------
 --- @function init
 -------------------------------------
 function UI_WorldRaidRanking:init(world_raid_id, ret)
     self.m_worldRaidId = world_raid_id
+    self.m_rankOffset = 1
     local vars = self:load('world_raid_ranking_popup.ui')
     UIManager:open(self, UIManager.POPUP)
     -- backkey 지정
@@ -113,9 +115,8 @@ function UI_WorldRaidRanking:makeRankTableView(data)
     rank_list:setEmptyStr(Str('랭킹 정보가 없습니다.'))
     rank_list:setMyRank(make_my_rank_cb)
     rank_list:setOffset(self.m_rankOffset)
-    rank_list:makeRankMoveBtn(func_prev_cb, func_next_cb, 0)
+    rank_list:makeRankMoveBtn(func_prev_cb, func_next_cb, SCORE_OFFSET_GAP)
     rank_list:makeRankList(rank_node)
-
     
     local idx = 0
     for i,v in ipairs(l_rank_list) do
