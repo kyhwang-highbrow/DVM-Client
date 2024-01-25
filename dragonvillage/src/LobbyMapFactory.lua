@@ -52,10 +52,7 @@ function LobbyMapFactory:createLobbyWorld(parent_node, ui_lobby)
     lobby_map:addLayer_lobbyGround(lobby_ground) -- 바닥
     lobby_map:addLayer(self:makeLobbyLayer(0), 1) -- 근경
 
-    self:setDeco(lobby_map, ui_lobby)
-
-    -- 랭킹 게시판 정보
-    self:makeLobbyBoard_onLayer(lobby_ground)
+    self:setDeco(lobby_map, ui_lobby)    
     return lobby_map
 end
 
@@ -96,7 +93,8 @@ function LobbyMapFactory:setDeco(lobby_map, ui_lobby, entry_count)
         --lobby_map:addLayer(self:makeLobbyDecoLayer(deco_type), 1) -- 근경 레이어
     end
 
-
+    -- 랭킹 게시판 정보
+    self:makeLobbyBoard_onLayer(lobby_ground)
     return lobby_map
 end
 
@@ -395,7 +393,7 @@ end
 --- @brief 랭킹 보드 정보 게시판
 -------------------------------------
 function LobbyMapFactory:makeLobbyBoard_onLayer(node)
-    do --if g_worldRaidData:isAvailableWorldRaid() == false then
+    if g_worldRaidData:isWorldRaidRewardPeriod() == false then
         return
     end
 

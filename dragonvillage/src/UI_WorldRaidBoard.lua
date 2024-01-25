@@ -8,6 +8,7 @@ UI_WorldRaidBoard = class(PARENT, {
     m_rankingTableView = 'TableView',
     m_searchType = 'number',
     m_rankOffset = 'number',
+    m_worldRaidId = 'number',
     })
 
 -------------------------------------
@@ -18,7 +19,7 @@ function UI_WorldRaidBoard:initParentVariable()
     -- ITopUserInfo_EventListener의 맴버 변수들 설정
     self.m_uiName = 'UI_WorldRaidBoard'
     self.m_titleStr = Str('월드 레이드')
-	self.m_staminaType = 'cldg'
+	  self.m_staminaType = 'cldg'
     self.m_bVisible = true
     self.m_bUseExitBtn = true
     self.m_subCurrency = 'clancoin'
@@ -28,10 +29,11 @@ end
 -------------------------------------
 --- @function init
 -------------------------------------
-function UI_WorldRaidBoard:init(ret)
+function UI_WorldRaidBoard:init(world_raid_id, ret)
     local vars = self:load_keepZOrder('world_raid_total_ranking.ui')
     self.m_searchType = 1
     self.m_rankOffset = 1
+    self.m_worldRaidId = world_raid_id
     UIManager:open(self, UIManager.SCENE)
     -- backkey 지정
     g_currScene:pushBackKeyListener(self, function() self:click_exitBtn() end, 'UI_WorldRaidBoard')
@@ -59,6 +61,7 @@ end
 --- @function checkEnterEvent
 -------------------------------------
 function UI_WorldRaidBoard:checkEnterEvent()
+	UI_WorldRaidRewardPopup({})
 end
 
 -------------------------------------
@@ -72,8 +75,7 @@ end
 --- @function initButton
 -------------------------------------
 function UI_WorldRaidBoard:initButton()
-    local vars = self.vars    
-
+    local vars = self.vars
     vars['infoBtn']:registerScriptTapHandler(function() self:click_infoBtn() end)
     vars['cheerBtn']:registerScriptTapHandler(function() self:click_cheerBtn() end)
 end
@@ -92,14 +94,14 @@ end
 function UI_WorldRaidBoard:makeRankHallOfFameView(rank_data)
     local vars = self.vars
     --vars['fameMenu']:setVisible(true)
-    local l_rank_list = rank_data['total_list'] or {}
+    local l_rank_list = rank_data['list'] or {}
     local rank_info = l_rank_list[1]
-    -- if (l_rank_list[idx]) then
-    -- else
-    --     -- 랭킹 정보가 없다면 없다는 표시를 출력
-    --     local ui = UI_HallOfFameListItem(nil)
-    -- end
-    --local rank = rank_info['rank']
+
+    if rank_info == nil then
+      return
+    end
+		
+
     if (vars['itemNode'] ~= nil) then
         local ui = UI_HallOfFameListItem(rank_info, 1)
         vars['itemNode']:addChild(ui.root)
@@ -108,13 +110,25 @@ function UI_WorldRaidBoard:makeRankHallOfFameView(rank_data)
     local t_rank_info = StructUserInfoArena:create_forRanking(rank_info)
 
     -- 유저 정보 표시 (레벨, 닉네임)
-    vars['userLabel']:setString(t_rank_info:getUserText())
+    vars['userLabel']:setString(rank_info['nick'])
 
     -- 점수 표시
-    vars['scoreLabel']:setString(t_rank_info:getRPText())
+    local score = tonumber(rank_info['score'])
+
+    if (score < 0) then
+        score = '-'
+    else
+        score = comma_value(score)
+    end
+
+    vars['scoreLabel']:setString(score)
 
     -- 순위 표시
-    vars['rankLabel']:setString(t_rank_info:getRankText())
+    local rankStr = tostring(comma_value(rank_info['rank']))
+    if (rank_info['rank'] < 0) then
+        rankStr = '-'
+    end
+    vars['rankLabel']:setString(rankStr)
 
     do -- 리더 드래곤 아이콘
         local ui = t_rank_info:getLeaderDragonCard()
@@ -153,7 +167,7 @@ function UI_WorldRaidBoard:makeRankTableView(data)
     local vars = self.vars
     local rank_node = vars['rankListNode']
     local rank_data = data
-    local my_rank_data = data['total_my_info'] or g_worldRaidData:getCurrentMyRanking()    
+    local my_rank_data = data['my_info'] or g_userData:makeDummyProfileRankingData()
 
     local make_my_rank_cb = function()        
         local me_rank = UI_WorldRaidRankingListItem(my_rank_data)
@@ -161,18 +175,18 @@ function UI_WorldRaidBoard:makeRankTableView(data)
         me_rank.vars['meSprite']:setVisible(true)
     end
     
-    local l_rank_list = rank_data['total_list'] or {}
+    local l_rank_list = rank_data['list'] or {}
     
     -- 이전 랭킹 버튼 누른 후 콜백
     local function func_prev_cb(offset)
         self.m_rankOffset = offset
-        self:request_ranking()
+        self:request_total_ranking()
     end
 
     -- 다음 랭킹 버튼 누른 후 콜백
     local function func_next_cb(offset)
         self.m_rankOffset = offset
-        self:request_ranking()
+        self:request_total_ranking()
     end
 
     local uid = g_userData:get('uid')
@@ -191,7 +205,6 @@ function UI_WorldRaidBoard:makeRankTableView(data)
     rank_list:makeRankMoveBtn(func_prev_cb, func_next_cb, 20)
     rank_list:makeRankList(rank_node)
 
-    
     local idx = 0
     for i,v in ipairs(l_rank_list) do
 		 if (v['uid'] == uid) then
@@ -218,431 +231,61 @@ function UI_WorldRaidBoard:refresh()
 end
 
 -------------------------------------
---- @function request_ranking
--------------------------------------
-function UI_WorldRaidBoard:request_ranking()
-
-end
-
--------------------------------------
---- @function open
--------------------------------------
-function UI_WorldRaidBoard.open()
-    local function finish_cb(ret)
-        local ui = UI_WorldRaidBoard(UI_WorldRaidBoard.getDummyRanking())
-    end
-   
-    local function fail_cb()
-    end
-
-    -- 삼뉴체크
-    g_adventureData:request_adventureInfo(finish_cb, fail_cb)
-end
-
--------------------------------------
---- @function getDummyRanking
--------------------------------------
-function UI_WorldRaidBoard.getDummyRanking()
-
-    
-    local list = { {
-        lv = 31,
-        tier = "bronze_3",
-        clan_info = {
-          id = "5ddb4931970c6204bef38543",
-          name = "testctwar56",
-          mark = ""
-        },
-        tamer = 110002,
-        costume = 730204,
-        rp = -1,
-        clear_time = -1,
-        challenge_score = 0,
-        rate = "-Infinity",
-        last_tier = "beginner",
-        arena_score = 0,
-        ancient_score = 0,
-        beginner = false,
-        un = 9463,
-        score = -1,
-        total = 0,
-        nick = "ksjang3",
-        leader = {
-          lv = 60,
-          mastery_lv = 0,
-          grade = 6,
-          rlv = 6,
-          eclv = 0,
-          dragon_skin = 0,
-          did = 121854,
-          transform = 3,
-          mastery_skills = { },
-          evolution = 3,
-          mastery_point = 0
-        },
-        uid = "ksjang3",
-        rank = -1
-      }, {
-        lv = 99,
-        tier = "bronze_3",
-        clan_info = {
-          id = "5ddb4931970c6204bef38543",
-          name = "testctwar56",
-          mark = ""
-        },
-        tamer = 110003,
-        costume = 730300,
-        rp = -1,
-        clear_time = -1,
-        challenge_score = 0,
-        rate = "-Infinity",
-        last_tier = "beginner",
-        arena_score = 0,
-        ancient_score = 0,
-        beginner = false,
-        un = 130839362,
-        score = -1,
-        total = 0,
-        nick = "l은달lHenesK",
-        leader = {
-          lv = 60,
-          mastery_lv = 0,
-          grade = 6,
-          rlv = 0,
-          eclv = 0,
-          dragon_skin = 0,
-          did = 122055,
-          transform = 3,
-          mastery_skills = { },
-          evolution = 3,
-          mastery_point = 0
-        },
-        uid = "MFqooDQK9maoJkK3UzMKQ5zFhLB2",
-        rank = -1
-      }, {
-        lv = 99,
-        tier = "beginner",
-        clan_info = {
-          id = "5ddb4931970c6204bef38543",
-          name = "testctwar56",
-          mark = ""
-        },
-        tamer = 110001,
-        costume = 730100,
-        rp = -1,
-        clear_time = -1,
-        challenge_score = 0,
-        rate = "-Infinity",
-        last_tier = "beginner",
-        arena_score = 0,
-        ancient_score = 0,
-        beginner = true,
-        un = 9443,
-        score = -1,
-        total = 0,
-        nick = "ksjang112",
-        leader = {
-          lv = 60,
-          mastery_lv = 0,
-          grade = 6,
-          rlv = 6,
-          eclv = 0,
-          dragon_skin = 0,
-          did = 121683,
-          transform = 3,
-          mastery_skills = { },
-          evolution = 3,
-          mastery_point = 0
-        },
-        uid = "ksjang",
-        rank = -1
-      }, {
-        lv = 99,
-        tier = "beginner",
-        clan_info = {
-          id = "5ddb4931970c6204bef38543",
-          name = "testctwar56",
-          mark = ""
-        },
-        tamer = 110004,
-        costume = 730406,
-        rp = -1,
-        clear_time = -1,
-        challenge_score = 0,
-        rate = "-Infinity",
-        last_tier = "beginner",
-        arena_score = 0,
-        ancient_score = 0,
-        beginner = true,
-        un = 1956459,
-        score = -1,
-        total = 0,
-        nick = "TEST001",
-        leader = {
-          lv = 60,
-          mastery_lv = 0,
-          grade = 6,
-          rlv = 0,
-          eclv = 0,
-          dragon_skin = 0,
-          did = 121962,
-          transform = 3,
-          mastery_skills = { },
-          evolution = 3,
-          mastery_point = 0
-        },
-        uid = "vEH4nldukuRKrj032pVBAhetafz1",
-        rank = -1
-      }, {
-        lv = 99,
-        tier = "beginner",
-        clan_info = {
-          id = "5ddb4931970c6204bef38543",
-          name = "testctwar56",
-          mark = ""
-        },
-        tamer = 110004,
-        costume = 730400,
-        rp = -1,
-        clear_time = -1,
-        challenge_score = 0,
-        rate = "-Infinity",
-        last_tier = "beginner",
-        arena_score = 0,
-        ancient_score = 0,
-        beginner = true,
-        un = 9223,
-        score = -1,
-        total = 0,
-        nick = "고니",
-        leader = {
-          lv = 60,
-          mastery_lv = 0,
-          grade = 6,
-          rlv = 0,
-          eclv = 0,
-          dragon_skin = 0,
-          did = 121752,
-          transform = 3,
-          mastery_skills = { },
-          evolution = 3,
-          mastery_point = 0
-        },
-        uid = "ykil",
-        rank = -1
-      }, {
-        lv = 34,
-        tier = "beginner",
-        clan_info = {
-          id = "5ddb4931970c6204bef38543",
-          name = "testctwar56",
-          mark = ""
-        },
-        tamer = 110002,
-        costume = 730200,
-        rp = -1,
-        clear_time = -1,
-        challenge_score = 0,
-        rate = "-Infinity",
-        last_tier = "beginner",
-        arena_score = 0,
-        ancient_score = 0,
-        beginner = true,
-        un = 9698,
-        score = -1,
-        total = 0,
-        nick = "test1228",
-        leader = {
-          lv = 60,
-          mastery_lv = 0,
-          grade = 6,
-          rlv = 0,
-          eclv = 0,
-          dragon_skin = 0,
-          did = 121954,
-          transform = 3,
-          mastery_skills = { },
-          evolution = 3,
-          mastery_point = 0
-        },
-        uid = "test1228",
-        rank = -1
-      }, {
-        lv = 97,
-        tier = "beginner",
-        clan_info = {
-          id = "5ddb4931970c6204bef38543",
-          name = "testctwar56",
-          mark = ""
-        },
-        tamer = 110003,
-        costume = 730300,
-        rp = -1,
-        clear_time = -1,
-        challenge_score = 0,
-        rate = "-Infinity",
-        last_tier = "beginner",
-        arena_score = 0,
-        ancient_score = 0,
-        beginner = true,
-        un = 141049,
-        score = -1,
-        total = 0,
-        nick = "HeinCheese",
-        leader = {
-          lv = 60,
-          mastery_lv = 0,
-          grade = 6,
-          rlv = 0,
-          eclv = 0,
-          dragon_skin = 0,
-          did = 122055,
-          transform = 3,
-          mastery_skills = { },
-          evolution = 3,
-          mastery_point = 0
-        },
-        uid = "2I5hY6XUrnTnEjnixGUkVrbUSB73",
-        rank = -1
-      }, {
-        lv = 99,
-        tier = "beginner",
-        clan_info = {
-          id = "5ddb4931970c6204bef38543",
-          name = "testctwar56",
-          mark = ""
-        },
-        tamer = 110005,
-        costume = 730502,
-        rp = -1,
-        clear_time = -1,
-        challenge_score = 0,
-        rate = "-Infinity",
-        last_tier = "beginner",
-        arena_score = 0,
-        ancient_score = 0,
-        beginner = true,
-        un = 71984,
-        score = -1,
-        total = 0,
-        nick = "꿔바로우",
-        leader = {
-          lv = 60,
-          mastery_lv = 10,
-          grade = 6,
-          rlv = 6,
-          eclv = 0,
-          dragon_skin = 0,
-          did = 121595,
-          transform = 3,
-          mastery_skills = { },
-          evolution = 3,
-          mastery_point = 10
-        },
-        uid = "1hFq4remJYO0v85189RfUbofist1",
-        rank = -1
-      }, {
-        lv = 99,
-        tier = "beginner",
-        clan_info = {
-          id = "5ddb4931970c6204bef38543",
-          name = "testctwar56",
-          mark = ""
-        },
-        tamer = 110004,
-        costume = 730403,
-        rp = -1,
-        clear_time = -1,
-        challenge_score = 0,
-        rate = "-Infinity",
-        last_tier = "beginner",
-        arena_score = 0,
-        ancient_score = 0,
-        beginner = true,
-        un = 130862025,
-        score = -1,
-        total = 0,
-        nick = "kamari",
-        leader = {
-          lv = 60,
-          mastery_lv = 0,
-          grade = 6,
-          rlv = 0,
-          eclv = 0,
-          dragon_skin = 0,
-          did = 121792,
-          transform = 3,
-          mastery_skills = { },
-          evolution = 3,
-          mastery_point = 0
-        },
-        uid = "YeoFSrDmUxZY3nM02LEjh5zrSft2",
-        rank = -1
-      }, {
-        lv = 99,
-        tier = "beginner",
-        clan_info = {
-          id = "5ddb4931970c6204bef38543",
-          name = "testctwar56",
-          mark = ""
-        },
-        tamer = 110005,
-        costume = 730503,
-        rp = -1,
-        clear_time = -1,
-        challenge_score = 0,
-        rate = "-Infinity",
-        last_tier = "beginner",
-        arena_score = 0,
-        ancient_score = 0,
-        beginner = true,
-        un = 2176990,
-        score = -1,
-        total = 0,
-        nick = "I은달I동그라미",
-        leader = {
-          lv = 60,
-          mastery_lv = 10,
-          grade = 6,
-          rlv = 6,
-          eclv = 0,
-          dragon_skin = 0,
-          did = 120185,
-          transform = 3,
-          mastery_skills = {
-            ["110301"] = 3,
-            ["110101"] = 3,
-            ["110203"] = 3,
-            ["110402"] = 1
-          },
-          evolution = 3,
-          mastery_point = 0
-        },
-        uid = "cqKc3TF98AZDRsmjfBBiF3OcwK62",
-        rank = -1
-      } }
-
-    local t_data = {}
-    t_data['total_list'] = list
-    return t_data
-end
-
--------------------------------------
 --- @function click_infoBtn
 -------------------------------------
 function UI_WorldRaidBoard:click_infoBtn()
-    local vars = self.vars
-    local str = Str('테이머들로부터 축하를 받은 횟수입니다.')
-    local tool_tip = UI_Tooltip_Skill(0, 0, str)
-    -- 자동 위치 지정
-    tool_tip:autoPositioning(self.vars['infoBtn'])
+  local vars = self.vars
+  local str = Str('테이머들로부터 축하를 받은 횟수입니다.')
+  local tool_tip = UI_Tooltip_Skill(0, 0, str)
+  -- 자동 위치 지정
+  tool_tip:autoPositioning(self.vars['infoBtn'])
 end
 
 -------------------------------------
 --- @function click_cheerBtn
 -------------------------------------
 function UI_WorldRaidBoard:click_cheerBtn()
-    local vars = self.vars
+  local vars = self.vars
+end
+
+-------------------------------------
+--- @function request_total_ranking
+-------------------------------------
+function UI_WorldRaidBoard:request_total_ranking()
+  local searchType = 'world' 
+  local function success_cb(ret)
+      -- 밑바닥 유저를 위한 예외처리
+      -- 마침 현재 페이지에 20명이 차있어서 다음 페이지 버튼 클릭이 가능한 상태
+      -- 이전에 저장된 오프셋이 1보다 큰 값을 가질 때
+      -- 내 랭킹 조회 혹은 페이징을 통한 행위가 있었다고 판단
+      if (self.m_rankOffset > 1) then
+          -- 랭킹 리스트가 비어있는지 확인한다
+          local l_rank_list = ret['total_list'] or {}
+          -- 비어있으면 리스트 업뎃을 안하고 팝업만 띄워주자
+          if (l_rank_list and #l_rank_list <= 0) then
+              MakeSimplePopup(POPUP_TYPE.OK, Str('다음 랭킹이 존재하지 않습니다.'))
+              return
+          end
+      end
+
+      -- 랭킹 테이블 다시 만듬
+      self:makeRankTableView(ret)      
+      self.m_rankOffset = tonumber(ret['total_offset'])
+  end
+
+  g_worldRaidData:request_WorldRaidRanking(self.m_worldRaidId, searchType, self.m_rankOffset, 20, success_cb)
+end
+
+-------------------------------------
+--- @function open
+-------------------------------------
+function UI_WorldRaidBoard.open()
+	-- 삼뉴체크
+  local wrid = 1001 --g_worldRaidData:getPrevSeasonId()
+    local function finish_cb(ret)
+        UI_WorldRaidBoard(wrid, ret)
+    end    
+    g_worldRaidData:request_WorldRaidRanking(wrid, 'world', 1, 20, finish_cb)
 end
 
 --@CHECK

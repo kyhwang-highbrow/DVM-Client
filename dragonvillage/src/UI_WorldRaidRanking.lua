@@ -179,7 +179,7 @@ function UI_WorldRaidRanking:request_total_ranking()
         self.m_rankOffset = tonumber(ret['total_offset'])
     end
 
-    g_worldRaidData:request_WorldRaidRanking(searchType, self.m_rankOffset, 0, success_cb, nil)
+    g_worldRaidData:request_WorldRaidRanking(self.m_worldRaidId, searchType, self.m_rankOffset, 0, success_cb, nil)
 end
 
 -------------------------------------

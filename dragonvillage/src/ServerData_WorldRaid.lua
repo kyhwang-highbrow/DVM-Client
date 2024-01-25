@@ -68,10 +68,47 @@ function ServerData_WorldRaid:isAvailableWorldRaid()
 end
 
 -------------------------------------
+--- @function isWorldRaidRewardPeriod
+-------------------------------------
+function ServerData_WorldRaid:isWorldRaidRewardPeriod()
+	if self:isActive() == false then
+		return false
+	end
+
+    -- if self:getPrevSeasonId() <= 0 then
+    --     return false
+    -- end
+
+    return true
+end
+
+-------------------------------------
 --- @function isAvailableWorldRaidReward
 -------------------------------------
 function ServerData_WorldRaid:isAvailableWorldRaidReward()
-	return g_hotTimeData:isActiveEvent('world_raid_reward')
+    if self:isWorldRaidRewardPeriod() == false then
+        return false
+    end
+
+    return true
+end
+
+-------------------------------------
+--- @function getPrevSeasonId
+-------------------------------------
+function ServerData_WorldRaid:getPrevSeasonId()
+    local world_raid_id = self:getWorldRaidId()
+    if world_raid_id == 0 then
+        return 0
+    end
+
+    world_raid_id = world_raid_id - 1
+    local world_raid_info = self.m_tableWorldRaidSchedule[world_raid_id]
+    if world_raid_info == nil then
+        return 0
+    end
+
+    return world_raid_info['wrid'] or 0
 end
 
 -------------------------------------
