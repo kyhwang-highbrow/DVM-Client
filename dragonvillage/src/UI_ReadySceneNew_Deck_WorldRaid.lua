@@ -8,6 +8,8 @@ UI_ReadySceneNew_Deck_WorldRaid = class(PARENT, {
 local TAB_ATTACK_1 = '1' -- 1 공격대 (상단)
 local TAB_ATTACK_2 = '2' -- 2 공격대 (하단)
 local TAB_ATTACK_3 = '3' -- 2 공격대 (하단)
+local TOTAL_POS_CNT = 5
+
 -------------------------------------
 -- function initTab
 -------------------------------------
@@ -66,14 +68,10 @@ function UI_ReadySceneNew_Deck_WorldRaid:onChangeOption()
         local sprite = vars[mode .. 'RadioSprite']
         sprite:setVisible(true)
 
-        if (self.m_gameMode ~= GAME_MODE_LEAGUE_RAID) then
-
-            local team_name = multi_deck_mgr:getTeamName(mode)
-            local msg = Str('{1}가 수동전투 가능상태로 설정되었습니다.', team_name)
-            UIManager:toastNotificationGreen(msg)
-
-            multi_deck_mgr:setMainDeck(mode)
-        end
+        local team_name = multi_deck_mgr:getTeamName(mode)
+        local msg = Str('{1}가 수동전투 가능상태로 설정되었습니다.', team_name)
+        UIManager:toastNotificationGreen(msg)
+        multi_deck_mgr:setMainDeck(mode)
     end
 
     -- 다른 모드는 자동 전투
@@ -83,6 +81,102 @@ function UI_ReadySceneNew_Deck_WorldRaid:onChangeOption()
         label:setString(Str('자동 전투'))
     end
 end
+
+-------------------------------------
+-- function setSlot
+-------------------------------------
+function UI_ReadySceneNew_Deck_WorldRaid:setSlot(idx, doid, skip_sort)
+    local cur_deck = self.m_selTab
+    local multi_deck_mgr = self.m_uiReadyScene.m_multiDeckMgr
+    local deck_name = multi_deck_mgr:getDeckName(cur_deck)
+
+    do -- 갯수 체크
+        local count = table.count(self.m_tDeckMap)
+        if self.m_lDeckList[idx] then
+            count = (count - 1)
+        end
+        if (count >= TOTAL_POS_CNT) then
+            UIManager:toastNotificationRed(Str('5마리까지 출전할 수 있습니다.'))
+            return false
+        end
+    end
+
+    -- 친구 드래곤 슬롯 검사 (동종 동속성 보다 먼저 검사)
+    if (not g_friendData:checkSetSlotCondition(doid, deck_name)) then
+        return false
+    end
+
+    -- 동종 동속성의 드래곤 제외
+    if (self:checkSameDid(idx, doid)) then
+        UIManager:toastNotificationRed(Str('같은 드래곤은 동시에 출전할 수 없습니다.'))
+        return false
+    end
+
+    -- 멀티 덱 - 다른 위치 덱 동종 동속성의 드래곤 제외           
+    if ((multi_deck_mgr:checkSameDidAnoterDeck_Raid(doid))) then
+        return false
+    end
+    
+
+    -- 설정되어 있는 덱 해제
+    local prev_doid
+    if self.m_lDeckList[idx] then
+        prev_doid = self.m_lDeckList[idx]
+        local prev_idx = self.m_tDeckMap[prev_doid]
+
+        self.m_lDeckList[prev_idx] = nil
+        self.m_tDeckMap[prev_doid] = nil
+
+        -- 설정된 드래곤의 카드 삭제
+        if self.m_lSettedDragonCard[prev_idx] then
+            self.m_lSettedDragonCard[prev_idx].root:removeFromParent()
+            self.m_lSettedDragonCard[prev_idx] = nil
+        end
+
+        -- 친구 드래곤 해제
+        g_friendData:delSettedFriendDragonCard(prev_doid, deck_name)
+
+        -- 멀티 덱 해제
+        if (multi_deck_mgr) then
+            multi_deck_mgr:deleteRaidDragon(prev_doid)
+        end
+    end
+
+    -- 새롭게 생성
+    if doid then
+        self.m_lDeckList[idx] = doid
+        self.m_tDeckMap[doid] = idx
+        local t_dragon_data = g_dragonsData:getDragonDataFromUid(doid)
+
+        self:makeSettedDragonCard(t_dragon_data, idx)
+
+        -- 친구 드래곤 선택 체크
+        g_friendData:makeSettedFriendDragonCard(doid, idx, deck_name)
+
+        -- 멀티 덱 추가
+        if (multi_deck_mgr) then
+            multi_deck_mgr:deleteRaidDragon(doid)
+            multi_deck_mgr:addRaidDragon(cur_deck, doid)
+        end
+    end
+
+    if doid ~= nil then
+        self:refresh_dragonCard(doid)
+    end
+
+    if prev_doid ~= nil then
+        self:refresh_dragonCard(prev_doid)
+    end
+
+    -- 즉시 정렬
+    if (not skip_sort) then
+        self.m_uiReadyScene:apply_dragonSort()
+    end
+
+    self:setDirtyDeck()
+    return true
+end
+
 
 -------------------------------------
 -- function refresh_dragonCard

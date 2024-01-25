@@ -144,7 +144,7 @@ function ServerData_WorldRaid:applyCurrentRankingList(t_ret)
 
 	-- 내 랭킹
 	if t_ret['my_info'] ~= nil then
-		self.m_myRank = StructUserInfoArena:create_forRanking(t_ret['my_info'])
+		self.m_myRank = t_ret['my_info']
 	end
 end
 

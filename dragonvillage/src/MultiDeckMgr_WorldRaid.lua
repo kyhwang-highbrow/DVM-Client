@@ -64,11 +64,12 @@ function MultiDeckMgr_WorldRaid:clearDeckMap(pos)
     end
 end
 
+
 -------------------------------------
 -- function addRaidDragon
 -- @breif Multi 덱 해당 드래곤 추가 
 -------------------------------------
-function MultiDeckMgr_WorldRaid:addDragon(pos, doid)
+function MultiDeckMgr_WorldRaid:addRaidDragon(pos, doid)
     local str = string.format('m_tDeckMap_%d', pos)
     local target = self[str]
     if target ~= nil then
@@ -80,8 +81,8 @@ end
 -- function deleteRaidDragon
 -- @breif Multi 덱 해당 드래곤 삭제 
 -------------------------------------
-function MultiDeckMgr_WorldRaid:deleteDragon(pos, doid)
-    for pos = 1 , 3 do
+function MultiDeckMgr_WorldRaid:deleteRaidDragon(doid)
+    for pos = 1 , self.m_deckCount do
         local str = string.format('m_tDeckMap_%d', pos)
         local target = self[str]
         if target ~= nil then
@@ -89,7 +90,6 @@ function MultiDeckMgr_WorldRaid:deleteDragon(pos, doid)
         end
     end
 end
-
 -------------------------------------
 -- function deleteRaidDragon
 -- @breif Multi 덱 해당 드래곤 삭제 
