@@ -356,7 +356,7 @@ function GameWorld:createComponents()
 
         -- 10. 월드 레이드
         elseif (self.m_gameMode == GAME_MODE_WORLD_RAID) then
-            local stage_mode = g_worldRaidData:getWorldRaidStageMode(self.m_stageID)
+            local stage_mode = g_worldRaidData:getWorldRaidPartyType()
             if stage_mode == WORLD_RAID_NORMAL then
                 self.m_gameState = GameState_WorldRaid_Normal(self)
             elseif stage_mode == WORLD_RAID_LINGER then

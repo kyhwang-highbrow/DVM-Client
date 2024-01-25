@@ -261,13 +261,6 @@ function ServerData_WorldRaid:getRemainTimeString()
 end
 
 -------------------------------------
---- @function getWorldRaidStageMode
--------------------------------------
-function ServerData_WorldRaid:getWorldRaidStageMode(stage_id)
-    return (stage_id % 10)
-end
-
--------------------------------------
 --- @function getWorldRaidDeckMap
 -------------------------------------
 function ServerData_WorldRaid:getWorldRaidDeckMap()
@@ -280,6 +273,15 @@ function ServerData_WorldRaid:getWorldRaidDeckMap()
     end
 
     return deck_name_map
+end
+
+-------------------------------------
+--- @function getWorldRaidPartyType
+-------------------------------------
+function ServerData_WorldRaid:getWorldRaidPartyType()
+    local world_raid_id = self:getWorldRaidId()
+    local party_type = TableWorldRaidInfo:getInstance():getWorldRaidPartyType(world_raid_id)    
+    return party_type
 end
 
 -------------------------------------

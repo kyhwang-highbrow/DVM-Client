@@ -27,6 +27,10 @@ function GameWorldForDoubleTeam:init()
         local multi_deck_mgr = MultiDeckMgr(MULTI_DECK_MODE.ANCIENT_RUIN)
         sel_deck = multi_deck_mgr:getMainDeck()
 
+    elseif (self.m_gameMode == GAME_MODE_WORLD_RAID) then
+        local multi_deck_mgr = MultiDeckMgr(MULTI_DECK_MODE.WORLD_RAID_COOPERATION)
+        sel_deck = multi_deck_mgr:getMainDeck()
+
     -- 그랜드 콜로세움은 자동으로 진행. 조작 가능한 덱이 없음
     elseif (self.m_gameMode == GAME_MODE_EVENT_ARENA) then
         sel_deck = 'up'
@@ -99,6 +103,10 @@ function GameWorldForDoubleTeam:createComponents()
         self.m_gameState = GameState_Arena(self)
         self.m_inGameUI:init_timeUI(true, 0)
 
+    elseif (self.m_gameMode == GAME_MODE_WORLD_RAID) then
+        self.m_gameState = GameState_WorldRaid_Cooperation(self)
+        self.m_inGameUI:init_timeUI(true, 0)
+
     else
         error('invalid game mode : ' .. self.m_gameMode)
 
@@ -119,6 +127,8 @@ function GameWorldForDoubleTeam:initGame(stage_name)
     if (self.m_gameMode == GAME_MODE_CLAN_RAID) then
         self.m_waveMgr = WaveMgr_ClanRaid(self, stage_name, self.m_stageID, self.m_bDevelopMode)
     elseif (self.m_gameMode == GAME_MODE_ANCIENT_RUIN) then
+        self.m_waveMgr = WaveMgr(self, stage_name, self.m_stageID, self.m_bDevelopMode)
+    elseif (self.m_gameMode == GAME_MODE_WORLD_RAID) then
         self.m_waveMgr = WaveMgr(self, stage_name, self.m_stageID, self.m_bDevelopMode)
     else
         error('invalid game mode : ' .. self.m_gameMode)

@@ -4,9 +4,9 @@ local PARENT = MultiDeckMgr
 -------------------------------------
 MultiDeckMgr_WorldRaid = class(PARENT, {
     m_deckCount = 'number',
- })
+})
 
- 
+
 -------------------------------------
 -- function makeDeckMap_worldRaid
 -- @breif Multi 덱 map생성 (리스트일 경우 sort 시간 오래걸림)
@@ -95,6 +95,12 @@ end
 -- @breif Multi 덱 해당 드래곤 삭제 
 -------------------------------------
 function MultiDeckMgr_WorldRaid:getDeckName(pos)
+    if pos == 'up' then
+        pos = 1
+    elseif pos == 'down' then
+        pos = 2
+    end
+
     return 'world_raid_' .. pos
 end
 
@@ -172,11 +178,17 @@ function MultiDeckMgr_WorldRaid:isSettedDragon(doid)
 end
 
 -------------------------------------
--- function getMainDeck
--- @brief 메인덱 (수동전투 가능한) (up or down)
+-- function setMainDeck
+-- @brief 메인덱 설정 (수동전투 선택) (up or down)
 -------------------------------------
-function MultiDeckMgr_WorldRaid:getMainDeck()
-    return 1
+function MultiDeckMgr_WorldRaid:setMainDeck(pos)
+    if pos == 1 then
+        self.m_main_deck = 'up'
+    elseif pos == 2 then
+        self.m_main_deck = 'down'
+    end
+    
+    g_settingData:applySettingData(pos, self.m_mode, 'main_deck')
 end
 
 -------------------------------------
@@ -186,13 +198,34 @@ function MultiDeckMgr_WorldRaid:getDeckCount()
     return self.m_deckCount
 end
 
-
 -------------------------------------
 -- function getAnotherPos
 -------------------------------------
 function MultiDeckMgr_WorldRaid:getAnotherPos(pos)
     local pos = (pos == 1) and 'down' or 'up'
     return pos
+end
+
+-------------------------------------
+-- function checkDeckCondition
+-- @brief 상단덱 하단덱 출전 조건 체크
+-------------------------------------
+function MultiDeckMgr_WorldRaid:checkDeckCondition()
+    local toast_func = function(pos)
+        local team_name = self:getTeamName(pos)
+        local msg = Str('{1}에 최소 1명 이상은 출전시켜야 합니다', team_name)
+        UIManager:toastNotificationRed(msg)
+    end
+
+    for pos= 1, self.m_deckCount do
+        local deck_cnt = self:getDeckDragonCnt(pos)
+        if (deck_cnt <= 0) then
+            toast_func(pos)
+            return false
+        end
+    end
+
+    return true
 end
 
 -------------------------------------

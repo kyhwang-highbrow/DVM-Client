@@ -51,8 +51,9 @@ DIMENSION_GATE_MANUS = 2
 
 -- 월드 레이드 하위 모드
 WORLD_RAID_NORMAL = 1 -- 월드 레이드(일반)
-WORLD_RAID_LINGER = 2 -- 월드 레이드(정예)
-WORLD_RAID_COOPERATION = 3 -- 월드 레이드(협동)
+WORLD_RAID_COOPERATION = 2 -- 월드 레이드(협동)
+WORLD_RAID_LINGER = 3 -- 월드 레이드(정예)
+
 
 
 --------------------------------------------

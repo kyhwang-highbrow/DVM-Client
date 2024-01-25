@@ -335,8 +335,7 @@ function SceneGame:prepare()
             self.m_gameWorld = GameWorldDealkingEvent(self.m_gameMode, self.m_stageID, self.m_worldLayer, self.m_gameNode1, self.m_gameNode2, self.m_gameNode3, self.m_inGameUI, self.m_bDevelopMode)
 
         elseif (self.m_gameMode == GAME_MODE_WORLD_RAID) then -- 월드 레이드
-            local stage_mode = g_worldRaidData:getWorldRaidStageMode(self.m_stageID)
-
+            local stage_mode = g_worldRaidData:getWorldRaidPartyType()
             if stage_mode == WORLD_RAID_NORMAL then
                 self.m_gameWorld = GameWorldWorldRaidNormal(self.m_gameMode, self.m_stageID, self.m_worldLayer, self.m_gameNode1, self.m_gameNode2, self.m_gameNode3, self.m_inGameUI, self.m_bDevelopMode)
             elseif stage_mode == WORLD_RAID_LINGER then

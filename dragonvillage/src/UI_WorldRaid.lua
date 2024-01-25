@@ -13,9 +13,7 @@ UI_WorldRaid = class(PARENT, {
 -- function initParentVariable
 -- @brief 자식 클래스에서 반드시 구현할 것
 -------------------------------------
-function UI_WorldRaid:initParentVariable()
-    -- ITopUserInfo_EventListener의 맴버 변수들 설정
-    
+function UI_WorldRaid:initParentVariable()    
     self.m_uiName = 'UI_WorldRaid'
     self.m_titleStr = Str('월드 레이드')
 	self.m_staminaType = 'cldg'
@@ -257,20 +255,31 @@ end
 function UI_WorldRaid:click_readyBtn()
     -- 스테이지 시간 세팅
     -- UI_ReadySceneNew UI가 열려있을 경우, 닫고 다시 연다
-
     local t_sub_info = {world_raid_id = self.m_worldRaidId}
-
     local stage_id = g_worldRaidData:getWorldRaidStageId()
     local is_opend, idx, ui = UINavigatorDefinition:findOpendUI('UI_ReadySceneNew')
     if (is_opend == true) then
         ui:close()
-        UI_ReadySceneWorldRaidNormal(stage_id, t_sub_info)
+        self:openReadyScene(stage_id, t_sub_info)
         self:close()
     else
-        UI_ReadySceneWorldRaidNormal(stage_id, t_sub_info)
+        self:openReadyScene(stage_id, t_sub_info)
     end
+end
 
-    --UI_ReadySceneWorldRaidCooperation(stage_id, t_sub_info)
+-------------------------------------
+--- @function openReadyScene
+-------------------------------------
+function UI_WorldRaid:openReadyScene(stage_id, t_sub_info)
+    local party_type = g_worldRaidData:getWorldRaidPartyType()
+    
+    if party_type == WORLD_RAID_NORMAL then
+        UI_ReadySceneWorldRaidNormal(stage_id, t_sub_info)
+    elseif party_type == WORLD_RAID_COOPERATION then
+        UI_ReadySceneWorldRaidCooperation(stage_id, t_sub_info)
+    elseif party_type == WORLD_RAID_LINGER then
+        --UI_ReadySceneWorldRaidLinger(stage_id, t_sub_info)
+    end
 end
 
 -------------------------------------

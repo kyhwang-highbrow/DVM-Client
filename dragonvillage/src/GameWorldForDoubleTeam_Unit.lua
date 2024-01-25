@@ -13,6 +13,10 @@ function GameWorldForDoubleTeam:makeHeroDeck()
     elseif (self.m_gameMode == GAME_MODE_ANCIENT_RUIN) then
         g_data = MultiDeckMgr(MULTI_DECK_MODE.ANCIENT_RUIN)
 
+    elseif (self.m_gameMode == GAME_MODE_WORLD_RAID) then
+        g_data = MultiDeckMgr_WorldRaid(MULTI_DECK_MODE.WORLD_RAID_COOPERATION)
+
+
     else
         error('invalid game mode : ' .. self.m_gameMode)
     end
@@ -33,6 +37,7 @@ function GameWorldForDoubleTeam:makeHeroDeck()
     else
         error('invalid sel_deck : ' .. sel_deck)
     end
+
 
     self.m_myDragons = {}
 
@@ -107,7 +112,7 @@ function GameWorldForDoubleTeam:makeHeroDeck()
                     self.m_worldNode:addChild(hero.m_rootNode, WORLD_Z_ORDER.HERO)
                     self.m_physWorld:addObject(self:getNPCGroup(), hero)
                     self:bindHero(hero)
-                    self:addHero(hero)
+                    self:addHero(hero)                    
 
                     -- 진형 버프 적용
                     hero.m_statusCalc:applyFormationBonus(formation, formation_lv, i)
