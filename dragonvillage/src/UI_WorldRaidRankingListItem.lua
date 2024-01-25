@@ -30,8 +30,6 @@ function UI_WorldRaidRankingListItem:initUI()
     local vars = self.vars
     local t_rank_info = StructUserInfoArena:create_forRanking(self.m_rankInfo)
 
-    ccdump(self.m_rankInfo)
-
     -- 점수 표시
     local score = tonumber(self.m_rankInfo['score'])
 

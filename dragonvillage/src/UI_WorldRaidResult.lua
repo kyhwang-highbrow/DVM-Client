@@ -43,7 +43,7 @@ function UI_WorldRaidResult:init(stage_id, boss, damage, t_data, ret)
 
     self:initUI()
     self:initButton()
-    self:makeCloseRankers(ret)
+    --self:makeCloseRankers(ret)
 
     self:setWorkList()
     self:doNextWork()
@@ -415,16 +415,16 @@ function UI_WorldRaidResult:direction_end()
 
     -- 내 순위 정보가 내려오면 무조건 노출
     if self.m_lCloseRankers['me_ranker'] ~= nil then
-        local my_ranking = g_worldRaidData:getCurrentMyRanking()
-        local prev_score = my_ranking['score']
-        local new_score = self.m_lCloseRankers['me_ranker']['score']
-        if new_score > prev_score then
-            local action = cc.Sequence:create(cc.DelayTime:create(0.2), cc.CallFunc:create(function() 
-                self:showLeaderBoard()
-            end))
-            self.root:runAction(action)
-            self.root:runAction(event_act)
-        end
+        -- local my_ranking = g_worldRaidData:getCurrentMyRanking()
+        -- local prev_score = my_ranking['score']
+        -- local new_score = self.m_lCloseRankers['me_ranker']['score']
+        -- if new_score > prev_score then
+        --     local action = cc.Sequence:create(cc.DelayTime:create(0.2), cc.CallFunc:create(function() 
+        --         self:showLeaderBoard()
+        --     end))
+        --     self.root:runAction(action)
+        --     self.root:runAction(event_act)
+        -- end
     end
 end
 
