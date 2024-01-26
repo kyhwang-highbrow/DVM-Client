@@ -210,7 +210,7 @@ function UI_WorldRaidResult:direction_showReward()
     end
 
     local ui = UI()
-    ui:load('clan_raid_result_reward.ui')
+    ui:load('world_raid_result_reward_item.ui')
     local target_menu = ui.vars['rewardNode'.. self.m_grade]
     target_menu:setVisible(false)
     vars['dropRewardMenu']:addChild(ui.root)
@@ -383,7 +383,7 @@ function UI_WorldRaidResult:initReward()
         box_visual:addAniHandler(nil)
 
         local ui = UI()
-        ui:load('clan_raid_result_reward.ui')
+        ui:load('world_raid_result_reward_item.ui')
         ui.vars['rewardNode'..grade]:setVisible(true)
         vars['dropRewardMenu']:addChild(ui.root)
 
