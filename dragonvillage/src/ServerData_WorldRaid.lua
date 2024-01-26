@@ -10,6 +10,13 @@ ServerData_WorldRaid = class({
 	m_tableWorldRaidRank = 'Table',
 	m_tableWorldRaidSchedule = 'Table',
 	m_curWorldRaidInfo = 'Table',
+
+    -- 지구전 관련(구 league_raid) 
+    -- 여기다가 전투 관련 변수를 만들면 안되는데 시간이 없어서 그냥 똑같이 만듦
+    m_curDeckIndex = 'number',
+    m_attackedChar_A = 'List<dragon>',
+    m_attackedChar_B = 'List<dragon>',
+    m_attackedChar_C = 'List<dragon>',
 })
 
 -------------------------------------
@@ -23,6 +30,7 @@ function ServerData_WorldRaid:init()
 	self.m_myRank = nil
 	self.m_tableWorldRaidSchedule = {}
 	self.m_curWorldRaidInfo = nil
+    self.m_curDeckIndex = 1
 end
 
 -------------------------------------

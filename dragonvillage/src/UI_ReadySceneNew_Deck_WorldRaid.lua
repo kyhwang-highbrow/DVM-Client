@@ -6,9 +6,24 @@ UI_ReadySceneNew_Deck_WorldRaid = class(PARENT, {
     })
 
 local TAB_ATTACK_1 = '1' -- 1 공격대 (상단)
-local TAB_ATTACK_2 = '2' -- 2 공격대 (하단)
-local TAB_ATTACK_3 = '3' -- 2 공격대 (하단)
 local TOTAL_POS_CNT = 5
+
+-------------------------------------
+-- function initUI
+-------------------------------------
+function UI_ReadySceneNew_Deck_WorldRaid:initUI()
+    local vars = self.m_uiReadyScene.vars
+    local multi_deck_mgr = self.m_uiReadyScene.m_multiDeckMgr
+
+    vars['formationNode']:setPositionX(-225)
+    vars['clanRaidMenu']:setVisible(true)
+
+    if (multi_deck_mgr.m_bUseManualSelection == false) then
+        vars['upRadioBtn']:setVisible(false)
+        vars['downRadioBtn']:setVisible(false)
+        vars['clanRaidMenu']:setPositionY(65)
+    end
+end
 
 -------------------------------------
 -- function initTab
@@ -19,8 +34,10 @@ function UI_ReadySceneNew_Deck_WorldRaid:initTab()
 
     -- 멀티 덱 처리 (제 1공격대, 2공격대 선택)
     if (multi_deck_mgr) then
-        self.m_uiReadyScene:addTabWithLabel(TAB_ATTACK_1, vars['teamTabBtn1'], vars['teamTabLabel1'])
-        self.m_uiReadyScene:addTabWithLabel(TAB_ATTACK_2, vars['teamTabBtn2'], vars['teamTabLabel2'])
+        for i =1, self.m_deckCount do
+            self.m_uiReadyScene:addTabWithLabel(tostring(i), vars['teamTabBtn' .. i], vars['teamTabLabel' .. i])            
+            vars['teamTabBtn' .. i]:setVisible(true)
+        end
         
         -- 최초는 1공격대 보여줌
         self.m_selTab = TAB_ATTACK_1
@@ -48,6 +65,7 @@ function UI_ReadySceneNew_Deck_WorldRaid:initButton()
         local sel_deck = multi_deck_mgr:getMainDeck()
         self.m_selRadioButton:setSelectedButton(sel_deck)
     end
+    
 end
 
 -------------------------------------

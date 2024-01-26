@@ -167,6 +167,8 @@ end
 -- function makeResultUI
 -------------------------------------
 function GameState_WorldRaid:makeResultUI(is_success)
+
+
         -- @LOG : 스테이지 성공 시 클리어 시간
     self.m_world.m_logRecorder:recordLog('lap_time', self.m_fightTimer)
 
@@ -249,14 +251,6 @@ function GameState_WorldRaid:onEvent(event_name, t_event, ...)
 end
 
 -------------------------------------
--- function processTimeOut
--------------------------------------
-function GameState_WorldRaid:processTimeOut()
-    self.m_bTimeOut = true
-    self:changeState(GAME_STATE_RESULT)
-end
-
--------------------------------------
 -- function getTotalDamage
 -------------------------------------
 function GameState_WorldRaid:getTotalDamage()
@@ -281,24 +275,5 @@ end
 -------------------------------------
 function GameState_WorldRaid:updateFightTimer(dt)
     PARENT.updateFightTimer(self, dt)
-    -- -- 님은 시간이 피버타임 이하면 스킬 발동
-    -- if self:getRemainTime() <= self.m_feverRemainTime then
-    --     if self.m_isFeverTime == false then
-    --         self.m_isFeverTime = true
-    --         local world = self.m_world
-    --         for _, v in ipairs(world.m_waveMgr.m_lBoss) do
-    --             local struct_status_effect = StructStatusEffect({
-    --                 type = 'cldg_dmg_add',
-    --                 target_type = 'self',
-    --                 target_count = 1,
-    --                 trigger = 'skill_idle',
-    --                 duration = 999,
-    --                 rate = 100,
-    --                 value = 250,
-    --                 source = '',
-    --             })
-    --             StatusEffectHelper:doStatusEffectByStruct(v, {v}, {struct_status_effect})
-    --         end
-    --     end
-    -- end
+
 end

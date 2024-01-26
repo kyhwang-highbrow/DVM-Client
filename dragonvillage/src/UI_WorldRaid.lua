@@ -91,6 +91,14 @@ function UI_WorldRaid:initButton()
     vars['synastryInfoBtn']:registerScriptTapHandler(function () self:click_attrInfoBtn() end)
     vars['rankBtn']:registerScriptTapHandler(function () self:click_rankingBtn() end)
     vars['infiniteBtn']:registerScriptTapHandler(function () self:click_infinitegBtn() end)
+
+    vars['normalTestBtn']:registerScriptTapHandler(function () self:click_battleTestBtn(1) end)
+    vars['cooperationTestBtn']:registerScriptTapHandler(function () self:click_battleTestBtn(2) end)
+    vars['lingerTestBtn']:registerScriptTapHandler(function () self:click_battleTestBtn(3) end)
+
+    vars['normalTestBtn']:setVisible(IS_TEST_MODE())
+    vars['cooperationTestBtn']:setVisible(IS_TEST_MODE())
+    vars['lingerTestBtn']:setVisible(IS_TEST_MODE())
 end
 
 -------------------------------------
@@ -190,6 +198,7 @@ function UI_WorldRaid:initUI()
             local animator = AnimatorHelper:makeMonsterAnimator(res, attr, evolution)
             if (animator) then
                 ---animator:setScale(0.5)
+                vars['bossNode']:removeAllChildren()
                 vars['bossNode']:addChild(animator.m_node)
                 animator:changeAni('idle', true)
                 
@@ -278,7 +287,7 @@ function UI_WorldRaid:openReadyScene(stage_id, t_sub_info)
     elseif party_type == WORLD_RAID_COOPERATION then
         UI_ReadySceneWorldRaidCooperation(stage_id, t_sub_info)
     elseif party_type == WORLD_RAID_LINGER then
-        --UI_ReadySceneWorldRaidLinger(stage_id, t_sub_info)
+        UI_ReadySceneWorldRaidLinger(stage_id, t_sub_info)
     end
 end
 
@@ -309,6 +318,28 @@ function UI_WorldRaid:click_infinitegBtn()
     local tool_tip = UI_Tooltip_Skill(0, 0, str)
     -- 자동 위치 지정
     tool_tip:autoPositioning(self.vars['infiniteBtn'])
+end
+
+-------------------------------------
+--- @function click_battleTestBtn
+-------------------------------------
+function UI_WorldRaid:click_battleTestBtn(world_raid_party_type)
+    if IS_TEST_MODE() == false then
+        return
+    end
+
+    local vars = self.vars
+    local table_data = TableWorldRaidInfo:getInstance()
+
+    for k, v  in pairs(table_data.m_orgTable) do
+        if self.m_worldRaidId  == k then
+            local stage_id = table_data:getStageIdByPartyType(world_raid_party_type)
+            v['party_type'] = world_raid_party_type
+            v['stage'] = stage_id
+        end
+    end
+
+    self:initUI()
 end
 
 -------------------------------------

@@ -253,8 +253,14 @@ function GameWorld:tryPatternMonster(t_monster, body)
         monster:initScript(script_name, t_monster['mid'], is_boss)
     elseif (type == 'dealking_boss') then
         monster = Monster_DealkingBoss(t_monster['res'], body)
-    elseif (type == 'world_raid_boss') then
-        monster = Monster_WorldRaidBoss(t_monster['res'], body)
+    elseif (string.find(type, 'world_raid_boss') ~= nil) then
+        if (type == 'world_raid_boss_ancient_ruin_dragon') then
+            monster = Monster_WorldRaidBossAncientRuinDragon(t_monster['res'], body)
+            monster:initAnimatorMonster(t_monster['res'], t_monster['attr'], nil, t_monster['size_type'])
+            monster:initScript(script_name, t_monster['mid'], is_boss)
+        else
+            monster = Monster_WorldRaidBoss(t_monster['res'], body)
+        end
     elseif (type == 'boom_forward' or type == 'boom_reverse') then
         monster = Monster_Bomb(t_monster['res'], body)
     elseif (script and not is_pattern_ignore) then

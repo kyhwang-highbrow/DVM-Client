@@ -12,7 +12,7 @@ local instance = nil
 function TableWorldRaidInfo:init()
     assert(instance == nil, 'Can not initalize twice')
     self.m_tableName = 'table_world_raid_info'
-    self.m_orgTable = TABLE:get(self.m_tableName)    
+    self.m_orgTable = TABLE:get(self.m_tableName)
 end
 
 -------------------------------------
@@ -124,4 +124,13 @@ function TableWorldRaidInfo:getWorldRaidBuffAll(world_raid_id)
     local l_debuff = TableContentAttr:getInstance():makeBuffList(debuff_key)
     table_merge(l_buff, l_debuff)
     return l_buff
+end
+
+-------------------------------------
+--- @function getStageIdByPartyType
+-------------------------------------
+function TableWorldRaidInfo:getStageIdByPartyType(party_type)
+    local list = self:filterList('party_type', party_type)
+    local v = list[1]
+    return v['stage']
 end

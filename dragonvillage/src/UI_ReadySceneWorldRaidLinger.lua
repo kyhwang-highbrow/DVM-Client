@@ -1,36 +1,40 @@
 local PARENT = UI_ReadySceneWorldRaid
 -------------------------------------
---- @class UI_ReadySceneWorldRaidCooperation
+--- @class UI_ReadySceneWorldRaidLinger
 -------------------------------------
-UI_ReadySceneWorldRaidCooperation = class(PARENT,{
+UI_ReadySceneWorldRaidLinger = class(PARENT,{
 })
 
 -------------------------------------
 -- function initDeck
 -------------------------------------
-function UI_ReadySceneWorldRaidCooperation:initDeck()
+function UI_ReadySceneWorldRaidLinger:initDeck()
     local vars = self.vars
-	self.m_readySceneDeck = UI_ReadySceneNew_Deck_WorldRaid(self, 2)
+	self.m_readySceneDeck = UI_ReadySceneNew_Deck_WorldRaid(self, 3)
     self.m_readySceneDeck:setOnDeckChangeCB(function() 
 		self:refresh_combatPower()
 		self:refresh_buffInfo()
         self:refresh_slotLight()
+        self:refresh_tamer()
+        self:refresh_dragon_cards()
 	end)
+    
+    self:refresh_dragon_cards()
 end
 
 -------------------------------------
 -- function initMultiDeckMode
 -- @brief 멀티 덱 모드
 -------------------------------------
-function UI_ReadySceneWorldRaidCooperation:initMultiDeckMode()
+function UI_ReadySceneWorldRaidLinger:initMultiDeckMode()
     local make_deck = true
-    self.m_multiDeckMgr = MultiDeckMgr_WorldRaid(MULTI_DECK_MODE.WORLD_RAID_COOPERATION, make_deck)
+    self.m_multiDeckMgr = MultiDeckMgr_WorldRaid(MULTI_DECK_MODE.WORLD_RAID_LINGER, make_deck)
 end
 
 -------------------------------------
 -- function refresh_slotLight
 -------------------------------------
-function UI_ReadySceneWorldRaidCooperation:refresh_slotLight()
+function UI_ReadySceneWorldRaidLinger:refresh_slotLight()
     local vars = self.vars
     local multi_deck_mgr = self.m_multiDeckMgr
 
@@ -47,5 +51,19 @@ function UI_ReadySceneWorldRaidCooperation:refresh_slotLight()
                 slot_light:setVisible(is_active)
             end
         end
+    end
+end
+
+-------------------------------------
+-- function refresh_dragon_cards
+-------------------------------------
+function UI_ReadySceneWorldRaidLinger:refresh_dragon_cards()
+    local table_view = self.m_readySceneSelect:getTableView(nil)
+    if (not table_view) then
+        return
+    end
+    
+    for doid, t_data in pairs(table_view.m_itemMap) do
+        self.m_readySceneDeck:refresh_dragonCard(doid)
     end
 end

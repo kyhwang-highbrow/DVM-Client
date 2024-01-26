@@ -682,6 +682,7 @@ local t_module = {
     'Monster_DealkingBoss',
     'Monster_Bomb', -- 정방향, 역방향 폭탄
     'Monster_WorldRaidBoss', -- 월드 레이드 보스
+    'Monster_WorldRaidBossAncientRuinDragon',
     'SummonedCreature',
     'Tamer',
 	'TamerSkill',
@@ -1294,6 +1295,7 @@ local t_module = {
     'UI_ReadySceneWorldRaid', -- 월드 레이드
     'UI_ReadySceneWorldRaidNormal', -- 월드 레이드 (정예)
     'UI_ReadySceneWorldRaidCooperation', -- 월드 레이드 (협동)
+    'UI_ReadySceneWorldRaidLinger', -- 월드 레이드 (지구)
 
 
     'UI_ReadySceneNew_Deck',

@@ -338,10 +338,10 @@ function SceneGame:prepare()
             local stage_mode = g_worldRaidData:getWorldRaidPartyType()
             if stage_mode == WORLD_RAID_NORMAL then
                 self.m_gameWorld = GameWorldWorldRaidNormal(self.m_gameMode, self.m_stageID, self.m_worldLayer, self.m_gameNode1, self.m_gameNode2, self.m_gameNode3, self.m_inGameUI, self.m_bDevelopMode)
-            elseif stage_mode == WORLD_RAID_LINGER then
-                self.m_gameWorld = GameWorldWorldRaidLinger(self.m_gameMode, self.m_stageID, self.m_worldLayer, self.m_gameNode1, self.m_gameNode2, self.m_gameNode3, self.m_inGameUI, self.m_bDevelopMode)
             elseif stage_mode == WORLD_RAID_COOPERATION then
                 self.m_gameWorld = GameWorldWorldRaidCooperation(self.m_gameMode, self.m_stageID, self.m_worldLayer, self.m_gameNode1, self.m_gameNode2, self.m_gameNode3, self.m_inGameUI, self.m_bDevelopMode)
+            elseif stage_mode == WORLD_RAID_LINGER then
+                self.m_gameWorld = GameWorldWorldRaidLinger(self.m_gameMode, self.m_stageID, self.m_worldLayer, self.m_gameNode1, self.m_gameNode2, self.m_gameNode3, self.m_inGameUI, self.m_bDevelopMode)
             end
         else
             self.m_gameWorld = GameWorld(self.m_gameMode, self.m_stageID, self.m_worldLayer, self.m_gameNode1, self.m_gameNode2, self.m_gameNode3, self.m_inGameUI, self.m_bDevelopMode)

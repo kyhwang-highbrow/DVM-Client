@@ -55,7 +55,7 @@ function MultiDeckMgr:init(deck_mode, make_deck, sub_data)
     end
 
     -- 그랜드 콜로세움은 수동, 자동 선택기능 없음
-    if (deck_mode == MULTI_DECK_MODE.EVENT_ARENA) then
+    if (deck_mode == MULTI_DECK_MODE.EVENT_ARENA or deck_mode == MULTI_DECK_MODE.WORLD_RAID_LINGER) then
         self.m_bUseManualSelection = false
     else
         self.m_bUseManualSelection = true

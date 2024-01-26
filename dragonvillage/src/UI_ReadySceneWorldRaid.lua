@@ -3,14 +3,20 @@ local PARENT = UI_ReadySceneNew
 -- class UI_ReadySceneWorldRaid
 -------------------------------------
 UI_ReadySceneWorldRaid = class(PARENT,{
-    
 })
+
+-------------------------------------
+--- @function initUI
+-------------------------------------
+function UI_ReadySceneWorldRaid:init()
+end
 
 -------------------------------------
 --- @function initUI
 -------------------------------------
 function UI_ReadySceneWorldRaid:initUI()
     local vars = self.vars
+    g_worldRaidData.m_curDeckIndex = 1
 
     do -- 스테이지에 해당하는 스테미나 아이콘 생성
         local vars = self.vars
@@ -57,6 +63,13 @@ function UI_ReadySceneWorldRaid:initUI()
             local target_node = (cnt == 1) and vars['panaltyTipsNode'] or vars['panaltyTipsNode'..idx]
             target_node:addChild(icon)
         end
+    end
+
+    -- 연속전투 불가능할때 UI 처리        
+    do
+        vars['autoStartOnBtn']:setVisible(false)
+        vars['manageBtn']:setPositionX(80)
+        vars['teamBonusBtn']:setPositionX(-80)
     end
 end
 

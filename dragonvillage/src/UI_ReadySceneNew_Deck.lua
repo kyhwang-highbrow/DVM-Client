@@ -34,6 +34,9 @@ UI_ReadySceneNew_Deck = class({
 
         -- 착용 룬 보기
         m_bRuneInfo = 'boolean',
+
+        -- 덱카운트
+        m_deckCount = 'number',
     })
 
 local TOTAL_POS_CNT = 5
@@ -58,11 +61,11 @@ local TAB_ATTACK_2 = 'down' -- 2 공격대 (하단)
 -------------------------------------
 -- function init
 -------------------------------------
-function UI_ReadySceneNew_Deck:init(ui_ready_scene)
+function UI_ReadySceneNew_Deck:init(ui_ready_scene, deck_count)
     self.m_uiReadyScene = ui_ready_scene
     self.m_bDirtyDeck = true
     self.m_gameMode = self.m_uiReadyScene.m_gameMode
-
+    self.m_deckCount = deck_count or 1
     self.m_bRuneInfo = false
 
 	self:initUI()

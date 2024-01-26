@@ -351,26 +351,6 @@ function UI_ReadySceneNew:condition_cool_time(a,b)
     return a_value < b_value
 end
 
--------------------------------------
--- function condition_cool_time
--------------------------------------
-function UI_ReadySceneNew:condition_cool_time(a,b)
-    local a_enable = g_friendData:checkUseEnableDragon(a['data']['id'])
-    local b_enable = g_friendData:checkUseEnableDragon(b['data']['id'])
-
-    local a_value = g_friendData:getDragonCoolTimeFromDoid(a['data']['id']) or 0
-    local b_value = g_friendData:getDragonCoolTimeFromDoid(b['data']['id']) or 0
-
-    a_value = a_enable and 0 or a_value
-    b_value = b_enable and 0 or b_value
-
-    if (a_value == b_value) then
-        return nil
-    end
-    
-    return a_value < b_value
-end
-
 
 -------------------------------------
 -- function condition_raid_deck
