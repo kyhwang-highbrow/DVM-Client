@@ -428,3 +428,30 @@ function ServerData_WorldRaid:request_WorldRaidRanking(wrid , search_type, offse
     ui_network:hideBGLayerColor()
     ui_network:request()
 end
+
+-------------------------------------
+--- @function request_WorldRaidReward
+--- @brief 랭킹 정산 보상 요청
+-------------------------------------
+function ServerData_WorldRaid:request_WorldRaidReward(wrid, finish_cb, fail_cb)
+    local uid = g_userData:get('uid')
+
+    -- 성공 시 콜백
+    local function success_cb(ret)
+        g_serverData:networkCommonRespone(ret)
+        if finish_cb then
+            finish_cb(ret)
+        end
+    end
+    
+    local ui_network = UI_Network()
+    ui_network:setUrl('/world_raid/reward')
+    ui_network:setParam('uid', uid)
+    ui_network:setParam('wrid', wrid)
+    ui_network:setRevocable(true)
+    ui_network:setSuccessCB(success_cb)
+    ui_network:setResponseStatusCB(fail_cb)
+    ui_network:setFailCB(fail_cb)
+    ui_network:request()
+    return ui_network
+end

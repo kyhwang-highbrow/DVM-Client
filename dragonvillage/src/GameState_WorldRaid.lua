@@ -257,7 +257,7 @@ function GameState_WorldRaid:getTotalDamage()
     local accum_damage = self.m_accumDamage:get()
     local final_damage = self.m_finalDamage
     local total_damage = accum_damage + final_damage
-    return total_damage
+    return 300000001 --total_damage
 end
 
 

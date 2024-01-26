@@ -28,10 +28,10 @@ function UI_WorldRaidResult:init(stage_id, boss, damage, t_data, ret)
     self.m_bossMonster = boss
     self.m_bossType = math_floor((stage_id - 3100000)/100)
     self.m_data = t_data
-    self.m_grade = t_data['dmg_rank']    
+    self.m_grade = 5
     self.m_lCloseRankers = {}
 
-    local vars = self:load('event_dealking_result.ui')
+    local vars = self:load('world_raid_result.ui')
     UIManager:open(self, UIManager.POPUP)
     self.m_uiName = 'UI_WorldRaidResult'
 
@@ -199,23 +199,24 @@ function UI_WorldRaidResult:direction_showReward()
     local vars = self.vars
     local reward_list = self.m_data['drop_reward_list']
 
+
+
     -- 보상없는 경우 -> 보스의 남은 체력 보여줌
     if (#reward_list == 0) then
         self:show_boss_hp()
+        -- 결과 랭킹 정보 보여주기
+        self:show_result_info()
         return
     end
 
-    local grade = self.m_grade
-
     local ui = UI()
     ui:load('clan_raid_result_reward.ui')
-    local target_menu = ui.vars['rewardNode'..grade]
+    local target_menu = ui.vars['rewardNode'.. self.m_grade]
     target_menu:setVisible(false)
     vars['dropRewardMenu']:addChild(ui.root)
     self.m_sub_menu = vars['dropRewardMenu']
-
     local box_visual = vars['boxVisual']
-
+    
     local ani_1 
     local ani_2
     local result
@@ -240,7 +241,6 @@ function UI_WorldRaidResult:direction_showReward()
 
     ani_1()
 end
-
 
 -------------------------------------
 -- function show_item_reward
@@ -268,14 +268,19 @@ function UI_WorldRaidResult:show_item_reward(reward_menu)
         local item_card, item_grade = self:getItemCard(v)
         item_card.root:setVisible(false)
 
-        local target_node = reward_menu.vars['rewardNode'..self.m_grade..'_'..i]
-        target_node:addChild(item_card.root)
+        local target_node = reward_menu.vars['rewardNode' .. self.m_grade .. '_' .. i]
+        if target_node ~= nil then
+            target_node:addChild(item_card.root)
+        end
 
         local is_last = (i == #reward_list)
         cca.reserveFunc(self.root, 
                         ani_duration * ((i - 1) + ani_interval), 
                         function() show_reward(item_card, item_grade, is_last) end)
     end
+
+    -- 결과 랭킹 정보 보여주기
+    self:show_result_info()
 end
 
 -------------------------------------
@@ -306,13 +311,11 @@ function UI_WorldRaidResult:getItemCard(data)
     local from = data[3]
     local sub_data = data[4]
 
-    local item_grade = string.find(from, 'grade_') and 
-                        string.gsub(from, 'grade_', '') or 1
-
+    local item_grade = 1
     local item_card = UI_ItemCard(item_id, count, sub_data)
-    item_card.root:setScale(ITEM_CARD_SCALE)
 
-    return item_card, tonumber(item_grade)
+    item_card.root:setScale(ITEM_CARD_SCALE)
+    return item_card, item_grade
 end
 
 -------------------------------------
@@ -342,6 +345,18 @@ function UI_WorldRaidResult:show_boss_hp()
     self:doNextWork()
 end
 
+
+-------------------------------------
+--- @function show_result_info
+-------------------------------------
+function UI_WorldRaidResult:show_result_info()
+    local vars = self.vars
+    vars['resultInfoNode']:setVisible(true)
+
+    local my_rank = g_worldRaidData:getCurrentMyRanking()
+    vars['rankLabel']:setStringArg(my_rank['rank'])
+end
+
 -------------------------------------
 -- function direction_showReward_click
 -- @brief 클릭시 보상 애니메이션 스킵
@@ -359,6 +374,29 @@ end
 function UI_WorldRaidResult:initReward()
     local vars = self.vars
     local grade = self.m_grade
+
+    if (self.m_sub_menu) then
+        self.m_sub_menu:removeAllChildren()
+        local box_visual = vars['boxVisual']
+        box_visual:stopAllActions()
+        box_visual:setVisible(false)
+        box_visual:addAniHandler(nil)
+
+        local ui = UI()
+        ui:load('clan_raid_result_reward.ui')
+        ui.vars['rewardNode'..grade]:setVisible(true)
+        vars['dropRewardMenu']:addChild(ui.root)
+
+        local reward_list = self.m_data['drop_reward_list']
+
+        for i, v in ipairs(reward_list) do
+            local item_card, item_grade = self:getItemCard(v)
+            self:setItemCardRarity(item_card, item_grade)
+
+            local target_node = ui.vars['rewardNode'.. grade ..'_'..i]
+            target_node:addChild(item_card.root)
+        end
+    end
 end
 
 -------------------------------------

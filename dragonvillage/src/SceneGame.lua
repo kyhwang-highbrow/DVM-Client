@@ -1114,6 +1114,11 @@ function SceneGame:networkGameFinish_response_drop_reward(ret, t_result_ref)
             local t_data = {item_id, count, from, data}
             table.insert(drop_reward_list, t_data)
 
+        -- 월드 레이드
+        elseif (from == 'world_raid')then
+            local t_data = {item_id, count, from, data}
+            table.insert(drop_reward_list, t_data)
+
         -- 첫 클리어 보상, 반복 보상(고대의 탑, 시험의 탑에서 사용)
         elseif (self.m_gameMode == GAME_MODE_ANCIENT_TOWER) then
             local attr = g_attrTowerData:getSelAttr()
