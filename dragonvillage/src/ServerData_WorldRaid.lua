@@ -111,13 +111,19 @@ function ServerData_WorldRaid:getPrevSeasonId()
         return 0
     end
 
-    world_raid_id = world_raid_id - 1
-    local world_raid_info = self.m_tableWorldRaidSchedule[world_raid_id]
-    if world_raid_info == nil then
-        return 0
+    for id, v in self.m_tableWorldRaidSchedule do
+        if v['wrid'] == world_raid_id then
+            local find_id = id - 1
+            local world_raid_info = self.m_tableWorldRaidSchedule[find_id]
+            if world_raid_info == nil then
+                return 0
+            end
+            
+            return world_raid_info['wrid'] or 0
+        end
     end
 
-    return world_raid_info['wrid'] or 0
+    return 0
 end
 
 -------------------------------------
@@ -218,8 +224,7 @@ function ServerData_WorldRaid:applyResponse(t_ret)
     -- 스코어 보상 리스트
 	if t_ret['table_world_raid_reward'] ~= nil then
 		self.m_tableWorldRaidScoreReward = clone(t_ret['table_world_raid_reward'])
-	end
-    
+    end
 end
 
 -------------------------------------
@@ -507,6 +512,32 @@ function ServerData_WorldRaid:request_WorldRaidReward(wrid, finish_cb, fail_cb)
     ui_network:setUrl('/world_raid/reward')
     ui_network:setParam('uid', uid)
     ui_network:setParam('wrid', wrid)
+    ui_network:setRevocable(true)
+    ui_network:setSuccessCB(success_cb)
+    ui_network:setResponseStatusCB(fail_cb)
+    ui_network:setFailCB(fail_cb)
+    ui_network:request()
+    return ui_network
+end
+
+-------------------------------------
+--- @function request_WorldRaidCheer
+--- @brief 칭찬하기
+-------------------------------------
+function ServerData_WorldRaid:request_WorldRaidCheer(finish_cb, fail_cb)
+    local uid = g_userData:get('uid')
+
+    -- 성공 시 콜백
+    local function success_cb(ret)
+        g_serverData:networkCommonRespone(ret)
+        if finish_cb then
+            finish_cb(ret)
+        end
+    end
+    
+    local ui_network = UI_Network()
+    ui_network:setUrl('/world_raid/compliment')
+    ui_network:setParam('uid', uid)
     ui_network:setRevocable(true)
     ui_network:setSuccessCB(success_cb)
     ui_network:setResponseStatusCB(fail_cb)

@@ -104,6 +104,12 @@ function UI_WorldRaidBoard:makeRankHallOfFameView(rank_data)
 
     if (vars['itemNode'] ~= nil) then
         local ui = UI_HallOfFameListItem(rank_info, 1)
+
+        ui.vars['scoreLabel']:setVisible(false)
+        ui.vars['userNameLabel']:setVisible(false)
+        ui.vars['rankingLabel']:setVisible(false)
+
+
         vars['itemNode']:addChild(ui.root)
     end
 
@@ -246,6 +252,12 @@ end
 -------------------------------------
 function UI_WorldRaidBoard:click_cheerBtn()
   local vars = self.vars
+
+  local finish_cb = function(ret)
+    
+  end
+
+  g_worldRaidData:request_WorldRaidCheer(finish_cb)
 end
 
 -------------------------------------
