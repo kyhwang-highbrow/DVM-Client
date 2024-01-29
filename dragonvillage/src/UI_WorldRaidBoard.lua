@@ -101,15 +101,11 @@ function UI_WorldRaidBoard:makeRankHallOfFameView(rank_data)
       return
     end
 		
-
     if (vars['itemNode'] ~= nil) then
         local ui = UI_HallOfFameListItem(rank_info, 1)
-
         ui.vars['scoreLabel']:setVisible(false)
         ui.vars['userNameLabel']:setVisible(false)
         ui.vars['rankingLabel']:setVisible(false)
-
-
         vars['itemNode']:addChild(ui.root)
     end
 
@@ -252,12 +248,14 @@ end
 -------------------------------------
 function UI_WorldRaidBoard:click_cheerBtn()
   local vars = self.vars
+  local l_reward_item = {{item_id = 700001, count = 500}}
 
   local finish_cb = function(ret)
-    
+    local ui = UI_ObtainToastPopup(l_reward_item)
+    ui.vars['rewardTitleLabel']:setString(Str('축하 보상 획득'))
   end
 
-  g_worldRaidData:request_WorldRaidCheer(finish_cb)
+  g_worldRaidData:request_WorldRaidCheer(self.m_worldRaidId, finish_cb)
 end
 
 -------------------------------------

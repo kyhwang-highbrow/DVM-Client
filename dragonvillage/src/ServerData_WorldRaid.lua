@@ -7,6 +7,10 @@ ServerData_WorldRaid = class({
 	m_rankingUpdateAt = '',
 	m_rankList = '',
 	m_myRank = '',
+
+    m_complimentCount = 'number',
+    m_isAvailableCompliment = 'boolean',
+
 	m_tableWorldRaidRank = 'Table',
 	m_tableWorldRaidSchedule = 'Table',
     m_tableWorldRaidScoreReward = 'Table',
@@ -32,6 +36,9 @@ function ServerData_WorldRaid:init()
 	self.m_tableWorldRaidSchedule = {}
 	self.m_curWorldRaidInfo = nil
     self.m_curDeckIndex = 1
+
+    self.m_complimentCount = 0
+    self.m_isAvailableCompliment = false
 end
 
 -------------------------------------
@@ -224,6 +231,16 @@ function ServerData_WorldRaid:applyResponse(t_ret)
     -- 스코어 보상 리스트
 	if t_ret['table_world_raid_reward'] ~= nil then
 		self.m_tableWorldRaidScoreReward = clone(t_ret['table_world_raid_reward'])
+    end
+
+    -- 전시즌 랭킹 1위 축하받은 횟수
+	if t_ret['compliment_cnt'] ~= nil then
+		self.m_complimentCount = t_ret['compliment_cnt']
+    end
+
+    -- 축하하고 보상 받는거 가능한지
+	if t_ret['compliment_reward_available'] ~= nil then
+		self.m_isAvailableCompliment = t_ret['compliment_reward_available']
     end
 end
 
@@ -524,7 +541,7 @@ end
 --- @function request_WorldRaidCheer
 --- @brief 칭찬하기
 -------------------------------------
-function ServerData_WorldRaid:request_WorldRaidCheer(finish_cb, fail_cb)
+function ServerData_WorldRaid:request_WorldRaidCheer(wrid, finish_cb, fail_cb)
     local uid = g_userData:get('uid')
 
     -- 성공 시 콜백
@@ -538,6 +555,8 @@ function ServerData_WorldRaid:request_WorldRaidCheer(finish_cb, fail_cb)
     local ui_network = UI_Network()
     ui_network:setUrl('/world_raid/compliment')
     ui_network:setParam('uid', uid)
+    ui_network:setParam('wrid', wrid)
+
     ui_network:setRevocable(true)
     ui_network:setSuccessCB(success_cb)
     ui_network:setResponseStatusCB(fail_cb)
