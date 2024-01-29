@@ -195,11 +195,16 @@ function UI_WorldRaid:initUI()
 
     do  -- 몬스터 스파인
         local res, attr, evolution = TableMonster:getMonsterRes(boss_id)
-        cclog('boss_id', boss_id)
         local scale = TableMonster:getMonsterScale(boss_id)
         local animator = AnimatorHelper:makeMonsterAnimator(res, attr, evolution)
         if (animator) then
-            animator:setScale(scale * 0.7)
+
+            if 142004 == boss_id then
+                animator:setScale(scale * 0.5)
+            else
+                animator:setScale(scale * 0.7)
+            end
+
             vars['bossNode']:removeAllChildren()
             vars['bossNode']:addChild(animator.m_node)
             animator:changeAni('idle', true)
