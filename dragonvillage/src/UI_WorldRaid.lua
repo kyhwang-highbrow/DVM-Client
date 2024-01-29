@@ -109,8 +109,10 @@ function UI_WorldRaid:initUI()
     local world_raid_id = g_worldRaidData:getWorldRaidId()
     local stage_id = g_worldRaidData:getWorldRaidStageId()
     local monster_id_list = g_stageData:getMonsterIDList(stage_id)
-    local boss_id = monster_id_list[1]
+    local boss_id = monster_id_list[#monster_id_list]
     local attr = TableStageData:getStageAttr(stage_id)
+
+    cclog('stage_id', stage_id)
     
     do -- 보스 이름
         local boss_name = TableMonster():getMonsterName(boss_id)
@@ -192,20 +194,18 @@ function UI_WorldRaid:initUI()
     end
 
     do  -- 몬스터 스파인
-        for _, mid in ipairs(monster_id_list) do
-            local res, attr, evolution = TableMonster:getMonsterRes(mid)
-            local animator = AnimatorHelper:makeMonsterAnimator(res, attr, evolution)
-            if (animator) then
-                ---animator:setScale(0.5)
-                vars['bossNode']:removeAllChildren()
-                vars['bossNode']:addChild(animator.m_node)
-                animator:changeAni('idle', true)
-                
-                --animator:setPositionY(-800)
-                local action = cc.EaseExponentialOut:create(cc.MoveTo:create(1.0, cc.p(0, 0)))
-                animator:stopAllActions()
-                animator:runAction(action)
-            end
+        local res, attr, evolution = TableMonster:getMonsterRes(boss_id)
+        local scale = TableMonster:getMonsterScale(boss_id)
+        local animator = AnimatorHelper:makeMonsterAnimator(res, attr, evolution)
+        if (animator) then
+            animator:setScale(scale * 0.7)
+            vars['bossNode']:removeAllChildren()
+            vars['bossNode']:addChild(animator.m_node)
+            animator:changeAni('idle', true)
+            
+            local action = cc.EaseExponentialOut:create(cc.MoveTo:create(1.0, cc.p(0, 0)))
+            animator:stopAllActions()
+            animator:runAction(action)
         end
     end
 end

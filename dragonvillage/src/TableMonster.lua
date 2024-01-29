@@ -100,6 +100,22 @@ function TableMonster:getMonsterRes(monster_id)
     return res, attr, evolution
 end
 
+
+-------------------------------------
+-- function getMonsterScale
+-- @brief
+-------------------------------------
+function TableMonster:getMonsterScale(monster_id)
+    if (self == THIS) then
+        self = THIS()
+    end
+
+    local scale = self:getValue(monster_id, 'scale')
+    return scale
+end
+
+
+
 -------------------------------------
 -- function getMonsterInfoWithDragon
 -- @brief 몬스터 테이블에 없는 경우 드래곤 테이블까지 검사 
