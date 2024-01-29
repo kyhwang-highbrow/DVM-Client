@@ -1261,18 +1261,27 @@ function UI_HatcherySummonTab:requestSummon(t_egg_data, old_ui, is_again)
             return
         end
 
-        local function ad_success_cb(ret)
-            AdManager.getInstance():showRewardAd_Common(function(ret)
-                if (ret == 'success') then
-                        self:click_cashSummonBtn(is_bundle, true--[[is_ad]], false--[[is_sale]], 
-                            t_egg_data, old_ui, draw_cnt, pickup_id)
-                else
-                    -- 실패의 경우 함수 내부에서 알아서 처리됨
-                end
-            end)
-        end
+        -- local function ad_success_cb(ret)
+        --     AdManager.getInstance():showRewardAd_Common(function(ret)
+        --         if (ret == 'success') then
+        --                 self:click_cashSummonBtn(is_bundle, true--[[is_ad]], false--[[is_sale]], 
+        --                     t_egg_data, old_ui, draw_cnt, pickup_id)
+        --         else
+        --             -- 실패의 경우 함수 내부에서 알아서 처리됨
+        --         end
+        --     end)
+        -- end
 
-        g_advertisingData:request_dailyAdShow(AD_TYPE.ADVANCED_SUMMON, ad_success_cb)
+        AdManager.getInstance():showRewardAd_Common(function(ret)
+            if (ret == 'success') then
+                g_advertisingData:request_dailyAdShow(AD_TYPE.ADVANCED_SUMMON, function()
+                    self:click_cashSummonBtn(is_bundle, true--[[is_ad]], false--[[is_sale]], 
+                    t_egg_data, old_ui, draw_cnt, pickup_id)
+                end)
+            else
+                -- 실패의 경우 함수 내부에서 알아서 처리됨
+            end
+        end)
     end
 
     local item_key = t_egg_data['price_type']
