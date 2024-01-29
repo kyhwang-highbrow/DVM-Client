@@ -10,6 +10,7 @@ UI_WorldRaidBoard = class(PARENT, {
     m_rankOffset = 'number',
     m_worldRaidId = 'number',
     m_profileFrameid = 'number',
+    m_complimentCount = 'number',
 
     m_tRankingRewardInfo = 'Table',
     })
@@ -39,6 +40,7 @@ function UI_WorldRaidBoard:init(world_raid_id, ret)
     self.m_worldRaidId = world_raid_id
     self.m_profileFrameid = 0
     self.m_tRankingRewardInfo = {}
+    self.m_complimentCount = ret['compliment_cnt'] or 0
     UIManager:open(self, UIManager.SCENE)
     -- backkey 지정
     g_currScene:pushBackKeyListener(self, function() self:click_exitBtn() end, 'UI_WorldRaidBoard')
@@ -91,20 +93,20 @@ end
 --- @function checkEnterEvent
 -------------------------------------
 function UI_WorldRaidBoard:checkEnterEvent()
-    -- if g_worldRaidData:isAvailableWorldRaidRewardRanking() == true then
-    --     local wrid = self.m_worldRaidId
+    if g_worldRaidData:isAvailableWorldRaidRewardRanking() == true then
+        local wrid = self.m_worldRaidId
 
-    --     local finish_cb = function(ret)
-    --         UI_WorldRaidRewardPopup(ret)
-    --     end
+        local finish_cb = function(ret)
+            UI_WorldRaidRewardPopup(ret)
+        end
 
-    --     local fail_cb = function(ret)
-    --     end
+        local fail_cb = function(ret)
+        end
 
-    --     g_worldRaidData:request_WorldRaidReward(wrid, finish_cb, fail_cb)
-    -- end
+        g_worldRaidData:request_WorldRaidReward(wrid, finish_cb, fail_cb)
+    end
 
-    UI_WorldRaidRewardPopup(self.m_tRankingRewardInfo, self.m_profileFrameid)
+    --UI_WorldRaidRewardPopup(self.m_tRankingRewardInfo, self.m_profileFrameid)
 end
 
 -------------------------------------
@@ -272,7 +274,7 @@ end
 -------------------------------------
 function UI_WorldRaidBoard:refresh()
     local vars = self.vars
-    local compliment_cnt = g_worldRaidData:getComplimentCount()
+    local compliment_cnt = self.m_complimentCount
     vars['likeLabel']:setString(comma_value(compliment_cnt))
 
     local is_available = g_worldRaidData:isAvailableWorldRaidRewardCompliment()
@@ -302,8 +304,10 @@ function UI_WorldRaidBoard:click_cheerBtn()
   local l_reward_item = {{item_id = 700001, count = 500}}
 
   local finish_cb = function(ret)
+    self.m_complimentCount = ret['compliment_cnt']
     local ui = UI_ObtainToastPopup(l_reward_item)
     ui.vars['rewardTitleLabel']:setString(Str('축하 보상 획득'))
+    self:refresh()
   end
 
   g_worldRaidData:request_WorldRaidCheer(self.m_worldRaidId, finish_cb)
