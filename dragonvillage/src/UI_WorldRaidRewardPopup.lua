@@ -4,12 +4,17 @@ local PARENT = UI
 -- class UI_WorldRaidRewardPopup
 -------------------------------------
 UI_WorldRaidRewardPopup = class(PARENT,{
+    m_profileFrameId = '',
+    m_profileFrameAnimator = 'animator',
     })
 
 -------------------------------------
 -- function init
 -------------------------------------
-function UI_WorldRaidRewardPopup:init(t_info)
+function UI_WorldRaidRewardPopup:init(t_info, profile_frame_id)
+    self.m_profileFrameId = profile_frame_id
+    self.m_profileFrameAnimator = nil
+
     local vars = self:load('world_raid_reward_popup.ui')
     UIManager:open(self, UIManager.POPUP)
 
@@ -41,8 +46,6 @@ function UI_WorldRaidRewardPopup:initUI(t_info)
 
     -- 데이터 구성
     local rank_ui = UI_AncientTowerRankListItem(struct_data)
-    local str_1 = Str('지난 시즌 개인 랭킹')
-    local str_2 = Str('지난 시즌 개인 랭킹 보상')
     
     -- 지난 시즌 랭킹 정보
     vars['rankNode']:addChild(rank_ui.root)
@@ -58,17 +61,19 @@ function UI_WorldRaidRewardPopup:initUI(t_info)
             local item_cnt = item_data['count']
             local item_type = TableItem:getItemType(item_id)
 
-            local icon = IconHelper:getItemIcon(item_id, item_cnt)
+            local icon, frame = IconHelper:getItemIcon(item_id, item_cnt)
             vars['rewardNode'..i]:addChild(icon)
             vars['rewardLabel'..i]:setString('')
             if item_type ~= 'profile_frame' then
                 vars['rewardLabel'..i]:setString(comma_value(item_cnt))       
             end
 
-            local item_type = TableItem:getItemType(item_id)
+            item_type = TableItem:getItemType(item_id)
             if (item_type == 'relation_point') then
                 vars['rewardLabel'..i]:setString('')
             end
+
+            self.m_profileFrameAnimator = frame
         end
 
         -- 노드 보상 갯수에 따른 위치 변경
@@ -104,12 +109,61 @@ end
 function UI_WorldRaidRewardPopup:initButton()
     local vars = self.vars
     vars['okBtn']:registerScriptTapHandler(function() self:close() end)
+    vars['equipBtn']:registerScriptTapHandler(function() self:click_equipBtn() end)
+
+
+end
+
+-------------------------------------
+-- function click_equipBtn
+-------------------------------------
+function UI_WorldRaidRewardPopup:click_equipBtn()
+    local vars = self.vars
+
+    -- 소유 중인 프로필 테두리냐?
+    if g_profileFrameData:isOwnedProfileFrame(self.m_profileFrameId) == false then
+        UIManager:toastNotificationRed(Str('현재 보유 중인 테두리가 아닙니다.'))
+        return
+    end
+
+    local success_cb = function(ret)
+        local rotate_to = cc.EaseElasticOut:create(cc.RotateTo:create(0.2, 720), 0.1)
+        local scale_up = cc.EaseElasticOut:create(cc.ScaleTo:create(0.2, 1.2), 0.1)
+        local scale_down = cc.EaseElasticIn:create(cc.ScaleTo:create(0.2, 1), 0.1)
+        local call_func = cc.CallFunc:create(function () 
+            UIManager:toastNotificationGreen(Str('테두리를 착용하였습니다.'))
+        end)
+    
+        local delay = cc.DelayTime:create(0.1)
+        local seq = cc.Sequence:create(rotate_to, delay, scale_up, scale_down, call_func)
+    
+        --self.m_profileFrameAnimator:stopAllActions()
+        self.m_profileFrameAnimator:runAction(seq)
+
+        self.m_profileFrameId = 0
+        self:refresh()
+    end
+
+    vars['selectEffect1Visual']:setVisible(true)
+    vars['selectEffect1Visual']:changeAni('yellow_05', false)
+    vars['selectEffect1Visual']:addAniHandler(function() vars['selectEffect1Visual']:setVisible(false) end)
+
+    vars['selectEffect2Visual']:setVisible(true)
+    vars['selectEffect2Visual']:changeAni('pack_idle_03', false)
+    vars['selectEffect2Visual']:addAniHandler(function() vars['selectEffect2Visual']:setVisible(false) end)
+
+    --g_profileFrameData:request_equip(self.m_profileFrameId, success_cb)
+    success_cb()
 end
 
 -------------------------------------
 -- function refresh
 -------------------------------------
 function UI_WorldRaidRewardPopup:refresh()
+    local vars = self.vars
+
+    vars['equipBtn']:setVisible(self.m_profileFrameId > 0)
+    vars['okBtn']:setVisible(self.m_profileFrameId == 0)
 end
 
 --@CHECK

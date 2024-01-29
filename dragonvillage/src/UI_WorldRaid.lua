@@ -67,7 +67,6 @@ function UI_WorldRaid:refreshRanking()
     if g_worldRaidData:isExpiredRankingUpdate() == true then
         local success_cb = function(ret)                        
             self:makeRankingTableView()
-            --local ui = UI_WorldRaidRewardPopup({})
         end
 
         g_worldRaidData:request_WorldRaidRanking(self.m_worldRaidId, 'world', 1, 20, success_cb)

@@ -9,6 +9,7 @@ UI_WorldRaidBoard = class(PARENT, {
     m_searchType = 'number',
     m_rankOffset = 'number',
     m_worldRaidId = 'number',
+    m_profileFrameid = 'number',
 
     m_tRankingRewardInfo = 'Table',
     })
@@ -36,6 +37,7 @@ function UI_WorldRaidBoard:init(world_raid_id, ret)
     self.m_searchType = 1
     self.m_rankOffset = 1
     self.m_worldRaidId = world_raid_id
+    self.m_profileFrameid = 0
     self.m_tRankingRewardInfo = {}
     UIManager:open(self, UIManager.SCENE)
     -- backkey 지정
@@ -78,9 +80,10 @@ function UI_WorldRaidBoard:makeRankingRewardInfo(ret)
 
     if profile_frame ~= '' then
         local t_item = {item_id=profile_frame, count=1}
+        self.m_profileFrameid = profile_frame
         table.insert(l_reward, 1, t_item)
     end
-    
+
     self.m_tRankingRewardInfo['reward_info'] = l_reward
 end
 
@@ -101,7 +104,7 @@ function UI_WorldRaidBoard:checkEnterEvent()
     --     g_worldRaidData:request_WorldRaidReward(wrid, finish_cb, fail_cb)
     -- end
 
-    UI_WorldRaidRewardPopup(self.m_tRankingRewardInfo)
+    UI_WorldRaidRewardPopup(self.m_tRankingRewardInfo, self.m_profileFrameid)
 end
 
 -------------------------------------
