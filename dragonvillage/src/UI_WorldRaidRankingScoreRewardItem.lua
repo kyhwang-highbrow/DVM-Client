@@ -1,34 +1,31 @@
 
 local PARENT = class(UI, ITableViewCell:getCloneTable())
 -------------------------------------
---- @class UI_WorldRaidRankingRewardItem
+--- @class UI_WorldRaidRankingScoreRewardItem
 -------------------------------------
-UI_WorldRaidRankingRewardItem = class(PARENT,{
+UI_WorldRaidRankingScoreRewardItem = class(PARENT,{
         m_rewardInfo = '',
     })
 
 -------------------------------------
 -- function init
 -------------------------------------
-function UI_WorldRaidRankingRewardItem:init(t_reward_info)
+function UI_WorldRaidRankingScoreRewardItem:init(t_reward_info)
     self.m_rewardInfo = t_reward_info
-    self:load('world_raid_ranking_popup_item_reward.ui')
+    self:load('world_raid_ranking_popup_score_item_reward.ui')
     self:initUI()
 end
 
 -------------------------------------
 -- function initUI
 -------------------------------------
-function UI_WorldRaidRankingRewardItem:initUI()
+function UI_WorldRaidRankingScoreRewardItem:initUI()
     local vars = self.vars
     local t_data = self.m_rewardInfo
-    local l_reward = g_itemData:parsePackageItemStr(self.m_rewardInfo['reward'])    
-    local profile_frame = self.m_rewardInfo['profile_frame'] or ''
-
-    if profile_frame ~= '' then
-        local t_item = {item_id=profile_frame, count=1}
-        table.insert(l_reward, 1, t_item)
-    end
+    local l_reward = g_itemData:parsePackageItemStr(self.m_rewardInfo['reward'])
+    local score = self.m_rewardInfo['score'] or 0
+    local my_rank = g_worldRaidData:getCurrentMyRanking()
+    local my_score = my_rank['score']
 
     for i = 1, #l_reward do
         local item_id = l_reward[i]['item_id']
@@ -52,6 +49,11 @@ function UI_WorldRaidRankingRewardItem:initUI()
         end
     end
 
-    local rank_str = StructRankReward.getRankName(t_data) 
-    vars['rankLabel']:setString(rank_str)
+    --local rank_str = StructRankReward.getRankName(t_data) 
+    vars['scoreLabel']:setString(Str('{1}점 달성', 100))
+
+    if my_score > 0 and score <= my_score then
+        vars['rewardCheckSprite']:setVisible(true)
+        --vars['rewardReceiveVisual']:setVisible(true)
+    end
 end

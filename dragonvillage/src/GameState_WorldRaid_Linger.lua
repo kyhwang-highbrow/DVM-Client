@@ -33,7 +33,7 @@ function GameState_WorldRaid_Linger:initState()
     self:addState(GAME_STATE_FIGHT_WAIT,   GameState_WorldRaid_Linger.update_fight_wait)
 
     self:addState(GAME_STATE_RAID_WAVE,   GameState_WorldRaid_Linger.update_raid_wave)  -- 레이드 웨이브 연출
-    self:addState(GAME_STATE_SUCCESS_WAIT,GameState_WorldRaid_Linger.update_success_wait)
+    --self:addState(GAME_STATE_SUCCESS_WAIT,GameState_WorldRaid_Linger.update_success_wait)
 
     self:addState(GAME_STATE_SUCCESS,  GameState_WorldRaid.update_result)
     self:addState(GAME_STATE_FAILURE,  GameState_WorldRaid.update_result)
@@ -208,7 +208,7 @@ function GameState_WorldRaid_Linger.update_success(self, dt)
         end
     end
 
-    PARENT.update_success(self, dt)
+    --PARENT.update_success(self, dt)
 
     local world = self.m_world
     cclog(debug.traceback())
@@ -263,7 +263,7 @@ function GameState_WorldRaid_Linger.update_failure(self, dt)
             world.m_inGameUI.root:setVisible(false)
         end)
 
-        UINavigator:goTo('league_raid')
+        UINavigator:goTo('world_raid')
         --self:makeResultUI(false)
     end
 end
