@@ -195,6 +195,7 @@ function UI_WorldRaid:initUI()
 
     do  -- 몬스터 스파인
         local res, attr, evolution = TableMonster:getMonsterRes(boss_id)
+        cclog('boss_id', boss_id)
         local scale = TableMonster:getMonsterScale(boss_id)
         local animator = AnimatorHelper:makeMonsterAnimator(res, attr, evolution)
         if (animator) then
