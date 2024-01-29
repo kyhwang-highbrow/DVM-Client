@@ -25,8 +25,7 @@ local ANI_DURATION = 0.2 -- 아이템 카드 보여주는 애니메이션 속도
 function UI_WorldRaidResult:init(stage_id, boss, damage, t_data, ret)
     self.m_stageID = stage_id    
     self.m_damage = damage
-    self.m_bossMonster = boss
-    self.m_bossType = math_floor((stage_id - 3100000)/100)
+    self.m_bossMonster = boss    
     self.m_data = t_data
     self.m_grade = 5
     self.m_lCloseRankers = {}
@@ -43,7 +42,7 @@ function UI_WorldRaidResult:init(stage_id, boss, damage, t_data, ret)
 
     self:initUI()
     self:initButton()
-    --self:makeCloseRankers(ret)
+    self:makeCloseRankers(ret)
 
     self:setWorkList()
     self:doNextWork()
@@ -453,16 +452,16 @@ function UI_WorldRaidResult:direction_end()
 
     -- 내 순위 정보가 내려오면 무조건 노출
     if self.m_lCloseRankers['me_ranker'] ~= nil then
-        -- local my_ranking = g_worldRaidData:getCurrentMyRanking()
-        -- local prev_score = my_ranking['score']
-        -- local new_score = self.m_lCloseRankers['me_ranker']['score']
-        -- if new_score > prev_score then
-        --     local action = cc.Sequence:create(cc.DelayTime:create(0.2), cc.CallFunc:create(function() 
-        --         self:showLeaderBoard()
-        --     end))
-        --     self.root:runAction(action)
-        --     self.root:runAction(event_act)
-        -- end
+        local my_ranking = g_worldRaidData:getCurrentMyRanking()
+        local prev_score = my_ranking['score']
+        local new_score = self.m_lCloseRankers['me_ranker']['score']
+        if new_score > prev_score then
+            local action = cc.Sequence:create(cc.DelayTime:create(0.2), cc.CallFunc:create(function() 
+                self:showLeaderBoard()
+            end))
+            self.root:runAction(action)
+            self.root:runAction(event_act)
+        end
     end
 end
 
@@ -597,7 +596,7 @@ function UI_WorldRaidResult:showLeaderBoard(ret)
     end
 
     -- 리더 보드 추가
-    local ui_leader_board = UI_ResultLeaderBoard_EventDealking('event_dealking', true, true) -- type, is_move, is_popup
+    local ui_leader_board = UI_ResultLeaderBoard_WorldRaid('world_raid', true, true) -- type, is_move, is_popup
     ui_leader_board:setScore(t_me['score'] - t_ex_me['score'], t_me['score']) -- param : 더해진 점수, 더해진 점수가 반영된 최종 점수
     ui_leader_board:setRatio(t_ex_me['rate'], t_me['rate'])
     ui_leader_board:setRank(t_ex_me['rank'], t_me['rank'])

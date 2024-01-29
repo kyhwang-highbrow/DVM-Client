@@ -1704,6 +1704,7 @@ local t_module = {
 
     'UI_ResultLeaderBoard_IncarnationOfSins',
     'UI_ResultLeaderBoard_EventDealking', -- 딜킹 리더보드
+    'UI_ResultLeaderBoard_WorldRaid', -- 월드 레이드 리더보드
 
     -- 신화 드래곤 인기 가챠
     'UI_EventPopupTab_DragonPopularityGacha',
@@ -1886,7 +1887,7 @@ local t_module = {
     'UI_WorldRaidResult', -- 전투 결과 화면
     'UI_WorldRaidBoard', -- 월드 레이드 게시판
     'UI_WorldRaidRewardPopup', -- 월드 레이드 보상 화면
-    
+    'UI_ResultLeaderBoard_WorldRaid', -- 리더보드
 }
 
 -------------------------------------

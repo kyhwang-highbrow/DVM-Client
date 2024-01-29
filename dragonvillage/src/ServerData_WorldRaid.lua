@@ -299,6 +299,51 @@ function ServerData_WorldRaid:getDeckName()
     return 'world_raid_1'
 end
 
+
+-------------------------------------
+--- @function getPossibleReward
+--- @brief 획득할 수 있는 보상 데이터를 반환
+--- @param integer : 현재 등수
+--- @param integer : 현재 랭크 비율 
+-------------------------------------
+function ServerData_WorldRaid:getPossibleReward(my_rank, my_ratio)
+    local my_rank = tonumber(my_rank)
+    local my_rank_rate = tonumber(my_ratio) * 100
+
+    local l_rank_list = self.m_tableWorldRaidRank
+
+    -- 한번도 플레이 하지 않은 경우, 최상위 보여줌
+    if (my_rank <= 0) then
+        return nil, 0
+    end
+
+    for i,data in ipairs(l_rank_list) do
+        
+        local rank_min = tonumber(data['rank_min'])
+        local rank_max = tonumber(data['rank_max'])
+
+        local ratio_min = tonumber(data['ratio_min'])
+        local ratio_max = tonumber(data['ratio_max'])
+
+        -- 순위 필터
+        if (rank_min and rank_max) then
+            if (rank_min <= my_rank) and (my_rank <= rank_max) then
+                return data, i
+            end
+
+        -- 비율 필터
+        elseif (ratio_min and ratio_max) then
+            if (ratio_min < my_rank_rate) and (my_rank_rate <= ratio_max) then
+                return data, i
+            end
+        end
+    end
+
+    -- 마지막 보상 리턴
+    local last_ind = #l_rank_list
+    return l_rank_list[last_ind], last_ind or 0
+end
+
 -------------------------------------
 --- @function getWorldRaidBuff
 -------------------------------------
