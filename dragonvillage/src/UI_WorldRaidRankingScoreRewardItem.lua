@@ -50,7 +50,7 @@ function UI_WorldRaidRankingScoreRewardItem:initUI()
     end
 
     --local rank_str = StructRankReward.getRankName(t_data) 
-    vars['scoreLabel']:setString(Str('{1}점 달성', 100))
+    vars['scoreLabel']:setString(Str('{1}점 달성', comma_value(score)))
 
     if my_score > 0 and score <= my_score then
         vars['rewardCheckSprite']:setVisible(true)

@@ -9,6 +9,7 @@ ServerData_WorldRaid = class({
 	m_myRank = '',
 	m_tableWorldRaidRank = 'Table',
 	m_tableWorldRaidSchedule = 'Table',
+    m_tableWorldRaidScoreReward = 'Table',
 	m_curWorldRaidInfo = 'Table',
 
     -- 지구전 관련(구 league_raid) 
@@ -179,6 +180,13 @@ function ServerData_WorldRaid:getTableWorldRaidRank()
 end
 
 -------------------------------------
+--- @function getTableWorldRaidScoreReward
+-------------------------------------
+function ServerData_WorldRaid:getTableWorldRaidScoreReward()
+    return self.m_tableWorldRaidScoreReward or {}
+  end
+
+-------------------------------------
 --- @function applyCurrentRankingList
 -------------------------------------
 function ServerData_WorldRaid:applyCurrentRankingList(t_ret)
@@ -206,6 +214,12 @@ function ServerData_WorldRaid:applyResponse(t_ret)
 	if t_ret['table_world_raid'] ~= nil then
 		self.m_tableWorldRaidSchedule = clone(t_ret['table_world_raid'])
 	end
+
+    -- 스코어 보상 리스트
+	if t_ret['table_world_raid_reward'] ~= nil then
+		self.m_tableWorldRaidScoreReward = clone(t_ret['table_world_raid_reward'])
+	end
+    
 end
 
 -------------------------------------
