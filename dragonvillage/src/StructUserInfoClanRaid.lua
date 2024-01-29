@@ -121,6 +121,10 @@ end
 -- @brief
 -------------------------------------
 function StructUserInfoClanRaid:getContributionText()
+    if self.m_contribution == nil then
+        return ''
+    end
+
     local text = (self.m_contribution == 100) and '100%' or string.format('%.2f%%', self.m_contribution)
     return text
 end
@@ -139,6 +143,26 @@ function StructUserInfoClanRaid:getRewardContributionText()
     local contribution = t_contribution['ratio_cur'] * 100
     local text = (contribution == 100) and '100%' or string.format('%.2f%%', contribution)
     return text
+end
+
+-------------------------------------
+-- function getRankText2
+-- @brief
+-------------------------------------
+function StructUserInfoClanRaid:getRankText2()
+    if (not self.m_rank) or (self.m_rank <= 0) then
+        return Str('순위\n없음')
+    end
+
+    if (not self.m_rankPercent) then
+        return Str('{1}위', comma_value(self.m_rank))
+    else
+        local percent_text = string.format('%.2f', self.m_rankPercent * 100)
+        local text = Str('{1}위', comma_value(self.m_rank)) .. '\n(' .. percent_text .. '%)'
+        return text
+    end
+
+    return Str('순위\n없음')
 end
 
 -------------------------------------

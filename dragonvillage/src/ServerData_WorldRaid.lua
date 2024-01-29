@@ -10,6 +10,7 @@ ServerData_WorldRaid = class({
 
     m_complimentCount = 'number',
     m_isAvailableCompliment = 'boolean',
+    m_rankReward = 'number',
 
 	m_tableWorldRaidRank = 'Table',
 	m_tableWorldRaidSchedule = 'Table',
@@ -39,6 +40,7 @@ function ServerData_WorldRaid:init()
 
     self.m_complimentCount = 0
     self.m_isAvailableCompliment = false
+    self.m_rankReward = -1
 end
 
 -------------------------------------
@@ -102,11 +104,37 @@ end
 --- @function isAvailableWorldRaidReward
 -------------------------------------
 function ServerData_WorldRaid:isAvailableWorldRaidReward()
+    if self:isAvailableWorldRaidRewardRanking() == true then
+        return true
+    end
+
+    if self:isAvailableWorldRaidRewardCompliment() == true then
+        return true
+    end
+
+    return false
+end
+
+-------------------------------------
+--- @function isAvailableWorldRaidRewardRanking
+-------------------------------------
+function ServerData_WorldRaid:isAvailableWorldRaidRewardRanking()
     if self:isWorldRaidRewardPeriod() == false then
         return false
     end
 
-    return true
+    return self.m_rankReward == 0
+end
+
+-------------------------------------
+--- @function isAvailableWorldRaidRewardCompliment
+-------------------------------------
+function ServerData_WorldRaid:isAvailableWorldRaidRewardCompliment()
+    if self:isWorldRaidRewardPeriod() == false then
+        return false
+    end
+
+    return self.m_isAvailableCompliment
 end
 
 -------------------------------------
@@ -186,6 +214,13 @@ function ServerData_WorldRaid:getCurrentRankingList()
 end
 
 -------------------------------------
+--- @function getComplimentCount
+-------------------------------------
+function ServerData_WorldRaid:getComplimentCount()
+    return self.m_complimentCount
+end
+
+-------------------------------------
 --- @function getTableWorldRaidRank
 -------------------------------------
 function ServerData_WorldRaid:getTableWorldRaidRank()
@@ -241,6 +276,11 @@ function ServerData_WorldRaid:applyResponse(t_ret)
     -- 축하하고 보상 받는거 가능한지
 	if t_ret['compliment_reward_available'] ~= nil then
 		self.m_isAvailableCompliment = t_ret['compliment_reward_available']
+    end
+
+    -- 랭킹 보상 여부 수령 가능한지
+	if t_ret['rank_reward'] ~= nil then
+		self.m_rankReward = t_ret['rank_reward']
     end
 end
 
@@ -326,13 +366,6 @@ function ServerData_WorldRaid:getWorldRaidPartyType()
     local world_raid_id = self:getWorldRaidId()
     local party_type = TableWorldRaidInfo:getInstance():getWorldRaidPartyType(world_raid_id)    
     return party_type
-end
-
--------------------------------------
---- @function getDeckName
--------------------------------------
-function ServerData_WorldRaid:getDeckName()
-    return 'world_raid_1'
 end
 
 

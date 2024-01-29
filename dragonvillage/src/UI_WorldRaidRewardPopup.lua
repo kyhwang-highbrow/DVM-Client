@@ -46,8 +46,8 @@ function UI_WorldRaidRewardPopup:initUI(t_info)
     
     -- 지난 시즌 랭킹 정보
     vars['rankNode']:addChild(rank_ui.root)
-    vars['rankLabel']:setString(str_1)
-    vars['rankRewardLabel']:setString(str_2)
+    --vars['rankLabel']:setString(str_1)
+    --vars['rankRewardLabel']:setString(str_2)
 
     -- 보상 정보 (최대 3개로 가정 .. 나중에 테이블뷰로 하자)
     if (reward_info) then
@@ -56,26 +56,20 @@ function UI_WorldRaidRewardPopup:initUI(t_info)
             local item_data = reward_info[i]
             local item_id = item_data['item_id']
             local item_cnt = item_data['count']
+            local item_type = TableItem:getItemType(item_id)
 
             local icon = IconHelper:getItemIcon(item_id, item_cnt)
             vars['rewardNode'..i]:addChild(icon)
-            vars['rewardLabel'..i]:setString(comma_value(item_cnt))
+            vars['rewardLabel'..i]:setString('')
+            if item_type ~= 'profile_frame' then
+                vars['rewardLabel'..i]:setString(comma_value(item_cnt))       
+            end
 
             local item_type = TableItem:getItemType(item_id)
             if (item_type == 'relation_point') then
                 vars['rewardLabel'..i]:setString('')
             end
         end
-
-		-- 클랜 경험치
-		local clan_exp = t_info['clan_exp']
-		if (clan_exp and clan_exp > 0) then
-			reward_cnt = reward_cnt + 1
-
-			local icon = IconHelper:getClanExpIcon()
-			vars['rewardNode' .. reward_cnt]:addChild(icon)
-            vars['rewardLabel' .. reward_cnt]:setString(comma_value(clan_exp))
-		end
 
         -- 노드 보상 갯수에 따른 위치 변경
         local max_cnt = 3
@@ -100,8 +94,6 @@ function UI_WorldRaidRewardPopup:initUI(t_info)
         return
     end
 
-    -- local contribution = t_info['contribution']
-    -- user_info.m_contribution = contribution * 100
     local ui = UI_ClanRaidRankListItem(user_info)
     vars['myRankNode']:addChild(ui.root)
 end

@@ -9,6 +9,8 @@ UI_WorldRaidBoard = class(PARENT, {
     m_searchType = 'number',
     m_rankOffset = 'number',
     m_worldRaidId = 'number',
+
+    m_tRankingRewardInfo = 'Table',
     })
 
 -------------------------------------
@@ -34,6 +36,7 @@ function UI_WorldRaidBoard:init(world_raid_id, ret)
     self.m_searchType = 1
     self.m_rankOffset = 1
     self.m_worldRaidId = world_raid_id
+    self.m_tRankingRewardInfo = {}
     UIManager:open(self, UIManager.SCENE)
     -- backkey 지정
     g_currScene:pushBackKeyListener(self, function() self:click_exitBtn() end, 'UI_WorldRaidBoard')
@@ -46,11 +49,13 @@ function UI_WorldRaidBoard:init(world_raid_id, ret)
     self:initButton()    
     self:refresh()
     
+
     self:makeRankHallOfFameView(ret)
     self:makeRankTableView(ret)
 
     -- 보상 안내 팝업
     local function finich_cb()
+        self:makeRankingRewardInfo(ret)
         self:checkEnterEvent()
     end
 
@@ -58,10 +63,45 @@ function UI_WorldRaidBoard:init(world_raid_id, ret)
 end
 
 -------------------------------------
+--- @function makeRankingRewardInfo
+-------------------------------------
+function UI_WorldRaidBoard:makeRankingRewardInfo(ret)
+    self.m_tRankingRewardInfo = {}
+    self.m_tRankingRewardInfo['user_info'] = StructUserInfoClanRaid:create_forRanking(ret['my_info'])
+    self.m_tRankingRewardInfo['rank'] = StructUserInfoClanRaid:create_forRanking(ret['my_info'])
+    local prev_rank = ret['my_info']['rank'] or 0
+    local prev_ratio = ret['my_info']['rate'] or 0
+
+    local reward_info = g_worldRaidData:getPossibleReward(prev_rank, prev_ratio)
+    local l_reward = g_itemData:parsePackageItemStr(reward_info['reward'])
+    local profile_frame = reward_info['profile_frame'] or ''
+
+    if profile_frame ~= '' then
+        local t_item = {item_id=profile_frame, count=1}
+        table.insert(l_reward, 1, t_item)
+    end
+    
+    self.m_tRankingRewardInfo['reward_info'] = l_reward
+end
+
+-------------------------------------
 --- @function checkEnterEvent
 -------------------------------------
 function UI_WorldRaidBoard:checkEnterEvent()
-	UI_WorldRaidRewardPopup({})
+    -- if g_worldRaidData:isAvailableWorldRaidRewardRanking() == true then
+    --     local wrid = self.m_worldRaidId
+
+    --     local finish_cb = function(ret)
+    --         UI_WorldRaidRewardPopup(ret)
+    --     end
+
+    --     local fail_cb = function(ret)
+    --     end
+
+    --     g_worldRaidData:request_WorldRaidReward(wrid, finish_cb, fail_cb)
+    -- end
+
+    UI_WorldRaidRewardPopup(self.m_tRankingRewardInfo)
 end
 
 -------------------------------------
@@ -229,7 +269,15 @@ end
 -------------------------------------
 function UI_WorldRaidBoard:refresh()
     local vars = self.vars
-    vars['likeLabel']:setString(comma_value(0))
+    local compliment_cnt = g_worldRaidData:getComplimentCount()
+    vars['likeLabel']:setString(comma_value(compliment_cnt))
+
+    local is_available = g_worldRaidData:isAvailableWorldRaidRewardCompliment()
+    if is_available == false then
+        vars['cheerBtn']:setBlockMsg(Str("이미 축하를 보냈습니다."))
+    else
+        vars['cheerBtn']:setBlockMsg(nil)
+    end
 end
 
 -------------------------------------
