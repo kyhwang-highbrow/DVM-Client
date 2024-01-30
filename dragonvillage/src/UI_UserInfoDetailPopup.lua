@@ -131,9 +131,12 @@ function UI_UserInfoDetailPopup:initUI()
         visit = false
     end
 
+    if self.m_tUserInfo['visit_type'] == 'world_raid' then
+        vars['deckNameLabel']:setString(Str('월드 레이드\n팀'))
+    end
+
     -- 신고 버튼
     vars['reportBtn']:setVisible(self.m_tUserInfo['hoid'] ~= nil)
-
 	self:setVisitMode(visit)
 end
 
@@ -491,6 +494,15 @@ end
 -------------------------------------
 function UI_UserInfoDetailPopup:click_deckBtn()
     local uid = self.m_tUserInfo['uid']
+
+    -- 월드 레이드
+    if self.m_tUserInfo['visit_type'] == 'world_raid' then
+        local hoid = self.m_tUserInfo['hoid']
+        UI_WorldRaidUserDeckInfoPopup.open(hoid)
+
+        return
+    end
+
     if IS_ARENA_OPEN() then -- 콜로세움 (신규)
         RequestUserDeckInfoPopupNew(uid)
     else
@@ -635,13 +647,13 @@ end
 -------------------------------------
 function UI_UserInfoDetailPopup:open(user_info, is_visit, close_cb, hoid)
 	local peer_uid = user_info:getUid()
-	RequestUserInfoDetailPopup(peer_uid, is_visit, close_cb, hoid)
+	RequestUserInfoDetailPopup(peer_uid, is_visit, close_cb, user_info, hoid)
 end
 
 -------------------------------------
 -- function RequestUserInfoDetailPopup
 -------------------------------------
-function RequestUserInfoDetailPopup(peer_uid, is_visit, close_cb, hoid)
+function RequestUserInfoDetailPopup(peer_uid, is_visit, close_cb, user_info, hoid)
 	-- 유저 ID
     local uid = g_userData:get('uid')
 	local peer_uid = peer_uid
@@ -649,6 +661,8 @@ function RequestUserInfoDetailPopup(peer_uid, is_visit, close_cb, hoid)
     local function success_cb(ret)
 		local t_user_info = ret['user_info']
         t_user_info['hoid'] = hoid
+        t_user_info['visit_type'] = user_info:getVisitType()
+
         local ui = UI_UserInfoDetailPopup(t_user_info, is_visit)
 		ui:setCloseCB(close_cb)
     end

@@ -606,12 +606,38 @@ function ServerData_WorldRaid:request_WorldRaidCompliment(wrid, finish_cb, fail_
 end
 
 -------------------------------------
+--- @function request_WorldRaidUserDeck
+--- @brief 유저 덱 상세 정보
+-------------------------------------
+function ServerData_WorldRaid:request_WorldRaidUserDeck(hoid, finish_cb, fail_cb)
+    local uid = g_userData:get('uid')
+
+    -- 성공 시 콜백
+    local function success_cb(ret)
+        if finish_cb then
+            finish_cb(ret)
+        end
+    end
+    
+    cclog('hoid', hoid)
+    local ui_network = UI_Network()
+    ui_network:setUrl('/world_raid/ranking/detail')
+    ui_network:setParam('uid', uid)
+    ui_network:setParam('hoid', hoid)
+    ui_network:setRevocable(true)
+    ui_network:setSuccessCB(success_cb)
+    ui_network:setResponseStatusCB(fail_cb)
+    ui_network:setFailCB(fail_cb)
+    ui_network:request()
+    return ui_network
+end
+
+-------------------------------------
 --- @function request_WorldRaidReset
 --- @brief 리셋하기(테스트 기능)
 -------------------------------------
 function ServerData_WorldRaid:request_WorldRaidReset(wrid, type, finish_cb, fail_cb)
     local uid = g_userData:get('uid')
-    
 
     -- 성공 시 콜백
     local function success_cb(ret)
@@ -619,9 +645,13 @@ function ServerData_WorldRaid:request_WorldRaidReset(wrid, type, finish_cb, fail
             self.m_isAvailableCompliment = true
         elseif type == 'ranking' then
             self.m_rankReward = { [tostring(wrid)] = 0}
+        elseif type == 'score' then
+            self.m_myRank = nil
         end
 
+        -- 공통 응답
         g_serverData:networkCommonRespone(ret)
+
         if finish_cb then
             finish_cb(ret)
         end

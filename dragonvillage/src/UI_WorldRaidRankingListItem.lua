@@ -28,7 +28,7 @@ end
 -------------------------------------
 function UI_WorldRaidRankingListItem:initUI()
     local vars = self.vars
-    local t_rank_info = StructUserInfoArena:create_forRanking(self.m_rankInfo)
+    local t_rank_info = StructUserInfoWorldRaid:create_forRanking(self.m_rankInfo)
 
     -- 점수 표시
     local score = tonumber(self.m_rankInfo['score'])
@@ -46,13 +46,11 @@ function UI_WorldRaidRankingListItem:initUI()
 
     -- 순위 표시
     local rankStr = tostring(comma_value(self.m_rankInfo['rank']))
-    if (self.m_rankInfo['rank'] < 0) then
+    if (self.m_rankInfo['rank'] <= 0) then
         rankStr = '-'
     end
 
     vars['rankLabel']:setString(rankStr)
-
-
     do -- 리더 드래곤 아이콘
         local ui = t_rank_info:getLeaderDragonCard()
         if ui then
@@ -61,7 +59,7 @@ function UI_WorldRaidRankingListItem:initUI()
             
 			ui.vars['clickBtn']:registerScriptTapHandler(function() 
 				local is_visit = true
-				UI_UserInfoDetailPopup:open(t_rank_info, is_visit, nil)
+				UI_UserInfoDetailPopup:open(t_rank_info, is_visit, nil, self.m_rankInfo['hoid'])
 			end)
         end
     end

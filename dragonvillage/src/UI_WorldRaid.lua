@@ -358,6 +358,8 @@ function UI_WorldRaid:click_resetBtn(type)
 
     local vars = self.vars
     local finish_cb = function(ret)
+        g_worldRaidData.m_rankingUpdateAt:setUpdatedAt()
+        self:refreshRanking()
         UIManager:toastNotificationRed('초기화 완료')
     end
   

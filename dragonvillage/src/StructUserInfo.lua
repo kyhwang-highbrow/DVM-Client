@@ -570,3 +570,10 @@ function StructUserInfo:getUserText()
     end
     return str
 end
+
+-------------------------------------
+--- @function getVisitType
+-------------------------------------
+function StructUserInfo:getVisitType()
+    return 'normal'
+end

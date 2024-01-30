@@ -119,6 +119,7 @@ local t_module = {
     'StructUserInfoArena',
     'StructUserInfoArenaNew',
 	'StructUserInfoClanWar',
+    'StructUserInfoWorldRaid',
     'StructWaveRegenGroup',
     'StructCollisionData',
 	'StructBookData',
@@ -1889,6 +1890,7 @@ local t_module = {
     'UI_WorldRaidBoard', -- 월드 레이드 게시판
     'UI_WorldRaidRewardPopup', -- 월드 레이드 보상 화면
     'UI_ResultLeaderBoard_WorldRaid', -- 리더보드
+    'UI_WorldRaidUserDeckInfoPopup', -- 덱 상세정보
 
     -- 개발 패널
     'UI_DevPanel',
