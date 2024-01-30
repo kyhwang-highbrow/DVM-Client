@@ -137,7 +137,7 @@ function UI_WorldRaidRanking:makeRankTableView(my_rank, ranking_list)
     rank_list:setMyRank(make_my_rank_cb)
     rank_list:setOffset(self.m_rankOffset)
     rank_list:makeRankMoveBtn(func_prev_cb, func_next_cb, SCORE_OFFSET_GAP)
-    rank_list:makeRankList(rank_node)
+    rank_list:makeRankList(rank_node, cc.size(550, (55 + 5)))
     
     local idx = 0
     for i,v in ipairs(l_rank_list) do
