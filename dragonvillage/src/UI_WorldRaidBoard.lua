@@ -321,7 +321,7 @@ function UI_WorldRaidBoard:click_cheerBtn()
     self:refresh()
   end
 
-  g_worldRaidData:request_WorldRaidCheer(self.m_worldRaidId, finish_cb)
+  g_worldRaidData:request_WorldRaidCompliment(self.m_worldRaidId, finish_cb)
 end
 
 -------------------------------------

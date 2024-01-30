@@ -572,15 +572,18 @@ function ServerData_WorldRaid:request_WorldRaidReward(wrid, finish_cb, fail_cb)
 end
 
 -------------------------------------
---- @function request_WorldRaidCheer
+--- @function request_WorldRaidCompliment
 --- @brief 칭찬하기
 -------------------------------------
-function ServerData_WorldRaid:request_WorldRaidCheer(wrid, finish_cb, fail_cb)
+function ServerData_WorldRaid:request_WorldRaidCompliment(wrid, finish_cb, fail_cb)
     local uid = g_userData:get('uid')
 
     -- 성공 시 콜백
     local function success_cb(ret)
-        g_serverData:networkCommonRespone(ret)
+        self.m_isAvailableCompliment = false
+        self:applyResponse(ret)
+        g_highlightData:setDirty(true)        
+        g_serverData:networkCommonRespone_addedItems(ret)
         if finish_cb then
             finish_cb(ret)
         end
