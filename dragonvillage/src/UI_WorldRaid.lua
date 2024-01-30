@@ -239,13 +239,13 @@ function UI_WorldRaid:makeRankingTableView()
 
     local l_rank_list = g_worldRaidData:getCurrentRankingList()
     local rank_list = UIC_RankingList()
-    rank_list:setRankUIClass(UI_WorldRaidRankingListItem, create_cb)
+    rank_list:setRankUIClass(UI_WorldRaidRankingListItem, create_cb)    
     rank_list:setRankList(l_rank_list)
     rank_list:setEmptyStr(Str('랭킹 정보가 없습니다'))
     rank_list:setMyRank(make_my_rank_cb)
     rank_list:setOffset(1)
     --rank_list:makeRankMoveBtn(func_prev_cb, func_next_cb, RANK_OFFSET_GAP)
-    rank_list:makeRankList(rank_node)
+    rank_list:makeRankList(rank_node, cc.size(550, (55 + 5)))
 end
 
 -------------------------------------

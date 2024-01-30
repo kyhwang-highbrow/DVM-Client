@@ -15,6 +15,7 @@ function UI_WorldRaidRankingBoardItem:init(click_cb)
     self:initUI()
     self:initButton()
     self:refresh()
+    self.root:scheduleUpdateWithPriorityLua(function(dt) self:update(dt) end, 1)
 end
 
 -------------------------------------
@@ -45,10 +46,17 @@ end
 -------------------------------------
 -- function refresh
 -------------------------------------
-function UI_WorldRaidRankingBoardItem:refresh()
+function UI_WorldRaidRankingBoardItem:update()
 	local vars = self.vars
     local is_available_reward = g_worldRaidData:isAvailableWorldRaidReward()
     vars['notiSprite']:setVisible(is_available_reward)
+end
+
+-------------------------------------
+-- function refresh
+-------------------------------------
+function UI_WorldRaidRankingBoardItem:refresh()
+	local vars = self.vars
 end
 
 --@CHECK
