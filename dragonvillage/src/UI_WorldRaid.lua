@@ -95,10 +95,12 @@ function UI_WorldRaid:initButton()
     vars['normalTestBtn']:registerScriptTapHandler(function () self:click_battleTestBtn(1) end)
     vars['cooperationTestBtn']:registerScriptTapHandler(function () self:click_battleTestBtn(2) end)
     vars['lingerTestBtn']:registerScriptTapHandler(function () self:click_battleTestBtn(3) end)
+    vars['resetScoreBtn']:registerScriptTapHandler(function () self:click_resetBtn('score') end)
 
     vars['normalTestBtn']:setVisible(IS_TEST_MODE())
     vars['cooperationTestBtn']:setVisible(IS_TEST_MODE())
     vars['lingerTestBtn']:setVisible(IS_TEST_MODE())
+    vars['resetScoreBtn']:setVisible(IS_TEST_MODE())
 end
 
 -------------------------------------
@@ -347,6 +349,22 @@ function UI_WorldRaid:click_battleTestBtn(world_raid_party_type)
 end
 
 -------------------------------------
+--- @function click_resetBtn
+-------------------------------------
+function UI_WorldRaid:click_resetBtn(type)
+    if IS_TEST_MODE() == false then
+        return
+    end
+
+    local vars = self.vars
+    local finish_cb = function(ret)
+        UIManager:toastNotificationRed('초기화 완료')
+    end
+  
+    g_worldRaidData:request_WorldRaidReset(self.m_worldRaidId, type, finish_cb)
+end
+
+-------------------------------------
 --- @function refresh
 -------------------------------------
 function UI_WorldRaid:update()
@@ -354,8 +372,6 @@ function UI_WorldRaid:update()
     local str = g_worldRaidData:getRemainTimeString()
     vars['timeLabel']:setString(str)
 end
-
-
 
 -------------------------------------
 -- function initDevPanel
@@ -397,9 +413,7 @@ function UI_WorldRaid:initDevPanel()
             dev_panel:addDevComponent(t_component) -- params: struct_dev_panel_component(StructDevPanelComponent)
         end
     end
-       
 end
-
 
 --@CHECK
 UI:checkCompileError(UI_WorldRaid)
