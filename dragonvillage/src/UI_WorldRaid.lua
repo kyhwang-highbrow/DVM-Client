@@ -355,12 +355,12 @@ function UI_WorldRaid:click_resetBtn(type)
     if IS_TEST_MODE() == false then
         return
     end
+    g_worldRaidData.m_rankingUpdateAt = ExperationTime()
 
     local vars = self.vars
     local finish_cb = function(ret)
-        g_worldRaidData.m_rankingUpdateAt:setUpdatedAt()
         self:refreshRanking()
-        UIManager:toastNotificationRed('초기화 완료')
+        UIManager:toastNotificationRed('점수 달성 정보 초기화 완료')
     end
   
     g_worldRaidData:request_WorldRaidReset(self.m_worldRaidId, type, finish_cb)
