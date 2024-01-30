@@ -344,7 +344,6 @@ function UI_WorldRaidResult:show_boss_hp()
     self:doNextWork()
 end
 
-
 -------------------------------------
 --- @function show_result_info
 -------------------------------------
@@ -353,7 +352,17 @@ function UI_WorldRaidResult:show_result_info()
     vars['resultInfoNode']:setVisible(true)
 
     local my_rank = g_worldRaidData:getCurrentMyRanking()
-    vars['rankLabel']:setStringArg(my_rank['rank'])
+    local diff = math_floor(self.m_damage - my_rank['score'])
+
+    local best_str=  Str('나의 최고 기록 {1}', comma_value(my_rank['score']))
+    vars['prevScoreLabel']:setString(best_str)
+
+    if diff > 0 then
+        vars['diffLabel']:setString(string.format("{@G}%s ▲)",  comma_value(diff)))
+    else
+        diff = math_abs(diff)
+        vars['diffLabel']:setString(string.format("{@R}%s ▼", comma_value(diff)))
+    end
 end
 
 -------------------------------------

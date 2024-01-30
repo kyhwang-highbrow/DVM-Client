@@ -111,8 +111,6 @@ function UI_WorldRaid:initUI()
     local monster_id_list = g_stageData:getMonsterIDList(stage_id)
     local boss_id = monster_id_list[#monster_id_list]
     local attr = TableStageData:getStageAttr(stage_id)
-
-    cclog('stage_id', stage_id)
     
     do -- 보스 이름
         local boss_name = TableMonster():getMonsterName(boss_id)
