@@ -40,7 +40,7 @@ function ServerData_WorldRaid:init()
 
     self.m_complimentCount = 0
     self.m_isAvailableCompliment = false
-    self.m_rankReward = -1
+    self.m_rankReward = {}
 end
 
 -------------------------------------
@@ -93,9 +93,9 @@ function ServerData_WorldRaid:isWorldRaidRewardPeriod()
 		return false
 	end
 
-    -- if self:getPrevSeasonId() <= 0 then
-    --     return false
-    -- end
+    if self:getPrevSeasonId() <= 0 then
+        return false
+    end
 
     return true
 end
@@ -123,7 +123,9 @@ function ServerData_WorldRaid:isAvailableWorldRaidRewardRanking()
         return false
     end
 
-    return self.m_rankReward == 0
+    local wrid = self:getPrevSeasonId()
+    local reward = self.m_rankReward[tostring(wrid)] or -1
+    return reward == 0
 end
 
 -------------------------------------
@@ -146,10 +148,11 @@ function ServerData_WorldRaid:getPrevSeasonId()
         return 0
     end
 
-    for id, v in self.m_tableWorldRaidSchedule do
+    for id, v in pairs(self.m_tableWorldRaidSchedule) do
         if v['wrid'] == world_raid_id then
             local find_id = id - 1
             local world_raid_info = self.m_tableWorldRaidSchedule[find_id]
+
             if world_raid_info == nil then
                 return 0
             end
@@ -552,7 +555,7 @@ function ServerData_WorldRaid:request_WorldRaidReward(wrid, finish_cb, fail_cb)
 
     -- 성공 시 콜백
     local function success_cb(ret)
-        self.m_rankReward = -1
+        self:applyResponse(ret)
         g_serverData:networkCommonRespone_addedItems(ret)
         if finish_cb then
             finish_cb(ret)
@@ -615,7 +618,7 @@ function ServerData_WorldRaid:request_WorldRaidReset(wrid, type, finish_cb, fail
         if type == 'compliment' then
             self.m_isAvailableCompliment = true
         elseif type == 'ranking' then
-            self.m_rankReward = 0
+            self.m_rankReward = { [tostring(wrid)] = 0}
         end
 
         g_serverData:networkCommonRespone(ret)

@@ -240,8 +240,10 @@ function UI_Lobby:entryCoroutine()
         -- 월드 레이드 정보
         if (g_worldRaidData:isActive()) then
             co:work('# 월드 레이드 정보 받는 중')
-            g_worldRaidData:request_WorldRaidInfo(co.NEXT, required_fail_cb)
+            g_worldRaidData:request_WorldRaidInfo(co.NEXT, required_fail_cb)            
             if co:waitWork() then return end
+            local lobby_map = self.m_lobbyWorldAdapter:getLobbymap()
+            LobbyMapFactory:makeLobbyBoard_onLayer(lobby_map.m_groudNode)
         end
 
         -- 네스트 던전 정보 갱신이 필요한 경우 (고대 유적 던전 오픈과 같은 케이스)

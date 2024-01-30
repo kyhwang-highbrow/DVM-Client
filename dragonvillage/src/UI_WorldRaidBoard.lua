@@ -71,6 +71,12 @@ end
 -------------------------------------
 function UI_WorldRaidBoard:makeRankingRewardInfo(ret)
     self.m_tRankingRewardInfo = {}
+
+    if ret['my_info'] == nil then
+        return
+    end
+
+
     self.m_tRankingRewardInfo['user_info'] = StructUserInfoClanRaid:create_forRanking(ret['my_info'])
     self.m_tRankingRewardInfo['rank'] = StructUserInfoClanRaid:create_forRanking(ret['my_info'])
     local prev_rank = ret['my_info']['rank'] or 0
@@ -97,7 +103,7 @@ function UI_WorldRaidBoard:checkEnterEvent()
         local wrid = self.m_worldRaidId
 
         local finish_cb = function(ret)
-            UI_WorldRaidRewardPopup(ret)
+            UI_WorldRaidRewardPopup(self.m_tRankingRewardInfo)
         end
 
         local fail_cb = function(ret)
@@ -334,13 +340,14 @@ function UI_WorldRaidBoard:click_resetBtn(type)
         UIManager:toastNotificationRed('초기화 완료')
 
         self:close()
-        UI_WorldRaidBoard.open()
+
+        if type ~= 'ranking' then
+            UI_WorldRaidBoard.open()
+        end
     end
   
     g_worldRaidData:request_WorldRaidReset(self.m_worldRaidId, type, finish_cb)
 end
-
-
 
 -------------------------------------
 --- @function request_total_ranking

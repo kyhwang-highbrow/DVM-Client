@@ -93,8 +93,6 @@ function LobbyMapFactory:setDeco(lobby_map, ui_lobby, entry_count)
         --lobby_map:addLayer(self:makeLobbyDecoLayer(deco_type), 1) -- 근경 레이어
     end
 
-    -- 랭킹 게시판 정보
-    self:makeLobbyBoard_onLayer(lobby_ground)
     return lobby_map
 end
 

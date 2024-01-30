@@ -1308,8 +1308,6 @@ function UI_TitleScene:workGetServerInfo()
         end
         if co:waitWork() then return end
 
-
-
 		-- /users/title : title 통합 api
 		co:work()
 		self.m_loadingUI:showLoading(Str('던전 정보를 확인 중...'))
