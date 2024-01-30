@@ -808,9 +808,9 @@ end
 --- @brief 프로필 프레임 애니메이터
 -------------------------------------
 function IconHelper:getProfileFrameAnimator(profile_frame_id)
-    -- local llist = {900001, 900002, 900003, 900004, 900004, 0}
-    -- local random_idx = math_random(1, 6)
-    -- profile_frame_id = llist[random_idx]
+    local llist = {900001, 900002, 900003, 900004, 900004, 0}
+    local random_idx = math_random(1, 6)
+    profile_frame_id = llist[random_idx]
     if profile_frame_id == 0 then
         return nil
     end
