@@ -152,30 +152,28 @@ end
 -- function makeStructLanguageMap
 -------------------------------------
 function StructLanguage:makeStructLanguageMap()
-    if Translate.use133Languages == true then
-        local language_map = TableLanguageConfig:getInstance():getStructLanguageMap()
-        return language_map
-    end
+    local language_map = TableLanguageConfig:getInstance():getStructLanguageMap()
+    return language_map
+    
+    -- local l_lan = {
+    --     'ko',
+    --     'en',
+    --     'zh',
+    --     'ja',
+    --     'th',
+    --     'es',
+    --     'fa',
+    -- }
 
-    local l_lan = {
-        'ko',
-        'en',
-        'zh',
-        'ja',
-        'th',
-        'es',
-        'fa',
-    }
+    -- local t_struct_lan = {}
+    -- for _,lan in ipairs(l_lan) do
+    --     local create_func = StructLanguage['create_' .. lan]
+    --     if create_func then
+    --         t_struct_lan[lan] = create_func()
+    --     end
+    -- end
 
-    local t_struct_lan = {}
-    for _,lan in ipairs(l_lan) do
-        local create_func = StructLanguage['create_' .. lan]
-        if create_func then
-            t_struct_lan[lan] = create_func()
-        end
-    end
-
-    return t_struct_lan
+    -- return t_struct_lan
 end
 
 -------------------------------------

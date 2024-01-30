@@ -299,18 +299,18 @@ end
 -- @brief
 -------------------------------------
 function UI_Setting:click_languageBtn()
-    if Translate.use133Languages == true then
-        UI_LanguagePopup(true)
-    else
-        local function change_lang()
-            --local is_use_loading = true
-            --local scene = SceneLobby(is_use_loading)
-            --scene:runScene()
-            CppFunctionsClass:restart()
-        end
+    UI_LanguagePopup(true)
 
-        UI_SelectLanguagePopup(change_lang)
-    end
+    -- else
+    --     local function change_lang()
+    --         --local is_use_loading = true
+    --         --local scene = SceneLobby(is_use_loading)
+    --         --scene:runScene()
+    --         CppFunctionsClass:restart()
+    --     end
+
+    --     UI_SelectLanguagePopup(change_lang)
+    -- end
 end
 
 -------------------------------------

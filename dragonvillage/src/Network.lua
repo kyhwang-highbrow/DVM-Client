@@ -326,7 +326,7 @@ function Network_platform_getPatchVersionInfo(app_ver, success_cb, fail_cb)
     t_data['game_id'] = 1003
     t_data['app_ver'] = app_ver
     t_data['server'] = CppFunctions:getTargetServer()
-    t_data['lang'] = Translate.use133Languages and lang or nil
+    t_data['lang'] = lang
 
     -- 요청 정보 설정
     local t_request = {}

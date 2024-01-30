@@ -9,18 +9,10 @@ Translate = {
     m_gameLang = nil,
 }
 
-Translate.use133Languages = false -- 133개 언어 제공 사용
 -------------------------------------
 -- function init
 -------------------------------------
 function Translate:init()
-    local app_ver = getAppVerNum()    
-    if ((app_ver >= 1004005) or (app_ver < 1000000 and app_ver >= 9006) or app_ver == 9009009) then
-        -- 앱 버전을 만족해도 아래 조건을 추가적으로 걸어둠
-        -- 실제로 서비스하게 될 떄 조건을 해제해줌
-        Translate.use133Languages = true
-    end
-
     -- 지원 언어의 구조체 리스트를 생성 (StructLanguage 참고)
     self.m_mStructLanguageMap = StructLanguage:makeStructLanguageMap()
     -- getDeviceLang을 하면 중국어에서 zh-cn 으로 들어오고
@@ -94,9 +86,6 @@ end
 -------------------------------------
 function Translate:makeDeviceLanguage()
     local lang_code = cc.Application:sharedApplication():getCurrentLanguageCode()
-    if Translate.use133Languages == false then
-        return lang_code
-    end
 
     if lang_code == 'zh' then
         local locale = CppFunctionsClass:getLocale()
@@ -334,35 +323,35 @@ function Translate:setDefaultFallbackFont()
 	-- ko
 	--cc.Label:setDefaultFallbackFontTTF('res/font/common_font_01.ttf', 'res/font/common_font_01_cn.ttc')
 	--cc.Label:setDefaultFallbackFontTTF('res/font/common_font_01.ttf', 'res/font/common_font_01_ja.ttf')
-    if Translate.use133Languages == true then
-        -- Fallback font 초기화
-        cc.Label:resetFallbackFontTTF()
 
-        -- FallBack Font 설정 (먼저 호출할수록 우선 순위가 높음)
-        local curr_font_name = self:getFontName()
-        local curr_font_path = self:getFontPath()
-        
-        local unique_font_name_list = TableLanguageConfig:getInstance():getUniqueFontNameList() -- 현재 존재하는 폰트 파일 리스트
-        table.removeItemFromList(unique_font_name_list, curr_font_name) -- 현재 언어가 사용 중인 폰트는 제외
-        table.removeItemFromList(unique_font_name_list, 'common_font_01_ja.ttf') -- common_font_01_ja.ttf 의 경우 일본어 전용 폰트이다. common_font_01과 일본어 한자 빼고 내용이 동일하다.
+    -- Fallback font 초기화
+    cc.Label:resetFallbackFontTTF()
 
-        for idx, unique_font_name in ipairs(unique_font_name_list) do
-            cc.Label:addFallbackFontTTF(curr_font_path, 'res/font/' .. unique_font_name)
-        end
+    -- FallBack Font 설정 (먼저 호출할수록 우선 순위가 높음)
+    local curr_font_name = self:getFontName()
+    local curr_font_path = self:getFontPath()
+    
+    local unique_font_name_list = TableLanguageConfig:getInstance():getUniqueFontNameList() -- 현재 존재하는 폰트 파일 리스트
+    table.removeItemFromList(unique_font_name_list, curr_font_name) -- 현재 언어가 사용 중인 폰트는 제외
+    table.removeItemFromList(unique_font_name_list, 'common_font_01_ja.ttf') -- common_font_01_ja.ttf 의 경우 일본어 전용 폰트이다. common_font_01과 일본어 한자 빼고 내용이 동일하다.
 
-        return
+    for idx, unique_font_name in ipairs(unique_font_name_list) do
+        cc.Label:addFallbackFontTTF(curr_font_path, 'res/font/' .. unique_font_name)
     end
 
-    -- ja / es
-    cc.Label:setDefaultFallbackFontTTF('res/font/common_font_01_ja.ttf', 'res/font/common_font_01.ttf')
+    --return
     
-    -- zh
-    cc.Label:setDefaultFallbackFontTTF('res/font/common_font_01_cn.ttc', 'res/font/common_font_01.ttf')
-    --cc.Label:setDefaultFallbackFontTTF('res/font/common_font_01_cn.ttc', 'res/font/common_font_01_ja.ttf')
 
-    -- th
-    cc.Label:setDefaultFallbackFontTTF('res/font/common_font_01_th.ttf', 'res/font/common_font_01.ttf')
-    --cc.Label:setDefaultFallbackFontTTF('res/font/common_font_01_th.ttf', 'res/font/common_font_01_ja.ttf')
+    -- -- ja / es
+    -- cc.Label:setDefaultFallbackFontTTF('res/font/common_font_01_ja.ttf', 'res/font/common_font_01.ttf')
+    
+    -- -- zh
+    -- cc.Label:setDefaultFallbackFontTTF('res/font/common_font_01_cn.ttc', 'res/font/common_font_01.ttf')
+    -- --cc.Label:setDefaultFallbackFontTTF('res/font/common_font_01_cn.ttc', 'res/font/common_font_01_ja.ttf')
+
+    -- -- th
+    -- cc.Label:setDefaultFallbackFontTTF('res/font/common_font_01_th.ttf', 'res/font/common_font_01.ttf')
+    -- --cc.Label:setDefaultFallbackFontTTF('res/font/common_font_01_th.ttf', 'res/font/common_font_01_ja.ttf')
 end
 
 -------------------------------------
@@ -431,11 +420,6 @@ end
 --- @brief RTL 언어인지 반환
 -------------------------------------
 function Translate:isRTLLanguage()
-    if Translate.use133Languages == false then
-        local lang = self.m_gameLang
-        return lang == 'fa'
-    end
-
     local struct_lang = self:getStructLanguage()
     return struct_lang.m_isRTL or false
 end
