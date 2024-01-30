@@ -30,6 +30,8 @@ function UI_WorldRaidResult:init(stage_id, boss, damage, t_data, ret)
     self.m_grade = 5
     self.m_lCloseRankers = {}
 
+    --self.m_data['drop_reward_list'] = {{700001, 10}, {700001, 10},{700001, 10},{700001, 10},{700001, 10}}
+
     local vars = self:load('world_raid_result.ui')
     UIManager:open(self, UIManager.POPUP)
     self.m_uiName = 'UI_WorldRaidResult'
@@ -360,9 +362,9 @@ function UI_WorldRaidResult:show_result_info()
     local func = function(value)			
         value = math_abs(math_floor(value))
         if diff > 0 then            
-            vars['diffLabel']:setString(string.format("▲ {@G}%s",  comma_value(value)))
+            vars['diffLabel']:setString(string.format("{@G}▲ %s",  comma_value(value)))
         else            
-            vars['diffLabel']:setString(string.format("▼ {@R}%s", comma_value(value)))
+            vars['diffLabel']:setString(string.format("{@R}▼ %s", comma_value(value)))
         end
     end
 
