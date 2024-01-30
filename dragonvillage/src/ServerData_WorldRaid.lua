@@ -553,7 +553,7 @@ function ServerData_WorldRaid:request_WorldRaidReward(wrid, finish_cb, fail_cb)
     -- 성공 시 콜백
     local function success_cb(ret)
         self.m_rankReward = -1
-        g_serverData:networkCommonRespone(ret)
+        g_serverData:networkCommonRespone_addedItems(ret)
         if finish_cb then
             finish_cb(ret)
         end

@@ -342,6 +342,8 @@ function IconHelper:getItemIcon(item_id, t_sub_data)
     -- 프로필 프레임
     elseif (item_type == 'profile_frame') then
         local leader_dragon = g_dragonsData:getLeaderDragon()
+
+        cclog('item_id', item_id)
         local animator = IconHelper:getProfileFrameAnimator(item_id)
         local card = UI_DragonCard(leader_dragon, nil, nil, nil, true)
         card.root:addChild(animator.m_node)
@@ -808,13 +810,6 @@ end
 --- @brief 프로필 프레임 애니메이터
 -------------------------------------
 function IconHelper:getProfileFrameAnimator(profile_frame_id)
-    local llist = {900001, 900002, 900003, 900004, 900004, 0}
-    local random_idx = math_random(1, 6)
-    profile_frame_id = llist[random_idx]
-    if profile_frame_id == 0 then
-        return nil
-    end
-
     local res, scale = TableProfileFrame:getInstance():getProfileFrameRes(profile_frame_id)
     local animator = MakeAnimator(res)
     if (animator) then

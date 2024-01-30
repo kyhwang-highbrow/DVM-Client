@@ -41,7 +41,6 @@ function ServerData_ProfileFrame:isExpiredProfileFrame(profile_frame_id)
     return curr_time > expired_at, expired_at - curr_time
 end
 
-
 -------------------------------------
 --- @function isExpiredProfileFrame
 --- @brief 프로필 프레임 아이디 만료 기한

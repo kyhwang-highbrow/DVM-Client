@@ -12,7 +12,7 @@ UI_WorldRaidRewardPopup = class(PARENT,{
 -- function init
 -------------------------------------
 function UI_WorldRaidRewardPopup:init(t_info, profile_frame_id)
-    self.m_profileFrameId = profile_frame_id
+    self.m_profileFrameId = profile_frame_id or 0
     self.m_profileFrameAnimator = nil
 
     local vars = self:load('world_raid_reward_popup.ui')
@@ -110,8 +110,6 @@ function UI_WorldRaidRewardPopup:initButton()
     local vars = self.vars
     vars['okBtn']:registerScriptTapHandler(function() self:close() end)
     vars['equipBtn']:registerScriptTapHandler(function() self:click_equipBtn() end)
-
-
 end
 
 -------------------------------------
