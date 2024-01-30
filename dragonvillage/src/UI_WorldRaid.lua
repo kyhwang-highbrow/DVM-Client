@@ -28,7 +28,7 @@ end
 -------------------------------------
 function UI_WorldRaid:init()
     self.m_worldRaidId = g_worldRaidData:getWorldRaidId()
-    local vars = self:load_keepZOrder('world_raid_scene.ui')
+    local vars = self:load('world_raid_scene.ui')
     UIManager:open(self, UIManager.SCENE)
     -- backkey 지정
     g_currScene:pushBackKeyListener(self, function() self:click_exitBtn() end, 'UI_WorldRaid')
@@ -49,6 +49,7 @@ function UI_WorldRaid:init()
     -- 보상 안내 팝업
     local function finich_cb()
         self:checkEnterEvent()
+        self:initDevPanel()
     end
 
     self:sceneFadeInAction(nil, finich_cb)
@@ -353,6 +354,52 @@ function UI_WorldRaid:update()
     local str = g_worldRaidData:getRemainTimeString()
     vars['timeLabel']:setString(str)
 end
+
+
+
+-------------------------------------
+-- function initDevPanel
+-- @brief 개발용 코드
+-------------------------------------
+function UI_WorldRaid:initDevPanel()
+    local vars = self.vars
+    
+    if (IS_TEST_MODE()) then
+        local dev_panel = UI_DevPanel()
+        self.root:addChild(dev_panel.root)
+        dev_panel.root:setGlobalZOrder(1000)
+
+        do -- 일일 구매 제한 초기화
+            local t_component = StructDevPanelComponent:create('init_daily')
+            local function func()
+                ServerData_Shop:getInstance():request_shopInit('daily', function()
+                    UIManager:toastNotificationGreen('일일 구매 제한 초기화')
+                    ServerData_Shop:getInstance().m_experationTime:applyExperationTime_HoursLater(0)
+                end)
+            end
+        
+            t_component['cb1'] = func
+            t_component['str'] = '일일 구매 제한 초기화'
+            dev_panel:addDevComponent(t_component) -- params: struct_dev_panel_component(StructDevPanelComponent)
+        end
+
+        do -- 주간 구매 제한 초기화
+            local t_component = StructDevPanelComponent:create('init_weekly')
+            local function func()
+                ServerData_Shop:getInstance():request_shopInit('weekly', function()
+                    UIManager:toastNotificationGreen('주간 구매 제한 초기화')
+                    ServerData_Shop:getInstance().m_experationTime:applyExperationTime_HoursLater(0)
+                end)
+            end
+        
+            t_component['cb1'] = func
+            t_component['str'] = '주간 구매 제한 초기화'
+            dev_panel:addDevComponent(t_component) -- params: struct_dev_panel_component(StructDevPanelComponent)
+        end
+    end
+       
+end
+
 
 --@CHECK
 UI:checkCompileError(UI_WorldRaid)

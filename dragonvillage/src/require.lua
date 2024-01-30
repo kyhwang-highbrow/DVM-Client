@@ -1889,6 +1889,9 @@ local t_module = {
     'UI_WorldRaidBoard', -- 월드 레이드 게시판
     'UI_WorldRaidRewardPopup', -- 월드 레이드 보상 화면
     'UI_ResultLeaderBoard_WorldRaid', -- 리더보드
+
+    -- 개발 패널
+    'UI_DevPanel',
 }
 
 -------------------------------------

@@ -598,3 +598,39 @@ function ServerData_WorldRaid:request_WorldRaidCheer(wrid, finish_cb, fail_cb)
     ui_network:request()
     return ui_network
 end
+
+-------------------------------------
+--- @function request_WorldRaidReset
+--- @brief 리셋하기(테스트 기능)
+-------------------------------------
+function ServerData_WorldRaid:request_WorldRaidReset(wrid, type, finish_cb, fail_cb)
+    local uid = g_userData:get('uid')
+    
+
+    -- 성공 시 콜백
+    local function success_cb(ret)
+        if type == 'compliment' then
+            self.m_isAvailableCompliment = true
+        elseif type == 'ranking' then
+            self.m_rankReward = 0
+        end
+
+        g_serverData:networkCommonRespone(ret)
+        if finish_cb then
+            finish_cb(ret)
+        end
+    end
+    
+    local ui_network = UI_Network()
+    ui_network:setUrl('/manage/world_raid/reset')
+    ui_network:setParam('uid', uid)
+    ui_network:setParam('wrid', wrid)
+    ui_network:setParam('type', type)
+
+    ui_network:setRevocable(true)
+    ui_network:setSuccessCB(success_cb)
+    ui_network:setResponseStatusCB(fail_cb)
+    ui_network:setFailCB(fail_cb)
+    ui_network:request()
+    return ui_network
+end

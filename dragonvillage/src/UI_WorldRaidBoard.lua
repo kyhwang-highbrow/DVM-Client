@@ -123,6 +123,17 @@ function UI_WorldRaidBoard:initButton()
     local vars = self.vars
     vars['infoBtn']:registerScriptTapHandler(function() self:click_infoBtn() end)
     vars['cheerBtn']:registerScriptTapHandler(function() self:click_cheerBtn() end)
+
+
+    if IS_TEST_MODE() == true then
+        vars['resetComplimentBtn']:setVisible(true)
+        vars['resetRankingRewardBtn']:setVisible(true)
+        vars['resetServerComplimentBtn']:setVisible(true)
+
+        vars['resetComplimentBtn']:registerScriptTapHandler(function() self:click_resetBtn('compliment') end)
+        vars['resetRankingRewardBtn']:registerScriptTapHandler(function() self:click_resetBtn('ranking') end)
+        vars['resetServerComplimentBtn']:registerScriptTapHandler(function() self:click_resetBtn('compliment_cnt') end)
+    end
 end
 
 -------------------------------------
@@ -312,6 +323,24 @@ function UI_WorldRaidBoard:click_cheerBtn()
 
   g_worldRaidData:request_WorldRaidCheer(self.m_worldRaidId, finish_cb)
 end
+
+-------------------------------------
+--- @function click_resetBtn
+-------------------------------------
+function UI_WorldRaidBoard:click_resetBtn(type)
+    local vars = self.vars
+
+    local finish_cb = function(ret)
+        UIManager:toastNotificationRed('초기화 완료')
+
+        self:close()
+        UI_WorldRaidBoard.open()
+    end
+  
+    g_worldRaidData:request_WorldRaidReset(self.m_worldRaidId, type, finish_cb)
+end
+
+
 
 -------------------------------------
 --- @function request_total_ranking

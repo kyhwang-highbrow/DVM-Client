@@ -47,6 +47,8 @@ end
 -------------------------------------
 function UI_WorldRaidRankingBoardItem:refresh()
 	local vars = self.vars
+    local is_available_reward = g_worldRaidData:isAvailableWorldRaidReward()
+    vars['notiSprite']:setVisible(is_available_reward)
 end
 
 --@CHECK
