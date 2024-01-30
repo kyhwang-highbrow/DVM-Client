@@ -810,6 +810,10 @@ end
 --- @brief 프로필 프레임 애니메이터
 -------------------------------------
 function IconHelper:getProfileFrameAnimator(profile_frame_id)
+    if profile_frame_id == 0 then
+        return nil
+    end
+
     local res, scale = TableProfileFrame:getInstance():getProfileFrameRes(profile_frame_id)
     local animator = MakeAnimator(res)
     if (animator) then
