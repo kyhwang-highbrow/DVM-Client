@@ -40,6 +40,8 @@ function UI_WorldRaidRewardPopup:initUI(t_info)
     local struct_data = t_info['rank']
     local reward_info = t_info['reward_info']
 
+    ccdump(t_info)
+
     if reward_info == nil then
         return
     end
@@ -65,7 +67,7 @@ function UI_WorldRaidRewardPopup:initUI(t_info)
             vars['rewardNode'..i]:addChild(icon)
             vars['rewardLabel'..i]:setString('')
             if item_type ~= 'profile_frame' then
-                vars['rewardLabel'..i]:setString(comma_value(item_cnt))       
+                vars['rewardLabel'..i]:setString(comma_value(item_cnt))
             end
 
             item_type = TableItem:getItemType(item_id)

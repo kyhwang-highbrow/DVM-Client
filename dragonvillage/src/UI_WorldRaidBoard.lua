@@ -100,17 +100,28 @@ end
 function UI_WorldRaidBoard:checkEnterEvent()
     if g_worldRaidData:isAvailableWorldRaidRewardRanking() == true then
         local wrid = self.m_worldRaidId
-
         local finish_cb = function(ret)
             if self.m_tRankingRewardInfo == nil then
                 return
             end
 
-            if self.m_tRankingRewardInfo['reward_info'] == nil then
+            local profile_frames = ret['profile_frames']
+            if profile_frames == nil then
                 return
             end
 
-            UI_WorldRaidRewardPopup(self.m_tRankingRewardInfo)
+            -- 랭킹 정산 보상은 프레임만 있다고 함
+            local t_reward = {}
+            local profile_frame_id = 0
+            for item_id, _ in pairs(profile_frames) do
+                local t_item = {item_id = tonumber(item_id), count = 1}
+                table.insert(t_reward, t_item)
+                profile_frame_id = tonumber(item_id)
+                break
+            end
+
+            self.m_tRankingRewardInfo['reward_info'] = t_reward
+            UI_WorldRaidRewardPopup(self.m_tRankingRewardInfo, profile_frame_id)
         end
 
         local fail_cb = function(ret)
@@ -118,8 +129,6 @@ function UI_WorldRaidBoard:checkEnterEvent()
 
         g_worldRaidData:request_WorldRaidReward(wrid, finish_cb, fail_cb)
     end
-
-    --UI_WorldRaidRewardPopup(self.m_tRankingRewardInfo, self.m_profileFrameid)
 end
 
 -------------------------------------

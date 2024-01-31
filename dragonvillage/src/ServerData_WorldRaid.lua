@@ -659,10 +659,10 @@ function ServerData_WorldRaid:request_WorldRaidReset(wrid, type, finish_cb, fail
 
     -- 성공 시 콜백
     local function success_cb(ret)
-        
         if type == 'compliment' then
             self.m_isAvailableCompliment = true
         elseif type == 'ranking' then
+            g_userData:applyServerData({}, 'profile_frames')
             self.m_rankReward = { [tostring(wrid)] = 0}
         elseif type == 'score' then
             self.m_myRank = nil
