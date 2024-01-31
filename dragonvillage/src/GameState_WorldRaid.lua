@@ -334,6 +334,13 @@ function GameState_WorldRaid:getTotalDamage()
     local accum_damage = self.m_accumDamage:get()
     local final_damage = self.m_finalDamage
     local total_damage = accum_damage + final_damage
+
+    if g_worldRaidData.m_testScoreFix ~= nil then
+        if g_worldRaidData.m_testScoreFix > 0 and isWin32() then
+            return g_worldRaidData.m_testScoreFix
+        end
+    end
+
     return total_damage
 end
 

@@ -5,6 +5,7 @@ local PARENT = UI
 -------------------------------------
 UI_WorldRaidUserDeckInfoPopup = class(PARENT, {
     m_tData  = 'table',
+    m_structUserInfoWorldRaid = '',
     })
 
 -------------------------------------
@@ -13,6 +14,7 @@ UI_WorldRaidUserDeckInfoPopup = class(PARENT, {
 function UI_WorldRaidUserDeckInfoPopup:init(ret)
     self.m_uiName = 'UI_WorldRaidUserDeckInfoPopup'
     self.m_tData = ret
+    self.m_structUserInfoWorldRaid = StructUserInfoWorldRaid:createUserInfo(ret)
     
     local vars = self:load('world_raid_user.ui')
     UIManager:open(self, UIManager.POPUP)
@@ -46,22 +48,22 @@ end
 -------------------------------------
 function UI_WorldRaidUserDeckInfoPopup:refresh()
     local vars = self.vars
-    -- local struct_user_info = self.m_structUserInfoArena
+    local struct_user_info = self.m_structUserInfoWorldRaid
 
-    -- -- 레벨, 닉네임
-    -- local str_lv = struct_user_info:getUserText()
-    -- vars['nameLabel']:setString(str_lv)
+    -- 레벨, 닉네임
+    local str_lv = struct_user_info:getUserText()
+    vars['nameLabel']:setString(str_lv)
 
-    -- -- 전투력 
-    -- local combat_power = struct_user_info:getDeckCombatPower()
-    -- vars['powerLabel']:setString(Str('전투력 : {1}', comma_value(combat_power)))
+    -- 전투력 
+    local combat_power = struct_user_info:getDeckCombatPower()
+    vars['powerLabel']:setString(Str('전투력 : {1}', comma_value(combat_power)))
 
-    -- -- 테이머
+    -- 테이머
     -- local animator = struct_user_info:getDeckTamerSDAnimator()
     -- vars['tamerNode']:addChild(animator.m_node)
 
-    -- -- 드래곤
-    -- self:refresh_dragons()
+    -- 드래곤
+    self:refresh_dragons()
 end
 
 -------------------------------------
@@ -70,24 +72,24 @@ end
 function UI_WorldRaidUserDeckInfoPopup:refresh_dragons()
     local vars = self.vars
 
-    -- local struct_user_info = self.m_structUserInfoArena
-    -- local player_2d_deck = UI_2DDeck()
-    -- player_2d_deck:setDirection('right')
-    -- vars['formationNode']:addChild(player_2d_deck.root)
-    -- player_2d_deck:initUI()
+    local struct_user_info = self.m_structUserInfoWorldRaid
+    local player_2d_deck = UI_2DDeck()
+    player_2d_deck:setDirection('right')
+    vars['formationNode']:addChild(player_2d_deck.root)
+    player_2d_deck:initUI()
 
-    -- local t_pvp_deck = struct_user_info:getPvpDeck()
-    -- local l_dragons = struct_user_info:getDeck_dragonList()
-    -- local leader = t_pvp_deck and t_pvp_deck['leader'] or 0
-    -- player_2d_deck:setDragonObjectList(l_dragons, leader)
+    local t_pvp_deck = struct_user_info:getPvpDeck()
+    local l_dragons = struct_user_info:getDeck_dragonList()
+    local leader = t_pvp_deck and t_pvp_deck['leader'] or 0
+    player_2d_deck:setDragonObjectList(l_dragons, leader)
 
-    -- -- 진형 설정
-    -- local formation = 'attack'
-    -- if t_pvp_deck then
-    --     formation = t_pvp_deck['formation'] or 'attack'
-    -- end
-    -- local force_arena = true -- 아레나 진형 체크
-    -- player_2d_deck:setFormation(formation, force_arena)
+    -- 진형 설정
+    local formation = 'attack'
+    if t_pvp_deck then
+        formation = t_pvp_deck['formation'] or 'attack'
+    end
+    local force_arena = true -- 아레나 진형 체크
+    player_2d_deck:setFormation(formation, force_arena)
 end
 
 -------------------------------------

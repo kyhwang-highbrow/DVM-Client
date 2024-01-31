@@ -11,6 +11,7 @@ ServerData_WorldRaid = class({
     m_complimentCount = 'number',
     m_isAvailableCompliment = 'boolean',
     m_rankReward = 'number',
+    m_testScoreFix = 'number',
 
 	m_tableWorldRaidRank = 'Table',
 	m_tableWorldRaidSchedule = 'Table',
@@ -619,7 +620,6 @@ function ServerData_WorldRaid:request_WorldRaidUserDeck(hoid, finish_cb, fail_cb
         end
     end
     
-    cclog('hoid', hoid)
     local ui_network = UI_Network()
     ui_network:setUrl('/world_raid/ranking/detail')
     ui_network:setParam('uid', uid)

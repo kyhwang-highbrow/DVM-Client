@@ -430,6 +430,25 @@ function UI_WorldRaid:initDevPanel()
             t_component['str'] = '점수 달성 초기화'
             dev_panel:addDevComponent(t_component) -- params: struct_dev_panel_component(StructDevPanelComponent)
         end
+
+        do -- 점수 달성 초기화
+            local t_component = StructDevPanelComponent:create('fix_score')
+            local function func(val)
+
+                if tonumber(val) ~= nil then
+                    g_worldRaidData.m_testScoreFix = tonumber(val)
+                    UIManager:toastNotificationRed(string.format('[%lld] 점수 고정', g_worldRaidData.m_testScoreFix))
+
+                end
+                --self:click_resetBtn('score')
+            end
+        
+            t_component['edit_cb'] = func
+            t_component['str'] = '점수 고정 설정'
+            dev_panel:addDevComponent(t_component) -- params: struct_dev_panel_component(StructDevPanelComponent)
+        end
+
+
     end
 end
 

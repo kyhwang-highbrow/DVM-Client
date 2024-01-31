@@ -57,23 +57,24 @@ function UI_DevPanel:initUI()
 
 
     do -- UI아래쪽은 터치되지 않도록 임의 버튼 생성
+        --local EMPTY_PNG = 'res/template/empty.png'
+        --local node = cc.MenuItemImage:create(EMPTY_PNG, nil, nil, 1)
+        --local node = ccui.Button:create(EMPTY_PNG, EMPTY_PNG)
+        --node:setContentSize(self.m_width, self.m_height)
+        --node:setDockPoint(cc.p(0.5, 0.5))
+        --node:setAnchorPoint(cc.p(0.5, 0.5))
+
         local EMPTY_PNG = 'res/template/empty.png'
-        local node = cc.MenuItemImage:create(EMPTY_PNG, nil, nil, 1)
-        local node = ccui.Button:create(EMPTY_PNG, EMPTY_PNG)
-        node:setContentSize(self.m_width, self.m_height)
-        node:setDockPoint(cc.p(0.5, 0.5))
+        local node = ccui.Button:create(EMPTY_PNG)
+        node:setScale9Enabled(true)
+        node:setNormalSize(cc.size(self.m_width, self.m_height))
+        node:setPosition(cc.p(0, 0))
         node:setAnchorPoint(cc.p(0.5, 0.5))
+        node:setDockPoint(cc.p(0.5, 0.5))
 
-        -- local EMPTY_PNG = 'res/template/empty.png'
-        -- local node = ccui.Button:create(EMPTY_PNG)
-        -- node:setScale9Enabled(true)
-        -- node:setNormalSize(cc.size(self.m_width, self.m_height))
-        -- node:setPosition(cc.p(0.0, 0.0))
-        -- node:setAnchorPoint(cc.p(0.5, 0.5))
-        -- node:setDockPoint(cc.p(0.5, 0.5))
-
-        -- self.root:addChild(node)
+        self.root:addChild(node)
     end
+
 
     do -- 배경
         local rect = cc.rect(0, 0, 0, 0)
@@ -192,10 +193,10 @@ function UI_DevPanel:makeTableView()
         cell_menu:setAnchorPoint(cc.p(0.5, 0.5))
         cell_menu:setNormalSize(size_width, size_height)
         cell_menu:setPosition(0, 0)
-        --cell_menu:setSwallowTouch(true)
+        cell_menu:setSwallowTouch(true)
 
-        --local cell_root = cc.Node:create()
-        --cell_menu:addChild(cell_root)
+        local cell_root = cc.Node:create()
+        cell_menu:addChild(cell_root)
 
         if data['cb1'] then
             --local node = cc.MenuItemImage:create('res/buttons/64_base_btn_0101.png', 'res/buttons/64_base_btn_0102.png', 1)
@@ -230,11 +231,20 @@ function UI_DevPanel:makeTableView()
         -- 입력으로 처리하는 콜백
         if data['edit_cb'] then
             -- editbox 생성
-            local editbox = cc.EditBox:create(cc.size(80, 60), 'res/template/frame_popup_0101.png')
+            -- local layer = cc.LayerColor:create()
+            -- layer:setColor(cc.c3b(0, 0, 0))
+            -- cell_menu:addChild(layer)
+
+            local normalBG = cc.Scale9Sprite:create('res/template/frame_popup_0101.png')
+            normalBG:setVisible(false)
+            normalBG:setScale(0.5)
+
+            local editbox = cc.EditBox:create(cc.size(80, 60), normalBG)
             editbox:setDockPoint(cc.p(0, 0.5))
             editbox:setAnchorPoint(cc.p(0, 0.5))
             editbox:setPositionX(0)
-            editbox:setFontSize(26)
+            editbox:setFontSize(26)            
+
             cell_menu:addChild(editbox)
             data['editbox'] = editbox
 
