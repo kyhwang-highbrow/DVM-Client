@@ -53,19 +53,22 @@ end
 function UI_WorldRaidRankingBoardItem:update()
 	local vars = self.vars
     vars['iconNode']:setVisible(false)
+    vars['frameNode']:setVisible(false)
     vars['eventLabel']:setVisible(false)
     vars['descLabel']:setVisible(false)
     vars['notiSprite']:setVisible(false)
     vars['effectVisual']:setVisible(false)
 
     if g_worldRaidData:isAvailableWorldRaidRewardRanking() == true then
-        vars['descLabel']:setString(Str('랭킹 보상 획득 가능!'))
-        vars['descLabel']:setVisible(true)
+        vars['frameNode']:setVisible(true)
+        vars['eventLabel']:setString(Str('랭킹 보상 받기!'))
+        vars['eventLabel']:setVisible(true)
         vars['notiSprite']:setVisible(true)
         vars['effectVisual']:setVisible(true)
 
     elseif g_worldRaidData:isAvailableWorldRaidRewardCompliment() == true then
         vars['eventLabel']:setVisible(true)
+        vars['eventLabel']:setString(Str('{1}개 획득 가능!', 500))
         vars['iconNode']:setVisible(true)
         vars['notiSprite']:setVisible(true)
         vars['effectVisual']:setVisible(true)

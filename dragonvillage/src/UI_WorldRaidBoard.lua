@@ -299,12 +299,17 @@ function UI_WorldRaidBoard:refresh()
     local compliment_cnt = self.m_complimentCount
     vars['likeLabel']:setString(comma_value(compliment_cnt))
 
+    
+
     local is_available = g_worldRaidData:isAvailableWorldRaidRewardCompliment()
     if is_available == false then
         vars['cheerBtn']:setBlockMsg(Str("이미 축하를 보냈습니다."))
     else
         vars['cheerBtn']:setBlockMsg(nil)
     end
+
+    vars['rewardMenu']:setVisible(is_available)
+    vars['notiSprite']:setVisible(is_available)
 end
 
 -------------------------------------
