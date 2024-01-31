@@ -437,7 +437,7 @@ function UI_WorldRaid:initDevPanel()
 
                 if tonumber(val) ~= nil then
                     g_worldRaidData.m_testScoreFix = tonumber(val)
-                    UIManager:toastNotificationRed(string.format('[%lld] 점수 고정', g_worldRaidData.m_testScoreFix))
+                    UIManager:toastNotificationRed('점수 고정 설정 완료')
 
                 end
                 --self:click_resetBtn('score')
