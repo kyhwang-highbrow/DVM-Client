@@ -416,7 +416,12 @@ function LobbyMapFactory:makeLobbyBoard_onLayer(node)
         ui.root:setScale(1)
 
         ui.vars['listBtn']:registerScriptTapHandler(function() 
-            UI_WorldRaidBoard.open() 
+
+            local lobby_milestone = self.m_lobbyMap:getLobbyMilestone()
+
+
+
+            UI_WorldRaidBoard.open(lobby_milestone)
         end)
         parent_node:addChild(ui.root, 1)
         --self:makeBoardTouchEvent(parent_node, click_cb)

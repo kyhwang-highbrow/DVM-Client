@@ -28,7 +28,7 @@ function StructMilestoneWorldRaidBoard:isActivate()
         return false
     end
 
-    if g_worldRaidData:isAvailableWorldRaidReward() == false then
+    if g_worldRaidData:isAvailableWorldRaidReward() == false then        
         return false
     end
 

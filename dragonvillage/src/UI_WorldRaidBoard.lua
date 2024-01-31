@@ -76,7 +76,6 @@ function UI_WorldRaidBoard:makeRankingRewardInfo(ret)
         return
     end
 
-
     self.m_tRankingRewardInfo['user_info'] = StructUserInfoClanRaid:create_forRanking(ret['my_info'])
     self.m_tRankingRewardInfo['rank'] = StructUserInfoClanRaid:create_forRanking(ret['my_info'])
     local prev_rank = ret['my_info']['rank'] or 0
@@ -103,6 +102,14 @@ function UI_WorldRaidBoard:checkEnterEvent()
         local wrid = self.m_worldRaidId
 
         local finish_cb = function(ret)
+            if self.m_tRankingRewardInfo == nil then
+                return
+            end
+
+            if self.m_tRankingRewardInfo['reward_info'] == nil then
+                return
+            end
+
             UI_WorldRaidRewardPopup(self.m_tRankingRewardInfo)
         end
 
@@ -129,13 +136,6 @@ function UI_WorldRaidBoard:initButton()
     local vars = self.vars
     vars['infoBtn']:registerScriptTapHandler(function() self:click_infoBtn() end)
     vars['cheerBtn']:registerScriptTapHandler(function() self:click_cheerBtn() end)
-
-
-    -- if IS_TEST_MODE() == true then
-    --     vars['resetComplimentBtn']:setVisible(true)
-    --     vars['resetRankingRewardBtn']:setVisible(true)
-    --     vars['resetServerComplimentBtn']:setVisible(true)
-    -- end
 end
 
 -------------------------------------
@@ -430,11 +430,11 @@ end
 -------------------------------------
 --- @function open
 -------------------------------------
-function UI_WorldRaidBoard.open()
-	-- 삼뉴체크
-  local wrid = 1001 --g_worldRaidData:getPrevSeasonId()
+function UI_WorldRaidBoard.open(lobby_milestone)
+
+  local wrid = g_worldRaidData:getPrevSeasonId()
     local function finish_cb(ret)
-        UI_WorldRaidBoard(wrid, ret)
+        local ui = UI_WorldRaidBoard(wrid, ret)
     end    
     g_worldRaidData:request_WorldRaidRanking(wrid, 'world', 1, 20, finish_cb)
 end

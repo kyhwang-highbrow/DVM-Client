@@ -21,7 +21,6 @@ function LobbyMilestone:init(lobby_map, struct_milestone_list)
     self.m_rootNode:addChild(self.root)
     self.m_lobbyMap = lobby_map
     self.m_milestoneList = struct_milestone_list
-    self.m_milstone = self:getActiveMilstone()
     self.m_arrowAnimator = self.vars['arrowVisual']
 end
 
@@ -38,20 +37,10 @@ function LobbyMilestone:onEvent(event_name, t_event, ...)
         self.m_rootNode:setPosition(x, y)
         self:refresh(cc.p(x, y))
         self:dispatch('lobby_user_status_ui_move', {}, self, x, y)
-    end
-end
 
--------------------------------------
---- @function getActiveMilstone
--------------------------------------
-function LobbyMilestone:getActiveMilstone()
-    for _, v in ipairs(self.m_milestoneList) do
-        if v:isActivate() == true then
-            return v
-        end
+    elseif (event_name == 'refresh_milestone') then
+        self:refresh()
     end
-
-    return nil
 end
 
 -------------------------------------
@@ -59,28 +48,42 @@ end
 -------------------------------------
 function LobbyMilestone:refresh(tamer_world_pos)
     local vars = self.vars
+
+    for _, v in ipairs(self.m_milestoneList) do
+        self:refreshMilestone(v, tamer_world_pos)
+    end
+end
+
+-------------------------------------
+--- @function refreshMilestone
+-------------------------------------
+function LobbyMilestone:refreshMilestone(milestone, tamer_world_pos)
     local lobby_map = self.m_lobbyMap
     self.m_rootNode:setVisible(false)
 
     if lobby_map == nil then
-        return
+        return false
     end
 
-    if self.m_milstone == nil then
-        return
+    if milestone == nil then
+        return false
     end
 
-    if self.m_milstone:isActivate() == false then        
-        return
+    if milestone:isActivate() == false then        
+        return false
     end
 
     if g_lobbyChangeMgr:getLobbyEntering() == true then
-        return
+        return false
     end
 
     self.m_rootNode:setVisible(true)
-    local object_pos = self.m_milstone:getObjectPos()
-    local lobby_direction = self.m_milstone:getObjectLobbyDirection()
+    if tamer_world_pos == nil then
+        return false
+    end
+
+    local object_pos = milestone:getObjectPos()
+    local lobby_direction = milestone:getObjectLobbyDirection()
     local board_world_pos = lobby_map.m_groudNode:convertToWorldSpaceAR(object_pos)    
     local diff_x = board_world_pos.x - tamer_world_pos.x
     local diff = diff_x < 0 and -1 or 1
@@ -95,6 +98,8 @@ function LobbyMilestone:refresh(tamer_world_pos)
         self.root:setPosition(cc.p(x, 100))
         self.m_arrowAnimator:changeAni(str, true)
     end
+
+    return true
 end
 
 -------------------------------------

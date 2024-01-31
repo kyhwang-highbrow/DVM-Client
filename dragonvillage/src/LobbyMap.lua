@@ -252,6 +252,17 @@ function LobbyMap:checkDragonTouch(touch_pos, tamer)
 end
 
 -------------------------------------
+--- @function getLobbyMilestone
+-------------------------------------
+function LobbyMap:getLobbyMilestone()
+    if self.m_lobbyTamerUser == nil then
+        return false
+    end
+
+    return self.m_lobbyTamerUser.m_milestoneUI
+end
+
+-------------------------------------
 --- @function isNeerUserTamer
 -------------------------------------
 function LobbyMap:isNeerUserTamer(obj_node, dist)
@@ -538,9 +549,11 @@ function LobbyMap:addLobbyTamer(tamer, is_bot, t_user_info)
 
             -- UI 이동 이벤트 등록
             lobby_user_status_ui:addListener('lobby_user_status_ui_move', self)
+            g_worldRaidData:setEventListener(lobby_user_status_ui)
 
             -- 테이머가 이동하면 UI도 함께 이동
             tamer:addListener('lobby_character_move', lobby_user_status_ui)
+            --tamer.m_milestoneUI = lobby_user_status_ui
         end
         
     end

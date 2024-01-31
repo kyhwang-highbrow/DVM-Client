@@ -28,6 +28,10 @@ function UI_WorldRaidRankingBoardItem:initUI()
     vars['iconNode']:removeAllChildren()
     vars['iconNode']:addChild(node)
 
+    node = IconHelper:getItemIcon(700001)
+    vars['iconNode']:removeAllChildren()
+    vars['iconNode']:addChild(node)
+
     -- vars['listBtn']:registerScriptTapHandler(function () 
     --     SafeFuncCall(self.m_clickCB)
     -- end)
@@ -48,8 +52,28 @@ end
 -------------------------------------
 function UI_WorldRaidRankingBoardItem:update()
 	local vars = self.vars
-    local is_available_reward = g_worldRaidData:isAvailableWorldRaidReward()
-    vars['notiSprite']:setVisible(is_available_reward)
+    vars['iconNode']:setVisible(false)
+    vars['eventLabel']:setVisible(false)
+    vars['descLabel']:setVisible(false)
+    vars['notiSprite']:setVisible(false)
+    vars['effectVisual']:setVisible(false)
+
+    if g_worldRaidData:isAvailableWorldRaidRewardRanking() == true then
+        vars['descLabel']:setString(Str('랭킹 보상 획득 가능!'))
+        vars['descLabel']:setVisible(true)
+        vars['notiSprite']:setVisible(true)
+        vars['effectVisual']:setVisible(true)
+
+    elseif g_worldRaidData:isAvailableWorldRaidRewardCompliment() == true then
+        vars['eventLabel']:setVisible(true)
+        vars['iconNode']:setVisible(true)
+        vars['notiSprite']:setVisible(true)
+        vars['effectVisual']:setVisible(true)
+
+    else
+        vars['descLabel']:setString(Str('월드 레이드 게시판'))
+        vars['descLabel']:setVisible(true)
+    end
 end
 
 -------------------------------------

@@ -18,6 +18,9 @@ ServerData_WorldRaid = class({
     m_tableWorldRaidScoreReward = 'Table',
 	m_curWorldRaidInfo = 'Table',
 
+    -- 이벤트 객체
+    m_eventDispatcher = 'Lobby',
+
     -- 지구전 관련(구 league_raid) 
     -- 여기다가 전투 관련 변수를 만들면 안되는데 시간이 없어서 그냥 똑같이 만듦
     m_curDeckIndex = 'number',
@@ -38,6 +41,7 @@ function ServerData_WorldRaid:init()
 	self.m_tableWorldRaidSchedule = {}
 	self.m_curWorldRaidInfo = nil
     self.m_curDeckIndex = 1
+    self.m_eventDispatcher = EventDispatcher()
 
     self.m_complimentCount = 0
     self.m_isAvailableCompliment = false
@@ -438,6 +442,14 @@ function ServerData_WorldRaid:getWorldRaidDebuff()
 end
 
 -------------------------------------
+--- @function setEventListener
+-------------------------------------
+function ServerData_WorldRaid:setEventListener(obj)
+    self.m_eventDispatcher:release_EventDispatcher()
+	self.m_eventDispatcher:addListener('refresh_milestone', obj)
+end
+
+-------------------------------------
 --- @function request_WorldRaidInfo
 -------------------------------------
 function ServerData_WorldRaid:request_WorldRaidInfo(_success_cb, _fail_cb)
@@ -556,8 +568,12 @@ function ServerData_WorldRaid:request_WorldRaidReward(wrid, finish_cb, fail_cb)
 
     -- 성공 시 콜백
     local function success_cb(ret)
+        
         self:applyResponse(ret)
         g_serverData:networkCommonRespone_addedItems(ret)
+        self.m_eventDispatcher:dispatch('refresh_milestone')
+
+
         if finish_cb then
             finish_cb(ret)
         end
@@ -584,10 +600,12 @@ function ServerData_WorldRaid:request_WorldRaidCompliment(wrid, finish_cb, fail_
 
     -- 성공 시 콜백
     local function success_cb(ret)
+        
         self.m_isAvailableCompliment = false
         self:applyResponse(ret)
         g_highlightData:setDirty(true)        
         g_serverData:networkCommonRespone_addedItems(ret)
+        self.m_eventDispatcher:dispatch('refresh_milestone')
         if finish_cb then
             finish_cb(ret)
         end
@@ -641,6 +659,7 @@ function ServerData_WorldRaid:request_WorldRaidReset(wrid, type, finish_cb, fail
 
     -- 성공 시 콜백
     local function success_cb(ret)
+        
         if type == 'compliment' then
             self.m_isAvailableCompliment = true
         elseif type == 'ranking' then
@@ -651,6 +670,8 @@ function ServerData_WorldRaid:request_WorldRaidReset(wrid, type, finish_cb, fail
 
         -- 공통 응답
         g_serverData:networkCommonRespone(ret)
+
+        self.m_eventDispatcher:dispatch('refresh_milestone')
 
         if finish_cb then
             finish_cb(ret)
