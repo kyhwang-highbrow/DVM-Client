@@ -661,7 +661,7 @@ function RequestUserInfoDetailPopup(peer_uid, is_visit, close_cb, user_info, hoi
     local function success_cb(ret)
 		local t_user_info = ret['user_info']
         t_user_info['hoid'] = hoid
-        t_user_info['visit_type'] = user_info:getVisitType()
+        t_user_info['visit_type'] = user_info['getVisitType'] ~= nil and user_info:getVisitType() or nil
 
         local ui = UI_UserInfoDetailPopup(t_user_info, is_visit)
 		ui:setCloseCB(close_cb)

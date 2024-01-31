@@ -4,6 +4,7 @@ local PARENT = StructUserInfoArenaNew
 --- @instance
 -------------------------------------
 StructUserInfoWorldRaid = class(PARENT, {
+    m_deckList = '',
 })
 
 -------------------------------------
@@ -44,7 +45,6 @@ function StructUserInfoWorldRaid:create_forRanking(t_data)
     return user_info
 end
 
-
 -------------------------------------
 -- function createUserInfo
 -- @brief 콜로세움 유저 인포
@@ -64,7 +64,6 @@ function StructUserInfoWorldRaid:createUserInfo(t_data)
     user_info.m_hoid = t_data['hoid']
     user_info.m_profileFrame = t_data['profile_frame']
     user_info.m_profileFrameExpiredAt = t_data['profile_frame_expired_at']
-
     user_info.m_leaderDragonObject = StructDragonObject(t_data['leader'])
     
     -- 룬 & 드래곤 리스트 저장
@@ -72,7 +71,20 @@ function StructUserInfoWorldRaid:createUserInfo(t_data)
     user_info:applyDragonsDataList(t_data['dragons'])
 
     -- 덱 저장
-    user_info:applyPvpDeckData(t_data['deckPVP'])
-
+    user_info:applyPvpDeckData(t_data['deck'])
     return user_info
+end
+
+-------------------------------------
+--- @function applyWorldRaidDeckData
+-------------------------------------
+function StructUserInfoWorldRaid:applyWorldRaidDeckData(list)
+    self.m_deckList = list
+end
+
+-------------------------------------
+--- @function getDeckList
+-------------------------------------
+function StructUserInfoWorldRaid:getDeckList()
+    return self.m_deckList
 end

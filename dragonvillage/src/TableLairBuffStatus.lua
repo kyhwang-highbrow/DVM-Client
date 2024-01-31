@@ -182,7 +182,7 @@ end
 -------------------------------------
 -- function getLairStatStrByIds
 -------------------------------------
-function TableLairBuffStatus:getLairStatStrByIds(l_ids)
+function TableLairBuffStatus:getLairStatStrByIds(l_ids, new_line)
     local table_option = TableOption()
     local str = ''
 
@@ -191,7 +191,11 @@ function TableLairBuffStatus:getLairStatStrByIds(l_ids)
         local value = self:getValue(id, 'key_value')
 
         if idx > 1 then
-            str = str .. ', ' .. table_option:getOptionDesc(option, value)
+            if new_line ~= true then
+                str = str .. ', ' .. table_option:getOptionDesc(option, value)
+            else
+                str = str .. '\n' .. table_option:getOptionDesc(option, value)
+            end
         else
             str = str .. table_option:getOptionDesc(option, value)
         end

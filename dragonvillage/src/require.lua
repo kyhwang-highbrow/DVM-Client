@@ -1891,6 +1891,7 @@ local t_module = {
     'UI_WorldRaidRewardPopup', -- 월드 레이드 보상 화면
     'UI_ResultLeaderBoard_WorldRaid', -- 리더보드
     'UI_WorldRaidUserDeckInfoPopup', -- 덱 상세정보
+    'UI_WorldRaidUserDeckInfoRuneListItem', -- 덱 상세정보 드래곤 리스트
 
     -- 개발 패널
     'UI_DevPanel',

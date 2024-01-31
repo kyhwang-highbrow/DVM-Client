@@ -4,20 +4,14 @@ local PARENT = class(UI, ITableViewCell:getCloneTable())
 -- class UI_WorldRaidUserDeckInfoRuneListItem
 -------------------------------------
 UI_WorldRaidUserDeckInfoRuneListItem = class(PARENT, {
-    m_presetRune = 'StructRunePreset',
-    m_ownerUI = '',
-    m_tableViewUI = 'UIC_TableViewTD',
-    m_selectRuneCB = 'function',
-    m_runeUIMap = 'Map<number, UI_RuneCard>',
+    m_dragonObj = '',
 })
 
 -------------------------------------
 -- function init
 -------------------------------------
-function UI_WorldRaidUserDeckInfoRuneListItem:init(struct_rune_preset, owner_ui)
-    self.m_presetRune = struct_rune_preset
-    self.m_ownerUI = owner_ui
-    self.m_runeUIMap = {}
+function UI_WorldRaidUserDeckInfoRuneListItem:init(struct_dragon_object)
+    self.m_dragonObj = struct_dragon_object
     self:load('world_raid_user_rune_item.ui')
     self:initUI()
     self:initButton()
@@ -30,13 +24,83 @@ end
 function UI_WorldRaidUserDeckInfoRuneListItem:initUI()
     local vars = self.vars
 
-    -- 룬 활성화
-    for slot_idx = 1, 6 do
-        local node_name = 'selectSprite' .. slot_idx
-
-        vars[node_name]:stopAllActions()
-        vars[node_name]:runAction(cca.flash())
+    do -- 드래곤
+        local card = UI_DragonCard(self.m_dragonObj)
+        vars['dragonNode']:addChild(card.root)
     end
+
+
+    local t_dragon_data = self.m_dragonObj
+    -- local rune_set_obj = t_dragon_data:getStructRuneSetObject()
+    -- local active_set_list = rune_set_obj:getActiveRuneSetList()
+
+
+    -- -- 해당룬 세트 효과 활성화 되있다면 애니 재생
+    -- local t_equip = {}
+    -- local function show_set_effect(slot_id, set_id)
+    --     for _, v in ipairs(active_set_list) do
+    --         local visual = vars['runeVisual'..slot_id]
+    --         if (v == set_id) then
+    --             if (t_equip[set_id]) then
+    --                 t_equip[set_id] = t_equip[set_id] + 1
+    --             else
+    --                 t_equip[set_id] = 1
+    --             end
+
+    --             local need_equip = get_need_equip(set_id)
+    --             if (t_equip[set_id] <= need_equip) then
+    --                 local ani_name = TableRuneSet:getRuneSetVisualName(slot_id, set_id)
+    --                 visual:setVisible(true)
+    --                 visual:changeAni(ani_name, true)
+    --             end
+    --             break
+    --         end
+    --     end
+    -- end
+
+    do -- 룬
+        for slot=1, RUNE_SLOT_MAX do
+            vars['runeVisual' .. slot]:setVisible(false)
+            vars['runeSlot' .. slot]:removeAllChildren()
+            local rune_obj = t_dragon_data:getRuneObjectBySlot(slot)
+            if rune_obj then
+				local card = UI_RuneCard(rune_obj)
+				card:setBtnEnabled(false)
+                vars['runeSlot' .. slot]:addChild(card.root)
+                --local set_id =  rune_obj['set_id'] 
+                --show_set_effect(slot, set_id)
+            end
+        end
+    end
+
+    -- do -- 룬 세트
+    --     vars['runeSetNode']:removeAllChildren()
+
+    --     local l_pos = getSortPosList(35, #active_set_list)
+    --     for i,set_id in ipairs(active_set_list) do
+    --         local ui = UI()
+    --         ui:load('dragon_manage_rune_set.ui')
+
+    --         -- 색상 지정
+    --         local c3b = TableRuneSet:getRuneSetColorC3b(set_id)
+    --         ui.vars['runeSetLabel']:setColor(c3b)
+
+    --         -- 세트 이름
+    --         local set_name = TableRuneSet:getRuneSetName(set_id)
+    --         ui.vars['runeSetLabel']:setString(set_name)
+
+    --         -- 툴팁 클릭
+    --         ui.vars['tooltipBtn']:registerScriptTapHandler(function()
+    --             local str = TableRuneSet:makeRuneSetFullNameRichText(set_id)
+    --             local tool_tip = UI_Tooltip_Skill(0, 0, str)
+    --             tool_tip:autoPositioning(ui.vars['tooltipBtn']) -- 자동 위치 지정
+    --         end)
+
+    --         -- AddCHild, 위치 지정
+    --         vars['runeSetNode']:addChild(ui.root)
+    --         ui.root:setPositionY(l_pos[i])
+    --     end
+    -- end
 end
 
 -------------------------------------
@@ -44,20 +108,19 @@ end
 -------------------------------------
 function UI_WorldRaidUserDeckInfoRuneListItem:initButton()
     local vars = self.vars
-    self.root:setSwallowTouch(false)
-    for slot_idx = 1, 6 do
-        local slot_node_str = 'runeSlotBtn' .. slot_idx
-        vars[slot_node_str]:registerScriptTapHandler(function() self:click_runeCard(slot_idx) end)
-        vars[slot_node_str]:registerScriptPressHandler(function() self:press_runeCard(slot_idx) end)
-    end
+    -- self.root:setSwallowTouch(false)
+    -- for slot_idx = 1, 6 do
+    --     local slot_node_str = 'runeSlotBtn' .. slot_idx
+    --     vars[slot_node_str]:registerScriptTapHandler(function() self:click_runeCard(slot_idx) end)
+    --     vars[slot_node_str]:registerScriptPressHandler(function() self:press_runeCard(slot_idx) end)
+    -- end
 end
 
 -------------------------------------
 -- function refresh
 -------------------------------------
 function UI_WorldRaidUserDeckInfoRuneListItem:refresh()
-    self:refreshRunes()
-    self:refreshSelect()
+    --self:refreshRunes()
 end
 
 -------------------------------------
@@ -125,61 +188,31 @@ function UI_WorldRaidUserDeckInfoRuneListItem:refreshRuneCard(slot_idx, active_s
 end
 
 -------------------------------------
--- function refreshSelect
--------------------------------------
-function UI_WorldRaidUserDeckInfoRuneListItem:refreshSelect()
-    local vars = self.vars
-    local is_preset_selected = self.m_presetRune:getIndex() == self.m_ownerUI:getSelectPresetIdx()
-
-    -- 활성화 상태 표시
-    vars['selectLayer']:setVisible(is_preset_selected)
-
-    -- 룬 활성화
-    for slot_idx = 1, 6 do
-        local node_name = 'selectSprite' .. slot_idx
-        local is_slot_selected = slot_idx == self.m_ownerUI:getSelectPresetSlotIdx()
-        vars[node_name]:setVisible(is_preset_selected and is_slot_selected)
-    end
-end
-
--------------------------------------
--- function isFocusSlot
--------------------------------------
-function UI_WorldRaidUserDeckInfoRuneListItem:isFocusSlot(slot_idx)
-    local is_preset_selected = self.m_presetRune:getIndex() == self.m_ownerUI:getSelectPresetIdx()
-    local is_slot_selected = slot_idx == self.m_ownerUI:getSelectPresetSlotIdx()
-
-    return is_preset_selected and is_slot_selected
-end
-
--------------------------------------
 -- function click_runeCard
 -------------------------------------
 function UI_WorldRaidUserDeckInfoRuneListItem:click_runeCard(slot_idx)
     local runes_map = self.m_presetRune:getRunesMap()
+    -- -- 현재 포커싱된 덱일 경우 클릭을 한 번 더 하면 지워짐
+    -- if self:isFocusSlot(slot_idx) == true then
+    --     if runes_map[slot_idx] ~= nil then
+    --         self.m_ownerUI:setFocusRune(slot_idx, nil)
+    --         return
+    --     end
+    -- end
 
-    -- 현재 포커싱된 덱일 경우 클릭을 한 번 더 하면 지워짐
-    if self:isFocusSlot(slot_idx) == true then
-        if runes_map[slot_idx] ~= nil then
-            self.m_ownerUI:setFocusRune(slot_idx, nil)
-            return
-        end
-    end
+    -- if self.m_selectRuneCB ~= nil then
+    --     self.m_selectRuneCB(self.m_presetRune:getIndex(), slot_idx)
+    -- end
 
-    if self.m_selectRuneCB ~= nil then
-        self.m_selectRuneCB(self.m_presetRune:getIndex(), slot_idx)
-    end
-
-    self:refreshSelect()
+    -- self:refreshSelect()
 end
 
 -------------------------------------
 -- function press_runeCard
 -------------------------------------
 function UI_WorldRaidUserDeckInfoRuneListItem:press_runeCard(slot_idx)
-    local rune_ui = self.m_runeUIMap[slot_idx]
-
-    if rune_ui ~= nil then
-        rune_ui:press_clickBtn()
-    end
+    -- local rune_ui = self.m_runeUIMap[slot_idx]
+    -- if rune_ui ~= nil then
+    --     rune_ui:press_clickBtn()
+    -- end
 end
