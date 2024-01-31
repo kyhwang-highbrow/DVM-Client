@@ -39,7 +39,8 @@ function LobbyMilestone:onEvent(event_name, t_event, ...)
         self:dispatch('lobby_user_status_ui_move', {}, self, x, y)
 
     elseif (event_name == 'refresh_milestone') then
-        self:refresh()
+        local x,y = self.m_rootNode:getPosition()
+        self:refresh(cc.p(x,y))
     end
 end
 
@@ -48,7 +49,7 @@ end
 -------------------------------------
 function LobbyMilestone:refresh(tamer_world_pos)
     local vars = self.vars
-
+    
     for _, v in ipairs(self.m_milestoneList) do
         self:refreshMilestone(v, tamer_world_pos)
     end

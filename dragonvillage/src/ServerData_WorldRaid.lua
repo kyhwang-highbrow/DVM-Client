@@ -450,6 +450,17 @@ function ServerData_WorldRaid:setEventListener(obj)
 end
 
 -------------------------------------
+--- @function dispatchToMilestone
+-------------------------------------
+function ServerData_WorldRaid:dispatchToMilestone()
+    if self:isAvailableWorldRaidReward() == false then
+        return
+    end
+
+    self.m_eventDispatcher:dispatch('refresh_milestone')
+end
+
+-------------------------------------
 --- @function request_WorldRaidInfo
 -------------------------------------
 function ServerData_WorldRaid:request_WorldRaidInfo(_success_cb, _fail_cb)
