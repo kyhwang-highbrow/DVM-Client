@@ -38,6 +38,7 @@ function GameState_WorldRaid:initState()
     self:addState(GAME_STATE_START, GameState_WorldRaid.update_start)
     self:addState(GAME_STATE_FIGHT, GameState_WorldRaid.update_fight)
     self:addState(GAME_STATE_RESULT, GameState_WorldRaid.update_result)
+    --self:addState(GAME_STATE_FAILURE,  GameState_WorldRaid.update_failure)
 end
 
 -------------------------------------
@@ -133,12 +134,88 @@ end
 -- function update_result
 -------------------------------------
 function GameState_WorldRaid.update_result(self, dt)
+    local world = self.m_world
     if (self.m_stateTimer == 0) then
         if (self.m_world.m_bDevelopMode) then
-            UINavigator:goTo('adventure')
+            UINavigator:goTo('world_raid')
         else
-            self:makeResultUI(true)
+
+            if (world.m_tamer) then
+                world.m_tamer:changeState('dying')
+            end
+
+            world:setGameFinish()
         end
+    elseif (self:isPassedStepTime(1.5)) then
+        for i,dragon in ipairs(world:getDragonList()) do
+            if (not dragon:isDead()) then
+                dragon:changeState('idle')
+            end
+        end
+
+        for i,enemy in ipairs(world:getEnemyList()) do
+            if (not enemy:isDead()) then
+                enemy:changeState('idle', true)
+            end
+        end
+
+        -- 스킬과 미사일도 다 날려 버리자
+	    world:removeMissileAndSkill()
+        world:removeEnemyDebuffs()
+        world:cleanupItem()
+        
+        -- 기본 배속으로 변경
+        world.m_gameTimeScale:setBase(1)
+
+        world.m_inGameUI:doActionReverse(function()
+            world.m_inGameUI.root:setVisible(false)
+        end)
+
+        self:makeResultUI(true)
+    end
+end
+
+-------------------------------------
+-- function update_failure
+-------------------------------------
+function GameState_WorldRaid.update_failure(self, dt)
+    local world = self.m_world
+    
+    --while true do end
+
+    if (self.m_stateTimer == 0) then
+        
+        if (world.m_tamer) then
+            world.m_tamer:changeState('dying')
+        end
+
+    elseif (self:isPassedStepTime(1.5)) then
+        for i,dragon in ipairs(world:getDragonList()) do
+            if (not dragon:isDead()) then
+                dragon:changeState('idle')
+            end
+        end
+
+        for i,enemy in ipairs(world:getEnemyList()) do
+            if (not enemy:isDead()) then
+                enemy:changeState('idle', true)
+            end
+        end
+
+        -- 스킬과 미사일도 다 날려 버리자
+	    world:removeMissileAndSkill()
+        world:removeEnemyDebuffs()
+        world:cleanupItem()
+        
+        -- 기본 배속으로 변경
+        world.m_gameTimeScale:setBase(1)
+
+        world.m_inGameUI:doActionReverse(function()
+            world.m_inGameUI.root:setVisible(false)
+        end)
+
+        UINavigator:goTo('world_raid')
+        --self:makeResultUI(false)
     end
 end
 

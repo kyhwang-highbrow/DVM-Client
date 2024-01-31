@@ -34,7 +34,7 @@ end
 --- @function init
 -------------------------------------
 function UI_WorldRaidBoard:init(world_raid_id, ret)
-    local vars = self:load_keepZOrder('world_raid_total_ranking.ui')
+    local vars = self:load('world_raid_total_ranking.ui')
     self.m_searchType = 1
     self.m_rankOffset = 1
     self.m_worldRaidId = world_raid_id
@@ -53,14 +53,14 @@ function UI_WorldRaidBoard:init(world_raid_id, ret)
     self:initButton()    
     self:refresh()
     
-
     self:makeRankHallOfFameView(ret)
     self:makeRankTableView(ret)
-
+    
     -- 보상 안내 팝업
     local function finich_cb()
         self:makeRankingRewardInfo(ret)
         self:checkEnterEvent()
+        self:initDevPanel()
     end
 
     self:sceneFadeInAction(nil, finich_cb)
@@ -131,15 +131,11 @@ function UI_WorldRaidBoard:initButton()
     vars['cheerBtn']:registerScriptTapHandler(function() self:click_cheerBtn() end)
 
 
-    if IS_TEST_MODE() == true then
-        vars['resetComplimentBtn']:setVisible(true)
-        vars['resetRankingRewardBtn']:setVisible(true)
-        vars['resetServerComplimentBtn']:setVisible(true)
-
-        vars['resetComplimentBtn']:registerScriptTapHandler(function() self:click_resetBtn('compliment') end)
-        vars['resetRankingRewardBtn']:registerScriptTapHandler(function() self:click_resetBtn('ranking') end)
-        vars['resetServerComplimentBtn']:registerScriptTapHandler(function() self:click_resetBtn('compliment_cnt') end)
-    end
+    -- if IS_TEST_MODE() == true then
+    --     vars['resetComplimentBtn']:setVisible(true)
+    --     vars['resetRankingRewardBtn']:setVisible(true)
+    --     vars['resetServerComplimentBtn']:setVisible(true)
+    -- end
 end
 
 -------------------------------------
@@ -376,6 +372,60 @@ function UI_WorldRaidBoard:request_total_ranking()
 
   g_worldRaidData:request_WorldRaidRanking(self.m_worldRaidId, searchType, self.m_rankOffset, 20, success_cb)
 end
+
+
+-------------------------------------
+-- function initDevPanel
+-- @brief 개발용 코드
+-------------------------------------
+function UI_WorldRaidBoard:initDevPanel()
+    local vars = self.vars
+    
+    if (IS_TEST_MODE()) then
+        local dev_panel = UI_DevPanel()
+        self.root:addChild(dev_panel.root)
+
+    --     vars['resetComplimentBtn']:registerScriptTapHandler(function() self:click_resetBtn('compliment') end)
+    --     vars['resetRankingRewardBtn']:registerScriptTapHandler(function() self:click_resetBtn('ranking') end)
+    --     vars['resetServerComplimentBtn']:registerScriptTapHandler(function() self:click_resetBtn('compliment_cnt') end)
+
+
+
+        do -- 칭찬 초기화
+            local t_component = StructDevPanelComponent:create('normal')
+            local function func()
+                self:click_resetBtn('compliment')
+            end
+        
+            t_component['cb1'] = func
+            t_component['str'] = '칭찬 초기화'
+            dev_panel:addDevComponent(t_component) -- params: struct_dev_panel_component(StructDevPanelComponent)
+        end
+
+        do -- 랭킹 정산 보상 초기화
+            local t_component = StructDevPanelComponent:create('coop')
+            local function func()
+                self:click_resetBtn('ranking')
+            end
+
+            t_component['cb1'] = func
+            t_component['str'] = '랭킹 정산 보상 초기화'
+            dev_panel:addDevComponent(t_component) -- params: struct_dev_panel_component(StructDevPanelComponent)
+        end
+
+        do -- 칭찬 횟수 초기화
+            local t_component = StructDevPanelComponent:create('linger')
+            local function func()
+                self:click_resetBtn('compliment_cnt')
+            end
+        
+            t_component['cb1'] = func
+            t_component['str'] = '칭찬 횟수 초기화'
+            dev_panel:addDevComponent(t_component) -- params: struct_dev_panel_component(StructDevPanelComponent)
+        end
+    end
+end
+
 
 -------------------------------------
 --- @function open

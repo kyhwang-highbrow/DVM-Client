@@ -92,15 +92,15 @@ function UI_WorldRaid:initButton()
     vars['rankBtn']:registerScriptTapHandler(function () self:click_rankingBtn() end)
     vars['infiniteBtn']:registerScriptTapHandler(function () self:click_infinitegBtn() end)
 
-    vars['normalTestBtn']:registerScriptTapHandler(function () self:click_battleTestBtn(1) end)
-    vars['cooperationTestBtn']:registerScriptTapHandler(function () self:click_battleTestBtn(2) end)
-    vars['lingerTestBtn']:registerScriptTapHandler(function () self:click_battleTestBtn(3) end)
-    vars['resetScoreBtn']:registerScriptTapHandler(function () self:click_resetBtn('score') end)
+    -- vars['normalTestBtn']:registerScriptTapHandler(function () self:click_battleTestBtn(1) end)
+    -- vars['cooperationTestBtn']:registerScriptTapHandler(function () self:click_battleTestBtn(2) end)
+    -- vars['lingerTestBtn']:registerScriptTapHandler(function () self:click_battleTestBtn(3) end)
+    -- vars['resetScoreBtn']:registerScriptTapHandler(function () self:click_resetBtn('score') end)
 
-    vars['normalTestBtn']:setVisible(IS_TEST_MODE())
-    vars['cooperationTestBtn']:setVisible(IS_TEST_MODE())
-    vars['lingerTestBtn']:setVisible(IS_TEST_MODE())
-    vars['resetScoreBtn']:setVisible(IS_TEST_MODE())
+    -- vars['normalTestBtn']:setVisible(IS_TEST_MODE())
+    -- vars['cooperationTestBtn']:setVisible(IS_TEST_MODE())
+    -- vars['lingerTestBtn']:setVisible(IS_TEST_MODE())
+    -- vars['resetScoreBtn']:setVisible(IS_TEST_MODE())
 end
 
 -------------------------------------
@@ -385,33 +385,49 @@ function UI_WorldRaid:initDevPanel()
     if (IS_TEST_MODE()) then
         local dev_panel = UI_DevPanel()
         self.root:addChild(dev_panel.root)
-        dev_panel.root:setGlobalZOrder(1000)
+        --dev_panel.root:setGlobalZOrder(1000)
 
-        do -- 일일 구매 제한 초기화
-            local t_component = StructDevPanelComponent:create('init_daily')
+        do -- 정예전
+            local t_component = StructDevPanelComponent:create('normal')
             local function func()
-                ServerData_Shop:getInstance():request_shopInit('daily', function()
-                    UIManager:toastNotificationGreen('일일 구매 제한 초기화')
-                    ServerData_Shop:getInstance().m_experationTime:applyExperationTime_HoursLater(0)
-                end)
+                self:click_battleTestBtn(1)
             end
         
             t_component['cb1'] = func
-            t_component['str'] = '일일 구매 제한 초기화'
+            t_component['str'] = '정예전'
             dev_panel:addDevComponent(t_component) -- params: struct_dev_panel_component(StructDevPanelComponent)
         end
 
-        do -- 주간 구매 제한 초기화
-            local t_component = StructDevPanelComponent:create('init_weekly')
+        do -- 협동전
+            local t_component = StructDevPanelComponent:create('coop')
             local function func()
-                ServerData_Shop:getInstance():request_shopInit('weekly', function()
-                    UIManager:toastNotificationGreen('주간 구매 제한 초기화')
-                    ServerData_Shop:getInstance().m_experationTime:applyExperationTime_HoursLater(0)
-                end)
+                self:click_battleTestBtn(2)
+            end
+
+            t_component['cb1'] = func
+            t_component['str'] = '협동전'
+            dev_panel:addDevComponent(t_component) -- params: struct_dev_panel_component(StructDevPanelComponent)
+        end
+
+        do -- 지구전
+            local t_component = StructDevPanelComponent:create('linger')
+            local function func()
+                self:click_battleTestBtn(3)
             end
         
             t_component['cb1'] = func
-            t_component['str'] = '주간 구매 제한 초기화'
+            t_component['str'] = '지구전'
+            dev_panel:addDevComponent(t_component) -- params: struct_dev_panel_component(StructDevPanelComponent)
+        end
+
+        do -- 점수 달성 초기화
+            local t_component = StructDevPanelComponent:create('init_score')
+            local function func()
+                self:click_resetBtn('score')
+            end
+        
+            t_component['cb1'] = func
+            t_component['str'] = '점수 달성 초기화'
             dev_panel:addDevComponent(t_component) -- params: struct_dev_panel_component(StructDevPanelComponent)
         end
     end

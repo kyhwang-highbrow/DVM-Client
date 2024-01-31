@@ -31,9 +31,10 @@ function GameState_WorldRaid_Linger:initState()
 
     self:addState(GAME_STATE_ENEMY_APPEAR, GameState_WorldRaid_Linger.update_enemy_appear)
     self:addState(GAME_STATE_FIGHT_WAIT,   GameState_WorldRaid_Linger.update_fight_wait)
+    --self:addState(GAME_STATE_BOSS_WAVE,              GameState_LeagueRaid.update_boss_wave)  -- 보스 웨이브 연출
 
     self:addState(GAME_STATE_RAID_WAVE,   GameState_WorldRaid_Linger.update_raid_wave)  -- 레이드 웨이브 연출
-    --self:addState(GAME_STATE_SUCCESS_WAIT,GameState_WorldRaid_Linger.update_success_wait)
+    self:addState(GAME_STATE_SUCCESS_WAIT,GameState_WorldRaid_Linger.update_success_wait)
 
     self:addState(GAME_STATE_SUCCESS,  GameState_WorldRaid.update_result)
     self:addState(GAME_STATE_FAILURE,  GameState_WorldRaid.update_result)
@@ -109,7 +110,7 @@ function GameState_WorldRaid_Linger:checkWaveClear(dt)
         return false
 
     elseif(hero_count <= 0) then
-        self:changeState(GAME_STATE_SUCCESS_WAIT)
+        self:changeState(GAME_STATE_RESULT)
         g_worldRaidData.m_attackedChar_C = clone(world.m_myDragons)
         return true
 
@@ -208,10 +209,6 @@ function GameState_WorldRaid_Linger.update_success(self, dt)
         end
     end
 
-    --PARENT.update_success(self, dt)
-
-    local world = self.m_world
-    cclog(debug.traceback())
 end
 
 

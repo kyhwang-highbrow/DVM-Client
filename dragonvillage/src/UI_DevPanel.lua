@@ -14,7 +14,6 @@ UI_DevPanel = class(PARENT, {
 -- function init
 -------------------------------------
 function UI_DevPanel:init()
-
     --self:load('empty.ui')
     --UIManager:open(self, UIManager.SCENE)
 
@@ -30,7 +29,6 @@ function UI_DevPanel:init()
     self:initUI()
     self:initButton()
     self:refresh()
-
     self:makeTableView()
 
     -- UI를 숨김 상태로 변경
@@ -55,15 +53,16 @@ function UI_DevPanel:initUI()
     node:setPosition(0, 0)
     node:setNormalSize(self.m_width, self.m_height)
     self.root = node
+    
 
 
     do -- UI아래쪽은 터치되지 않도록 임의 버튼 생성
-        --local EMPTY_PNG = 'res/template/empty.png'
-        --local node = cc.MenuItemImage:create(EMPTY_PNG, nil, nil, 1)
-        --local node = ccui.Button:create(EMPTY_PNG, EMPTY_PNG)
-        --node:setContentSize(self.m_width, self.m_height)
-        --node:setDockPoint(cc.p(0.5, 0.5))
-        --node:setAnchorPoint(cc.p(0.5, 0.5))
+        local EMPTY_PNG = 'res/template/empty.png'
+        local node = cc.MenuItemImage:create(EMPTY_PNG, nil, nil, 1)
+        local node = ccui.Button:create(EMPTY_PNG, EMPTY_PNG)
+        node:setContentSize(self.m_width, self.m_height)
+        node:setDockPoint(cc.p(0.5, 0.5))
+        node:setAnchorPoint(cc.p(0.5, 0.5))
 
         -- local EMPTY_PNG = 'res/template/empty.png'
         -- local node = ccui.Button:create(EMPTY_PNG)
@@ -98,24 +97,48 @@ function UI_DevPanel:initUI()
     end
 
     do -- 열고 닫는 버튼
-        local node = cc.MenuItemImage:create('res/template/btn_debug_01.png', 'res/template/btn_debug_02.png', 1)
-        --local node = cc.MenuItemImage:create('res/template/btn_debug_01.png', 'res/template/btn_debug_02.png')
-        node:setDockPoint(cc.p(1, 0.5))
-        node:setAnchorPoint(cc.p(0.5, 0.5))
-        node:setPosition(10, 0)
+        --local node = cc.MenuItemImage:create('res/template/button_base70_0101.png', 'res/template/button_base70_0101.png', 1)
 
-        local uic_button = UIC_Button(node)        
-        node:setEnabled(true)
-        uic_button:registerScriptTapHandler(function() self:showDebugUI(not self.m_bShow) end)
-        self.root:addChild(node)
-        self.vars['openButton'] = node
-        
-        -- do
-        --     local sprite = cc.Sprite:create('res/template/btn_debug_03.png')
-        --     sprite:setDockPoint(cc.p(0.5, 0.5))
-        --     sprite:setAnchorPoint(cc.p(0.5, 0.5))
-        --     node:addChild(sprite)
-        -- end
+
+        local function touchEvent(sender,eventType)
+            if eventType == ccui.TouchEventType.ended then
+                self:showDebugUI(not self.m_bShow)
+            end
+        end
+
+        local button = ccui.Button:create()
+        button:loadTextures('res/template/btn_debug_01.png', 'res/template/btn_debug_02.png')
+        button:setTouchEnabled(true)    
+        button:setPosition(ZERO_POINT)        
+        button:setDockPoint(cc.p(1, 0.5))
+        button:setAnchorPoint(cc.p(0.5, 0.5))
+        button:setPosition(10, 0)
+        button:addTouchEventListener(touchEvent)
+
+        --local node = cc.MenuItemImage:create('res/template/btn_debug_01.png', 'res/template/btn_debug_02.png')
+        -- node:setDockPoint(cc.p(1, 0.5))
+        -- node:setAnchorPoint(cc.p(0.5, 0.5))
+        -- node:setPosition(100, 0)
+
+        -- -- local uic_button = UIC_Button(node)        
+        -- -- ---uic_button:setEnabled(true)
+        -- -- uic_button:registerScriptTapHandler(function() self:showDebugUI(not self.m_bShow) end)
+        -- -- self.root:addChild(node)
+        -- -- self.vars['openButton'] = node
+
+        -- local uic_button = UIC_Button(button)
+        -- uic_button:registerScriptTapHandler(function()
+        --     data['cb1'](self, data, 1)
+        -- end)
+
+        self.vars['openButton'] = button
+        self.root:addChild(button, 1)
+        do
+            local sprite = cc.Sprite:create('res/template/btn_debug_03.png')
+            sprite:setDockPoint(cc.p(0.5, 0.5))
+            sprite:setAnchorPoint(cc.p(0.5, 0.5))
+            button:addChild(sprite)
+        end
     end
 end
 
@@ -231,11 +254,11 @@ function UI_DevPanel:makeTableView()
 
         do -- label 생성
             -- left 0, center 1, right 2
-            local font_res = 'res/font/common_font_01.ttf'
+            -- local font_res = 'res/font/common_font_01.ttf'
             --local label = cc.Label:createWithTTF(data['str'] or 'label', Translate:getFontPath(), 20, 2, cc.size(size_width, size_height), 1, 1)
             --local label = cc.Label:createWithTTF(data['str'] or 'label', font_res, 20, 2, cc.size(size_width, size_height), 1, 1)
             --local label = cc.Label:createWithTTF(data['str'] or 'label', font_res, 20, cc.size(size_width, size_height), 1, 1)
-            local label = cc.Label:createWithTTF(data['str'] , 'res/font/common_font_01.ttf', 20, 1, cc.size(size_width, size_height), 1, 1)
+            local label = cc.Label:createWithTTF(data['str'] , Translate:getFontPath(), 20, 0, cc.size(size_width, size_height), 1, 1)
 
             label:setTextColor(cc.c4b(40, 40, 40, 255))
             label:setDockPoint(cc.p(0.5, 0.5))

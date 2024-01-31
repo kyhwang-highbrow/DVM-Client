@@ -5,7 +5,26 @@ local PARENT = Monster_AncientRuinDragon
 -- class Monster_WorldRaidBoss
 -------------------------------------
 Monster_WorldRaidBossAncientRuinDragon = class(PARENT, {
+    m_dmglist = '',
      })
+
+     
+-------------------------------------
+-- function init
+-- @param file_name
+-- @param body
+-------------------------------------
+function Monster_WorldRaidBossAncientRuinDragon:init(file_name, body, ...)
+    self.m_bUseCastingEffect = false
+
+    self.m_bCreateParts = false
+    self.m_bExistDrone = false
+
+    self.m_mEffectTimer = {}
+    self.m_isRaidMonster = true
+    --self.m_dmglist = {}
+end
+
 
 -------------------------------------
 -- function setDamage
