@@ -211,41 +211,50 @@ function UI_WorldRaidRanking:makeRewardTableView()
     local vars = self.vars
     local node = vars['userRewardNode']
 
-    -- 최조 한 번만 생성
-    if (self.m_rewardTableView) then
-        return
-    end
-
-    -- 내랭킹
-    local my_rank = g_worldRaidData:getCurrentMyRanking()
-
     -- 랭킹 보상 테이블
     local table_event_rank = g_worldRaidData:getTableWorldRaidRank()    
     local struct_rank_reward = StructRankReward(table_event_rank, true)
     local l_event_rank = struct_rank_reward:getRankRewardList() or {}
-    self.m_structRankReward = struct_rank_reward
+    --self.m_structRankReward = struct_rank_reward
 
+    -- 내랭킹
+    local my_rank = g_worldRaidData:getCurrentMyRanking()
     local rank = my_rank['rank'] or 0
     local ratio = my_rank['rate'] or 0
 
-    local create_func = function(ui, data)
-        self:createRewardFunc(ui, data, my_rank)
-	end
+    -- 등수 프레임
+    for idx = 1, 5 do
+        local str = string.format('rankNode%d', idx)
+        local t_rank = l_event_rank[idx]
 
-    -- 테이블 뷰 인스턴스 생성
-    local table_view = UIC_TableView(node)
-    table_view.m_defaultCellSize = cc.size(640, 52)
-    table_view:setCellUIClass(UI_WorldRaidRankingRewardItem, create_func)
-    table_view:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
-    table_view:setItemList(l_event_rank)
-    table_view:update(0) -- 맨 처음 각 아이템별 위치값을 계산해줌
-    table_view:relocateContainerFromIndex(1) -- 해당하는 보상에 포커싱
+        local str_visual = string.format('effect%dVisual', idx)
+        vars[str_visual]:setVisible(idx == rank)
 
-    self.m_rewardTableView = table_view
-    local reward_data, ind = self.m_structRankReward:getPossibleReward(rank, ratio)
+        local l_reward_data = g_itemData:parsePackageItemStr(t_rank['sh_reward'])
+        local frame_icon = IconHelper:getItemIcon(l_reward_data[1]['item_id'])
 
-    self.m_rewardTableView:update(0) -- 인덱스 포커싱을 위해 한번의 계산이 필요하다고 한다.
-    self.m_rewardTableView:relocateContainerFromIndex(ind)
+        --vars[str]:removeAllChildren()
+        vars[str]:addChild(frame_icon)
+    end
+
+    -- local create_func = function(ui, data)
+    --     self:createRewardFunc(ui, data, my_rank)
+	-- end
+
+    -- -- 테이블 뷰 인스턴스 생성
+    -- local table_view = UIC_TableView(node)
+    -- table_view.m_defaultCellSize = cc.size(640, 52)
+    -- table_view:setCellUIClass(UI_WorldRaidRankingRewardItem, create_func)
+    -- table_view:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
+    -- table_view:setItemList(l_event_rank)
+    -- table_view:update(0) -- 맨 처음 각 아이템별 위치값을 계산해줌
+    -- table_view:relocateContainerFromIndex(1) -- 해당하는 보상에 포커싱
+
+    -- self.m_rewardTableView = table_view
+    -- local reward_data, ind = self.m_structRankReward:getPossibleReward(rank, ratio)
+
+    -- self.m_rewardTableView:update(0) -- 인덱스 포커싱을 위해 한번의 계산이 필요하다고 한다.
+    -- self.m_rewardTableView:relocateContainerFromIndex(ind)
 end
 
 -------------------------------------
