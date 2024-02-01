@@ -188,6 +188,12 @@ function UI_EventLFBag:initButton()
 
         end
     end
+
+    for i = 1, 5 do
+        vars['itemBtn' .. i]:registerScriptTapHandler(function() 
+            self:click_rewardListBtn(i)
+        end)
+    end
 end
 
 -------------------------------------
@@ -382,13 +388,13 @@ end
 -- function makeScrollView
 -- @brief 안정성을 위해 스크롤뷰를 직접 생성하여 사용함
 -------------------------------------
-function UI_EventLFBag:makeScrollView()
+function UI_EventLFBag:makeScrollView(step)
     local scroll_view = cc.ScrollView:create()
     self.m_scrollView = scroll_view
 
     -- 스크롤뷰에서 사용할 사이즈
     local interval = 60
-    local cell_count = #self.m_structLFBag:getRewardList()
+    local cell_count = #self.m_structLFBag:getRewardList(step)
     local normal_size = self.vars['rewardListNode']:getContentSize()
     local content_size = cc.size(296, interval * cell_count)
 
@@ -401,6 +407,7 @@ function UI_EventLFBag:makeScrollView()
     scroll_view:setContentSize(content_size)
     scroll_view:setTouchEnabled(true)
 
+    self.vars['rewardListNode']:removeAllChildren()
     self.vars['rewardListNode']:addChild(scroll_view)
 
     local height_half = content_size['height'] / 2
@@ -422,8 +429,8 @@ end
 -- function updateScrollView
 -- @brief 획득 가능 보상 업데이트
 -------------------------------------
-function UI_EventLFBag:updateScrollView()
-    local l_reward_list = self.m_structLFBag:getRewardList()
+function UI_EventLFBag:updateScrollView(step)
+    local l_reward_list = self.m_structLFBag:getRewardList(step)
     table.sort(l_reward_list, function(a, b) 
         return (tonumber(a['id']) < tonumber(b['id']))
     end)
@@ -832,6 +839,14 @@ function UI_EventLFBag:click_experienceBtn()
     end)
 end
 
+-------------------------------------
+--- @function click_rewardListBtn
+-------------------------------------
+function UI_EventLFBag:click_rewardListBtn(step)
+    self.m_cellUIList = {}
+    self:makeScrollView(step)
+    self:updateScrollView(step)
+end
 
 -------------------------------------
 -- function makeCellUI
