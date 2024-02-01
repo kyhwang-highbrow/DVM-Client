@@ -1,0 +1,6 @@
+id,r_name,frame_res,scale
+900001,월드 레이드 1위 프레임,worldraid_act_01/worldraid_act_01.spine,1.3
+900002,월드 레이드 2위 프레임,worldraid_act_02/worldraid_act_02.spine,1
+900003,월드 레이드 3위 프레임,worldraid_act_03/worldraid_act_03.spine,1
+900004,월드 레이드 4~5위 프레임,worldraid_act_04_05.png,1
+900005,월드 레이드 6~10위 프레임,worldraid_act_06_10.png,1
