@@ -534,7 +534,7 @@ function getIndicatorSizeName(size)
     elseif (size == 2) then
         indicator_size_name = Str('중')
 
-    elseif (size == 3) then
+    elseif (size >= 3 and size <= 10) then
         indicator_size_name = Str('대')
 
     else
