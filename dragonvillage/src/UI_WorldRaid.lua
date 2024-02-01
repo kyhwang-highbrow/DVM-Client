@@ -15,7 +15,13 @@ UI_WorldRaid = class(PARENT, {
 -------------------------------------
 function UI_WorldRaid:initParentVariable()    
     self.m_uiName = 'UI_WorldRaid'
-    self.m_titleStr = Str('월드 레이드')
+
+    do -- 파티 타입
+        self.m_worldRaidId = g_worldRaidData:getWorldRaidId()
+        local str = TableWorldRaidInfo:getInstance():getWorldRaidPartyTypeStr(world_raid_id)      
+        self.m_titleStr = Str('월드 레이드') .. ' - ' .. str
+    end
+    
 	self.m_staminaType = 'cldg'
     self.m_bVisible = true
     self.m_bUseExitBtn = true
@@ -131,10 +137,6 @@ function UI_WorldRaid:initUI()
         vars['attrNode']:addChild(icon)
     end
 
-    do -- 파티 타입
-        local str = TableWorldRaidInfo:getInstance():getWorldRaidPartyTypeStr(world_raid_id)
-        vars['typeLabel']:setString(str)
-    end
 
     -- 랭크
     -- local rank = g_eventDealkingData:getMyRank(self.m_bossType, attr)
