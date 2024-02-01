@@ -264,7 +264,7 @@ function ServerData_WorldRaid:applyResponse(t_ret)
   -- 랭크 리스트
 	if t_ret['table_world_raid_rank'] ~= nil then
 		self.m_tableWorldRaidRank = clone(t_ret['table_world_raid_rank'])
-	end
+    end
 
 	-- 랭크 리스트
 	if t_ret['table_world_raid'] ~= nil then
@@ -579,11 +579,11 @@ function ServerData_WorldRaid:request_WorldRaidReward(wrid, finish_cb, fail_cb)
 
     -- 성공 시 콜백
     local function success_cb(ret)
-        
         self:applyResponse(ret)
+        -- 공통 응답
+        g_serverData:networkCommonRespone(ret)
         g_serverData:networkCommonRespone_addedItems(ret)
         self.m_eventDispatcher:dispatch('refresh_milestone')
-
 
         if finish_cb then
             finish_cb(ret)
@@ -614,8 +614,8 @@ function ServerData_WorldRaid:request_WorldRaidCompliment(wrid, finish_cb, fail_
         
         self.m_isAvailableCompliment = false
         self:applyResponse(ret)
-        g_highlightData:setDirty(true)        
         g_serverData:networkCommonRespone_addedItems(ret)
+        g_highlightData:setDirty(true)        
         self.m_eventDispatcher:dispatch('refresh_milestone')
         if finish_cb then
             finish_cb(ret)
@@ -672,17 +672,17 @@ function ServerData_WorldRaid:request_WorldRaidReset(wrid, type, finish_cb, fail
     local function success_cb(ret)
         if type == 'compliment' then
             self.m_isAvailableCompliment = true
+            self.m_eventDispatcher:dispatch('refresh_milestone')
         elseif type == 'ranking' then
-            g_userData:applyServerData({}, 'profile_frames')
             self.m_rankReward = { [tostring(wrid)] = 0}
+            self.m_eventDispatcher:dispatch('refresh_milestone')
         elseif type == 'score' then
             self.m_myRank = nil
+        elseif type == 'frame' then
+            g_userData:applyServerData({}, 'profile_frames')            
         end
-
         -- 공통 응답
-        g_serverData:networkCommonRespone(ret)
-
-        self.m_eventDispatcher:dispatch('refresh_milestone')
+        g_serverData:networkCommonRespone(ret)        
 
         if finish_cb then
             finish_cb(ret)

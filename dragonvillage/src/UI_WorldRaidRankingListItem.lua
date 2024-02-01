@@ -44,13 +44,26 @@ function UI_WorldRaidRankingListItem:initUI()
     -- 유저 정보 표시 (레벨, 닉네임)
     vars['userLabel']:setString(self.m_rankInfo['nick'])
 
-    -- 순위 표시
-    local rankStr = tostring(comma_value(self.m_rankInfo['rank']))
-    if (self.m_rankInfo['rank'] <= 0) then
-        rankStr = '-'
+    
+    do -- 순위 표시
+        local rank = self.m_rankInfo['rank']
+        local rankStr = tostring(comma_value(rank))
+        if (rank <= 0) then
+            rankStr = '-'
+        elseif (rank >= 1 and rank <= 3) then
+            vars['rankLabel']:setVisible(false)
+            vars['rankNode']:setVisible(true)
+
+            local rank_res = string.format('res/ui/icons/rank/world_raid_w%d.png', rank)
+            local animator = MakeAnimator(rank_res)
+
+            vars['rankNode']:removeAllChildren()
+            vars['rankNode']:addChild(animator.m_node)
+        end
+
+        vars['rankLabel']:setString(rankStr)
     end
 
-    vars['rankLabel']:setString(rankStr)
     do -- 리더 드래곤 아이콘
         local ui = t_rank_info:getLeaderDragonCard()
         if ui then

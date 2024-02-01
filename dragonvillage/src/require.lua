@@ -1889,8 +1889,7 @@ local t_module = {
     'UI_WorldRaidRankingScoreRewardItem', -- 점수 달성 보상
     'UI_WorldRaidResult', -- 전투 결과 화면
     'UI_WorldRaidBoard', -- 월드 레이드 게시판
-    'UI_WorldRaidRewardPopup', -- 월드 레이드 보상 화면
-    'UI_ResultLeaderBoard_WorldRaid', -- 리더보드
+    'UI_WorldRaidRewardPopup', -- 월드 레이드 보상 화면    
     'UI_WorldRaidUserDeckInfoPopup', -- 덱 상세정보
     'UI_WorldRaidUserDeckInfoRuneListItem', -- 덱 상세정보 드래곤 리스트
 

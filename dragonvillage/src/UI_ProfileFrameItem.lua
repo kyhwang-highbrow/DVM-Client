@@ -32,6 +32,9 @@ function UI_ProfileFrameItem:initUI()
     if profile_frame_animator ~= nil then
         vars['profileFrameNode']:addChild(profile_frame_animator.m_node)
     end
+
+    local is_owned = g_profileFrameData:isOwnedProfileFrame(profile_frame_id)
+    vars['notiSprite']:setVisible(not is_owned)
 end
 
 --------------------------------------------------------------------------

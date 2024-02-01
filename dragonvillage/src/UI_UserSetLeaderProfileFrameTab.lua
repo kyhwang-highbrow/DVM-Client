@@ -42,7 +42,8 @@ function UI_UserSetLeaderProfileFrameTab:initTableView()
         ui.vars['clickBtn']:registerScriptTapHandler(function() 
             self:click_selectBtn(data)
         end)
-        ui:setSelect(self.m_selectProfileFrameId == data)
+        ui.vars['checkBoxSprite']:setVisible(self.m_selectProfileFrameId == data)
+        --ui:setSelect(self.m_selectProfileFrameId == data)
 	end
 
     vars['listNode']:removeAllChildren()
@@ -62,7 +63,8 @@ end
 function UI_UserSetLeaderProfileFrameTab:refreshTableView()
     local refresh_func = function(t_data, data)
         if t_data['ui'] ~= nil then
-            t_data['ui']:setSelect(self.m_selectProfileFrameId == data)
+            --t_data['ui']:setSelect(self.m_selectProfileFrameId == data)
+            t_data['ui'].vars['checkBoxSprite']:setVisible(self.m_selectProfileFrameId == data)
         end
     end
 

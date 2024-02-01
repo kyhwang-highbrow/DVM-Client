@@ -82,7 +82,7 @@ function UI_WorldRaidBoard:makeRankingRewardInfo(ret)
     local prev_ratio = ret['my_info']['rate'] or 0
 
     local reward_info = g_worldRaidData:getPossibleReward(prev_rank, prev_ratio)
-    local l_reward = g_itemData:parsePackageItemStr(reward_info['reward'])
+    local l_reward = g_itemData:parsePackageItemStr(reward_info['sh_reward'])
     local profile_frame = reward_info['profile_frame'] or ''
 
     if profile_frame ~= '' then
@@ -399,12 +399,6 @@ function UI_WorldRaidBoard:initDevPanel()
         local dev_panel = UI_DevPanel()
         self.root:addChild(dev_panel.root)
 
-    --     vars['resetComplimentBtn']:registerScriptTapHandler(function() self:click_resetBtn('compliment') end)
-    --     vars['resetRankingRewardBtn']:registerScriptTapHandler(function() self:click_resetBtn('ranking') end)
-    --     vars['resetServerComplimentBtn']:registerScriptTapHandler(function() self:click_resetBtn('compliment_cnt') end)
-
-
-
         do -- 칭찬 초기화
             local t_component = StructDevPanelComponent:create('normal')
             local function func()
@@ -437,6 +431,18 @@ function UI_WorldRaidBoard:initDevPanel()
             t_component['str'] = '칭찬 횟수 초기화'
             dev_panel:addDevComponent(t_component) -- params: struct_dev_panel_component(StructDevPanelComponent)
         end
+
+        do -- 칭찬 초기화
+            local t_component = StructDevPanelComponent:create('del_frames')
+            local function func()
+                self:click_resetBtn('frame')
+            end
+        
+            t_component['cb1'] = func
+            t_component['str'] = '보유 테두리 제거'
+            dev_panel:addDevComponent(t_component) -- params: struct_dev_panel_component(StructDevPanelComponent)
+        end
+
     end
 end
 

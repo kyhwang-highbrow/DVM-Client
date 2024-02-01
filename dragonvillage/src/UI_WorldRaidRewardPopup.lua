@@ -13,6 +13,8 @@ UI_WorldRaidRewardPopup = class(PARENT,{
 -------------------------------------
 function UI_WorldRaidRewardPopup:init(t_info, profile_frame_id)
     self.m_profileFrameId = profile_frame_id or 0
+
+    cclog('self.m_profileFrameId', self.m_profileFrameId)
     self.m_profileFrameAnimator = nil
 
     local vars = self:load('world_raid_reward_popup.ui')
@@ -40,8 +42,6 @@ function UI_WorldRaidRewardPopup:initUI(t_info)
     local struct_data = t_info['rank']
     local reward_info = t_info['reward_info']
 
-    ccdump(t_info)
-
     if reward_info == nil then
         return
     end
@@ -62,20 +62,24 @@ function UI_WorldRaidRewardPopup:initUI(t_info)
             local item_id = item_data['item_id']
             local item_cnt = item_data['count']
             local item_type = TableItem:getItemType(item_id)
-
-            local icon, frame = IconHelper:getItemIcon(item_id, item_cnt)
-            vars['rewardNode'..i]:addChild(icon)
+            local icon = IconHelper:getItemIcon(item_id, item_cnt)
+            
             vars['rewardLabel'..i]:setString('')
             if item_type ~= 'profile_frame' then
                 vars['rewardLabel'..i]:setString(comma_value(item_cnt))
+                vars['rewardNode'..i]:addChild(icon)
+            else
+                local leader_dragon = g_dragonsData:getLeaderDragon()
+                local card = UI_DragonCard(leader_dragon, nil, nil, nil, true)
+                vars['rewardNode'..i]:addChild(card.root)
+                vars['rewardNode'..i]:addChild(icon)
+                self.m_profileFrameAnimator = icon
             end
 
             item_type = TableItem:getItemType(item_id)
             if (item_type == 'relation_point') then
                 vars['rewardLabel'..i]:setString('')
             end
-
-            self.m_profileFrameAnimator = frame
         end
 
         -- 노드 보상 갯수에 따른 위치 변경
@@ -105,8 +109,8 @@ function UI_WorldRaidRewardPopup:initUI(t_info)
     vars['myRankNode']:addChild(ui.root)
 end
 
--------------------------------------
 -- function initButton
+-------------------------------------
 -------------------------------------
 function UI_WorldRaidRewardPopup:initButton()
     local vars = self.vars
@@ -127,9 +131,12 @@ function UI_WorldRaidRewardPopup:click_equipBtn()
     end
 
     local success_cb = function(ret)
+        local origin_scale = self.m_profileFrameAnimator:getScale()
+        local scale_up_value = origin_scale * 1.2
+
         local rotate_to = cc.EaseElasticOut:create(cc.RotateTo:create(0.2, 720), 0.1)
-        local scale_up = cc.EaseElasticOut:create(cc.ScaleTo:create(0.2, 1.2), 0.1)
-        local scale_down = cc.EaseElasticIn:create(cc.ScaleTo:create(0.2, 1), 0.1)
+        local scale_up = cc.EaseElasticOut:create(cc.ScaleTo:create(0.2, scale_up_value), 0.1)
+        local scale_down = cc.EaseElasticIn:create(cc.ScaleTo:create(0.2, origin_scale), 0.1)
         local call_func = cc.CallFunc:create(function () 
             UIManager:toastNotificationGreen(Str('테두리를 착용하였습니다.'))
         end)

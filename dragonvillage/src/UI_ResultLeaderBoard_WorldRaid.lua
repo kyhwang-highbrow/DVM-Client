@@ -25,7 +25,7 @@ function UI_ResultLeaderBoard_WorldRaid:setCurrentInfo()
     vars['rewardMenu']:removeAllChildren()
 
     local cur_reward_data = g_worldRaidData:getPossibleReward(self.m_cur_rank, self.m_cur_ratio)
-    local l_reward_data = g_itemData:parsePackageItemStr(cur_reward_data['reward'])
+    local l_reward_data = g_itemData:parsePackageItemStr(cur_reward_data['sh_reward'])
     local reward_size = table.count(l_reward_data)
     local icon_size = 150
     local icon_scale = 0.666
@@ -35,19 +35,19 @@ function UI_ResultLeaderBoard_WorldRaid:setCurrentInfo()
     for idx, item_info in ipairs(l_reward_data) do
         local item_id = item_info['item_id']
         local count = item_info['count']
-        local ui = UI_ItemCard(item_id, count)
-        ui.root:setScale(icon_scale)            
-        vars['rewardMenu']:addChild(ui.root)
-        ui.root:setPositionX(l_ui_pos_list[idx])
+        --local ui = UI_ItemCard(item_id, count)
+        local node = IconHelper:getItemIcon(item_id)
+        node:setScale(icon_scale)            
+        vars['rewardMenu']:addChild(node)
+        node:setPositionX(l_ui_pos_list[idx])
     end
-    
 
+    vars['rewardMenuMenu']:setVisible(#l_reward_data > 0)
     require('UI_ResultLeaderBoard_IncarnationOfSinsListItem')
     if (self.m_tUpperRank) then
         -- 앞 순위 유저
         local ui_upper = UI_ResultLeaderBoard_IncarnationOfSinsListItem(type, self.m_tUpperRank, false)
-        if (ui_upper) then
-            cclog('upper')
+        if (ui_upper) then            
             vars['upperNode']:addChild(ui_upper.root)
         end
     end
@@ -55,8 +55,7 @@ function UI_ResultLeaderBoard_WorldRaid:setCurrentInfo()
     if (self.m_tLowerRank) then
         -- 뒤 순위 유저
         local ui_lower = UI_ResultLeaderBoard_IncarnationOfSinsListItem(type, self.m_tLowerRank, false) -- type, t_data, is_me,
-        if (ui_lower) then
-            cclog('lower')
+        if (ui_lower) then            
             vars['lowerNode']:addChild(ui_lower.root)
         end
     end

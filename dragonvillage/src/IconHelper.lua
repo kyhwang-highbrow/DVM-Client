@@ -341,12 +341,12 @@ function IconHelper:getItemIcon(item_id, t_sub_data)
 
     -- 프로필 프레임
     elseif (item_type == 'profile_frame') then
-        local leader_dragon = g_dragonsData:getLeaderDragon()
+        --local leader_dragon = g_dragonsData:getLeaderDragon()
         local animator = IconHelper:getProfileFrameAnimator(item_id)
-        local card = UI_DragonCard(leader_dragon, nil, nil, nil, true)
-        card.root:addChild(animator.m_node)
-        sprite = card.root
-        return sprite, animator
+        -- local card = UI_DragonCard(leader_dragon, nil, nil, nil, true)
+        -- card.root:addChild(animator.m_node)
+        sprite = animator.m_node
+        return sprite
 
     -- 기타 아이템 아이콘 생성
     else
