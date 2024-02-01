@@ -63,7 +63,7 @@ function ServerData_ContentLock:isContentLock(content_name)
 
     -- [월드 레이드]
     if (content_name == 'world_raid') then
-        local is_open = g_worldRaidData:isAvailableWorldRaid()
+        local is_open = g_worldRaidData:isAvailableWorldRaid() and (self:isContentOpenByServer(content_name) == true)
         return (not is_open)
     end
 

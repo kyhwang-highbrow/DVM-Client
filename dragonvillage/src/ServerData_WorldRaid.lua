@@ -295,7 +295,7 @@ end
 -------------------------------------
 --- @function makeCurrentWorldRaidInfo
 -------------------------------------
-function ServerData_WorldRaid:makeCurrentWorldRaidInfo()	
+function ServerData_WorldRaid:makeCurrentWorldRaidInfo()
 	self.m_curWorldRaidInfo = nil
 	for _, v in pairs(self.m_tableWorldRaidSchedule) do
 		if self:checkWorldRaidTime(v) == true then
