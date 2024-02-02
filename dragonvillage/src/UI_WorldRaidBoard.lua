@@ -113,12 +113,15 @@ function UI_WorldRaidBoard:checkEnterEvent()
             -- 랭킹 정산 보상은 프레임만 있다고 함
             local t_reward = {}
             local profile_frame_id = 0
-            for item_id, _ in pairs(profile_frames) do
+            for item_id, _ in pairs(profile_frames) do               
                 local t_item = {item_id = tonumber(item_id), count = 1}
                 table.insert(t_reward, t_item)
                 profile_frame_id = tonumber(item_id)
-                break
+                break                
             end
+
+            local t_item = {item_id = 700330, count = 30}
+            table.insert(t_reward, t_item)
 
             self.m_tRankingRewardInfo['reward_info'] = t_reward
             UI_WorldRaidRewardPopup(self.m_tRankingRewardInfo, profile_frame_id)

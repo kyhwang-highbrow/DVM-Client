@@ -24,8 +24,14 @@ function UI_ResultLeaderBoard_WorldRaid:setCurrentInfo()
     -- 보상 아이템
     vars['rewardMenu']:removeAllChildren()
 
-    local cur_reward_data = g_worldRaidData:getPossibleReward(self.m_cur_rank, self.m_cur_ratio)
+    local cur_reward_data = g_worldRaidData:getPossibleReward(self.m_cur_rank, self.m_cur_ratio)    
     local l_reward_data = g_itemData:parsePackageItemStr(cur_reward_data['sh_reward'])
+
+    -- 소환권 일반 보상은 제거해버림
+    if #l_reward_data > 0  then
+        table.remove(l_reward_data, #l_reward_data)
+    end
+
     local reward_size = table.count(l_reward_data)
     local icon_size = 150
     local icon_scale = 0.666

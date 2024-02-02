@@ -13,8 +13,6 @@ UI_WorldRaidRewardPopup = class(PARENT,{
 -------------------------------------
 function UI_WorldRaidRewardPopup:init(t_info, profile_frame_id)
     self.m_profileFrameId = profile_frame_id or 0
-
-    cclog('self.m_profileFrameId', self.m_profileFrameId)
     self.m_profileFrameAnimator = nil
 
     local vars = self:load('world_raid_reward_popup.ui')
@@ -94,8 +92,8 @@ function UI_WorldRaidRewardPopup:initUI(t_info)
             vars['rewardSprite1']:setPositionX(0)
 
         elseif (reward_cnt == 2) then
-            vars['rewardSprite1']:setPositionX(-68)
-            vars['rewardSprite2']:setPositionX(68)
+            vars['rewardSprite1']:setPositionX(0)
+            vars['rewardSprite2']:setPositionX(128)
         end
     end
 

@@ -257,7 +257,6 @@ function UI_ReadySceneNew_Deck_WorldRaid:setReadySpriteVisible(ui, visible)
     end
 end
 
-
 -------------------------------------
 -- function click_dragonCard
 -------------------------------------
