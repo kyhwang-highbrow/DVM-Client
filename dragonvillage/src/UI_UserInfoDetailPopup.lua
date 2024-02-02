@@ -133,10 +133,11 @@ function UI_UserInfoDetailPopup:initUI()
 
     if self.m_tUserInfo['visit_type'] == 'world_raid' then
         vars['deckNameLabel']:setString(Str('월드 레이드\n팀'))
+        vars['reportBtn']:setVisible(false)        
+    else
+        vars['reportBtn']:setVisible(self.m_tUserInfo['hoid'] ~= nil) -- 신고 버튼    
     end
 
-    -- 신고 버튼
-    vars['reportBtn']:setVisible(self.m_tUserInfo['hoid'] ~= nil)
 	self:setVisitMode(visit)
 end
 
