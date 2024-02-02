@@ -332,7 +332,9 @@ function UI_WorldRaidUserDeckInfoPopup.open(hoid)
                 deck = {
                   ["2"] = "64df2a55e89193394c44c7a2",
                   ["1"] = "64df2a11e89193394c44c7a1",
-                  ["3"] = "64df29f1e89193394c44c79f"
+                  ["3"] = "64df29f1e89193394c44c79f",
+                  ["4"] = "64df29f1e89193394c44c79f",
+                  ["5"] = "64df29f1e89193394c44c79f"
                 },
                 formation = "attack",
                 leader = 2,
