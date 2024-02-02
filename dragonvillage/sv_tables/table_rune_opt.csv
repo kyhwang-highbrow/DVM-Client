@@ -1,0 +1,9 @@
+slot_id,slot,slot_opt
+slot_1,1,atk_add
+slot_2,2,"atk_multi,def_multi,hp_multi,aspd_add"
+slot_3,3,def_add
+slot_4,4,"atk_multi,def_multi,hp_multi,cri_chance_add,cri_dmg_add"
+slot_5,5,hp_add
+slot_6,6,"atk_multi,def_multi,hp_multi,accuracy_add,resistance_add"
+uopt,all,"atk_multi,atk_add,def_multi,def_add,hp_multi,hp_add,aspd_add,cri_chance_add,cri_dmg_add,hit_rate_add,avoid_add,accuracy_add,resistance_add"
+sopt,all,"atk_multi,atk_add,def_multi,def_add,hp_multi,hp_add,aspd_add,cri_chance_add,cri_dmg_add,hit_rate_add,avoid_add,accuracy_add,resistance_add"

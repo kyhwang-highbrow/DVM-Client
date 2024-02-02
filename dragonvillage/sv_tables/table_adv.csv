@@ -1,0 +1,4 @@
+id,type,limit,limit_type,cooltime,r_comment
+2,random_item,0,,30,일일 선물 상자
+3,adv_st,3,daily,0,일일 날개 충전
+4,adv_lobby,6,daily,3,일일로비돌림판

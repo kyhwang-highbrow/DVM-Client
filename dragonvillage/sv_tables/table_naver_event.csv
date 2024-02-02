@@ -1,0 +1,4 @@
+id,event_key,t_event_name,event_name_en,event_name_ja,event_name_zh_TW,start_date,end_date,event_type,cond_ko,cond_en,cond_ja,cond_zh_TW,mail_content
+1,201816_join,카페 플러그 가입 이벤트,PLUG Register Event,PLUG登録イベント,加入PLUG活動,2018-04-11 00:00:00,2018-12-31 00:00:00,join,,,,,700001;500
+2,201816_join,카페 플러그 가입 이벤트,PLUG Register Event,PLUG登録イベント,加入PLUG活動,2018-04-11 00:00:00,2018-12-31 00:00:00,comment,37361,585,243,422,700001;500
+3,20180503_event,가정의 달 이벤트,,,,2018-05-03 00:00:00,2018-05-16 23:59:59,comment,38609,,,,700002;300000

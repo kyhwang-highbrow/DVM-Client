@@ -1,0 +1,7 @@
+product_id,t_name,t_desc,r_comment,price_type,medal,price,product_content,bundle,max_buy_count,max_buy_term,badge,lock
+10101,앙그라(물) 인연 포인트,앙그라(물) 인연 소환 가능,,medal,700901,8,relation_point;760742;1,1,,,,
+10102,전설 강화 포인트,,,medal,700901,80,760005;40,1,8,permanent,,
+10103,전설 스킬 슬라임,,,medal,700901,80,779255;1,1,4,permanent,,
+10104,전설 특성 재료(물),,,medal,700901,150,741142;1,1,5,permanent,,
+10105,룬 연마석,,,medal,700901,1,704900;1,1,200,permanent,,
+10106,골드,,,medal,700901,1,700002;50000,1,,,,

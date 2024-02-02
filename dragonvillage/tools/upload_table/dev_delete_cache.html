@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <title>API Documentation</title>
+        <meta charset="utf-8">
+        <link rel="stylesheet" media="screen" href="/public/stylesheets/main.css">
+                <link rel="shortcut icon" type="image/png" href="/public/images/favicon.png">
+        <script src="/public/javascripts/jquery-1.5.2.min.js" type="text/javascript" charset="utf-8"></script>
+            </head>
+    <body>
+        
+
+
+<h1>Manage</h1>
+
+<p>
+<h2>delete_cache (DEV)</h2>
+<p>
+delete_cache
+</p>
+<h3>URL</h3>
+ <pre>http://dv-test.perplelab.com:9003/manage/delete_cache</pre>
+ <h3>HTTP Method</h3> 
+ 		
+		GET
+		
+
+
+<h3>Parameters</h3>
+<table border="1">
+<thead>
+	<tr>
+		<th>Name</th>
+		<th>Type</th>
+		<th>Value</th>
+	</tr>
+</thead>
+<tbody>
+
+
+	<tr>
+		<td>name</td>
+		<td>java.lang.String</td>
+		<td> String (입력하지 않으면 전체 캐시를 지운다.)</td>
+	</tr>
+
+
+
+
+</tbody>
+</table>
+
+
+
+
+<h3> Test Console</h3>
+
+
+
+<form id='console_form' name='console_form' action="http://dv-test.perplelab.com:9003/manage/delete_cache">
+			name : <input type="text" name="name" id="name"/><br/>
+
+	<input type="hidden" name="endpoint" value="http://dv-test.perplelab.com:9003/manage/delete_cache" />
+	<input type="hidden" name="method" value="GET" />
+	<input type="submit"/>
+</form>
+
+            <div id="ajax_indicator" style="display:none">
+                <img src="/public/images/ajax-loader.gif"/>
+            </div>
+            <div id="response_ajax"><pre id="json">
+            </pre>
+            </div>
+    </body>
+</html>

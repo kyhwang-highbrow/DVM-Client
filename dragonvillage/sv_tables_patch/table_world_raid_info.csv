@@ -1,0 +1,16 @@
+wrid,stage,party_type,attr,boss_attr,buff_key,debuff_key
+1001,3200001,1,fire,all,world_raid_earth_buff,world_raid_non_earth_debuff
+1002,3200001,1,fire,all,world_raid_water_buff,world_raid_non_water_debuff
+1003,3200001,1,fire,all,world_raid_fire_buff,world_raid_non_fire_debuff
+1004,3200001,1,fire,all,world_raid_light_buff,world_raid_non_light_debuff
+1005,3200001,1,fire,all,world_raid_dark_buff,world_raid_non_dark_debuff
+2001,3200002,2,fire,dark,world_raid_earth_buff,world_raid_non_earth_debuff
+2002,3200002,2,fire,dark,world_raid_water_buff,world_raid_non_water_debuff
+2003,3200002,2,fire,dark,world_raid_fire_buff,world_raid_non_fire_debuff
+2004,3200002,2,fire,dark,world_raid_light_buff,world_raid_non_light_debuff
+2005,3200002,2,fire,dark,world_raid_dark_buff,world_raid_non_dark_debuff
+3001,3200003,3,fire,dark,world_raid_earth_buff,world_raid_non_earth_debuff
+3002,3200003,3,fire,dark,world_raid_water_buff,world_raid_non_water_debuff
+3003,3200003,3,fire,dark,world_raid_fire_buff,world_raid_non_fire_debuff
+3004,3200003,3,fire,dark,world_raid_light_buff,world_raid_non_light_debuff
+3005,3200003,3,fire,dark,world_raid_dark_buff,world_raid_non_dark_debuff

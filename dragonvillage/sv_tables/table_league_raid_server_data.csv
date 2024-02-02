@@ -1,0 +1,7 @@
+server,season_start_date,group,rank_c_up,rank_c_stay,rank_c_down,rank_b_up,rank_b_stay,rank_b_down,rank_a_up,rank_a_stay,rank_a_down,rank_s_up,rank_s_stay,rank_s_down,rank_u_up,rank_u_stay,rank_u_down
+dev,2021-10-11 00:00:00,10,4,6,0,3,3,4,2,3,5,1,3,6,0,1,9
+korea,2021-11-15 00:00:00,10,4,6,0,3,3,4,2,3,5,1,3,6,0,1,9
+america,2021-11-15 00:00:00,5,2,3,0,2,2,1,1,2,2,1,1,3,0,1,4
+asia,2021-11-15 00:00:00,5,2,3,0,2,2,1,1,2,2,1,1,3,0,1,4
+japan,2021-11-15 00:00:00,5,2,3,0,2,2,1,1,2,2,1,1,3,0,1,4
+global,2021-11-15 00:00:00,5,2,3,0,2,2,1,1,2,2,1,1,3,0,1,4

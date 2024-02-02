@@ -1,0 +1,66 @@
+{
+    "extract_variable_list" :
+    [
+        {
+            "name" : "UI - lua name extract"
+
+            ,"path_list" : 
+            [
+                "../../emulator/res/"
+            ],
+
+            "except_path_list" : 
+            [
+            ],
+
+            "extract_func" : "extract_ui_lua_name",
+
+            "sort_key" : "count_desc", 
+        
+            "file_name" : "ui_result.csv"
+        },
+
+        {
+            "name" : "CSV - column name extract"
+
+            ,"path_list" : 
+            [
+                "../../emulator/data/",
+                "../../sv_tables/",
+                "../../sv_tables_patch/"
+            ],
+
+            "except_path_list" : 
+            [
+            ],
+
+            "extract_func" : "extract_csv_column",
+
+            "sort_key" : "count_desc", 
+        
+            "file_name" : "csv_result.csv"
+        },
+
+        {
+            "name" : "LUA - variable name extract"
+
+            ,"path_list" : 
+            [
+                "../../emulator/src/"
+            ],
+
+            "except_path_list" : 
+            [
+                "../../emulator/src/lib",
+                "../../emulator/src/pl"
+            ],
+
+            "extract_func" : "extract_lua_variable",
+
+            "sort_key" : "count_desc", 
+        
+            "file_name" : "lua_result.csv"
+        }
+      
+    ]
+}

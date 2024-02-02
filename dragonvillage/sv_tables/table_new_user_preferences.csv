@@ -1,0 +1,11 @@
+user_type,stamina_st,stamina_pvp,stamina_tower,cash,gold,tamer,dragon,show_dragons,deck_deckname,deck_formation,dragons,decks
+new_user_goni,20,5,10,0,0,110001,120223,"120223,120231,120161",adv,balance,"did:120231;grade:3,
+did:120223;grade:3,
+,
+did:120161;grade:3,
+",
+new_user_nuri,20,5,10,0,0,110002,120431,"120431,120233,120413",adv,balance,"did:120233;grade:3,
+did:120413;grade:3,
+,
+did:120431;grade:3,
+",

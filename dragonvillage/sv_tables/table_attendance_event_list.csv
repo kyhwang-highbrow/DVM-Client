@@ -1,0 +1,46 @@
+atd_id,category,r_comment,terms,start,end,expiration,type,button_icon,ui,item_ui
+50001,open_event,,,20170401,20170920,20170930,accrue,,,
+50002,open_event,,,20170920,20171222,20181231,accrue,,,
+50003,newbie,신규 유저 스페셜 출석 이벤트,20171222,20171222,20191231,21201231,accrue,,,
+50004,comeback,복귀 유저 출석 이벤트,15,20180122,20210311,20210331,accrue,,,
+50005,1st_event,1주년 출석 이벤트,,20180830,20180906,20200121,accrue,,event_attendance_1st_anniversary.ui,event_attendance_1st_anniversary_item.ui
+50006,2nd_event,2주년 출석 이벤트,,20190828,20190912,20200121,accrue,,event_attendance_1st_anniversary.ui,event_attendance_1st_anniversary_item.ui
+50007,newbie_welcome,신규 유저 전설 드래곤 지급 이벤트,20191010,20191010,20191025,20191025,accrue,,event_attendance_1st_anniversary.ui,event_attendance_1st_anniversary_item.ui
+50008,global_2nd_event,글로벌 2주년 출석 이벤트,,20200123,20200206,20301231,accrue, ,event_attendance_1st_anniversary.ui,event_attendance_1st_anniversary_item.ui
+50009,event,가정의 달(어린이날) 기념,,20200501,20200508,20301231,accrue,,event_attendance_children.ui,event_attendance_children_item.ui
+50010,event,구글 피처드 선정 기념,,20200717,20200724,20301231,accrue,,event_attendance_featured.ui,event_attendance_featured_item.ui
+50011,event,3주년 출석 이벤트,,20200826,20201001,20201031,accrue,,event_attendance_1st_anniversary.ui,event_attendance_1st_anniversary_item.ui
+50012,event,추석맞이 출석 이벤트,,20201001,20201015,20201201,accrue,,event_attendance_chuseok.ui,event_attendance_chuseok_item.ui
+50013,event,DVM x DV 페스티벌,,20201126,20201210,20210101,accrue,,event_attendance_collabo_dv.ui,event_attendance_collabo_dv_item.ui
+50014,event,크리스마스 출석,,20201223,20210101,20210101,accrue,,event_attendance_rune_update.ui,event_attendance_rune_update_item.ui
+50015,event,글로벌 3주년 출석 이벤트,,20210127,20210204,20210301,accrue,,event_attendance_1st_anniversary.ui,event_attendance_1st_anniversary_item.ui
+50016,event,구글 피처드 선정 기념,,20210225,20210305,20210331,accrue,,event_attendance_featured.ui,event_attendance_featured_item.ui
+50017,newbie,신규 유저 출석 이벤트,20210308,20210310,20210311,29210430,accrue,,event_attendance_new.ui,event_attendance_new_item.ui
+50018,comeback,복귀 유저 출석 이벤트,45,20210310,20210311,29210430,accrue,,event_attendance_new.ui,event_attendance_new_item.ui
+50019,event,바이델 축제 출석 이벤트,,20210813,20210908,20210915,accrue,,event_attendance_children.ui,event_attendance_children_item.ui
+50020,event,4주년 출석 이벤트,,20210813,20210908,20210915,accrue,,event_attendance_7day.ui,event_attendance_7day_item.ui
+50021,event,달빛축제 출석 이벤트,,20210907,20210929,20211005,accrue,,event_attendance_moonlight.ui,event_attendance_moonlight_item.ui
+50022,event,출석 이벤트,,20211005,20211013,20211020,accrue,,event_attendance_henes.ui,event_attendance_henes_item.ui
+50023,comeback,복귀 유저 출석 이벤트,30,20211110,20211217,20220101,accrue,,event_attendance_7day_return.ui,event_attendance_7day_return_item.ui
+50024,event,레이드 업데이트 기념,,20211110,20211217,20220101,accrue,,event_attendance_7day_return.ui,event_attendance_7day_return_item.ui
+50025,event,눈꽃 축제 출석 이벤트,,20221208,20230104,20220110,accrue,,event_attendance_winter.ui,event_attendance_winter_item.ui
+50026,event,2022 새해맞이 출석 이벤트,,20230119,20230119,20230119,accrue,,event_attendance_new_year.ui,event_attendance_new_year_item.ui
+50030,event,글로벌 서버 기념 출석 이벤트,,20220530,20220701,20220707,accrue,,event_attendance_new_server.ui,event_attendance_new_server_item.ui
+50031,newbie,신규 유저 출석 이벤트,20220730,20220730,20221121,29210430,accrue,,event_attendance_new_server.ui,event_attendance_new_server_item.ui
+50032,comeback,복귀 유저 출석 이벤트,45,20220730,20221121,29210430,accrue,,event_attendance_henes.ui,event_attendance_henes_item.ui
+50033,event,5주년 출석 이벤트,,20220825,20220908,20220915,accrue,,event_attendance_7day.ui,event_attendance_7day_item.ui
+50034,event,달빛맞이 출석 이벤트,,20220907,20220921,20220928,accrue,,event_attendance_moonlight.ui,event_attendance_moonlight_item.ui
+50035,event,할로윈 출석 이벤트,,20221021,20221104,20221112,accrue,,event_attendance_7day.ui,event_attendance_7day_item.ui
+50036,newbie,신규 유저 출석 이벤트,20221121,20221121,20250529,29210430,accrue,,event_attendance_new_server.ui,event_attendance_new_server_item.ui
+50037,comeback,복귀 유저 출석 이벤트,14,20221121,20250529,29210430,accrue,,event_attendance_henes.ui,event_attendance_henes_item.ui
+50038,event,2023 새해맞이 출석 이벤트,,20230120,20230203,20230209,accrue,,event_attendance_new_year.ui,event_attendance_new_year_item.ui
+50039,event,2000일 기념 출석 이벤트,,20230217,20230303,20230310,accrue,,event_attendance_2000day.ui,event_attendance_2000day_item.ui
+50040,event,화이트데이 출석 이벤트,,20230309,20230328,20230404,accrue,,event_attendance_7day.ui,event_attendance_7day_item.ui
+50041,event,바이델 축제 출석 이벤트,,20230428,20230512,20230519,accrue,,event_attendance_children.ui,event_attendance_children_item.ui
+50042,event,인기 신화 드래곤 소환 기념,,20230607,20230614,20230621,accrue,,event_attendance_popularity.ui,event_attendance_popularity_item.ui
+50043,event,여름맞이 출석 이벤트,,20230802,20230823,20230830,accrue,,event_attendance_7day.ui,event_attendance_7day_item.ui
+50044,event,6주년 출석 이벤트,,20230814,20230906,20230913,accrue,,event_attendance_2000day.ui,event_attendance_2000day_item.ui
+50045,event,달빛축제 출석 이벤트,,20230906,20231004,20231011,accrue,,event_attendance_moonlight.ui,event_attendance_moonlight_item.ui
+50046,event,할로윈 출석 이벤트,,20231024,20231109,20231116,accrue,,event_attendance_7day.ui,event_attendance_7day_item.ui
+50047,event,눈꽃 축제 출석 이벤트,,20231212,20240103,20240110,accrue,,event_attendance_children.ui,event_attendance_children_item.ui
+50048,event,새해 기념 출석 이벤트,,20240101,20240115,20240122,accrue,,event_attendance_2000day.ui,event_attendance_2000day_item.ui

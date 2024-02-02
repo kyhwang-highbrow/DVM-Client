@@ -1,0 +1,4 @@
+table_monster_skill
+table_drop
+table_dragon
+table_fruit
