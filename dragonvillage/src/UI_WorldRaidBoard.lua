@@ -23,10 +23,10 @@ function UI_WorldRaidBoard:initParentVariable()
     -- ITopUserInfo_EventListener의 맴버 변수들 설정
     self.m_uiName = 'UI_WorldRaidBoard'
     self.m_titleStr = Str('월드 레이드')
-	  self.m_staminaType = 'cldg'
+	--self.m_staminaType = 'cldg'
     self.m_bVisible = true
     self.m_bUseExitBtn = true
-    self.m_subCurrency = 'clancoin'
+    --self.m_subCurrency = 'clancoin'
     self.m_uiBgm = 'bgm_lobby'
 end
 

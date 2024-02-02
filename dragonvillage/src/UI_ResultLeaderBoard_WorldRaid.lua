@@ -42,7 +42,8 @@ function UI_ResultLeaderBoard_WorldRaid:setCurrentInfo()
         node:setPositionX(l_ui_pos_list[idx])
     end
 
-    vars['remainTimeLabel']:setString(g_worldRaidData:getRemainTimeString())
+    local _, days = g_worldRaidData:getRemainTimeString()
+    vars['remainTimeLabel']:setString(Str('획득까지 {1}일 남음', days))
     vars['rewardMenuMenu']:setVisible(#l_reward_data > 0)
     require('UI_ResultLeaderBoard_IncarnationOfSinsListItem')
     if (self.m_tUpperRank) then

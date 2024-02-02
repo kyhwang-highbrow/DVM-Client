@@ -22,10 +22,10 @@ function UI_WorldRaid:initParentVariable()
         self.m_titleStr = Str('월드 레이드') .. ' - ' .. str
     end
     
-	self.m_staminaType = 'cldg'
+	--self.m_staminaType = 'cldg'
     self.m_bVisible = true
     self.m_bUseExitBtn = true
-    self.m_subCurrency = 'clancoin'
+    --self.m_subCurrency = 'clancoin'
     self.m_uiBgm = 'bgm_lobby'
 end
 
@@ -456,12 +456,3 @@ end
 
 --@CHECK
 UI:checkCompileError(UI_WorldRaid)
-
-
-
-
-
-
-
-
-

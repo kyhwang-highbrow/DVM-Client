@@ -349,7 +349,8 @@ end
 function ServerData_WorldRaid:getRemainTimeString()
     local _, time = self:checkWorldRaidTime(self.m_curWorldRaidInfo)
     time = math_floor(time/1000)
-    return Str('종료까지 {1} 남음', ServerTime:getInstance():makeTimeDescToSec(time, true))
+    local days  = math_floor(time/(24*60*60))
+    return Str('종료까지 {1} 남음', ServerTime:getInstance():makeTimeDescToSec(time, true)), days
 end
 
 -------------------------------------
