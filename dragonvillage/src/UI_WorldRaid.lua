@@ -119,7 +119,7 @@ function UI_WorldRaid:initUI()
     local stage_id = g_worldRaidData:getWorldRaidStageId()
     local monster_id_list = g_stageData:getMonsterIDList(stage_id)
     local boss_id = monster_id_list[#monster_id_list]
-    local attr = TableStageData:getStageAttr(stage_id)
+    local attr = TableWorldRaidInfo:getInstance():getWorldRaidAttr(world_raid_id)--TableStageData:getStageAttr(stage_id)
     
     do -- 보스 이름
         local boss_name = TableMonster():getMonsterName(boss_id)
@@ -341,9 +341,11 @@ function UI_WorldRaid:click_battleTestBtn(world_raid_party_type)
 
     for k, v  in pairs(table_data.m_orgTable) do
         if self.m_worldRaidId  == k then
-            local stage_id = table_data:getStageIdByPartyType(world_raid_party_type)
+            local stage_id = table_data:getStageIdByPartyType(world_raid_party_type)            
+            local boss_attr = table_data:getBossAttrByPartyType(world_raid_party_type)            
             v['party_type'] = world_raid_party_type
             v['stage'] = stage_id
+            v['boss_attr'] = boss_attr
         end
     end
 

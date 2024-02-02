@@ -81,7 +81,7 @@ end
 --- @function getWorldRaidAttr
 -------------------------------------
 function TableWorldRaidInfo:getWorldRaidAttr(world_raid_id)
-    local stage_id = self:getValue(world_raid_id, 'attr')
+    local stage_id = self:getValue(world_raid_id, 'boss_attr')
     return stage_id
 end
 
@@ -133,4 +133,13 @@ function TableWorldRaidInfo:getStageIdByPartyType(party_type)
     local list = self:filterList('party_type', party_type)
     local v = list[1]
     return v['stage']
+end
+
+-------------------------------------
+--- @function getBossAttrByPartyType
+-------------------------------------
+function TableWorldRaidInfo:getBossAttrByPartyType(party_type)
+    local list = self:filterList('party_type', party_type)
+    local v = list[1]
+    return v['boss_attr']
 end
