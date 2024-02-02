@@ -256,3 +256,45 @@ function UI_ReadySceneNew_Deck_WorldRaid:setReadySpriteVisible(ui, visible)
         ui:setReadySpriteVisible(visible)
     end
 end
+
+
+-------------------------------------
+-- function click_dragonCard
+-------------------------------------
+function UI_ReadySceneNew_Deck_WorldRaid:click_dragonCard(t_dragon_data, skip_sort, idx)
+    local doid = t_dragon_data['id']
+    local multi_deck_mgr = self.m_uiReadyScene.m_multiDeckMgr
+
+    -- 멀티 덱 처리 - 1, 2 공격대 드래곤 체크
+    -- if (multi_deck_mgr) then
+    --     if multi_deck_mgr.m_bUseManualSelection == false then
+    --         local mode = self.m_selTab
+    --         local map_deck = multi_deck_mgr:getAnotherDeckMap(mode)
+
+    --         if (map_deck[doid]) then
+    --             local another_mode = multi_deck_mgr:getAnotherPos(mode)
+    --             local team_name = multi_deck_mgr:getTeamName(another_mode)
+
+    --             local msg = Str('{1}에 출전중인 드래곤입니다.', team_name)
+    --             UIManager:toastNotificationRed(msg)
+    --             return
+    --         end
+    --     end
+    -- end
+
+    if self.m_tDeckMap[doid] then
+        local idx = self.m_tDeckMap[doid]
+        self:setSlot(idx, nil, skip_sort)
+        self:setFocusDeckSlotEffect(idx)
+    else
+        local ret = self:setSlot(self.m_focusDeckSlot, doid, skip_sort)
+
+        -- 드래곤이 선택되었을 경우
+        if (ret == true) then
+            local delay_rate = idx
+            self:dragonPick(t_dragon_data, self.m_focusDeckSlot, delay_rate)
+        end
+    end
+
+    self:refreshFocusDeckSlot()
+end

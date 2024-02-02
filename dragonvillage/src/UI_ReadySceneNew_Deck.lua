@@ -211,7 +211,7 @@ function UI_ReadySceneNew_Deck:click_dragonCard(t_dragon_data, skip_sort, idx)
 
                 local msg = Str('{1}에 출전중인 드래곤입니다.', team_name)
                 UIManager:toastNotificationRed(msg)
-                return 
+                return
             end
         end
     end
