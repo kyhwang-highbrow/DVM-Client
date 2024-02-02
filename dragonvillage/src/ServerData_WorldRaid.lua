@@ -8,9 +8,15 @@ ServerData_WorldRaid = class({
 	m_rankList = '',
 	m_myRank = '',
 
+
     m_complimentCount = 'number',
     m_isAvailableCompliment = 'boolean',
-    m_rankReward = 'number',
+
+    -- from server
+    m_rankReward = 'map',
+    m_topScore = 'map',
+
+
     m_testScoreFix = 'number',
 
 	m_tableWorldRaidRank = 'Table',
@@ -37,6 +43,8 @@ function ServerData_WorldRaid:init()
 	self.m_rankingUpdateAt = ExperationTime()
 	self.m_tableWorldRaidRank = {}
 	self.m_rankList = {}
+    self.m_topScore = {}
+
 	self.m_myRank = nil
 	self.m_tableWorldRaidSchedule = {}
 	self.m_curWorldRaidInfo = nil
@@ -129,7 +137,18 @@ function ServerData_WorldRaid:isAvailableWorldRaidRewardRanking()
     end
 
     local wrid = self:getPrevSeasonId()
-    local reward = self.m_rankReward[tostring(wrid)] or -1
+
+    -- 이전 시즌에 참가를 안한 경우
+    if self.m_topScore[tostring(wrid)] == nil then
+        return false
+    end
+
+    -- 이전 시즌 정보가 없는 경우
+    if self.m_rankReward[tostring(wrid)] == nil then
+        return true
+    end
+
+    local reward = self.m_rankReward[tostring(wrid)]
     return reward == 0
 end
 
@@ -289,6 +308,11 @@ function ServerData_WorldRaid:applyResponse(t_ret)
     -- 랭킹 보상 여부 수령 가능한지
 	if t_ret['rank_reward'] ~= nil then
 		self.m_rankReward = t_ret['rank_reward']
+    end
+
+    -- 탑 스코어
+	if t_ret['top_score'] ~= nil then
+		self.m_topScore = t_ret['top_score']
     end
 end
 

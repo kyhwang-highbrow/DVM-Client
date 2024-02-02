@@ -37,7 +37,7 @@ function UI_WorldRaidUserDeckInfoPopup:initUI()
     self:addTabAuto(1, vars)
     self:addTabAuto(2, vars)
     self:addTabAuto(3, vars)
-
+    self:setTabLabelChangeColor(false)
     self:setTab(1)
     self:setChangeTabCB(function(tab, first) self:onChangeTab(tab, first) end)
 end

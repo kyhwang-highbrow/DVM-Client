@@ -8,6 +8,7 @@ ITabUI = {
         m_currTab = 'any_type',
         m_mTabData = 'map',
         m_cbChangeTab = 'function(tab, first)',
+        m_isTabLabelChangeColor = 'boolean',
     }
 
 -------------------------------------
@@ -18,6 +19,7 @@ function ITabUI:init()
     self.m_prevTab = nil
     self.m_currTab = nil
     self.m_mTabData = {}
+    self.m_isTabLabelChangeColor = true
 end
 
 -------------------------------------
@@ -156,7 +158,9 @@ function ITabUI:deactivate(tab)
 
     local label = t_tab_data['label']
     if (label) then
-        label:setTextColor(cc.c4b(240, 215, 159, 255))
+        if self.m_isTabLabelChangeColor == true then
+            label:setTextColor(cc.c4b(240, 215, 159, 255))
+        end
     end
 
     for i,v in ipairs(t_tab_data['tab_node_list']) do
@@ -184,7 +188,9 @@ function ITabUI:activate(tab, first)
 
     local label = t_tab_data['label']
     if (label) then
-        label:setTextColor(cc.c4b(0, 0, 0, 255))
+        if self.m_isTabLabelChangeColor == true then
+            label:setTextColor(cc.c4b(0, 0, 0, 255))
+        end
     end
 
     for i,v in ipairs(t_tab_data['tab_node_list']) do
@@ -212,6 +218,14 @@ end
 -------------------------------------
 function ITabUI:setChangeTabCB(cb)
     self.m_cbChangeTab = cb
+end
+
+-------------------------------------
+-- function setChangeTabCB
+-- @brief cb function(tab, first)
+-------------------------------------
+function ITabUI:setTabLabelChangeColor(b)
+    self.m_isTabLabelChangeColor = b
 end
 
 -------------------------------------
