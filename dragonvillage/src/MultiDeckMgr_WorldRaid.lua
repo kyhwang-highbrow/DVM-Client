@@ -135,26 +135,6 @@ function MultiDeckMgr_WorldRaid:checkSameDidAnoterDeck_Raid(doid)
     return false
 end
 
--------------------------------------
--- function getUsingDidTable
--- @brief 다른 위치 덱 - 동종 동속성 드래곤 아이디 가져오기
--------------------------------------
-function MultiDeckMgr_WorldRaid:getUsingDidTable()
-    local table_dragon = {}
-    for pos = 1,3 do
-        local str = string.format('m_tDeckMap_%d', pos)
-        local target = self[str]
-        if target ~= nil then
-            for k, _ in pairs(target) do
-                if k ~= nil then
-                    table_dragon[k] = string.format('world_raid_%d', pos)
-                end
-            end
-        end
-    end
-
-    return table_dragon
-end
 
 -------------------------------------
 -- function isSettedDragon
@@ -210,6 +190,12 @@ end
 -- function getTeamName
 -------------------------------------
 function MultiDeckMgr_WorldRaid:getTeamName(pos)
+    if pos == 'up' then
+        return Str(string.format('%d 공격대', 1))
+    elseif pos == 'down' then
+        return Str(string.format('%d 공격대', 2))
+    end
+
     return Str(string.format('%d 공격대', pos))
 end
 
@@ -233,6 +219,42 @@ function MultiDeckMgr_WorldRaid:checkDeckCondition()
     end
 
     return true
+end
+
+-------------------------------------
+-- function makeDeckMap_worldRaid
+-- @breif Multi 덱 map생성 (리스트일 경우 sort 시간 오래걸림)
+-------------------------------------
+function MultiDeckMgr_WorldRaid:getUsingDidTable()
+
+    -- local table_dragon = {}
+    -- for i, v in ipairs(self.m_deck_1) do
+    --     table_dragon[v] = 'league_raid_1'
+    -- end
+
+    -- for i, v in ipairs(self.m_deck_2) do
+    --     table_dragon[v] = 'league_raid_2'
+    -- end
+
+    -- for i, v in ipairs(self.m_deck_3) do
+    --     table_dragon[v] = 'league_raid_3'
+    -- end
+
+    -- return table_dragon
+
+    local table_dragon = {}
+    for pos = 1, self.m_deckCount do
+        local str = string.format('world_raid_%d', pos)
+        local l_deck = g_deckData:getDeck(str)
+        for k, v in pairs(l_deck) do
+            local doid = v
+            if (doid) then
+                table_dragon[v] = str
+            end
+        end
+    end
+
+    return table_dragon
 end
 
 -------------------------------------
