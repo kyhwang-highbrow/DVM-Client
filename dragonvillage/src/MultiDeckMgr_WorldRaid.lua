@@ -207,6 +207,13 @@ function MultiDeckMgr_WorldRaid:getAnotherPos(pos)
 end
 
 -------------------------------------
+-- function getTeamName
+-------------------------------------
+function MultiDeckMgr_WorldRaid:getTeamName(pos)
+    return Str(string.format('%d 공격대', pos))
+end
+
+-------------------------------------
 -- function checkDeckCondition
 -- @brief 상단덱 하단덱 출전 조건 체크
 -------------------------------------

@@ -4,13 +4,34 @@ local PARENT = GameWorldWorldRaid
 -- class GameWorldWorldRaidLinger
 -------------------------------------
 GameWorldWorldRaidLinger = class(PARENT, {
+        m_myDragons_1 = 'table',
+        m_myDragons_2 = 'table',
+        m_myDragons_3 = 'table',
     })
+
+
+    -------------------------------------
+-- function initTamer
+-------------------------------------
+function GameWorldWorldRaidLinger:initTamer()
+    local l_deck, formation, deck_name, leader, tamer_id = g_deckData:getDeck()
+    local t_tamer_data = clone(g_tamerData:getTamerServerInfo(tamer_id))
+    local t_costume_data = g_tamerCostumeData:getCostumeDataWithTamerID(tamer_id)
+    
+    -- 테이머 생성
+    self.m_tamer = self:makeTamerNew(t_tamer_data, t_costume_data)
+
+    -- 테이머 UI 생성
+	self.m_inGameUI:initTamerUI(self.m_tamer)
+
+    self:addListener('dragon_summon', self)
+end
 
 -------------------------------------
 --- @function makeHeroDeck
 --- @brief 덱 만들고 버프 부여하기
 -------------------------------------
-function GameWorldWorldRaidLinger:makeHeroDeck()    
+function GameWorldWorldRaidLinger:makeHeroDeck()
     self:makeHeroDeck_internal(g_worldRaidData.m_curDeckIndex)
 end
 

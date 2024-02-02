@@ -13,10 +13,9 @@ GameState_WorldRaid_Linger = class(PARENT, {
 -------------------------------------
 function GameState_WorldRaid_Linger:init()
     self.m_bgmBoss = 'bgm_dungeon_boss'
-    local cur_deck_name = g_deckData:getSelectedDeckName()
-    local deck_number = pl.stringx.replace(cur_deck_name, 'world_raid_', '')
-
-    self.m_currentDeckIndex = tonumber(deck_number)
+    --local cur_deck_name = g_deckData:getSelectedDeckName()
+    --local deck_number = 1pl.stringx.replace(cur_deck_name, 'world_raid_', '')
+    self.m_currentDeckIndex = 1--tonumber(deck_number)
 end
 
 -------------------------------------

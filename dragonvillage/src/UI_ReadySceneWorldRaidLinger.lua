@@ -67,3 +67,19 @@ function UI_ReadySceneWorldRaidLinger:refresh_dragon_cards()
         self.m_readySceneDeck:refresh_dragonCard(doid)
     end
 end
+
+
+-------------------------------------
+--- @function networkGameStart
+--- @breif
+-------------------------------------
+function UI_ReadySceneWorldRaidLinger:networkGameStart()
+    local function finish_cb(game_key)
+        g_deckData:setSelectedDeck('world_raid_1')
+        self:replaceGameScene(game_key)
+    end
+
+    local world_raid_id = self.m_subInfo['world_raid_id']
+    --local deck_name = g_deckData:getSelectedDeckName()
+    g_worldRaidData:request_WorldRaidStart(world_raid_id, self.m_stageID, finish_cb)
+end
