@@ -106,3 +106,4 @@ function UI_ReadySceneWorldRaidLinger:click_autoBtn()
     
     self:applyDeck(l_auto_deck)
 end
+
