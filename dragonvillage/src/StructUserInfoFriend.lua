@@ -197,7 +197,7 @@ function StructUserInfoFriend:getDragonCard()
 		UI_UserInfoDetailPopup:open(self, is_visit, nil)
 	end)
     
-    -- 프로필 테두리 추가
+    -- 프로필 프레임 추가
     local profile_frame_animator = self:makeProfileFrameAnimator()
     if profile_frame_animator ~= nil then
         card.root:addChild(profile_frame_animator.m_node)

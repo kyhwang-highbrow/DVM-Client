@@ -25,7 +25,7 @@ end
 --------------------------------------------------------------------------
 function UI_ProfileFrameItem:initUI()
     local vars = self.vars
-    -- 프로필 테두리 추가
+    -- 프로필 프레임 추가
     local profile_frame_id = self.m_profileFrameId
     local profile_frame_animator = IconHelper:getProfileFrameAnimator(profile_frame_id)
     vars['profileFrameNode']:removeAllChildren()

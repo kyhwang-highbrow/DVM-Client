@@ -29,7 +29,7 @@ function UI_WorldRaidResult:init(stage_id, boss, damage, t_data, ret)
     self.m_data = t_data
     self.m_grade = 5
     self.m_lCloseRankers = {}
-    
+
     local vars = self:load('world_raid_result.ui')
     UIManager:open(self, UIManager.POPUP)
     self.m_uiName = 'UI_WorldRaidResult'
@@ -331,7 +331,8 @@ function UI_WorldRaidResult:show_boss_hp()
     vars['levelLabel']:setString(name)
 
     -- 속성 아이콘
-    local attr = boss:getAttribute()
+    local world_raid_id = g_worldRaidData:getWorldRaidId()
+    local attr = TableWorldRaidInfo:getInstance():getWorldRaidAttr(world_raid_id)    
     local icon = IconHelper:getAttributeIconButton(attr)
     vars['attrNode']:removeAllChildren()
     vars['attrNode']:addChild(icon)

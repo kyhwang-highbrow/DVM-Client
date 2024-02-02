@@ -138,25 +138,6 @@ function UI_WorldRaid:initUI()
     end
 
 
-    -- 랭크
-    -- local rank = g_eventDealkingData:getMyRank(self.m_bossType, attr)
-    -- if (rank < 0) then
-    --     vars['rankLabel']:setString(Str('순위 없음'))
-    -- else
-    --     local ratio = g_eventDealkingData:getMyRate(self.m_bossType, attr)
-    --     local percent_text = string.format('%.2f', ratio * 100)
-    --     vars['rankLabel']:setString(Str('{1}위 ({2}%)', comma_value(rank), percent_text))
-    -- end
-    
-    -- -- 점수
-    -- local score = g_eventDealkingData:getMyScore(self.m_bossType, attr)
-    -- if (score < 0) then 
-    --     score = 0
-    -- else
-    --     score = comma_value(score)
-    -- end
-    -- vars['scoreLabel']:setString(Str('{1}점', score)) 
-
     do -- 보너스 속성
         local buff_key = TableWorldRaidInfo:getInstance():getBuffKey(world_raid_id)
         local bonus_str, map_attr = TableContentAttr:getInstance():getBonusInfo(buff_key, true)

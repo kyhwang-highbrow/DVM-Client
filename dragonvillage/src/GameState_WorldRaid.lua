@@ -230,7 +230,8 @@ function GameState_WorldRaid:makeBossHp()
     if (not self.m_uiBossHp) then
         local parent = world.m_inGameUI.root
         local ui = UI_IngameSharedBossHp(parent, world.m_waveMgr.m_lBoss, false)
-        local attr = 'none'
+        local world_raid_id = g_worldRaidData:getWorldRaidId()
+        local attr = TableWorldRaidInfo:getInstance():getWorldRaidAttr(world_raid_id)
         DragonInfoIconHelper.setDragonAttrBtn(attr, ui.vars['attrNode'])
 
         ui.vars['bossHpGauge1']:setVisible(true)

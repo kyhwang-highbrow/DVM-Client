@@ -152,7 +152,7 @@ local TableInfo = {
         -- 연구
         table_research = {'table_research', 'id', false},
 
-        -- 프로필 테두리
+        -- 프로필 프레임
         table_profile_frame = {'table_profile_frame', 'id', false},
 
         -- 월드 레이드

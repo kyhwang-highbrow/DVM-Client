@@ -152,7 +152,7 @@ function UI_UserSetLeaderProfileFrameTab:refresh()
             local str_desc = TableItem:getItemDesc(self.m_selectProfileFrameId)            
             vars['infoLabel']:setString(str_desc)
         else
-            vars['infoLabel']:setString(Str('착용 중인 프로필 테두리가 없습니다.'))
+            vars['infoLabel']:setString(Str('착용 중인 프로필 프레임이 없습니다.'))
         end
     end
 end
@@ -202,9 +202,9 @@ end
 function UI_UserSetLeaderProfileFrameTab:click_equipBtn()
     local vars = self.vars
 
-    -- 소유 중인 프로필 테두리냐?
+    -- 소유 중인 프로필 프레임이냐?
     if g_profileFrameData:isOwnedProfileFrame(self.m_selectProfileFrameId) == false then
-        UIManager:toastNotificationRed(Str('현재 보유 중인 테두리가 아닙니다.'))
+        UIManager:toastNotificationRed(Str('현재 보유 중인 프레임이 아닙니다.'))
         return
     end
 
@@ -217,7 +217,7 @@ function UI_UserSetLeaderProfileFrameTab:click_equipBtn()
         local scale_up = cc.EaseElasticOut:create(cc.ScaleTo:create(0.2, 1.2), 0.1)
         local scale_down = cc.EaseElasticIn:create(cc.ScaleTo:create(0.2, 1), 0.1)
         local call_func = cc.CallFunc:create(function () 
-            UIManager:toastNotificationGreen(Str('테두리를 착용하였습니다.'))
+            UIManager:toastNotificationGreen(Str('프레임을 착용하였습니다.'))
         end)
     
         local delay = cc.DelayTime:create(0.1)

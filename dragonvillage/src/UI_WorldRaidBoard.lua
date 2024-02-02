@@ -439,7 +439,7 @@ function UI_WorldRaidBoard:initDevPanel()
             end
         
             t_component['cb1'] = func
-            t_component['str'] = '보유 테두리 제거'
+            t_component['str'] = '보유 프레임 제거'
             dev_panel:addDevComponent(t_component) -- params: struct_dev_panel_component(StructDevPanelComponent)
         end
 

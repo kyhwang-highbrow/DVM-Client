@@ -49,7 +49,7 @@ function UI_UserSetLeader:initTab()
     vars['indivisualTabMenu']:addChild(profile_frame_tab.root)
 
     self:addTabWithTabUIAndLabel('dragon', vars['dragonTabBtn'], vars['dragonTabLabel'], dragon_tab)       -- 드래곤
-    self:addTabWithTabUIAndLabel('profile_frame', vars['profileFrameTabBtn'], vars['profileFrameTabLabel'], profile_frame_tab) -- 프로필 테두리
+    self:addTabWithTabUIAndLabel('profile_frame', vars['profileFrameTabBtn'], vars['profileFrameTabLabel'], profile_frame_tab) -- 프로필 프레임
 
     self:setTab('dragon')
 end
