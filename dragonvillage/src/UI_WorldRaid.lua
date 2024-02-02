@@ -198,6 +198,22 @@ function UI_WorldRaid:initUI()
             animator:runAction(action)
         end
     end
+
+
+    do -- 등장 몬스터 카드
+        monster_id_list = table.reverse(monster_id_list)
+        
+        for idx = 1, 4 do
+            local monster_id = monster_id_list[idx]
+            local node_str = string.format('bossCard%dNode', idx)
+            vars[node_str]:removeAllChildren()
+
+            if monster_id ~= nil then
+                local icon = UI_MonsterCard(monster_id)
+                vars[node_str]:addChild(icon.root)
+            end
+        end
+    end
 end
 
 -------------------------------------
