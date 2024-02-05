@@ -390,7 +390,6 @@ function UI_WorldRaidBoard:request_total_ranking()
   g_worldRaidData:request_WorldRaidRanking(self.m_worldRaidId, searchType, self.m_rankOffset, 20, success_cb)
 end
 
-
 -------------------------------------
 -- function initDevPanel
 -- @brief 개발용 코드
@@ -455,7 +454,7 @@ end
 -------------------------------------
 function UI_WorldRaidBoard.open(lobby_milestone)
 
-  local wrid = g_worldRaidData:getPrevSeasonId()
+  local wrid = g_worldRaidData:getPrevSeasonWrid()
     local function finish_cb(ret)
         local ui = UI_WorldRaidBoard(wrid, ret)
     end    

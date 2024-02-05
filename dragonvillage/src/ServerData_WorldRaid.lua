@@ -106,7 +106,7 @@ function ServerData_WorldRaid:isWorldRaidRewardPeriod()
 		return false
 	end
 
-    if self:getPrevSeasonId() <= 0 then
+    if self:getPrevSeasonWrid() <= 0 then
         return false
     end
 
@@ -136,7 +136,7 @@ function ServerData_WorldRaid:isAvailableWorldRaidRewardRanking()
         return false
     end
 
-    local wrid = self:getPrevSeasonId()
+    local wrid = self:getPrevSeasonWrid()
 
     -- 이전 시즌에 참가를 안한 경우
     if self.m_topScore[tostring(wrid)] == nil then
@@ -163,29 +163,41 @@ function ServerData_WorldRaid:isAvailableWorldRaidRewardCompliment()
     return self.m_isAvailableCompliment
 end
 
+
 -------------------------------------
---- @function getPrevSeasonId
+--- @function getPrevSeasoninfo
 -------------------------------------
-function ServerData_WorldRaid:getPrevSeasonId()
-    local world_raid_id = self:getWorldRaidId()
-    if world_raid_id == 0 then
-        return 0
+function ServerData_WorldRaid:getPrevSeasoninfo()
+    if self.m_curWorldRaidInfo == nil then
+        return nil
     end
 
     for id, v in pairs(self.m_tableWorldRaidSchedule) do
-        if v['wrid'] == world_raid_id then
+        if self.m_curWorldRaidInfo['id'] == v['id'] then
             local find_id = id - 1
             local world_raid_info = self.m_tableWorldRaidSchedule[find_id]
-
             if world_raid_info == nil then
-                return 0
+                return nil
             end
             
-            return world_raid_info['wrid'] or 0
+            return world_raid_info
         end
     end
 
-    return 0
+    return nil
+end
+
+-------------------------------------
+--- @function getPrevSeasonWrid
+-------------------------------------
+function ServerData_WorldRaid:getPrevSeasonWrid()
+    local prev_info = self:getPrevSeasoninfo()
+
+    if prev_info == nil then
+        return 0
+    end
+
+    return prev_info['wrid'] or 0
 end
 
 -------------------------------------
