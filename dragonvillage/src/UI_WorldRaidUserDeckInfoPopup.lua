@@ -149,13 +149,12 @@ function UI_WorldRaidUserDeckInfoPopup:makeTableView()
     end
     
     local table_view = UIC_TableViewTD(node)
-    table_view.m_cellSize = cc.size(600, 100)
+    table_view.m_cellSize = cc.size(600, 80)
     table_view:setCellUIClass(UI_WorldRaidUserDeckInfoRuneListItem, create_func)
     table_view.m_nItemPerCell = 1
     table_view:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
     table_view:setItemList(l_dragons)
     table_view:setCellCreateDirecting(CELL_CREATE_DIRECTING['fadein'])
-    --table_view:setCellCreatePerTick(3)
     self.m_tableView = table_view
 end
 
