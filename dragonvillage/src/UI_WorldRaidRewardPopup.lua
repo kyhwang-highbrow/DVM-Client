@@ -157,8 +157,7 @@ function UI_WorldRaidRewardPopup:click_equipBtn()
     vars['selectEffect2Visual']:changeAni('pack_idle_03', false)
     vars['selectEffect2Visual']:addAniHandler(function() vars['selectEffect2Visual']:setVisible(false) end)
 
-    --g_profileFrameData:request_equip(self.m_profileFrameId, success_cb)
-    success_cb()
+    g_profileFrameData:request_equip(self.m_profileFrameId, success_cb)    
 end
 
 -------------------------------------
