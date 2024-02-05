@@ -31,6 +31,7 @@ UI_EventLFBag = class(PARENT,{
         m_luckyVisual = '',
 
         m_blockPopup = 'UI_BlockPopup',
+        m_selectStep = 'number',
     })
 
 -------------------------------------
@@ -66,6 +67,7 @@ function UI_EventLFBag:init()
         self:playNormalAni()
     end
 
+    self.m_selectStep = self.m_structLFBag:getLv()
     self.m_toastUI = self:makeToast()
     self.m_toastUI.root:setPosition(-136, -30)
     self.m_cellUIList = {}
@@ -264,6 +266,17 @@ function UI_EventLFBag:refresh()
         end                
     end
 
+
+    do -- 레벨에 따른 화살표 위치 이동
+        local pos_x, pos_y = vars[string.format('itemBtn%d', lv)]:getPosition()
+        vars['arrowSprite']:setPositionX(pos_x)
+    end
+
+    do -- 레벨에 따른 화살표 위치 이동
+        local pos_x, pos_y = vars[string.format('itemBtn%d', self.m_selectStep)]:getPosition()
+        vars['selectStepSprite']:setPositionX(pos_x)
+    end
+
     self:updateCumulativeRewardList()
 end
 
@@ -283,13 +296,13 @@ function UI_EventLFBag:updateCumulativeRewardList()
         local t_item = l_cum_reward_list[i]
         if (t_item) then
             local card_ui = MakeItemCard(t_item)
-            card_ui.root:setScale(0.8)
+            card_ui.root:setScale(0.6)
             vars['itemNode' .. i]:addChild(card_ui.root)
             last_node = card_ui.root
         end
     end
     if last_node then
-        cca.uiReactionSlow(last_node,0.8, 0.8, 1.5)
+        cca.uiReactionSlow(last_node,0.6, 0.6, 1.5)
     end
 end
 
@@ -843,9 +856,17 @@ end
 --- @function click_rewardListBtn
 -------------------------------------
 function UI_EventLFBag:click_rewardListBtn(step)
+    local vars = self.vars
     self.m_cellUIList = {}
+    self.m_selectStep = step
+
     self:makeScrollView(step)
     self:updateScrollView(step)
+
+    do -- 레벨에 따른 화살표 위치 이동
+        local pos_x, pos_y = vars[string.format('itemBtn%d', self.m_selectStep)]:getPosition()
+        vars['selectStepSprite']:setPositionX(pos_x)
+    end
 end
 
 -------------------------------------
