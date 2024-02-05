@@ -71,15 +71,8 @@ function StructUserInfoWorldRaid:createUserInfo(t_data)
     user_info:applyDragonsDataList(t_data['dragons'])
 
     -- 덱 저장
-    user_info:applyPvpDeckData(t_data['deck'])
+    user_info:applyDeckData(t_data['deck_info'])
     return user_info
-end
-
--------------------------------------
---- @function applyWorldRaidDeckData
--------------------------------------
-function StructUserInfoWorldRaid:applyWorldRaidDeckData(list)
-    self.m_deckList = list
 end
 
 -------------------------------------
@@ -87,4 +80,72 @@ end
 -------------------------------------
 function StructUserInfoWorldRaid:getDeckList()
     return self.m_deckList
+end
+
+-------------------------------------
+--- @function applyDeckData
+-------------------------------------
+function StructUserInfoWorldRaid:applyDeckData(t_deck_info)
+    self.m_deckList = {}
+    for i = 1,3 do
+        local t_deck = t_deck_info[tostring(i)]
+        self.m_deckList[i] = t_deck
+    end
+end
+
+-------------------------------------
+--- @function getDeck_dragonList
+-------------------------------------
+function StructUserInfoWorldRaid:getDeck_dragonList(_idx, use_doid)
+    local deck = self:getDeck(_idx)
+    local t_deck = {}
+    local l_dragons = {}
+    if (deck) then        
+        for i,v in pairs(deck) do
+            local idx = tonumber(i)
+            local doid = v            
+            if use_doid then
+                t_deck[idx] = doid -- doid로 저장 혹은 오브젝트로 저장
+            else
+                t_deck[idx] = self:getDragonObject(doid)
+                table.insert(l_dragons, t_deck[idx])
+            end
+        end
+    end
+
+    return t_deck, l_dragons
+end
+
+-------------------------------------
+-- function getDeckCombatPower
+-- @brief 공격 덱 전투력
+-------------------------------------
+function StructUserInfoWorldRaid:getDeckCombatPower(_idx, force)
+    local deck = self:getDeck(_idx)
+
+    if (not deck) then
+        return 0
+    end
+
+    local t_deck_dragon_list = self:getDeck_dragonList(_idx)
+    -- 드래곤
+    local total_combat_power = 0
+    for i,v in pairs(t_deck_dragon_list) do
+        total_combat_power = (total_combat_power + v:getCombatPower())
+    end
+
+    return total_combat_power
+end
+
+-------------------------------------
+--- @function getDeck_dragonList
+-------------------------------------
+function StructUserInfoWorldRaid:getDeck(_idx)
+    local deck = self.m_deckList[_idx]
+
+    if deck == nil then
+        return nil
+    end
+
+    return deck['deck']
 end

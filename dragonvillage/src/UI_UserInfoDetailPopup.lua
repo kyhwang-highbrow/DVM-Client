@@ -499,7 +499,7 @@ function UI_UserInfoDetailPopup:click_deckBtn()
     -- 월드 레이드
     if self.m_tUserInfo['visit_type'] == 'world_raid' then
         local hoid = self.m_tUserInfo['hoid']
-        UI_WorldRaidUserDeckInfoPopup.open(hoid)
+        UI_WorldRaidUserDeckInfoPopup.open(self.m_tUserInfo, hoid)
 
         return
     end

@@ -3,6 +3,7 @@ local PARENT = UI_ReadySceneWorldRaid
 --- @class UI_ReadySceneWorldRaidLinger
 -------------------------------------
 UI_ReadySceneWorldRaidLinger = class(PARENT,{
+    m_currTamerID = 'number',
 })
 
 -------------------------------------
@@ -30,6 +31,36 @@ function UI_ReadySceneWorldRaidLinger:initMultiDeckMode()
     local make_deck = true
     self.m_multiDeckMgr = MultiDeckMgr_WorldRaid(MULTI_DECK_MODE.WORLD_RAID_LINGER, make_deck)
 end
+
+
+-------------------------------------
+-- function getCurrTamerID
+-------------------------------------
+function UI_ReadySceneWorldRaidLinger:getCurrTamerID()
+    if (not self.m_currTamerID) then
+        local l_deck, formation, deckname, leader, tamer_id = g_deckData:getDeck()
+        self.m_currTamerID = tamer_id
+    end
+    return self.m_currTamerID
+end
+
+-------------------------------------
+-- function refresh_buffInfo_TamerBuff
+-------------------------------------
+function UI_ReadySceneWorldRaidLinger:refresh_buffInfo_TamerBuff()
+    local vars = self.vars
+
+    -- 테이머 버프
+    local tamer_id = self:getCurrTamerID()
+	local t_tamer_data = g_tamerData:getTamerServerInfo(tamer_id)
+	local skill_mgr = MakeTamerSkillManager(t_tamer_data)
+	--local skill_info = skill_mgr:getSkillIndivisualInfo_usingIdx(3)	-- 3번이 콜로세움 테이머 스킬
+    local skill_info = skill_mgr:getSkillIndivisualInfo_usingIdx(2)	-- 2번이 패시브
+	local tamer_buff = skill_info:getSkillDesc()
+
+	vars['tamerBuffLabel']:setString(tamer_buff)
+end
+
 
 -------------------------------------
 -- function refresh_slotLight
@@ -83,6 +114,27 @@ function UI_ReadySceneWorldRaidLinger:networkGameStart()
     --local deck_name = g_deckData:getSelectedDeckName()
     g_worldRaidData:request_WorldRaidStart(world_raid_id, self.m_stageID, finish_cb)
 end
+
+
+
+-------------------------------------
+-- function click_tamerBtn
+-- @breif
+-------------------------------------
+function UI_ReadySceneWorldRaidLinger:click_tamerBtn()
+    local tamer_id = self:getCurrTamerID()
+
+    local ui = UI_TamerManagePopup_Colosseum(tamer_id)
+
+    local function close_cb()
+        self.m_currTamerID = ui.m_currTamerID
+		self:refresh_tamer()
+		self:refresh_buffInfo()
+    end
+
+	ui:setCloseCB(close_cb)
+end
+
 
 -------------------------------------
 -- function click_autoBtn

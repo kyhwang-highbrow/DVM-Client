@@ -104,16 +104,23 @@ end
 function StructDragonObject:applyTableData(data)
     -- 서버에서 key값을 줄여서 쓴 경우가 있어서 변환해준다
     local replacement = {}
-    --replacement['id'] = 'doid'
+
+    replacement['friendShip'] = 'friendship'
 
 	-- 구조를 살짝 바꿔준다
     for i,v in pairs(data) do
         local key = replacement[i] and replacement[i] or i
 
+        if key == 'skills' then
+            for t1, t2 in pairs(v) do
+                local str = string.format('skill_%s', t1)
+                self[str] = t2
+            end
+        else
+            self[key] = v
+        end
         -- cclog(key)
         -- cclog(v)
-
-        self[key] = v
     end
 end
 
