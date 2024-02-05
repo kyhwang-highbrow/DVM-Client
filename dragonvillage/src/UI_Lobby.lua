@@ -1472,6 +1472,25 @@ function UI_Lobby:update_storyDungeon()
 end
 
 -------------------------------------
+-- function update_worldRaid
+-------------------------------------
+function UI_Lobby:update_worldRaid()
+    local vars = self.vars
+    
+    vars['world_raidNode']:setVisible(false)
+    local is_event_doing = g_contentLockData:isContentLock('world_raid')
+    if is_event_doing == true or g_worldRaidData:isAvailableWorldRaid() == false then
+        return
+    end
+
+    vars['world_raidNode']:setVisible(true)
+    local tint_action = cca.buttonShakeAction(1 ,3.0)
+    vars['world_raidNode']:stopAllActions()
+    vars['world_raidNode']:runAction(tint_action)
+    return true
+end
+
+-------------------------------------
 -- function update_dragonDiary
 -------------------------------------
 function UI_Lobby:update_dragonDiary()
@@ -2177,6 +2196,9 @@ function UI_Lobby:update(dt)
         g_eventDragonStoryDungeon.m_bDirty = false
         self:update_storyDungeon()
     end
+
+    -- 노출
+    self:update_worldRaid()
 
     -- 하이브로 라운지
     if (CppFunctions:isIos() == true) and (g_hotTimeData:isActiveEvent('ios_hbrw_lounge') == true) then

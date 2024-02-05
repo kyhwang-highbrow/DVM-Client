@@ -20,8 +20,6 @@ function UI_WorldRaid:initParentVariable()
 
     do -- 파티 타입
         self.m_worldRaidId = g_worldRaidData:getWorldRaidId()
-
-        cclog('self.m_worldRaidId', self.m_worldRaidId)
         local str = TableWorldRaidInfo:getInstance():getWorldRaidPartyTypeStr(world_raid_id)      
         self.m_titleStr = Str('월드 레이드') .. ' - ' .. str
     end
