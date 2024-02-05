@@ -6,7 +6,8 @@ local PARENT = class(UI, ITopUserInfo_EventListener:getCloneTable(), ITabUI:getC
 UI_WorldRaid = class(PARENT, {    
     m_worldRaidId = 'number',
     m_rewardTableView = 'TableView',
-    m_rankingTableView = 'TableView'
+    m_rankingTableView = 'TableView',
+    m_isMonosterCardDropDown = 'boolean',
     })
 
 -------------------------------------
@@ -15,6 +16,7 @@ UI_WorldRaid = class(PARENT, {
 -------------------------------------
 function UI_WorldRaid:initParentVariable()    
     self.m_uiName = 'UI_WorldRaid'
+    self.m_isMonosterCardDropDown = false
 
     do -- 파티 타입
         self.m_worldRaidId = g_worldRaidData:getWorldRaidId()
@@ -97,7 +99,7 @@ function UI_WorldRaid:initButton()
     vars['synastryInfoBtn']:registerScriptTapHandler(function () self:click_attrInfoBtn() end)
     vars['rankBtn']:registerScriptTapHandler(function () self:click_rankingBtn() end)
     vars['infiniteBtn']:registerScriptTapHandler(function () self:click_infinitegBtn() end)
-
+    vars['dropDownBtn']:registerScriptTapHandler(function() self:click_dropDownBtn() end)
     vars['synastryInfoBtn']:setVisible(false)
 
     -- vars['normalTestBtn']:registerScriptTapHandler(function () self:click_battleTestBtn(1) end)
@@ -214,8 +216,15 @@ function UI_WorldRaid:initUI()
                 local icon = UI_MonsterCard(monster_id)
                 icon:setStageID(stage_id)
                 vars[node_str]:addChild(icon.root)
+                vars[node_str]:setVisible(self.m_isMonosterCardDropDown)
             end
         end
+    end
+
+
+    do
+        local l_ui_list = {vars['dropDownBtn'], vars['monsterListTitleLabel']}
+        AlignUIPos(l_ui_list, 'HORIZONTAL', 'HEAD', 20) -- ui list, direction, align, offset
     end
 end
 
@@ -326,6 +335,21 @@ function UI_WorldRaid:click_infinitegBtn()
     local tool_tip = UI_Tooltip_Skill(0, 0, str)
     -- 자동 위치 지정
     tool_tip:autoPositioning(self.vars['infiniteBtn'])
+end
+
+-------------------------------------
+-- function click_dropDownBtn
+-------------------------------------
+function UI_WorldRaid:click_dropDownBtn()
+    local vars = self.vars
+    self.m_isMonosterCardDropDown = not self.m_isMonosterCardDropDown
+
+    for idx = 1, 4 do
+        local node_str = string.format('bossCard%dNode', idx)
+        vars[node_str]:setVisible(self.m_isMonosterCardDropDown)
+    end
+
+    vars['dropDownSprite']:setRotation(self.m_isMonosterCardDropDown and 180 or 0)
 end
 
 -------------------------------------

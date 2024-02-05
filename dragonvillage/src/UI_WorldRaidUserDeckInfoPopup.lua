@@ -8,6 +8,7 @@ UI_WorldRaidUserDeckInfoPopup = class(PARENT, {
     m_structUserInfoWorldRaid = '',
     m_structUser = '',
     m_tableView = 'UIC_TableViewTD',
+    m_isMonosterCardDropDown = 'boolean',
     })
 
 -------------------------------------
@@ -18,6 +19,7 @@ function UI_WorldRaidUserDeckInfoPopup:init(struct_user, ret)
     self.m_tData = ret
     self.m_structUserInfoWorldRaid = StructUserInfoWorldRaid:createUserInfo(ret)
     self.m_structUser = struct_user
+    self.m_isMonosterCardDropDown = false
     
     local vars = self:load('world_raid_user.ui')
     UIManager:open(self, UIManager.POPUP)
@@ -58,6 +60,8 @@ function UI_WorldRaidUserDeckInfoPopup:initButton()
     vars['teamBonusBtn']:registerScriptTapHandler(function() self:click_teamBonusBtn() end)
     vars['lairInfoBtn']:registerScriptTapHandler(function() self:click_lairInfoBtn() end)
     vars['researchInfoBtn']:registerScriptTapHandler(function() self:click_researchInfoBtn() end)
+
+
     vars['closeBtn']:registerScriptTapHandler(function() self:click_closeBtn() end)
 end
 
