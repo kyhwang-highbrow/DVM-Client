@@ -367,9 +367,15 @@ function UI_WorldRaid:click_battleTestBtn(world_raid_party_type)
         if self.m_worldRaidId  == k then
             local stage_id = table_data:getStageIdByPartyType(world_raid_party_type)            
             local boss_attr = table_data:getBossAttrByPartyType(world_raid_party_type)            
+
+            local buff = table_data:getValueByPartyType(world_raid_party_type, 'buff_key')            
+            local debuff = table_data:getValueByPartyType(world_raid_party_type, 'debuff_key')            
+
             v['party_type'] = world_raid_party_type
             v['stage'] = stage_id
             v['boss_attr'] = boss_attr
+            v['buff_key'] = buff
+            v['debuff_key'] = debuff
         end
     end
 

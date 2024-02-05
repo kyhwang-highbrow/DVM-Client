@@ -126,6 +126,16 @@ function TableWorldRaidInfo:getWorldRaidBuffAll(world_raid_id)
     return l_buff
 end
 
+
+-------------------------------------
+--- @function getValueByPartyType
+-------------------------------------
+function TableWorldRaidInfo:getValueByPartyType(party_type, key)
+    local list = self:filterList('party_type', party_type)
+    local v = list[1]
+    return v[key]
+end
+
 -------------------------------------
 --- @function getStageIdByPartyType
 -------------------------------------
@@ -143,3 +153,4 @@ function TableWorldRaidInfo:getBossAttrByPartyType(party_type)
     local v = list[1]
     return v['boss_attr']
 end
+
