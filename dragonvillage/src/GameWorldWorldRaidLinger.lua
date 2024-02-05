@@ -123,6 +123,9 @@ function GameWorldWorldRaidLinger:makeHeroDeck_internal(index)
 
                 -- 스테이지 버프 적용
                 hero.m_statusCalc:applyStageBonus(self.m_stageID)
+
+                -- 월드 레이드 버프 적용
+                self:applyWorldRaidBonus(hero)
                
                 hero:setStatusCalc(hero.m_statusCalc)
 
