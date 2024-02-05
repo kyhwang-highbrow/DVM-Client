@@ -206,6 +206,52 @@ end
 
 
 -------------------------------------
+-- function getLairStatOverlappedStrByIds
+-------------------------------------
+function TableLairBuffStatus:getLairStatOverlappedStrByIds(l_ids, new_line)
+    local table_option = TableOption()
+    local str = ''
+    local buff_map = {}
+
+    local buff_list = {
+        'atk_multi',
+        'def_multi',
+        'hp_multi',
+        'cri_chance_add',
+        'cri_dmg_add',
+        'cri_avoid_add',
+        'hit_rate_add',
+        'avoid_add',
+        'accuracy_add',
+        'resistance_add',
+    }
+
+    for idx , id in ipairs(l_ids) do
+        local option = self:getValue(id, 'key')
+        local value = self:getValue(id, 'key_value')
+        if buff_map[option] ~= nil then
+            buff_map[option] = buff_map[option] + value
+        else
+            buff_map[option] = value
+        end
+    end
+
+    for _, key in ipairs(buff_list) do
+        if buff_map[key] ~= nil then
+            local buff_type = key
+            local buff_value = buff_map[key]
+            local str_buff = TableOption:getOptionDesc(buff_type, math_abs(buff_value))
+            if str_buff ~= nil then
+                str = (str == '') and str_buff or str..'\n'..str_buff
+            end
+        end
+    end
+
+    return str
+end
+
+
+-------------------------------------
 -- function getLairOverlapStatStrByIds
 -------------------------------------
 function TableLairBuffStatus:getLairOverlapStatStrByIds(l_ids)

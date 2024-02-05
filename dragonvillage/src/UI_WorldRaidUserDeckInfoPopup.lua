@@ -174,8 +174,9 @@ end
 -- function click_teamBonusBtn
 -------------------------------------
 function UI_WorldRaidUserDeckInfoPopup:click_teamBonusBtn()
+    local curr_tab = self.m_currTab
     local struct_user_info = self.m_structUserInfoWorldRaid
-    local l_dragons = struct_user_info:getDeck_dragonList()
+    local l_dragons = struct_user_info:getDeck_dragonList(curr_tab)
     local ui = UI_TeamBonus(TEAM_BONUS_MODE.TOTAL, l_dragons)
     ui:setOnlyMyTeamBonus()
 end
@@ -189,7 +190,7 @@ function UI_WorldRaidUserDeckInfoPopup:click_lairInfoBtn()
     do -- 능력치 텍스트
         local ui = MakePopup('research_ability_popup.ui')
         local lair_stats = struct_user_info:getLairStats()
-        local str = TableLairBuffStatus:getInstance():getLairStatStrByIds(lair_stats, true)
+        local str = TableLairBuffStatus:getInstance():getLairStatOverlappedStrByIds(lair_stats, true)
 
         if str == '' then
             ui.vars['infoLabel']:setString(Str('아직 축복 정보가 없습니다.'))

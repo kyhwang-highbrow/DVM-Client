@@ -64,11 +64,17 @@ function UI_WorldRaidUserDeckInfoRuneListItem:initUI()
             vars['runeSlot' .. slot]:removeAllChildren()
             local rune_obj = t_dragon_data:getRuneObjectBySlot(slot)
             if rune_obj then
-				local card = UI_RuneCard(rune_obj)
-				card:setBtnEnabled(false)
+				local card = UI_RuneCard(rune_obj)				
                 vars['runeSlot' .. slot]:addChild(card.root)
-                --local set_id =  rune_obj['set_id'] 
-                --show_set_effect(slot, set_id)
+
+                card.vars['clickBtn']:registerScriptPressHandler(function () end)
+                card.vars['clickBtn']:registerScriptTapHandler(function() 
+                    local item_id = rune_obj['rid']
+                    local count = 1
+                    --local param = {rune_obj:getObjectId()}
+                    local ui = UI_ItemInfoPopup(item_id, count, rune_obj)
+                    ui.vars['lockBtn']:setVisible(false)
+                end)
             end
         end
     end
@@ -108,7 +114,7 @@ end
 -------------------------------------
 function UI_WorldRaidUserDeckInfoRuneListItem:initButton()
     local vars = self.vars
-    -- self.root:setSwallowTouch(false)
+    self.root:setSwallowTouch(false)
     -- for slot_idx = 1, 6 do
     --     local slot_node_str = 'runeSlotBtn' .. slot_idx
     --     vars[slot_node_str]:registerScriptTapHandler(function() self:click_runeCard(slot_idx) end)
@@ -123,88 +129,71 @@ function UI_WorldRaidUserDeckInfoRuneListItem:refresh()
     --self:refreshRunes()
 end
 
--------------------------------------
--- function refreshRunes
--------------------------------------
-function UI_WorldRaidUserDeckInfoRuneListItem:refreshRunes()
-    local active_set_map = self.m_presetRune:getRunesSetMap()
-    for slot_idx = 1, 6 do
-        self:refreshRuneCard(slot_idx, active_set_map)
-    end
-end
+-- -------------------------------------
+-- -- function refreshRunes
+-- -------------------------------------
+-- function UI_WorldRaidUserDeckInfoRuneListItem:refreshRunes()
+--     local active_set_map = self.m_presetRune:getRunesSetMap()
+--     for slot_idx = 1, 6 do
+--         self:refreshRuneCard(slot_idx, active_set_map)
+--     end
+-- end
 
--------------------------------------
--- function refreshRuneCard
--- @brief 해당 함수는 룬 카드 변경이 필요할 때만 호출
--------------------------------------
-function UI_WorldRaidUserDeckInfoRuneListItem:refreshRuneCard(slot_idx, active_set_map)
-    local vars = self.vars
-    vars['runeSlot' .. slot_idx]:removeAllChildren()
+-- -------------------------------------
+-- -- function refreshRuneCard
+-- -- @brief 해당 함수는 룬 카드 변경이 필요할 때만 호출
+-- -------------------------------------
+-- function UI_WorldRaidUserDeckInfoRuneListItem:refreshRuneCard(slot_idx, active_set_map)
+--     local vars = self.vars
+--     vars['runeSlot' .. slot_idx]:removeAllChildren()
 
-    local visual = vars['runeVisual'..slot_idx]
-    visual:setVisible(false)
+--     local visual = vars['runeVisual'..slot_idx]
+--     visual:setVisible(false)
 
-    local runes_map = self.m_presetRune:getRunesMap()
-    self.m_runeUIMap[slot_idx] = nil
+--     local runes_map = self.m_presetRune:getRunesMap()
+--     self.m_runeUIMap[slot_idx] = nil
 
-    local roid = runes_map[slot_idx]
-    if (roid == nil) then
-        return
-    end
+--     local roid = runes_map[slot_idx]
+--     if (roid == nil) then
+--         return
+--     end
 
-    local rune_obj = g_runesData:getRuneObject(roid)
-    if rune_obj == nil then
-        return
-    end
+--     local rune_obj = g_runesData:getRuneObject(roid)
+--     if rune_obj == nil then
+--         return
+--     end
     
-    local set_id = TableRune:getRuneSetId(rune_obj.rid)
-    local card = UI_RuneCardDragon(rune_obj)
-    local t_set_info = active_set_map[set_id]
+--     local set_id = TableRune:getRuneSetId(rune_obj.rid)
+--     local card = UI_RuneCard(rune_obj)
+--     local t_set_info = active_set_map[set_id]
 
-    if t_set_info ~= nil and t_set_info['active'] == true then
-        t_set_info['count'] = t_set_info['count'] + 1
-        if t_set_info['need_equip'] >=  t_set_info['count'] and t_set_info['active_cnt'] > 0 then
-            local ani_name = TableRuneSet:getRuneSetVisualName(slot_idx, set_id)
-            visual:setVisible(true)
-            visual:changeAni(ani_name, true)
+--     if t_set_info ~= nil and t_set_info['active'] == true then
+--         t_set_info['count'] = t_set_info['count'] + 1
+--         if t_set_info['need_equip'] >=  t_set_info['count'] and t_set_info['active_cnt'] > 0 then
+--             local ani_name = TableRuneSet:getRuneSetVisualName(slot_idx, set_id)
+--             visual:setVisible(true)
+--             visual:changeAni(ani_name, true)
 
-            if t_set_info['need_equip'] ==  t_set_info['count'] then
-                t_set_info['active_cnt'] = t_set_info['active_cnt'] - 1
-                t_set_info['count'] = 0
-            end
-        end
-    end
+--             if t_set_info['need_equip'] ==  t_set_info['count'] then
+--                 t_set_info['active_cnt'] = t_set_info['active_cnt'] - 1
+--                 t_set_info['count'] = 0
+--             end
+--         end
+--     end
 
-    card:makeDragonAttrIcon()
-    card:makeDragonIcon()
-    card:setCloseInfoCallback(function() self.m_ownerUI:refreshTableView()  end)
-
-    card.vars['clickBtn']:setEnabled(false)
+--     --card:makeDragonAttrIcon()
+--     --card:makeDragonIcon()
     
-    vars['runeSlot' .. slot_idx]:removeAllChildren()
-    vars['runeSlot' .. slot_idx]:addChild(card.root)
+--     vars['runeSlot' .. slot_idx]:removeAllChildren()
+--     vars['runeSlot' .. slot_idx]:addChild(card.root)
 
-    self.m_runeUIMap[slot_idx] = card
-end
+--     self.m_runeUIMap[slot_idx] = card
+-- end
 
 -------------------------------------
 -- function click_runeCard
 -------------------------------------
 function UI_WorldRaidUserDeckInfoRuneListItem:click_runeCard(slot_idx)
-    local runes_map = self.m_presetRune:getRunesMap()
-    -- -- 현재 포커싱된 덱일 경우 클릭을 한 번 더 하면 지워짐
-    -- if self:isFocusSlot(slot_idx) == true then
-    --     if runes_map[slot_idx] ~= nil then
-    --         self.m_ownerUI:setFocusRune(slot_idx, nil)
-    --         return
-    --     end
-    -- end
-
-    -- if self.m_selectRuneCB ~= nil then
-    --     self.m_selectRuneCB(self.m_presetRune:getIndex(), slot_idx)
-    -- end
-
-    -- self:refreshSelect()
 end
 
 -------------------------------------
