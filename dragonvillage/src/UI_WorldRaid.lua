@@ -98,6 +98,8 @@ function UI_WorldRaid:initButton()
     vars['rankBtn']:registerScriptTapHandler(function () self:click_rankingBtn() end)
     vars['infiniteBtn']:registerScriptTapHandler(function () self:click_infinitegBtn() end)
 
+    vars['synastryInfoBtn']:setVisible(false)
+
     -- vars['normalTestBtn']:registerScriptTapHandler(function () self:click_battleTestBtn(1) end)
     -- vars['cooperationTestBtn']:registerScriptTapHandler(function () self:click_battleTestBtn(2) end)
     -- vars['lingerTestBtn']:registerScriptTapHandler(function () self:click_battleTestBtn(3) end)

@@ -37,24 +37,28 @@ function UI_WorldRaidAttrPopup:initUI()
     local boss_id = monster_id_list[1]
     local attr = TableStageData:getStageAttr(stage_id)
 
-    -- -- 보스 이름
-    local boss_name = TableMonster():getMonsterName(boss_id)
-    vars['bossNameLabel']:setString(boss_name)
+    -- -- -- 보스 이름
+    -- local boss_name = TableMonster():getMonsterName(boss_id)
+    -- vars['bossNameLabel']:setString(boss_name)
+    vars['bossNameLabel']:setVisible(false)
+    vars['attrNode']:setVisible(false)
+    vars['bossAttrLabel']:setVisible(false)
+    vars['bossLevelLabel']:setVisible(false)
     
-    do -- 보스 속성    
-        local icon = IconHelper:getAttributeIconButton(attr)
-        vars['attrNode']:removeAllChildren()
-        vars['attrNode']:addChild(icon)
-    end
+    -- do -- 보스 속성    
+    --     local icon = IconHelper:getAttributeIconButton(attr)
+    --     vars['attrNode']:removeAllChildren()
+    --     vars['attrNode']:addChild(icon)
+    -- end
 
-    do -- 속성        
-        vars['bossAttrLabel']:setString(dragonAttributeName(attr))
-    end
+    -- do -- 속성        
+    --     vars['bossAttrLabel']:setString(dragonAttributeName(attr))
+    -- end
 
-    do -- 보스 레벨
-        local level = TableStageData:getStageLevel(stage_id) - 1
-        vars['bossLevelLabel']:setString(string.format('Lv.%d', level))
-    end
+    -- do -- 보스 레벨
+    --     local level = TableStageData:getStageLevel(stage_id) - 1
+    --     vars['bossLevelLabel']:setString(string.format('Lv.%d', level))
+    -- end
 
     do -- 보너스 속성
         local buff_key = TableWorldRaidInfo:getInstance():getBuffKey(world_raid_id)
@@ -95,22 +99,22 @@ function UI_WorldRaidAttrPopup:initUI()
         vars['panaltyTipsDscLabel']:setString(penalty_str)
     end
 
-    do  -- 몬스터 스파인
-        for _, mid in ipairs(monster_id_list) do
-            local res, attr, evolution = TableMonster:getMonsterRes(mid)
-            local animator = AnimatorHelper:makeMonsterAnimator(res, attr, evolution)
-            if (animator) then
-                ---animator:setScale(0.5)
-                vars['bossNode']:addChild(animator.m_node)
-                animator:changeAni('idle', true)
+    -- do  -- 몬스터 스파인
+    --     for _, mid in ipairs(monster_id_list) do
+    --         local res, attr, evolution = TableMonster:getMonsterRes(mid)
+    --         local animator = AnimatorHelper:makeMonsterAnimator(res, attr, evolution)
+    --         if (animator) then
+    --             ---animator:setScale(0.5)
+    --             vars['bossNode']:addChild(animator.m_node)
+    --             animator:changeAni('idle', true)
                 
-                --animator:setPositionY(-800)
-                local action = cc.EaseExponentialOut:create(cc.MoveTo:create(1.0, cc.p(0, 0)))
-                animator:stopAllActions()
-                animator:runAction(action)
-            end
-        end
-    end
+    --             --animator:setPositionY(-800)
+    --             local action = cc.EaseExponentialOut:create(cc.MoveTo:create(1.0, cc.p(0, 0)))
+    --             animator:stopAllActions()
+    --             animator:runAction(action)
+    --         end
+    --     end
+    -- end
 end
 
 -------------------------------------
