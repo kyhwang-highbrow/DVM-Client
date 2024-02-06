@@ -346,7 +346,39 @@ function UI_WorldRaid:click_dropDownBtn()
 
     for idx = 1, 4 do
         local node_str = string.format('bossCard%dNode', idx)
-        vars[node_str]:setVisible(self.m_isMonosterCardDropDown)
+        --
+
+        if self.m_isMonosterCardDropDown == true then
+            local ori_x, ori_y = vars[node_str]:getPositionX(), -24
+            vars[node_str]:setPositionY(ori_y + 20)
+            local move_to = cc.EaseExponentialOut:create(cc.MoveTo:create(0.15, cc.p(ori_x, ori_y))) --cc.EaseExponentialOut:create(cc.MoveTo:create(0.2 + (0.1 * idx), cc.p(ori_x, ori_y)))
+            local fade_in = cc.FadeIn:create(0.1)
+
+            doAllChildren(vars[node_str], function(child) child:setCascadeOpacityEnabled(true) end)
+
+            vars[node_str]:setOpacity(0)
+
+            vars[node_str]:setVisible(true)
+            
+            vars[node_str]:stopAllActions()
+            
+            vars[node_str]:runAction(cc.Spawn:create(move_to, fade_in))
+        else
+            local ori_x, ori_y = vars[node_str]:getPositionX(), -4
+            vars[node_str]:setPositionY(ori_y - 20)
+            local move_to = cc.EaseExponentialOut:create(cc.MoveTo:create(0.15, cc.p(ori_x, ori_y))) --cc.EaseExponentialOut:create(cc.MoveTo:create(0.2 + (0.1 * idx), cc.p(ori_x, ori_y)))
+            local fade_in = cc.FadeOut:create(0.1)
+
+            doAllChildren(vars[node_str], function(child) child:setCascadeOpacityEnabled(true) end)
+
+            vars[node_str]:setOpacity(100)
+
+            vars[node_str]:setVisible(true)
+            
+            vars[node_str]:stopAllActions()
+            
+            vars[node_str]:runAction(cc.Sequence:create(cc.Spawn:create(move_to, fade_in), cc.CallFunc:create(function() vars[node_str]:setVisible(false) end)))
+        end
     end
 
     vars['dropDownSprite']:setRotation(self.m_isMonosterCardDropDown and 180 or 0)
