@@ -1480,12 +1480,13 @@ function UI_Lobby:update_worldRaid()
     local vars = self.vars
 
     vars['world_raidNode']:setVisible(false)
-    local is_event_doing = g_contentLockData:isContentLock('world_raid')
-    if is_event_doing == true or g_worldRaidData:isAvailableWorldRaid() == false then
+
+    if g_eventDragonStoryDungeon:isStoryDungeonEventDoing() == true then
         return false
     end
 
-    if g_eventDragonStoryDungeon:isStoryDungeonEventDoing() == true then
+    local is_lock = g_contentLockData:isContentLock('world_raid')
+    if is_lock == true or g_worldRaidData:isAvailableWorldRaid() == false then
         return false
     end
 
@@ -2198,15 +2199,14 @@ function UI_Lobby:update(dt)
     end
 
     -- 이벤트 갱신된 경우
+    local isBattleBtnNoti = false
     if (g_eventDragonStoryDungeon.m_bDirty) then
         g_eventDragonStoryDungeon.m_bDirty = false
         isBattleBtnNoti = self:update_storyDungeon()
     end
 
     -- 노출
-    if isBattleBtnNoti ~= true  then
-        isBattleBtnNoti = self:update_worldRaid()
-    end
+    isBattleBtnNoti = self:update_worldRaid()    
 
     -- 하이브로 라운지
     if (CppFunctions:isIos() == true) and (g_hotTimeData:isActiveEvent('ios_hbrw_lounge') == true) then
