@@ -68,7 +68,7 @@ function UI_WorldRaidRanking:refreshRanking()
             self:makeRankTableView(curr_my_rank, curr_rank_list)
         end
 
-        g_worldRaidData:request_WorldRaidRanking(self.m_worldRaidId, 'world', 1, 20, success_cb)
+        g_worldRaidData:request_WorldRaidRanking(self.m_worldRaidId, 'world', 1, SCORE_OFFSET_GAP, success_cb)
     end
 end
 
@@ -136,7 +136,7 @@ function UI_WorldRaidRanking:makeRankTableView(my_rank, ranking_list)
     rank_list:setEmptyStr(Str('랭킹 정보가 없습니다.'))
     rank_list:setMyRank(make_my_rank_cb)
     rank_list:setOffset(self.m_rankOffset)
-    rank_list:makeRankMoveBtn(func_prev_cb, func_next_cb, SCORE_OFFSET_GAP)
+    rank_list:makeRankMoveBtn(func_prev_cb, func_next_cb, 5)
     rank_list:makeRankList(rank_node, cc.size(550, (55 + 5)))
     
     local idx = 0
@@ -160,7 +160,7 @@ end
 --- @function request_total_ranking
 -------------------------------------
 function UI_WorldRaidRanking:request_total_ranking()
-    local searchType = 'world' 
+    local searchType = 'world'
 
     local function success_cb(ret)
         -- 밑바닥 유저를 위한 예외처리
@@ -169,7 +169,7 @@ function UI_WorldRaidRanking:request_total_ranking()
         -- 내 랭킹 조회 혹은 페이징을 통한 행위가 있었다고 판단
         if (self.m_rankOffset > 1) then
             -- 랭킹 리스트가 비어있는지 확인한다
-            local l_rank_list = ret['total_list'] or {}
+            local l_rank_list = ret['list'] or {}
             -- 비어있으면 리스트 업뎃을 안하고 팝업만 띄워주자
             if (l_rank_list and #l_rank_list <= 0) then
                 MakeSimplePopup(POPUP_TYPE.OK, Str('다음 랭킹이 존재하지 않습니다.'))
@@ -183,7 +183,7 @@ function UI_WorldRaidRanking:request_total_ranking()
         self.m_rankOffset = tonumber(ret['total_offset'])
     end
 
-    g_worldRaidData:request_WorldRaidRanking(self.m_worldRaidId, searchType, self.m_rankOffset, 0, success_cb, nil)
+    g_worldRaidData:request_WorldRaidRanking(self.m_worldRaidId, searchType, self.m_rankOffset, SCORE_OFFSET_GAP, success_cb, nil)
 end
 
 -------------------------------------

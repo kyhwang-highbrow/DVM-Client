@@ -30,6 +30,7 @@ function UI_WorldRaidBoard:initParentVariable()
     self.m_uiBgm = 'bgm_lobby'
 end
 
+local SCORE_OFFSET_GAP = 30
 -------------------------------------
 --- @function init
 -------------------------------------
@@ -249,17 +250,17 @@ function UI_WorldRaidBoard:makeRankTableView(data)
     
     local l_rank_list = rank_data['list'] or {}
     
-    -- 이전 랭킹 버튼 누른 후 콜백
-    local function func_prev_cb(offset)
-        self.m_rankOffset = offset
-        self:request_total_ranking()
-    end
+    -- -- 이전 랭킹 버튼 누른 후 콜백
+    -- local function func_prev_cb(offset)
+    --     self.m_rankOffset = offset
+    --     self:request_total_ranking()
+    -- end
 
-    -- 다음 랭킹 버튼 누른 후 콜백
-    local function func_next_cb(offset)
-        self.m_rankOffset = offset
-        self:request_total_ranking()
-    end
+    -- -- 다음 랭킹 버튼 누른 후 콜백
+    -- local function func_next_cb(offset)
+    --     self.m_rankOffset = offset
+    --     self:request_total_ranking()
+    -- end
 
     local uid = g_userData:get('uid')
     local create_cb = function(ui, data)
@@ -274,7 +275,7 @@ function UI_WorldRaidBoard:makeRankTableView(data)
     rank_list:setEmptyStr(Str('랭킹 정보가 없습니다.'))
     rank_list:setMyRank(make_my_rank_cb)
     rank_list:setOffset(self.m_rankOffset)
-    rank_list:makeRankMoveBtn(func_prev_cb, func_next_cb, 20)
+    --rank_list:makeRankMoveBtn(func_prev_cb, func_next_cb, 20)
     rank_list:makeRankList(rank_node, cc.size(550, (55 + 5)))
 
     local idx = 0
@@ -387,7 +388,7 @@ function UI_WorldRaidBoard:request_total_ranking()
       self.m_rankOffset = tonumber(ret['total_offset'])
   end
 
-  g_worldRaidData:request_WorldRaidRanking(self.m_worldRaidId, searchType, self.m_rankOffset, 20, success_cb)
+  g_worldRaidData:request_WorldRaidRanking(self.m_worldRaidId, searchType, self.m_rankOffset, SCORE_OFFSET_GAP, success_cb)
 end
 
 -------------------------------------
@@ -458,7 +459,7 @@ function UI_WorldRaidBoard.open(lobby_milestone)
     local function finish_cb(ret)
         local ui = UI_WorldRaidBoard(wrid, ret)
     end    
-    g_worldRaidData:request_WorldRaidRanking(wrid, 'world', 1, 20, finish_cb)
+    g_worldRaidData:request_WorldRaidRanking(wrid, 'world', 1, SCORE_OFFSET_GAP, finish_cb)
 end
 
 --@CHECK

@@ -249,7 +249,7 @@ end
 --- @function getCurrentRankingList
 -------------------------------------
 function ServerData_WorldRaid:getCurrentRankingList()
-    return self.m_rankList
+    return clone(self.m_rankList)
 end
 
 -------------------------------------
@@ -582,7 +582,7 @@ function ServerData_WorldRaid:request_WorldRaidRanking(wrid , search_type, offse
 
     -- 콜백
     local function success_cb(ret)
-		if wrid == self:getWorldRaidId() and search_type == 'world' then
+		if wrid == self:getWorldRaidId() and search_type == 'world' and offset == 1 then
 			self:applyCurrentRankingList(ret)
 		end
 

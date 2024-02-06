@@ -216,8 +216,6 @@ end
 -------------------------------------
 function GameState_WorldRaid_Linger.update_failure(self, dt)
     local world = self.m_world
-    cclog(debug.traceback())
-    --while true do end
 
     if (self.m_stateTimer == 0) then
         world:setGameFinish()
