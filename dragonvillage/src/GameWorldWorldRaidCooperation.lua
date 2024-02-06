@@ -176,10 +176,8 @@ function GameWorldWorldRaidCooperation:applyWorldRaidBonus(dragon)
                 if (status_type) then
                     if (t_option['action'] == 'multi') then
                         dragon.m_statusCalc:addStageMulti(status_type, buff_value)
-                        cclog(t_char['did'], '>>> status_type', status_type, buff_value)
                     elseif (t_option['action'] == 'add') then
-                        dragon.m_statusCalc:addStageAdd(status_type, buff_value)
-                        cclog(t_char['did'], '>>> status_type', status_type, buff_value)
+                        dragon.m_statusCalc:addStageAdd(status_type, buff_value)                        
                     end
                 end
             end

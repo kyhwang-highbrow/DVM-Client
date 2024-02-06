@@ -6,6 +6,7 @@ local PARENT = UI
 UI_WorldRaidRewardPopup = class(PARENT,{
     m_profileFrameId = '',
     m_profileFrameAnimator = 'animator',
+    m_structUserRankInfo = '',
     })
 
 -------------------------------------
@@ -14,6 +15,7 @@ UI_WorldRaidRewardPopup = class(PARENT,{
 function UI_WorldRaidRewardPopup:init(t_info, profile_frame_id)
     self.m_profileFrameId = profile_frame_id or 0
     self.m_profileFrameAnimator = nil
+    self.m_structUserRankInfo = t_info['rank']
 
     local vars = self:load('world_raid_reward_popup.ui')
     UIManager:open(self, UIManager.POPUP)
@@ -36,19 +38,11 @@ end
 -------------------------------------
 function UI_WorldRaidRewardPopup:initUI(t_info)
     local vars = self.vars
-        
-    local struct_data = t_info['rank']
-    local reward_info = t_info['reward_info']
 
+    local reward_info = t_info['reward_info']
     if reward_info == nil then
         return
     end
-
-    -- 데이터 구성
-    local rank_ui = UI_AncientTowerRankListItem(struct_data)
-    
-    -- 지난 시즌 랭킹 정보
-    vars['rankNode']:addChild(rank_ui.root)
     --vars['rankLabel']:setString(str_1)
     --vars['rankRewardLabel']:setString(str_2)
 
@@ -143,9 +137,12 @@ function UI_WorldRaidRewardPopup:click_equipBtn()
         local seq = cc.Sequence:create(rotate_to, delay, scale_up, scale_down, call_func)
     
         --self.m_profileFrameAnimator:stopAllActions()
-        self.m_profileFrameAnimator:runAction(seq)
 
+        self.m_structUserRankInfo.m_profileFrame = self.m_profileFrameId
+        self.m_structUserRankInfo.m_profileFrameExpiredAt = g_profileFrameData:getProfileFrameExpiredAt(self.m_profileFrameId)
+        self.m_profileFrameAnimator:runAction(seq)
         self.m_profileFrameId = 0
+        
         self:refresh()
     end
 
@@ -166,6 +163,11 @@ end
 function UI_WorldRaidRewardPopup:refresh()
     local vars = self.vars
 
+    -- 데이터 구성
+    local rank_ui = UI_AncientTowerRankListItem(self.m_structUserRankInfo)
+    -- 지난 시즌 랭킹 정보
+    vars['rankNode']:removeAllChildren()
+    vars['rankNode']:addChild(rank_ui.root)
     vars['equipBtn']:setVisible(self.m_profileFrameId > 0)
     vars['okBtn']:setVisible(self.m_profileFrameId == 0)
 end

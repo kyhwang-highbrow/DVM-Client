@@ -119,7 +119,19 @@ function UI_WorldRaidBoard:checkEnterEvent()
             table.insert(t_reward, t_item)
 
             self.m_tRankingRewardInfo['reward_info'] = t_reward
-            UI_WorldRaidRewardPopup(self.m_tRankingRewardInfo, profile_frame_id)
+            local ui = UI_WorldRaidRewardPopup(self.m_tRankingRewardInfo, profile_frame_id)
+            
+            ui:setCloseCB(function()
+                if profile_frame_id ~= nil then
+                    local refresh_cb = function(_ret)
+                        self:makeRankHallOfFameView(_ret)
+                        self:makeRankTableView(_ret)
+                        self:refresh()
+                    end
+
+                    g_worldRaidData:request_WorldRaidRanking(wrid, 'world', 1, SCORE_OFFSET_GAP, refresh_cb)
+                end
+            end)
         end
 
         local fail_cb = function(ret)
