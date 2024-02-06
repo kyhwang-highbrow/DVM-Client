@@ -199,6 +199,8 @@ function UIC_RankingList:makeRankList(node, default_size)
     if (self.m_makeMyRankCb) then
         self.m_makeMyRankCb()
     end
+
+    return self.m_rankTableView
 end
 
 -------------------------------------

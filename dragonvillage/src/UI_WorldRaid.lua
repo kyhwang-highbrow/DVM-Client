@@ -258,7 +258,8 @@ function UI_WorldRaid:makeRankingTableView()
     rank_list:setMyRank(make_my_rank_cb)
     rank_list:setOffset(1)
     --rank_list:makeRankMoveBtn(func_prev_cb, func_next_cb, RANK_OFFSET_GAP)
-    rank_list:makeRankList(rank_node, cc.size(550, (55 + 5)))
+    local table_view = rank_list:makeRankList(rank_node, cc.size(550, (55 + 5)))
+    table_view:setCellCreateDirecting(CELL_CREATE_DIRECTING['ui_action'])
 end
 
 -------------------------------------
@@ -363,6 +364,9 @@ function UI_WorldRaid:click_dropDownBtn()
             vars[node_str]:stopAllActions()
             
             vars[node_str]:runAction(cc.Spawn:create(move_to, fade_in))
+
+            vars['dropDownSprite']:stopAllActions()
+            vars['dropDownSprite']:runAction(cc.RotateTo:create(0.05, 180))
         else
             local ori_x, ori_y = vars[node_str]:getPositionX(), -4
             vars[node_str]:setPositionY(ori_y - 20)
@@ -378,10 +382,13 @@ function UI_WorldRaid:click_dropDownBtn()
             vars[node_str]:stopAllActions()
             
             vars[node_str]:runAction(cc.Sequence:create(cc.Spawn:create(move_to, fade_in), cc.CallFunc:create(function() vars[node_str]:setVisible(false) end)))
+
+            vars['dropDownSprite']:stopAllActions()
+            vars['dropDownSprite']:runAction(cc.RotateTo:create(0.05, 0))
         end
     end
 
-    vars['dropDownSprite']:setRotation(self.m_isMonosterCardDropDown and 180 or 0)
+    --vars['dropDownSprite']:setRotation(self.m_isMonosterCardDropDown and 180 or 0)
 end
 
 -------------------------------------
