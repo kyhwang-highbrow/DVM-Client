@@ -350,10 +350,10 @@ function UI_WorldRaid:click_dropDownBtn()
         --
 
         if self.m_isMonosterCardDropDown == true then
-            local ori_x, ori_y = vars[node_str]:getPositionX(), -24
-            vars[node_str]:setPositionY(ori_y + 20)
-            local move_to = cc.EaseExponentialOut:create(cc.MoveTo:create(0.15, cc.p(ori_x, ori_y))) --cc.EaseExponentialOut:create(cc.MoveTo:create(0.2 + (0.1 * idx), cc.p(ori_x, ori_y)))
-            local fade_in = cc.FadeIn:create(0.1)
+            local ori_x, ori_y = vars[node_str]:getPositionX(), 0
+            vars[node_str]:setPositionY(ori_y + 100)
+            local move_to = cc.EaseExponentialOut:create(cc.MoveTo:create(0.2, cc.p(ori_x, ori_y))) --cc.EaseExponentialOut:create(cc.MoveTo:create(0.2 + (0.1 * idx), cc.p(ori_x, ori_y)))
+            local fade_in = cc.FadeIn:create(0.2)
 
             doAllChildren(vars[node_str], function(child) child:setCascadeOpacityEnabled(true) end)
 
@@ -366,12 +366,12 @@ function UI_WorldRaid:click_dropDownBtn()
             vars[node_str]:runAction(cc.Spawn:create(move_to, fade_in))
 
             vars['dropDownSprite']:stopAllActions()
-            vars['dropDownSprite']:runAction(cc.RotateTo:create(0.05, 180))
+            vars['dropDownSprite']:runAction(cc.RotateTo:create(0.1, 180))
         else
-            local ori_x, ori_y = vars[node_str]:getPositionX(), -4
-            vars[node_str]:setPositionY(ori_y - 20)
-            local move_to = cc.EaseExponentialOut:create(cc.MoveTo:create(0.15, cc.p(ori_x, ori_y))) --cc.EaseExponentialOut:create(cc.MoveTo:create(0.2 + (0.1 * idx), cc.p(ori_x, ori_y)))
-            local fade_in = cc.FadeOut:create(0.1)
+            local ori_x, ori_y = vars[node_str]:getPositionX(), 100
+            vars[node_str]:setPositionY(0)
+            local move_to = cc.EaseExponentialOut:create(cc.MoveTo:create(0.2, cc.p(ori_x, ori_y))) --cc.EaseExponentialOut:create(cc.MoveTo:create(0.2 + (0.1 * idx), cc.p(ori_x, ori_y)))
+            local fade_in = cc.FadeOut:create(0.2)
 
             doAllChildren(vars[node_str], function(child) child:setCascadeOpacityEnabled(true) end)
 
