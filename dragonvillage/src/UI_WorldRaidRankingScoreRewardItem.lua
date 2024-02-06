@@ -54,6 +54,6 @@ function UI_WorldRaidRankingScoreRewardItem:initUI()
 
     if my_score > 0 and score <= my_score then
         vars['rewardCheckSprite']:setVisible(true)
-        --vars['rewardReceiveVisual']:setVisible(true)
+        vars['rewardReceiveVisual']:setVisible(true)
     end
 end
