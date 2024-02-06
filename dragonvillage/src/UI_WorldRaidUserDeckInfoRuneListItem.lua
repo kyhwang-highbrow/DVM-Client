@@ -24,9 +24,61 @@ end
 function UI_WorldRaidUserDeckInfoRuneListItem:initUI()
     local vars = self.vars
 
+    -- DC : DragonCard
+    local DC_POS_Y = 0
+    local DC_SCALE_ON_PLATE = 0.7
+    local DC_SCALE = 0.61
+    local DC_SCALE_PICK = (DC_SCALE * 0.8)
+
     do -- 드래곤
-        local card = UI_DragonCard(self.m_dragonObj)
-        vars['dragonNode']:addChild(card.root)
+        local ui = UI_DragonCard(self.m_dragonObj)
+        ui.root:setPosition(0, DC_POS_Y)
+        
+        
+            
+        -- 상대방은 대표드래곤, 잠금 표시 지워줌
+        if (ui.vars['leaderSprite']) then
+            ui.vars['leaderSprite']:setVisible(false)
+        end
+
+        if (ui.vars['lockSprite']) then
+            ui.vars['lockSprite']:setVisible(false)
+        end
+
+        -- 틀어진 방향 원래대로 복구 (레벨, 강화표시)
+        local l_recover = {}
+        table.insert(l_recover, ui.vars['reinforceNode'])
+        table.insert(l_recover, ui.vars['masteryNode'])
+
+        -- 레벨 Sprite 노드로 분리되있지 않고 개별로 addChild 되서 따로 처리해줘야함
+        local level_sprite_0 = ui.vars['numberSprite0']
+        if (level_sprite_0) then
+            level_sprite_0:setAnchorPoint(cc.p(1, 0.5))
+            table.insert(l_recover, level_sprite_0)
+        end
+
+        local level_sprite_1 = ui.vars['numberSprite1']
+        if (level_sprite_1) then
+            level_sprite_1:setAnchorPoint(cc.p(1, 0.5))
+            table.insert(l_recover, level_sprite_1)
+
+            -- change pos x
+            local pos_0_x = level_sprite_0:getPositionX()
+            local pos_1_x = level_sprite_1:getPositionX()
+            level_sprite_0:setPositionX(pos_1_x)
+            level_sprite_1:setPositionX(pos_0_x)
+        end
+
+        for _, node in ipairs(l_recover) do
+            node:setScaleX(-1)
+        end
+
+        -- 찰랑찰랑 하는 연출
+        -- ui.root:setScale(DC_SCALE_ON_PLATE)
+
+        -- 설정된 드래곤 표시 없애기
+        ui:setReadySpriteVisible(false)
+        vars['dragonNode']:addChild(ui.root)        
     end
 
 
