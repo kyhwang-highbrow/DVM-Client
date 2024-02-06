@@ -170,6 +170,7 @@ function UI_TitleScene:initChatClientSocket()
     local chat_client_socket = ChatClientSocket(ip, port)
 
     local t_data = self:makeUserDataForChatSocket()
+
     chat_client_socket:setUserInfo(t_data)
 
     -- 전역 변수로 설정
@@ -252,6 +253,9 @@ function UI_TitleScene:makeUserDataForChatSocket()
 
     do
         t_data['json']['last_arena_tier'] = g_arenaNewData.m_playerUserInfo.m_lastTier
+        local profile_frame, profile_frame_expired_at = g_profileFrameData:getSelectedProfileFrame()
+        t_data['json']['profile_frame'] = profile_frame
+        t_data['json']['profile_frame_expired_at'] = profile_frame_expired_at
     end
 
     do -- 클랜 정보

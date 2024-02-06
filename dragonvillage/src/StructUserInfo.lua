@@ -393,6 +393,14 @@ function StructUserInfo:syncSUser(server_user)
     if t_json['last_arena_tier'] then
         self.m_lastArenaTier = t_json['last_arena_tier']
     end
+
+    if t_json['profile_frame'] then
+        self.m_profileFrame = t_json['profile_frame']
+    end
+
+    if t_json['profile_frame_expired_at'] then
+        self.m_profileFrameExpiredAt = t_json['profile_frame_expired_at']
+    end
 end
 
 -------------------------------------

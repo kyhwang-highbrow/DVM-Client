@@ -23,8 +23,20 @@ function ServerData_ProfileFrame:getSelectedProfileFrame()
         return 0
     end
 
-    return profile_frame
+    return profile_frame, self:getProfileFrameExpiredAt(profile_frame)
 end
+
+
+-------------------------------------
+--- @function getProfileFrameExpiredAt
+--- @brief 프로필 프레임 아이디 만료 기한
+-------------------------------------
+function ServerData_ProfileFrame:getProfileFrameExpiredAt(profile_frame_id)
+    local profile_frame_map = g_userData:get('profile_frames') or {}
+    local expired_at = profile_frame_map[tostring(profile_frame_id)] or 0
+    return expired_at
+end
+
 
 -------------------------------------
 --- @function isExpiredProfileFrame

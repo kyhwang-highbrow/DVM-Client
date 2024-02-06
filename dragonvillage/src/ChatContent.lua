@@ -66,6 +66,12 @@ function ChatContent:init(data)
         self.m_dragonEvolution = tonumber(l_str[2]) or 1
         self.m_dragonSkinID = tonumber(l_str[4]) or 0
     end
+
+    if self.json ~= nil then
+        local t_json = dkjson.decode(self.json)
+        self.profile_frame = t_json['profile_frame'] or 0
+        self.profile_frame_expired_at = t_json['profile_frame_expired_at'] or 0
+    end
 end
 
 ChatContent.replacement = {
@@ -160,7 +166,12 @@ function ChatContent:getProfileFrame()
         return 0
     end
 
-    return self['profile_frame'] or 0
+
+    if self.profile_frame == nil then
+        return 0
+    end
+
+    return self.profile_frame
 end
 
 -------------------------------------
@@ -168,7 +179,11 @@ end
 --- @breif 프로필 프레임 만료기간 체크
 -------------------------------------
 function ChatContent:isProfileFrameExpired()
-    local expired_at = self['profile_frame_expired_at'] or 0
+    if self.profile_frame_expired_at == nil then
+        return false
+    end
+
+    local expired_at = self.profile_frame_expired_at
     if expired_at == 0 then
         return false
     end
@@ -254,6 +269,9 @@ function ChatContent:openUserInfoMini()
         ['evolution']=self.m_dragonEvolution, 
         ['dragon_skin']=self.m_dragonSkinID
     })
+
+    t_data['profile_frame'] = self['profile_frame']
+    t_data['profile_frame_expired_at'] = self['profile_frame_expired_at']
 
     local struct_user_info = StructUserInfo(t_data)
 
