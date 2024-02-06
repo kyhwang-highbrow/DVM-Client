@@ -99,6 +99,7 @@ function UI_WorldRaidUserDeckInfoPopup:refresh()
 
         local sd_animator = MakeAnimator(sd_res)
         sd_animator:changeAni('idle', true)
+        vars['tamerNode']:removeAllChildren()
         vars['tamerNode']:addChild(sd_animator.m_node)
     end
 
