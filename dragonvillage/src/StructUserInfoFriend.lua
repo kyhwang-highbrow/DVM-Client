@@ -200,7 +200,9 @@ function StructUserInfoFriend:getDragonCard()
     -- 프로필 프레임 추가
     local profile_frame_animator = self:makeProfileFrameAnimator()
     if profile_frame_animator ~= nil then
-        card.root:addChild(profile_frame_animator.m_node)
+        if card.vars['chaNode'] ~= nil then
+            card.vars['chaNode']:addChild(profile_frame_animator.m_node)
+        end
     end
 
     return card.root
