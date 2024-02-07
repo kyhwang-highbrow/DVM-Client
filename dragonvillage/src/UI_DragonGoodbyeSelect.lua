@@ -680,6 +680,16 @@ function UI_DragonGoodbyeSelect:click_autoSelectBtn()
 end
 
 -------------------------------------
+-- function click_infoBtn
+-------------------------------------
+function UI_DragonGoodbyeSelect:click_infoBtn()
+	require('UI_DragonGoodbyeSelectInfoPopup')
+	local type = self.m_currTabType
+	UI_DragonGoodbyeSelectInfoPopup(type)
+end
+
+
+-------------------------------------
 -- function click_farewellBtn
 -------------------------------------
 function UI_DragonGoodbyeSelect:click_farewellBtn()
