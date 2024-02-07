@@ -17,7 +17,7 @@ UI_WorldRaidRanking = class(PARENT, {
     m_rankOffset = 'number', -- 오프셋
 })
 
-local SCORE_OFFSET_GAP = 20
+local SCORE_OFFSET_GAP = 50
 -------------------------------------
 --- @function init
 -------------------------------------

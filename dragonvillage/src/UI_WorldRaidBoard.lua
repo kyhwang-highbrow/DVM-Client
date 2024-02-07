@@ -30,7 +30,7 @@ function UI_WorldRaidBoard:initParentVariable()
     self.m_uiBgm = 'bgm_lobby'
 end
 
-local SCORE_OFFSET_GAP = 30
+local SCORE_OFFSET_GAP = 50
 -------------------------------------
 --- @function init
 -------------------------------------

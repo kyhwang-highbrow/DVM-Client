@@ -9,7 +9,7 @@ UI_WorldRaid = class(PARENT, {
     m_rankingTableView = 'TableView',
     m_isMonosterCardDropDown = 'boolean',
     })
-
+local SCORE_OFFSET_GAP = 50
 -------------------------------------
 -- function initParentVariable
 -- @brief 자식 클래스에서 반드시 구현할 것
@@ -78,7 +78,7 @@ function UI_WorldRaid:refreshRanking()
             self:makeRankingTableView()
         end
 
-        g_worldRaidData:request_WorldRaidRanking(self.m_worldRaidId, 'world', 1, 20, success_cb)
+        g_worldRaidData:request_WorldRaidRanking(self.m_worldRaidId, 'world', 1, SCORE_OFFSET_GAP, success_cb)
     end
 end
 
