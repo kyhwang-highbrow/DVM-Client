@@ -1,7 +1,0 @@
-id,group,priority,t_name,active,start,end,trigger,reward,btn_ui,popup_ui
-10101,1,1,첫 충전 선물,1,2020-04-06 00:00:00,2020-12-01 00:00:00,newbie,"770405;1,700001;2000",button_first_purchase_reward.ui,event_first_purchase_newbie.ui
-10102,1,2,첫 충전 선물,1,2020-04-06 00:00:00,2020-04-14 00:00:00,all,"770405;1,700001;2000",button_first_purchase_reward.ui,event_first_purchase_newbie.ui
-10201,2,1,첫 충전 선물,1,2020-12-01 00:00:00,2021-04-15 00:00:00,newbie,"771443;1,700001;2000",button_first_purchase_reward_02.ui,event_first_purchase_newbie_02.ui
-10202,2,2,첫 충전 선물,1,2020-12-01 00:00:00,2020-12-08 00:00:00,all,"771443;1,700001;2000",button_first_purchase_reward_02.ui,event_first_purchase_newbie_02.ui
-10301,3,1,첫 충전 선물,1,2021-04-08 00:00:00,,newbie,"770782;1,700001;2000",button_first_purchase_reward_03.ui,event_first_purchase_newbie_03.ui
-10302,3,2,첫 충전 선물,1,2021-04-08 00:00:00,2021-04-26 00:00:00,all,"770782;1,700001;2000",button_first_purchase_reward_03.ui,event_first_purchase_newbie_03.ui

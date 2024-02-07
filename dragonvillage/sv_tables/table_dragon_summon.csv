@@ -1,5 +1,0 @@
-dsmid,r_desc,t_help,ui_order,ui_type,price_type,price_value,11th_price_value,start_date,end_date,s_expiration ,limit_purchase,disc_start_date,disc_end_date,disc_price_value,disc_11th_price_value,disc_limit,s_rarity_common,s_rarity_rare,s_rarity_hero,s_rarity_legend,s_grade_common,s_grade_rare,s_grade_hero,s_grade_legend,s_adjust_pick_weight
-100001,일반 소환,,100,normal,gold,10000,100000,2017-01-01 00:00:00,2030-12-31 24:00:00,2030-12-31 24:00:00,,2017-03-15 00:00:00,2017-03-31 24:00:00,9000,90000,3,80,20,,,2:100,3:100,,,
-100002,고급 소환,,200,premium,cash,300,3000,2017-01-01 00:00:00,2030-12-31 24:00:00,2030-12-31 24:00:00,,2017-03-15 00:00:00,2017-03-31 24:00:00,100,1000,3,,50,30,20,,3:100,4:100,5:100,
-100003,이벤트 소환,,300,premium_event,cash,300,3000,2017-03-15 00:00:00,2017-03-31 24:00:00,2017-03-31 24:00:00,,,,,,,,70,29,1,,3:100,4:100,5:100,"120011:20,120294:20,120295:20"
-100004,이벤트 소환,,301,premium_event,cash,300,3000,2017-03-15 00:00:00,2017-03-31 24:00:00,2017-03-31 24:00:00,3,,,,,,,70,29,1,,3:100,4:100,5:100,"120011:20,120294:20,120295:20"

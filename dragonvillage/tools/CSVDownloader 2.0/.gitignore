@@ -1,8 +1,0 @@
-# @kwkang 21.11.18 몇몇 필수 파일만 관리
-*
-!credentials.json
-!csv_downloader.ui
-!main.py
-!readme.txt
-!run.bat
-!.gitignore
