@@ -200,20 +200,20 @@ end
 -- function click_shopBtn
 -- @brief 상점 버튼
 -------------------------------------
-function UI_Lobby:click_shopBtn()
+function UIC_ExtenedUI_Shop:click_shopBtn()
     g_shopDataNew:openShopPopup()    
 end
 
 -------------------------------------
 -- function click_capsuleBoxBtn
 -------------------------------------
-function UI_Lobby:click_capsuleBoxBtn()
+function UIC_ExtenedUI_Shop:click_capsuleBoxBtn()
 	g_capsuleBoxData:openCapsuleBoxUI()
 end
 
 -------------------------------------
 -- function click_randomShopBtn
 -------------------------------------
-function UI_Lobby:click_randomShopBtn()
+function UIC_ExtenedUI_Shop:click_randomShopBtn()
     UINavigator:goTo('shop_random')
 end
