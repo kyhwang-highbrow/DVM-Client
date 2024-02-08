@@ -9,6 +9,7 @@ local ENTRY_LOBBY_CNT = 0
 UI_Lobby = class(PARENT,{
         m_lobbyWorldAdapter = 'LobbyWorldAdapter',
         m_etcExpendedUI = 'UIC_ExtendedUI',
+        m_shopExpendedUI = 'UIC_ExtendedUI',
 		m_lobbyGuide = 'UIC_LobbyGuide',
         m_lobbyLeftTopBtnManager = 'UI_LobbyLeftTopBtnManager',
 
@@ -84,10 +85,17 @@ function UI_Lobby:initUI()
     end
 	self.m_lobbyGuide = UIC_LobbyGuide(vars['bottomMasterNode'], vars['roadTitleLabel'], vars['roadDescLabel'], vars['masterRoadNotiSprite'], refresh)
 
-    -- 기타 버튼 생성
-    local ui = UIC_ExtendedUI:create('lobby_etc_extended.ui')
-    self.m_etcExpendedUI = ui
-    vars['extendedNode']:addChild(ui.m_node)
+    do -- 기타 버튼 생성
+        local ui = UIC_ExtendedUI:create('lobby_etc_extended.ui')
+        self.m_etcExpendedUI = ui
+        vars['extendedNode']:addChild(ui.m_node)
+    end
+
+    do -- 상점 버튼 생성
+        local ui = UIC_ExtenedUI_Shop:create('lobby_shop_extended.ui')
+        self.m_shopExpendedUI = ui
+        vars['extendedShopNode']:addChild(ui.m_node)
+    end
 
     self:initLobbyWorldAdapter()
     g_topUserInfo:clearBroadcast()
@@ -878,7 +886,7 @@ function UI_Lobby:initButton()
     vars['lairBtn']:registerScriptTapHandler(function() self:click_collectionBtn() end) -- 드래곤
     
     -- 상점
-    vars['shopBtn']:registerScriptTapHandler(function() self:click_shopBtn() end)
+    vars['shopBtn']:registerScriptTapHandler(function() self:click_extendShopBtn() end)
     vars['drawBtn']:registerScriptTapHandler(function() self:click_drawBtn() end) -- 부화소
     vars['runeForgeBtn']:registerScriptTapHandler(function() self:click_runeForgeBtn() end) -- 룬 세공소
     vars['clanBtn']:registerScriptTapHandler(function() self:click_clanBtn() end) -- 클랜 버튼
@@ -925,10 +933,10 @@ function UI_Lobby:initButton()
     vars['battlePassBtn']:registerScriptTapHandler(function() self:click_battlePassBtn() end) -- 배틀패스 버튼
     vars['cashShopBtn']:registerScriptTapHandler(function() self:click_packageShopBtn() end) -- 패키지(상점) 버튼
 
-    vars['capsuleBoxBtn']:registerScriptTapHandler(function() self:click_capsuleBoxBtn() end) -- 캡슐 뽑기 버튼
+    
     vars['ddayBtn']:registerScriptTapHandler(function() self:click_ddayBtn() end) -- 출석 이벤트탭 이동
-    vars['randomShopBtn']:registerScriptTapHandler(function() self:click_randomShopBtn() end) -- 랜덤 상점
-    vars['randomShopBtn']:setVisible(true) 
+    --vars['randomShopBtn']:registerScriptTapHandler(function() self:click_randomShopBtn() end) -- 랜덤 상점
+    --vars['randomShopBtn']:setVisible(true) 
     vars['researchBtn']:registerScriptTapHandler(function() self:click_researchBtn() end) -- 랜덤 상점
     
     do -- 기타 UI
@@ -1636,11 +1644,12 @@ function UI_Lobby:click_collectionBtn()
 end
 
 -------------------------------------
--- function click_shopBtn
+-- function click_extendShopBtn
 -- @brief 상점 버튼
 -------------------------------------
-function UI_Lobby:click_shopBtn()
-    g_shopDataNew:openShopPopup()
+function UI_Lobby:click_extendShopBtn()
+    --g_shopDataNew:openShopPopup()
+    self.m_shopExpendedUI:toggleVisibility()
 end
 
 -------------------------------------
@@ -2107,13 +2116,6 @@ function UI_Lobby:click_capsuleBtn()
 end
 
 -------------------------------------
--- function click_capsuleBoxBtn
--------------------------------------
-function UI_Lobby:click_capsuleBoxBtn()
-	g_capsuleBoxData:openCapsuleBoxUI()
-end
-
--------------------------------------
 -- function click_ddayBtn
 -------------------------------------
 function UI_Lobby:click_ddayBtn()
@@ -2123,12 +2125,6 @@ function UI_Lobby:click_ddayBtn()
     end
 end
 
--------------------------------------
--- function click_randomShopBtn
--------------------------------------
-function UI_Lobby:click_randomShopBtn()
-    UINavigator:goTo('shop_random')
-end
 
 -------------------------------------
 -- function click_researchBtn
@@ -2221,22 +2217,6 @@ function UI_Lobby:update(dt)
     -- end
 
     local vars = self.vars
-
-
-    -- 캡슐뽑기 노티 (1개 이상 보유시)
-    do
-        local visible = (g_userData:get('capsule_coin') > 0)
-        vars['capsuleBoxNotiSprite']:setVisible(visible)
-    end
-    
-    -- 랜덤 상점 노티 (상품 갱신시)
-    do
-        local is_highlight = g_randomShopData:isHightlightShop()
-        vars['randomShopNotiSprite']:setVisible(is_highlight)
-        vars['randomShopLabel']:setVisible(not is_highlight)
-        vars['randomShopLabel']:setString(g_randomShopData:getRefreshRemainTimeText())
-    end
-
     -- 광고 (자동재화, 선물상자 정보)
     do
         -- 선물상자
@@ -2537,23 +2517,10 @@ function UI_Lobby:update_rightButtons()
         vars['adventBtn']:setVisible(false)
     end
 
-	-- 캡슐 신전 버튼
-	if (not g_contentLockData:isContentLock('capsule')) then
-		vars['capsuleBoxBtn']:setVisible(true)
-        -- lobby ui 에서 capsule refill 정보 표시 여부
-        local is_refill, is_refill_completed = g_capsuleBoxData:isRefillAndCompleted(--[[is_lobby: ]]false)
-        vars['refillMenu']:setVisible(is_refill)
-        if (is_refill) then
-            vars['refillReservedMenu']:setVisible(not is_refill_completed)
-            vars['refillCompletedMenu']:setVisible(is_refill_completed)
-        end
-	else
-		vars['capsuleBoxBtn']:setVisible(false)
-	end
 
     -- 마녀의 상점
-    local is_random_shop_open = not g_contentLockData:isContentLock('shop_random')
-    vars['randomShopBtn']:setVisible(is_random_shop_open)
+    -- local is_random_shop_open = not g_contentLockData:isContentLock('shop_random')
+    -- vars['randomShopBtn']:setVisible(is_random_shop_open)
 
     do -- 핫타임
         -- if (g_fevertimeData:isNotUsedFevertimeExist() == true) then
@@ -2641,14 +2608,14 @@ function UI_Lobby:update_rightButtons()
     
     -- 패키지
 
-    table.insert(t_btn_name, 'capsuleBoxBtn')
+    --table.insert(t_btn_name, 'capsuleBoxBtn')
     table.insert(t_btn_name, 'goldDungeonBtn')
-    table.insert(t_btn_name, 'randomShopBtn')
+    --table.insert(t_btn_name, 'randomShopBtn')
     --table.insert(t_btn_name, 'fevertimeBtn')
     table.insert(t_btn_name, 'eventBtn')
     table.insert(t_btn_name, 'battlePassBtn')
     table.insert(t_btn_name, 'cashShopBtn')
-    table.insert(t_btn_name, 'shopBtn')
+    --table.insert(t_btn_name, 'shopBtn')
     
     -- visible이 켜진 버튼들 리스트
     local l_btn_list = {}
@@ -2678,7 +2645,7 @@ function UI_Lobby:update_bottomLeftButtons()
     local t_btn_name = {}
     -- @sgkim 2020.12.14 퀘스트 버튼은 좌상단의 우편함 옆으로 이동
     --local l_content = {'quest', 'forest', 'tamer', 'runeForge', 'dragonManage'}
-    local l_content = {'lair', 'tamer', 'runeForge', 'dragonManage'}
+    local l_content = {'shop', 'lair', 'tamer', 'runeForge', 'dragonManage'}
 
     for _, content_name in ipairs(l_content) do
         local is_content_lock = g_contentLockData:isContentLock(content_name)
@@ -3232,8 +3199,6 @@ function UI_Lobby:setShopSpecialNoti(event_name)
         end
         vars['shopEventNoti']:setVisible(false)
     end
-
-    
 end
 
 -------------------------------------

@@ -32,6 +32,12 @@ function UIC_ExtendedUI:init(node)
 end
 
 -------------------------------------
+--- @function init_after
+-------------------------------------
+function UIC_ExtendedUI:init_after()
+end
+
+-------------------------------------
 -- function create
 -------------------------------------
 function UIC_ExtendedUI:create(ui_res)

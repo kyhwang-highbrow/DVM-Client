@@ -905,6 +905,7 @@ local t_module = {
     'UIC_BroadcastLabel',
     'UIC_EggPicker',
     'UIC_ExtendedUI',
+    'UIC_ExtenedUI_Shop',
     'UIC_ScrollButton',
 	'UIC_LobbyGuide',
     'UIC_AlarmClockIcon',
