@@ -527,23 +527,22 @@ function UI_DragonInfoBoard:click_runeBtn(slot_idx)
         return
     end
 
-
-    if (self.m_bRuneInfoPopup) then
+    -- 룬 UI 오픈
+    local doid = self.m_dragonObject['id']
+    local my_dragon_obj = doid ~= nil and g_dragonsData:getDragonDataFromUidRef(doid) or nil    
+    if (self.m_bRuneInfoPopup or doid == nil or my_dragon_obj == nil) then
         local t_dragon_data = self.m_dragonObject
 		if (t_dragon_data) then
         	local rune_obj = t_dragon_data:getRuneObjectBySlot(slot_idx)
-        	UI_ItemInfoPopup(rune_obj['item_id'], 1, rune_obj)
+
+            if rune_obj ~= nil then
+        	    UI_ItemInfoPopup(rune_obj['item_id'], 1, rune_obj)
+            end
 		end
 
         return
     end
 
-    -- 룬 UI 오픈
-    local doid = self.m_dragonObject['id']
-    local dragon_obj = g_dragonsData:getDragonDataFromUid(doid)
-    if dragon_obj == nil then
-        return
-    end
 
     local ui = UI_DragonRunes(doid, slot_idx)
     -- 룬 장착에 대한 변경사항이 있을 경우 처리
