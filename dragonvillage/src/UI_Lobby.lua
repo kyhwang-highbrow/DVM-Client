@@ -1649,6 +1649,9 @@ end
 -------------------------------------
 function UI_Lobby:click_extendShopBtn()
     --g_shopDataNew:openShopPopup()
+    local vars = self.vars
+    local x = vars['shopBtn']:getPositionX()
+    vars['extendedShopNode']:setPositionX(x)
     self.m_shopExpendedUI:toggleVisibility()
 end
 
