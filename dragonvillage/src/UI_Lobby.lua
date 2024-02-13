@@ -2228,6 +2228,7 @@ function UI_Lobby:update(dt)
             self.m_bGiftBoxEnabled = enable2
             vars['giftBoxBtn']:setAutoShake(self.m_bGiftBoxEnabled)
         end
+        vars['giftBoxNotiSprite']:setVisible(enable2)
     end
 
     if (g_hotTimeData.m_boosterInfoDirty) then
