@@ -119,7 +119,7 @@ function UI_Exploration:click_adBtn()
     -- MakeSimplePopup2(POPUP_TYPE.YES_NO, msg, submsg, ok_cb)
 
     local function finish_callback()
-        UIManager:toastNotificationGreen(Str('광고 보상을 받았습니다.'))
+        UIManager:toastNotificationGreen(Str('모든 탐험 중인 지역의 탐험 시간을 50% 단축합니다.'))
         g_explorationData:setDirty()
         g_explorationData:request_explorationInfo(function() self:refresh() end)
     end

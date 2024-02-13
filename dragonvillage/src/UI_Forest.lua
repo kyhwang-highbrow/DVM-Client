@@ -243,7 +243,7 @@ function UI_Forest:click_adBtn()
                 return
             end
     
-            UIManager:toastNotificationGreen(Str('광고 보상을 받았습니다.'))
+            UIManager:toastNotificationGreen(Str('모든 진행중인 보상 획득 시간을 50% 단축합니다.'))
             self:refresh()
             self.m_territory:refreshStuffs() 
         end)
