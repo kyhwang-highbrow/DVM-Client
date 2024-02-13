@@ -399,7 +399,7 @@ return {['[맛있는 도넛!]이 자신을 제외한 아군 전체의 첫번째 
 ['아군이 소비 마나가 3인 드래그 스킬을 사용 시, 10초간 마나 회복 속도가 2배가 되고\n 소비 마나가 3인 아군의 드래그 스킬의 재사용 시간을 10초간 40% 감소시킵니다.']='Tango allié asaleli mayele ya kobenda mana ya consume mana 3 cibles, vitesse na bango ya régénération ya mana ebakisami mbala mibale na boumeli ya segɔnde 10.\nEn plus, tango ya cooldown ya makoki ya kobenda ya consume mana 3 cibles mpo na ba alliés wana ekitisami na 40% mpo na 10 secondes.',
 ['파멸의 운명을 예언하는 드래곤이며, 타나토스와 히프노스의 맏형이다. 세계의 파멸 끝에 결국 자신의 파멸도 포함되어 있다는 것을 깨닫고 형제들 중 하나를 살해한 채 운명으로부터 도망친다.']='Dragon oyo esakoli destin ya doom, pe nkulutu ya Thanatos na Hypnos. Lokola amoni ete nsukansuka liwa na ye moko ekɔtisami na nsuka ya kobebisama ya mokili, akimi nsuka na ye na kobomaka moko ya bandeko na ye.',
 ['1분 후 부터 30초마다 모든 몬스터의 해로운 효과를 해제합니다.']='1분 후 부터 30초마다 모든 몬스터의 해로운 효과를 해제합니다.',
-['1분 후 부터 30초마다 지옥의 불길로 피해를 줍니다. 대상의 이로운 효과를 해제 합니다. ']='Kobanda na miniti 1 na nsima, ebebisaka mɔ́tɔ ya lifelo nsima ya segɔnde 30 nyonso. Ezali ko annuler ba effets bénéfiques na cible.',
+['1분 후 부터 30초마다 지옥의 불길로 피해를 줍니다. 대상의 이로운 효과를 해제 합니다.']='Kobanda na miniti 1 na nsima, ebebisaka mɔ́tɔ ya lifelo nsima ya segɔnde 30 nyonso. Ezali ko annuler ba effets bénéfiques na cible.',
 ['복제한 술사의 돌']='복제한 술사의 돌',
 ['지옥의 불길']='Lolemo ya lifelo',
 ['파워드래곤은 무의식적으로 자신의 힘을 나누는 것이 수호자의 능력이라 여겼다.']='Dragon ya nguya atalelaki kokabola nguya na yango na subconsciemment lokola makoki ya mobateli.',

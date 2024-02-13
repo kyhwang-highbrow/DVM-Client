@@ -399,7 +399,7 @@ return {['[맛있는 도넛!]이 자신을 제외한 아군 전체의 첫번째 
 ['아군이 소비 마나가 3인 드래그 스킬을 사용 시, 10초간 마나 회복 속도가 2배가 되고\n 소비 마나가 3인 아군의 드래그 스킬의 재사용 시간을 10초간 40% 감소시킵니다.']='Nigba ti ohun ore nlo a run mana 3-afojusun fa olorijori, mana wọn iyara isọdọtun ti wa ni ilọpo meji fun 10 aaya.\nPẹlupẹlu, awọn itutu akoko ti awọn run mana 3-afojusun fa olorijori fun awon ore ti wa ni dinku nipa 40% fun 10 aaya.',
 ['파멸의 운명을 예언하는 드래곤이며, 타나토스와 히프노스의 맏형이다. 세계의 파멸 끝에 결국 자신의 파멸도 포함되어 있다는 것을 깨닫고 형제들 중 하나를 살해한 채 운명으로부터 도망친다.']='Dragoni ti o sọ asọtẹlẹ ayanmọ ti iparun, ati arakunrin akọbi ti Thanatos ati Hypnos. Ní mímọ̀ pé ìparun òun fúnra rẹ̀ wà níkẹyìn ní òpin ìparun ayé, ó sá fún àyànmọ́ òun nípa pípa ọ̀kan lára ​​àwọn arákùnrin rẹ̀.',
 ['1분 후 부터 30초마다 모든 몬스터의 해로운 효과를 해제합니다.']='1분 후 부터 30초마다 모든 몬스터의 해로운 효과를 해제합니다.',
-['1분 후 부터 30초마다 지옥의 불길로 피해를 줍니다. 대상의 이로운 효과를 해제 합니다. ']='Bibẹrẹ lati iṣẹju 1 lẹhinna, o fa ibajẹ si ina apaadi ni gbogbo iṣẹju-aaya 30. O fagile awọn ipa anfani lori ibi-afẹde.',
+['1분 후 부터 30초마다 지옥의 불길로 피해를 줍니다. 대상의 이로운 효과를 해제 합니다.']='Bibẹrẹ lati iṣẹju 1 lẹhinna, o fa ibajẹ si ina apaadi ni gbogbo iṣẹju-aaya 30. O fagile awọn ipa anfani lori ibi-afẹde.',
 ['복제한 술사의 돌']='복제한 술사의 돌',
 ['지옥의 불길']='Ina ti apaadi',
 ['파워드래곤은 무의식적으로 자신의 힘을 나누는 것이 수호자의 능력이라 여겼다.']='Dragoni agbara naa gbero pipin agbara rẹ ni mimọ lati jẹ agbara ti olutọju kan.',

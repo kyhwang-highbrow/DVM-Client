@@ -399,7 +399,7 @@ return {['[맛있는 도넛!]이 자신을 제외한 아군 전체의 첫번째 
 ['아군이 소비 마나가 3인 드래그 스킬을 사용 시, 10초간 마나 회복 속도가 2배가 되고\n 소비 마나가 3인 아군의 드래그 스킬의 재사용 시간을 10초간 40% 감소시킵니다.']='Lorsqu\'un allié utilise une compétence de traînée de consommation de mana sur 3 cibles, sa vitesse de régénération de mana est doublée pendant 10 secondes.\nDe plus, le temps de recharge de la compétence de traînée de consommation de mana sur 3 cibles pour ces alliés est réduit de 40 % pendant 10 secondes.',
 ['파멸의 운명을 예언하는 드래곤이며, 타나토스와 히프노스의 맏형이다. 세계의 파멸 끝에 결국 자신의 파멸도 포함되어 있다는 것을 깨닫고 형제들 중 하나를 살해한 채 운명으로부터 도망친다.']='Dragon qui prophétise le sort du malheur et le frère aîné de Thanatos et Hypnos. Réalisant que sa propre disparition est finalement incluse dans la fin de la destruction du monde, il fuit son destin en tuant l\'un de ses frères.',
 ['1분 후 부터 30초마다 모든 몬스터의 해로운 효과를 해제합니다.']='1분 후 부터 30초마다 모든 몬스터의 해로운 효과를 해제합니다.',
-['1분 후 부터 30초마다 지옥의 불길로 피해를 줍니다. 대상의 이로운 효과를 해제 합니다. ']='A partir d\'1 minute plus tard, il inflige des dégâts à la flamme de l\'enfer toutes les 30 secondes. Il annule les effets bénéfiques sur la cible.',
+['1분 후 부터 30초마다 지옥의 불길로 피해를 줍니다. 대상의 이로운 효과를 해제 합니다.']='A partir d\'1 minute plus tard, il inflige des dégâts à la flamme de l\'enfer toutes les 30 secondes. Il annule les effets bénéfiques sur la cible.',
 ['복제한 술사의 돌']='복제한 술사의 돌',
 ['지옥의 불길']='Flamme de l\'enfer',
 ['파워드래곤은 무의식적으로 자신의 힘을 나누는 것이 수호자의 능력이라 여겼다.']='Le Dragon Power considérait que diviser son pouvoir inconsciemment était la capacité d\'un gardien.',

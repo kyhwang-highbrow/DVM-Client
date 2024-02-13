@@ -399,7 +399,7 @@ return {['[맛있는 도넛!]이 자신을 제외한 아군 전체의 첫번째 
 ['아군이 소비 마나가 3인 드래그 스킬을 사용 시, 10초간 마나 회복 속도가 2배가 되고\n 소비 마나가 3인 아군의 드래그 스킬의 재사용 시간을 10초간 40% 감소시킵니다.']='Omukago bwe gukozesa obukugu bw\'okusika consume mana 3-target drag, sipiidi yaabwe ey\'okuzzaawo mana ekubisibwamu emirundi ebiri okumala sekondi 10.\nOkugatta ku ekyo, obudde bw\'okukka kw\'obukugu bw\'okusika consume mana 3-target eri emikwano egyo bukendeezebwa ebitundu 40% okumala sekondi 10.',
 ['파멸의 운명을 예언하는 드래곤이며, 타나토스와 히프노스의 맏형이다. 세계의 파멸 끝에 결국 자신의 파멸도 포함되어 있다는 것을 깨닫고 형제들 중 하나를 살해한 채 운명으로부터 도망친다.']='Ekisota elagula enkomerero y\'okuzikirira, era mukulu wa Thanatos ne Hypnos. Ng’ategedde nti okufa kwe yennyini ku nkomerero kuzingiramu ku nkomerero y’okuzikirizibwa kw’ensi, adduka enkomerero ye ng’atta omu ku baganda be.',
 ['1분 후 부터 30초마다 모든 몬스터의 해로운 효과를 해제합니다.']='1분 후 부터 30초마다 모든 몬스터의 해로운 효과를 해제합니다.',
-['1분 후 부터 30초마다 지옥의 불길로 피해를 줍니다. 대상의 이로운 효과를 해제 합니다. ']='Okutandika okuva ku ddakiika 1 oluvannyuma, ekola obulabe ku muliro gwa ggeyeena buli luvannyuma lwa sikonda 30. Kisazaamu ebirungi ebiva ku kiruubirirwa.',
+['1분 후 부터 30초마다 지옥의 불길로 피해를 줍니다. 대상의 이로운 효과를 해제 합니다.']='Okutandika okuva ku ddakiika 1 oluvannyuma, ekola obulabe ku muliro gwa ggeyeena buli luvannyuma lwa sikonda 30. Kisazaamu ebirungi ebiva ku kiruubirirwa.',
 ['복제한 술사의 돌']='복제한 술사의 돌',
 ['지옥의 불길']='Ennimi z’omuliro eza ggeyeena',
 ['파워드래곤은 무의식적으로 자신의 힘을 나누는 것이 수호자의 능력이라 여겼다.']='Power Dragon kyatwala okugabanya amaanyi gaakyo mu ngeri ey’obutamanya ng’obusobozi bw’omukuumi.',

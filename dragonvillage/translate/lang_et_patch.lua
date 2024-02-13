@@ -399,7 +399,7 @@ return {['[맛있는 도넛!]이 자신을 제외한 아군 전체의 첫번째 
 ['아군이 소비 마나가 3인 드래그 스킬을 사용 시, 10초간 마나 회복 속도가 2배가 되고\n 소비 마나가 3인 아군의 드래그 스킬의 재사용 시간을 10초간 40% 감소시킵니다.']='Kui liitlane kasutab mana tarbimise kolme sihtmärgiga lohistamisoskust, kahekordistatakse tema mana regenereerimise kiirust 10 sekundiks.\nLisaks väheneb nende liitlaste mana tarbimise kolme sihtmärgiga lohistamise oskuse jahtumisaega 10 sekundiks 40%.',
 ['파멸의 운명을 예언하는 드래곤이며, 타나토스와 히프노스의 맏형이다. 세계의 파멸 끝에 결국 자신의 파멸도 포함되어 있다는 것을 깨닫고 형제들 중 하나를 살해한 채 운명으로부터 도망친다.']='Draakon , kes ennustab hukatuse saatust, ning Thanatose ja Hypnose vanim vend. Mõistes, et tema enda surm kuulub lõpuks maailma hävingu lõppu, põgeneb ta oma saatuse eest, tappes ühe oma vennadest.',
 ['1분 후 부터 30초마다 모든 몬스터의 해로운 효과를 해제합니다.']='1분 후 부터 30초마다 모든 몬스터의 해로운 효과를 해제합니다.',
-['1분 후 부터 30초마다 지옥의 불길로 피해를 줍니다. 대상의 이로운 효과를 해제 합니다. ']='Alates 1 minutist hiljem kahjustab see põrguleeki iga 30 sekundi järel. See tühistab kasuliku mõju sihtmärgile.',
+['1분 후 부터 30초마다 지옥의 불길로 피해를 줍니다. 대상의 이로운 효과를 해제 합니다.']='Alates 1 minutist hiljem kahjustab see põrguleeki iga 30 sekundi järel. See tühistab kasuliku mõju sihtmärgile.',
 ['복제한 술사의 돌']='복제한 술사의 돌',
 ['지옥의 불길']='Põrgu leek',
 ['파워드래곤은 무의식적으로 자신의 힘을 나누는 것이 수호자의 능력이라 여겼다.']='Jõudraakon pidas oma jõu alateadlikku jagamist eestkostja võimeks.',

@@ -399,7 +399,7 @@ return {['[맛있는 도넛!]이 자신을 제외한 아군 전체의 첫번째 
 ['아군이 소비 마나가 3인 드래그 스킬을 사용 시, 10초간 마나 회복 속도가 2배가 되고\n 소비 마나가 3인 아군의 드래그 스킬의 재사용 시간을 10초간 40% 감소시킵니다.']='Cuando un aliado usa una habilidad de arrastre de 3 objetivos de consumo de maná, su velocidad de regeneración de maná se duplica durante 10 segundos.\nAdemás, el tiempo de recuperación de la habilidad de arrastre de 3 objetivos de consumo de maná para esos aliados se reduce en un 40 % durante 10 segundos.',
 ['파멸의 운명을 예언하는 드래곤이며, 타나토스와 히프노스의 맏형이다. 세계의 파멸 끝에 결국 자신의 파멸도 포함되어 있다는 것을 깨닫고 형제들 중 하나를 살해한 채 운명으로부터 도망친다.']='Dragones que profetiza el destino de la perdición y hermano mayor de Thanatos e Hypnos. Al darse cuenta de que su propia desaparición está incluida en última instancia en el fin de la destrucción del mundo, huye de su destino matando a uno de sus hermanos.',
 ['1분 후 부터 30초마다 모든 몬스터의 해로운 효과를 해제합니다.']='1분 후 부터 30초마다 모든 몬스터의 해로운 효과를 해제합니다.',
-['1분 후 부터 30초마다 지옥의 불길로 피해를 줍니다. 대상의 이로운 효과를 해제 합니다. ']='A partir de 1 minuto después, inflige daño a las llamas del infierno cada 30 segundos. Anula los efectos beneficiosos sobre el objetivo.',
+['1분 후 부터 30초마다 지옥의 불길로 피해를 줍니다. 대상의 이로운 효과를 해제 합니다.']='A partir de 1 minuto después, inflige daño a las llamas del infierno cada 30 segundos. Anula los efectos beneficiosos sobre el objetivo.',
 ['복제한 술사의 돌']='복제한 술사의 돌',
 ['지옥의 불길']='llama del infierno',
 ['파워드래곤은 무의식적으로 자신의 힘을 나누는 것이 수호자의 능력이라 여겼다.']='El Potendra consideró dividir su poder inconscientemente como la habilidad de un guardián.',

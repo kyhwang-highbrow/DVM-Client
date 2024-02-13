@@ -399,7 +399,7 @@ return {['[맛있는 도넛!]이 자신을 제외한 아군 전체의 첫번째 
 ['아군이 소비 마나가 3인 드래그 스킬을 사용 시, 10초간 마나 회복 속도가 2배가 되고\n 소비 마나가 3인 아군의 드래그 스킬의 재사용 시간을 10초간 40% 감소시킵니다.']='A fa\'aaoga e se paaga le mana 3-target drag skill, e fa\'aluaina le latou mana toe fa\'afouina mo le 10 sekone.\nE le gata i lea, o le taimi fa\'amalo ole mana 3-target drag skill e fa\'aitiitia i le 40% mo le 10 sekone.',
 ['파멸의 운명을 예언하는 드래곤이며, 타나토스와 히프노스의 맏형이다. 세계의 파멸 끝에 결국 자신의 파멸도 포함되어 있다는 것을 깨닫고 형제들 중 하나를 살해한 채 운명으로부터 도망친다.']='tarako na valoia le taunuuga o le malaia, ma le uso matua o Thanatos ma Hypnos. I le iloaina o lona lava oti e iu lava ina aofia ai i le faaiuga o le faatafunaga o le lalolagi, na ia sola ese mai lona taunuuga e ala i le fasiotia o se tasi o ona uso.',
 ['1분 후 부터 30초마다 모든 몬스터의 해로운 효과를 해제합니다.']='1분 후 부터 30초마다 모든 몬스터의 해로운 효과를 해제합니다.',
-['1분 후 부터 30초마다 지옥의 불길로 피해를 줍니다. 대상의 이로운 효과를 해제 합니다. ']='Amata mai le 1 minute mulimuli ane, e faʻaleagaina ai le afi o seoli i le 30 sekone. E fa\'aleaogaina a\'afiaga aoga i luga o le fa\'amoemoe.',
+['1분 후 부터 30초마다 지옥의 불길로 피해를 줍니다. 대상의 이로운 효과를 해제 합니다.']='Amata mai le 1 minute mulimuli ane, e faʻaleagaina ai le afi o seoli i le 30 sekone. E fa\'aleaogaina a\'afiaga aoga i luga o le fa\'amoemoe.',
 ['복제한 술사의 돌']='복제한 술사의 돌',
 ['지옥의 불길']='Afi o seoli',
 ['파워드래곤은 무의식적으로 자신의 힘을 나누는 것이 수호자의 능력이라 여겼다.']='Na manatu le Tarako Malosi e vaevaeina lona malosi i lalo o le mafaufau e avea ma gafatia o se leoleo.',

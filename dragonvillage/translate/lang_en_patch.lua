@@ -399,7 +399,7 @@ return {['[맛있는 도넛!]이 자신을 제외한 아군 전체의 첫번째 
 ['아군이 소비 마나가 3인 드래그 스킬을 사용 시, 10초간 마나 회복 속도가 2배가 되고\n 소비 마나가 3인 아군의 드래그 스킬의 재사용 시간을 10초간 40% 감소시킵니다.']='When an ally uses a consume mana 3-target drag skill, their mana regeneration speed is doubled for 10 seconds.\nAdditionally, the cooldown time of the consume mana 3-target drag skill for those allies is reduced by 40% for 10 seconds.',
 ['파멸의 운명을 예언하는 드래곤이며, 타나토스와 히프노스의 맏형이다. 세계의 파멸 끝에 결국 자신의 파멸도 포함되어 있다는 것을 깨닫고 형제들 중 하나를 살해한 채 운명으로부터 도망친다.']='Dragon that prophesies the fate of doom, and the eldest brother of Thanatos and Hypnos. Realizing that his own demise is ultimately included at the end of the world\'s destruction, he flees from his fate by killing one of his brothers.',
 ['1분 후 부터 30초마다 모든 몬스터의 해로운 효과를 해제합니다.']='1분 후 부터 30초마다 모든 몬스터의 해로운 효과를 해제합니다.',
-['1분 후 부터 30초마다 지옥의 불길로 피해를 줍니다. 대상의 이로운 효과를 해제 합니다. ']='Starting from 1 minute later, it inflicts damage to the flame of hell every 30 seconds. It cancels beneficial effects on the target.',
+['1분 후 부터 30초마다 지옥의 불길로 피해를 줍니다. 대상의 이로운 효과를 해제 합니다.']='Starting from 1 minute later, it inflicts damage to the flame of hell every 30 seconds. It cancels beneficial effects on the target.',
 ['복제한 술사의 돌']='복제한 술사의 돌',
 ['지옥의 불길']='Flame of hell',
 ['파워드래곤은 무의식적으로 자신의 힘을 나누는 것이 수호자의 능력이라 여겼다.']='The Power Dragon considered dividing its power subconsciously to be the ability of a guardian.',
