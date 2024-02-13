@@ -2682,12 +2682,12 @@ function UI_Lobby:update_bottomLeftButtons()
     local interval
     -- 아직 드래곤의 숲이 열리지 않은 경우
     if (table.count(l_btn_list) <= 4) then
-        pos_x = -140
+        pos_x = -155
         interval = -119
     
     -- 왼쪽 하단에 속해있는 모든 컨텐츠가 열려있는 경우
     else
-        pos_x = -120
+        pos_x = -135
         interval = -108
     end
 
@@ -2739,15 +2739,15 @@ function UI_Lobby:update_bottomRightButtons()
         end
     end
 
-    local pos_x = 140
-    local interval = 119
+    local pos_x = 130
+    local interval = 110
 
     -- 버튼들의 위치 지정
     for i,v in ipairs(l_btn_list) do
         if i == #l_btn_list and #l_btn_list >= 5 then
-            interval = 113
+            interval = 110
         else
-            interval = 119
+            interval = 110
         end
 
         local _pos_x = pos_x + ((i-1) * interval)
