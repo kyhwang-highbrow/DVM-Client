@@ -17,22 +17,21 @@ import time
 from extract.extract import extract
 from sum_data.sum_data import sum_data
 from upload.upload import upload
+from upload.upload import sync
 import util.util_file as util_file
 from util.util_quote import quote_row_dics
 from functools import cmp_to_key
 from tools.util.util_sort import cmp_scenario
 from lang_codes.lang_codes import get_language_code_list
 from apps_script.apps_script import execute_apps_script
-
+from check_sync.check_sync import check_sync
 
 plain_text_list = []
 # search_root = os.path.dirname(os.path.abspath(os.path.dirname(__file__)))
 with open('config.json', 'r', encoding='utf-8') as f: # config.json으로부터 데이터 읽기
     config_json = json.load(f)
     spreadsheet_id = config_json['spreadsheet_id']
-    extract_config_list = config_json['extract_config_list']
-    integration_spreadsheet_id = config_json['integration_spreadsheet_id']
-    apps_script_id = config_json['apps_script_id']
+    extract_config_list = config_json['extract_config_list']    
     locale_list = get_language_code_list()
 
 def start_upload(upload_method, patch_sheet_name, backup_sheet_name, all_data_list):
@@ -40,15 +39,27 @@ def start_upload(upload_method, patch_sheet_name, backup_sheet_name, all_data_li
     ss_info_list = quote_row_dics(spread_sheet.make_rows_to_dic(ss_list_sheet.get_all_values()))    
     
     idx = 1
-    # 2번째부터는 1번째에 추출된 텍스트 리스트를 토대로 동기화(매번 비교하면 퍼포먼스가 느림)
+    # 1번째에 추출된 텍스트 업로드
+    result_data_list = []
     for row in ss_info_list:
         ss_id = row['ss_id']
         lang_code = row['lang_code']
         lang_code_list = lang_code.split(',')        
-        upload(upload_method, patch_sheet_name, backup_sheet_name, ss_id, all_data_list, lang_code_list)
-        #progress_str = 'Sync Complete({0}/{1}) : {2}'.format(idx, len(ss_info_list), lang_code)
+        result_data_list = upload(upload_method, patch_sheet_name, backup_sheet_name, ss_id, all_data_list, lang_code_list)
+        progress_str = 'Upload Complete({0}/{1}) : {2}'.format(idx, len(ss_info_list), lang_code)
+        print(progress_str)
         idx = idx + 1
-        print('Extract Complete!!')        
+        break
+
+    # 2번째부터는 1번째에 추출된 텍스트 리스트를 토대로 동기화(매번 비교하면 퍼포먼스가 느림)
+    for row in ss_info_list[1:]:
+        ss_id = row['ss_id']
+        lang_code = row['lang_code']
+        lang_code_list = lang_code.split(',')
+        sync(upload_method, patch_sheet_name, backup_sheet_name, ss_id, result_data_list, lang_code_list)
+        progress_str = 'Sync Complete({0}/{1}) : {2}'.format(idx, len(ss_info_list), lang_code)
+        idx = idx + 1
+        print(progress_str)
         break
 
 def extract_text(extract_config):
@@ -113,15 +124,22 @@ def find_all_color_codes():
     #print(text_color_list)
 
 def extract_text_from_config_lists():
+    # 모든 시트 무결성 체크
+    for extract_config in extract_config_list:
+        list = [extract_config['patch_sheet_name'], extract_config['backup_sheet_name']]
+        if check_sync(list) == False:
+            return
+
+    # 추출
     extracted_count = 0
     for extract_config in extract_config_list:
         extracted_text_list = extract_text(extract_config)
         extracted_count = extracted_count + len(extracted_text_list)
 
-    if extracted_count > 0:
-        print('앱스 스크립트 실행 : [텍스트 이동] 분할 시트 -> 번역 시트')
-        execute_apps_script(apps_script_id, "import_all")
-        print('앱스 스크립트 실행 : [텍스트 이동] 분할 시트 -> 번역 시트 완료')
+    # if extracted_count > 0:
+    #     print('앱스 스크립트 실행 : [텍스트 이동] 분할 시트 -> 번역 시트')
+    #     execute_apps_script(apps_script_id, "import_all")
+    #     print('앱스 스크립트 실행 : [텍스트 이동] 분할 시트 -> 번역 시트 완료')
         
     # 통합 시트에 올리기
     # upload_integration_sheet()

@@ -10,8 +10,12 @@ upload_func = {}
 upload_func['upload_DVM_plain_text'] = upload_DVM_plain_text
 upload_func['upload_DVM_scenario_text'] = upload_DVM_scenario_text
 
-upload_func['direct_upload_DVM_plain_text'] = direct_upload_DVM_plain_text
-upload_func['direct_upload_DVM_scenario_text'] = direct_upload_DVM_scenario_text
+sync_func = {}
+sync_func['upload_DVM_plain_text'] = direct_upload_DVM_plain_text
+sync_func['upload_DVM_scenario_text'] = direct_upload_DVM_scenario_text
 
 def upload(func_name, delta_sheet_name, backup_sheet_name, spreadsheet_id, data_list, locale_list):
     return upload_func[func_name](delta_sheet_name, backup_sheet_name, spreadsheet_id, data_list, locale_list)
+
+def sync(func_name, delta_sheet_name, backup_sheet_name, spreadsheet_id, data_list, locale_list):
+    return sync_func[func_name](delta_sheet_name, backup_sheet_name, spreadsheet_id, data_list, locale_list)

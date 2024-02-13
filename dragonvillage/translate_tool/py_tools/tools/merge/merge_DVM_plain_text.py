@@ -1,6 +1,7 @@
 import tools.G_sheet.spread_sheet as spread_sheet
 from tools.G_sheet.sheet_option import get_sheet_option
 from tools.util.util_quote import quote
+import gspread
 
 
 def merge_upload(backup_sheet_name, spreadsheet_id, data_list, header, locale_list):
@@ -77,16 +78,46 @@ def merge_data(all_data_list, data_dic, header):
             if all_data_list[index][i] == '':
                 all_data_list[index][i] = dic[header_value] if header_value in dic else ''
 
+## 병합하기 전의 델타 시트를 백업
+def backup_delta_sheet(sheet, delta_sheet, delta_sheet_name):
+    # 델타 백업 시트 네이밍
+    delta_backup_sheet_name = delta_sheet_name + '_merge_backup'    
+
+    # 대상 스프레드시트에 대상 시트 추가 (이미 존재하면 열기)
+    delta_backup_sheet = sheet.get_work_sheet(delta_backup_sheet_name)
+
+    if delta_backup_sheet is None:
+        option = {}
+        option['rows'] = 1
+        option['cols'] = 1
+        delta_backup_sheet = sheet.add_work_sheet(delta_backup_sheet_name, option)
+
+    src_values = delta_sheet.get_all_values()
+    delta_backup_sheet.clear()
+    delta_backup_sheet.update('A1', src_values)
+
+## 델타 시트의 첫 번째 행을 제외한 모든 행 제거
+def clear_delta_sheet(delta_sheet):
+    # 첫 번째 행을 제외한 나머지 행 제거
+    all_rows = delta_sheet.get_all_values()    
+    
+    #행 1개를 추가
+    num_rows = delta_sheet.row_count
+    delta_sheet.insert_row([''], 2, value_input_option='RAW')
+
+    if len(all_rows) > 1:        
+        delta_sheet.delete_rows(3, num_rows + 1)
+
 
 def merge_DVM_plain_text(spreadsheet_id, delta_sheet_name, backup_sheet_name, locale_list):
     all_data_list = []
     sheet = spread_sheet.get_spread_sheet(spreadsheet_id)
     delta_sheet = sheet.get_work_sheet(delta_sheet_name)
-
+    
     if delta_sheet is None:
         print("NO EXIST DELTA SHEET :", delta_sheet_name)
         return
-
+    
     # 헤더 생성
     header = ['kr']
     for locale in locale_list:
@@ -101,4 +132,5 @@ def merge_DVM_plain_text(spreadsheet_id, delta_sheet_name, backup_sheet_name, lo
 
     # 모은 데이터를 워크시트에 작성합니다.
     merge_upload(backup_sheet_name, spreadsheet_id, all_data_list, header, locale_list)
+
     print('Merging sheets at', backup_sheet_name, 'is done.')

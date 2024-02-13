@@ -2,7 +2,6 @@
 ## 시나리오 csv를 제외한 일반 csv 파일로부터 텍스트를 추출하는 코드입니다.
 #############################################################################
 
-
 import os
 import tools.util.util_file as util_file
 import re

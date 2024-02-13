@@ -14,8 +14,7 @@ import G_sheet.spread_sheet as spread_sheet
 from util.util_quote import quote_row_dics
 
 with open('config.json', 'r', encoding='utf-8') as f: # config.json으로부터 데이터 읽기
-    config_json = json.load(f)
-    locale_list = config_json['locale_list']
+    config_json = json.load(f)    
     spreadsheet_id = config_json['spreadsheet_id']
     merge_config_list = config_json['merge_config_list']
 

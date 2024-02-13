@@ -107,45 +107,43 @@ def upload_DVM_plain_text(delta_sheet_name, backup_sheet_name, spreadsheet_id, d
     sheet.batch_update(sheet_option)
 
     print('Add text in [', delta_sheet_name, '] :', len(temp_data_list))
-    delta_sheet_rows = delta_sheet.get_all_values()
-    return delta_sheet_rows[1:]
+    #delta_sheet_rows = delta_sheet.get_all_values()
+
+    return temp_data_list
 
 def direct_upload_DVM_plain_text(delta_sheet_name, backup_sheet_name, spreadsheet_id, data_list, locale_list):
-    # 힌트랑 날짜가 찍히지 않아서 찍히도록 수정    
-    temp_data_list = []    
+    # 힌트랑 날짜가 찍히지 않아서 찍히도록 수정
+    temp_data_list = []
     for data in data_list:            
         temp_data = []
         temp_data.append(data[0])
-        for v in range(0, len(locale_list)):
+
+        for i in range(len(locale_list)):
             temp_data.append('')
-        
+
         temp_data.append(data[len(data) - 2])
         temp_data.append(data[len(data) - 1])
         temp_data_list.append(temp_data)
 
-    # 새로 만들 시트의 헤더입니다.
-    # 헤더를 생성합니다.
-    header = ['kr']
-    for locale in locale_list:
-        header.append(locale)
-    header.append('hints')
-    header.append('date')
-    # 시트를 만들 때 사용될 칼럼 사이즈입니다.
-    col_size = len(header)
     # 스프레드시트의 아이디값을 이용하여 연결합니다.
     sheet = spread_sheet.get_spread_sheet(spreadsheet_id)
     # 데이터 리스트 사이즈를 바탕으로 시트를 작성합니다.
     delta_sheet = sheet.get_work_sheet(delta_sheet_name)
-
-    if delta_sheet is not None:
-        sheet.del_work_sheet(delta_sheet)
-
-    delta_option = {}
-    delta_option['rows'] = 1
-    delta_option['cols'] = col_size
-    delta_sheet = sheet.add_work_sheet(delta_sheet_name, delta_option)
-    delta_sheet.insert_row(header, 1, value_input_option='RAW')
-   
+    # # 델타 시트가 없을 경우 시트를 만들고 헤더를 생성
+    if delta_sheet is None:        
+        header = ['kr']
+        for locale in locale_list:
+            header.append(locale)
+        header.append('hints')
+        header.append('date')
+        # 시트를 만들 때 사용될 칼럼 사이즈입니다.
+        col_size = len(header)
+        # 델타 시트 없을 경우 새로 생성
+        delta_option = {}
+        delta_option['rows'] = 1
+        delta_option['cols'] = col_size
+        delta_sheet = sheet.add_work_sheet(delta_sheet_name, delta_option)
+        delta_sheet.insert_row(header, 1, value_input_option='RAW')
     # 시트에 데이터를 삽입합니다 
     # 시트의 빈 칸이 시작되는 행을 파악해서 넣습니다.
     exist_datas = delta_sheet.get_all_values()
@@ -159,6 +157,6 @@ def direct_upload_DVM_plain_text(delta_sheet_name, backup_sheet_name, spreadshee
     sheet_id = delta_sheet._properties['sheetId']
     sheet_option = get_sheet_option('DVM_plain_text', sheet_id, col_size)
     sheet.batch_update(sheet_option)
-
-    print('Add text in [', delta_sheet_name, '] :', len(temp_data_list))    
+    
+    print('Sync text in [', delta_sheet_name, '] :', len(temp_data_list))    
 

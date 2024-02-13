@@ -31,6 +31,9 @@ class spreadSheet:
         self.doc.del_worksheet(sheet)
         sheet = None
 
+    def copy_to_work_sheet(self, spreadsheet_id, dest_sheet_name):
+        self.doc.copy_to(spreadsheet_id, title=dest_sheet_name)        
+
 
     def batch_update(self, body):
         self.doc.batch_update(body)
