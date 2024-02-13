@@ -120,7 +120,6 @@ end
 -------------------------------------
 function UIC_ExtenedUI_Shop:show()
     PARENT.show(self)
-    self:refreshShopHottimeNoti()
 end
 
 -------------------------------------
@@ -128,7 +127,6 @@ end
 -------------------------------------
 function UIC_ExtenedUI_Shop:hide()
     PARENT.hide(self)
-    self:refreshShopHottimeNoti()
 end
 
 -------------------------------------
@@ -140,59 +138,6 @@ function UIC_ExtenedUI_Shop:refreshShopHottimeNoti()
 
     if self.m_bShow == false then
         return
-    end
-
-    -- 다이아 
-    if (g_shopDataNew:checkDiaSale()) then
-        self:setShopSpecialNoti('noti_dia')
-
-    -- 인기 소환
-    elseif (g_hotTimeData:isActiveEvent('event_popularity')) then
-        self:setShopSpecialNoti('noti_event_popularity')
-
-    -- 복주머니 1
-    elseif g_hotTimeData:isActiveEvent('noti_lucky_bag') then
-        if (g_eventLFBagData:canPlay() or g_eventLFBagData:canReward()) then
-            self:setShopSpecialNoti('noti_lucky_bag')
-        end
-
-    -- 복주머니 2
-    elseif g_hotTimeData:isActiveEvent('noti_lucky_marble') then
-        if (g_eventLFBagData:canPlay() or g_eventLFBagData:canReward()) then
-            self:setShopSpecialNoti('noti_lucky_marble')
-        end
-
-    -- 룰렛
-    elseif g_hotTimeData:isActiveEvent('event_roulette') then
-        self:setShopSpecialNoti('noti_roulette_ticket')
-
-    -- 룬 페스티발, 할로윈
-    elseif g_hotTimeData:isActiveEvent('event_rune_festival') then
-        local version_key = g_eventRuneFestival:getEventVersionKey()
-
-        if string.find(version_key, 'halloween') ~= nil then
-            self:setShopSpecialNoti('noti_holoween')
-        elseif string.find(version_key, 'summer') ~= nil then
-            self:setShopSpecialNoti('noti_summer')
-        elseif string.find(version_key, 'whiteday') ~= nil then
-            self:setShopSpecialNoti('noti_summer')
-        end
-    end
-end
-
--------------------------------------
--- function setShopSpecialNoti
--------------------------------------
-function UIC_ExtenedUI_Shop:setShopSpecialNoti(event_name)
-    local vars = self.vars
-    local visual_list = vars['shopEventNoti']:getVisualList()
-    for _, visual_id in ipairs (visual_list) do
-        if (visual_id == event_name) then
-            vars['shopEventNoti']:changeAni(visual_id, true)
-            vars['shopEventNoti']:setVisible(true)
-            break
-        end
-        vars['shopEventNoti']:setVisible(false)
     end
 end
 
