@@ -188,6 +188,7 @@ def direct_upload_DVM_scenario_text(delta_sheet_name, backup_sheet_name, spreads
     # 시트의 빈 칸이 시작되는 행을 파악해서 넣습니다.
     exist_datas = delta_sheet.get_all_values()
     row_size = len(exist_datas) + 1
+    col_size = len(exist_datas[0])
     delta_sheet.resize(rows=row_size)
 
     if len(temp_data_list) > 0:

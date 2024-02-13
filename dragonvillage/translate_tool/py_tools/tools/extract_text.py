@@ -56,7 +56,7 @@ def start_upload(upload_method, patch_sheet_name, backup_sheet_name, all_data_li
         ss_id = row['ss_id']
         lang_code = row['lang_code']
         lang_code_list = lang_code.split(',')
-        sync(upload_method, patch_sheet_name, backup_sheet_name, ss_id, result_data_list, lang_code_list)
+        #sync(upload_method, patch_sheet_name, backup_sheet_name, ss_id, result_data_list, lang_code_list)
         progress_str = 'Sync Complete({0}/{1}) : {2}'.format(idx, len(ss_info_list), lang_code)
         idx = idx + 1
         print(progress_str)
@@ -124,13 +124,15 @@ def find_all_color_codes():
     #print(text_color_list)
 
 def extract_text_from_config_lists():
-    # 모든 시트 무결성 체크
+    # 모든 시트 번역 진행도 싱크 여부를 체크
+    print('\n*** 작업      : 모든 시트 번역 진행도 싱크 여부를 체크합니다.')
     for extract_config in extract_config_list:
         list = [extract_config['patch_sheet_name'], extract_config['backup_sheet_name']]
         if check_sync(list) == False:
             return
 
     # 추출
+    print('\n*** 작업      : 프로젝트에서 텍스트를 추출합니다.')
     extracted_count = 0
     for extract_config in extract_config_list:
         extracted_text_list = extract_text(extract_config)
@@ -148,6 +150,6 @@ def extract_text_from_config_lists():
     print('\n*** 작업이 종료되었습니다.')
 
 if __name__ == '__main__':
-    print('\n*** 작업      : 프로젝트에서 텍스트를 추출합니다.')
+    
     extract_text_from_config_lists()
     os.system('pause')

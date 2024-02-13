@@ -19,7 +19,7 @@ def get_sheet_col_vals(compare_sheet, target_column_name):
     # 시트에서 첫 번째 행의 컬럼명 가져오기
     header_row = compare_sheet.row_values(1)
     column_index = header_row.index(target_column_name)
-    values = compare_sheet.col_values(column_index)
+    values = compare_sheet.col_values(column_index + 1)
     return values
 
 def check_sync(sheet_name_list):
@@ -30,6 +30,8 @@ def check_sync(sheet_name_list):
     # 함수 호출
     try:
         for sheet_name in sheet_name_list:
+            print('check ', sheet_name)
+            prev_compare_sheet = None
             for row in ss_info_list:
                 ss_id = row['ss_id']
                 lang_code = row['lang_code']
@@ -47,5 +49,6 @@ def check_sync(sheet_name_list):
     
     except ValueError as e:
         print(f"예외 발생: {e}")
+        return False
 
-    return 0
+    return True
