@@ -6,7 +6,7 @@ local PARENT = UI
 UI_EventPopupTab_Banner = class(PARENT,{
         m_structBannerData = 'StructEventPopupTab',
 
-        m_isResourcePng = 'boolean',
+        m_isNotResourcePng = 'boolean',
     })
 
 -------------------------------------
@@ -16,8 +16,8 @@ function UI_EventPopupTab_Banner:init(owner, struct_event_popup_tab)
     self.m_uiName = 'UI_EventPopupTab_Banner'
     self.m_structBannerData = struct_event_popup_tab.m_eventData
     local res = self.m_structBannerData['banner']
-    self.m_isResourcePng = string.match(res, '%.ui') and true or false
-    local target_ui = (self.m_isResourcePng == true) and res or 'event_banner.ui'
+    self.m_isNotResourcePng = string.match(res, '%.ui') and true or false
+    local target_ui = (self.m_isNotResourcePng == true) and res or 'event_banner.ui'
     self.m_resName = target_ui
 end
 
@@ -50,10 +50,9 @@ function UI_EventPopupTab_Banner:initUI()
     local vars = self.vars
     local struct_banner_data = self.m_structBannerData
 
-    local banner = struct_banner_data['banner']
-
     -- 리소스가 png인 경우 이미지 추가
-    if (self.m_isResourcePng == false) then
+    if (self.m_isNotResourcePng == false) then
+        local res = self.m_structBannerData['banner']
         local img = cc.Sprite:create(res)
         if img then
             img:setDockPoint(CENTER_POINT)
