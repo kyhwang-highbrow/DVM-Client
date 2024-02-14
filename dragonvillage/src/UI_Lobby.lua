@@ -1656,12 +1656,12 @@ function UI_Lobby:click_extendShopBtn()
 
     doAllChildren(vars['shopBtn'].m_node, function(child) child:setCascadeOpacityEnabled(true) end)
     if self.m_shopExpendedUI.m_bShow == true then 
-        vars['shopEventNoti']:setVisible(false)
         vars['shopBtn']:setOpacity(100)
     else
-        self:refreshShopHottimeNoti()
         vars['shopBtn']:setOpacity(255)
     end
+
+    self:refreshShopHottimeNoti()
 end
 
 -------------------------------------
@@ -3157,6 +3157,11 @@ end
 function UI_Lobby:refreshShopHottimeNoti()
     local vars = self.vars
     vars['shopEventNoti']:setVisible(false)
+
+    -- 상점 유아이가 펼쳐진 상태에서는 노티 비활성화
+    if self.m_shopExpendedUI.m_bShow == true then
+        return
+    end
 
     -- 다이아 
     if (g_shopDataNew:checkDiaSale()) then
