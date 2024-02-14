@@ -1656,8 +1656,10 @@ function UI_Lobby:click_extendShopBtn()
 
     doAllChildren(vars['shopBtn'].m_node, function(child) child:setCascadeOpacityEnabled(true) end)
     if self.m_shopExpendedUI.m_bShow == true then 
+        vars['shopEventNoti']:setVisible(false)
         vars['shopBtn']:setOpacity(100)
     else
+        self:refreshShopHottimeNoti()
         vars['shopBtn']:setOpacity(255)
     end
 end
