@@ -461,7 +461,7 @@ end
 -------------------------------------
 --- @function open
 -------------------------------------
-function UI_WorldRaidBoard.open(lobby_milestone)
+function UI_WorldRaidBoard.open()
 
   local wrid = g_worldRaidData:getPrevSeasonWrid()
     local function finish_cb(ret)
