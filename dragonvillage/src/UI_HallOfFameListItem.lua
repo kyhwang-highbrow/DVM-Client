@@ -54,7 +54,7 @@ function UI_HallOfFameListItem:initUI()
 	local rank = descBlank(data['rank'])
 
 	vars['scoreLabel']:setString(Str('{1}점', score))
-	vars['userNameLabel']:setString(Str(user_name))
+	vars['userNameLabel']:setString(user_name)
 	vars['rankingLabel']:setString(rank)
 
 	-- 테이머 애니

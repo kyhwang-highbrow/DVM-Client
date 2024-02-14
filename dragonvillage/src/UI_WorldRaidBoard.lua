@@ -194,7 +194,7 @@ function UI_WorldRaidBoard:makeRankHallOfFameView(rank_data)
     vars['userLabel']:setString(rank_info['nick'])
 
     -- 점수 표시
-    local score = tonumber(rank_info['score'])
+    local score = tonumber(rank_info['score']) or 0
 
     if (score < 0) then
         score = '-'
