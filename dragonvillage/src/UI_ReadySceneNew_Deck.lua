@@ -872,6 +872,15 @@ function UI_ReadySceneNew_Deck:checkChangeDeck(next_func)
         end
     end
 
+    -- 월드 레이드일 경우 테이머 갱신 처리를 위해 아래와 같이 처리
+    if b_change == false then
+        if (self.m_uiReadyScene:getCurrTamerID() ~= tamer_id) then
+            if string.find(deck_name, 'world_raid') ~= nil and self.m_deckCount >= 3 then
+                b_change = true
+            end
+        end
+    end
+
     if (b_change) then
         -- deckpvp collection을 사용하는 덱일 경우
         if (g_deckData:isUsedDeckPvpDB(deck_name)) then

@@ -47,6 +47,7 @@ function UI_ReadySceneNew_Deck_WorldRaid:initTab()
     end
 end
 
+
 -------------------------------------
 -- function initButton
 -------------------------------------
@@ -64,9 +65,43 @@ function UI_ReadySceneNew_Deck_WorldRaid:initButton()
 
         local sel_deck = multi_deck_mgr:getMainDeck()
         self.m_selRadioButton:setSelectedButton(sel_deck)
-    end
-    
+    end 
 end
+
+
+-------------------------------------
+-- function onChangeTab
+-------------------------------------
+function UI_ReadySceneNew_Deck_WorldRaid:onChangeTab(tab, first)
+    if self.m_deckCount < 3 then
+        PARENT.onChangeTab(self, tab, first)
+        return
+    end
+
+    if (self.m_selTab == tab) then return end    
+    self.m_selTab = tab
+    local multi_deck_mgr = self.m_uiReadyScene.m_multiDeckMgr
+    local deck_name = multi_deck_mgr:getDeckName(tab)
+
+    -- do -- 타이틀 변경
+    --     local deck_no = pl.stringx.replace(deck_name, 'world_raid_', '')
+    --     local str = Str('').. ' ' .. Str(tostring(deck_no) .. ' 공격대')
+    --     self.m_uiReadyScene.m_titleStr = str
+    --     g_topUserInfo:setTitleString(str)
+    -- end
+
+    local next_func = function()
+        self.m_uiReadyScene.m_currTamerID = nil
+        g_deckData:setSelectedDeck(deck_name)
+        self:init_deck()
+        self.m_uiReadyScene:apply_dragonSort()
+    end
+
+    if (deck_name) then
+        self:checkChangeDeck(next_func)
+    end
+end
+
 
 -------------------------------------
 -- function onChangeOption
