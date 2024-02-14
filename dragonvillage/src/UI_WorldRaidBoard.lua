@@ -183,6 +183,8 @@ function UI_WorldRaidBoard:makeRankHallOfFameView(rank_data)
         ui.vars['scoreLabel']:setVisible(false)
         ui.vars['userNameLabel']:setVisible(false)
         ui.vars['rankingLabel']:setVisible(false)
+        ui.vars['clanMarkNode']:setVisible(false)
+        ui.vars['clanNameLabel']:setVisible(false)
         vars['itemNode']:addChild(ui.root)
     end
 
