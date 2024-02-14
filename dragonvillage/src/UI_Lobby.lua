@@ -1653,6 +1653,13 @@ function UI_Lobby:click_extendShopBtn()
     local x = vars['shopBtn']:getPositionX()
     vars['extendedShopNode']:setPositionX(x)
     self.m_shopExpendedUI:toggleVisibility()
+
+    doAllChildren(vars['shopBtn'].m_node, function(child) child:setCascadeOpacityEnabled(true) end)
+    if self.m_shopExpendedUI.m_bShow == true then 
+        vars['shopBtn']:setOpacity(100)
+    else
+        vars['shopBtn']:setOpacity(255)
+    end
 end
 
 -------------------------------------
