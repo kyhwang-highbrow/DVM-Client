@@ -53,6 +53,9 @@ function UI_EventPopupTab_Banner:initUI()
     -- 리소스가 png인 경우 이미지 추가
     if (self.m_isNotResourcePng == false) then
         local res = self.m_structBannerData['banner']
+        if (cc.FileUtils:getInstance():isFileExist(res) == false) then
+            res = 'res/ui/event/bg_event_update.png'
+        end
         local img = cc.Sprite:create(res)
         if img then
             img:setDockPoint(CENTER_POINT)
