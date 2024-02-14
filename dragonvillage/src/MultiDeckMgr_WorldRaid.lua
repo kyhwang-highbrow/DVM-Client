@@ -182,7 +182,7 @@ end
 -- function getAnotherPos
 -------------------------------------
 function MultiDeckMgr_WorldRaid:getAnotherPos(pos)
-    local pos = (pos == 1) and 'down' or 'up'
+    local pos = (pos == 1 or pos == 'up') and 'down' or 'up'
     return pos
 end
 
