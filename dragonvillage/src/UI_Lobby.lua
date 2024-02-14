@@ -3189,7 +3189,7 @@ function UI_Lobby:refreshShopHottimeNoti()
         elseif string.find(version_key, 'summer') ~= nil then
             self:setShopSpecialNoti('noti_summer')
         elseif string.find(version_key, 'whiteday') ~= nil then
-            self:setShopSpecialNoti('noti_summer')
+            self:setShopSpecialNoti('noti_whiteday')
         end
     end
 end
