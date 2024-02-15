@@ -1817,6 +1817,7 @@ local t_module = {
     'UI_DragonLairBlessingPopupItem', -- 축복 팝업 아이템
     'UI_DragonLairBlessingAutoPopup', -- 자동 축복 팝업    
     'UI_SimplePricePopup',
+    'UI_DragonLairBlessingRatePopup', -- 축복 확률 팝업
 
     -- Forest
     'SceneForest',

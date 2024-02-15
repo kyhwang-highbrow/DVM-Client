@@ -71,6 +71,7 @@ function UI_DragonLairBlessingPopup:initButton()
     vars['blessAutoBtn']:registerScriptTapHandler(function() self:click_autoBtn() end)
     vars['closeBtn']:registerScriptTapHandler(function() self:click_closeBtn() end)
     vars['helpBtn']:registerScriptTapHandler(function() self:click_helpBtn() end)
+    vars['rateInfoBtn']:registerScriptTapHandler(function() self:click_rateInfoBtn() end)
     --vars['blockBtn']:registerScriptTapHandler(function() end)
 
     	-- editBox handler 등록
@@ -594,6 +595,13 @@ end
 --------------------------------------------------------------------------
 function UI_DragonLairBlessingPopup:click_helpBtn()
     UI_Help('blessing')
+end
+
+--------------------------------------------------------------------------
+-- @function click_rateInfoBtn
+--------------------------------------------------------------------------
+function UI_DragonLairBlessingPopup:click_rateInfoBtn()
+    local ui = UI_DragonLairBlessingRatePopup()
 end
 
 --------------------------------------------------------------------------
