@@ -36,6 +36,7 @@ function Monster_WorldRaidBossAncientRuinDragon:setDamage(attacker, defender, i_
     end
 
     -- 타임 아웃시 무적 처리
-    self:dispatch('acc_damage', { damage = damage,}, self)
+    -- self:dispatch('acc_damage', { damage = damage,}, self)
+    self.m_world.m_gameState:onEvent('acc_damage', { damage = damage,})
     PARENT.setDamage(self, attacker, defender, i_x, i_y, damage, t_info)    
 end
