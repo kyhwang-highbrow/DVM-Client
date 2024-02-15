@@ -1,8 +1,6 @@
 #############################################################################
 ## 구글 스프레드시트에 업로드하는 코드입니다.
 #############################################################################
-
-
 import sys
 import os
 sys.path.append(os.path.dirname(os.path.abspath(os.path.dirname(__file__))))
@@ -12,7 +10,6 @@ from tools.G_sheet.sheet_option import get_sheet_option
 from tools.util.util_quote import quote
 from util.util_quote import quote_row_dics
 from lang_codes.lang_codes import get_language_code_list
-
 
 def removeStr(sheet, data_list, header, locale_list): # sheet과 datalist의 값 비교를 통해 중복을 제거한 data_list 반환합니다.
     remove_index = []
@@ -158,6 +155,4 @@ def direct_upload_DVM_plain_text(delta_sheet_name, backup_sheet_name, spreadshee
     sheet_id = delta_sheet._properties['sheetId']
     sheet_option = get_sheet_option('DVM_plain_text', sheet_id, col_size)
     sheet.batch_update(sheet_option)
-    
-    print('Sync text in [', delta_sheet_name, '] :', len(temp_data_list))    
 

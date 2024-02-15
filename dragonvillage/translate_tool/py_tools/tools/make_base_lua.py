@@ -15,6 +15,7 @@ import G_sheet.spread_sheet as spread_sheet
 import util.util_file as util_file
 from util.util_quote import quote_row_dics
 from lang_codes.lang_codes import get_translation_file_dict
+from check_sync.check_sync import check_sync
 
 with open('config.json', 'r', encoding='utf-8') as f: # config.json으로부터 데이터 읽기
     config_json = json.load(f)
@@ -143,8 +144,13 @@ def make_origin_lua_table():
 
 
 if __name__ == '__main__':
+    # 모든 시트 번역 진행도 싱크 여부를 체크
+    print('\n*** 작업      : 모든 시트 번역 진행도 싱크 여부를 체크합니다.')
+    if check_sync(sheet_name_list) == False:
+        sys.exit()
+
     import tools.G_sheet.setup
-    print('\n*** 작업      : 백업 파일을 생성상합니다.' )
+    print('\n*** 작업      : 백업 파일을 생성합니다.' )
     
     if backup_root is not None:        
         if not os.path.isdir(backup_root):
@@ -154,5 +160,4 @@ if __name__ == '__main__':
     +     '\n*** 작업 시트 : [', ', '.join(sheet_name_list), '].')
 
     make_origin_lua_table()
-
     os.system('pause')

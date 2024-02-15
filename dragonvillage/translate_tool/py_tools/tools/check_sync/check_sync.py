@@ -30,7 +30,7 @@ def check_sync(sheet_name_list):
     # 함수 호출
     try:
         for sheet_name in sheet_name_list:
-            print('check ', sheet_name)
+            print('check sync', sheet_name)
             prev_compare_sheet = None
             for row in ss_info_list:
                 ss_id = row['ss_id']
@@ -45,7 +45,7 @@ def check_sync(sheet_name_list):
                         prev_values = get_sheet_col_vals(prev_compare_sheet, 'kr')
                         if prev_values != compare_values:
                             raise ValueError('분할 시트 간에 싱크가 맞지 않습니다. [{0}] : {1}'.format(sheet_name, lang_code))
-                    prev_compare_sheet = compare_sheet
+                    prev_compare_sheet = compare_sheet                        
     
     except ValueError as e:
         print(f"예외 발생: {e}")

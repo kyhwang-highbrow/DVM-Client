@@ -12,12 +12,12 @@ import json
 from merge.merge import merge
 import G_sheet.spread_sheet as spread_sheet
 from util.util_quote import quote_row_dics
+from check_sync.check_sync import check_sync
 
 with open('config.json', 'r', encoding='utf-8') as f: # config.json으로부터 데이터 읽기
     config_json = json.load(f)    
     spreadsheet_id = config_json['spreadsheet_id']
     merge_config_list = config_json['merge_config_list']
-
 
 def merge_backup():
     ss_list_sheet = spread_sheet.get_spread_sheet(spreadsheet_id).get_work_sheet('ss_list')    
@@ -44,6 +44,15 @@ def merge_backup():
 
 if __name__ == '__main__':
     import tools.G_sheet.setup
+
+    # 모든 시트 번역 진행도 싱크 여부를 체크
+    print('\n*** 작업      : 모든 시트 번역 진행도 싱크 여부를 체크합니다.')
+    for extract_config in merge_config_list:
+        list = [extract_config['patch_sheet_name'], extract_config['backup_sheet_name']]
+        if check_sync(list) == False:
+            sys.exit()
+            
+
 
     print('\n*** 작업      : 델타 시트를 백업 시트와 병합합니다.' 
     ,     '\n*** 델타 시트 : [', ', '.join([merge_config['patch_sheet_name'] for merge_config in merge_config_list]), '].' 

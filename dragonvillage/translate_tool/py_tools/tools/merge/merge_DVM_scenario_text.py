@@ -132,4 +132,6 @@ def merge_DVM_scenario_text(spreadsheet_id, delta_sheet_name, backup_sheet_name,
     # 모은 데이터를 워크시트에 작성합니다.
     merge_upload(backup_sheet_name, spreadsheet_id, all_data_list, header, locale_list)
 
+    # 델타 시트 내용 삭제
+    clear_delta_sheet(delta_sheet)    
     print('Merging sheets at', backup_sheet_name, 'is done.')

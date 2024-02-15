@@ -148,9 +148,8 @@ def direct_upload_DVM_scenario_text(delta_sheet_name, backup_sheet_name, spreads
         temp_data = [data[0], data[1], data[2]]  # [file_name, page, speaker_kr]        
         for i in range(len(locale_list)):
             temp_data.append('')
-        
-        start_idx = total_lang_list.index('kr')
-        temp_data.append(data[start_idx]) # kr
+            
+        temp_data.append(data[3 + 10]) # kr
         
         for i in range(len(locale_list)):
             temp_data.append('')
@@ -198,7 +197,3 @@ def direct_upload_DVM_scenario_text(delta_sheet_name, backup_sheet_name, spreads
     sheet_id = delta_sheet._properties['sheetId']
     sheet_option = get_sheet_option('DVM_scenario_text', sheet_id, col_size)
     sheet.batch_update(sheet_option)
-
-    print('Sync text in [', delta_sheet_name, '] :', len(temp_data_list))
-
-    

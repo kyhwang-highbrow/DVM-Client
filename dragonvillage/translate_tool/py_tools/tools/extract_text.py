@@ -46,7 +46,7 @@ def start_upload(upload_method, patch_sheet_name, backup_sheet_name, all_data_li
         lang_code = row['lang_code']
         lang_code_list = lang_code.split(',')        
         result_data_list = upload(upload_method, patch_sheet_name, backup_sheet_name, ss_id, all_data_list, lang_code_list)
-        progress_str = 'Upload Complete({0}/{1}) : {2}'.format(idx, len(ss_info_list), lang_code)
+        progress_str = 'upload complete({0}/{1}) : {2}'.format(idx, len(ss_info_list), lang_code)
         print(progress_str)
         idx = idx + 1
         break
@@ -56,11 +56,11 @@ def start_upload(upload_method, patch_sheet_name, backup_sheet_name, all_data_li
         ss_id = row['ss_id']
         lang_code = row['lang_code']
         lang_code_list = lang_code.split(',')
-        #sync(upload_method, patch_sheet_name, backup_sheet_name, ss_id, result_data_list, lang_code_list)
-        progress_str = 'Sync Complete({0}/{1}) : {2}'.format(idx, len(ss_info_list), lang_code)
+        sync(upload_method, patch_sheet_name, backup_sheet_name, ss_id, result_data_list, lang_code_list)
+        progress_str = 'sync complete({0}/{1}) : {2}'.format(idx, len(ss_info_list), lang_code)
         idx = idx + 1
         print(progress_str)
-        break
+        
 
 def extract_text(extract_config):
     date = datetime.datetime.now()
