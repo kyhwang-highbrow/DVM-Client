@@ -1,0 +1,8 @@
+id,type,game,code,res,t_name,t_desc,price_type,price_value,start_date,end_date
+1,1,dv1,gh28f2039h,res/ui/event/icon_dv1_1.png,파워드래곤의 장식,"파워드래곤이 장착가능한 레어 장식
+(최초 1회 수령 가능)",capsule,0,2010-11-25 00:00:00,2020-11-01 00:00:00
+3,2,dv1,f34f0ffjf9,res/ui/event/icon_dv1_2.png,아쿠아리움 C의 알,"드빌M에서만 획득가능한 희귀한 드래곤
+(반복 구매 가능)",capsule,100,2010-11-25 00:00:00,2020-11-01 00:00:00
+5,2,dv1,f490jf20ja,res/ui/event/icon_dv1_3.png,터들톰톰 C의 알,"드래곤 빌리지1에서 사용할 수 있는 특별한 드래곤
+(최초 1회 수령 가능)",capsule,100,2010-11-25 00:00:00,2020-11-01 00:00:00
+6,2,dv1,dvm20xdv11,res/ui/event/icon_dv1_4.png,유리온 C의 알,[드래곤빌리지]에서 유리온 C의 알을 획득하실 수 있습니다. (반복 구매 가능),capsule,100,,

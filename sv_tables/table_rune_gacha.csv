@@ -1,0 +1,5 @@
+id,item_id,r_name,result_count,grade_1_rate,grade_2_rate,grade_3_rate,grade_4_rate,grade_5_rate,grade_6_rate,grade_7_rate,r_grade_sum,filter
+100001,700651,룬 10개 뽑기 상자(일반),10,0,0,0,0,0,9800,200,10000,"rune;set_id;1,rune;set_id;2,rune;set_id;4,rune;set_id;6,rune;set_id;7,rune;set_id;8"
+100002,700651,룬 10개 뽑기 상자(고대),10,0,0,0,0,0,9800,200,10000,rune;ancient;1
+100003,700652,룬 천장 뽑기 상자(일반),10,0,0,0,0,0,8500,1500,10000,"rune;set_id;1,rune;set_id;2,rune;set_id;4,rune;set_id;6,rune;set_id;7,rune;set_id;8"
+100004,700652,룬 천장 뽑기 상자(고대),10,0,0,0,0,0,8500,1500,10000,rune;ancient;1

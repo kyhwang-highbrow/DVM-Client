@@ -1,0 +1,6 @@
+tier,r_condition,r_desc,clan_exp,itemlist
+1,1~5명,클랜 출석보상 1단계,100,"cash;250,gold;20000,clancoin;2"
+2,6~10명,클랜 출석보상 2단계,100,"cash;300,gold;25000,clancoin;3"
+3,11~15명,클랜 출석보상 3단계,100,"cash;350,gold;30000,clancoin;4"
+4,16~20명,클랜 출석보상 4단계,100,"cash;400,gold;35000,clancoin;5"
+5,21~25명,클랜 출석보상 5단계,100,"cash;500,gold;40000,clancoin;6"

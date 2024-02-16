@@ -1,0 +1,8 @@
+id,day,clear_type,clear_value,t_desc,reward,mission
+1001,1,clan_join,,클랜 가입,700002;10000,clan
+1002,2,clan_atd,1,클랜 출석,700001;100,clan
+1003,3,col_win,1,콜로세움 {1}승,700007;100,clan
+1004,4,clan_atd,1,클랜 출석,700101;100,clan
+1005,5,col_win,1,콜로세움 {1}승,700001;100,clan
+1006,6,ply_tower,5,고대의 탑 {1}회 ,700011;100,clan
+1007,7,clan_shop,1,상점에서\\n클랜 코인 사용,700101;100,clan
