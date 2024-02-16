@@ -92,9 +92,23 @@ function UI_DragonLairBlessingRatePopup:initUI()
         }
     }
 
-
     for i, v in ipairs(list) do
         self:makeTableView(string.format('%dListNode', i), v)
+    end
+
+    do
+        local option = g_lairData:getLairSeasonOption()
+        local table_status = TableStatus()
+        
+        local str_list = plSplit(option, '_')
+        option = str_list[1]
+
+        local season_color = g_lairData:getLairSeasonColor()
+        local name = table_status:getValue(option, 't_name')
+
+        local rate_str = Str('{1} 확률', Str(name))
+        local str = string.format('{@%s}<%s>{@}', season_color, rate_str)
+        vars['specialLabel']:setString(str)
     end
 end
 
@@ -121,17 +135,26 @@ function UI_DragonLairBlessingRatePopup:makeTableView(node_name, item_list)
         return ui
     end
 
+    local idx = 1
     local create_func = function(ui, data)
         ui.vars['stepLabel']:setString(Str('{1}단계', data['step']))
-        ui.vars['rateLabel']:setString(string.format('%0.2f%%', data['rate']))
+        ui.vars['rateLabel']:setString(string.format('%0.2f%%', data['rate']))        
+        local odd_num = idx % 2 == 0 and 1 or 2
+
+        local str_1 = string.format('color%02d%02d', odd_num ,1)
+        local str_2 = string.format('color%02d%02d', odd_num ,2)
+
+        ui.vars[str_1]:setVisible(true)
+        ui.vars[str_2]:setVisible(true)
+        idx = idx + 1
     end
 
     local table_view = UIC_TableView(node)
     table_view.m_defaultCellSize = cc.size(555, 44)
     table_view:setCellUIClass(make_func, create_func)
-    table_view:setCellCreateDirecting(CELL_CREATE_DIRECTING['fadein_fast'])
+    table_view:setCellCreateDirecting(nil)
     table_view:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
-    table_view:setItemList(item_list)
+    table_view:setItemList(item_list, true)
 end
 
 -------------------------------------
