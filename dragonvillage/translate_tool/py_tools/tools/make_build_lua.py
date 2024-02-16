@@ -155,8 +155,7 @@ def extract_text(extract_config):
 # 원본 번역 파일 생성
 def make_build_lua_table():
     # translate/lang_언어.lua 를 모두 읽어서 모든 언어에 대한 딕셔너리를 만듦
-    # (주의) 그래서 make_base_lua로 기본 언어 파일이 먼저 만들자.
-
+    # (주의) 그래서 make_base_lua로 기본 언어 파일을 먼저 만들자.
     # 번역이 필요한 문구들 추출
     extract_config_list = lua_table_config['extract_list']
     build_key_text_list = []
@@ -191,8 +190,6 @@ def make_build_lua_table():
             print('해당 파일을 읽는 도중 문제가 발생했습니다. :', lua_file_name)
             os.system('pause')
 
-        print('Start make build lua table :', lua_table_name)
-
         data_list = []
         for _, build_key_text_data in enumerate(build_key_text_list):
             key_text = build_key_text_data.replace("\'", "\\'")           
@@ -213,7 +210,6 @@ def make_build_lua_table():
         lua_table = convert(data_list)
         save_file(lua_table_name, lua_table)        
     print('\n*** 작업이 종료되었습니다.')
-
 
 # 외부 실행을 위한 함수
 def execute():
