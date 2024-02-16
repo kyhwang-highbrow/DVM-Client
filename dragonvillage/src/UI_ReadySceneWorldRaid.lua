@@ -9,6 +9,7 @@ UI_ReadySceneWorldRaid = class(PARENT,{
 --- @function initUI
 -------------------------------------
 function UI_ReadySceneWorldRaid:init()
+    g_worldRaidData:resetIngameData()
 end
 
 -------------------------------------
@@ -16,7 +17,6 @@ end
 -------------------------------------
 function UI_ReadySceneWorldRaid:initUI()
     local vars = self.vars
-    g_worldRaidData.m_curDeckIndex = 1
 
     do -- 스테이지에 해당하는 스테미나 아이콘 생성
         local vars = self.vars

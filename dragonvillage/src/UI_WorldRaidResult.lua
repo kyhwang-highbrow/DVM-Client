@@ -528,7 +528,12 @@ end
 -------------------------------------
 function UI_WorldRaidResult:click_statsBtn()
     -- @TODO g_gameScene.m_gameWorld 사용안하여야 한다.
-    UI_StatisticsPopup(g_gameScene.m_gameWorld)
+    local stage_mode = g_worldRaidData:getWorldRaidPartyType()
+    if stage_mode == WORLD_RAID_LINGER then
+        UI_LeagueRaidStatisticsPopup(g_worldRaidData)
+    else
+        UI_StatisticsPopup(g_gameScene.m_gameWorld)
+    end
 end
 
 -------------------------------------

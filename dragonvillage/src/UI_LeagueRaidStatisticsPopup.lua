@@ -21,7 +21,7 @@ UI_LeagueRaidStatisticsPopup.TAB_HEAL = 3
 -------------------------------------
 -- function init
 -------------------------------------
-function UI_LeagueRaidStatisticsPopup:init(world)
+function UI_LeagueRaidStatisticsPopup:init(server_data)
 	local vars = self:load('ingame_result_stats_popup.ui')
 	UIManager:open(self, UIManager.POPUP)
 
@@ -34,9 +34,9 @@ function UI_LeagueRaidStatisticsPopup:init(world)
 
     --world.m_myDragons
 	-- 멤버 변수 초기화
-	self.m_charList_A = g_leagueRaidData.m_attackedChar_A
-	self.m_charList_B = g_leagueRaidData.m_attackedChar_B
-	self.m_charList_C = g_leagueRaidData.m_attackedChar_C
+	self.m_charList_A = server_data.m_attackedChar_A
+	self.m_charList_B = server_data.m_attackedChar_B
+	self.m_charList_C = server_data.m_attackedChar_C
 
 	-- UI 초기화
     self:initUI()

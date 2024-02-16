@@ -57,6 +57,16 @@ function ServerData_WorldRaid:init()
 end
 
 -------------------------------------
+-- function resetIngameData
+-------------------------------------
+function ServerData_WorldRaid:resetIngameData()
+    self.m_attackedChar_A = nil
+    self.m_attackedChar_B = nil
+    self.m_attackedChar_C = nil
+    self.m_curDeckIndex = 1
+end
+
+-------------------------------------
 --- @function isExpiredRankingUpdate
 -------------------------------------
 function ServerData_WorldRaid:isExpiredRankingUpdate()
