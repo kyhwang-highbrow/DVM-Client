@@ -139,7 +139,7 @@ function UI_DragonLairBlessingRatePopup:makeTableView(node_name, item_list)
     local create_func = function(ui, data)
         ui.vars['stepLabel']:setString(Str('{1}단계', data['step']))
         ui.vars['rateLabel']:setString(string.format('%0.2f%%', data['rate']))        
-        local odd_num = idx % 2 == 0 and 1 or 2
+        local odd_num = idx % 2 == 0 and 2 or 1
 
         local str_1 = string.format('color%02d%02d', odd_num ,1)
         local str_2 = string.format('color%02d%02d', odd_num ,2)
@@ -150,7 +150,7 @@ function UI_DragonLairBlessingRatePopup:makeTableView(node_name, item_list)
     end
 
     local table_view = UIC_TableView(node)
-    table_view.m_defaultCellSize = cc.size(555, 44)
+    table_view.m_defaultCellSize = cc.size(555, 50 + 7)
     table_view:setCellUIClass(make_func, create_func)
     table_view:setCellCreateDirecting(nil)
     table_view:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
