@@ -324,7 +324,7 @@ function UI_DragonLairBlessingAutoPopupItem:initUI()
     local season_color = g_lairData:getLairSeasonColor()
 
     do
-        if string.find(self.m_optionKey, season_option) ~= nil then
+        if table.find(season_option, self.m_optionKey) ~= nil then
             vars['effectLayer']:setColor(COLOR[season_color])
             vars['effectLayer']:setVisible(true)
         end

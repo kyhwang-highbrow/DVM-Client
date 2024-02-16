@@ -142,7 +142,6 @@ function StructItem:createListWithResultResponse(result)
     return struct_item_list
 end
 
-
 -------------------------------------
 -- function filterByItemType
 -- @brief 아이템 타입으로 필터

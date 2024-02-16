@@ -106,17 +106,10 @@ end
 function ServerData_Lair:getLairSeasonOption()
     local season_id = self:getLairSeasonId()
     local str = TableLairSchedule:getInstance():getLairSeasonOption(season_id)
-    return str
+    local list = plSplit(str, ',')
+    return list
 end
 
--------------------------------------
--- function getLairSeasonAttrName
--------------------------------------
-function ServerData_Lair:getLairSeasonAttrName()
-    local season_id = self:getLairSeasonId()
-    local str = TableLairSchedule:getInstance():getLairSeasonOption(season_id)
-    return str
-end
 
 -------------------------------------
 -- function getLairSeasonOption

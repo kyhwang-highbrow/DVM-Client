@@ -137,7 +137,7 @@ function UI_DragonLairBlessingPopup:refresh()
             -- 활성화 이펙트
             local effect_str =  string.format('TypeEffect%d', idx)
             vars[effect_str]:setVisible(false)
-            if string.find(option_key, season_option) ~= nil then
+            if table.find(season_option, option_key) ~= nil then
                 vars[effect_str]:setColor(COLOR[season_color])
                 vars[effect_str]:setVisible(true)
             end

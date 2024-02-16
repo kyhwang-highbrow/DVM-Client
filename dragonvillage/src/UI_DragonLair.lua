@@ -116,12 +116,15 @@ function UI_DragonLair:refresh()
             end
 
             local effect_str =  string.format('%dTypeEffect%d', type, idx)
-            vars[effect_str]:setVisible(false)
-            if string.find(option_key, season_option) ~= nil then
+            vars[effect_str]:setVisible(false)            
+            if table.find(season_option, option_key) ~= nil then
                 vars[effect_str]:setColor(COLOR[season_color])
                 vars[effect_str]:setVisible(true)
             end
+            cclog('option_key', option_key)
         end
+
+        ccdump(season_option)
 
         do -- 프로그레스 바
             local curr_progress, max_progress = g_lairData:getLairStatProgressInfo(type)
