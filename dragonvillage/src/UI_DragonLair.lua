@@ -121,10 +121,7 @@ function UI_DragonLair:refresh()
                 vars[effect_str]:setColor(COLOR[season_color])
                 vars[effect_str]:setVisible(true)
             end
-            cclog('option_key', option_key)
         end
-
-        ccdump(season_option)
 
         do -- 프로그레스 바
             local curr_progress, max_progress = g_lairData:getLairStatProgressInfo(type)
