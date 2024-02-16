@@ -1,7 +1,0 @@
-ppid,pid_list,group,priority,main_loc,active_hour,cooldown,start_date,end_date,money_min,money_max,days_after_join,package_res
-100001,110272,result_1,1,game_result,0,0,,,0,,0,
-100002,110282,result_2,1,game_result,0,0,,,0,,0,
-101001,"120511,120512",monthly_123,4,lobby,48,336,2020-10-01 00:00:00,2020-10-04 23:59:59,0,110000,15,package_monthly_begin_01.ui
-101002,"120521,120522",monthly_123,3,lobby,48,336,2020-10-01 00:00:00,2020-10-04 23:59:59,110000,550000,15,package_monthly_begin_02.ui
-101003,"120531,120532",monthly_123,2,lobby,48,336,2020-10-01 00:00:00,2020-10-04 23:59:59,550000,1100000,15,package_monthly_begin_03.ui
-101004,"120541,120542",monthly_123,1,lobby,48,336,2020-10-01 00:00:00,2020-10-04 23:59:59,1100000,,15,package_monthly_begin_04.ui

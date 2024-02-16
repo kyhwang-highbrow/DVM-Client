@@ -1,6 +1,0 @@
-id,type,count,win_score,win_reward,break_reward
-1,attack,1,12,honor;10,
-2,attack,2,14,honor;10,
-3,attack,3,17,honor;10,"700002;100000,honor;10"
-4,attack,4,20,honor;10,
-5,attack,5,22,honor;10,"700109;1,honor;20"

@@ -1,9 +1,0 @@
-key,lua_class,priority,t_title,popup_key,min_lv,max_lv,start_date,end_date,Mon,Tue,Wed,Thu,Fri,Sat,Sun,min_value,max_value,interval,r_comment
-package_step,LobbyPopup_PackageStep,2,단계별 패키지,package_step_02,15,,2020-10-20 00:00:00,2020-10-28 00:00:00,O,O,O,O,O,O,O,,,0,단계별 패키지 1단계도 구매하지 않았을 경우
-package_step2,LobbyPopup_PackageStep2,1,단계별 패키지,package_step_02,,,2019-07-01 00:00:00,,O,O,O,O,O,O,O,,,3,단계별 패키지 1단계 이상 구매하고 4단계를 구매하지 않았을 경우 4단계까지 구매 촉진을 위한 팝업
-package_step_old,LobbyPopup_PackageStepOld,3,단계별 패키지,package_step,,,2019-06-14 00:00:00,2019-06-21 00:00:00,O,O,O,O,O,O,O,,,0,예전에 판매하던 단계별 패키지 1단계 이상 구매하고 4단계를 구매하지 않았을 경우 4단계까지 구매 촉진을 위한 팝업
-purchase_point_1,LobbyPopup_PurchasePoint,4,누적 결제 이벤트,purchase_point_value,,,,,O,O,O,O,O,O,O,1,10000,0,누적 결제 포인트가 1~10000일 경우
-purchase_point_2,LobbyPopup_PurchasePoint,5,누적 결제 이벤트,purchase_point_value,,,,,O,O,O,O,O,O,O,30000,50000,0,누적 결제 포인트가 30000~50000일 경우
-purchase_point_3,LobbyPopup_PurchasePoint,6,누적 결제 이벤트,purchase_point_value,,,,,O,O,O,O,O,O,O,70000,100000,0,누적 결제 포인트가 70000~100000일 경우
-purchase_point_4,LobbyPopup_PurchasePoint,7,누적 결제 이벤트,purchase_point_value,,,,,O,O,O,O,O,O,O,200000,9999999,0,누적 결제 포인트가 200000~300000일 경우
-purchase_point_5,LobbyPopup_PurchasePoint,8,누적 결제 이벤트,purchase_point_date,,,,,O,O,O,O,O,O,O,,,0,이벤트 시작일인 경우 or 이벤트 종료 이틀 전 ~ 종료일 인 경우

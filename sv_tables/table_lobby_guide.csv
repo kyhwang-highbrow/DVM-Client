@@ -1,6 +1,0 @@
-key,lua_class,priority,t_title,t_sub_title,content_name,lv,Mon,Tue,Wed,Thu,Fri,Sat,Sun,term,r_comment
-capsule_box,LobbyGuide_CapsuleBox,1,캡슐 뽑기,1등급 보상 변경,capsule,20,O,O,,O,,O,,daily,
-adventure,LobbyGuide_Adventure,2,모험,모험을 떠나자!!,adventure,10,O,O,O,O,O,O,O,3,"보통 난이도 클리어, 지옥 12-7까지는 클리어하지 못한 유저"
-weekly_shop,LobbyGuide_WeeklyShop,3,주간 구매 가능,스킬 슬라임 구매 가능!!,weekly_shop,10,O,,,,,,O,daily,
-ancient_tower,LobbyGuide_AncientTower,5,고대의 탑,스킬 슬라임 획득 가능!!,ancient,8,,,O,O,,,,daily,"고대의 탑 진입 가능 레벨, 고대의 탑 오픈 시, 50층을 클리어하지 않은 상태"
-attr_tower,LobbyGuide_AttrTower,6,시험의 탑,나를 시험해볼 기회!!,attr_tower,8,O,O,O,O,O,O,O,2,"고대의 탑 진입 가능 레벨, 고대의 탑 오픈 시, 30층 이상 40층 미만인 상태"
