@@ -75,3 +75,12 @@ end
 function TableLairSchedule:getLairSeasonOption(season_id)
     return self:getValue(season_id, 'option_type')
 end
+
+-------------------------------------
+-- function getLairSeasonOptionName
+---@return string
+-------------------------------------
+function TableLairSchedule:getLairSeasonOptionName(season_id)
+    local str = self:getValue(season_id, 't_option_name')
+    return Str(str)
+end

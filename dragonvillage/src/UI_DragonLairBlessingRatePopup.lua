@@ -97,14 +97,8 @@ function UI_DragonLairBlessingRatePopup:initUI()
     end
 
     do
-        local option = g_lairData:getLairSeasonOption()
-        local table_status = TableStatus()
-        
-        local str_list = plSplit(option, '_')
-        option = str_list[1]
-
         local season_color = g_lairData:getLairSeasonColor()
-        local name = table_status:getValue(option, 't_name')
+        local name = g_lairData:getLairSeasonOptionName()
 
         local rate_str = Str('{1} 확률', Str(name))
         local str = string.format('{@%s}<%s>{@}', season_color, rate_str)

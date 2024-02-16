@@ -92,9 +92,27 @@ function ServerData_Lair:getLairSeasonDesc()
 end
 
 -------------------------------------
+-- function getLairSeasonOptionName
+-------------------------------------
+function ServerData_Lair:getLairSeasonOptionName()
+    local season_id = self:getLairSeasonId()
+    local str = TableLairSchedule:getInstance():getLairSeasonOptionName(season_id)
+    return str
+end
+
+-------------------------------------
 -- function getLairSeasonOption
 -------------------------------------
 function ServerData_Lair:getLairSeasonOption()
+    local season_id = self:getLairSeasonId()
+    local str = TableLairSchedule:getInstance():getLairSeasonOption(season_id)
+    return str
+end
+
+-------------------------------------
+-- function getLairSeasonAttrName
+-------------------------------------
+function ServerData_Lair:getLairSeasonAttrName()
     local season_id = self:getLairSeasonId()
     local str = TableLairSchedule:getInstance():getLairSeasonOption(season_id)
     return str
