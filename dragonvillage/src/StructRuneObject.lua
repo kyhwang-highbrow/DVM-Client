@@ -1094,7 +1094,7 @@ function StructRuneObject:getRuneAbilityPoint()
     -- 부 옵션 및 추가 옵션 계산
     local option_list = {'uopt', 'sopt_1', 'sopt_2', 'sopt_3', 'sopt_4'}    
     for _, v in ipairs(option_list) do
-        if (self[v] ~= '') then
+        if (self[v] ~= '' and self[v] ~= nil) then
             local option_str = self[v]
             local option, value = self:parseRuneOptionStr(option_str)
             local point = self:getRuneAbilityOptionPoint(option, value)
@@ -1120,12 +1120,11 @@ function StructRuneObject:getRuneAbilityPoint()
 end
 
 -------------------------------------
--- function getRuneAbilityOptionPoint()
+--- @function getRuneAbilityOptionPoint()
 -------------------------------------
 function StructRuneObject:getRuneAbilityOptionPoint(option, option_value)    
     local calc, val = TableOption:getInstance():getRuneAbilityPointCalcVals(option)
     local result = 0
-
     -- per는 특정val 당 1점
     if calc == 'per' then
         result = option_value/val
@@ -1133,7 +1132,6 @@ function StructRuneObject:getRuneAbilityOptionPoint(option, option_value)
     elseif calc == 'mul' then
         result = option_value*val
     end
-
     return result
 end
 
