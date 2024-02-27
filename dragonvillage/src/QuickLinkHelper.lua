@@ -525,6 +525,11 @@ T_LINK_FUNC = {
         UINavigator:goTo('lair')
     end,
 
+    -- 룰렛 광고
+    ['adv_lobby'] = function(condition)
+        g_advRouletteData:showAdRoulettePopup(AD_TYPE.RANDOM_BOX_LOBBY)
+    end,
+
     -- 바로가기 키를 띄우지 않을 것들
 	--[[
 	r_6grcnt_sq : 6성 룬 획득
