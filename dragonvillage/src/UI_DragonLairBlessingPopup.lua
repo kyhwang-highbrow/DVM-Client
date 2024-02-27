@@ -99,7 +99,7 @@ function UI_DragonLairBlessingPopup:initButton()
         local open_time_stamep = ServerTime:getInstance():dateToTimestamp(2024, 3, 1, 0, 0, 0)
         local curr_time_stamp = ServerTime:getInstance():getCurrentTimestampSeconds()
 
-        vars['rateInfoBtn']:setVisible(open_time_stamep <= curr_time_stamp)
+        -- vars['rateInfoBtn']:setVisible(open_time_stamep <= curr_time_stamp)
     end
 end
 
