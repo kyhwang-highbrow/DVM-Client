@@ -94,6 +94,13 @@ function UI_DragonLairBlessingPopup:initButton()
         vars['addTicketBtn']:setVisible(true)
         vars['addTicketBtn']:registerScriptTapHandler(function() self:click_addTicketBtn() end)
     end
+
+    do -- 3월 1일 전까지는 노출시키지 않음
+        local open_time_stamep = ServerTime:getInstance():dateToTimestamp(2024, 3, 1, 0, 0, 0)
+        local curr_time_stamp = ServerTime:getInstance():getCurrentTimestampSeconds()
+
+        vars['rateInfoBtn']:setVisible(open_time_stamep <= curr_time_stamp)
+    end
 end
 
 --------------------------------------------------------------------------
