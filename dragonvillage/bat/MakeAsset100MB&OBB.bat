@@ -2,6 +2,6 @@
 chcp 65001
 
 cd "../src_tool"
-call "../../../../res/tools/lua/bin/lua.exe" "AssetMaker.lua" run
-call "../../../../res/tools/lua/bin/lua.exe" "AssetMaker_ApkExpansion.lua" run
+call "../tools/lua/bin/lua.exe" "AssetMaker.lua" run
+call "../tools/lua/bin/lua.exe" "AssetMaker_ApkExpansion.lua" run
 PAUSE
