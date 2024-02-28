@@ -278,10 +278,17 @@ function UI_AdsRoulettePopup:update(dt)
     local is_end = 0 >= daily_roll_count
 
     self:refresh()
-    vars['timeLabel']:setString(Str('광고 시청 완료!'))
+    
 
-    if ((exp_at <= now) or exp_at == nil or is_end == true) then
+    if ((exp_at <= now) or exp_at == nil) then
         vars['timeLabel']:setVisible(false)
+        self.root:unscheduleUpdate()
+        return
+    end
+
+    if  is_end == true then
+        vars['timeLabel']:setString(Str('광고 시청 완료!'))
+        vars['timeLabel']:setVisible(true)
         self.root:unscheduleUpdate()
         return
     end
