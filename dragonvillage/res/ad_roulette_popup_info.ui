@@ -875,7 +875,7 @@
 					lua_name = '';
 					font_name = 'font/common_font_01.ttf';
 					font_size = 20;
-					text = '100';
+					text = '300';
 					h_alignment = 1;
 					v_alignment = 1;
 					color = { 240; 215; 159; };
@@ -919,7 +919,7 @@
 					lua_name = '';
 					font_name = 'font/common_font_01.ttf';
 					font_size = 20;
-					text = '200';
+					text = '400';
 					h_alignment = 1;
 					v_alignment = 1;
 					color = { 240; 215; 159; };
@@ -963,7 +963,7 @@
 					lua_name = '';
 					font_name = 'font/common_font_01.ttf';
 					font_size = 20;
-					text = '400';
+					text = '500';
 					h_alignment = 1;
 					v_alignment = 1;
 					color = { 240; 215; 159; };
@@ -1007,7 +1007,7 @@
 					lua_name = '';
 					font_name = 'font/common_font_01.ttf';
 					font_size = 20;
-					text = '800';
+					text = '600';
 					h_alignment = 1;
 					v_alignment = 1;
 					color = { 240; 215; 159; };
