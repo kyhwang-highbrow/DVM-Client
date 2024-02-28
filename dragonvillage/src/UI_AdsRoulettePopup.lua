@@ -278,6 +278,7 @@ function UI_AdsRoulettePopup:update(dt)
     local is_end = 0 >= daily_roll_count
 
     self:refresh()
+    vars['timeLabel']:setString(Str('광고 시청 완료!'))
 
     if ((exp_at <= now) or exp_at == nil or is_end == true) then
         vars['timeLabel']:setVisible(false)
@@ -303,7 +304,12 @@ function UI_AdsRoulettePopup:setExpTime()
     -- local term_sec = TableBalanceConfig:getInstance():getBalanceConfigValue('roulette_term')
     local term_min = g_advRouletteData:getRouletteTerm()
     local term_mmss = term_min * 60000
-    exp_time:applyExperationTime(last_timestamp + term_mmss)
+
+    if term_mmss == 0 then
+        exp_time:applyExperationTime(last_timestamp + 1)
+    else
+        exp_time:applyExperationTime(last_timestamp + term_mmss)
+    end
 
     self.root:scheduleUpdateWithPriorityLua(function(dt) self:update(dt) end, 0)
 end
