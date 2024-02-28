@@ -1,0 +1,15 @@
+id,type,grade,price,quantity,upgrade_rate,common_rate,rare_rate,hero_rate,legend_rate,r_rarity_sum,filter
+1,common,1,0,5,0.9,400,300,200,100,1000,"rune;set_id;1,rune;set_id;2,rune;set_id;4,rune;set_id;6,rune;set_id;7,rune;set_id;8"
+2,common,2,0,5,0.7,400,300,200,100,1000,"rune;set_id;1,rune;set_id;2,rune;set_id;4,rune;set_id;6,rune;set_id;7,rune;set_id;8"
+3,common,3,0,5,0.5,400,300,200,100,1000,"rune;set_id;1,rune;set_id;2,rune;set_id;4,rune;set_id;6,rune;set_id;7,rune;set_id;8"
+4,common,4,0,5,0.3,400,300,200,100,1000,"rune;set_id;1,rune;set_id;2,rune;set_id;4,rune;set_id;6,rune;set_id;7,rune;set_id;8"
+5,common,5,0,5,0.1,400,300,200,100,1000,"rune;set_id;1,rune;set_id;2,rune;set_id;4,rune;set_id;6,rune;set_id;7,rune;set_id;8"
+6,common,6,0,5,0.005,100,300,400,200,1000,"rune;set_id;1,rune;set_id;2,rune;set_id;4,rune;set_id;6,rune;set_id;7,rune;set_id;8"
+7,common,7,0,5,0,100,400,400,100,1000,"rune;set_id;1,rune;set_id;2,rune;set_id;4,rune;set_id;6,rune;set_id;7,rune;set_id;8"
+8,ancient,1,0,5,0.9,400,300,200,100,1000,rune;ancient;1
+9,ancient,2,0,5,0.7,400,300,200,100,1000,rune;ancient;1
+10,ancient,3,0,5,0.5,400,300,200,100,1000,rune;ancient;1
+11,ancient,4,0,5,0.3,400,300,200,100,1000,rune;ancient;1
+12,ancient,5,0,5,0.1,400,300,200,100,1000,rune;ancient;1
+13,ancient,6,0,5,0.005,100,300,400,200,1000,rune;ancient;1
+14,ancient,7,0,5,0,100,400,400,100,1000,rune;ancient;1

@@ -1,0 +1,18 @@
+set_id,t_name,color,need_equip,key,value
+0,이벤트,none,1,none,0
+1,체력,yellow,2,hp_multi,20
+2,기회,purple,2,cri_chance_add,20
+3,효과 적중,green,2,accuracy_add,20
+4,견고,orange,2,def_multi,20
+5,효과 저항,bluegreen,2,resistance_add,20
+6,강렬,red,4,atk_multi,40
+7,피해,pink,2,cri_dmg_add,20
+8,쾌속,blue,4,aspd_add,40
+9,흡혈,blackred,2,hp_drain_add,10
+10,명상,blackblue,4,500100,1
+11,반격,blackyellow,2,500200,1
+12,생존,blackwhite,2,500300,1
+13,결의,blackpurple,4,guard_rear,20
+14,앙심,blackgreen,2,500400,1
+52,기회,purple,2,cri_chance_add,20
+56,강렬,red,4,atk_multi,40

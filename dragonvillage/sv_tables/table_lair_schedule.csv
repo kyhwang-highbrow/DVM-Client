@@ -1,0 +1,6 @@
+lair_season_id,special_type,t_season_id,t_season_desc,t_option_name,season_color,option_type,start_date,end_date,ani,r_season_desc
+101,1,{@fire}아모르의 용기{@},{@fire}아모르의 용기 (공격력 특화){@},공격의 축복,fire,atk,2023-08-16 00:00:00,2023-12-01 00:00:00,tier_08,공격력 특화 시즌
+102,2,{@water}아모르의 보호{@},{@water}아모르의 보호 (방어력 특화){@},방어의 축복,water,def_multi,2023-12-01 00:00:00,2024-03-01 00:00:00,tier_05,방어력 특화 시즌
+103,3,{@earth}아모르의 지혜{@},{@earth}아모르의 지혜 (치명의 축복 특화){@},치명의 축복,earth,"cri_chance_add,cri_avoid_add",2024-03-01 00:00:00,2024-06-01 00:00:00,tier_04,치명확률 & 치명확률 특화 시즌
+104,4,{@light}아모르의 정의{@},{@light}아모르의 정의 (생명력 특화){@},효과의 축복,light,hp,2024-06-01 00:00:00,2024-09-01 00:00:00,tier_07,생명력 & 생명력 특화 시즌
+105,5,{@dark}아모르의 절제{@},{@dark}아모르의 절제 (적중률 특화){@},적중의 축복,dark,accuracy,2024-09-01 00:00:00,2024-12-01 00:00:00,tier_06,적중 & 적중 특화 시즌

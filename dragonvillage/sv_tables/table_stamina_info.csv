@@ -1,0 +1,13 @@
+stamina_type,r_desc,charging_type,basic_count,charging_count,charging_time,charge_price,charge_add_price,charge_limit,charge_add_price_count,charge_add_price_interval,add_play_type,add_play_value
+st,일반 행동력(날개),time,,,90,,,,,,,
+pvp,콜로세움,time,5,,1800,150,0,0,,,,
+tower,고대의탑,time,10,1,1800,30,0,0,,,,
+fpvp,친선대전,day,10,10,,50,0,0,,,,
+cldg,클랜던전,day,2,,,200,,,,,,
+event_st,이벤트던전,event,,,,,,,,,,
+arena,아레나 입장권,time,10,,3600,,,,,,,
+arena_new,아레나 입장권,day,10,1,,100,0,10,,,,
+arena_ext,아레나 다이아 입장권,time,15,,3600,,,,,,,
+grand_arena,그랜드 콜로세움 입장권,time,10,,3600,,,,,,,
+grand_arena_ext,그랜드 콜로세움 다이아 입장권,time,15,,3600,,,,,,,
+cldg_tr,클랜던전 연습전,day,5,,,,,,,,,

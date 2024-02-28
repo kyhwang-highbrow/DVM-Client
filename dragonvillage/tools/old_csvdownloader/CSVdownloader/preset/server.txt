@@ -1,0 +1,15 @@
+table_attribute
+table_dragon
+table_dragon_skill
+table_drop
+table_exp_tamer
+table_first_reward
+table_friendship_variables
+table_fruit
+table_gacha
+table_item
+table_monster
+table_monster_skill
+table_status_effect
+table_tamer
+table_tamer_skill

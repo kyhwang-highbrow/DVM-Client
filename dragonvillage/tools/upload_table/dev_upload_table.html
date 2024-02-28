@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <title>API Documentation</title>
+        <meta charset="utf-8">
+        <link rel="stylesheet" media="screen" href="/public/stylesheets/main.css">
+                <link rel="shortcut icon" type="image/png" href="/public/images/favicon.png">
+        
+    </head>
+
+<body>
+        
+<h1>Manage</h1>
+
+<p>
+<h2>upload_table (DEV)</h2>
+<p>
+upload_table
+name : 업로드하시는분 이름이나 사유 적어주세요
+</p>
+<h3>URL</h3>
+ <pre>http://dv-test.perplelab.com:9003/manage/upload_table</pre>
+ <h3>HTTP Method</h3> 
+ 		
+		POST
+<h3>Parameters</h3>
+<table border="1">
+<thead>
+	<tr>
+		<th>Name</th>
+		<th>Type</th>
+		<th>Value</th>
+	</tr>
+</thead>
+<tbody>
+	<tr>
+		<td>tablenames.csv</td>
+		<td>Files</td>
+		<td>tablenames.csv</td>
+	</tr>
+
+</tbody>
+</table>
+
+
+<h3> Test Console</h3>
+
+
+<form id='console_form' name='console_form' method="POST" action="http://dv-test.perplelab.com:9003/manage/upload_table" enctype="multipart/form-data">
+                        tablenames.csv : <input type="file" name="tablenames.csv" id="tablenames.csv" multiple/><br/>        
+			username :  <input type="text" name="username" id="username"/><br/>
+                
+	<input type="hidden" name="endpoint" value="http://dv-test.perplelab.com:9003/manage/upload_table" />
+	<input type="hidden" name="method" value="POST" />
+	<input type="submit"/>
+
+</form>
+            <div id="ajax_indicator" style="display:none">
+                <img src="/public/images/ajax-loader.gif"/>
+            </div>
+            <div id="response_ajax"><pre id="json">
+            </pre>
+            </div>
+</body>
+
+
+</html>
