@@ -14,10 +14,10 @@ import G_sheet.spread_sheet as spread_sheet
 from tools.G_sheet.sheet_option import get_sheet_option
 import time
 
+
 from extract.extract import extract
 from sum_data.sum_data import sum_data
 from upload.upload import upload
-from upload.upload import sync
 import util.util_file as util_file
 from util.util_quote import quote_row_dics
 from functools import cmp_to_key
@@ -51,16 +51,16 @@ def start_upload(upload_method, patch_sheet_name, backup_sheet_name, all_data_li
         idx = idx + 1
         break
 
-    # 2번째부터는 1번째에 추출된 텍스트 리스트를 토대로 동기화(매번 비교하면 퍼포먼스가 느림)
-    for row in ss_info_list[1:]:
-        ss_id = row['ss_id']
-        lang_code = row['lang_code']
-        lang_code_list = lang_code.split(',')
-        sync(upload_method, patch_sheet_name, backup_sheet_name, ss_id, result_data_list, lang_code_list)
-        progress_str = 'sync complete({0}/{1}) : {2}'.format(idx, len(ss_info_list), lang_code)
-        idx = idx + 1
-        print(progress_str)
-        time.sleep(10)
+    # # 2번째부터는 1번째에 추출된 텍스트 리스트를 토대로 동기화(매번 비교하면 퍼포먼스가 느림)
+    # for row in ss_info_list[1:]:
+    #     ss_id = row['ss_id']
+    #     lang_code = row['lang_code']
+    #     lang_code_list = lang_code.split(',')
+    #     sync(upload_method, patch_sheet_name, backup_sheet_name, ss_id, result_data_list, lang_code_list)
+    #     progress_str = 'sync complete({0}/{1}) : {2}'.format(idx, len(ss_info_list), lang_code)
+    #     idx = idx + 1
+    #     print(progress_str)
+    #     time.sleep(10)
 
         
 
@@ -140,15 +140,6 @@ def extract_text_from_config_lists():
         extracted_text_list = extract_text(extract_config)
         extracted_count = extracted_count + len(extracted_text_list)
 
-    # if extracted_count > 0:
-    #     print('앱스 스크립트 실행 : [텍스트 이동] 분할 시트 -> 번역 시트')
-    #     execute_apps_script(apps_script_id, "import_all")
-    #     print('앱스 스크립트 실행 : [텍스트 이동] 분할 시트 -> 번역 시트 완료')
-        
-    # 통합 시트에 올리기
-    # upload_integration_sheet()
-    # 색상 코드 추출
-    # find_all_color_codes()
     print('\n*** 작업이 종료되었습니다.')
 
 if __name__ == '__main__':
