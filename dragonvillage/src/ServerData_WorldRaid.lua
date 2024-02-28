@@ -105,6 +105,11 @@ function ServerData_WorldRaid:isAvailableWorldRaid()
 		return false
 	end
 
+    -- id 4번은 마지막 시즌임
+    if self.m_curWorldRaidInfo['id'] == 4 then
+        return false
+    end
+
     return true
 end
 
