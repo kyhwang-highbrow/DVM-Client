@@ -1,0 +1,698 @@
+
+skill_infinitepowerdragon.png
+size: 2021,2048
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+effect_burst_particle_00006
+  rotate: false
+  xy: 2, 2
+  size: 256, 256
+  orig: 256, 256
+  offset: 0, 0
+  index: -1
+effect_burst_particle_00007
+  rotate: false
+  xy: 260, 2
+  size: 256, 256
+  orig: 256, 256
+  offset: 0, 0
+  index: -1
+effect_burst_particle_00008
+  rotate: false
+  xy: 1183, 1448
+  size: 256, 256
+  orig: 256, 256
+  offset: 0, 0
+  index: -1
+effect_burst_particle_00009
+  rotate: false
+  xy: 1441, 1790
+  size: 256, 256
+  orig: 256, 256
+  offset: 0, 0
+  index: -1
+effect_burst_particle_00010
+  rotate: false
+  xy: 1441, 1532
+  size: 256, 256
+  orig: 256, 256
+  offset: 0, 0
+  index: -1
+effect_burst_particle_00011
+  rotate: false
+  xy: 1441, 1274
+  size: 256, 256
+  orig: 256, 256
+  offset: 0, 0
+  index: -1
+effect_debris_00006
+  rotate: false
+  xy: 1719, 1746
+  size: 300, 300
+  orig: 300, 300
+  offset: 0, 0
+  index: -1
+effect_debris_00008
+  rotate: false
+  xy: 1719, 1444
+  size: 300, 300
+  orig: 300, 300
+  offset: 0, 0
+  index: -1
+effect_debris_00010
+  rotate: false
+  xy: 1719, 1142
+  size: 300, 300
+  orig: 300, 300
+  offset: 0, 0
+  index: -1
+effect_debris_00011
+  rotate: false
+  xy: 1719, 840
+  size: 300, 300
+  orig: 300, 300
+  offset: 0, 0
+  index: -1
+effect_debris_00012
+  rotate: false
+  xy: 1719, 254
+  size: 300, 300
+  orig: 300, 300
+  offset: 0, 0
+  index: -1
+effect_debris_00013
+  rotate: false
+  xy: 1406, 46
+  size: 300, 300
+  orig: 300, 300
+  offset: 0, 0
+  index: -1
+effect_debris_up_00000
+  rotate: false
+  xy: 1183, 1242
+  size: 256, 200
+  orig: 256, 200
+  offset: 0, 0
+  index: -1
+effect_debris_up_00001
+  rotate: true
+  xy: 1498, 1016
+  size: 256, 200
+  orig: 256, 200
+  offset: 0, 0
+  index: -1
+effect_debris_up_00002
+  rotate: true
+  xy: 1498, 758
+  size: 256, 200
+  orig: 256, 200
+  offset: 0, 0
+  index: -1
+effect_debris_up_00003
+  rotate: false
+  xy: 1383, 556
+  size: 256, 200
+  orig: 256, 200
+  offset: 0, 0
+  index: -1
+effect_debris_up_00004
+  rotate: false
+  xy: 1641, 556
+  size: 256, 200
+  orig: 256, 200
+  offset: 0, 0
+  index: -1
+effect_dim
+  rotate: false
+  xy: 518, 6
+  size: 8, 8
+  orig: 8, 8
+  offset: 0, 0
+  index: -1
+effect_flare
+  rotate: false
+  xy: 777, 322
+  size: 256, 128
+  orig: 256, 128
+  offset: 0, 0
+  index: -1
+effect_foot
+  rotate: false
+  xy: 2, 1148
+  size: 297, 447
+  orig: 297, 447
+  offset: 0, 0
+  index: -1
+effect_foot_01_glow
+  rotate: true
+  xy: 1311, 897
+  size: 243, 185
+  orig: 243, 185
+  offset: 0, 0
+  index: -1
+effect_foot_02_glow
+  rotate: false
+  xy: 518, 16
+  size: 341, 282
+  orig: 341, 282
+  offset: 0, 0
+  index: -1
+effect_foot_03_glow
+  rotate: false
+  xy: 301, 1186
+  size: 274, 409
+  orig: 274, 409
+  offset: 0, 0
+  index: -1
+effect_foot_blur
+  rotate: false
+  xy: 2, 699
+  size: 297, 447
+  orig: 297, 447
+  offset: 0, 0
+  index: -1
+effect_foot_dim
+  rotate: false
+  xy: 2, 260
+  size: 369, 437
+  orig: 369, 437
+  offset: 0, 0
+  index: -1
+effect_light
+  rotate: false
+  xy: 2, 1597
+  size: 348, 449
+  orig: 348, 449
+  offset: 0, 0
+  index: -1
+effect_ray_hit
+  rotate: false
+  xy: 981, 1234
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: -1
+effect_ripple_00000
+  rotate: true
+  xy: 861, 2
+  size: 318, 107
+  orig: 318, 107
+  offset: 0, 0
+  index: -1
+effect_ripple_00001
+  rotate: true
+  xy: 970, 2
+  size: 318, 107
+  orig: 318, 107
+  offset: 0, 0
+  index: -1
+effect_ripple_00002
+  rotate: true
+  xy: 1079, 4
+  size: 318, 107
+  orig: 318, 107
+  offset: 0, 0
+  index: -1
+effect_ripple_00003
+  rotate: true
+  xy: 1188, 4
+  size: 318, 107
+  orig: 318, 107
+  offset: 0, 0
+  index: -1
+effect_ripple_00004
+  rotate: true
+  xy: 1297, 4
+  size: 318, 107
+  orig: 318, 107
+  offset: 0, 0
+  index: -1
+effect_shockwave_00000
+  rotate: false
+  xy: 1708, 22
+  size: 230, 230
+  orig: 230, 230
+  offset: 0, 0
+  index: -1
+effect_slash_00001
+  rotate: false
+  xy: 779, 1304
+  size: 200, 340
+  orig: 200, 340
+  offset: 0, 0
+  index: -1
+effect_slash_00002
+  rotate: false
+  xy: 958, 1706
+  size: 200, 340
+  orig: 200, 340
+  offset: 0, 0
+  index: -1
+effect_slash_00003
+  rotate: false
+  xy: 777, 452
+  size: 200, 340
+  orig: 200, 340
+  offset: 0, 0
+  index: -1
+effect_slash_00004
+  rotate: false
+  xy: 907, 868
+  size: 200, 340
+  orig: 200, 340
+  offset: 0, 0
+  index: -1
+effect_slash_00005
+  rotate: false
+  xy: 979, 526
+  size: 200, 340
+  orig: 200, 340
+  offset: 0, 0
+  index: -1
+effect_slash_00006
+  rotate: true
+  xy: 1035, 324
+  size: 200, 340
+  orig: 200, 340
+  offset: 0, 0
+  index: -1
+effect_slash_00007
+  rotate: false
+  xy: 981, 1364
+  size: 200, 340
+  orig: 200, 340
+  offset: 0, 0
+  index: -1
+effect_slash_00008
+  rotate: false
+  xy: 1160, 1706
+  size: 200, 340
+  orig: 200, 340
+  offset: 0, 0
+  index: -1
+effect_slash_00009
+  rotate: false
+  xy: 1109, 892
+  size: 200, 340
+  orig: 200, 340
+  offset: 0, 0
+  index: -1
+effect_slash_00010
+  rotate: false
+  xy: 1181, 550
+  size: 200, 340
+  orig: 200, 340
+  offset: 0, 0
+  index: -1
+effect_slash_00011
+  rotate: true
+  xy: 1377, 348
+  size: 200, 340
+  orig: 200, 340
+  offset: 0, 0
+  index: -1
+effect_spark_00000
+  rotate: true
+  xy: 352, 1646
+  size: 400, 200
+  orig: 400, 200
+  offset: 0, 0
+  index: -1
+effect_spark_00002
+  rotate: true
+  xy: 554, 1646
+  size: 400, 200
+  orig: 400, 200
+  offset: 0, 0
+  index: -1
+effect_spark_00004
+  rotate: true
+  xy: 301, 784
+  size: 400, 200
+  orig: 400, 200
+  offset: 0, 0
+  index: -1
+effect_spark_00006
+  rotate: true
+  xy: 373, 300
+  size: 400, 200
+  orig: 400, 200
+  offset: 0, 0
+  index: -1
+effect_spark_00008
+  rotate: true
+  xy: 503, 784
+  size: 400, 200
+  orig: 400, 200
+  offset: 0, 0
+  index: -1
+effect_spark_00010
+  rotate: true
+  xy: 577, 1196
+  size: 400, 200
+  orig: 400, 200
+  offset: 0, 0
+  index: -1
+effect_spark_00012
+  rotate: true
+  xy: 756, 1646
+  size: 400, 200
+  orig: 400, 200
+  offset: 0, 0
+  index: -1
+effect_spark_00013
+  rotate: true
+  xy: 575, 382
+  size: 400, 200
+  orig: 400, 200
+  offset: 0, 0
+  index: -1
+effect_spark_00015
+  rotate: true
+  xy: 705, 794
+  size: 400, 200
+  orig: 400, 200
+  offset: 0, 0
+  index: -1
+effect_stone_1
+  rotate: true
+  xy: 352, 1598
+  size: 46, 266
+  orig: 46, 266
+  offset: 0, 0
+  index: -1
+effect_stone_2
+  rotate: true
+  xy: 779, 1210
+  size: 92, 184
+  orig: 92, 184
+  offset: 0, 0
+  index: -1
+effect_stone_3
+  rotate: true
+  xy: 463, 734
+  size: 48, 91
+  orig: 48, 91
+  offset: 0, 0
+  index: -1
+effect_stone_4
+  rotate: true
+  xy: 301, 702
+  size: 80, 160
+  orig: 80, 160
+  offset: 0, 0
+  index: -1
+
+skill_infinitepowerdragon2.png
+size: 1756,1568
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+effect_burst_particle_00012
+  rotate: false
+  xy: 2, 1008
+  size: 256, 256
+  orig: 256, 256
+  offset: 0, 0
+  index: -1
+effect_burst_particle_00013
+  rotate: false
+  xy: 304, 1310
+  size: 256, 256
+  orig: 256, 256
+  offset: 0, 0
+  index: -1
+effect_burst_particle_00014
+  rotate: false
+  xy: 2, 750
+  size: 256, 256
+  orig: 256, 256
+  offset: 0, 0
+  index: -1
+effect_burst_particle_00015
+  rotate: false
+  xy: 562, 1310
+  size: 256, 256
+  orig: 256, 256
+  offset: 0, 0
+  index: -1
+effect_charge_00000
+  rotate: false
+  xy: 2, 492
+  size: 256, 256
+  orig: 256, 256
+  offset: 0, 0
+  index: -1
+effect_charge_00001
+  rotate: false
+  xy: 820, 1310
+  size: 256, 256
+  orig: 256, 256
+  offset: 0, 0
+  index: -1
+effect_charge_00002
+  rotate: false
+  xy: 2, 234
+  size: 256, 256
+  orig: 256, 256
+  offset: 0, 0
+  index: -1
+effect_charge_00003
+  rotate: false
+  xy: 1078, 1310
+  size: 256, 256
+  orig: 256, 256
+  offset: 0, 0
+  index: -1
+effect_charge_00004
+  rotate: false
+  xy: 1336, 1310
+  size: 256, 256
+  orig: 256, 256
+  offset: 0, 0
+  index: -1
+effect_charge_00005
+  rotate: false
+  xy: 260, 1008
+  size: 256, 256
+  orig: 256, 256
+  offset: 0, 0
+  index: -1
+effect_charge_00006
+  rotate: false
+  xy: 260, 750
+  size: 256, 256
+  orig: 256, 256
+  offset: 0, 0
+  index: -1
+effect_charge_00007
+  rotate: false
+  xy: 260, 492
+  size: 256, 256
+  orig: 256, 256
+  offset: 0, 0
+  index: -1
+effect_charge_00008
+  rotate: false
+  xy: 260, 234
+  size: 256, 256
+  orig: 256, 256
+  offset: 0, 0
+  index: -1
+effect_circle_00000
+  rotate: false
+  xy: 518, 1052
+  size: 256, 256
+  orig: 256, 256
+  offset: 0, 0
+  index: -1
+effect_debris_00014
+  rotate: false
+  xy: 2, 1266
+  size: 300, 300
+  orig: 300, 300
+  offset: 0, 0
+  index: -1
+effect_debris_up_00005
+  rotate: false
+  xy: 518, 76
+  size: 256, 200
+  orig: 256, 200
+  offset: 0, 0
+  index: -1
+effect_debris_up_00006
+  rotate: false
+  xy: 776, 76
+  size: 256, 200
+  orig: 256, 200
+  offset: 0, 0
+  index: -1
+effect_debris_up_00007
+  rotate: true
+  xy: 1550, 1052
+  size: 256, 200
+  orig: 256, 200
+  offset: 0, 0
+  index: -1
+effect_debris_up_00008
+  rotate: true
+  xy: 1266, 536
+  size: 256, 200
+  orig: 256, 200
+  offset: 0, 0
+  index: -1
+effect_radial_00000
+  rotate: false
+  xy: 518, 794
+  size: 256, 256
+  orig: 256, 256
+  offset: 0, 0
+  index: -1
+effect_radial_00001
+  rotate: false
+  xy: 776, 1052
+  size: 256, 256
+  orig: 256, 256
+  offset: 0, 0
+  index: -1
+effect_radial_00002
+  rotate: false
+  xy: 518, 536
+  size: 256, 256
+  orig: 256, 256
+  offset: 0, 0
+  index: -1
+effect_radial_00003
+  rotate: false
+  xy: 776, 794
+  size: 256, 256
+  orig: 256, 256
+  offset: 0, 0
+  index: -1
+effect_radial_00004
+  rotate: false
+  xy: 1034, 1052
+  size: 256, 256
+  orig: 256, 256
+  offset: 0, 0
+  index: -1
+effect_radial_00005
+  rotate: false
+  xy: 518, 278
+  size: 256, 256
+  orig: 256, 256
+  offset: 0, 0
+  index: -1
+effect_radial_00006
+  rotate: false
+  xy: 776, 536
+  size: 256, 256
+  orig: 256, 256
+  offset: 0, 0
+  index: -1
+effect_radial_00007
+  rotate: false
+  xy: 1034, 794
+  size: 256, 256
+  orig: 256, 256
+  offset: 0, 0
+  index: -1
+effect_radial_00008
+  rotate: false
+  xy: 1292, 1052
+  size: 256, 256
+  orig: 256, 256
+  offset: 0, 0
+  index: -1
+effect_radial_00009
+  rotate: false
+  xy: 776, 278
+  size: 256, 256
+  orig: 256, 256
+  offset: 0, 0
+  index: -1
+effect_shockwave_00001
+  rotate: false
+  xy: 2, 2
+  size: 230, 230
+  orig: 230, 230
+  offset: 0, 0
+  index: -1
+effect_shockwave_00002
+  rotate: false
+  xy: 234, 2
+  size: 230, 230
+  orig: 230, 230
+  offset: 0, 0
+  index: -1
+effect_shockwave_00003
+  rotate: false
+  xy: 1034, 562
+  size: 230, 230
+  orig: 230, 230
+  offset: 0, 0
+  index: -1
+effect_shockwave_00004
+  rotate: false
+  xy: 1292, 820
+  size: 230, 230
+  orig: 230, 230
+  offset: 0, 0
+  index: -1
+effect_shockwave_00005
+  rotate: false
+  xy: 1034, 330
+  size: 230, 230
+  orig: 230, 230
+  offset: 0, 0
+  index: -1
+effect_shockwave_00006
+  rotate: false
+  xy: 1034, 98
+  size: 230, 230
+  orig: 230, 230
+  offset: 0, 0
+  index: -1
+effect_shockwave_00007
+  rotate: false
+  xy: 1524, 820
+  size: 230, 230
+  orig: 230, 230
+  offset: 0, 0
+  index: -1
+effect_shockwave_00008
+  rotate: false
+  xy: 1468, 588
+  size: 230, 230
+  orig: 230, 230
+  offset: 0, 0
+  index: -1
+effect_shockwave_00009
+  rotate: false
+  xy: 1266, 304
+  size: 230, 230
+  orig: 230, 230
+  offset: 0, 0
+  index: -1
+effect_shockwave_00010
+  rotate: false
+  xy: 1266, 72
+  size: 230, 230
+  orig: 230, 230
+  offset: 0, 0
+  index: -1
+effect_shockwave_00011
+  rotate: false
+  xy: 1498, 356
+  size: 230, 230
+  orig: 230, 230
+  offset: 0, 0
+  index: -1
+effect_shockwave_00012
+  rotate: false
+  xy: 1498, 124
+  size: 230, 230
+  orig: 230, 230
+  offset: 0, 0
+  index: -1

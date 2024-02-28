@@ -1,0 +1,87 @@
+{
+	"skill_subboss_mushqueen_1":
+	{
+		"attack_value":
+		[	
+			{
+				"idx":1,
+				"res":"res/missile/missile_wedge_2/missile_wedge_2_@.vrp",
+				"body":[0,0,20],
+                "count":2,
+				"damage_rate":50,
+                "scale":0.1,
+                "period":0.5,
+				"speed":40,
+				"accel":1500,
+				"accel_delay":3,
+				"size_up_time":2,
+				"h_limit_speed":1200,
+				"angular_velocity":0,
+				"offset":[0,0],
+				"dir_array":[0,60,120,180,240,300],
+                "dir_add":30,
+				"missile_type":"pass",
+				"vanish_time":6,
+				
+                "effect":
+                {
+                    "motion_streak":"",
+                    "rotation":false,
+                    "afterimage":false
+                }				
+			},
+			
+			{
+				"idx":1,
+				"res":"res/missile/missile_ring/missile_ring_@.vrp",
+				"body":[0,0,30],
+                "count":19,
+				"damage_rate":50,
+                "scale":0.5,
+                "period":0.1,
+				"speed":-500,
+				"accel":500,
+				"h_limit_speed":900,
+				"accel_delay":0,
+				"angular_velocity":0,
+				"offset":[0,0],
+				"dir_array":[0,180],
+                "dir_add":5,
+				"missile_type":"pass",
+				
+                "effect":
+                {
+                    "motion_streak":"",
+                    "rotation":false,
+                    "afterimage":false
+                }				
+			},
+			
+			{
+				"idx":1,
+				"res":"res/missile/missile_ring/missile_ring_@.vrp",
+				"body":[0,0,30],
+                "count":18,
+				"damage_rate":50,
+                "scale":0.5,
+                "period":0.1,
+				"speed":-500,
+				"accel":500,
+				"h_limit_speed":900,
+				"accel_delay":0,
+				"angular_velocity":0,
+				"offset":[0,0],
+				"dir_array":[0,180],
+                "dir_add":-5,
+				"missile_type":"pass",
+				
+                "effect":
+                {
+                    "motion_streak":"",
+                    "rotation":false,
+                    "afterimage":false
+                }
+			}
+		]
+	}
+}

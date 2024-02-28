@@ -1,0 +1,95 @@
+{
+	type = 'Header';
+	version = '1.1.2';
+	[1] =
+	{
+		[1] =
+		{
+			[1] =
+			{
+				type = 'Scale9Sprite';
+				ui_name = '';
+				flag = '';
+				x = 0.000000;
+				y = 0.000000;
+				dock_point = { 0.500000; 0.500000; };
+				anchor_point = { 0.500000; 0.500000; };
+				relative_size_type = 0;
+				width = 600;
+				height = 400;
+				scale_x = 1.000000;
+				scale_y = 1.000000;
+				skew_x = 0.000000;
+				skew_y = 0.000000;
+				rotation = 0.000000;
+				visible = true;
+				screen_ui = 0;
+				lua_name = '';
+				file_name = 'ui/frames/base_frame_0801.png';
+				color = { 255; 255; 255; };
+				opacity = 255;
+				center_rect_x = 0;
+				center_rect_y = 0;
+				center_rect_width = 0;
+				center_rect_height = 0;
+			};
+			[2] =
+			{
+				type = 'Node';
+				ui_name = '';
+				flag = '';
+				x = 0.000000;
+				y = 0.000000;
+				dock_point = { 0.500000; 0.500000; };
+				anchor_point = { 0.500000; 0.500000; };
+				relative_size_type = 0;
+				width = 550;
+				height = 350;
+				scale_x = 1.000000;
+				scale_y = 1.000000;
+				skew_x = 0.000000;
+				skew_y = 0.000000;
+				rotation = 0.000000;
+				visible = true;
+				screen_ui = 0;
+				lua_name = 'dragonListNode';
+			};
+			type = 'Menu';
+			ui_name = '';
+			flag = '';
+			x = 0.000000;
+			y = 0.000000;
+			dock_point = { 0.500000; 0.500000; };
+			anchor_point = { 0.500000; 0.500000; };
+			relative_size_type = 3;
+			width = -680;
+			height = -400;
+			scale_x = 1.000000;
+			scale_y = 1.000000;
+			skew_x = 0.000000;
+			skew_y = 0.000000;
+			rotation = 0.000000;
+			visible = true;
+			screen_ui = 0;
+			lua_name = '';
+		};
+		type = 'Menu';
+		ui_name = '';
+		flag = '';
+		x = 0.000000;
+		y = 0.000000;
+		dock_point = { 0.500000; 0.500000; };
+		anchor_point = { 0.500000; 0.500000; };
+		relative_size_type = 3;
+		width = 0;
+		height = 0;
+		scale_x = 1.000000;
+		scale_y = 1.000000;
+		skew_x = 0.000000;
+		skew_y = 0.000000;
+		rotation = 0.000000;
+		visible = true;
+		screen_ui = 0;
+		lua_name = '';
+	};
+};

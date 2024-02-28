@@ -1,0 +1,8 @@
+{
+	"pattern_boss_nightmare_dragon":
+	[			
+		[
+			"a;2", "w;6"
+		]
+    ]
+}

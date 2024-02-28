@@ -1,0 +1,79 @@
+{
+	"skill_boss_cockatrice_2":
+	{
+		"ver":2,
+		"attack_value":
+		[							
+			{
+				"idx":1,
+				"target_idx":[1,2,3],
+				"res":"res/missile/missile_flame/missile_flame_@.vrp",
+				"body":[0,0,20],
+				"damage_rate":10,
+                "count":1,
+				"damage_rate":5,
+                "period":0.1,
+                "scale":1,
+				"time":0,
+				"speed":1000,
+				"accel":0,
+				"accel_delay":0,
+				"angular_velocity":0,
+				"vanish_time":7,
+				
+				"offset":[0,0],
+				"dir_array":[0],
+				"dir_add":2,
+				"movement":"guid",
+				"missile_type":"pass",
+				"reset_time":0.5,
+				
+				
+				"add_script":
+				[
+					{
+						"idx":1,
+						"res":"res/effect/effect_hit_bomb_fire/effect_hit_bomb_fire.spine",
+						"body":[0,0,200],
+						"count":1,
+						"damage_rate":30,
+						"period":1,
+						"scale":1.8,
+						"time":0,
+						"speed":0,
+						"accel":0,
+						"l_limit_speed":0,
+						"accel_delay":0,
+						"angular_velocity":0,
+						"offset":[0,0],
+						"vanish_time":0.3,
+						"missile_type":"pass",
+						"dir":0,
+						"dir_add":0
+		                "effect":
+						{
+							"motion_streak":"",
+							"rotation":false,
+							"afterimage":false
+						}	
+					}
+				],
+				
+				"add_script_start":6.95,
+				"add_script_term":0,
+				"add_script_max":1,
+				
+				
+				
+				
+                "effect":
+                {
+                    "motion_streak":"res/missile/motion_streak/motion_streak_burn.png",
+                    "rotation":false,
+                    "afterimage":false
+                }
+			}
+		]
+	}
+}
+

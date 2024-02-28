@@ -1,0 +1,363 @@
+
+henes_all_01.png
+size: 1732,794
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+effect_attack_air1
+  rotate: false
+  xy: 668, 79
+  size: 270, 173
+  orig: 270, 173
+  offset: 0, 0
+  index: -1
+effect_henes_all_01_01
+  rotate: false
+  xy: 1672, 150
+  size: 58, 51
+  orig: 58, 51
+  offset: 0, 0
+  index: -1
+effect_henes_all_01_02
+  rotate: false
+  xy: 820, 15
+  size: 97, 62
+  orig: 97, 62
+  offset: 0, 0
+  index: -1
+effect_henes_all_01_03
+  rotate: false
+  xy: 1510, 592
+  size: 196, 200
+  orig: 196, 200
+  offset: 0, 0
+  index: -1
+effect_henes_all_01_04
+  rotate: false
+  xy: 2, 111
+  size: 664, 681
+  orig: 664, 681
+  offset: 0, 0
+  index: -1
+effect_henes_all_01_05
+  rotate: false
+  xy: 668, 254
+  size: 381, 327
+  orig: 381, 327
+  offset: 0, 0
+  index: -1
+effect_henes_all_01_06
+  rotate: true
+  xy: 1381, 369
+  size: 212, 162
+  orig: 212, 162
+  offset: 0, 0
+  index: -1
+effect_henes_all_01_07
+  rotate: true
+  xy: 1545, 396
+  size: 194, 174
+  orig: 194, 174
+  offset: 0, 0
+  index: -1
+effect_henes_all_01_08
+  rotate: true
+  xy: 1224, 128
+  size: 165, 138
+  orig: 165, 138
+  offset: 0, 0
+  index: -1
+effect_henes_all_01_09
+  rotate: false
+  xy: 1059, 125
+  size: 163, 168
+  orig: 163, 168
+  offset: 0, 0
+  index: -1
+effect_henes_all_01_10
+  rotate: true
+  xy: 1051, 295
+  size: 286, 328
+  orig: 286, 328
+  offset: 0, 0
+  index: -1
+effect_henes_all_01_11
+  rotate: true
+  xy: 1381, 236
+  size: 131, 133
+  orig: 131, 133
+  offset: 0, 0
+  index: -1
+effect_henes_all_01_12
+  rotate: false
+  xy: 940, 43
+  size: 117, 209
+  orig: 117, 209
+  offset: 0, 0
+  index: -1
+effect_henes_all_01_13
+  rotate: false
+  xy: 668, 583
+  size: 840, 209
+  orig: 840, 209
+  offset: 0, 0
+  index: -1
+effect_henes_all_eff
+  rotate: true
+  xy: 190, 8
+  size: 101, 156
+  orig: 101, 156
+  offset: 0, 0
+  index: -1
+effect_henes_ring
+  rotate: true
+  xy: 2, 36
+  size: 73, 186
+  orig: 73, 186
+  offset: 0, 0
+  index: -1
+henes_all_01_arm_00-1
+  rotate: true
+  xy: 1475, 2
+  size: 28, 43
+  orig: 28, 43
+  offset: 0, 0
+  index: -1
+henes_all_01_arm_00-2
+  rotate: true
+  xy: 2, 3
+  size: 31, 51
+  orig: 31, 51
+  offset: 0, 0
+  index: -1
+henes_all_01_arm_00-3
+  rotate: true
+  xy: 983, 14
+  size: 27, 42
+  orig: 27, 42
+  offset: 0, 0
+  index: -1
+henes_all_01_arm_01
+  rotate: false
+  xy: 1454, 81
+  size: 46, 50
+  orig: 46, 50
+  offset: 0, 0
+  index: -1
+henes_all_01_arm_02
+  rotate: false
+  xy: 348, 19
+  size: 134, 90
+  orig: 134, 90
+  offset: 0, 0
+  index: -1
+henes_all_01_arm_03
+  rotate: false
+  xy: 1601, 332
+  size: 87, 62
+  orig: 87, 62
+  offset: 0, 0
+  index: -1
+henes_all_01_arm_04
+  rotate: true
+  xy: 1364, 81
+  size: 50, 88
+  orig: 50, 88
+  offset: 0, 0
+  index: -1
+henes_all_01_arm_05
+  rotate: true
+  xy: 1428, 14
+  size: 65, 45
+  orig: 65, 45
+  offset: 0, 0
+  index: -1
+henes_all_01_arm_06
+  rotate: false
+  xy: 751, 2
+  size: 67, 75
+  orig: 67, 75
+  offset: 0, 0
+  index: -1
+henes_all_01_body_01
+  rotate: false
+  xy: 1059, 15
+  size: 211, 108
+  orig: 211, 108
+  offset: 0, 0
+  index: -1
+henes_all_01_eye_01
+  rotate: true
+  xy: 600, 2
+  size: 38, 41
+  orig: 38, 41
+  offset: 0, 0
+  index: -1
+henes_all_01_eye_01-1
+  rotate: false
+  xy: 1665, 54
+  size: 46, 41
+  orig: 46, 41
+  offset: 0, 0
+  index: -1
+henes_all_01_eye_02
+  rotate: false
+  xy: 1615, 38
+  size: 48, 46
+  orig: 48, 46
+  offset: 0, 0
+  index: -1
+henes_all_01_eye_02-1
+  rotate: true
+  xy: 1665, 10
+  size: 42, 43
+  orig: 42, 43
+  offset: 0, 0
+  index: -1
+henes_all_01_head_01
+  rotate: false
+  xy: 1502, 80
+  size: 61, 55
+  orig: 61, 55
+  offset: 0, 0
+  index: -1
+henes_all_01_head_02
+  rotate: false
+  xy: 484, 10
+  size: 114, 99
+  orig: 114, 99
+  offset: 0, 0
+  index: -1
+henes_all_01_head_03
+  rotate: true
+  xy: 1524, 137
+  size: 59, 74
+  orig: 59, 74
+  offset: 0, 0
+  index: -1
+henes_all_01_head_04
+  rotate: true
+  xy: 919, 2
+  size: 39, 62
+  orig: 39, 62
+  offset: 0, 0
+  index: -1
+henes_all_01_head_05
+  rotate: true
+  xy: 668, 2
+  size: 75, 81
+  orig: 75, 81
+  offset: 0, 0
+  index: -1
+henes_all_01_head_05-1
+  rotate: false
+  xy: 1690, 347
+  size: 40, 47
+  orig: 40, 47
+  offset: 0, 0
+  index: -1
+henes_all_01_head_06
+  rotate: false
+  xy: 1272, 18
+  size: 87, 108
+  orig: 87, 108
+  offset: 0, 0
+  index: -1
+henes_all_01_head_07
+  rotate: true
+  xy: 1565, 73
+  size: 62, 48
+  orig: 62, 48
+  offset: 0, 0
+  index: -1
+henes_all_01_head_08
+  rotate: false
+  xy: 1600, 145
+  size: 70, 60
+  orig: 70, 60
+  offset: 0, 0
+  index: -1
+henes_all_01_head_09
+  rotate: false
+  xy: 1364, 133
+  size: 98, 101
+  orig: 98, 101
+  offset: 0, 0
+  index: -1
+henes_all_01_head_10
+  rotate: false
+  xy: 1464, 140
+  size: 58, 94
+  orig: 58, 94
+  offset: 0, 0
+  index: -1
+henes_all_01_leg_01
+  rotate: true
+  xy: 1598, 207
+  size: 67, 78
+  orig: 67, 78
+  offset: 0, 0
+  index: -1
+henes_all_01_leg_02
+  rotate: true
+  xy: 1361, 15
+  size: 64, 65
+  orig: 64, 65
+  offset: 0, 0
+  index: -1
+henes_all_01_leg_03
+  rotate: false
+  xy: 1678, 203
+  size: 52, 71
+  orig: 52, 71
+  offset: 0, 0
+  index: -1
+henes_all_01_leg_04
+  rotate: false
+  xy: 1672, 97
+  size: 58, 51
+  orig: 58, 51
+  offset: 0, 0
+  index: -1
+henes_all_01_wing_01
+  rotate: true
+  xy: 1516, 276
+  size: 91, 83
+  orig: 91, 83
+  offset: 0, 0
+  index: -1
+henes_all_01_wing_02
+  rotate: false
+  xy: 1524, 198
+  size: 72, 76
+  orig: 72, 76
+  offset: 0, 0
+  index: -1
+henes_all_01_wing_03
+  rotate: false
+  xy: 1615, 86
+  size: 48, 57
+  orig: 48, 57
+  offset: 0, 0
+  index: -1
+henes_all_01_wing_04
+  rotate: true
+  xy: 1601, 276
+  size: 54, 90
+  orig: 54, 90
+  offset: 0, 0
+  index: -1
+henes_all_01_wing_05
+  rotate: false
+  xy: 600, 42
+  size: 66, 67
+  orig: 66, 67
+  offset: 0, 0
+  index: -1
+henes_all_01_wing_06
+  rotate: false
+  xy: 1475, 32
+  size: 58, 46
+  orig: 58, 46
+  offset: 0, 0
+  index: -1

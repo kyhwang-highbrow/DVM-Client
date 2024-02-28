@@ -1,0 +1,202 @@
+
+hungrydragon_dark_01.png
+size: 957,537
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+hungrydragon_dark_01_arm_01
+  rotate: false
+  xy: 274, 88
+  size: 102, 107
+  orig: 102, 107
+  offset: 0, 0
+  index: -1
+hungrydragon_dark_01_arm_02
+  rotate: false
+  xy: 159, 3
+  size: 95, 85
+  orig: 95, 85
+  offset: 0, 0
+  index: -1
+hungrydragon_dark_01_arm_02_01
+  rotate: false
+  xy: 378, 98
+  size: 25, 40
+  orig: 25, 40
+  offset: 0, 0
+  index: -1
+hungrydragon_dark_01_body_01
+  rotate: true
+  xy: 2, 197
+  size: 338, 401
+  orig: 338, 401
+  offset: 0, 0
+  index: -1
+hungrydragon_dark_01_effect_07
+  rotate: true
+  xy: 803, 12
+  size: 107, 110
+  orig: 107, 110
+  offset: 0, 0
+  index: -1
+hungrydragon_dark_01_effect_10
+  rotate: true
+  xy: 2, 46
+  size: 149, 155
+  orig: 149, 155
+  offset: 0, 0
+  index: -1
+hungrydragon_dark_01_effect_11
+  rotate: false
+  xy: 857, 437
+  size: 98, 98
+  orig: 98, 98
+  offset: 0, 0
+  index: -1
+hungrydragon_dark_01_eye_01
+  rotate: true
+  xy: 857, 143
+  size: 54, 57
+  orig: 54, 57
+  offset: 0, 0
+  index: -1
+hungrydragon_dark_01_eye_02
+  rotate: false
+  xy: 111, 10
+  size: 34, 34
+  orig: 34, 34
+  offset: 0, 0
+  index: -1
+hungrydragon_dark_01_eye_03
+  rotate: true
+  xy: 2, 6
+  size: 38, 51
+  orig: 38, 51
+  offset: 0, 0
+  index: -1
+hungrydragon_dark_01_eye_04
+  rotate: false
+  xy: 378, 140
+  size: 25, 55
+  orig: 25, 55
+  offset: 0, 0
+  index: -1
+hungrydragon_dark_01_foot_01
+  rotate: true
+  xy: 256, 17
+  size: 69, 102
+  orig: 69, 102
+  offset: 0, 0
+  index: -1
+hungrydragon_dark_01_foot_01_01
+  rotate: true
+  xy: 378, 18
+  size: 75, 96
+  orig: 75, 96
+  offset: 0, 0
+  index: -1
+hungrydragon_dark_01_foot_02
+  rotate: false
+  xy: 476, 8
+  size: 56, 85
+  orig: 56, 85
+  offset: 0, 0
+  index: -1
+hungrydragon_dark_01_fx_smoke
+  rotate: false
+  xy: 405, 279
+  size: 256, 256
+  orig: 256, 256
+  offset: 0, 0
+  index: -1
+hungrydragon_dark_01_head_01
+  rotate: true
+  xy: 534, 3
+  size: 57, 65
+  orig: 57, 65
+  offset: 0, 0
+  index: -1
+hungrydragon_dark_01_leg_01
+  rotate: true
+  xy: 159, 90
+  size: 105, 113
+  orig: 105, 113
+  offset: 0, 0
+  index: -1
+hungrydragon_dark_01_leg_02
+  rotate: false
+  xy: 857, 302
+  size: 97, 133
+  orig: 97, 133
+  offset: 0, 0
+  index: -1
+hungrydragon_dark_01_meat_01
+  rotate: false
+  xy: 663, 329
+  size: 192, 206
+  orig: 192, 206
+  offset: 0, 0
+  index: -1
+hungrydragon_dark_01_meat_01_01
+  rotate: false
+  xy: 663, 121
+  size: 192, 206
+  orig: 192, 206
+  offset: 0, 0
+  index: -1
+hungrydragon_dark_01_meat_02
+  rotate: false
+  xy: 534, 130
+  size: 117, 147
+  orig: 117, 147
+  offset: 0, 0
+  index: -1
+hungrydragon_dark_01_meat_02_01
+  rotate: true
+  xy: 654, 2
+  size: 117, 147
+  orig: 117, 147
+  offset: 0, 0
+  index: -1
+hungrydragon_dark_01_mouth_01
+  rotate: false
+  xy: 534, 62
+  size: 118, 66
+  orig: 118, 66
+  offset: 0, 0
+  index: -1
+hungrydragon_dark_01_mouth_02
+  rotate: true
+  xy: 857, 199
+  size: 101, 67
+  orig: 101, 67
+  offset: 0, 0
+  index: -1
+hungrydragon_dark_01_mouth_02_01
+  rotate: false
+  xy: 601, 6
+  size: 34, 54
+  orig: 34, 54
+  offset: 0, 0
+  index: -1
+hungrydragon_dark_01_mouth_02_02
+  rotate: true
+  xy: 55, 10
+  size: 34, 54
+  orig: 34, 54
+  offset: 0, 0
+  index: -1
+hungrydragon_dark_01_mouth_02_03
+  rotate: false
+  xy: 915, 87
+  size: 34, 54
+  orig: 34, 54
+  offset: 0, 0
+  index: -1
+hungrydragon_dark_01_tail_01
+  rotate: true
+  xy: 405, 95
+  size: 182, 127
+  orig: 182, 127
+  offset: 0, 0
+  index: -1

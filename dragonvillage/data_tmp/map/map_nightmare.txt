@@ -1,0 +1,72 @@
+{
+    "directing":"nightmare_ripple4",
+	"layer":
+    [
+    
+        {
+            "name":"배경"
+            "speed":0.2
+            "list":
+            [
+                {"res":"res/bg/forest/forest.vrp" "animation":"layer_1_a" "width":1280}
+				{"res":"res/bg/forest/forest.vrp" "animation":"layer_1_b" "width":1280}
+				{"res":"res/bg/forest/forest.vrp" "animation":"layer_1_c" "width":1280}
+					
+            ]
+        }
+        
+        
+        {
+            "name":"원경"
+            "speed":0.4
+            "list":
+            [
+                {"res":"res/bg/forest/forest.vrp" "animation":"layer_2_a" "width":1138}
+				{"res":"res/bg/forest/forest.vrp" "animation":"layer_2_b" "width":1880}
+				
+            ]
+        }
+        
+        
+        {
+            "name":"중경1"
+            "speed":0.6
+            "list":
+            [
+			    {"res":"res/bg/forest/forest.vrp" "animation":"layer_3_a" "width":880}
+                {"res":"res/bg/forest/forest.vrp" "animation":"layer_3_b" "width":1300}
+				{"res":"res/bg/forest/forest.vrp" "animation":"layer_3_c" "width":1140}
+                
+            ]
+        }
+        
+		
+		{
+            "name":"중경2"
+            "speed":0.7
+            "list":
+            [
+                {"res":"res/bg/forest/forest.vrp" "animation":"layer_4_a" "width":1038}
+				{"res":"res/bg/forest/forest.vrp" "animation":"layer_4_b" "width":1138}
+				{"res":"res/bg/forest/forest.vrp" "animation":"layer_4_c" "width":1280}
+				
+
+		    ]
+        }
+		
+		
+		{
+            "name":"근경"
+            "speed":0.9
+            "list":
+            [
+               {"res":"res/bg/forest/forest.vrp" "animation":"layer_5_a" "width":1138}
+			   {"res":"res/bg/forest/forest.vrp" "animation":"layer_5_b" "width":1138}
+			   {"res":"res/bg/forest/forest.vrp" "animation":"layer_5_c" "width":1138}
+
+                
+            ]
+        }
+		
+    ]
+}

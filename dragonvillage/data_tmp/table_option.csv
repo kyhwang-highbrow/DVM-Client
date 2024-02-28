@@ -1,0 +1,56 @@
+option,r_desc,status,action,r_buff,t_name,t_prefix,t_desc,rune_ability_pt,rune_ability_res,r_rune
+atk_multi,atk +d% (공격력 d% 추가),atk,multi,버프,공격력 증가,강력한,공격력 +{1}%,mul:1,card_option_atk.png,O
+atk_add,atk +n (공격력 +n),atk,add,버프,공격력 증가,맹공의,공격력 +{1},per:25,card_option_atk.png,O
+def_multi,def +d% (방어력 d% 추가),def,multi,버프,방어력 증가,튼튼한,방어력 +{1}%,mul:1,card_option_def.png,O
+def_add,def +n (방어력 +n),def,add,버프,방어력 증가,단단한,방어력 +{1},per:25,card_option_def.png,O
+hp_multi,hp +d% (생명력 d% 추가),hp,multi,버프,생명력 증가,생존의,생명력 +{1}%,mul:1,card_option_hp.png,O
+hp_add,hp +n (생명력 +n),hp,add,버프,생명력 증가,끈질긴,생명력 +{1},per:1700,card_option_hp.png,O
+aspd_multi,aspd +d% (공격속도 d% 추가),aspd,multi,버프,공격속도 증가,,공격속도 +{1}%,mul:0.8,card_option_atk_speed.png,
+aspd_add,aspd +n (공격속도 +n),aspd,add,버프,공격속도 증가,쾌속의,공격속도 +{1}%,mul:0.8,card_option_atk_speed.png,O
+cri_chance_add,cri_chance +d% (치명타 확률 d% 추가),cri_chance,add,버프,치명타 확률 증가,행운의,치명확률 +{1}%,mul:1,card_option_critical_rate.png,O
+cri_dmg_add,cri_dmg +d% (치명타 데미지 d% 추가),cri_dmg,add,버프,치명타 피해량 증가,파괴의,치명피해 +{1}%,mul:1,card_option_critical_dmg.png,O
+cri_avoid_add,cri_avoid +d% (피격 시 치명타 방어 d% 추가),cri_avoid,add,버프,치명타 회피율 증가,신중한,치명회피 +{1}%,mul:1,card_option_evasion.png,O
+hit_rate_add,hit_rate +d% (적중률 d% 추가),hit_rate,add,버프,적중률 증가,노련한,적중 +{1}%,mul:0.8,card_option_acc.png,O
+avoid_add,avoid +d% (회피율 d% 추가),avoid,add,버프,회피율 증가,재빠른,회피 +{1}%,mul:0.8,card_option_evasion.png,O
+accuracy_add,accuracy +d% (효과 적중 d% 추가),accuracy,add,버프,효과 적중 증가,정교한,효과적중 +{1}%,mul:0.8,card_option_effect_acc.png,O
+resistance_add,resistance +d% (효과 저항 d% 추가),resistance,add,버프,효과 저항 증가,근성의,효과저항 +{1}%,mul:0.8,card_option_effect_res.png,O
+none,없음,atk,add,버프,이벤트,없음,세트 효과 없음,mul:0,card_option_atk.png,O
+drag_gauge_add,drag_gauge +n (스테이지 진입 시 드래그 게이지 양 +n),drag_gauge,add,버프,드래그 스킬 게이지 증가,희망의,드래그 게이지 +{1} 충전 상태에서 시작,,,
+drag_cool_add,drag_cool +d% (드래그 스킬 재사용 시간 d% 감소),drag_cool,add,버프,드래그 스킬 재사용 시간 감소,날렵한,드래그 스킬 재사용 시간 {1}% 감소,,,
+cool_actu_add,cool_actu -d% (쿨타임 스킬 발동시간 d% 감소),cool_actu,add,버프,패시브 스킬 재사용 시간 감소,기교의,패시브 스킬 재사용 시간 {1}% 감소,,,
+pass_chance_add,pass_chance +d% (패시브 스킬 발동 확률 d% 증가),pass_chance,add,버프,패시브 스킬 발동 확률 증가,꾸준한,패시브 발동 +{1}%,,,
+attr_adj_rate_add,attr_adj_rate +d% (속성 효과 강화),attr_adj_rate,add,버프,속성 효과 강화,,속성 효과 +{1}%,,,
+hp_drain_add,hp_drain +d% (공격 명중 시 피해량의 d%만큼 생명력 흡수),hp_drain,add,버프,생명력 흡수,,적에게 준 피해량의 {1}%만큼 생명력 회복,,,
+reflex_normal_add,reflex_normal +d% (일반 공격 데미지 +d% 반사),reflex_normal,add,버프,일반 데미지 반사,,일반 데미지 +d% 반사,,,
+reflex_skill_add,reflex_skill +d% (스킬 공격 데미지 +d%  반사),reflex_skill,add,버프,스킬 데미지 반사,,스킬 데미지 +d% 반사,,,
+drag_dmg_add,drag_dmg +d% (드래그 스킬 데미지 +d% 증가),drag_dmg,add,버프,드래그 스킬 데미지 증가,,드래그 스킬 데미지 +{1}% 증가,,,
+heal_power_add,heal_power +d% (회복 스킬 효과 +d% 증가),heal_power,add,버프,회복 스킬 효과 증가,,회복 스킬 효과 +{1}% 증가,,,
+atk_multi_debuff,atk -d% (공격력 d% 감소),atk,multi,디버프,공격력 감소,,공격력 -{1}%,,,
+atk_add_debuff,atk -n (공격력 -n),atk,add,디버프,공격력 감소,,공격력 -{1},,,
+def_multi_debuff,def -d% (방어력 d% 감소),def,multi,디버프,방어력 감소,,방어력 -{1}%,,,
+def_add_debuff,def -n (방어력 -n),def,add,디버프,방어력 감소,,방어력 -{1},,,
+hp_multi_debuff,hp -d% (생명력 d% 감소),hp,multi,디버프,생명력 감소,,생명력 -{1}%,,,
+hp_add_debuff,hp -n (생명력 -n),hp,add,디버프,생명력 감소,,생명력 -{1},,,
+aspd_multi_debuff,aspd -d% (공격속도 d% 감소),aspd,multi,디버프,공격속도 감소,,공격속도 -{1}%,,,
+aspd_add_debuff,aspd -n (공격속도 -n),aspd,add,디버프,공격속도 감소,,공격속도 -{1},,,
+cri_chance_add_debuff,cri_chance -d% (치명타 확률 d% 감소),cri_chance,add,디버프,치명타 확률 감소,,치명타 확률 -{1}%,,,
+cri_dmg_add_debuff,cri_dmg -d% (치명타 확률 d% 감소),cri_dmg,add,디버프,치명타 피해량 감소,,치명타 피해량 -{1}%,,,
+cri_avoid_add_debuff,cri_avoid -d% (피격 시 치명타 방어 d% 감소),cri_avoid,add,디버프,치명타 회피율 감소,,치명타 회피율 -{1}%,,,
+hit_rate_add_debuff,hit_rate -d% (적중률 d% 감소),hit_rate,add,디버프,적중률 감소,,적중률 -{1}%,,,
+avoid_add_debuff,avoid -d% (회피율 d% 감소),avoid,add,디버프,회피율 감소,,회피율 -{1}%,,,
+accuracy_add_debuff,accuracy -d% (효과 적중 d% 감소),accuracy,add,디버프,효과 적중 감소,,효과 적중 -{1}%,,,
+resistance_add_debuff,resistance -d% (효과 저항 d% 감소),resistance,add,디버프,효과 저항 감소,,효과 저항 -{1}%,,,
+attr_adj_rate_add_debuff,attr_effect -d% (속성 효과 감소),attr_adj_rate,add,디버프,속성 효과 약화,,속성 효과 -{1}%,,,
+drag_dmg_add_debuff,drag_dmg -d% (드래그 스킬 데미지 d% 감소),drag_dmg,add,디버프,드래그 스킬 데미지 감소,,드래그 스킬 데미지 -{1}%,,,
+heal_power_add_debuff,heal_power -d% (회복 스킬 효과 d% 감소),heal_power,add,디버프,회복 스킬 효과 감소,,회복 스킬 효과 -{1}%,,,
+debuff_emmune,debuff emmune (해로운 효과 면역),debuff_time,add,디버프,해로운 효과 면역,,해로운 효과 면역,,,
+debuff_time_add,debuff_time +d%(해로운 효과 지속 시간 +d%),debuff_time,add,디버프,해로운 효과 지속 시간 증가,,해로운 효과 지속 시간 +{1}%,,,
+dmg_adj_rate_multi,dmg_adj_rate -d%(받튼 피해량 d% 감소),dmg_adj_rate,multi,버프,받는 피해량 감소,,받는 피해량 -{1}%,,,
+pierce_multi,pierce +d%(방어 관통 +d%),pierce,multi,버프,방어 관통,,방어 관통 +{1}%,,,
+atk_dmg_adj_rate_add,atk_dmg_adj_rate +d%,atk_dmg_adj_rate,add,버프,피해량 증가,,주는 피해량 +{1}%,,,
+final_dmg_rate_multi,final_dmg_rate +d%,final_dmg_rate,multi,버프,피해량 증가,,주는 피해량 +{1}%,,,
+final_heal_rate_multi_debuff,final_heal_rate -d%,final_heal_rate,multi,디버프,치유량 감소,,주는 치유량 -{1}%,,,
+drag_cool_add_debuff,drag_cool -d% (드래그 스킬 재사용 시간 d% 증가),drag_cool,add,디버프,드래그 스킬 재사용 시간 증가,,드래그 스킬 재사용 시간 {1}% 증가,,,
+guard_rear,자신보다 후방에 있는 아군의 피해를  d%확률로 대신 받음,guard_rear,add,버프,자신보다 후방에 있는 아군의 피해를 대신 받음,,자신보다 후방에 있는 아군의 피해를 {1}% 확률로 대신 받음,,,
+basic_dmg_add,일반공격 피해량 {1}% 증가,basic_dmg,add,버프,일반공격 피해량 증가,,일반공격 피해량 {1}% 증가,,,
+recovery_power_add,회복량 {1}% 증가,recovery_power,add,버프,받는 회복량 증가,,회복량 {1}% 증가,,,

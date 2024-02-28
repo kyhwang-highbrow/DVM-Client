@@ -1,0 +1,125 @@
+
+archer_water.png
+size: 256,256
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+archer_water_arm_01
+  rotate: true
+  xy: 167, 142
+  size: 22, 30
+  orig: 22, 30
+  offset: 0, 0
+  index: -1
+archer_water_arm_02
+  rotate: false
+  xy: 130, 166
+  size: 32, 35
+  orig: 32, 35
+  offset: 0, 0
+  index: -1
+archer_water_body_01
+  rotate: false
+  xy: 2, 101
+  size: 61, 99
+  orig: 61, 99
+  offset: 0, 0
+  index: -1
+archer_water_body_02
+  rotate: false
+  xy: 65, 109
+  size: 40, 29
+  orig: 40, 29
+  offset: 0, 0
+  index: -1
+archer_water_body_03
+  rotate: false
+  xy: 2, 2
+  size: 40, 42
+  orig: 40, 42
+  offset: 0, 0
+  index: -1
+archer_water_body_04
+  rotate: false
+  xy: 65, 140
+  size: 44, 60
+  orig: 44, 60
+  offset: 0, 0
+  index: -1
+archer_water_effect_01
+  rotate: false
+  xy: 127, 203
+  size: 74, 19
+  orig: 74, 19
+  offset: 0, 0
+  index: -1
+archer_water_effect_02
+  rotate: true
+  xy: 111, 150
+  size: 50, 17
+  orig: 50, 17
+  offset: 0, 0
+  index: -1
+archer_water_effect_03
+  rotate: true
+  xy: 130, 147
+  size: 17, 35
+  orig: 17, 35
+  offset: 0, 0
+  index: -1
+archer_water_hand_01
+  rotate: false
+  xy: 62, 64
+  size: 22, 20
+  orig: 22, 20
+  offset: 0, 0
+  index: -1
+archer_water_hand_02
+  rotate: false
+  xy: 164, 166
+  size: 29, 35
+  orig: 29, 35
+  offset: 0, 0
+  index: -1
+archer_water_head_01
+  rotate: false
+  xy: 2, 46
+  size: 58, 53
+  orig: 58, 53
+  offset: 0, 0
+  index: -1
+archer_water_head_02
+  rotate: true
+  xy: 44, 8
+  size: 36, 18
+  orig: 36, 18
+  offset: 0, 0
+  index: -1
+archer_water_head_03
+  rotate: false
+  xy: 65, 86
+  size: 24, 21
+  orig: 24, 21
+  offset: 0, 0
+  index: -1
+archer_water_shoulder_01
+  rotate: false
+  xy: 213, 219
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+archer_water_weapon_01
+  rotate: false
+  xy: 2, 202
+  size: 123, 49
+  orig: 123, 49
+  offset: 0, 0
+  index: -1
+archer_water_weapon_02
+  rotate: false
+  xy: 127, 224
+  size: 84, 27
+  orig: 84, 27
+  offset: 0, 0
+  index: -1

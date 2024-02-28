@@ -1,0 +1,7 @@
+page,bg,illustration,char,t_char_name,char_pos,char_ani,char_effect,r_scen,t_text,text_pos,text_type,auto_skip,effect_1,effect_2,effect_3,bgm,bgm_action,sound
+1,,,,,,,,,,,,3,title;절망 속에서도 꺾이지 않은 용기,skip_disable,,,,
+2,,,,,,,,,,,,0.3,skip_disable,,,bgm_sorrow,,
+3,,,,,,,,,상처투성이가 되어서도 흔들리지 않는 그 주먹으로부터 시작된 변화는,,narrate,,,,,,,
+4,,,,,,,,,모든것을 포기했던 이들 사이에 희망의 빛이 되어 타오르기 시작한다.,,narrate,,,,,,,
+5,,,,,,,,,작은 용과 거대한 빛은 또 다시 어둠속으로 날아갔다.,,narrate,,,,,,,
+6,,,,,,,,,,,,1,black_in,skip_disable,,,,

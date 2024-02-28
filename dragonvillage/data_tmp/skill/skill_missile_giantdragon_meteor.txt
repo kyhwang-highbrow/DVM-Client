@@ -1,0 +1,82 @@
+{
+	"skill_missile_giantdragon_meteor":
+	{
+		"attack_value":
+		[		
+			{
+				"idx":1,
+				"res":"res/missile/missile_giantdragon_meteor_@/missile_giantdragon_meteor_@.vrp",
+				"body":[0,0,20],
+                "count":1,
+				"time":0,
+                "scale":3,
+                "period":0.1,
+				"speed":300,
+				"accel":300,
+				"h_limit_speed":300,
+				"accel_delay":0,
+				"angular_velocity":0,
+				"offset":[0,500],
+				"dir":45,
+				
+                "effect":
+                {
+                    "motion_streak":"",
+                    "rotation":false,
+                    "afterimage":false
+                }
+				
+			},
+			
+			{
+				"idx":1,
+				"res":"res/missile/missile_giantdragon_meteor_@/missile_giantdragon_meteor_@.vrp",
+				"body":[0,0,20],
+                "count":1,
+				"time":0.5,
+                "scale":3,
+                "period":0.1,
+				"speed":300,
+				"accel":300,
+				"h_limit_speed":300,
+				"accel_delay":0,
+				"angular_velocity":0,
+				"offset":[500,500],
+				"dir":45,
+				
+                "effect":
+                {
+                    "motion_streak":"",
+                    "rotation":false,
+                    "afterimage":false
+                }
+				
+			},
+			
+			{
+				"idx":1,
+				"res":"res/missile/missile_giantdragon_meteor_@/missile_giantdragon_meteor_@.vrp",
+				"body":[0,0,20],
+                "count":1,
+				"time":1.5,
+                "scale":3,
+                "period":0.1,
+				"speed":300,
+				"accel":300,
+				"h_limit_speed":300,
+				"accel_delay":0,
+				"angular_velocity":0,
+				"offset":[-400,500],
+				"dir":45,
+				
+                "effect":
+                {
+                    "motion_streak":"",
+                    "rotation":false,
+                    "afterimage":false
+                }
+				
+			}
+		]
+	}
+}

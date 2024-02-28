@@ -1,0 +1,433 @@
+
+leslo_fire_02.png
+size: 2001,752
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+effect_boom
+  rotate: false
+  xy: 1599, 543
+  size: 203, 207
+  orig: 203, 207
+  offset: 0, 0
+  index: -1
+effect_circle1
+  rotate: false
+  xy: 604, 406
+  size: 340, 344
+  orig: 340, 344
+  offset: 0, 0
+  index: -1
+effect_particle1
+  rotate: false
+  xy: 946, 422
+  size: 286, 328
+  orig: 286, 328
+  offset: 0, 0
+  index: -1
+effect_pose1
+  rotate: false
+  xy: 2, 150
+  size: 600, 600
+  orig: 600, 600
+  offset: 0, 0
+  index: -1
+effect_sloth_all_02_fin_1
+  rotate: false
+  xy: 2, 2
+  size: 317, 146
+  orig: 317, 146
+  offset: 0, 0
+  index: -1
+effect_sloth_all_02_head_1
+  rotate: true
+  xy: 1150, 322
+  size: 98, 82
+  orig: 98, 82
+  offset: 0, 0
+  index: -1
+effect_sloth_all_02_headfin_1
+  rotate: false
+  xy: 930, 7
+  size: 89, 47
+  orig: 89, 47
+  offset: 0, 0
+  index: -1
+effect_sloth_all_02_shellight_1
+  rotate: true
+  xy: 1525, 134
+  size: 96, 79
+  orig: 96, 79
+  offset: 0, 0
+  index: -1
+effect_small_hard
+  rotate: false
+  xy: 1634, 24
+  size: 110, 110
+  orig: 110, 110
+  offset: 0, 0
+  index: -1
+effect_water_02_effect_02
+  rotate: false
+  xy: 1378, 532
+  size: 219, 218
+  orig: 219, 218
+  offset: 0, 0
+  index: -1
+effect_wing_acc_L
+  rotate: false
+  xy: 1527, 232
+  size: 65, 111
+  orig: 65, 111
+  offset: 0, 0
+  index: -1
+effect_wing_acc_R
+  rotate: true
+  xy: 1234, 163
+  size: 79, 130
+  orig: 79, 130
+  offset: 0, 0
+  index: -1
+sloth_all_02_body_1
+  rotate: false
+  xy: 604, 226
+  size: 268, 178
+  orig: 268, 178
+  offset: 0, 0
+  index: -1
+sloth_all_02_body_2
+  rotate: true
+  xy: 1606, 136
+  size: 94, 103
+  orig: 94, 103
+  offset: 0, 0
+  index: -1
+sloth_all_02_body_3
+  rotate: false
+  xy: 1955, 202
+  size: 44, 64
+  orig: 44, 64
+  offset: 0, 0
+  index: -1
+sloth_all_02_body_4
+  rotate: false
+  xy: 1804, 564
+  size: 186, 186
+  orig: 186, 186
+  offset: 0, 0
+  index: -1
+sloth_all_02_body_5
+  rotate: false
+  xy: 1655, 396
+  size: 183, 145
+  orig: 183, 145
+  offset: 0, 0
+  index: -1
+sloth_all_02_body_6
+  rotate: true
+  xy: 1219, 37
+  size: 124, 129
+  orig: 124, 129
+  offset: 0, 0
+  index: -1
+sloth_all_02_dorsal_1
+  rotate: true
+  xy: 959, 184
+  size: 109, 191
+  orig: 109, 191
+  offset: 0, 0
+  index: -1
+sloth_all_02_eye_1
+  rotate: true
+  xy: 1960, 295
+  size: 37, 39
+  orig: 37, 39
+  offset: 0, 0
+  index: -1
+sloth_all_02_eye_3
+  rotate: false
+  xy: 1875, 57
+  size: 38, 40
+  orig: 38, 40
+  offset: 0, 0
+  index: -1
+sloth_all_02_eye_4
+  rotate: false
+  xy: 795, 2
+  size: 23, 24
+  orig: 23, 24
+  offset: 0, 0
+  index: -1
+sloth_all_02_eye_5
+  rotate: true
+  xy: 1960, 268
+  size: 25, 24
+  orig: 25, 24
+  offset: 0, 0
+  index: -1
+sloth_all_02_fin_1
+  rotate: false
+  xy: 321, 2
+  size: 317, 146
+  orig: 317, 146
+  offset: 0, 0
+  index: -1
+sloth_all_02_fin_2
+  rotate: true
+  xy: 1152, 192
+  size: 128, 80
+  orig: 128, 80
+  offset: 0, 0
+  index: -1
+sloth_all_02_fin_3
+  rotate: true
+  xy: 1234, 244
+  size: 145, 134
+  orig: 145, 134
+  offset: 0, 0
+  index: -1
+sloth_all_02_fin_4
+  rotate: false
+  xy: 1113, 37
+  size: 104, 145
+  orig: 104, 145
+  offset: 0, 0
+  index: -1
+sloth_all_02_head_1
+  rotate: true
+  xy: 1746, 38
+  size: 98, 82
+  orig: 98, 82
+  offset: 0, 0
+  index: -1
+sloth_all_02_head_2
+  rotate: false
+  xy: 1802, 244
+  size: 78, 83
+  orig: 78, 83
+  offset: 0, 0
+  index: -1
+sloth_all_02_head_3
+  rotate: false
+  xy: 1830, 114
+  size: 47, 49
+  orig: 47, 49
+  offset: 0, 0
+  index: -1
+sloth_all_02_headdress_1
+  rotate: false
+  xy: 1583, 345
+  size: 57, 62
+  orig: 57, 62
+  offset: 0, 0
+  index: -1
+sloth_all_02_headfin_1
+  rotate: false
+  xy: 1021, 7
+  size: 89, 47
+  orig: 89, 47
+  offset: 0, 0
+  index: -1
+sloth_all_02_headfin_2
+  rotate: true
+  xy: 604, 154
+  size: 70, 32
+  orig: 70, 32
+  offset: 0, 0
+  index: -1
+sloth_all_02_headfin_3
+  rotate: false
+  xy: 1882, 268
+  size: 76, 64
+  orig: 76, 64
+  offset: 0, 0
+  index: -1
+sloth_all_02_headfin_4
+  rotate: false
+  xy: 1830, 54
+  size: 43, 58
+  orig: 43, 58
+  offset: 0, 0
+  index: -1
+sloth_all_02_headfin_5
+  rotate: false
+  xy: 1642, 345
+  size: 64, 49
+  orig: 64, 49
+  offset: 0, 0
+  index: -1
+sloth_all_02_littlefin_1
+  rotate: true
+  xy: 1559, 3
+  size: 129, 73
+  orig: 129, 73
+  offset: 0, 0
+  index: -1
+sloth_all_02_littlefin_10
+  rotate: true
+  xy: 1811, 165
+  size: 77, 66
+  orig: 77, 66
+  offset: 0, 0
+  index: -1
+sloth_all_02_littlefin_2
+  rotate: true
+  xy: 1948, 144
+  size: 56, 45
+  orig: 56, 45
+  offset: 0, 0
+  index: -1
+sloth_all_02_littlefin_3
+  rotate: false
+  xy: 1882, 213
+  size: 71, 53
+  orig: 71, 53
+  offset: 0, 0
+  index: -1
+sloth_all_02_littlefin_9
+  rotate: false
+  xy: 1879, 145
+  size: 67, 66
+  orig: 67, 66
+  offset: 0, 0
+  index: -1
+sloth_all_02_neck_1
+  rotate: false
+  xy: 1711, 138
+  size: 98, 104
+  orig: 98, 104
+  offset: 0, 0
+  index: -1
+sloth_all_02_neck_2
+  rotate: false
+  xy: 1350, 21
+  size: 126, 113
+  orig: 126, 113
+  offset: 0, 0
+  index: -1
+sloth_all_02_shell_1
+  rotate: false
+  xy: 1700, 244
+  size: 100, 83
+  orig: 100, 83
+  offset: 0, 0
+  index: -1
+sloth_all_02_shell_2
+  rotate: false
+  xy: 930, 56
+  size: 181, 126
+  orig: 181, 126
+  offset: 0, 0
+  index: -1
+sloth_all_02_tongue_1
+  rotate: true
+  xy: 1879, 99
+  size: 44, 46
+  orig: 44, 46
+  offset: 0, 0
+  index: -1
+sloth_all_02_wing_1
+  rotate: false
+  xy: 1234, 454
+  size: 142, 296
+  orig: 142, 296
+  offset: 0, 0
+  index: -1
+sloth_all_02_wing_10
+  rotate: true
+  xy: 1840, 334
+  size: 73, 159
+  orig: 73, 159
+  offset: 0, 0
+  index: -1
+sloth_all_02_wing_11
+  rotate: true
+  xy: 1370, 232
+  size: 111, 155
+  orig: 111, 155
+  offset: 0, 0
+  index: -1
+sloth_all_02_wing_2
+  rotate: false
+  xy: 795, 28
+  size: 133, 196
+  orig: 133, 196
+  offset: 0, 0
+  index: -1
+sloth_all_02_wing_3
+  rotate: true
+  xy: 1840, 409
+  size: 153, 159
+  orig: 153, 159
+  offset: 0, 0
+  index: -1
+sloth_all_02_wing_4
+  rotate: true
+  xy: 1594, 232
+  size: 111, 104
+  orig: 111, 104
+  offset: 0, 0
+  index: -1
+sloth_all_02_wing_5
+  rotate: false
+  xy: 959, 295
+  size: 189, 125
+  orig: 189, 125
+  offset: 0, 0
+  index: -1
+sloth_all_02_wing_6
+  rotate: false
+  xy: 1234, 391
+  size: 142, 61
+  orig: 142, 61
+  offset: 0, 0
+  index: -1
+sloth_all_02_wing_7
+  rotate: false
+  xy: 1378, 409
+  size: 275, 121
+  orig: 275, 121
+  offset: 0, 0
+  index: -1
+sloth_all_02_wing_8
+  rotate: false
+  xy: 1366, 136
+  size: 157, 94
+  orig: 157, 94
+  offset: 0, 0
+  index: -1
+sloth_all_02_wing_9
+  rotate: true
+  xy: 1378, 345
+  size: 62, 203
+  orig: 62, 203
+  offset: 0, 0
+  index: -1
+sloth_all_02_wingdeco_1
+  rotate: false
+  xy: 640, 6
+  size: 153, 218
+  orig: 153, 218
+  offset: 0, 0
+  index: -1
+sloth_all_02_wingdeco_2
+  rotate: false
+  xy: 874, 231
+  size: 83, 173
+  orig: 83, 173
+  offset: 0, 0
+  index: -1
+wing_acc_L
+  rotate: true
+  xy: 1708, 329
+  size: 65, 111
+  orig: 65, 111
+  offset: 0, 0
+  index: -1
+wing_acc_R
+  rotate: false
+  xy: 1478, 2
+  size: 79, 130
+  orig: 79, 130
+  offset: 0, 0
+  index: -1

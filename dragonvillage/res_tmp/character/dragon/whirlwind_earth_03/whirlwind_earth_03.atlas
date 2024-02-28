@@ -1,0 +1,272 @@
+
+whirlwind_earth_03.png
+size: 1952,384
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+whirlwind_earth_03_arm_01
+  rotate: false
+  xy: 1492, 12
+  size: 64, 97
+  orig: 64, 97
+  offset: 0, 0
+  index: -1
+whirlwind_earth_03_arm_01_01
+  rotate: false
+  xy: 1203, 19
+  size: 95, 90
+  orig: 95, 90
+  offset: 0, 0
+  index: -1
+whirlwind_earth_03_arm_02
+  rotate: true
+  xy: 1397, 34
+  size: 75, 93
+  orig: 75, 93
+  offset: 0, 0
+  index: -1
+whirlwind_earth_03_body_01
+  rotate: true
+  xy: 593, 16
+  size: 79, 155
+  orig: 79, 155
+  offset: 0, 0
+  index: -1
+whirlwind_earth_03_body_02
+  rotate: false
+  xy: 1539, 112
+  size: 126, 155
+  orig: 126, 155
+  offset: 0, 0
+  index: -1
+whirlwind_earth_03_body_04
+  rotate: false
+  xy: 2, 227
+  size: 341, 155
+  orig: 341, 155
+  offset: 0, 0
+  index: -1
+whirlwind_earth_03_body_05
+  rotate: false
+  xy: 1837, 146
+  size: 113, 96
+  orig: 113, 96
+  offset: 0, 0
+  index: -1
+whirlwind_earth_03_effect_01
+  rotate: false
+  xy: 796, 269
+  size: 180, 113
+  orig: 180, 113
+  offset: 0, 0
+  index: -1
+whirlwind_earth_03_effect_02
+  rotate: false
+  xy: 1706, 269
+  size: 168, 113
+  orig: 168, 113
+  offset: 0, 0
+  index: -1
+whirlwind_earth_03_effect_03
+  rotate: true
+  xy: 478, 57
+  size: 168, 113
+  orig: 168, 113
+  offset: 0, 0
+  index: -1
+whirlwind_earth_03_effect_04
+  rotate: true
+  xy: 760, 88
+  size: 168, 113
+  orig: 168, 113
+  offset: 0, 0
+  index: -1
+whirlwind_earth_03_effect_05
+  rotate: false
+  xy: 1667, 154
+  size: 168, 113
+  orig: 168, 113
+  offset: 0, 0
+  index: -1
+whirlwind_earth_03_effect_06
+  rotate: false
+  xy: 978, 269
+  size: 180, 113
+  orig: 180, 113
+  offset: 0, 0
+  index: -1
+whirlwind_earth_03_effect_07
+  rotate: false
+  xy: 1160, 269
+  size: 180, 113
+  orig: 180, 113
+  offset: 0, 0
+  index: -1
+whirlwind_earth_03_effect_08
+  rotate: false
+  xy: 1342, 269
+  size: 180, 113
+  orig: 180, 113
+  offset: 0, 0
+  index: -1
+whirlwind_earth_03_effect_09
+  rotate: false
+  xy: 1524, 269
+  size: 180, 113
+  orig: 180, 113
+  offset: 0, 0
+  index: -1
+whirlwind_earth_03_effect_10
+  rotate: false
+  xy: 159, 12
+  size: 150, 213
+  orig: 150, 213
+  offset: 0, 0
+  index: -1
+whirlwind_earth_03_eye_01
+  rotate: false
+  xy: 388, 5
+  size: 53, 59
+  orig: 53, 59
+  offset: 0, 0
+  index: -1
+whirlwind_earth_03_hand_01
+  rotate: false
+  xy: 1300, 19
+  size: 95, 90
+  orig: 95, 90
+  offset: 0, 0
+  index: -1
+whirlwind_earth_03_hand_02
+  rotate: false
+  xy: 311, 2
+  size: 75, 62
+  orig: 75, 62
+  offset: 0, 0
+  index: -1
+whirlwind_earth_03_head_01
+  rotate: false
+  xy: 989, 20
+  size: 111, 89
+  orig: 111, 89
+  offset: 0, 0
+  index: -1
+whirlwind_earth_03_head_02
+  rotate: true
+  xy: 750, 7
+  size: 79, 110
+  orig: 79, 110
+  offset: 0, 0
+  index: -1
+whirlwind_earth_03_head_04
+  rotate: false
+  xy: 1558, 13
+  size: 71, 97
+  orig: 71, 97
+  offset: 0, 0
+  index: -1
+whirlwind_earth_03_head_05
+  rotate: true
+  xy: 1102, 16
+  size: 93, 99
+  orig: 93, 99
+  offset: 0, 0
+  index: -1
+whirlwind_earth_03_head_06
+  rotate: true
+  xy: 1667, 47
+  size: 105, 153
+  orig: 105, 153
+  offset: 0, 0
+  index: -1
+whirlwind_earth_03_head_07
+  rotate: false
+  xy: 311, 66
+  size: 165, 159
+  orig: 165, 159
+  offset: 0, 0
+  index: -1
+whirlwind_earth_03_head_08
+  rotate: false
+  xy: 1876, 244
+  size: 70, 138
+  orig: 70, 138
+  offset: 0, 0
+  index: -1
+whirlwind_earth_03_head_09
+  rotate: false
+  xy: 593, 97
+  size: 165, 159
+  orig: 165, 159
+  offset: 0, 0
+  index: -1
+whirlwind_earth_03_leg_01
+  rotate: true
+  xy: 875, 16
+  size: 93, 112
+  orig: 93, 112
+  offset: 0, 0
+  index: -1
+whirlwind_earth_03_leg_02
+  rotate: true
+  xy: 1822, 51
+  size: 93, 123
+  orig: 93, 123
+  offset: 0, 0
+  index: -1
+whirlwind_earth_03_mouth_01
+  rotate: false
+  xy: 443, 15
+  size: 45, 40
+  orig: 45, 40
+  offset: 0, 0
+  index: -1
+whirlwind_earth_03_wing_01
+  rotate: true
+  xy: 569, 258
+  size: 124, 225
+  orig: 124, 225
+  offset: 0, 0
+  index: -1
+whirlwind_earth_03_wing_02
+  rotate: false
+  xy: 875, 111
+  size: 164, 156
+  orig: 164, 156
+  offset: 0, 0
+  index: -1
+whirlwind_earth_03_wing_02_01
+  rotate: false
+  xy: 1041, 111
+  size: 164, 156
+  orig: 164, 156
+  offset: 0, 0
+  index: -1
+whirlwind_earth_03_wing_02_02
+  rotate: false
+  xy: 1207, 111
+  size: 164, 156
+  orig: 164, 156
+  offset: 0, 0
+  index: -1
+whirlwind_earth_03_wing_02_03
+  rotate: false
+  xy: 1373, 111
+  size: 164, 156
+  orig: 164, 156
+  offset: 0, 0
+  index: -1
+whirlwind_earth_03_wing_03
+  rotate: false
+  xy: 2, 3
+  size: 155, 222
+  orig: 155, 222
+  offset: 0, 0
+  index: -1
+whirlwind_earth_03_wing_04
+  rotate: true
+  xy: 345, 227
+  size: 155, 222
+  orig: 155, 222
+  offset: 0, 0
+  index: -1

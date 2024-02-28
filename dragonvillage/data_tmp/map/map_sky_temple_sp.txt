@@ -1,0 +1,94 @@
+{
+    "directing":"floating_1",
+	"layer":
+    [
+    
+        {
+            "name":"배경"
+            "speed":0.05
+            "list":
+            [
+                {"res":"res/bg/sky_temple2/sky_temple2.vrp" "animation":"layer_1_a" "width":3840}
+
+            ]
+        }
+		
+        {
+            "name":"배경"
+            "speed":0.1
+            "list":
+            [
+                {"res":"res/bg/sky_temple2/sky_temple2.vrp" "animation":"layer_2_a" "width":1100 "scale":0.5}
+            ]
+        }
+		
+		
+        {
+            "name":"구름"
+            "speed":0.2
+            "list":
+            [
+                {"res":"res/bg/sky_temple2/sky_temple2.vrp" "animation":"layer_2_cloud_a" "width":640 "scale":0.5}
+				{"res":"res/bg/sky_temple2/sky_temple2.vrp" "animation":"layer_2_cloud_b" "width":840 "scale":0.5}
+            ]
+        }
+		
+        {
+            "name":"중경1"
+            "speed":0.3
+            "list":
+            [
+			    {"res":"res/bg/sky_temple2/sky_temple2.vrp" "animation":"layer_3_a" "width":640 "scale":0.5}
+            ]
+        }
+        
+		{
+            "name":"구름"
+            "speed":0.4
+            "list":
+            [
+                {"res":"res/bg/sky_temple2/sky_temple2.vrp" "animation":"layer_3_cloud_a" "width":800 "scale":0.5}
+            ]
+        }
+	
+		{
+            "name":"중경2"
+            "speed":0.5
+            "list":
+            [
+                {"res":"res/bg/sky_temple2/sky_temple2.vrp" "animation":"layer_4_a" "width":1280 "scale":0.5}
+		    ]
+        }
+		
+		{   
+            "name":"구름"
+            "speed":0.6
+            "list":
+            [
+               
+				{"res":"res/bg/sky_temple2/sky_temple2.vrp" "animation":"layer_4_cloud_b" "width":640 "scale":0.5}
+				{"res":"res/bg/sky_temple2/sky_temple2.vrp" "animation":"layer_4_cloud_c" "width":790 "scale":0.5}
+				{"res":"res/bg/sky_temple2/sky_temple2.vrp" "animation":"layer_4_cloud_d" "width":950 "scale":0.5}
+            ]
+        }
+		
+		{
+            "name":"근경"
+            "speed":0.7
+            "list":
+            [
+               {"res":"res/bg/sky_temple2/sky_temple2.vrp" "animation":"layer_5_a" "width":1920 "scale":0.5}
+			   {"res":"res/bg/sky_temple2/sky_temple2.vrp" "animation":"layer_5_c" "width":3840 "scale":1}
+            ]
+        }
+		
+		{
+            "name":"차원_틈"
+            "speed":0
+            "list":
+            [
+               {"res":"res/bg/dmgate_stage/dmgate_stage.vrp" "animation":"stage_01" "width":3840 "scale":1.8 "pos_x":1050}
+            ]
+        }
+    ]
+}

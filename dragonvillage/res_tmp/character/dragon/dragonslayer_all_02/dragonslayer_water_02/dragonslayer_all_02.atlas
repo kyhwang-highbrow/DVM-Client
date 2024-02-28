@@ -1,0 +1,384 @@
+
+dragonslayer_all_02.png
+size: 1608,794
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+dragonslayer_all_02_arm_01
+  rotate: false
+  xy: 1042, 300
+  size: 143, 129
+  orig: 143, 129
+  offset: 0, 0
+  index: -1
+dragonslayer_all_02_arm_02
+  rotate: true
+  xy: 1323, 436
+  size: 142, 186
+  orig: 142, 186
+  offset: 0, 0
+  index: -1
+dragonslayer_all_02_body_01
+  rotate: true
+  xy: 1318, 307
+  size: 127, 152
+  orig: 127, 152
+  offset: 0, 0
+  index: -1
+dragonslayer_all_02_body_02
+  rotate: false
+  xy: 1272, 198
+  size: 108, 107
+  orig: 108, 107
+  offset: 0, 0
+  index: -1
+dragonslayer_all_02_body_03
+  rotate: false
+  xy: 659, 122
+  size: 173, 200
+  orig: 173, 200
+  offset: 0, 0
+  index: -1
+dragonslayer_all_02_effect_03
+  rotate: false
+  xy: 1177, 182
+  size: 93, 116
+  orig: 93, 116
+  offset: 0, 0
+  index: -1
+dragonslayer_all_02_effect_04
+  rotate: false
+  xy: 905, 563
+  size: 223, 229
+  orig: 223, 229
+  offset: 0, 0
+  index: -1
+dragonslayer_all_02_finger_01
+  rotate: true
+  xy: 1293, 50
+  size: 45, 55
+  orig: 45, 55
+  offset: 0, 0
+  index: -1
+dragonslayer_all_02_finger_02
+  rotate: true
+  xy: 1350, 48
+  size: 47, 42
+  orig: 47, 42
+  offset: 0, 0
+  index: -1
+dragonslayer_all_02_finger_03
+  rotate: false
+  xy: 223, 20
+  size: 35, 53
+  orig: 35, 53
+  offset: 0, 0
+  index: -1
+dragonslayer_all_02_finger_04
+  rotate: true
+  xy: 1441, 59
+  size: 38, 54
+  orig: 38, 54
+  offset: 0, 0
+  index: -1
+dragonslayer_all_02_foot_01
+  rotate: true
+  xy: 582, 7
+  size: 113, 144
+  orig: 113, 144
+  offset: 0, 0
+  index: -1
+dragonslayer_all_02_foot_02
+  rotate: true
+  xy: 707, 324
+  size: 105, 136
+  orig: 105, 136
+  offset: 0, 0
+  index: -1
+dragonslayer_all_02_hair_01
+  rotate: true
+  xy: 834, 145
+  size: 153, 194
+  orig: 153, 194
+  offset: 0, 0
+  index: -1
+dragonslayer_all_02_hand_01
+  rotate: false
+  xy: 1190, 71
+  size: 101, 109
+  orig: 101, 109
+  offset: 0, 0
+  index: -1
+dragonslayer_all_02_hand_02
+  rotate: false
+  xy: 1382, 216
+  size: 73, 89
+  orig: 73, 89
+  offset: 0, 0
+  index: -1
+dragonslayer_all_02_head_01
+  rotate: true
+  xy: 1130, 464
+  size: 123, 191
+  orig: 123, 191
+  offset: 0, 0
+  index: -1
+dragonslayer_all_02_head_02
+  rotate: true
+  xy: 1293, 97
+  size: 99, 91
+  orig: 99, 91
+  offset: 0, 0
+  index: -1
+dragonslayer_all_02_head_03
+  rotate: true
+  xy: 1190, 2
+  size: 67, 87
+  orig: 67, 87
+  offset: 0, 0
+  index: -1
+dragonslayer_all_02_horn_01
+  rotate: true
+  xy: 720, 431
+  size: 86, 150
+  orig: 86, 150
+  offset: 0, 0
+  index: -1
+dragonslayer_all_02_leg_01
+  rotate: false
+  xy: 1511, 469
+  size: 95, 109
+  orig: 95, 109
+  offset: 0, 0
+  index: -1
+dragonslayer_all_02_leg_02
+  rotate: false
+  xy: 1096, 30
+  size: 92, 127
+  orig: 92, 127
+  offset: 0, 0
+  index: -1
+dragonslayer_all_02_light
+  rotate: false
+  xy: 1546, 93
+  size: 58, 51
+  orig: 58, 51
+  offset: 0, 0
+  index: -1
+dragonslayer_all_02_shoulder_01
+  rotate: false
+  xy: 1030, 159
+  size: 145, 139
+  orig: 145, 139
+  offset: 0, 0
+  index: -1
+dragonslayer_all_02_skill_01
+  rotate: false
+  xy: 260, 123
+  size: 214, 269
+  orig: 214, 269
+  offset: 0, 0
+  index: -1
+dragonslayer_all_02_skill_02
+  rotate: false
+  xy: 1187, 309
+  size: 129, 153
+  orig: 129, 153
+  offset: 0, 0
+  index: -1
+dragonslayer_all_02_skill_03
+  rotate: false
+  xy: 1386, 118
+  size: 91, 96
+  orig: 91, 96
+  offset: 0, 0
+  index: -1
+dragonslayer_all_02_skill_04
+  rotate: false
+  xy: 1479, 153
+  size: 73, 84
+  orig: 73, 84
+  offset: 0, 0
+  index: -1
+dragonslayer_all_02_skill_05
+  rotate: false
+  xy: 1008, 10
+  size: 86, 133
+  orig: 86, 133
+  offset: 0, 0
+  index: -1
+dragonslayer_all_02_skill_06
+  rotate: false
+  xy: 720, 519
+  size: 183, 273
+  orig: 183, 273
+  offset: 0, 0
+  index: -1
+dragonslayer_all_02_skill_07
+  rotate: true
+  xy: 1472, 239
+  size: 85, 125
+  orig: 85, 125
+  offset: 0, 0
+  index: -1
+dragonslayer_all_02_skill_08
+  rotate: true
+  xy: 728, 7
+  size: 113, 137
+  orig: 113, 137
+  offset: 0, 0
+  index: -1
+dragonslayer_all_02_skill_09
+  rotate: true
+  xy: 1472, 326
+  size: 108, 134
+  orig: 108, 134
+  offset: 0, 0
+  index: -1
+dragonslayer_all_02_skill_10
+  rotate: true
+  xy: 867, 10
+  size: 133, 139
+  orig: 133, 139
+  offset: 0, 0
+  index: -1
+dragonslayer_all_02_skill_11
+  rotate: false
+  xy: 487, 509
+  size: 231, 283
+  orig: 231, 283
+  offset: 0, 0
+  index: -1
+dragonslayer_all_02_skill_11_1
+  rotate: false
+  xy: 2, 75
+  size: 256, 317
+  orig: 256, 317
+  offset: 0, 0
+  index: -1
+dragonslayer_all_02_skill_12
+  rotate: false
+  xy: 1279, 2
+  size: 43, 46
+  orig: 43, 46
+  offset: 0, 0
+  index: -1
+dragonslayer_all_02_skill_13
+  rotate: false
+  xy: 1380, 2
+  size: 43, 44
+  orig: 43, 44
+  offset: 0, 0
+  index: -1
+dragonslayer_all_02_skill_14
+  rotate: true
+  xy: 1394, 48
+  size: 43, 45
+  orig: 43, 45
+  offset: 0, 0
+  index: -1
+dragonslayer_all_02_skill_15
+  rotate: true
+  xy: 1425, 4
+  size: 42, 41
+  orig: 42, 41
+  offset: 0, 0
+  index: -1
+dragonslayer_all_02_tail_01
+  rotate: false
+  xy: 1130, 589
+  size: 246, 203
+  orig: 246, 203
+  offset: 0, 0
+  index: -1
+dragonslayer_all_02_tail_02
+  rotate: true
+  xy: 260, 2
+  size: 119, 162
+  orig: 119, 162
+  offset: 0, 0
+  index: -1
+dragonslayer_all_02_wing_01
+  rotate: true
+  xy: 487, 324
+  size: 183, 218
+  orig: 183, 218
+  offset: 0, 0
+  index: -1
+dragonslayer_all_02_wing_02
+  rotate: false
+  xy: 476, 123
+  size: 181, 199
+  orig: 181, 199
+  offset: 0, 0
+  index: -1
+dragonslayer_all_02_wing_04
+  rotate: true
+  xy: 1378, 580
+  size: 212, 224
+  orig: 212, 224
+  offset: 0, 0
+  index: -1
+dragonslayer_all_02_wing_05
+  rotate: true
+  xy: 845, 300
+  size: 129, 195
+  orig: 129, 195
+  offset: 0, 0
+  index: -1
+dragonslayer_all_02_wing_06
+  rotate: true
+  xy: 424, 5
+  size: 116, 156
+  orig: 116, 156
+  offset: 0, 0
+  index: -1
+dragonslayer_all_02_wing_08
+  rotate: true
+  xy: 905, 431
+  size: 130, 200
+  orig: 130, 200
+  offset: 0, 0
+  index: -1
+dragonslayer_particle_01
+  rotate: false
+  xy: 2, 394
+  size: 483, 398
+  orig: 483, 398
+  offset: 0, 0
+  index: -1
+sample_01
+  rotate: false
+  xy: 1554, 146
+  size: 52, 91
+  orig: 52, 91
+  offset: 0, 0
+  index: -1
+sample_03
+  rotate: true
+  xy: 119, 21
+  size: 52, 102
+  orig: 52, 102
+  offset: 0, 0
+  index: -1
+sample_04
+  rotate: true
+  xy: 1324, 2
+  size: 44, 54
+  orig: 44, 54
+  offset: 0, 0
+  index: -1
+sample_05
+  rotate: true
+  xy: 1479, 99
+  size: 52, 65
+  orig: 52, 65
+  offset: 0, 0
+  index: -1
+sample_08
+  rotate: true
+  xy: 2, 12
+  size: 61, 115
+  orig: 61, 115
+  offset: 0, 0
+  index: -1

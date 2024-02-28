@@ -1,0 +1,335 @@
+
+shootingstar_all_02.png
+size: 1747,1032
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+effect_shootingstar_all_02_eff_01
+  rotate: true
+  xy: 1580, 44
+  size: 64, 74
+  orig: 64, 74
+  offset: 0, 0
+  index: -1
+effect_shootingstar_all_02_eff_02
+  rotate: false
+  xy: 1161, 265
+  size: 33, 42
+  orig: 33, 42
+  offset: 0, 0
+  index: -1
+effect_shootingstar_all_02_eff_03
+  rotate: true
+  xy: 1410, 56
+  size: 206, 115
+  orig: 206, 115
+  offset: 0, 0
+  index: -1
+effect_shootingstar_all_02_eff_04
+  rotate: false
+  xy: 2, 211
+  size: 638, 819
+  orig: 638, 819
+  offset: 0, 0
+  index: -1
+effect_shootingstar_all_02_eff_05
+  rotate: false
+  xy: 642, 426
+  size: 554, 604
+  orig: 554, 604
+  offset: 0, 0
+  index: -1
+effect_shootingstar_all_02_eff_06
+  rotate: false
+  xy: 1198, 540
+  size: 535, 490
+  orig: 535, 490
+  offset: 0, 0
+  index: -1
+effect_shootingstar_all_02_eff_07
+  rotate: false
+  xy: 642, 2
+  size: 517, 422
+  orig: 517, 422
+  offset: 0, 0
+  index: -1
+effect_shootingstar_all_02_eff_08
+  rotate: false
+  xy: 1463, 6
+  size: 50, 48
+  orig: 50, 48
+  offset: 0, 0
+  index: -1
+effect_shootingstar_all_02_eff_09
+  rotate: false
+  xy: 1161, 15
+  size: 247, 247
+  orig: 247, 247
+  offset: 0, 0
+  index: -1
+effect_shootingstar_all_02_eff_10
+  rotate: true
+  xy: 1410, 10
+  size: 44, 51
+  orig: 44, 51
+  offset: 0, 0
+  index: -1
+effect_shootingstar_all_02_eff_11
+  rotate: false
+  xy: 365, 109
+  size: 130, 100
+  orig: 130, 100
+  offset: 0, 0
+  index: -1
+effect_shootingstar_all_02_eff_12
+  rotate: true
+  xy: 1656, 86
+  size: 22, 20
+  orig: 22, 20
+  offset: 0, 0
+  index: -1
+effect_shootingstar_all_02_eff_13
+  rotate: true
+  xy: 1591, 253
+  size: 77, 94
+  orig: 77, 94
+  offset: 0, 0
+  index: -1
+effect_shootingstar_all_02_eff_16
+  rotate: true
+  xy: 1198, 264
+  size: 274, 391
+  orig: 274, 391
+  offset: 0, 0
+  index: -1
+effect_shootingstar_all_02_eff_light_01
+  rotate: false
+  xy: 1687, 279
+  size: 58, 51
+  orig: 58, 51
+  offset: 0, 0
+  index: -1
+shootingstar_all_02_acc_01
+  rotate: true
+  xy: 329, 14
+  size: 91, 67
+  orig: 91, 67
+  offset: 0, 0
+  index: -1
+shootingstar_all_02_acc_02
+  rotate: true
+  xy: 1161, 345
+  size: 79, 27
+  orig: 79, 27
+  offset: 0, 0
+  index: -1
+shootingstar_all_02_acc_03
+  rotate: true
+  xy: 1527, 116
+  size: 62, 57
+  orig: 62, 57
+  offset: 0, 0
+  index: -1
+shootingstar_all_02_accarm_01
+  rotate: false
+  xy: 1601, 19
+  size: 42, 23
+  orig: 42, 23
+  offset: 0, 0
+  index: -1
+shootingstar_all_02_accarm_02
+  rotate: false
+  xy: 149, 2
+  size: 36, 24
+  orig: 36, 24
+  offset: 0, 0
+  index: -1
+shootingstar_all_02_acceye_01
+  rotate: false
+  xy: 1682, 176
+  size: 55, 17
+  orig: 55, 17
+  offset: 0, 0
+  index: -1
+shootingstar_all_02_acceye_02
+  rotate: true
+  xy: 612, 152
+  size: 57, 26
+  orig: 57, 26
+  offset: 0, 0
+  index: -1
+shootingstar_all_02_acceye_03
+  rotate: true
+  xy: 479, 8
+  size: 33, 17
+  orig: 33, 17
+  offset: 0, 0
+  index: -1
+shootingstar_all_02_acceye_04
+  rotate: false
+  xy: 1601, 3
+  size: 19, 14
+  orig: 19, 14
+  offset: 0, 0
+  index: -1
+shootingstar_all_02_acceye_05
+  rotate: false
+  xy: 1687, 251
+  size: 57, 26
+  orig: 57, 26
+  offset: 0, 0
+  index: -1
+shootingstar_all_02_acchead
+  rotate: false
+  xy: 1590, 177
+  size: 90, 74
+  orig: 90, 74
+  offset: 0, 0
+  index: -1
+shootingstar_all_02_accmouth_01
+  rotate: false
+  xy: 1705, 151
+  size: 27, 23
+  orig: 27, 23
+  offset: 0, 0
+  index: -1
+shootingstar_all_02_accneck_01
+  rotate: false
+  xy: 398, 2
+  size: 79, 39
+  orig: 79, 39
+  offset: 0, 0
+  index: -1
+shootingstar_all_02_arm_01
+  rotate: false
+  xy: 1527, 53
+  size: 51, 61
+  orig: 51, 61
+  offset: 0, 0
+  index: -1
+shootingstar_all_02_arm_02
+  rotate: false
+  xy: 1682, 195
+  size: 55, 54
+  orig: 55, 54
+  offset: 0, 0
+  index: -1
+shootingstar_all_02_body_01
+  rotate: false
+  xy: 1591, 332
+  size: 136, 206
+  orig: 136, 206
+  offset: 0, 0
+  index: -1
+shootingstar_all_02_eye_01
+  rotate: true
+  xy: 1515, 14
+  size: 37, 48
+  orig: 37, 48
+  offset: 0, 0
+  index: -1
+shootingstar_all_02_eye_02
+  rotate: false
+  xy: 612, 120
+  size: 27, 30
+  orig: 27, 30
+  offset: 0, 0
+  index: -1
+shootingstar_all_02_eye_03
+  rotate: false
+  xy: 1672, 117
+  size: 26, 25
+  orig: 26, 25
+  offset: 0, 0
+  index: -1
+shootingstar_all_02_eye_04
+  rotate: true
+  xy: 187, 2
+  size: 24, 31
+  orig: 24, 31
+  offset: 0, 0
+  index: -1
+shootingstar_all_02_eye_05
+  rotate: false
+  xy: 1161, 309
+  size: 35, 34
+  orig: 35, 34
+  offset: 0, 0
+  index: -1
+shootingstar_all_02_eye_07
+  rotate: false
+  xy: 1565, 2
+  size: 34, 40
+  orig: 34, 40
+  offset: 0, 0
+  index: -1
+shootingstar_all_02_eye_08
+  rotate: false
+  xy: 1672, 144
+  size: 31, 30
+  orig: 31, 30
+  offset: 0, 0
+  index: -1
+shootingstar_all_02_head_01
+  rotate: false
+  xy: 229, 107
+  size: 134, 102
+  orig: 134, 102
+  offset: 0, 0
+  index: -1
+shootingstar_all_02_horn_01
+  rotate: false
+  xy: 497, 119
+  size: 113, 90
+  orig: 113, 90
+  offset: 0, 0
+  index: -1
+shootingstar_all_02_horn_02
+  rotate: true
+  xy: 1586, 110
+  size: 65, 84
+  orig: 65, 84
+  offset: 0, 0
+  index: -1
+shootingstar_all_02_leg_01
+  rotate: false
+  xy: 1527, 180
+  size: 61, 82
+  orig: 61, 82
+  offset: 0, 0
+  index: -1
+shootingstar_all_02_leg_02
+  rotate: false
+  xy: 398, 43
+  size: 95, 64
+  orig: 95, 64
+  offset: 0, 0
+  index: -1
+shootingstar_all_02_mouth_01
+  rotate: false
+  xy: 1656, 67
+  size: 20, 17
+  orig: 20, 17
+  offset: 0, 0
+  index: -1
+shootingstar_all_02_neck_01
+  rotate: true
+  xy: 229, 15
+  size: 90, 98
+  orig: 90, 98
+  offset: 0, 0
+  index: -1
+shootingstar_all_02_wing_01
+  rotate: false
+  xy: 2, 5
+  size: 145, 204
+  orig: 145, 204
+  offset: 0, 0
+  index: -1
+shootingstar_all_02_wing_02
+  rotate: false
+  xy: 149, 28
+  size: 78, 181
+  orig: 78, 181
+  offset: 0, 0
+  index: -1

@@ -1,0 +1,28 @@
+{
+	"skill_missile_rapid":
+	{
+		"attack_value":
+		[		
+			{				
+				"idx":1,
+				"res":"res/missile/shot_water_soul_01/shot_water_soul_01.vrp",
+				"visual":"idle",
+				"body":[0,0,20],
+                "count":4,
+				"time":0.01,
+                "scale":1,
+                "period":0.1,
+				"speed":500,
+				"offset":[0,0],
+				
+                "effect":
+                {
+                    "motion_streak":"",
+                    "rotation":false,
+                    "afterimage":false
+                }
+				
+			}
+		]
+	}
+}

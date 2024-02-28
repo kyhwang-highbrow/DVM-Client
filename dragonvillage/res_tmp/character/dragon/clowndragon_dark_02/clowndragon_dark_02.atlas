@@ -1,0 +1,167 @@
+
+clowndragon_dark_02.png
+size: 872,270
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+clowndragon_dark_02_arm_01
+  rotate: false
+  xy: 782, 85
+  size: 73, 72
+  orig: 73, 72
+  offset: 0, 0
+  index: -1
+clowndragon_dark_02_arm_02
+  rotate: false
+  xy: 102, 3
+  size: 68, 59
+  orig: 68, 59
+  offset: 0, 0
+  index: -1
+clowndragon_dark_02_body_01
+  rotate: false
+  xy: 483, 108
+  size: 140, 160
+  orig: 140, 160
+  offset: 0, 0
+  index: -1
+clowndragon_dark_02_card_06
+  rotate: false
+  xy: 359, 97
+  size: 122, 171
+  orig: 122, 171
+  offset: 0, 0
+  index: -1
+clowndragon_dark_02_eye_01
+  rotate: true
+  xy: 752, 126
+  size: 31, 28
+  orig: 31, 28
+  offset: 0, 0
+  index: -1
+clowndragon_dark_02_eye_02
+  rotate: true
+  xy: 456, 2
+  size: 13, 23
+  orig: 13, 23
+  offset: 0, 0
+  index: -1
+clowndragon_dark_02_eye_03
+  rotate: true
+  xy: 821, 8
+  size: 32, 30
+  orig: 32, 30
+  offset: 0, 0
+  index: -1
+clowndragon_dark_02_eye_04
+  rotate: false
+  xy: 203, 64
+  size: 13, 22
+  orig: 13, 22
+  offset: 0, 0
+  index: -1
+clowndragon_dark_02_face_01
+  rotate: false
+  xy: 218, 69
+  size: 25, 17
+  orig: 25, 17
+  offset: 0, 0
+  index: -1
+clowndragon_dark_02_foot_01
+  rotate: true
+  xy: 2, 2
+  size: 60, 98
+  orig: 60, 98
+  offset: 0, 0
+  index: -1
+clowndragon_dark_02_foot_02
+  rotate: true
+  xy: 331, 7
+  size: 79, 66
+  orig: 79, 66
+  offset: 0, 0
+  index: -1
+clowndragon_dark_02_hand_01
+  rotate: false
+  xy: 757, 13
+  size: 62, 70
+  orig: 62, 70
+  offset: 0, 0
+  index: -1
+clowndragon_dark_02_hand_02
+  rotate: true
+  xy: 821, 42
+  size: 41, 49
+  orig: 41, 49
+  offset: 0, 0
+  index: -1
+clowndragon_dark_02_head_01
+  rotate: true
+  xy: 2, 64
+  size: 204, 199
+  orig: 204, 199
+  offset: 0, 0
+  index: -1
+clowndragon_dark_02_head_03
+  rotate: false
+  xy: 646, 12
+  size: 109, 112
+  orig: 109, 112
+  offset: 0, 0
+  index: -1
+clowndragon_dark_02_head_04
+  rotate: true
+  xy: 757, 159
+  size: 109, 112
+  orig: 109, 112
+  offset: 0, 0
+  index: -1
+clowndragon_dark_02_leg_01
+  rotate: false
+  xy: 399, 7
+  size: 55, 88
+  orig: 55, 88
+  offset: 0, 0
+  index: -1
+clowndragon_dark_02_leg_02
+  rotate: false
+  xy: 456, 17
+  size: 48, 78
+  orig: 48, 78
+  offset: 0, 0
+  index: -1
+clowndragon_dark_02_neck_01
+  rotate: true
+  xy: 203, 88
+  size: 180, 154
+  orig: 180, 154
+  offset: 0, 0
+  index: -1
+clowndragon_dark_02_thigh_01
+  rotate: true
+  xy: 172, 4
+  size: 58, 84
+  orig: 58, 84
+  offset: 0, 0
+  index: -1
+clowndragon_dark_02_thigh_02
+  rotate: true
+  xy: 258, 6
+  size: 80, 71
+  orig: 80, 71
+  offset: 0, 0
+  index: -1
+clowndragon_dark_02_wing_01
+  rotate: true
+  xy: 625, 126
+  size: 142, 125
+  orig: 142, 125
+  offset: 0, 0
+  index: -1
+clowndragon_dark_02_wing_02
+  rotate: true
+  xy: 506, 10
+  size: 96, 138
+  orig: 96, 138
+  offset: 0, 0
+  index: -1

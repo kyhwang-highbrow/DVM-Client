@@ -1,0 +1,118 @@
+
+serpentdragon_fire_03.png
+size: 746,523
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+serpentdragon_fire_03_body_01
+  rotate: true
+  xy: 2, 2
+  size: 231, 277
+  orig: 231, 277
+  offset: 0, 0
+  index: -1
+serpentdragon_fire_03_body_02
+  rotate: false
+  xy: 411, 57
+  size: 158, 176
+  orig: 158, 176
+  offset: 0, 0
+  index: -1
+serpentdragon_fire_03_effect_02
+  rotate: true
+  xy: 2, 235
+  size: 286, 150
+  orig: 286, 150
+  offset: 0, 0
+  index: -1
+serpentdragon_fire_03_effect_03
+  rotate: true
+  xy: 154, 235
+  size: 286, 150
+  orig: 286, 150
+  offset: 0, 0
+  index: -1
+serpentdragon_fire_03_effect_04
+  rotate: true
+  xy: 306, 235
+  size: 286, 150
+  orig: 286, 150
+  offset: 0, 0
+  index: -1
+serpentdragon_fire_03_effect_05
+  rotate: false
+  xy: 458, 371
+  size: 286, 150
+  orig: 286, 150
+  offset: 0, 0
+  index: -1
+serpentdragon_fire_03_eye_01
+  rotate: true
+  xy: 458, 240
+  size: 19, 17
+  orig: 19, 17
+  offset: 0, 0
+  index: -1
+serpentdragon_fire_03_eye_02
+  rotate: true
+  xy: 477, 240
+  size: 19, 17
+  orig: 19, 17
+  offset: 0, 0
+  index: -1
+serpentdragon_fire_03_eye_03
+  rotate: false
+  xy: 281, 10
+  size: 2, 2
+  orig: 2, 2
+  offset: 0, 0
+  index: -1
+serpentdragon_fire_03_head_01
+  rotate: false
+  xy: 571, 111
+  size: 151, 148
+  orig: 151, 148
+  offset: 0, 0
+  index: -1
+serpentdragon_fire_03_head_02
+  rotate: true
+  xy: 458, 339
+  size: 30, 35
+  orig: 30, 35
+  offset: 0, 0
+  index: -1
+serpentdragon_fire_03_head_03
+  rotate: false
+  xy: 411, 2
+  size: 59, 53
+  orig: 59, 53
+  offset: 0, 0
+  index: -1
+serpentdragon_fire_03_head_06
+  rotate: false
+  xy: 496, 253
+  size: 68, 58
+  orig: 68, 58
+  offset: 0, 0
+  index: -1
+serpentdragon_fire_03_tail_01
+  rotate: false
+  xy: 496, 313
+  size: 73, 56
+  orig: 73, 56
+  offset: 0, 0
+  index: -1
+serpentdragon_fire_03_wing_01
+  rotate: true
+  xy: 281, 14
+  size: 219, 128
+  orig: 219, 128
+  offset: 0, 0
+  index: -1
+serpentdragon_fire_03_wing_02
+  rotate: false
+  xy: 571, 261
+  size: 173, 108
+  orig: 173, 108
+  offset: 0, 0
+  index: -1

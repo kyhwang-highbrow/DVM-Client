@@ -1,0 +1,83 @@
+
+common_squirrel_earth.png
+size: 199,144
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+common_squirrel_earth_acc_01
+  rotate: false
+  xy: 139, 103
+  size: 53, 39
+  orig: 53, 39
+  offset: 0, 0
+  index: -1
+common_squirrel_earth_acc_02
+  rotate: true
+  xy: 141, 38
+  size: 28, 39
+  orig: 28, 39
+  offset: 0, 0
+  index: -1
+common_squirrel_earth_arm_01
+  rotate: true
+  xy: 114, 15
+  size: 33, 25
+  orig: 33, 25
+  offset: 0, 0
+  index: -1
+common_squirrel_earth_arm_02
+  rotate: false
+  xy: 172, 19
+  size: 25, 17
+  orig: 25, 17
+  offset: 0, 0
+  index: -1
+common_squirrel_earth_body_01
+  rotate: true
+  xy: 92, 50
+  size: 38, 47
+  orig: 38, 47
+  offset: 0, 0
+  index: -1
+common_squirrel_earth_head_01
+  rotate: false
+  xy: 2, 55
+  size: 88, 87
+  orig: 88, 87
+  offset: 0, 0
+  index: -1
+common_squirrel_earth_head_02
+  rotate: false
+  xy: 141, 68
+  size: 47, 33
+  orig: 47, 33
+  offset: 0, 0
+  index: -1
+common_squirrel_earth_leg_01
+  rotate: false
+  xy: 78, 2
+  size: 34, 34
+  orig: 34, 34
+  offset: 0, 0
+  index: -1
+common_squirrel_earth_leg_02
+  rotate: false
+  xy: 141, 7
+  size: 29, 29
+  orig: 29, 29
+  offset: 0, 0
+  index: -1
+common_squirrel_earth_tail_01
+  rotate: false
+  xy: 2, 9
+  size: 74, 44
+  orig: 74, 44
+  offset: 0, 0
+  index: -1
+common_squirrel_earth_weapon_01
+  rotate: false
+  xy: 92, 90
+  size: 45, 52
+  orig: 45, 52
+  offset: 0, 0
+  index: -1

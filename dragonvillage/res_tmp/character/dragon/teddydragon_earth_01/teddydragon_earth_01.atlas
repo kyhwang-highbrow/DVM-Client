@@ -1,0 +1,146 @@
+
+teddydragon_earth_01.png
+size: 1442,284
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+teddydragon_earth_01_arm_01
+  rotate: false
+  xy: 1241, 158
+  size: 85, 124
+  orig: 85, 124
+  offset: 0, 0
+  index: -1
+teddydragon_earth_01_arm_02
+  rotate: false
+  xy: 1243, 32
+  size: 85, 124
+  orig: 85, 124
+  offset: 0, 0
+  index: -1
+teddydragon_earth_01_body_01
+  rotate: false
+  xy: 964, 127
+  size: 146, 155
+  orig: 146, 155
+  offset: 0, 0
+  index: -1
+teddydragon_earth_01_body_02
+  rotate: false
+  xy: 478, 9
+  size: 147, 94
+  orig: 147, 94
+  offset: 0, 0
+  index: -1
+teddydragon_earth_01_ear_01
+  rotate: true
+  xy: 752, 12
+  size: 91, 131
+  orig: 91, 131
+  offset: 0, 0
+  index: -1
+teddydragon_earth_01_ear_02
+  rotate: true
+  xy: 885, 28
+  size: 91, 131
+  orig: 91, 131
+  offset: 0, 0
+  index: -1
+teddydragon_earth_01_effect_03
+  rotate: false
+  xy: 2, 31
+  size: 236, 251
+  orig: 236, 251
+  offset: 0, 0
+  index: -1
+teddydragon_earth_01_effect_04
+  rotate: false
+  xy: 240, 31
+  size: 236, 251
+  orig: 236, 251
+  offset: 0, 0
+  index: -1
+teddydragon_earth_01_eye_01
+  rotate: false
+  xy: 1407, 72
+  size: 33, 32
+  orig: 33, 32
+  offset: 0, 0
+  index: -1
+teddydragon_earth_01_eye_02
+  rotate: false
+  xy: 1407, 38
+  size: 33, 32
+  orig: 33, 32
+  offset: 0, 0
+  index: -1
+teddydragon_earth_01_foot_01
+  rotate: true
+  xy: 1328, 183
+  size: 99, 105
+  orig: 99, 105
+  offset: 0, 0
+  index: -1
+teddydragon_earth_01_foot_02
+  rotate: false
+  xy: 1330, 106
+  size: 99, 75
+  orig: 99, 75
+  offset: 0, 0
+  index: -1
+teddydragon_earth_01_head_01
+  rotate: false
+  xy: 818, 121
+  size: 144, 161
+  orig: 144, 161
+  offset: 0, 0
+  index: -1
+teddydragon_earth_01_head_02
+  rotate: false
+  xy: 1018, 5
+  size: 94, 120
+  orig: 94, 120
+  offset: 0, 0
+  index: -1
+teddydragon_earth_01_leg_01
+  rotate: true
+  xy: 1330, 5
+  size: 99, 75
+  orig: 99, 75
+  offset: 0, 0
+  index: -1
+teddydragon_earth_01_leg_02
+  rotate: false
+  xy: 627, 2
+  size: 123, 101
+  orig: 123, 101
+  offset: 0, 0
+  index: -1
+teddydragon_earth_01_tam_01
+  rotate: false
+  xy: 478, 105
+  size: 168, 177
+  orig: 168, 177
+  offset: 0, 0
+  index: -1
+teddydragon_earth_01_tam_02
+  rotate: false
+  xy: 648, 105
+  size: 168, 177
+  orig: 168, 177
+  offset: 0, 0
+  index: -1
+teddydragon_earth_01_wing_01
+  rotate: true
+  xy: 1112, 144
+  size: 138, 127
+  orig: 138, 127
+  offset: 0, 0
+  index: -1
+teddydragon_earth_01_wing_02
+  rotate: true
+  xy: 1114, 4
+  size: 138, 127
+  orig: 138, 127
+  offset: 0, 0
+  index: -1

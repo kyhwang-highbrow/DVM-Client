@@ -1,0 +1,70 @@
+{
+    "difficult":2,
+    "bg":"map_forest",
+	"wave":
+	[
+        {
+            "idx":1,
+			"camera":
+            {
+                "scale":1,
+                "pos_x":0,
+                "pos_y":0
+            },
+            "wave":
+            {
+				0:
+				[
+					"130011;1;Basic;RO06;RF22;2"
+					"130011;1;Basic;RO04;RF14;2"
+					"130011;1;Basic;RO02;RF26;2"
+				],
+				
+				1:
+				[
+					"131031;1;Basic2;RB13;RM23;0.5;roam"
+					"131031;1;Basic2;RB15;RM25;0.5;roam"
+					"130031;1;Basic2;RB24;RB14;0.5"
+				]
+            }
+        },
+		
+        {
+            "idx":2,
+			"camera":
+            {
+                "scale":0.8,
+                "pos_x":0,
+                "pos_y":0
+            },
+            "wave":
+            {
+				
+				0:
+				[
+					"132031;1;Appear;RO04;RB14;0.5;roam"
+				]
+            },
+			
+			"regen":
+			[
+				{
+					0:
+					[
+						"130011;1;Basic2;RB24;RF13;2"
+						"130011;1;Basic2;RB13;RF15;2"
+						"130011;1;Basic2;RB15;RF24;2"
+					]
+				},
+				
+				{
+					2:
+					[
+						"131031;1;Appear;RO02;RM12;0.5"
+						"131031;1;Appear;RO06;RM16;0.5"
+					]
+				}
+			]
+        }
+    ]
+}

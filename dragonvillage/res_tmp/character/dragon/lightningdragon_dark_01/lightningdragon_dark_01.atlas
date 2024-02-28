@@ -1,0 +1,97 @@
+
+lightningdragon_dark_01.png
+size: 1080,293
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+lightningdragon_dark_01_arm_01
+  rotate: true
+  xy: 640, 81
+  size: 98, 93
+  orig: 98, 93
+  offset: 0, 0
+  index: -1
+lightningdragon_dark_01_arm_02
+  rotate: true
+  xy: 441, 4
+  size: 72, 124
+  orig: 72, 124
+  offset: 0, 0
+  index: -1
+lightningdragon_dark_01_body_01
+  rotate: false
+  xy: 278, 78
+  size: 186, 213
+  orig: 186, 213
+  offset: 0, 0
+  index: -1
+lightningdragon_dark_01_body_02
+  rotate: false
+  xy: 907, 138
+  size: 171, 153
+  orig: 171, 153
+  offset: 0, 0
+  index: -1
+lightningdragon_dark_01_body_03
+  rotate: true
+  xy: 640, 181
+  size: 110, 265
+  orig: 110, 265
+  offset: 0, 0
+  index: -1
+lightningdragon_dark_01_effect_02
+  rotate: false
+  xy: 896, 16
+  size: 120, 120
+  orig: 120, 120
+  offset: 0, 0
+  index: -1
+lightningdragon_dark_01_foot_01
+  rotate: true
+  xy: 567, 21
+  size: 56, 140
+  orig: 56, 140
+  offset: 0, 0
+  index: -1
+lightningdragon_dark_01_hand_01
+  rotate: true
+  xy: 278, 9
+  size: 67, 161
+  orig: 67, 161
+  offset: 0, 0
+  index: -1
+lightningdragon_dark_01_hand_02
+  rotate: true
+  xy: 735, 69
+  size: 110, 159
+  orig: 110, 159
+  offset: 0, 0
+  index: -1
+lightningdragon_dark_01_head_01
+  rotate: false
+  xy: 466, 79
+  size: 172, 212
+  orig: 172, 212
+  offset: 0, 0
+  index: -1
+lightningdragon_dark_01_head_02
+  rotate: true
+  xy: 820, 9
+  size: 58, 45
+  orig: 58, 45
+  offset: 0, 0
+  index: -1
+lightningdragon_dark_01_leg_01
+  rotate: true
+  xy: 709, 2
+  size: 65, 109
+  orig: 65, 109
+  offset: 0, 0
+  index: -1
+lightningdragon_dark_01_wing_01
+  rotate: false
+  xy: 2, 16
+  size: 274, 275
+  orig: 274, 275
+  offset: 0, 0
+  index: -1

@@ -1,0 +1,188 @@
+
+suradragon_fire_03.png
+size: 1550,396
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+suradragon_fire_03_arm_01
+  rotate: true
+  xy: 527, 27
+  size: 64, 115
+  orig: 64, 115
+  offset: 0, 0
+  index: -1
+suradragon_fire_03_arm_02
+  rotate: true
+  xy: 122, 62
+  size: 102, 101
+  orig: 102, 101
+  offset: 0, 0
+  index: -1
+suradragon_fire_03_body_01
+  rotate: true
+  xy: 234, 172
+  size: 222, 550
+  orig: 222, 550
+  offset: 0, 0
+  index: -1
+suradragon_fire_03_body_acc_01
+  rotate: false
+  xy: 663, 51
+  size: 50, 119
+  orig: 50, 119
+  offset: 0, 0
+  index: -1
+suradragon_fire_03_body_armor_01
+  rotate: false
+  xy: 1063, 4
+  size: 296, 194
+  orig: 296, 194
+  offset: 0, 0
+  index: -1
+suradragon_fire_03_body_armor_02
+  rotate: false
+  xy: 2, 56
+  size: 118, 108
+  orig: 118, 108
+  offset: 0, 0
+  index: -1
+suradragon_fire_03_effect_01
+  rotate: true
+  xy: 2, 166
+  size: 228, 230
+  orig: 228, 230
+  offset: 0, 0
+  index: -1
+suradragon_fire_03_effect_02
+  rotate: false
+  xy: 439, 85
+  size: 86, 85
+  orig: 86, 85
+  offset: 0, 0
+  index: -1
+suradragon_fire_03_effect_03
+  rotate: false
+  xy: 786, 190
+  size: 275, 204
+  orig: 275, 204
+  offset: 0, 0
+  index: -1
+suradragon_fire_03_elbow_01
+  rotate: false
+  xy: 2, 2
+  size: 120, 52
+  orig: 120, 52
+  offset: 0, 0
+  index: -1
+suradragon_fire_03_elbow_02
+  rotate: false
+  xy: 124, 5
+  size: 58, 55
+  orig: 58, 55
+  offset: 0, 0
+  index: -1
+suradragon_fire_03_eye_01
+  rotate: true
+  xy: 1035, 151
+  size: 37, 17
+  orig: 37, 17
+  offset: 0, 0
+  index: -1
+suradragon_fire_03_eye_02
+  rotate: true
+  xy: 1035, 104
+  size: 17, 12
+  orig: 17, 12
+  offset: 0, 0
+  index: -1
+suradragon_fire_03_eye_03
+  rotate: true
+  xy: 1035, 123
+  size: 26, 14
+  orig: 26, 14
+  offset: 0, 0
+  index: -1
+suradragon_fire_03_eye_04
+  rotate: false
+  xy: 1542, 190
+  size: 6, 8
+  orig: 6, 8
+  offset: 0, 0
+  index: -1
+suradragon_fire_03_foot_armor_01
+  rotate: false
+  xy: 184, 11
+  size: 43, 49
+  orig: 43, 49
+  offset: 0, 0
+  index: -1
+suradragon_fire_03_foot_armor_02
+  rotate: true
+  xy: 644, 17
+  size: 32, 37
+  orig: 32, 37
+  offset: 0, 0
+  index: -1
+suradragon_fire_03_hand_01
+  rotate: true
+  xy: 439, 49
+  size: 34, 79
+  orig: 34, 79
+  offset: 0, 0
+  index: -1
+suradragon_fire_03_hand_02
+  rotate: true
+  xy: 439, 15
+  size: 32, 74
+  orig: 32, 74
+  offset: 0, 0
+  index: -1
+suradragon_fire_03_hand_acc_01
+  rotate: false
+  xy: 715, 79
+  size: 48, 91
+  orig: 48, 91
+  offset: 0, 0
+  index: -1
+suradragon_fire_03_hand_acc_02
+  rotate: false
+  xy: 715, 18
+  size: 30, 59
+  orig: 30, 59
+  offset: 0, 0
+  index: -1
+suradragon_fire_03_head_01
+  rotate: false
+  xy: 527, 93
+  size: 134, 77
+  orig: 134, 77
+  offset: 0, 0
+  index: -1
+suradragon_fire_03_head_armor_01
+  rotate: true
+  xy: 1361, 7
+  size: 191, 179
+  orig: 191, 179
+  offset: 0, 0
+  index: -1
+suradragon_fire_03_leg_01
+  rotate: true
+  xy: 786, 72
+  size: 116, 247
+  orig: 116, 247
+  offset: 0, 0
+  index: -1
+suradragon_fire_03_leg_02
+  rotate: true
+  xy: 234, 38
+  size: 132, 203
+  orig: 132, 203
+  offset: 0, 0
+  index: -1
+suradragon_fire_03_wing_01
+  rotate: true
+  xy: 1063, 200
+  size: 194, 484
+  orig: 194, 484
+  offset: 0, 0
+  index: -1

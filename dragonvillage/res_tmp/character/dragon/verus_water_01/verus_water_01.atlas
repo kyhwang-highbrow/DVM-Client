@@ -1,0 +1,265 @@
+
+verus_water_01.png
+size: 2001,738
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+verus_water_01_arm_01
+  rotate: false
+  xy: 1524, 287
+  size: 215, 216
+  orig: 215, 216
+  offset: 0, 0
+  index: -1
+verus_water_01_arm_02
+  rotate: true
+  xy: 991, 68
+  size: 138, 216
+  orig: 138, 216
+  offset: 0, 0
+  index: -1
+verus_water_01_body_01
+  rotate: true
+  xy: 1134, 472
+  size: 264, 248
+  orig: 264, 248
+  offset: 0, 0
+  index: -1
+verus_water_01_body_02
+  rotate: true
+  xy: 1155, 10
+  size: 56, 75
+  orig: 56, 75
+  offset: 0, 0
+  index: -1
+verus_water_01_effect_01
+  rotate: true
+  xy: 258, 16
+  size: 140, 290
+  orig: 140, 290
+  offset: 0, 0
+  index: -1
+verus_water_01_effect_02
+  rotate: false
+  xy: 570, 432
+  size: 284, 304
+  orig: 284, 304
+  offset: 0, 0
+  index: -1
+verus_water_01_effect_03
+  rotate: false
+  xy: 238, 382
+  size: 330, 354
+  orig: 330, 354
+  offset: 0, 0
+  index: -1
+verus_water_01_effect_04
+  rotate: false
+  xy: 1641, 49
+  size: 155, 160
+  orig: 155, 160
+  offset: 0, 0
+  index: -1
+verus_water_01_effect_05
+  rotate: false
+  xy: 1798, 19
+  size: 155, 160
+  orig: 155, 160
+  offset: 0, 0
+  index: -1
+verus_water_01_effect_06
+  rotate: true
+  xy: 1869, 181
+  size: 125, 130
+  orig: 125, 130
+  offset: 0, 0
+  index: -1
+verus_water_01_effect_07
+  rotate: true
+  xy: 1384, 505
+  size: 231, 222
+  orig: 231, 222
+  offset: 0, 0
+  index: -1
+verus_water_01_effect_08
+  rotate: true
+  xy: 1882, 425
+  size: 115, 116
+  orig: 115, 116
+  offset: 0, 0
+  index: -1
+verus_water_01_effect_09
+  rotate: true
+  xy: 1882, 308
+  size: 115, 116
+  orig: 115, 116
+  offset: 0, 0
+  index: -1
+verus_water_01_effect_10
+  rotate: false
+  xy: 2, 124
+  size: 234, 612
+  orig: 234, 612
+  offset: 0, 0
+  index: -1
+verus_water_01_finger_01
+  rotate: true
+  xy: 1232, 6
+  size: 64, 57
+  orig: 64, 57
+  offset: 0, 0
+  index: -1
+verus_water_01_finger_02
+  rotate: true
+  xy: 1291, 6
+  size: 64, 57
+  orig: 64, 57
+  offset: 0, 0
+  index: -1
+verus_water_01_hair_01
+  rotate: true
+  xy: 1887, 631
+  size: 105, 112
+  orig: 105, 112
+  offset: 0, 0
+  index: -1
+verus_water_01_hair_02
+  rotate: false
+  xy: 130, 10
+  size: 126, 112
+  orig: 126, 112
+  offset: 0, 0
+  index: -1
+verus_water_01_hand_01
+  rotate: true
+  xy: 2, 8
+  size: 114, 126
+  orig: 114, 126
+  offset: 0, 0
+  index: -1
+verus_water_01_head_01
+  rotate: true
+  xy: 1608, 529
+  size: 207, 130
+  orig: 207, 130
+  offset: 0, 0
+  index: -1
+verus_water_01_head_02
+  rotate: true
+  xy: 1075, 8
+  size: 58, 78
+  orig: 58, 78
+  offset: 0, 0
+  index: -1
+verus_water_01_head_03
+  rotate: true
+  xy: 991, 2
+  size: 64, 82
+  orig: 64, 82
+  offset: 0, 0
+  index: -1
+verus_water_01_head_04
+  rotate: true
+  xy: 1641, 211
+  size: 74, 81
+  orig: 74, 81
+  offset: 0, 0
+  index: -1
+verus_water_01_head_05
+  rotate: true
+  xy: 570, 382
+  size: 48, 77
+  orig: 48, 77
+  offset: 0, 0
+  index: -1
+verus_water_01_lag_01
+  rotate: true
+  xy: 1209, 72
+  size: 152, 192
+  orig: 152, 192
+  offset: 0, 0
+  index: -1
+verus_water_01_lag_02
+  rotate: false
+  xy: 1741, 217
+  size: 126, 158
+  orig: 126, 158
+  offset: 0, 0
+  index: -1
+verus_water_01_tail_01
+  rotate: false
+  xy: 856, 444
+  size: 276, 292
+  orig: 276, 292
+  offset: 0, 0
+  index: -1
+verus_water_01_wing_01
+  rotate: true
+  xy: 550, 8
+  size: 148, 216
+  orig: 148, 216
+  offset: 0, 0
+  index: -1
+verus_water_01_wing_02
+  rotate: false
+  xy: 1012, 226
+  size: 286, 216
+  orig: 286, 216
+  offset: 0, 0
+  index: -1
+verus_water_01_wing_03
+  rotate: true
+  xy: 768, 29
+  size: 177, 221
+  orig: 177, 221
+  offset: 0, 0
+  index: -1
+verus_water_01_wing_04
+  rotate: true
+  xy: 1741, 377
+  size: 180, 139
+  orig: 180, 139
+  offset: 0, 0
+  index: -1
+verus_water_01_wing_05
+  rotate: false
+  xy: 1887, 542
+  size: 111, 87
+  orig: 111, 87
+  offset: 0, 0
+  index: -1
+verus_water_01_wingeff_01
+  rotate: true
+  xy: 238, 158
+  size: 222, 432
+  orig: 222, 432
+  offset: 0, 0
+  index: -1
+verus_water_01_wingeff_02
+  rotate: true
+  xy: 672, 208
+  size: 222, 338
+  orig: 222, 338
+  offset: 0, 0
+  index: -1
+verus_water_01_wingeff_03
+  rotate: false
+  xy: 1300, 234
+  size: 222, 236
+  orig: 222, 236
+  offset: 0, 0
+  index: -1
+verus_water_01_wingeff_04
+  rotate: true
+  xy: 1403, 10
+  size: 222, 236
+  orig: 222, 236
+  offset: 0, 0
+  index: -1
+verus_water_01_wingeff_05
+  rotate: true
+  xy: 1740, 559
+  size: 177, 145
+  orig: 177, 145
+  offset: 0, 0
+  index: -1

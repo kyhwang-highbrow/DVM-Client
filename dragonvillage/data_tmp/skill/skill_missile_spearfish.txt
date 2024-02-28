@@ -1,0 +1,29 @@
+{
+	"skill_missile_spearfish":
+	{
+		"attack_value":
+		[		
+			{
+				"idx":1,
+				"res":"res/missile/missile_spearfish/missile_spearfish.vrp",
+				"body":[0,0,30],
+                "count":1,
+                "scale":1,
+				"speed":900,
+				"accel":0,
+				"h_limit_speed":1000,
+				"accel_delay":0.2,
+				"angular_velocity":0,
+				"offset":[0,0],
+				"reset_time":0.01,
+				
+                "effect":
+                {
+                    "motion_streak":"res/missile/motion_streak/motion_streak_water.png",
+                    "rotation":false,
+                    "afterimage":false
+                }				
+			}			
+		]
+	}
+}

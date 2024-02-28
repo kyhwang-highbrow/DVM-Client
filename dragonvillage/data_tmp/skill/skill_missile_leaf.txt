@@ -1,0 +1,32 @@
+{
+	"skill_missile_leaf":
+	{
+		"attack_value":
+		[		
+			{
+				"idx":1,
+				"res":"res/missile/missile_leaf/missile_leaf.png",
+				"body":[0,0,40],
+                "count":3,
+                "scale":1,
+                "period":0.1,
+				"speed":500,
+				"accel":2000,
+				"h_limit_speed":1500,
+				"accel_delay":0,
+				"angular_velocity":0,
+				"offset":[0,0],
+				
+                "dir_add":0,
+				
+                "effect":
+                {
+                    "motion_streak":"",
+                    
+                    "afterimage":false
+                }
+				
+			}
+		]
+	}
+}

@@ -1,0 +1,96 @@
+{
+    "difficult":2,
+    "bg":"map_sky_temple",
+	"wave":
+	[
+        {
+            "idx":1,
+			"camera":
+            {
+                "scale":1,
+                "pos_x":0,
+                "pos_y":0
+            },
+            "wave":
+            {
+				0:
+				[
+					"130014;1;Basic2;RF13;RF22;1"
+					"130014;1;Basic2;RF15;RF26;1"
+					"130014;1;Basic2;RF14;RM14;1"
+					"131014;1;Basic2;RB14;RB14;1"
+					"130051;1;Basic2;RB13;RB22;1"
+					"130053;1;Basic2;RB15;RB26;1"
+					"131053;1;Basic2;RM13;RM21;1"
+					"131053;1;Basic2;RM15;RM27;1"
+				]
+            }
+        },
+		
+        {
+            "idx":2,
+			"camera":
+            {
+                "scale":0.9,
+                "pos_x":0,
+                "pos_y":0
+            },
+            "wave":
+            {
+                0:
+                [
+					"131111;1;Appear;RO03;RB13;0.5"
+					"131052;1;Appear;RO05;RB24;0.5"
+					"131043;1;Appear;RO05;RB15;0.5"
+				],
+				
+				0.5:
+				[
+					"131014;1;Appear;RO01;RF21;0.5"
+					"130014;1;Appear;RO03;RF23;0.5"
+					"130014;1;Appear;RO05;RF25;0.5"
+					"131014;1;Appear;RO07;RF27;0.5"
+					"130054;1;Appear;RO03;RM22;0.5"
+					"130054;1;Appear;RO03;RM26;0.5"
+                ]
+            }
+        },
+		
+        {
+            "idx":3,
+			"camera":
+            {
+                "scale":0.8,
+                "pos_x":0,
+                "pos_y":0
+            },
+			
+            "wave":
+            {
+				0:
+				[
+					"140204;1;Basic;RO04;RB24;0.5;roam"
+				]
+            },
+			
+			"regen":
+			[
+				{
+					0:
+					[
+						"130013;1;Basic;RO02;RF21;0.5"
+						"130013;1;Basic;RO06;RF27;0.5"
+					]
+				},
+				
+				{
+					0:
+					[
+						"131111;1;Basic;RO02;RB12;0.5"
+						"131052;1;Basic;RO06;RB16;0.5"
+					]
+				}
+			]
+        }
+    ]
+}

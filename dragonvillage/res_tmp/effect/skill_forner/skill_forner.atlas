@@ -1,0 +1,160 @@
+
+skill_forner.png
+size: 1362,318
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+forner_all_03_bread_1
+  rotate: false
+  xy: 1056, 137
+  size: 154, 179
+  orig: 154, 179
+  offset: 0, 0
+  index: -1
+forner_all_03_bread_2
+  rotate: true
+  xy: 1093, 9
+  size: 126, 152
+  orig: 126, 152
+  offset: 0, 0
+  index: -1
+forner_all_03_effect_1
+  rotate: false
+  xy: 828, 90
+  size: 226, 226
+  orig: 226, 226
+  offset: 0, 0
+  index: -1
+forner_all_03_effect_2
+  rotate: false
+  xy: 594, 84
+  size: 232, 232
+  orig: 232, 232
+  offset: 0, 0
+  index: -1
+forner_all_03_effect_3
+  rotate: false
+  xy: 2, 7
+  size: 309, 309
+  orig: 309, 309
+  offset: 0, 0
+  index: -1
+forner_all_03_star_1
+  rotate: false
+  xy: 313, 13
+  size: 279, 303
+  orig: 279, 303
+  offset: 0, 0
+  index: -1
+forner_all_03_star_10
+  rotate: true
+  xy: 1305, 202
+  size: 56, 55
+  orig: 56, 55
+  offset: 0, 0
+  index: -1
+forner_all_03_star_11
+  rotate: false
+  xy: 1273, 142
+  size: 58, 58
+  orig: 58, 58
+  offset: 0, 0
+  index: -1
+forner_all_03_star_12
+  rotate: false
+  xy: 661, 17
+  size: 65, 65
+  orig: 65, 65
+  offset: 0, 0
+  index: -1
+forner_all_03_star_13
+  rotate: false
+  xy: 1212, 164
+  size: 59, 59
+  orig: 59, 59
+  offset: 0, 0
+  index: -1
+forner_all_03_star_14
+  rotate: false
+  xy: 728, 17
+  size: 65, 65
+  orig: 65, 65
+  offset: 0, 0
+  index: -1
+forner_all_03_star_15
+  rotate: true
+  xy: 861, 2
+  size: 86, 82
+  orig: 86, 82
+  offset: 0, 0
+  index: -1
+forner_all_03_star_16
+  rotate: false
+  xy: 795, 18
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+forner_all_03_star_17
+  rotate: false
+  xy: 1212, 225
+  size: 91, 91
+  orig: 91, 91
+  offset: 0, 0
+  index: -1
+forner_all_03_star_2
+  rotate: false
+  xy: 1304, 87
+  size: 53, 53
+  orig: 53, 53
+  offset: 0, 0
+  index: -1
+forner_all_03_star_3
+  rotate: false
+  xy: 1304, 32
+  size: 53, 53
+  orig: 53, 53
+  offset: 0, 0
+  index: -1
+forner_all_03_star_4
+  rotate: false
+  xy: 1247, 30
+  size: 53, 53
+  orig: 53, 53
+  offset: 0, 0
+  index: -1
+forner_all_03_star_5
+  rotate: false
+  xy: 594, 17
+  size: 65, 65
+  orig: 65, 65
+  offset: 0, 0
+  index: -1
+forner_all_03_star_6
+  rotate: false
+  xy: 945, 7
+  size: 81, 81
+  orig: 81, 81
+  offset: 0, 0
+  index: -1
+forner_all_03_star_7
+  rotate: false
+  xy: 1028, 25
+  size: 63, 63
+  orig: 63, 63
+  offset: 0, 0
+  index: -1
+forner_all_03_star_8
+  rotate: true
+  xy: 1305, 260
+  size: 56, 55
+  orig: 56, 55
+  offset: 0, 0
+  index: -1
+forner_all_03_star_9
+  rotate: false
+  xy: 1247, 85
+  size: 55, 55
+  orig: 55, 55
+  offset: 0, 0
+  index: -1

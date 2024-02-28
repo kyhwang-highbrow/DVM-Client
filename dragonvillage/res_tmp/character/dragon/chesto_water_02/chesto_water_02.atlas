@@ -1,0 +1,370 @@
+
+chesto_water_02.png
+size: 879,1037
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+chesto_water_02_acc_1
+  rotate: true
+  xy: 152, 202
+  size: 97, 126
+  orig: 97, 126
+  offset: 0, 0
+  index: -1
+chesto_water_02_acc_2
+  rotate: false
+  xy: 705, 435
+  size: 119, 118
+  orig: 119, 118
+  offset: 0, 0
+  index: -1
+chesto_water_02_acc_4
+  rotate: true
+  xy: 521, 2
+  size: 100, 95
+  orig: 100, 95
+  offset: 0, 0
+  index: -1
+chesto_water_02_arm_1
+  rotate: false
+  xy: 269, 100
+  size: 145, 95
+  orig: 145, 95
+  offset: 0, 0
+  index: -1
+chesto_water_02_arm_2
+  rotate: false
+  xy: 605, 418
+  size: 98, 121
+  orig: 98, 121
+  offset: 0, 0
+  index: -1
+chesto_water_02_arm_3
+  rotate: false
+  xy: 709, 211
+  size: 88, 86
+  orig: 88, 86
+  offset: 0, 0
+  index: -1
+chesto_water_02_arm_4
+  rotate: false
+  xy: 143, 2
+  size: 122, 57
+  orig: 122, 57
+  offset: 0, 0
+  index: -1
+chesto_water_02_arm_5
+  rotate: false
+  xy: 432, 179
+  size: 123, 77
+  orig: 123, 77
+  offset: 0, 0
+  index: -1
+chesto_water_02_arm_6
+  rotate: true
+  xy: 826, 472
+  size: 81, 51
+  orig: 81, 51
+  offset: 0, 0
+  index: -1
+chesto_water_02_arm_7
+  rotate: false
+  xy: 557, 179
+  size: 84, 77
+  orig: 84, 77
+  offset: 0, 0
+  index: -1
+chesto_water_02_body_1
+  rotate: true
+  xy: 269, 26
+  size: 72, 101
+  orig: 72, 101
+  offset: 0, 0
+  index: -1
+chesto_water_02_body_2
+  rotate: true
+  xy: 664, 820
+  size: 215, 202
+  orig: 215, 202
+  offset: 0, 0
+  index: -1
+chesto_water_02_effect_1
+  rotate: false
+  xy: 456, 322
+  size: 140, 94
+  orig: 140, 94
+  offset: 0, 0
+  index: -1
+chesto_water_02_effect_2
+  rotate: true
+  xy: 710, 299
+  size: 134, 88
+  orig: 134, 88
+  offset: 0, 0
+  index: -1
+chesto_water_02_effect_3
+  rotate: false
+  xy: 235, 544
+  size: 237, 165
+  orig: 237, 165
+  offset: 0, 0
+  index: -1
+chesto_water_02_eye_1
+  rotate: true
+  xy: 372, 28
+  size: 27, 40
+  orig: 27, 40
+  offset: 0, 0
+  index: -1
+chesto_water_02_eye_2
+  rotate: true
+  xy: 853, 791
+  size: 27, 24
+  orig: 27, 24
+  offset: 0, 0
+  index: -1
+chesto_water_02_eye_3
+  rotate: true
+  xy: 757, 27
+  size: 35, 29
+  orig: 35, 29
+  offset: 0, 0
+  index: -1
+chesto_water_02_eye_4
+  rotate: true
+  xy: 826, 435
+  size: 35, 34
+  orig: 35, 34
+  offset: 0, 0
+  index: -1
+chesto_water_02_eye_5
+  rotate: false
+  xy: 771, 111
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+chesto_water_02_eye_6
+  rotate: false
+  xy: 815, 128
+  size: 38, 36
+  orig: 38, 36
+  offset: 0, 0
+  index: -1
+chesto_water_02_fin_1
+  rotate: true
+  xy: 416, 2
+  size: 100, 103
+  orig: 100, 103
+  offset: 0, 0
+  index: -1
+chesto_water_02_fin_2
+  rotate: false
+  xy: 143, 61
+  size: 124, 139
+  orig: 124, 139
+  offset: 0, 0
+  index: -1
+chesto_water_02_fin_3
+  rotate: false
+  xy: 618, 2
+  size: 98, 101
+  orig: 98, 101
+  offset: 0, 0
+  index: -1
+chesto_water_02_fin_4
+  rotate: true
+  xy: 450, 258
+  size: 62, 130
+  orig: 62, 130
+  offset: 0, 0
+  index: -1
+chesto_water_02_head
+  rotate: false
+  xy: 474, 541
+  size: 215, 168
+  orig: 215, 168
+  offset: 0, 0
+  index: -1
+chesto_water_02_horn
+  rotate: false
+  xy: 601, 105
+  size: 63, 72
+  orig: 63, 72
+  offset: 0, 0
+  index: -1
+chesto_water_02_mouth_1
+  rotate: false
+  xy: 666, 123
+  size: 93, 86
+  orig: 93, 86
+  offset: 0, 0
+  index: -1
+chesto_water_02_mouth_2
+  rotate: true
+  xy: 761, 145
+  size: 64, 52
+  orig: 64, 52
+  offset: 0, 0
+  index: -1
+chesto_water_02_tail_1
+  rotate: true
+  xy: 800, 298
+  size: 135, 77
+  orig: 135, 77
+  offset: 0, 0
+  index: -1
+chesto_water_02_tail_2
+  rotate: true
+  xy: 2, 206
+  size: 267, 148
+  orig: 267, 148
+  offset: 0, 0
+  index: -1
+chesto_water_02_tail_3
+  rotate: false
+  xy: 664, 724
+  size: 187, 94
+  orig: 187, 94
+  offset: 0, 0
+  index: -1
+chesto_water_02_water_1
+  rotate: true
+  xy: 539, 104
+  size: 73, 60
+  orig: 73, 60
+  offset: 0, 0
+  index: -1
+chesto_water_02_water_11
+  rotate: true
+  xy: 718, 64
+  size: 57, 51
+  orig: 57, 51
+  offset: 0, 0
+  index: -1
+chesto_water_02_water_12
+  rotate: true
+  xy: 280, 197
+  size: 71, 150
+  orig: 71, 150
+  offset: 0, 0
+  index: -1
+chesto_water_02_water_13
+  rotate: false
+  xy: 287, 270
+  size: 161, 104
+  orig: 161, 104
+  offset: 0, 0
+  index: -1
+chesto_water_02_water_14
+  rotate: true
+  xy: 582, 258
+  size: 46, 63
+  orig: 46, 63
+  offset: 0, 0
+  index: -1
+chesto_water_02_water_15
+  rotate: false
+  xy: 235, 479
+  size: 50, 63
+  orig: 50, 63
+  offset: 0, 0
+  index: -1
+chesto_water_02_water_3
+  rotate: false
+  xy: 152, 301
+  size: 133, 172
+  orig: 133, 172
+  offset: 0, 0
+  index: -1
+chesto_water_02_water_4
+  rotate: false
+  xy: 718, 24
+  size: 37, 38
+  orig: 37, 38
+  offset: 0, 0
+  index: -1
+chesto_water_02_water_5
+  rotate: true
+  xy: 416, 104
+  size: 73, 121
+  orig: 73, 121
+  offset: 0, 0
+  index: -1
+chesto_water_02_water_8
+  rotate: true
+  xy: 372, 57
+  size: 41, 42
+  orig: 41, 42
+  offset: 0, 0
+  index: -1
+chesto_water_02_wing
+  rotate: false
+  xy: 456, 418
+  size: 147, 121
+  orig: 147, 121
+  offset: 0, 0
+  index: -1
+chesto_water_02_wing_water_1
+  rotate: true
+  xy: 2, 27
+  size: 177, 139
+  orig: 177, 139
+  offset: 0, 0
+  index: -1
+chesto_water_02_wing_water_2
+  rotate: true
+  xy: 799, 219
+  size: 77, 78
+  orig: 77, 78
+  offset: 0, 0
+  index: -1
+chesto_water_02_wing_water_3
+  rotate: false
+  xy: 647, 229
+  size: 60, 75
+  orig: 60, 75
+  offset: 0, 0
+  index: -1
+effect_blue_light
+  rotate: true
+  xy: 691, 555
+  size: 167, 166
+  orig: 167, 166
+  offset: 0, 0
+  index: -1
+effect_light1
+  rotate: false
+  xy: 598, 306
+  size: 110, 110
+  orig: 110, 110
+  offset: 0, 0
+  index: -1
+effect_light12
+  rotate: false
+  xy: 815, 166
+  size: 58, 51
+  orig: 58, 51
+  offset: 0, 0
+  index: -1
+effect_light_long
+  rotate: false
+  xy: 2, 711
+  size: 660, 324
+  orig: 660, 324
+  offset: 0, 0
+  index: -1
+effect_red_light
+  rotate: false
+  xy: 287, 376
+  size: 167, 166
+  orig: 167, 166
+  offset: 0, 0
+  index: -1
+effect_ring2
+  rotate: false
+  xy: 2, 475
+  size: 231, 234
+  orig: 231, 234
+  offset: 0, 0
+  index: -1

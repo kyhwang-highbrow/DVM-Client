@@ -1,0 +1,356 @@
+
+spiral_water_01.png
+size: 465,529
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+ef_02
+  rotate: false
+  xy: 397, 152
+  size: 24, 59
+  orig: 24, 59
+  offset: 0, 0
+  index: -1
+ef_03
+  rotate: true
+  xy: 307, 11
+  size: 42, 43
+  orig: 42, 43
+  offset: 0, 0
+  index: -1
+ef_04
+  rotate: false
+  xy: 261, 17
+  size: 44, 44
+  orig: 44, 44
+  offset: 0, 0
+  index: -1
+ef_05
+  rotate: false
+  xy: 2, 78
+  size: 80, 108
+  orig: 80, 108
+  offset: 0, 0
+  index: -1
+spiral_0
+  rotate: false
+  xy: 158, 431
+  size: 118, 96
+  orig: 118, 96
+  offset: 0, 0
+  index: -1
+spiral_1
+  rotate: false
+  xy: 2, 188
+  size: 106, 96
+  orig: 106, 96
+  offset: 0, 0
+  index: -1
+spiral_2
+  rotate: false
+  xy: 110, 188
+  size: 68, 96
+  orig: 68, 96
+  offset: 0, 0
+  index: -1
+spiral_3
+  rotate: true
+  xy: 353, 315
+  size: 36, 96
+  orig: 36, 96
+  offset: 0, 0
+  index: -1
+spiral_4
+  rotate: true
+  xy: 353, 277
+  size: 36, 96
+  orig: 36, 96
+  offset: 0, 0
+  index: -1
+spiral_5
+  rotate: true
+  xy: 264, 361
+  size: 68, 96
+  orig: 68, 96
+  offset: 0, 0
+  index: -1
+spiral_6
+  rotate: false
+  xy: 278, 431
+  size: 106, 96
+  orig: 106, 96
+  offset: 0, 0
+  index: -1
+spiral_water_01_arm_l_01
+  rotate: true
+  xy: 330, 103
+  size: 49, 51
+  orig: 49, 51
+  offset: 0, 0
+  index: -1
+spiral_water_01_arm_l_02
+  rotate: true
+  xy: 352, 11
+  size: 42, 33
+  orig: 42, 33
+  offset: 0, 0
+  index: -1
+spiral_water_01_arm_l_03
+  rotate: false
+  xy: 423, 69
+  size: 32, 28
+  orig: 32, 28
+  offset: 0, 0
+  index: -1
+spiral_water_01_arm_r_01
+  rotate: false
+  xy: 176, 2
+  size: 47, 47
+  orig: 47, 47
+  offset: 0, 0
+  index: -1
+spiral_water_01_arm_r_02
+  rotate: true
+  xy: 387, 16
+  size: 37, 28
+  orig: 37, 28
+  offset: 0, 0
+  index: -1
+spiral_water_01_arm_r_03
+  rotate: false
+  xy: 239, 192
+  size: 30, 23
+  orig: 30, 23
+  offset: 0, 0
+  index: -1
+spiral_water_01_body_01
+  rotate: false
+  xy: 2, 399
+  size: 154, 128
+  orig: 154, 128
+  offset: 0, 0
+  index: -1
+spiral_water_01_ef_01
+  rotate: false
+  xy: 337, 154
+  size: 58, 57
+  orig: 58, 57
+  offset: 0, 0
+  index: -1
+spiral_water_01_eye_01
+  rotate: false
+  xy: 423, 191
+  size: 40, 32
+  orig: 40, 32
+  offset: 0, 0
+  index: -1
+spiral_water_01_eye_02
+  rotate: false
+  xy: 423, 157
+  size: 40, 32
+  orig: 40, 32
+  offset: 0, 0
+  index: -1
+spiral_water_01_eye_03
+  rotate: false
+  xy: 423, 123
+  size: 40, 32
+  orig: 40, 32
+  offset: 0, 0
+  index: -1
+spiral_water_01_face_01
+  rotate: false
+  xy: 2, 286
+  size: 149, 111
+  orig: 149, 111
+  offset: 0, 0
+  index: -1
+spiral_water_01_face_02
+  rotate: true
+  xy: 176, 51
+  size: 66, 61
+  orig: 66, 61
+  offset: 0, 0
+  index: -1
+spiral_water_01_face_03
+  rotate: true
+  xy: 239, 217
+  size: 75, 30
+  orig: 75, 30
+  offset: 0, 0
+  index: -1
+spiral_water_01_font_01
+  rotate: true
+  xy: 180, 196
+  size: 96, 57
+  orig: 96, 57
+  offset: 0, 0
+  index: -1
+spiral_water_01_font_02
+  rotate: false
+  xy: 158, 365
+  size: 104, 64
+  orig: 104, 64
+  offset: 0, 0
+  index: -1
+spiral_water_01_font_03
+  rotate: false
+  xy: 84, 96
+  size: 82, 90
+  orig: 82, 90
+  offset: 0, 0
+  index: -1
+spiral_water_01_font_04
+  rotate: false
+  xy: 92, 4
+  size: 82, 90
+  orig: 82, 90
+  offset: 0, 0
+  index: -1
+spiral_water_01_leg_l_01
+  rotate: true
+  xy: 153, 294
+  size: 69, 102
+  orig: 69, 102
+  offset: 0, 0
+  index: -1
+spiral_water_01_leg_l_02
+  rotate: true
+  xy: 232, 130
+  size: 60, 36
+  orig: 60, 36
+  offset: 0, 0
+  index: -1
+spiral_water_01_leg_l_03
+  rotate: true
+  xy: 2, 2
+  size: 74, 88
+  orig: 74, 88
+  offset: 0, 0
+  index: -1
+spiral_water_01_leg_r_01
+  rotate: true
+  xy: 257, 295
+  size: 64, 94
+  orig: 64, 94
+  offset: 0, 0
+  index: -1
+spiral_water_01_leg_r_02
+  rotate: true
+  xy: 239, 74
+  size: 54, 29
+  orig: 54, 29
+  offset: 0, 0
+  index: -1
+spiral_water_01_leg_r_03
+  rotate: true
+  xy: 362, 353
+  size: 65, 85
+  orig: 65, 85
+  offset: 0, 0
+  index: -1
+spiral_water_01_mouth_01
+  rotate: true
+  xy: 386, 420
+  size: 107, 75
+  orig: 107, 75
+  offset: 0, 0
+  index: -1
+spiral_water_01_neck_01
+  rotate: false
+  xy: 271, 160
+  size: 64, 60
+  orig: 64, 60
+  offset: 0, 0
+  index: -1
+spiral_water_01_neck_02
+  rotate: true
+  xy: 168, 119
+  size: 67, 62
+  orig: 67, 62
+  offset: 0, 0
+  index: -1
+spiral_water_01_neck_03
+  rotate: false
+  xy: 345, 213
+  size: 71, 62
+  orig: 71, 62
+  offset: 0, 0
+  index: -1
+spiral_water_01_tail_01
+  rotate: false
+  xy: 271, 222
+  size: 72, 71
+  orig: 72, 71
+  offset: 0, 0
+  index: -1
+spiral_water_01_tail_02
+  rotate: true
+  xy: 270, 104
+  size: 54, 58
+  orig: 54, 58
+  offset: 0, 0
+  index: -1
+spiral_water_01_tail_03
+  rotate: true
+  xy: 328, 55
+  size: 46, 52
+  orig: 46, 52
+  offset: 0, 0
+  index: -1
+spiral_water_01_tail_04
+  rotate: false
+  xy: 225, 2
+  size: 34, 47
+  orig: 34, 47
+  offset: 0, 0
+  index: -1
+spiral_water_01_tail_05
+  rotate: true
+  xy: 416, 99
+  size: 22, 43
+  orig: 22, 43
+  offset: 0, 0
+  index: -1
+spiral_water_01_wing_l_01
+  rotate: false
+  xy: 270, 63
+  size: 56, 39
+  orig: 56, 39
+  offset: 0, 0
+  index: -1
+spiral_water_01_wing_l_02
+  rotate: true
+  xy: 383, 104
+  size: 46, 31
+  orig: 46, 31
+  offset: 0, 0
+  index: -1
+spiral_water_01_wing_l_03
+  rotate: true
+  xy: 423, 41
+  size: 26, 28
+  orig: 26, 28
+  offset: 0, 0
+  index: -1
+spiral_water_01_wing_r_01
+  rotate: false
+  xy: 418, 225
+  size: 45, 50
+  orig: 45, 50
+  offset: 0, 0
+  index: -1
+spiral_water_01_wing_r_02
+  rotate: true
+  xy: 382, 55
+  size: 42, 39
+  orig: 42, 39
+  offset: 0, 0
+  index: -1
+spiral_water_01_wing_r_03
+  rotate: false
+  xy: 417, 17
+  size: 22, 22
+  orig: 22, 22
+  offset: 0, 0
+  index: -1

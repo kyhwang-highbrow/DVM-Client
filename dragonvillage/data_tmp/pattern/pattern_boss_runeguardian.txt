@@ -1,0 +1,106 @@
+{
+    "pattern_boss_runeguardian":
+    [        
+        [
+            "a;basic", "w;2", "a;basic", "w;2", "a;basic", "w;2", "a;1", "w;2",
+            "a;basic", "w;2", "a;basic", "w;2", "a;basic", "w;2", "a;2", "w;2",
+            "a;basic", "w;2", "a;basic", "w;2", "a;basic", "w;2", "a;3", "w;2"
+        ]
+    ],
+	
+	"time_trriger":
+    {
+        "priority":1,
+        "list":
+        [
+			{
+                "time":60,
+                "pattern":
+                [
+					"a;4"
+                ]
+            },
+			
+			{
+                "time":120,
+                "pattern":
+                [
+					"a;4"
+                ]
+            },
+			
+			{
+                "time":180,
+                "pattern":
+                [
+					"a;4"
+                ]
+            },
+			
+			{
+                "time":240,
+                "pattern":
+                [
+					"a;4"
+				]
+            },
+			
+			{
+                "time":300,
+                "pattern":
+                [
+					"a;4"
+				]
+            },
+			
+			{
+                "time":360,
+                "pattern":
+                [
+					"a;4"
+				]
+            },
+			
+			{
+                "time":420,
+                "pattern":
+                [
+					"a;4"
+				]
+            },
+			
+			{
+                "time":480,
+                "pattern":
+                [
+					"a;4"
+				]
+            },
+			
+			{
+                "time":540,
+                "pattern":
+                [
+					"a;4"
+				]
+            },
+			
+			{
+                "time":600,
+                "pattern":
+                [
+					"a;4"
+				]
+            }
+        ]
+    }
+	
+	"ani_mix":
+	[
+        "idle;attack;0.1",
+        "idle;idle;0.1",
+        "attack;idle;0.1",
+		"skill_4_appear;idle;0.1",
+		"idle;skill_4_appear;0.1"
+    ]
+}

@@ -1,0 +1,62 @@
+
+mushroom_slave_1.png
+size: 512,128
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+mushroom_slave_1_body_01
+  rotate: false
+  xy: 362, 39
+  size: 84, 74
+  orig: 84, 74
+  offset: 0, 0
+  index: -1
+mushroom_slave_1_body_02
+  rotate: true
+  xy: 448, 49
+  size: 64, 45
+  orig: 64, 45
+  offset: 0, 0
+  index: -1
+mushroom_slave_1_effect_01
+  rotate: false
+  xy: 2, 32
+  size: 126, 81
+  orig: 126, 81
+  offset: 0, 0
+  index: -1
+mushroom_slave_1_eye_01
+  rotate: false
+  xy: 2, 2
+  size: 29, 28
+  orig: 29, 28
+  offset: 0, 0
+  index: -1
+mushroom_slave_1_foot_01
+  rotate: false
+  xy: 130, 38
+  size: 29, 28
+  orig: 29, 28
+  offset: 0, 0
+  index: -1
+mushroom_slave_1_foot_02
+  rotate: false
+  xy: 33, 2
+  size: 29, 28
+  orig: 29, 28
+  offset: 0, 0
+  index: -1
+mushroom_slave_1_head_01
+  rotate: false
+  xy: 130, 68
+  size: 114, 45
+  orig: 114, 45
+  offset: 0, 0
+  index: -1
+mushroom_slave_1_head_02
+  rotate: false
+  xy: 246, 68
+  size: 114, 45
+  orig: 114, 45
+  offset: 0, 0
+  index: -1

@@ -1,0 +1,300 @@
+
+smartdragon_earth_03.png
+size: 1897,364
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+smartdragon_earth_03_arm_01
+  rotate: false
+  xy: 1843, 66
+  size: 38, 74
+  orig: 38, 74
+  offset: 0, 0
+  index: -1
+smartdragon_earth_03_arm_02
+  rotate: false
+  xy: 1833, 218
+  size: 62, 62
+  orig: 62, 62
+  offset: 0, 0
+  index: -1
+smartdragon_earth_03_body_01
+  rotate: true
+  xy: 1273, 150
+  size: 212, 174
+  orig: 212, 174
+  offset: 0, 0
+  index: -1
+smartdragon_earth_03_book_01
+  rotate: true
+  xy: 1449, 153
+  size: 209, 176
+  orig: 209, 176
+  offset: 0, 0
+  index: -1
+smartdragon_earth_03_book_02
+  rotate: false
+  xy: 1567, 20
+  size: 90, 131
+  orig: 90, 131
+  offset: 0, 0
+  index: -1
+smartdragon_earth_03_book_03
+  rotate: false
+  xy: 1627, 265
+  size: 92, 97
+  orig: 92, 97
+  offset: 0, 0
+  index: -1
+smartdragon_earth_03_effect_01
+  rotate: false
+  xy: 1043, 132
+  size: 228, 230
+  orig: 228, 230
+  offset: 0, 0
+  index: -1
+smartdragon_earth_03_effect_02
+  rotate: true
+  xy: 1303, 11
+  size: 7, 23
+  orig: 7, 23
+  offset: 0, 0
+  index: -1
+smartdragon_earth_03_effect_03_01
+  rotate: true
+  xy: 697, 9
+  size: 353, 171
+  orig: 353, 171
+  offset: 0, 0
+  index: -1
+smartdragon_earth_03_effect_03_02
+  rotate: true
+  xy: 870, 9
+  size: 353, 171
+  orig: 353, 171
+  offset: 0, 0
+  index: -1
+smartdragon_earth_03_effect_03_03
+  rotate: true
+  xy: 524, 8
+  size: 354, 171
+  orig: 354, 171
+  offset: 0, 0
+  index: -1
+smartdragon_earth_03_effect_03_04
+  rotate: true
+  xy: 350, 8
+  size: 354, 172
+  orig: 354, 172
+  offset: 0, 0
+  index: -1
+smartdragon_earth_03_effect_03_05
+  rotate: true
+  xy: 176, 7
+  size: 355, 172
+  orig: 355, 172
+  offset: 0, 0
+  index: -1
+smartdragon_earth_03_effect_03_06
+  rotate: true
+  xy: 2, 6
+  size: 356, 172
+  orig: 356, 172
+  offset: 0, 0
+  index: -1
+smartdragon_earth_03_effect_04_1
+  rotate: false
+  xy: 1721, 282
+  size: 80, 80
+  orig: 80, 80
+  offset: 0, 0
+  index: -1
+smartdragon_earth_03_effect_04_2
+  rotate: false
+  xy: 1803, 282
+  size: 80, 80
+  orig: 80, 80
+  offset: 0, 0
+  index: -1
+smartdragon_earth_03_effect_04_3
+  rotate: false
+  xy: 1710, 98
+  size: 80, 80
+  orig: 80, 80
+  offset: 0, 0
+  index: -1
+smartdragon_earth_03_effect_04_4
+  rotate: false
+  xy: 1751, 16
+  size: 80, 80
+  orig: 80, 80
+  offset: 0, 0
+  index: -1
+smartdragon_earth_03_eye_01
+  rotate: false
+  xy: 1228, 5
+  size: 28, 11
+  orig: 28, 11
+  offset: 0, 0
+  index: -1
+smartdragon_earth_03_eye_02
+  rotate: true
+  xy: 1258, 5
+  size: 11, 17
+  orig: 11, 17
+  offset: 0, 0
+  index: -1
+smartdragon_earth_03_eye_03
+  rotate: true
+  xy: 1710, 77
+  size: 19, 22
+  orig: 19, 22
+  offset: 0, 0
+  index: -1
+smartdragon_earth_03_eye_04
+  rotate: true
+  xy: 1277, 5
+  size: 11, 6
+  orig: 11, 6
+  offset: 0, 0
+  index: -1
+smartdragon_earth_03_eye_05
+  rotate: false
+  xy: 1206, 2
+  size: 8, 14
+  orig: 8, 14
+  offset: 0, 0
+  index: -1
+smartdragon_earth_03_eye_06
+  rotate: true
+  xy: 1285, 8
+  size: 8, 16
+  orig: 8, 16
+  offset: 0, 0
+  index: -1
+smartdragon_earth_03_foot_01
+  rotate: false
+  xy: 1792, 102
+  size: 49, 76
+  orig: 49, 76
+  offset: 0, 0
+  index: -1
+smartdragon_earth_03_foot_02
+  rotate: false
+  xy: 1659, 2
+  size: 38, 72
+  orig: 38, 72
+  offset: 0, 0
+  index: -1
+smartdragon_earth_03_hand_01
+  rotate: true
+  xy: 1627, 169
+  size: 94, 38
+  orig: 94, 38
+  offset: 0, 0
+  index: -1
+smartdragon_earth_03_hand_02
+  rotate: false
+  xy: 1843, 142
+  size: 44, 74
+  orig: 44, 74
+  offset: 0, 0
+  index: -1
+smartdragon_earth_03_head_01
+  rotate: false
+  xy: 1369, 9
+  size: 138, 139
+  orig: 138, 139
+  offset: 0, 0
+  index: -1
+smartdragon_earth_03_head_02
+  rotate: false
+  xy: 1659, 76
+  size: 49, 91
+  orig: 49, 91
+  offset: 0, 0
+  index: -1
+smartdragon_earth_03_head_glasses_01
+  rotate: true
+  xy: 1216, 4
+  size: 12, 10
+  orig: 12, 10
+  offset: 0, 0
+  index: -1
+smartdragon_earth_03_head_glasses_02
+  rotate: true
+  xy: 1752, 180
+  size: 36, 47
+  orig: 36, 47
+  offset: 0, 0
+  index: -1
+smartdragon_earth_03_head_glasses_03
+  rotate: true
+  xy: 1752, 225
+  size: 22, 40
+  orig: 22, 40
+  offset: 0, 0
+  index: -1
+smartdragon_earth_03_head_graduationcap_01
+  rotate: false
+  xy: 1043, 4
+  size: 68, 126
+  orig: 68, 126
+  offset: 0, 0
+  index: -1
+smartdragon_earth_03_head_graduationcap_02
+  rotate: true
+  xy: 1509, 2
+  size: 149, 56
+  orig: 149, 56
+  offset: 0, 0
+  index: -1
+smartdragon_earth_03_head_graduationcap_03
+  rotate: false
+  xy: 1667, 180
+  size: 83, 83
+  orig: 83, 83
+  offset: 0, 0
+  index: -1
+smartdragon_earth_03_leg_01
+  rotate: false
+  xy: 1291, 20
+  size: 76, 110
+  orig: 76, 110
+  offset: 0, 0
+  index: -1
+smartdragon_earth_03_leg_02
+  rotate: false
+  xy: 1699, 3
+  size: 50, 71
+  orig: 50, 71
+  offset: 0, 0
+  index: -1
+smartdragon_earth_03_mouth_01
+  rotate: true
+  xy: 1801, 249
+  size: 31, 28
+  orig: 31, 28
+  offset: 0, 0
+  index: -1
+smartdragon_earth_03_mouth_02
+  rotate: false
+  xy: 1273, 132
+  size: 23, 16
+  orig: 23, 16
+  offset: 0, 0
+  index: -1
+smartdragon_earth_03_wing_01
+  rotate: true
+  xy: 1113, 8
+  size: 122, 91
+  orig: 122, 91
+  offset: 0, 0
+  index: -1
+smartdragon_earth_03_wing_02
+  rotate: false
+  xy: 1206, 18
+  size: 83, 112
+  orig: 83, 112
+  offset: 0, 0
+  index: -1

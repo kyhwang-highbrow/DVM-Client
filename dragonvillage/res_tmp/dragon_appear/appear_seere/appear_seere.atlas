@@ -1,0 +1,104 @@
+
+appear_seere.png
+size: 1367,547
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+01
+  rotate: false
+  xy: 591, 305
+  size: 300, 240
+  orig: 300, 240
+  offset: 0, 0
+  index: -1
+02
+  rotate: true
+  xy: 893, 245
+  size: 300, 240
+  orig: 300, 240
+  offset: 0, 0
+  index: -1
+03
+  rotate: true
+  xy: 591, 3
+  size: 300, 240
+  orig: 300, 240
+  offset: 0, 0
+  index: -1
+04
+  rotate: true
+  xy: 345, 2
+  size: 300, 240
+  orig: 300, 240
+  offset: 0, 0
+  index: -1
+05
+  rotate: false
+  xy: 2, 4
+  size: 300, 240
+  orig: 300, 240
+  offset: 0, 0
+  index: -1
+effect_back_fire
+  rotate: false
+  xy: 345, 304
+  size: 244, 241
+  orig: 244, 241
+  offset: 0, 0
+  index: -1
+effect_blackhole_mid
+  rotate: false
+  xy: 833, 245
+  size: 58, 58
+  orig: 58, 58
+  offset: 0, 0
+  index: -1
+effect_circle_2st
+  rotate: false
+  xy: 833, 43
+  size: 200, 200
+  orig: 200, 200
+  offset: 0, 0
+  index: -1
+effect_circle_lst
+  rotate: false
+  xy: 1035, 43
+  size: 200, 200
+  orig: 200, 200
+  offset: 0, 0
+  index: -1
+effect_cloud_dark
+  rotate: false
+  xy: 2, 246
+  size: 341, 299
+  orig: 341, 299
+  offset: 0, 0
+  index: -1
+seere_pattern01
+  rotate: true
+  xy: 1237, 135
+  size: 221, 125
+  orig: 221, 125
+  offset: 0, 0
+  index: -1
+seere_pattern02
+  rotate: false
+  xy: 1135, 308
+  size: 43, 48
+  orig: 43, 48
+  offset: 0, 0
+  index: -1
+seere_pattern03
+  rotate: false
+  xy: 1135, 358
+  size: 185, 187
+  orig: 185, 187
+  offset: 0, 0
+  index: -1
+seere_pattern04
+  rotate: true
+  xy: 1237, 11
+  size: 122, 128
+  orig: 122, 128
+  offset: 0, 0
+  index: -1

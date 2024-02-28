@@ -1,0 +1,65 @@
+{
+	"skill_elite_7":
+	{
+		"ver":2,
+		"attack_value":
+		[							
+			{
+				"idx":1,
+				"res":"res/missile/missile_wedge_2/missile_wedge_2_@.vrp",
+				"body":[0,0,20],
+                "count":3,
+				"damage_rate":33,
+                "period":0.2,
+                "scale":0.6,
+				"time":0,
+				"speed":700,
+				"accel":-700,
+				"l_limit_speed":300,
+				"accel_delay":0.5,
+				"angular_velocity":0,
+				"offset":[1000,180],
+				
+				"dir_array":[160,180,200],
+				"dir_add":10,
+				"is_abs_pos":true,
+				
+                "effect":
+                {
+                    "motion_streak":"",
+                    "rotation":false,
+                    "afterimage":false
+                }				
+			},
+			
+			{
+				"idx":1,
+				"res":"res/missile/missile_wedge_2/missile_wedge_2_@.vrp",
+				"body":[0,0,20],
+                "count":3,
+				"damage_rate":33,
+                "period":0.2,
+                "scale":0.6,
+				"time":0,
+				"speed":700,
+				"accel":-700,
+				"l_limit_speed":300,
+				"accel_delay":0.5,
+				"angular_velocity":0,
+				"offset":[1000,-140],
+				
+				"dir_array":[160,180,200],
+				"dir_add":-10,
+				"is_abs_pos":true,
+				
+                "effect":
+                {
+                    "motion_streak":"",
+                    "rotation":false,
+                    "afterimage":false
+                }				
+			}
+		]
+	}
+}
+

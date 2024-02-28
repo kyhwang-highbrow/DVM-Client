@@ -1,0 +1,398 @@
+
+berna_dark_03.png
+size: 2017,1140
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+berna_dark_03_arm_01
+  rotate: false
+  xy: 1479, 88
+  size: 79, 94
+  orig: 79, 94
+  offset: 0, 0
+  index: -1
+berna_dark_03_arm_02
+  rotate: true
+  xy: 1072, 587
+  size: 83, 92
+  orig: 83, 92
+  offset: 0, 0
+  index: -1
+berna_dark_03_backstar
+  rotate: false
+  xy: 1158, 121
+  size: 196, 200
+  orig: 196, 200
+  offset: 0, 0
+  index: -1
+berna_dark_03_body_01
+  rotate: false
+  xy: 1871, 114
+  size: 103, 153
+  orig: 103, 153
+  offset: 0, 0
+  index: -1
+berna_dark_03_bodyacc_01
+  rotate: false
+  xy: 941, 15
+  size: 90, 71
+  orig: 90, 71
+  offset: 0, 0
+  index: -1
+berna_dark_03_bodyacc_02
+  rotate: true
+  xy: 1553, 319
+  size: 62, 21
+  orig: 62, 21
+  offset: 0, 0
+  index: -1
+berna_dark_03_effect_01_1
+  rotate: true
+  xy: 1837, 758
+  size: 166, 126
+  orig: 166, 126
+  offset: 0, 0
+  index: -1
+berna_dark_03_effect_01_2
+  rotate: true
+  xy: 1668, 70
+  size: 198, 201
+  orig: 198, 201
+  offset: 0, 0
+  index: -1
+berna_dark_03_effect_01_3
+  rotate: true
+  xy: 874, 312
+  size: 358, 196
+  orig: 358, 196
+  offset: 0, 0
+  index: -1
+berna_dark_03_effect_01_4
+  rotate: false
+  xy: 1177, 586
+  size: 494, 170
+  orig: 494, 170
+  offset: 0, 0
+  index: -1
+berna_dark_03_effect_01_5
+  rotate: false
+  xy: 1177, 758
+  size: 658, 152
+  orig: 658, 152
+  offset: 0, 0
+  index: -1
+berna_dark_03_effect_01_6
+  rotate: false
+  xy: 517, 672
+  size: 658, 230
+  orig: 658, 230
+  offset: 0, 0
+  index: -1
+berna_dark_03_effect_01_7
+  rotate: false
+  xy: 517, 904
+  size: 658, 234
+  orig: 658, 234
+  offset: 0, 0
+  index: -1
+berna_dark_03_effect_01_8
+  rotate: false
+  xy: 1177, 912
+  size: 658, 226
+  orig: 658, 226
+  offset: 0, 0
+  index: -1
+berna_dark_03_effect_01_9
+  rotate: true
+  xy: 1837, 926
+  size: 212, 162
+  orig: 212, 162
+  offset: 0, 0
+  index: -1
+berna_dark_03_effect_02
+  rotate: false
+  xy: 1661, 15
+  size: 53, 53
+  orig: 53, 53
+  offset: 0, 0
+  index: -1
+berna_dark_03_effect_03
+  rotate: false
+  xy: 1716, 15
+  size: 53, 53
+  orig: 53, 53
+  offset: 0, 0
+  index: -1
+berna_dark_03_effect_04
+  rotate: false
+  xy: 1771, 15
+  size: 53, 53
+  orig: 53, 53
+  offset: 0, 0
+  index: -1
+berna_dark_03_effect_05
+  rotate: true
+  xy: 1560, 150
+  size: 107, 106
+  orig: 107, 106
+  offset: 0, 0
+  index: -1
+berna_dark_03_effect_06
+  rotate: false
+  xy: 838, 12
+  size: 54, 54
+  orig: 54, 54
+  offset: 0, 0
+  index: -1
+berna_dark_03_effect_07
+  rotate: true
+  xy: 2001, 1123
+  size: 15, 14
+  orig: 15, 14
+  offset: 0, 0
+  index: -1
+berna_dark_03_effect_11
+  rotate: false
+  xy: 2, 625
+  size: 513, 513
+  orig: 513, 513
+  offset: 0, 0
+  index: -1
+berna_dark_03_effect_back
+  rotate: true
+  xy: 1668, 270
+  size: 203, 207
+  orig: 203, 207
+  offset: 0, 0
+  index: -1
+berna_dark_03_effect_boom
+  rotate: false
+  xy: 1356, 184
+  size: 195, 197
+  orig: 195, 197
+  offset: 0, 0
+  index: -1
+berna_dark_03_effect_light
+  rotate: false
+  xy: 1560, 49
+  size: 99, 99
+  orig: 99, 99
+  offset: 0, 0
+  index: -1
+berna_dark_03_eye_01
+  rotate: false
+  xy: 874, 294
+  size: 23, 16
+  orig: 23, 16
+  offset: 0, 0
+  index: -1
+berna_dark_03_eye_02
+  rotate: false
+  xy: 1329, 372
+  size: 10, 12
+  orig: 10, 12
+  offset: 0, 0
+  index: -1
+berna_dark_03_eyeacc_01
+  rotate: false
+  xy: 1965, 769
+  size: 42, 28
+  orig: 42, 28
+  offset: 0, 0
+  index: -1
+berna_dark_03_eyeacc_02
+  rotate: false
+  xy: 1576, 363
+  size: 11, 18
+  orig: 11, 18
+  offset: 0, 0
+  index: -1
+berna_dark_03_eyeacc_03
+  rotate: false
+  xy: 517, 633
+  size: 59, 37
+  orig: 59, 37
+  offset: 0, 0
+  index: -1
+berna_dark_03_feather
+  rotate: false
+  xy: 636, 269
+  size: 69, 21
+  orig: 69, 21
+  offset: 0, 0
+  index: -1
+berna_dark_03_hair_01
+  rotate: true
+  xy: 1072, 323
+  size: 61, 117
+  orig: 61, 117
+  offset: 0, 0
+  index: -1
+berna_dark_03_hair_02
+  rotate: true
+  xy: 1589, 259
+  size: 135, 77
+  orig: 135, 77
+  offset: 0, 0
+  index: -1
+berna_dark_03_hair_03
+  rotate: true
+  xy: 1191, 342
+  size: 42, 136
+  orig: 42, 136
+  offset: 0, 0
+  index: -1
+berna_dark_03_hair_04
+  rotate: true
+  xy: 1356, 101
+  size: 81, 121
+  orig: 81, 121
+  offset: 0, 0
+  index: -1
+berna_dark_03_hair_05
+  rotate: false
+  xy: 1965, 799
+  size: 47, 125
+  orig: 47, 125
+  offset: 0, 0
+  index: -1
+berna_dark_03_hair_06
+  rotate: false
+  xy: 1345, 383
+  size: 242, 201
+  orig: 242, 201
+  offset: 0, 0
+  index: -1
+berna_dark_03_head_01
+  rotate: false
+  xy: 1871, 31
+  size: 109, 81
+  orig: 109, 81
+  offset: 0, 0
+  index: -1
+berna_dark_03_horn_01
+  rotate: true
+  xy: 1464, 15
+  size: 71, 93
+  orig: 71, 93
+  offset: 0, 0
+  index: -1
+berna_dark_03_horn_02
+  rotate: false
+  xy: 1158, 29
+  size: 111, 90
+  orig: 111, 90
+  offset: 0, 0
+  index: -1
+berna_dark_03_horn_03
+  rotate: true
+  xy: 1033, 11
+  size: 75, 80
+  orig: 75, 80
+  offset: 0, 0
+  index: -1
+berna_dark_03_horn_04
+  rotate: true
+  xy: 1271, 30
+  size: 89, 80
+  orig: 89, 80
+  offset: 0, 0
+  index: -1
+berna_dark_03_horn_05
+  rotate: false
+  xy: 707, 273
+  size: 15, 17
+  orig: 15, 17
+  offset: 0, 0
+  index: -1
+berna_dark_03_leg_01
+  rotate: true
+  xy: 724, 8
+  size: 58, 112
+  orig: 58, 112
+  offset: 0, 0
+  index: -1
+berna_dark_03_leg_02
+  rotate: false
+  xy: 1353, 2
+  size: 109, 97
+  orig: 109, 97
+  offset: 0, 0
+  index: -1
+berna_dark_03_leg_03
+  rotate: false
+  xy: 1877, 269
+  size: 133, 204
+  orig: 133, 204
+  offset: 0, 0
+  index: -1
+berna_dark_03_lowerbody_01
+  rotate: true
+  xy: 1589, 396
+  size: 188, 77
+  orig: 188, 77
+  offset: 0, 0
+  index: -1
+berna_dark_03_tail_01
+  rotate: false
+  xy: 1072, 386
+  size: 271, 198
+  orig: 271, 198
+  offset: 0, 0
+  index: -1
+berna_dark_03_tail_02
+  rotate: false
+  xy: 382, 34
+  size: 340, 209
+  orig: 340, 209
+  offset: 0, 0
+  index: -1
+berna_dark_03_wing_01
+  rotate: false
+  xy: 2, 245
+  size: 315, 378
+  orig: 315, 378
+  offset: 0, 0
+  index: -1
+berna_dark_03_wing_01_1
+  rotate: false
+  xy: 319, 245
+  size: 315, 378
+  orig: 315, 378
+  offset: 0, 0
+  index: -1
+berna_dark_03_wing_02
+  rotate: true
+  xy: 724, 68
+  size: 222, 215
+  orig: 222, 215
+  offset: 0, 0
+  index: -1
+berna_dark_03_wing_02_1
+  rotate: true
+  xy: 941, 88
+  size: 222, 215
+  orig: 222, 215
+  offset: 0, 0
+  index: -1
+berna_dark_03_wing_03
+  rotate: false
+  xy: 1673, 475
+  size: 342, 281
+  orig: 342, 281
+  offset: 0, 0
+  index: -1
+berna_dark_03_wing_cover
+  rotate: true
+  xy: 2, 7
+  size: 236, 378
+  orig: 236, 378
+  offset: 0, 0
+  index: -1
+berna_dark_03_wing_cover_1
+  rotate: false
+  xy: 636, 292
+  size: 236, 378
+  orig: 236, 378
+  offset: 0, 0
+  index: -1

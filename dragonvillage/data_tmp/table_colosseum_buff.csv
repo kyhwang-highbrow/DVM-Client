@@ -1,0 +1,11 @@
+wins,buff
+1,
+2,hp_multi;5
+3,hp_multi;5
+4,"hp_multi;5, atk_multi;5"
+5,"hp_multi;5, atk_multi;5"
+6,"hp_multi;10, atk_multi;5"
+7,"hp_multi;10, atk_multi;5"
+8,"hp_multi;10, atk_multi;10"
+9,"hp_multi;10, atk_multi;10"
+10,"hp_multi;15, atk_multi;15"

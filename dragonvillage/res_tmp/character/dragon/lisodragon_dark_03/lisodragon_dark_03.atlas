@@ -1,0 +1,258 @@
+
+lisodragon_dark_03.png
+size: 1668,411
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+lisodragon_dark_03_Pillow_01
+  rotate: false
+  xy: 2, 121
+  size: 327, 288
+  orig: 327, 288
+  offset: 0, 0
+  index: -1
+lisodragon_dark_03_Pillow_02
+  rotate: false
+  xy: 430, 13
+  size: 105, 136
+  orig: 105, 136
+  offset: 0, 0
+  index: -1
+lisodragon_dark_03_arm_01
+  rotate: false
+  xy: 1004, 13
+  size: 177, 185
+  orig: 177, 185
+  offset: 0, 0
+  index: -1
+lisodragon_dark_03_arm_02
+  rotate: false
+  xy: 1339, 203
+  size: 177, 206
+  orig: 177, 206
+  offset: 0, 0
+  index: -1
+lisodragon_dark_03_body_01
+  rotate: false
+  xy: 331, 151
+  size: 314, 258
+  orig: 314, 258
+  offset: 0, 0
+  index: -1
+lisodragon_dark_03_body_02
+  rotate: true
+  xy: 334, 2
+  size: 147, 94
+  orig: 147, 94
+  offset: 0, 0
+  index: -1
+lisodragon_dark_03_ear_01
+  rotate: true
+  xy: 1183, 2
+  size: 71, 77
+  orig: 71, 77
+  offset: 0, 0
+  index: -1
+lisodragon_dark_03_ear_02
+  rotate: false
+  xy: 1322, 3
+  size: 60, 62
+  orig: 60, 62
+  offset: 0, 0
+  index: -1
+lisodragon_dark_03_effect_01
+  rotate: false
+  xy: 1360, 103
+  size: 98, 98
+  orig: 98, 98
+  offset: 0, 0
+  index: -1
+lisodragon_dark_03_effect_02
+  rotate: false
+  xy: 1460, 90
+  size: 98, 98
+  orig: 98, 98
+  offset: 0, 0
+  index: -1
+lisodragon_dark_03_effect_03
+  rotate: false
+  xy: 852, 2
+  size: 150, 213
+  orig: 150, 213
+  offset: 0, 0
+  index: -1
+lisodragon_dark_03_eye_01
+  rotate: true
+  xy: 1384, 5
+  size: 60, 46
+  orig: 60, 46
+  offset: 0, 0
+  index: -1
+lisodragon_dark_03_hand_01
+  rotate: false
+  xy: 647, 57
+  size: 114, 101
+  orig: 114, 101
+  offset: 0, 0
+  index: -1
+lisodragon_dark_03_hand_02
+  rotate: true
+  xy: 186, 5
+  size: 114, 146
+  orig: 114, 146
+  offset: 0, 0
+  index: -1
+lisodragon_dark_03_head_01
+  rotate: false
+  xy: 1105, 200
+  size: 232, 209
+  orig: 232, 209
+  offset: 0, 0
+  index: -1
+lisodragon_dark_03_honey_01
+  rotate: false
+  xy: 1183, 75
+  size: 141, 123
+  orig: 141, 123
+  offset: 0, 0
+  index: -1
+lisodragon_dark_03_honey_02
+  rotate: false
+  xy: 2, 2
+  size: 182, 117
+  orig: 182, 117
+  offset: 0, 0
+  index: -1
+lisodragon_dark_03_honey_03
+  rotate: true
+  xy: 1326, 97
+  size: 101, 32
+  orig: 101, 32
+  offset: 0, 0
+  index: -1
+lisodragon_dark_03_honey_eye_01
+  rotate: false
+  xy: 1518, 190
+  size: 106, 38
+  orig: 106, 38
+  offset: 0, 0
+  index: -1
+lisodragon_dark_03_honey_mouth_02
+  rotate: false
+  xy: 1560, 79
+  size: 83, 41
+  orig: 83, 41
+  offset: 0, 0
+  index: -1
+lisodragon_dark_03_honeybee_body_01
+  rotate: false
+  xy: 763, 79
+  size: 79, 79
+  orig: 79, 79
+  offset: 0, 0
+  index: -1
+lisodragon_dark_03_honeybee_body_02
+  rotate: true
+  xy: 775, 3
+  size: 74, 73
+  orig: 74, 73
+  offset: 0, 0
+  index: -1
+lisodragon_dark_03_honeybee_body_03
+  rotate: false
+  xy: 1626, 186
+  size: 40, 42
+  orig: 40, 42
+  offset: 0, 0
+  index: -1
+lisodragon_dark_03_honeybee_body_04
+  rotate: true
+  xy: 647, 2
+  size: 53, 79
+  orig: 53, 79
+  offset: 0, 0
+  index: -1
+lisodragon_dark_03_honeybee_eye_01
+  rotate: true
+  xy: 1625, 124
+  size: 60, 35
+  orig: 60, 35
+  offset: 0, 0
+  index: -1
+lisodragon_dark_03_honeybee_head_01
+  rotate: true
+  xy: 1262, 3
+  size: 70, 58
+  orig: 70, 58
+  offset: 0, 0
+  index: -1
+lisodragon_dark_03_honeybee_wing_01
+  rotate: false
+  xy: 728, 2
+  size: 45, 53
+  orig: 45, 53
+  offset: 0, 0
+  index: -1
+lisodragon_dark_03_honeybee_wing_02
+  rotate: false
+  xy: 1432, 35
+  size: 45, 53
+  orig: 45, 53
+  offset: 0, 0
+  index: -1
+lisodragon_dark_03_honeybee_wing_03
+  rotate: false
+  xy: 1479, 35
+  size: 45, 53
+  orig: 45, 53
+  offset: 0, 0
+  index: -1
+lisodragon_dark_03_honeybee_wing_04
+  rotate: true
+  xy: 1560, 122
+  size: 66, 63
+  orig: 66, 63
+  offset: 0, 0
+  index: -1
+lisodragon_dark_03_honeybeer_ear_01
+  rotate: true
+  xy: 1360, 67
+  size: 34, 64
+  orig: 34, 64
+  offset: 0, 0
+  index: -1
+lisodragon_dark_03_honeybeer_ear_02
+  rotate: true
+  xy: 1526, 42
+  size: 35, 57
+  orig: 35, 57
+  offset: 0, 0
+  index: -1
+lisodragon_dark_03_leg_01
+  rotate: false
+  xy: 647, 160
+  size: 203, 249
+  orig: 203, 249
+  offset: 0, 0
+  index: -1
+lisodragon_dark_03_leg_02
+  rotate: false
+  xy: 852, 217
+  size: 251, 192
+  orig: 251, 192
+  offset: 0, 0
+  index: -1
+lisodragon_dark_03_mouth_01
+  rotate: true
+  xy: 537, 35
+  size: 114, 108
+  orig: 114, 108
+  offset: 0, 0
+  index: -1
+lisodragon_dark_03_wing_01
+  rotate: false
+  xy: 1518, 230
+  size: 138, 179
+  orig: 138, 179
+  offset: 0, 0
+  index: -1

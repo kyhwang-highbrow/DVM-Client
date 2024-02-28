@@ -1,0 +1,62 @@
+
+eye_of_kadeath.png
+size: 1879,1011
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+effect_eye_of_kadeath_eff_01
+  rotate: false
+  xy: 537, 489
+  size: 528, 520
+  orig: 528, 520
+  offset: 0, 0
+  index: -1
+effect_eye_of_kadeath_eff_02
+  rotate: false
+  xy: 2, 455
+  size: 533, 554
+  orig: 533, 554
+  offset: 0, 0
+  index: -1
+effect_eye_of_kadeath_eff_03
+  rotate: false
+  xy: 906, 16
+  size: 544, 471
+  orig: 544, 471
+  offset: 0, 0
+  index: -1
+effect_eye_of_kadeath_eff_04
+  rotate: false
+  xy: 1067, 503
+  size: 520, 506
+  orig: 520, 506
+  offset: 0, 0
+  index: -1
+eye_of_kadeath_01
+  rotate: true
+  xy: 2, 2
+  size: 451, 450
+  orig: 451, 450
+  offset: 0, 0
+  index: -1
+eye_of_kadeath_02
+  rotate: false
+  xy: 1589, 621
+  size: 238, 388
+  orig: 238, 388
+  offset: 0, 0
+  index: -1
+eye_of_kadeath_03
+  rotate: false
+  xy: 1452, 75
+  size: 425, 426
+  orig: 425, 426
+  offset: 0, 0
+  index: -1
+eye_of_kadeath_04
+  rotate: true
+  xy: 454, 2
+  size: 451, 450
+  orig: 451, 450
+  offset: 0, 0
+  index: -1

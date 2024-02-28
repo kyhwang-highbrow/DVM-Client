@@ -1,0 +1,48 @@
+
+exp_slime_earth_01.png
+size: 1342,274
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+exp_slime_earth_01_body_01
+  rotate: false
+  xy: 2, 2
+  size: 312, 270
+  orig: 312, 270
+  offset: 0, 0
+  index: -1
+exp_slime_earth_01_body_02
+  rotate: false
+  xy: 316, 2
+  size: 312, 270
+  orig: 312, 270
+  offset: 0, 0
+  index: -1
+exp_slime_earth_01_body_04
+  rotate: false
+  xy: 630, 2
+  size: 312, 270
+  orig: 312, 270
+  offset: 0, 0
+  index: -1
+exp_slime_earth_01_body_05
+  rotate: false
+  xy: 944, 2
+  size: 312, 270
+  orig: 312, 270
+  offset: 0, 0
+  index: -1
+exp_slime_earth_01_eye_01
+  rotate: true
+  xy: 1258, 177
+  size: 95, 82
+  orig: 95, 82
+  offset: 0, 0
+  index: -1
+exp_slime_earth_01_mouth_01
+  rotate: false
+  xy: 1258, 125
+  size: 75, 50
+  orig: 75, 50
+  offset: 0, 0
+  index: -1

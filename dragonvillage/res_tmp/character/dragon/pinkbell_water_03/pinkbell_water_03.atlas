@@ -1,0 +1,272 @@
+
+pinkbell_water_03.png
+size: 1997,683
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+pinkbell_water_03_arm_01
+  rotate: false
+  xy: 1714, 200
+  size: 65, 65
+  orig: 65, 65
+  offset: 0, 0
+  index: -1
+pinkbell_water_03_arm_02
+  rotate: false
+  xy: 1781, 179
+  size: 65, 65
+  orig: 65, 65
+  offset: 0, 0
+  index: -1
+pinkbell_water_03_body_01
+  rotate: true
+  xy: 1484, 555
+  size: 126, 155
+  orig: 126, 155
+  offset: 0, 0
+  index: -1
+pinkbell_water_03_body_02
+  rotate: false
+  xy: 1610, 451
+  size: 102, 77
+  orig: 102, 77
+  offset: 0, 0
+  index: -1
+pinkbell_water_03_body_03
+  rotate: false
+  xy: 1890, 348
+  size: 69, 64
+  orig: 69, 64
+  offset: 0, 0
+  index: -1
+pinkbell_water_03_effect_01
+  rotate: false
+  xy: 1890, 542
+  size: 105, 139
+  orig: 105, 139
+  offset: 0, 0
+  index: -1
+pinkbell_water_03_effect_02
+  rotate: false
+  xy: 1714, 133
+  size: 65, 65
+  orig: 65, 65
+  offset: 0, 0
+  index: -1
+pinkbell_water_03_effect_03
+  rotate: false
+  xy: 1848, 159
+  size: 65, 65
+  orig: 65, 65
+  offset: 0, 0
+  index: -1
+pinkbell_water_03_effect_04
+  rotate: false
+  xy: 1781, 112
+  size: 65, 65
+  orig: 65, 65
+  offset: 0, 0
+  index: -1
+pinkbell_water_03_effect_05
+  rotate: false
+  xy: 1714, 66
+  size: 65, 65
+  orig: 65, 65
+  offset: 0, 0
+  index: -1
+pinkbell_water_03_effect_07_01
+  rotate: true
+  xy: 2, 255
+  size: 426, 245
+  orig: 426, 245
+  offset: 0, 0
+  index: -1
+pinkbell_water_03_effect_07_02
+  rotate: false
+  xy: 2, 8
+  size: 426, 245
+  orig: 426, 245
+  offset: 0, 0
+  index: -1
+pinkbell_water_03_effect_07_03
+  rotate: true
+  xy: 249, 255
+  size: 426, 245
+  orig: 426, 245
+  offset: 0, 0
+  index: -1
+pinkbell_water_03_effect_07_04
+  rotate: false
+  xy: 430, 8
+  size: 426, 245
+  orig: 426, 245
+  offset: 0, 0
+  index: -1
+pinkbell_water_03_effect_07_05
+  rotate: true
+  xy: 496, 255
+  size: 426, 245
+  orig: 426, 245
+  offset: 0, 0
+  index: -1
+pinkbell_water_03_effect_08_01
+  rotate: true
+  xy: 743, 255
+  size: 426, 245
+  orig: 426, 245
+  offset: 0, 0
+  index: -1
+pinkbell_water_03_effect_08_02
+  rotate: false
+  xy: 858, 8
+  size: 426, 245
+  orig: 426, 245
+  offset: 0, 0
+  index: -1
+pinkbell_water_03_effect_08_03
+  rotate: true
+  xy: 990, 255
+  size: 426, 245
+  orig: 426, 245
+  offset: 0, 0
+  index: -1
+pinkbell_water_03_effect_08_04
+  rotate: true
+  xy: 1237, 255
+  size: 426, 245
+  orig: 426, 245
+  offset: 0, 0
+  index: -1
+pinkbell_water_03_effect_08_05
+  rotate: false
+  xy: 1286, 8
+  size: 426, 245
+  orig: 426, 245
+  offset: 0, 0
+  index: -1
+pinkbell_water_03_eye_01
+  rotate: false
+  xy: 1714, 2
+  size: 62, 62
+  orig: 62, 62
+  offset: 0, 0
+  index: -1
+pinkbell_water_03_eye_02
+  rotate: false
+  xy: 1793, 310
+  size: 69, 62
+  orig: 69, 62
+  offset: 0, 0
+  index: -1
+pinkbell_water_03_eye_03
+  rotate: false
+  xy: 1793, 246
+  size: 69, 62
+  orig: 69, 62
+  offset: 0, 0
+  index: -1
+pinkbell_water_03_eye_04
+  rotate: false
+  xy: 1915, 95
+  size: 57, 62
+  orig: 57, 62
+  offset: 0, 0
+  index: -1
+pinkbell_water_03_foot_01
+  rotate: false
+  xy: 1641, 530
+  size: 62, 73
+  orig: 62, 73
+  offset: 0, 0
+  index: -1
+pinkbell_water_03_foot_02
+  rotate: true
+  xy: 1484, 381
+  size: 50, 73
+  orig: 50, 73
+  offset: 0, 0
+  index: -1
+pinkbell_water_03_foot_03
+  rotate: false
+  xy: 1610, 376
+  size: 62, 73
+  orig: 62, 73
+  offset: 0, 0
+  index: -1
+pinkbell_water_03_foot_04
+  rotate: true
+  xy: 1890, 478
+  size: 62, 73
+  orig: 62, 73
+  offset: 0, 0
+  index: -1
+pinkbell_water_03_hand_01
+  rotate: false
+  xy: 1848, 92
+  size: 65, 65
+  orig: 65, 65
+  offset: 0, 0
+  index: -1
+pinkbell_water_03_hand_02
+  rotate: false
+  xy: 1853, 25
+  size: 65, 65
+  orig: 65, 65
+  offset: 0, 0
+  index: -1
+pinkbell_water_03_head_01
+  rotate: false
+  xy: 1484, 433
+  size: 124, 120
+  orig: 124, 120
+  offset: 0, 0
+  index: -1
+pinkbell_water_03_head_02
+  rotate: false
+  xy: 1641, 605
+  size: 68, 76
+  orig: 68, 76
+  offset: 0, 0
+  index: -1
+pinkbell_water_03_head_03
+  rotate: false
+  xy: 1864, 226
+  size: 124, 120
+  orig: 124, 120
+  offset: 0, 0
+  index: -1
+pinkbell_water_03_leg_01
+  rotate: true
+  xy: 1890, 414
+  size: 62, 73
+  orig: 62, 73
+  offset: 0, 0
+  index: -1
+pinkbell_water_03_leg_02
+  rotate: true
+  xy: 1778, 14
+  size: 50, 73
+  orig: 50, 73
+  offset: 0, 0
+  index: -1
+pinkbell_water_03_mouth_01
+  rotate: false
+  xy: 1915, 159
+  size: 65, 65
+  orig: 65, 65
+  offset: 0, 0
+  index: -1
+pinkbell_water_03_wing_01
+  rotate: false
+  xy: 1714, 374
+  size: 174, 307
+  orig: 174, 307
+  offset: 0, 0
+  index: -1
+pinkbell_water_03_wing_02
+  rotate: true
+  xy: 1484, 267
+  size: 105, 307
+  orig: 105, 307
+  offset: 0, 0
+  index: -1

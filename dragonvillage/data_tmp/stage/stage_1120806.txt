@@ -1,0 +1,110 @@
+{
+    "difficult":2,
+    "bg":"map_canyon2",
+	"wave":
+	[
+        {
+            "idx":1,
+			"camera":
+            {
+                "scale":1,
+                "pos_x":0,
+                "pos_y":0
+            },
+            "wave":
+            {
+				0:
+				[
+					"131033;1;Appear;RO03;RF23;0.5"
+					"131071;1;Appear;RO05;RB25;0.5;roam"
+				],
+				
+				0.2:
+				[
+					"131033;1;Appear;RO01;RM11;0.5"
+					"131071;1;Appear;RO07;RB17;0.5;roam"
+				],
+				
+				0.4:
+				[
+					"131071;1;Appear;RO01;RB11;0.5;roam"	
+					"131033;1;Appear;RO07;RM17;0.5"
+				],
+				
+				0.6:
+				[
+					"131071;1;Appear;RO03;RB23;0.5;roam"
+					"131033;1;Appear;RO05;RF25;0.5"
+				]
+            }
+        },
+		
+        {
+            "idx":2,
+			"camera":
+            {
+                "scale":1,
+                "pos_x":0,
+                "pos_y":0
+            },
+            "wave":
+            {
+                0:
+                [
+					"130054;1;Appear;RO03;RM23;0.5"
+					"130055;1;Appear;RO05;RM25;0.5"
+					"131052;1;Appear;RO03;RB23;0.5"
+					"131111;1;Appear;RO05;RB25;0.5"
+				],
+				
+				0.5:
+				[
+					"131033;1;Appear;RO01;RF21;0.5"
+					"131033;1;Appear;RO03;RF23;0.5"
+					"131033;1;Appear;RO05;RF25;0.5"
+					"131033;1;Appear;RO07;RF27;0.5"
+                ]
+            }
+        },
+		
+        {
+            "idx":3,
+			"camera":
+            {
+                "scale":0.8,
+                "pos_x":0,
+                "pos_y":0
+            },
+            "wave":
+            {	
+				0:
+				[
+					"140021;1;Basic;RO04;RM14;2;roam"
+				]
+            },
+			
+			"regen":
+			[
+				{
+					0:
+					[
+						"131071;1;Appear;RO02;RB11;0.5"
+						"131071;1;Appear;RO06;RB17;0.5"
+					]
+				},
+				
+				{
+					0:
+					[
+						"130055;1;Appear;RO04;RB24;0.5"
+					]
+				}
+			]
+        }
+    ]
+	
+	"move":
+	{
+		
+	}
+}

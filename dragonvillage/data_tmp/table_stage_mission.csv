@@ -1,0 +1,16 @@
+key,t_desc
+clear_cnt,스테이지 클리어 {1}회
+death_cnt,모든 드래곤이 한 번도 죽지 않고 클리어
+use_skill,드래곤의 스킬을 {1}번 이상 사용
+lap_time,{1} 초 내에 스테이지 클리어
+attribute_cnt,{1} 속성 드래곤을 {2}기 이상 사용하여 클리어
+use_fever,피버를 {1}번 이상 사용
+finish_basic,보스를 일반 공격으로 처치
+finish_active,보스를 스킬로 처치
+finish_fever,보스를 피버로 처치
+evolution_state,{1} 상태의 드래곤을 {2}기 이상 사용하여 클리어
+use_dragon_cnt,드래곤을 {1}기 이하로 사용하여 클리어
+use_tamer,{1} 테이머를 사용하여 클리어
+use_formation,{1} 진형을 사용하여 클리어
+use_dragon,{1} 드래곤을 사용하여 클리어
+not_use_role,{1} 직업의 드래곤을 사용하지 않고 클리어

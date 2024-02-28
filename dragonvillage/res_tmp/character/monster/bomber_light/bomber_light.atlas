@@ -1,0 +1,125 @@
+
+bomber_light.png
+size: 512,128
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+bomber_light_body_01
+  rotate: true
+  xy: 84, 65
+  size: 61, 99
+  orig: 61, 99
+  offset: 0, 0
+  index: -1
+bomber_light_body_02
+  rotate: true
+  xy: 185, 2
+  size: 53, 34
+  orig: 53, 34
+  offset: 0, 0
+  index: -1
+bomber_light_body_03
+  rotate: true
+  xy: 141, 23
+  size: 40, 42
+  orig: 40, 42
+  offset: 0, 0
+  index: -1
+bomber_light_body_04
+  rotate: false
+  xy: 266, 36
+  size: 52, 38
+  orig: 52, 38
+  offset: 0, 0
+  index: -1
+bomber_light_effect_03
+  rotate: true
+  xy: 266, 15
+  size: 19, 39
+  orig: 19, 39
+  offset: 0, 0
+  index: -1
+bomber_light_effect_04
+  rotate: false
+  xy: 406, 69
+  size: 58, 57
+  orig: 58, 57
+  offset: 0, 0
+  index: -1
+bomber_light_effect_05
+  rotate: true
+  xy: 340, 69
+  size: 57, 64
+  orig: 57, 64
+  offset: 0, 0
+  index: -1
+bomber_light_effect_06
+  rotate: false
+  xy: 264, 76
+  size: 74, 50
+  orig: 74, 50
+  offset: 0, 0
+  index: -1
+bomber_light_effect_07
+  rotate: true
+  xy: 221, 5
+  size: 50, 43
+  orig: 50, 43
+  offset: 0, 0
+  index: -1
+bomber_light_hand_01
+  rotate: false
+  xy: 368, 31
+  size: 41, 36
+  orig: 41, 36
+  offset: 0, 0
+  index: -1
+bomber_light_hand_02
+  rotate: true
+  xy: 320, 27
+  size: 40, 46
+  orig: 40, 46
+  offset: 0, 0
+  index: -1
+bomber_light_hand_03
+  rotate: true
+  xy: 53, 2
+  size: 24, 33
+  orig: 24, 33
+  offset: 0, 0
+  index: -1
+bomber_light_head_01
+  rotate: false
+  xy: 185, 57
+  size: 77, 69
+  orig: 77, 69
+  offset: 0, 0
+  index: -1
+bomber_light_head_02
+  rotate: false
+  xy: 2, 3
+  size: 49, 27
+  orig: 49, 27
+  offset: 0, 0
+  index: -1
+bomber_light_shoulder_01
+  rotate: true
+  xy: 84, 28
+  size: 35, 55
+  orig: 35, 55
+  offset: 0, 0
+  index: -1
+bomber_light_weapon_01
+  rotate: false
+  xy: 2, 32
+  size: 80, 94
+  orig: 80, 94
+  offset: 0, 0
+  index: -1
+bomber_light_weapon_02
+  rotate: false
+  xy: 466, 70
+  size: 43, 56
+  orig: 43, 56
+  offset: 0, 0
+  index: -1

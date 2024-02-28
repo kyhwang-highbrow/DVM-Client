@@ -1,0 +1,128 @@
+{
+	type = 'Header';
+	version = '1.1.2';
+	[1] =
+	{
+		[1] =
+		{
+			[1] =
+			{
+				type = 'Node';
+				ui_name = '';
+				x = -15.000000;
+				y = 2.000000;
+				dock_point = { 0.000000; 1.000000; };
+				anchor_point = { 0.000000; 0.000000; };
+				relative_size_type = 0;
+				width = 100;
+				height = 26;
+				scale_x = 1.000000;
+				scale_y = 1.000000;
+				skew_x = 0.000000;
+				skew_y = 0.000000;
+				rotation = 0.000000;
+				visible = true;
+				lua_name = 'dpsToggleNode';
+			};
+			[2] =
+			{
+				type = 'Button';
+				ui_name = '';
+				x = 0.000000;
+				y = 1.000000;
+				dock_point = { 0.500000; 0.000000; };
+				anchor_point = { 0.500000; 0.000000; };
+				relative_size_type = 0;
+				width = 188;
+				height = 151;
+				scale_x = 1.000000;
+				scale_y = 1.000000;
+				skew_x = 0.000000;
+				skew_y = 0.000000;
+				rotation = 0.000000;
+				visible = true;
+				lua_name = 'dpsToggleBtn';
+				enable = true;
+				normal = '';
+				selected = '';
+				disable = '';
+				image_type = 0;
+			};
+			[3] =
+			{
+				type = 'Button';
+				ui_name = '';
+				x = 44.000000;
+				y = 91.000000;
+				dock_point = { 0.500000; 0.500000; };
+				anchor_point = { 0.500000; 0.500000; };
+				relative_size_type = 0;
+				width = 70;
+				height = 70;
+				scale_x = -1.000000;
+				scale_y = 1.000000;
+				skew_x = 0.000000;
+				skew_y = 0.000000;
+				rotation = 0.000000;
+				visible = true;
+				lua_name = 'dpsBtn';
+				enable = true;
+				normal = 'ui/a2d/ingame_btn/ingame_btn_panel_0102.png';
+				selected = '';
+				disable = '';
+				image_type = 0;
+			};
+			[4] =
+			{
+				type = 'Node';
+				ui_name = '';
+				x = 0.000000;
+				y = 0.000000;
+				dock_point = { 0.500000; 0.000000; };
+				anchor_point = { 0.500000; 0.000000; };
+				relative_size_type = 0;
+				width = 188;
+				height = 106;
+				scale_x = 1.000000;
+				scale_y = 1.000000;
+				skew_x = 0.000000;
+				skew_y = 0.000000;
+				rotation = 0.000000;
+				visible = true;
+				lua_name = 'listNode';
+			};
+			type = 'Menu';
+			ui_name = '';
+			x = 0.000000;
+			y = 0.000000;
+			dock_point = { 0.500000; 0.500000; };
+			anchor_point = { 0.500000; 0.500000; };
+			relative_size_type = 0;
+			width = 160;
+			height = 112;
+			scale_x = 1.000000;
+			scale_y = 1.000000;
+			skew_x = 0.000000;
+			skew_y = 0.000000;
+			rotation = 0.000000;
+			visible = true;
+			lua_name = 'dpsMenu';
+		};
+		type = 'Menu';
+		ui_name = '';
+		x = 0.000000;
+		y = 0.000000;
+		dock_point = { 0.500000; 0.500000; };
+		anchor_point = { 0.500000; 0.500000; };
+		relative_size_type = 3;
+		width = 0;
+		height = 0;
+		scale_x = 1.000000;
+		scale_y = 1.000000;
+		skew_x = 0.000000;
+		skew_y = 0.000000;
+		rotation = 0.000000;
+		visible = true;
+		lua_name = '';
+	};
+};

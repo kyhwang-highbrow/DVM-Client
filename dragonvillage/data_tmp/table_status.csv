@@ -1,0 +1,12 @@
+type,t_name,combat_power_coef,base_stat,bonus_earth,bonus_water,bonus_fire,bonus_light,bonus_dark,is_percent
+atk,공격력,1,10,1,1,1.2,1,1,
+def,방어력,1,10,1.2,1,1,1,1,
+hp,생명력,0.014,4000,1,1.2,1,1,1,
+aspd,공격속도,2,100,1,1,1,1.2,1,1
+cri_chance,치명확률,1,0,1,1,1,1,1.2,1
+cri_dmg,치명피해,1,0,1,1,1,1,1,1
+cri_avoid,치명방어,1,0,1,1,1,1,1,
+hit_rate,적중률,1,100,1,1,1,1,1,
+avoid,회피율,1,0,1,1,1,1,1,
+accuracy,효과적중,1,0,1,1,1,1,1,
+resistance,효과저항,1,0,1,1,1,1,1,

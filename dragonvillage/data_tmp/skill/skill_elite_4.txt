@@ -1,0 +1,212 @@
+{
+	"skill_elite_4":
+	{
+		"ver":2,
+		"attack_value":
+		[							
+			{
+				"idx":1,
+				"res":"res/missile/missile_dot/missile_dot_@.png",
+				"body":[0,0,15],
+                "count":10,
+				"damage_rate":10,
+                "period":0.1,
+                "scale":1.2,
+				"time":0,
+				"speed":1000,
+				"accel":0,
+				"l_limit_speed":200,
+				"accel_delay":0,
+				"angular_velocity":-90,
+				"offset":[0,0],				
+				
+				"dir_array":[-1],
+				"dir_add":0,			
+				"missile_type":"pass",
+				"reset_time":0.5,
+				
+                "effect":
+                {
+                    "motion_streak":"",
+                    "rotation":false,
+                    "afterimage":false
+                }				
+			},
+			
+			{
+				"idx":1,
+				"res":"res/missile/missile_dot/missile_dot_@.png",
+				"body":[0,0,15],
+                "count":10,
+				"damage_rate":10,
+                "period":0.1,
+                "scale":1.2,
+				"time":0,
+				"speed":1000,
+				"accel":0,
+				"l_limit_speed":200,
+				"accel_delay":0,
+				"angular_velocity":-60,
+				"offset":[0,0],				
+				
+				"dir_array":[-1],
+				"dir_add":0,			
+				"missile_type":"pass",
+				"reset_time":0.5,
+				
+                "effect":
+                {
+                    "motion_streak":"",
+                    "rotation":false,
+                    "afterimage":false
+                }				
+			},
+			
+			{
+				"idx":1,
+				"res":"res/missile/missile_dot/missile_dot_@.png",
+				"body":[0,0,15],
+                "count":10,
+				"damage_rate":10,
+                "period":0.1,
+                "scale":1.2,
+				"time":0,
+				"speed":1000,
+				"accel":0,
+				"l_limit_speed":200,
+				"accel_delay":0,
+				"angular_velocity":-30,
+				"offset":[0,0],				
+				
+				"dir_array":[-1],
+				"dir_add":0,			
+				"missile_type":"pass",
+				"reset_time":0.5,
+				
+                "effect":
+                {
+                    "motion_streak":"",
+                    "rotation":false,
+                    "afterimage":false
+                }
+			},
+			
+			{
+				"idx":1,
+				"res":"res/missile/missile_dot/missile_dot_@.png",
+				"body":[0,0,15],
+                "count":10,
+				"damage_rate":10,
+                "period":0.1,
+                "scale":1.2,
+				"time":0,
+				"speed":1000,
+				"accel":0,
+				"l_limit_speed":200,
+				"accel_delay":0,
+				"angular_velocity":0,
+				"offset":[0,0],				
+				
+				"dir_array":[-1],
+				"dir_add":0,			
+				"missile_type":"pass",
+				"reset_time":0.5,
+				
+                "effect":
+                {
+                    "motion_streak":"",
+                    "rotation":false,
+                    "afterimage":false
+                }				
+			},
+			
+			{
+				"idx":1,
+				"res":"res/missile/missile_dot/missile_dot_@.png",
+				"body":[0,0,15],
+                "count":10,
+				"damage_rate":10,
+                "period":0.1,
+                "scale":1.2,
+				"time":0,
+				"speed":1000,
+				"accel":0,
+				"l_limit_speed":200,
+				"accel_delay":0,
+				"angular_velocity":30,
+				"offset":[0,0],				
+				
+				"dir_array":[-1],
+				"dir_add":0,			
+				"missile_type":"pass",
+				"reset_time":0.5,
+				
+                "effect":
+                {
+                    "motion_streak":"",
+                    "rotation":false,
+                    "afterimage":false
+                }				
+			},
+			
+			{
+				"idx":1,
+				"res":"res/missile/missile_dot/missile_dot_@.png",
+				"body":[0,0,15],
+                "count":10,
+				"damage_rate":10,
+                "period":0.1,
+                "scale":1.2,
+				"time":0,
+				"speed":1000,
+				"accel":0,
+				"l_limit_speed":200,
+				"accel_delay":0,
+				"angular_velocity":60,
+				"offset":[0,0],				
+				
+				"dir_array":[-1],
+				"dir_add":0,			
+				"missile_type":"pass",
+				"reset_time":0.5,
+				
+                "effect":
+                {
+                    "motion_streak":"",
+                    "rotation":false,
+                    "afterimage":false
+                }				
+			},
+			
+			{
+				"idx":1,
+				"res":"res/missile/missile_dot/missile_dot_@.png",
+				"body":[0,0,15],
+                "count":10,
+				"damage_rate":10,
+                "period":0.1,
+                "scale":1.2,
+				"time":0,
+				"speed":1000,
+				"accel":0,
+				"l_limit_speed":200,
+				"accel_delay":0,
+				"angular_velocity":90,
+				"offset":[0,0],				
+				
+				"dir_array":[1],
+				"dir_add":0,			
+				"missile_type":"pass",
+				"reset_time":0.5,
+				
+                "effect":
+                {
+                    "motion_streak":"",
+                    "rotation":false,
+                    "afterimage":false
+                }				
+			}
+		]
+	}
+}
+

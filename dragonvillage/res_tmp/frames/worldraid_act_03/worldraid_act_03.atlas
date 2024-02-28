@@ -1,0 +1,104 @@
+
+worldraid_act_03.png
+size: 496,214
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+frame_3
+  rotate: false
+  xy: 2, 5
+  size: 198, 207
+  orig: 198, 207
+  offset: 0, 0
+  index: -1
+head_1
+  rotate: true
+  xy: 202, 31
+  size: 88, 62
+  orig: 88, 62
+  offset: 0, 0
+  index: -1
+light_3
+  rotate: false
+  xy: 202, 5
+  size: 24, 24
+  orig: 24, 24
+  offset: 0, 0
+  index: -1
+light_4
+  rotate: true
+  xy: 266, 2
+  size: 32, 31
+  orig: 32, 31
+  offset: 0, 0
+  index: -1
+light_6
+  rotate: false
+  xy: 299, 5
+  size: 29, 29
+  orig: 29, 29
+  offset: 0, 0
+  index: -1
+w3
+  rotate: true
+  xy: 202, 121
+  size: 91, 60
+  orig: 91, 60
+  offset: 0, 0
+  index: -1
+w3_effect00009
+  rotate: true
+  xy: 264, 125
+  size: 87, 56
+  orig: 87, 56
+  offset: 0, 0
+  index: -1
+w3_effect00010
+  rotate: true
+  xy: 266, 36
+  size: 87, 56
+  orig: 87, 56
+  offset: 0, 0
+  index: -1
+w3_effect00011
+  rotate: true
+  xy: 322, 125
+  size: 87, 56
+  orig: 87, 56
+  offset: 0, 0
+  index: -1
+w3_effect00012
+  rotate: true
+  xy: 324, 36
+  size: 87, 56
+  orig: 87, 56
+  offset: 0, 0
+  index: -1
+w3_effect00013
+  rotate: true
+  xy: 380, 125
+  size: 87, 56
+  orig: 87, 56
+  offset: 0, 0
+  index: -1
+w3_effect00014
+  rotate: true
+  xy: 438, 125
+  size: 87, 56
+  orig: 87, 56
+  offset: 0, 0
+  index: -1
+w3_effect00015
+  rotate: false
+  xy: 382, 67
+  size: 87, 56
+  orig: 87, 56
+  offset: 0, 0
+  index: -1
+w3_light00000
+  rotate: false
+  xy: 382, 9
+  size: 87, 56
+  orig: 87, 56
+  offset: 0, 0
+  index: -1

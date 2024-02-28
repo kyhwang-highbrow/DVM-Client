@@ -1,0 +1,13 @@
+{
+	"layer":
+    [
+    
+        {
+            "speed":0
+            "list":           
+			[
+                {"res":"res/bg/colosseum_2/colosseum_2.vrp" "animation":"idle" "width":1920 "pos_x":640 "scale":0.8}
+            ]
+        }
+    ]
+}

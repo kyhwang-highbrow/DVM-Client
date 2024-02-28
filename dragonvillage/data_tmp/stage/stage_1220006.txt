@@ -1,0 +1,182 @@
+{
+    "difficult":2,
+    "bg":"map_dark_castle2",
+	"wave":
+	[
+        {
+            "idx":1,
+			"camera":
+            {
+                "scale":1,
+                "pos_x":0,
+                "pos_y":0
+            },
+			
+			
+            "wave":
+            {
+				0:
+				[
+					"130034;1;Appear;RO03;RF13;0.5;t3"
+				],
+				
+				0.2:
+				[
+					"130034;1;Appear;RO01;RF21;0.5;t3"
+				],
+				
+				0.4:
+				[
+					"130034;1;Appear;RO03;RM13;0.5;t3"
+				],
+				
+				0.6:
+				[
+					"130044;1;Appear;RO05;RM25;0.5;t4"
+				],
+				
+				0.8:
+				[
+					"130044;1;Appear;RO07;RB17;0.5;t4"
+				],
+				
+				1:
+				[
+					"130044;1;Appear;RO05;RB25;0.5;t4"
+				]
+            }
+        },
+		
+      	{   
+		    "idx":2,
+			"camera":
+            {
+                "scale":1,
+                "pos_x":0,
+                "pos_y":0
+            },
+			
+			
+			"wave":
+            {
+                0:
+				[
+					"130015;1;Basic2;RO04;RF14;0.2"
+				],
+				
+				0.2:
+				[
+					"130045;1;Basic2;RO04;RF24;0.2"
+				],
+				
+				0.4:
+				[
+					"130035;1;Basic2;RO04;RM14;0.2"
+				],
+				
+				0.6:
+				[
+					"130065;1;Basic2;RO04;RM24;0.2"
+				],
+				
+				0.8:
+				[
+					"130055;1;Basic2;RO04;RB14;0.2"
+				],
+				
+				1:
+				[
+					"130025;1;Basic2;RO04;RB24;0.2"
+				]
+            }
+        },
+		{   
+            "idx":3,
+			"camera":
+            {
+                "scale":0.7,
+                "pos_x":0,
+                "pos_y":0
+            },
+			
+			"wave":
+            {
+                0:
+                [
+					"134025;1;Basic;RO04;RM24;0.5"
+				]
+            },
+			
+			"regen":
+			[
+				{
+					0:
+					[
+						"130015;1;Appear;RO07;RF21;0.5"
+						"130015;1;Appear;RO07;RF24;0.5"
+						"130015;1;Appear;RO07;RF27;0.5"
+					]
+				},
+				
+				{
+					0:
+					[
+						"131111;1;Appear;RO01;RB21;0.5"
+					]
+				},
+				
+				{
+					30:
+					[
+						"131052;1;Appear;RO04;RO04;0.5"
+					]
+				},
+				
+				{
+					60:
+					[
+						"131043;1;Appear;RO07;RB27;0.5"
+					]
+				}
+			]
+        }
+    ],
+	
+	"move":
+	{	
+		"t3":
+		[
+			[
+				"triangle_ft_1;2", "triangle_ft_2;2", "triangle_ft_3;2",
+				"triangle_ft_1;2", "triangle_ft_2;2", "triangle_ft_3;2",
+				"triangle_bt_1;2", "triangle_bt_2;2", "triangle_bt_3;2",
+				"triangle_bt_1;2", "triangle_bt_2;2", "triangle_bt_3;2",
+				"triangle_bb_1;2", "triangle_bb_2;2", "triangle_bb_3;2",
+				"triangle_bb_1;2", "triangle_bb_2;2", "triangle_bb_3;2",
+				"triangle_fb_1;2", "triangle_fb_2;2", "triangle_fb_3;2",
+				"triangle_fb_1;2", "triangle_fb_2;2", "triangle_fb_3;2"
+			]
+		],
+		
+		"t4":
+		[
+			[
+				"triangle_bb_1;2", "triangle_bb_2;2", "triangle_bb_3;2",
+				"triangle_bb_1;2", "triangle_bb_2;2", "triangle_bb_3;2",
+				"triangle_fb_1;2", "triangle_fb_2;2", "triangle_fb_3;2",
+				"triangle_fb_1;2", "triangle_fb_2;2", "triangle_fb_3;2",
+				"triangle_ft_1;2", "triangle_ft_2;2", "triangle_ft_3;2",
+				"triangle_ft_1;2", "triangle_ft_2;2", "triangle_ft_3;2",
+				"triangle_bt_1;2", "triangle_bt_2;2", "triangle_bt_3;2",
+				"triangle_bt_1;2", "triangle_bt_2;2", "triangle_bt_3;2"
+			]
+		],
+		
+		2:
+		[
+			[
+				"w_extend;3", "w_extend_r;3"
+			]
+		]
+	}
+}

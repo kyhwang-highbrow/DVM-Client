@@ -1,0 +1,32 @@
+{
+	"skill_missile_sting_2":
+	{
+		"attack_value":
+		[		
+			{
+				"idx":1,
+				"res":"res/missile/missile_sting/missile_sting.png",
+				"body":[0,0,20],
+                "count":7,
+				"time":0.3,
+                "scale":0.7,
+                "period":0.2,
+				"speed":0,
+				"accel":2000,
+				"h_limit_speed":3000,
+				"accel_delay":0.2,
+				"angular_velocity":0,
+				"offset":[0,0],
+				"offset_add":[-100,-80],
+                "dir_add":0,
+				
+                "effect":
+                {
+                    "motion_streak":"res/missile/motion_streak/motion_streak_killerbee.png",
+                    "rotation":false,
+                    "afterimage":false
+                }				
+			}
+		]
+	}
+}

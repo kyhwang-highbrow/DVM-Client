@@ -1,0 +1,23 @@
+{
+	"directing":"floating_1",
+    "layer":
+    [
+    
+        {
+            "name":"배경"
+            "speed":0.6
+            "list":           
+			[
+                {"res":"res/bg/low_canyon/low_canyon.vrp" "animation":"layer_1_a" "width":3840}
+
+			
+			
+            ]
+        }
+        
+	
+		
+ 
+        
+    ]
+}

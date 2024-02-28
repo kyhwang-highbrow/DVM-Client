@@ -1,0 +1,51 @@
+{
+	"skill_shockwave":
+	{
+		"ver":2,
+		"attack_value":
+		[							
+			{
+				"comment":"투사체 바디",
+				"idx":1,
+				"body":[0,0,2000],
+                "count":1,
+				"time":0.4,
+				"damage_rate":100,
+                "scale":[0.6,0.6],
+				"offset":[0,0],
+				"missile_type":"pass",
+				"fadeout_time":0.43,
+				
+                "effect":
+                {
+                    "motion_streak":"",
+                    "rotation":false,
+                    "afterimage":false
+                }
+			},
+			
+			{
+				"comment":"리소스",
+				"idx":1,
+				"res":"res/effect/pulse_kadeath/pulse_kadeath.vrp",
+				"body":[0,0,0],
+                "count":3,
+				"time":0,
+				"period":0.2,
+				"damage_rate":100,
+                "scale":[0.6,0.6],
+				"offset":[0,0],
+				"missile_type":"pass",
+				"fadeout_time":0.43,
+				
+                "effect":
+                {
+                    "motion_streak":"",
+                    "rotation":false,
+                    "afterimage":false
+                }
+			}
+		]
+	}
+}
+

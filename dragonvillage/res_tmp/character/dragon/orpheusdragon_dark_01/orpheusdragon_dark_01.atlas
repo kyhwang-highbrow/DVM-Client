@@ -1,0 +1,125 @@
+
+orpheusdragon_dark_01.png
+size: 1933,1226
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+orpheusdragon_dark_01_arm_01
+  rotate: false
+  xy: 626, 114
+  size: 324, 403
+  orig: 324, 403
+  offset: 0, 0
+  index: -1
+orpheusdragon_dark_01_arm_02
+  rotate: false
+  xy: 1662, 869
+  size: 268, 355
+  orig: 268, 355
+  offset: 0, 0
+  index: -1
+orpheusdragon_dark_01_body_01
+  rotate: false
+  xy: 2, 763
+  size: 586, 461
+  orig: 586, 461
+  offset: 0, 0
+  index: -1
+orpheusdragon_dark_01_eff_01
+  rotate: false
+  xy: 1589, 26
+  size: 194, 168
+  orig: 194, 168
+  offset: 0, 0
+  index: -1
+orpheusdragon_dark_01_eff_02
+  rotate: false
+  xy: 590, 853
+  size: 562, 371
+  orig: 562, 371
+  offset: 0, 0
+  index: -1
+orpheusdragon_dark_01_eye_01
+  rotate: true
+  xy: 1278, 30
+  size: 136, 212
+  orig: 136, 212
+  offset: 0, 0
+  index: -1
+orpheusdragon_dark_01_foot_01
+  rotate: true
+  xy: 1030, 528
+  size: 323, 361
+  orig: 323, 361
+  offset: 0, 0
+  index: -1
+orpheusdragon_dark_01_foot_02
+  rotate: false
+  xy: 1393, 553
+  size: 253, 320
+  orig: 253, 320
+  offset: 0, 0
+  index: -1
+orpheusdragon_dark_01_hand_01
+  rotate: false
+  xy: 952, 114
+  size: 324, 403
+  orig: 324, 403
+  offset: 0, 0
+  index: -1
+orpheusdragon_dark_01_hand_02
+  rotate: false
+  xy: 1589, 196
+  size: 268, 355
+  orig: 268, 355
+  offset: 0, 0
+  index: -1
+orpheusdragon_dark_01_head_01
+  rotate: true
+  xy: 2, 2
+  size: 296, 310
+  orig: 296, 310
+  offset: 0, 0
+  index: -1
+orpheusdragon_dark_01_horn_01
+  rotate: false
+  xy: 590, 519
+  size: 438, 332
+  orig: 438, 332
+  offset: 0, 0
+  index: -1
+orpheusdragon_dark_01_horn_02
+  rotate: true
+  xy: 1278, 168
+  size: 358, 309
+  orig: 358, 309
+  offset: 0, 0
+  index: -1
+orpheusdragon_dark_01_jaw_01
+  rotate: true
+  xy: 314, 2
+  size: 296, 310
+  orig: 296, 310
+  offset: 0, 0
+  index: -1
+orpheusdragon_dark_01_tail_01
+  rotate: false
+  xy: 2, 300
+  size: 586, 461
+  orig: 586, 461
+  offset: 0, 0
+  index: -1
+orpheusdragon_dark_01_wing_01
+  rotate: false
+  xy: 1154, 875
+  size: 506, 349
+  orig: 506, 349
+  offset: 0, 0
+  index: -1
+orpheusdragon_dark_01_wing_02
+  rotate: false
+  xy: 1648, 560
+  size: 283, 307
+  orig: 283, 307
+  offset: 0, 0
+  index: -1

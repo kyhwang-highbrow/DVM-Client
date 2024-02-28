@@ -1,0 +1,63 @@
+{
+	"pattern_subboss_chariot_scarab_01":
+	[				
+		[
+			
+		]
+    ],
+	
+	"time_trriger":
+    {
+        "priority":2,
+        "list":
+        [
+            {
+                "time":0,
+                "pattern":
+                [
+                    "m;RM11;300", "a;basic", "w;1", "a;basic", "w;1", "a;basic", "w;2.1", "a;2", "w;10"
+                ]
+            },
+			
+			{
+                "time":15,
+                "pattern":
+                [
+                    "m;RB14;300", "a;2", "w;10", "a;basic", "w;1", "a;basic", "w;3"
+                ]
+            },
+			
+			{
+                "time":30,
+                "pattern":
+                [
+                    "m;RM17;300", "a;1", "a;basic", "a;basic", "a;basic", "a;2", "w;10"
+                ]
+            },
+			
+			{
+                "time":45,
+                "pattern":
+                [
+                    "m;RF14;300",  "a;2", "w;10", "a;1", "a;basic", "w;1", "a;basic", "w;1", "a;basic", "w;1"
+                ]
+            },
+			
+			{
+                "time":60,
+                "pattern":
+                [
+                    "m;RB11;400", "a;1", "a;basic", "w;1", "a;basic", "w;1", "a;basic", "w;1", "a;1", "w;1"
+                ]
+            },
+			
+			{
+                "time":75,
+                "pattern":
+                [
+                    "m;RM27;300", "a;1", "a;basic", "w;1", "a;basic", "w;1", "a;basic", "w;1", "a;1", "w;1"
+                ]
+            }
+        ]
+    }
+}

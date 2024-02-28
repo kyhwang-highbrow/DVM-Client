@@ -1,0 +1,195 @@
+
+boss_world_order_machine2_light.png
+size: 2048,2048
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+boss_world_order_machine2_light_bead_01
+  rotate: false
+  xy: 659, 971
+  size: 175, 163
+  orig: 175, 163
+  offset: 0, 0
+  index: -1
+boss_world_order_machine2_light_bead_02
+  rotate: false
+  xy: 1387, 1349
+  size: 27, 27
+  orig: 27, 27
+  offset: 0, 0
+  index: -1
+boss_world_order_machine2_light_bead_03
+  rotate: false
+  xy: 1735, 1432
+  size: 175, 204
+  orig: 175, 204
+  offset: 0, 0
+  index: -1
+boss_world_order_machine2_light_bead_04
+  rotate: false
+  xy: 659, 1136
+  size: 175, 204
+  orig: 175, 204
+  offset: 0, 0
+  index: -1
+boss_world_order_machine2_light_body_01
+  rotate: false
+  xy: 2, 1356
+  size: 707, 690
+  orig: 707, 690
+  offset: 0, 0
+  index: -1
+boss_world_order_machine2_light_body_effect_01
+  rotate: false
+  xy: 1023, 1146
+  size: 129, 194
+  orig: 129, 194
+  offset: 0, 0
+  index: -1
+boss_world_order_machine2_light_body_effect_02
+  rotate: false
+  xy: 2, 628
+  size: 655, 726
+  orig: 655, 726
+  offset: 0, 0
+  index: -1
+boss_world_order_machine2_light_button_01
+  rotate: false
+  xy: 1735, 1835
+  size: 187, 211
+  orig: 187, 211
+  offset: 0, 0
+  index: -1
+boss_world_order_machine2_light_button_02
+  rotate: true
+  xy: 1924, 1835
+  size: 86, 113
+  orig: 86, 113
+  offset: 0, 0
+  index: -1
+boss_world_order_machine2_light_button_03
+  rotate: false
+  xy: 836, 1031
+  size: 86, 113
+  orig: 86, 113
+  offset: 0, 0
+  index: -1
+boss_world_order_machine2_light_button_04
+  rotate: false
+  xy: 95, 2
+  size: 86, 87
+  orig: 86, 87
+  offset: 0, 0
+  index: -1
+boss_world_order_machine2_light_button_05
+  rotate: false
+  xy: 183, 2
+  size: 86, 87
+  orig: 86, 87
+  offset: 0, 0
+  index: -1
+boss_world_order_machine2_light_effect_01
+  rotate: false
+  xy: 836, 1146
+  size: 185, 194
+  orig: 185, 194
+  offset: 0, 0
+  index: -1
+boss_world_order_machine2_light_effect_02
+  rotate: false
+  xy: 2, 293
+  size: 346, 333
+  orig: 346, 333
+  offset: 0, 0
+  index: -1
+boss_world_order_machine2_light_effect_03
+  rotate: false
+  xy: 1387, 1713
+  size: 346, 333
+  orig: 346, 333
+  offset: 0, 0
+  index: -1
+boss_world_order_machine2_light_effect_04
+  rotate: false
+  xy: 1387, 1378
+  size: 346, 333
+  orig: 346, 333
+  offset: 0, 0
+  index: -1
+boss_world_order_machine2_light_gem_01
+  rotate: true
+  xy: 2, 91
+  size: 200, 327
+  orig: 200, 327
+  offset: 0, 0
+  index: -1
+boss_world_order_machine2_light_gem_02
+  rotate: false
+  xy: 350, 299
+  size: 200, 327
+  orig: 200, 327
+  offset: 0, 0
+  index: -1
+boss_world_order_machine2_light_gem_03
+  rotate: false
+  xy: 659, 906
+  size: 92, 63
+  orig: 92, 63
+  offset: 0, 0
+  index: -1
+boss_world_order_machine2_light_needle_01
+  rotate: true
+  xy: 1735, 1381
+  size: 49, 98
+  orig: 49, 98
+  offset: 0, 0
+  index: -1
+boss_world_order_machine2_light_ring_01
+  rotate: false
+  xy: 711, 1695
+  size: 674, 351
+  orig: 674, 351
+  offset: 0, 0
+  index: -1
+boss_world_order_machine2_light_ring_02
+  rotate: false
+  xy: 711, 1342
+  size: 674, 351
+  orig: 674, 351
+  offset: 0, 0
+  index: -1
+boss_world_order_machine2_light_stone_01
+  rotate: true
+  xy: 2, 2
+  size: 87, 91
+  orig: 87, 91
+  offset: 0, 0
+  index: -1
+boss_world_order_machine2_light_stone_02
+  rotate: true
+  xy: 552, 483
+  size: 143, 93
+  orig: 143, 93
+  offset: 0, 0
+  index: -1
+boss_world_order_machine2_light_tooth_01
+  rotate: false
+  xy: 271, 2
+  size: 86, 87
+  orig: 86, 87
+  offset: 0, 0
+  index: -1
+boss_world_order_machine2_light_tooth_02
+  rotate: false
+  xy: 1924, 1923
+  size: 122, 123
+  orig: 122, 123
+  offset: 0, 0
+  index: -1
+boss_world_order_machine2_light_tooth_03
+  rotate: false
+  xy: 1735, 1638
+  size: 192, 195
+  orig: 192, 195
+  offset: 0, 0
+  index: -1

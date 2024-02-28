@@ -1,0 +1,174 @@
+
+elite_harpy_fire.png
+size: 1024,256
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+elite_harpy_fire_arm_01
+  rotate: true
+  xy: 664, 76
+  size: 42, 39
+  orig: 42, 39
+  offset: 0, 0
+  index: -1
+elite_harpy_fire_arm_02
+  rotate: true
+  xy: 664, 120
+  size: 38, 33
+  orig: 38, 33
+  offset: 0, 0
+  index: -1
+elite_harpy_fire_arm_03
+  rotate: false
+  xy: 317, 13
+  size: 26, 26
+  orig: 26, 26
+  offset: 0, 0
+  index: -1
+elite_harpy_fire_body_01
+  rotate: false
+  xy: 157, 16
+  size: 43, 62
+  orig: 43, 62
+  offset: 0, 0
+  index: -1
+elite_harpy_fire_effect_01
+  rotate: false
+  xy: 2, 80
+  size: 229, 174
+  orig: 229, 174
+  offset: 0, 0
+  index: -1
+elite_harpy_fire_effect_02
+  rotate: false
+  xy: 510, 160
+  size: 188, 94
+  orig: 188, 94
+  offset: 0, 0
+  index: -1
+elite_harpy_fire_effect_03
+  rotate: false
+  xy: 233, 164
+  size: 275, 90
+  orig: 275, 90
+  offset: 0, 0
+  index: -1
+elite_harpy_fire_eye_01
+  rotate: false
+  xy: 202, 50
+  size: 28, 28
+  orig: 28, 28
+  offset: 0, 0
+  index: -1
+elite_harpy_fire_foot_01
+  rotate: true
+  xy: 617, 50
+  size: 38, 45
+  orig: 38, 45
+  offset: 0, 0
+  index: -1
+elite_harpy_fire_foot_02
+  rotate: false
+  xy: 202, 2
+  size: 35, 37
+  orig: 35, 37
+  offset: 0, 0
+  index: -1
+elite_harpy_fire_hair_01
+  rotate: true
+  xy: 569, 48
+  size: 40, 46
+  orig: 40, 46
+  offset: 0, 0
+  index: -1
+elite_harpy_fire_hand_01
+  rotate: false
+  xy: 986, 206
+  size: 36, 48
+  orig: 36, 48
+  offset: 0, 0
+  index: -1
+elite_harpy_fire_hand_02
+  rotate: false
+  xy: 986, 129
+  size: 36, 31
+  orig: 36, 31
+  offset: 0, 0
+  index: -1
+elite_harpy_fire_head_01
+  rotate: false
+  xy: 876, 141
+  size: 108, 113
+  orig: 108, 113
+  offset: 0, 0
+  index: -1
+elite_harpy_fire_leg_01
+  rotate: true
+  xy: 509, 43
+  size: 45, 58
+  orig: 45, 58
+  offset: 0, 0
+  index: -1
+elite_harpy_fire_leg_02
+  rotate: true
+  xy: 986, 162
+  size: 42, 36
+  orig: 42, 36
+  offset: 0, 0
+  index: -1
+elite_harpy_fire_leg_03
+  rotate: false
+  xy: 239, 9
+  size: 41, 30
+  orig: 41, 30
+  offset: 0, 0
+  index: -1
+elite_harpy_fire_leg_04
+  rotate: false
+  xy: 664, 55
+  size: 19, 19
+  orig: 19, 19
+  offset: 0, 0
+  index: -1
+elite_harpy_fire_lowerbody_01
+  rotate: false
+  xy: 282, 8
+  size: 33, 31
+  orig: 33, 31
+  offset: 0, 0
+  index: -1
+elite_harpy_fire_weapon_01
+  rotate: false
+  xy: 409, 60
+  size: 98, 102
+  orig: 98, 102
+  offset: 0, 0
+  index: -1
+elite_harpy_fire_wing_01
+  rotate: true
+  xy: 700, 133
+  size: 121, 174
+  orig: 121, 174
+  offset: 0, 0
+  index: -1
+elite_harpy_fire_wing_02
+  rotate: true
+  xy: 2, 10
+  size: 68, 153
+  orig: 68, 153
+  offset: 0, 0
+  index: -1
+elite_harpy_fire_wing_03
+  rotate: true
+  xy: 233, 41
+  size: 121, 174
+  orig: 121, 174
+  offset: 0, 0
+  index: -1
+elite_harpy_fire_wing_04
+  rotate: true
+  xy: 509, 90
+  size: 68, 153
+  orig: 68, 153
+  offset: 0, 0
+  index: -1

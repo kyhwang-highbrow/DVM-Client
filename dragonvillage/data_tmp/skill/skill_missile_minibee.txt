@@ -1,0 +1,124 @@
+{
+	"skill_missile_minibee":
+	{
+		"ver":2,
+		"attack_value":
+		[							
+			{
+				"idx":1,
+				"res":"res/missile/missile_minibee/missile_minibee.spine",
+				"visual":"mini_bee",
+				"body":[0,0,20],
+                "count":1,
+                "scale":0.7,
+				"time":0,
+				"speed":0,
+				"accel":1000,
+				"h_limit_speed":900,
+				"accel_delay":2.6,
+				"angular_velocity":0,
+				"offset":[-120,50],
+				
+                "effect":
+                {
+                    "motion_streak":"res/missile/motion_streak/motion_streak_killerbee.png",
+                    "rotation":false,
+                    "afterimage":false
+                }				
+			},
+			
+			{
+				"idx":1,
+				"res":"res/missile/missile_minibee/missile_minibee.spine",
+				"visual":"mini_bee",
+				"body":[0,0,20],
+                "count":1,
+                "scale":0.7,
+				"time":0,
+				"speed":0,
+				"accel":1000,
+				"h_limit_speed":900,
+				"accel_delay":2.2,
+				"angular_velocity":0,
+				"offset":[-135,30],
+				
+                "effect":
+                {
+                    "motion_streak":"res/missile/motion_streak/motion_streak_killerbee.png",
+                    "rotation":false,
+                    "afterimage":false
+                }				
+			},
+			
+			{
+				"idx":1,
+				"res":"res/missile/missile_minibee/missile_minibee.spine",
+				"visual":"mini_bee",
+				"body":[0,0,20],
+                "count":1,
+                "scale":0.7,
+				"time":0,
+				"speed":0,
+				"accel":1000,
+				"h_limit_speed":900,
+				"accel_delay":2,
+				"angular_velocity":0,
+				"offset":[-140,0],
+				
+                "effect":
+                {
+                    "motion_streak":"res/missile/motion_streak/motion_streak_killerbee.png",
+                    "rotation":false,
+                    "afterimage":true
+                }				
+			},
+			
+			{
+				"idx":1,
+				"res":"res/missile/missile_minibee/missile_minibee.spine",
+				"visual":"mini_bee",
+				"body":[0,0,20],
+                "count":1,
+                "scale":0.7,
+				"time":0,
+				"speed":0,
+				"accel":1000,
+				"h_limit_speed":900,
+				"accel_delay":2.4,
+				"angular_velocity":0,
+				"offset":[-135,-30],
+				
+                "effect":
+                {
+                    "motion_streak":"res/missile/motion_streak/motion_streak_killerbee.png",
+                    "rotation":false,
+                    "afterimage":false
+                }				
+			},
+			
+			{
+				"idx":1,
+				"res":"res/missile/missile_minibee/missile_minibee.spine",
+				"visual":"mini_bee",
+				"body":[0,0,20],
+                "count":1,
+                "scale":0.7,
+				"time":0,
+				"speed":0,
+				"accel":1000,
+				"h_limit_speed":900,
+				"accel_delay":2.8,
+				"angular_velocity":0,
+				"offset":[-120,-50],
+				
+                "effect":
+                {
+                    "motion_streak":"res/missile/motion_streak/motion_streak_killerbee.png",
+                    "rotation":false,
+                    "afterimage":false
+                }				
+			}
+		]
+	}
+}
+

@@ -1,0 +1,8 @@
+page,bg,illustration,char,t_char_name,char_pos,char_ani,char_effect,r_scen,t_text,text_pos,text_type,auto_skip,effect_1,effect_2,effect_3,bgm,bgm_action,sound
+1,,,,,,,,,,,,3,title;힘을 향한 탐욕,skip_disable,,,,
+2,,,,,,,,,,,,0.3,skip_disable,,,,,
+3,챕터3,,,,,,,,허나 몬스터들은 더욱 날뛸 뿐이었다.,,bold,5,,,,,,
+4,,,,,,,,,몬스터는 무기를 쥔 채 죄 없는 생명들을 위협하고 있었다.,,bold,5,,,,,,
+5,,,,,,,,,파워드래곤은 자신의 힘을 사용하지 않으리라 맹세했기에 생명들에게 힘을 전할 수 없었다.,,bold,5,,,,,,
+6,,,파워 드래곤,파워드래곤,left,idle,,,나의 힘이 또 다른 악행으로 이어진다면...,,bold,5,,,,,,
+7,,,,,,,,,자신의 힘을 사용하지 않는 파워드래곤은 점차 무너져 내렸다.,,bold,5,clear_char,,,,,

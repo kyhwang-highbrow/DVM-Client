@@ -1,0 +1,124 @@
+{
+    "difficult":2,
+    "bg":"map_nightmare",
+	"wave":
+	[
+        {
+            "idx":1,
+			"camera":
+            {
+                "scale":0.9,
+                "pos_x":0,
+                "pos_y":0
+            },
+            "wave":
+            {
+				0:
+				[
+					"130014;1;Basic2;RO04;RF14;0.2"
+				],
+				
+				0.2:
+				[
+					"130044;1;Basic2;RO04;RF24;0.2"
+				],
+				
+				0.4:
+				[
+					"130034;1;Basic2;RO04;RM14;0.2"
+				],
+				
+				0.6:
+				[
+					"130064;1;Basic2;RO04;RM24;0.2"
+				],
+				
+				0.8:
+				[
+					"130054;1;Basic2;RO04;RB14;0.2"
+				],
+				
+				1:
+				[
+					"130024;1;Basic2;RO04;RB24;0.2"
+				]
+            }
+        },
+        {
+            "idx":2,
+			"camera":
+            {
+                "scale":0.9,
+                "pos_x":0,
+                "pos_y":0
+            },
+            "wave":
+            {
+                0:
+                [
+					"130014;1;Basic2;RO01;RM21;1"
+					"130024;1;Basic2;RO02;RM22;1"
+					"130054;1;Basic2;RO03;RM23;1"
+					"130034;1;Basic2;RO04;RM24;1"
+					"130054;1;Basic2;RO05;RM25;1"
+					"130024;1;Basic2;RO06;RM26;1"
+					"130014;1;Basic2;RO07;RM27;1"
+                ]
+            }
+        },
+		
+        {
+            "idx":3,
+			"camera":
+            {
+                "scale":0.8,
+                "pos_x":0,
+                "pos_y":0
+            },
+            "direction":"boss_wave",
+            "wave":
+            {
+				0:
+				[
+					"134033;1;Basic;BOSS;RM24;2"
+				]
+            },
+			
+			"regen":
+			[
+				{
+					0:
+					[
+						"131061;1;Basic;BO12;RF22;0.5"
+						"131061;1;Basic;TO12;RF26;0.5"
+					]
+				},
+				
+				{
+					10:
+					[
+						"131042;1;Basic;BO12;RB12;0.5"
+						"131042;1;Basic;TO12;RB16;0.5"
+					]
+				}
+			]
+        }
+    ],
+	
+	"move":
+	{
+		1:
+		[
+			[
+				"top_line;3", "bottom_line;3"
+			]
+		],
+		
+		2:
+		[
+			[
+				"left_line;3", "right_line;3"
+			]
+		]
+	}
+}

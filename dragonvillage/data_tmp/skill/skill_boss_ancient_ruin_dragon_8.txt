@@ -1,0 +1,38 @@
+{
+	"skill_boss_ancient_ruin_dragon_8":
+	{
+		"ver":2,
+		"attack_value":
+		[							
+			{
+				"idx":1,
+				"comment":"기관총"
+				"res":"res/missile/missile_arrow/missile_arrow.vrp",
+				"body":[0,0,10],
+                "count":14,
+				"damage_rate":10,
+                "period":0.1,
+                "scale":0.4,
+				"time":0,
+				"speed":1200,
+				"accel":0,
+				"l_limit_speed":0,
+				"h_limit_speed":1000,
+				"accel_delay":0,
+				"angular_velocity":0,
+				"offset":[0,0],
+				"dir_array":['random',1,-1],
+				"dir_add":0,
+				"fadeout_time":10,
+				
+                "effect":
+                {
+                    "motion_streak":"",
+                    "rotation":false,
+                    "afterimage":false
+                }				
+			}
+		]
+	}
+}
+

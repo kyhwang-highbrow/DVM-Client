@@ -1,0 +1,13 @@
+
+skill_karna_chain.png
+size: 2048,2048
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+skill_karna_chain_res_01
+  rotate: false
+  xy: 2, 1654
+  size: 1733, 81
+  orig: 1733, 81
+  offset: 0, 0
+  index: -1

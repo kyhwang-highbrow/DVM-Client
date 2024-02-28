@@ -1,0 +1,39 @@
+{
+    "directing":"floating_1",
+	"layer":
+    [
+    
+        {
+            "name":"원경"
+            "speed":0.2
+            "list":
+            [
+                {"res":"res/bg/desert/bg_desert_1_a.png" "width":1138}
+                {"res":"res/bg/desert/bg_desert_1_b.png" "width":1138}
+            ]
+        }
+        
+        
+        {
+            "name":"중경"
+            "speed":0.5
+            "list":
+            [
+                {"res":"res/bg/desert/bg_desert_2_a.png" "width":1138}
+                {"res":"res/bg/desert/bg_desert_2_b.png" "width":1138}
+            ]
+        }
+        
+        
+        {
+            "name":"근경"
+            "speed":0.8
+            "list":
+            [
+                {"res":"res/bg/desert/bg_desert_3_a.png" "width":1138}
+                {"res":"res/bg/desert/bg_desert_3_b.png" "width":1138}
+            ]
+        }
+        
+    ]
+}

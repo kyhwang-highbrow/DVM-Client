@@ -1,0 +1,132 @@
+
+boomba_earth_01.png
+size: 316,543
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+boomba_earth_01_arm_01
+  rotate: false
+  xy: 210, 126
+  size: 47, 53
+  orig: 47, 53
+  offset: 0, 0
+  index: -1
+boomba_earth_01_arm_02
+  rotate: false
+  xy: 259, 126
+  size: 47, 53
+  orig: 47, 53
+  offset: 0, 0
+  index: -1
+boomba_earth_01_body_01
+  rotate: false
+  xy: 2, 332
+  size: 212, 209
+  orig: 212, 209
+  offset: 0, 0
+  index: -1
+boomba_earth_01_body_02
+  rotate: true
+  xy: 216, 459
+  size: 82, 98
+  orig: 82, 98
+  offset: 0, 0
+  index: -1
+boomba_earth_01_body_03
+  rotate: false
+  xy: 2, 51
+  size: 129, 131
+  orig: 129, 131
+  offset: 0, 0
+  index: -1
+boomba_earth_01_effect_01
+  rotate: false
+  xy: 216, 374
+  size: 92, 83
+  orig: 92, 83
+  offset: 0, 0
+  index: -1
+boomba_earth_01_effect_02
+  rotate: false
+  xy: 216, 289
+  size: 92, 83
+  orig: 92, 83
+  offset: 0, 0
+  index: -1
+boomba_earth_01_effect_03
+  rotate: true
+  xy: 172, 185
+  size: 35, 42
+  orig: 35, 42
+  offset: 0, 0
+  index: -1
+boomba_earth_01_eye_01
+  rotate: true
+  xy: 216, 181
+  size: 106, 60
+  orig: 106, 60
+  offset: 0, 0
+  index: -1
+boomba_earth_01_foot_01
+  rotate: false
+  xy: 266, 71
+  size: 47, 53
+  orig: 47, 53
+  offset: 0, 0
+  index: -1
+boomba_earth_01_foot_02
+  rotate: false
+  xy: 266, 16
+  size: 47, 53
+  orig: 47, 53
+  offset: 0, 0
+  index: -1
+boomba_earth_01_head_01
+  rotate: true
+  xy: 2, 184
+  size: 146, 168
+  orig: 146, 168
+  offset: 0, 0
+  index: -1
+boomba_earth_01_leg_01
+  rotate: true
+  xy: 2, 2
+  size: 47, 53
+  orig: 47, 53
+  offset: 0, 0
+  index: -1
+boomba_earth_01_leg_02
+  rotate: true
+  xy: 57, 2
+  size: 47, 53
+  orig: 47, 53
+  offset: 0, 0
+  index: -1
+boomba_earth_01_mouth_01
+  rotate: false
+  xy: 133, 122
+  size: 75, 60
+  orig: 75, 60
+  offset: 0, 0
+  index: -1
+boomba_earth_01_mouth_02
+  rotate: false
+  xy: 133, 8
+  size: 131, 112
+  orig: 131, 112
+  offset: 0, 0
+  index: -1
+boomba_earth_01_wing_01
+  rotate: true
+  xy: 172, 277
+  size: 53, 42
+  orig: 53, 42
+  offset: 0, 0
+  index: -1
+boomba_earth_01_wing_02
+  rotate: true
+  xy: 172, 222
+  size: 53, 42
+  orig: 53, 42
+  offset: 0, 0
+  index: -1

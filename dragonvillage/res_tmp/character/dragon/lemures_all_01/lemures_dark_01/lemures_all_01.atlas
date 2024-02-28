@@ -1,0 +1,251 @@
+
+lemures_all_01.png
+size: 1076,535
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+lemures_all_01_arm
+  rotate: true
+  xy: 281, 274
+  size: 259, 82
+  orig: 259, 82
+  offset: 0, 0
+  index: -1
+lemures_all_01_b_arm
+  rotate: false
+  xy: 788, 162
+  size: 115, 104
+  orig: 115, 104
+  offset: 0, 0
+  index: -1
+lemures_all_01_b_finger
+  rotate: false
+  xy: 750, 316
+  size: 40, 40
+  orig: 40, 40
+  offset: 0, 0
+  index: -1
+lemures_all_01_b_leg
+  rotate: true
+  xy: 886, 9
+  size: 72, 96
+  orig: 72, 96
+  offset: 0, 0
+  index: -1
+lemures_all_01_blood
+  rotate: false
+  xy: 717, 5
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+lemures_all_01_body_01
+  rotate: false
+  xy: 628, 288
+  size: 120, 68
+  orig: 120, 68
+  offset: 0, 0
+  index: -1
+lemures_all_01_body_02
+  rotate: false
+  xy: 782, 74
+  size: 100, 86
+  orig: 100, 86
+  offset: 0, 0
+  index: -1
+lemures_all_01_body_03
+  rotate: true
+  xy: 2, 2
+  size: 209, 155
+  orig: 209, 155
+  offset: 0, 0
+  index: -1
+lemures_all_01_body_04
+  rotate: false
+  xy: 938, 194
+  size: 127, 79
+  orig: 127, 79
+  offset: 0, 0
+  index: -1
+lemures_all_01_c_eye
+  rotate: true
+  xy: 361, 10
+  size: 51, 48
+  orig: 51, 48
+  offset: 0, 0
+  index: -1
+lemures_all_01_cape
+  rotate: true
+  xy: 628, 358
+  size: 175, 166
+  orig: 175, 166
+  offset: 0, 0
+  index: -1
+lemures_all_01_chain
+  rotate: true
+  xy: 835, 11
+  size: 61, 49
+  orig: 61, 49
+  offset: 0, 0
+  index: -1
+lemures_all_01_cuffs
+  rotate: false
+  xy: 668, 71
+  size: 112, 95
+  orig: 112, 95
+  offset: 0, 0
+  index: -1
+lemures_all_01_eff_01
+  rotate: true
+  xy: 365, 280
+  size: 253, 131
+  orig: 253, 131
+  offset: 0, 0
+  index: -1
+lemures_all_01_eff_02
+  rotate: true
+  xy: 498, 285
+  size: 248, 128
+  orig: 248, 128
+  offset: 0, 0
+  index: -1
+lemures_all_01_eff_03
+  rotate: true
+  xy: 411, 29
+  size: 249, 126
+  orig: 249, 126
+  offset: 0, 0
+  index: -1
+lemures_all_01_eff_splash
+  rotate: true
+  xy: 539, 36
+  size: 247, 127
+  orig: 247, 127
+  offset: 0, 0
+  index: -1
+lemures_all_01_eff_won
+  rotate: false
+  xy: 796, 268
+  size: 140, 138
+  orig: 140, 138
+  offset: 0, 0
+  index: -1
+lemures_all_01_effect_atk_l
+  rotate: true
+  xy: 940, 401
+  size: 132, 134
+  orig: 132, 134
+  offset: 0, 0
+  index: -1
+lemures_all_01_effect_l
+  rotate: false
+  xy: 668, 168
+  size: 118, 118
+  orig: 118, 118
+  offset: 0, 0
+  index: -1
+lemures_all_01_effect_m_circle
+  rotate: true
+  xy: 2, 213
+  size: 320, 87
+  orig: 320, 87
+  offset: 0, 0
+  index: -1
+lemures_all_01_effect_s_l
+  rotate: false
+  xy: 938, 275
+  size: 136, 124
+  orig: 136, 124
+  offset: 0, 0
+  index: -1
+lemures_all_01_eye
+  rotate: true
+  xy: 311, 5
+  size: 56, 48
+  orig: 56, 48
+  offset: 0, 0
+  index: -1
+lemures_all_01_eye_c
+  rotate: false
+  xy: 91, 217
+  size: 52, 30
+  orig: 52, 30
+  offset: 0, 0
+  index: -1
+lemures_all_01_finger
+  rotate: false
+  xy: 984, 43
+  size: 46, 47
+  orig: 46, 47
+  offset: 0, 0
+  index: -1
+lemures_all_01_head
+  rotate: true
+  xy: 262, 63
+  size: 184, 142
+  orig: 184, 142
+  offset: 0, 0
+  index: -1
+lemures_all_01_leg_01
+  rotate: true
+  xy: 884, 83
+  size: 77, 93
+  orig: 77, 93
+  offset: 0, 0
+  index: -1
+lemures_all_01_leg_02
+  rotate: false
+  xy: 262, 2
+  size: 47, 59
+  orig: 47, 59
+  offset: 0, 0
+  index: -1
+lemures_all_01_monocle
+  rotate: false
+  xy: 668, 2
+  size: 47, 67
+  orig: 47, 67
+  offset: 0, 0
+  index: -1
+lemures_all_01_mouth
+  rotate: true
+  xy: 783, 8
+  size: 64, 50
+  orig: 64, 50
+  offset: 0, 0
+  index: -1
+lemures_all_01_neckless
+  rotate: false
+  xy: 979, 142
+  size: 94, 50
+  orig: 94, 50
+  offset: 0, 0
+  index: -1
+lemures_all_01_s_wing
+  rotate: false
+  xy: 979, 92
+  size: 90, 48
+  orig: 90, 48
+  offset: 0, 0
+  index: -1
+lemures_all_01_staff
+  rotate: true
+  xy: 796, 408
+  size: 125, 142
+  orig: 125, 142
+  offset: 0, 0
+  index: -1
+lemures_all_01_swing
+  rotate: true
+  xy: 91, 249
+  size: 284, 188
+  orig: 284, 188
+  offset: 0, 0
+  index: -1
+lemures_all_01_wing_01
+  rotate: true
+  xy: 159, 14
+  size: 233, 101
+  orig: 233, 101
+  offset: 0, 0
+  index: -1

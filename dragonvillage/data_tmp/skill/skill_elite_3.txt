@@ -1,0 +1,40 @@
+{
+	"skill_elite_3":
+	{
+		"ver":2,
+		"attack_value":
+		[							
+			{
+				"idx":1,
+				"res":"res/missile/missile_wedge_2/missile_wedge_2_@.vrp",
+				"body":[0,0,4],
+                "count":1,
+				"damage_rate":100,
+                "period":0.1,
+                "scale":0.2,
+				"time":0,
+				"speed":1000,
+				"accel":-900,
+				"l_limit_speed":200,
+				"accel_delay":0,
+				"angular_velocity":0,
+				"offset":[0,0],
+				"size_up_time":1,
+				
+				
+				"dir_array":[0,20,40,60,80,100,120,140,160,180,200,220,240,260,280,300,320,340],
+				"dir_add":10,			
+				"missile_type":"pass",
+				"reset_time":0.5,
+				
+                "effect":
+                {
+                    "motion_streak":"",
+                    "rotation":false,
+                    "afterimage":false
+                }				
+			}
+		]
+	}
+}
+

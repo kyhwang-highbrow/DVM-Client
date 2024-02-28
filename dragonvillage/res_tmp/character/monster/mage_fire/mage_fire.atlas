@@ -1,0 +1,104 @@
+
+mage_fire.png
+size: 512,128
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+mage_fire_arm_01
+  rotate: true
+  xy: 397, 82
+  size: 44, 47
+  orig: 44, 47
+  offset: 0, 0
+  index: -1
+mage_fire_arm_02
+  rotate: true
+  xy: 446, 82
+  size: 44, 47
+  orig: 44, 47
+  offset: 0, 0
+  index: -1
+mage_fire_body_01
+  rotate: false
+  xy: 2, 21
+  size: 65, 105
+  orig: 65, 105
+  offset: 0, 0
+  index: -1
+mage_fire_body_02
+  rotate: true
+  xy: 109, 2
+  size: 33, 36
+  orig: 33, 36
+  offset: 0, 0
+  index: -1
+mage_fire_body_03
+  rotate: true
+  xy: 143, 37
+  size: 40, 42
+  orig: 40, 42
+  offset: 0, 0
+  index: -1
+mage_fire_body_04
+  rotate: true
+  xy: 147, 2
+  size: 33, 18
+  orig: 33, 18
+  offset: 0, 0
+  index: -1
+mage_fire_effect_01
+  rotate: false
+  xy: 187, 39
+  size: 38, 38
+  orig: 38, 38
+  offset: 0, 0
+  index: -1
+mage_fire_effect_02
+  rotate: false
+  xy: 69, 43
+  size: 72, 83
+  orig: 72, 83
+  offset: 0, 0
+  index: -1
+mage_fire_effect_03
+  rotate: true
+  xy: 2, 2
+  size: 17, 35
+  orig: 17, 35
+  offset: 0, 0
+  index: -1
+mage_fire_hand_01
+  rotate: false
+  xy: 69, 11
+  size: 38, 30
+  orig: 38, 30
+  offset: 0, 0
+  index: -1
+mage_fire_hand_02
+  rotate: false
+  xy: 227, 45
+  size: 25, 32
+  orig: 25, 32
+  offset: 0, 0
+  index: -1
+mage_fire_head_01
+  rotate: false
+  xy: 249, 81
+  size: 82, 45
+  orig: 82, 45
+  offset: 0, 0
+  index: -1
+mage_fire_head_02
+  rotate: false
+  xy: 333, 90
+  size: 62, 36
+  orig: 62, 36
+  offset: 0, 0
+  index: -1
+mage_fire_wepon_01
+  rotate: false
+  xy: 143, 79
+  size: 104, 47
+  orig: 104, 47
+  offset: 0, 0
+  index: -1

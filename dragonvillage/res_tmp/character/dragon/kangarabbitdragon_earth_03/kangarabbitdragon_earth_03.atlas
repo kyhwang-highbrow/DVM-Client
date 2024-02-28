@@ -1,0 +1,209 @@
+
+kangarabbitdragon_earth_03.png
+size: 964,273
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+kangarabbitdragon_earth_03_arm_01
+  rotate: false
+  xy: 899, 58
+  size: 47, 37
+  orig: 47, 37
+  offset: 0, 0
+  index: -1
+kangarabbitdragon_earth_03_arm_02
+  rotate: true
+  xy: 886, 28
+  size: 28, 46
+  orig: 28, 46
+  offset: 0, 0
+  index: -1
+kangarabbitdragon_earth_03_arm_03
+  rotate: false
+  xy: 833, 7
+  size: 48, 19
+  orig: 48, 19
+  offset: 0, 0
+  index: -1
+kangarabbitdragon_earth_03_baby_ear_01
+  rotate: true
+  xy: 883, 4
+  size: 22, 28
+  orig: 22, 28
+  offset: 0, 0
+  index: -1
+kangarabbitdragon_earth_03_baby_ear_02
+  rotate: false
+  xy: 713, 90
+  size: 18, 29
+  orig: 18, 29
+  offset: 0, 0
+  index: -1
+kangarabbitdragon_earth_03_baby_hand_01
+  rotate: true
+  xy: 913, 3
+  size: 23, 21
+  orig: 23, 21
+  offset: 0, 0
+  index: -1
+kangarabbitdragon_earth_03_baby_hand_02
+  rotate: false
+  xy: 936, 7
+  size: 21, 22
+  orig: 21, 22
+  offset: 0, 0
+  index: -1
+kangarabbitdragon_earth_03_baby_head_01
+  rotate: true
+  xy: 658, 79
+  size: 40, 53
+  orig: 40, 53
+  offset: 0, 0
+  index: -1
+kangarabbitdragon_earth_03_body_01
+  rotate: false
+  xy: 614, 121
+  size: 119, 150
+  orig: 119, 150
+  offset: 0, 0
+  index: -1
+kangarabbitdragon_earth_03_ear_01
+  rotate: false
+  xy: 512, 28
+  size: 91, 81
+  orig: 91, 81
+  offset: 0, 0
+  index: -1
+kangarabbitdragon_earth_03_ear_02
+  rotate: true
+  xy: 2, 6
+  size: 59, 117
+  orig: 59, 117
+  offset: 0, 0
+  index: -1
+kangarabbitdragon_earth_03_effect_01_1
+  rotate: false
+  xy: 833, 28
+  size: 51, 45
+  orig: 51, 45
+  offset: 0, 0
+  index: -1
+kangarabbitdragon_earth_03_effect_01_2
+  rotate: false
+  xy: 836, 75
+  size: 61, 85
+  orig: 61, 85
+  offset: 0, 0
+  index: -1
+kangarabbitdragon_earth_03_effect_01_3
+  rotate: false
+  xy: 758, 12
+  size: 73, 77
+  orig: 73, 77
+  offset: 0, 0
+  index: -1
+kangarabbitdragon_earth_03_effect_01_4
+  rotate: false
+  xy: 899, 97
+  size: 57, 73
+  orig: 57, 73
+  offset: 0, 0
+  index: -1
+kangarabbitdragon_earth_03_effect_01_5
+  rotate: false
+  xy: 614, 75
+  size: 42, 44
+  orig: 42, 44
+  offset: 0, 0
+  index: -1
+kangarabbitdragon_earth_03_effect_01_6
+  rotate: true
+  xy: 2, 67
+  size: 204, 277
+  orig: 204, 277
+  offset: 0, 0
+  index: -1
+kangarabbitdragon_earth_03_effect_02_1
+  rotate: false
+  xy: 681, 2
+  size: 75, 75
+  orig: 75, 75
+  offset: 0, 0
+  index: -1
+kangarabbitdragon_earth_03_effect_02_2
+  rotate: false
+  xy: 451, 111
+  size: 161, 160
+  orig: 161, 160
+  offset: 0, 0
+  index: -1
+kangarabbitdragon_earth_03_effect_02_3
+  rotate: false
+  xy: 281, 112
+  size: 168, 159
+  orig: 168, 159
+  offset: 0, 0
+  index: -1
+kangarabbitdragon_earth_03_eye_01
+  rotate: false
+  xy: 934, 31
+  size: 23, 25
+  orig: 23, 25
+  offset: 0, 0
+  index: -1
+kangarabbitdragon_earth_03_foot_01
+  rotate: false
+  xy: 409, 20
+  size: 101, 89
+  orig: 101, 89
+  offset: 0, 0
+  index: -1
+kangarabbitdragon_earth_03_foot_02
+  rotate: false
+  xy: 888, 172
+  size: 74, 99
+  orig: 74, 99
+  offset: 0, 0
+  index: -1
+kangarabbitdragon_earth_03_glob_01
+  rotate: false
+  xy: 605, 2
+  size: 74, 71
+  orig: 74, 71
+  offset: 0, 0
+  index: -1
+kangarabbitdragon_earth_03_glob_02
+  rotate: false
+  xy: 215, 8
+  size: 55, 57
+  orig: 55, 57
+  offset: 0, 0
+  index: -1
+kangarabbitdragon_earth_03_head_01
+  rotate: true
+  xy: 735, 162
+  size: 109, 151
+  orig: 109, 151
+  offset: 0, 0
+  index: -1
+kangarabbitdragon_earth_03_tail_01
+  rotate: false
+  xy: 281, 10
+  size: 126, 100
+  orig: 126, 100
+  offset: 0, 0
+  index: -1
+kangarabbitdragon_earth_03_wing_01
+  rotate: true
+  xy: 735, 91
+  size: 69, 99
+  orig: 69, 99
+  offset: 0, 0
+  index: -1
+kangarabbitdragon_earth_03_wing_02
+  rotate: false
+  xy: 121, 6
+  size: 92, 59
+  orig: 92, 59
+  offset: 0, 0
+  index: -1

@@ -1,0 +1,31 @@
+{
+	"missile_move_cruise":
+	{
+		"attack_value":
+		[			
+			
+			{
+				"idx":1,
+                "count":1,
+                "scale":1,
+                "period":0.2,
+				"dir":90,
+				"speed":200,
+				"accel":5000,
+				"accel_delay":0.5,
+				"h_limit_speed":2000,
+				"body":[0,0,30],
+				"offset":[0,30],
+				"movement":"guidtarget",
+				
+                "effect":
+                {
+                    "motion_streak":"",
+                    "rotation":false,
+                    "afterimage":false
+                }
+				
+			}
+		]
+	}
+}

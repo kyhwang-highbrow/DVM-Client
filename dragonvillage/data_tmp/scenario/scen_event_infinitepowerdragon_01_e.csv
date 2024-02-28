@@ -1,0 +1,8 @@
+page,bg,illustration,char,t_char_name,char_pos,char_ani,char_effect,r_scen,t_text,text_pos,text_type,auto_skip,effect_1,effect_2,effect_3,bgm,bgm_action,sound
+1,,,,,,,,,,,,3,title;시련의 시작,skip_disable,,,,
+2,,,,,,,,,,,,0.3,skip_disable,,,,,
+3,,,,,,,,,파워드래곤은 무의식적으로 자신의 힘을 나누는 것이 수호자의 능력이라 여겼다.,,narrate,5,,,,,,
+4,파워드래곤스토리1_2,,,,,,,,하지만 자신의 능력이 오히려 죄 없는 생명들을 희생시키자 깊은 슬픔과 후회를 느꼈다.,,bold,5,,,,,,
+5,,,,,,,,,"자신의 힘을 받은 몬스터들이 만행을 저지른 것에 대한 자책감을 느꼈고,",,bold,5,,,,,,
+6,,,,,,,,,이러한 상황에서 자신이 할 수 있는 것은 힘을 숨기는 것이라 생각했다.,,bold,5,,,,,,
+7,,,,,,,,,"더 이상 한 자리에 머무를 수 없었고, 무거운 걸음을 내디디며 파워드래곤의 시련이 시작되었다.",,bold,5,,,,,,

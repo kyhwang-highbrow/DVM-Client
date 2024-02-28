@@ -1,0 +1,202 @@
+
+aphrodite_fire_02.png
+size: 952,523
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+aphrodite_fire_02_arm_01
+  rotate: true
+  xy: 757, 25
+  size: 60, 55
+  orig: 60, 55
+  offset: 0, 0
+  index: -1
+aphrodite_fire_02_arm_02
+  rotate: false
+  xy: 917, 445
+  size: 26, 76
+  orig: 26, 76
+  offset: 0, 0
+  index: -1
+aphrodite_fire_02_body_01
+  rotate: true
+  xy: 564, 11
+  size: 72, 105
+  orig: 72, 105
+  offset: 0, 0
+  index: -1
+aphrodite_fire_02_body_02
+  rotate: true
+  xy: 814, 2
+  size: 110, 76
+  orig: 110, 76
+  offset: 0, 0
+  index: -1
+aphrodite_fire_02_dress_01
+  rotate: true
+  xy: 553, 85
+  size: 76, 112
+  orig: 76, 112
+  offset: 0, 0
+  index: -1
+aphrodite_fire_02_dress_02
+  rotate: false
+  xy: 351, 195
+  size: 204, 91
+  orig: 204, 91
+  offset: 0, 0
+  index: -1
+aphrodite_fire_02_dress_03
+  rotate: false
+  xy: 557, 163
+  size: 137, 123
+  orig: 137, 123
+  offset: 0, 0
+  index: -1
+aphrodite_fire_02_dress_04
+  rotate: true
+  xy: 667, 87
+  size: 66, 145
+  orig: 66, 145
+  offset: 0, 0
+  index: -1
+aphrodite_fire_02_ear_01
+  rotate: true
+  xy: 823, 114
+  size: 63, 112
+  orig: 63, 112
+  offset: 0, 0
+  index: -1
+aphrodite_fire_02_ear_02
+  rotate: true
+  xy: 286, 2
+  size: 75, 118
+  orig: 75, 118
+  offset: 0, 0
+  index: -1
+aphrodite_fire_02_eff_01
+  rotate: false
+  xy: 2, 222
+  size: 347, 299
+  orig: 347, 299
+  offset: 0, 0
+  index: -1
+aphrodite_fire_02_eff_02
+  rotate: false
+  xy: 696, 155
+  size: 125, 125
+  orig: 125, 125
+  offset: 0, 0
+  index: -1
+aphrodite_fire_02_eye
+  rotate: false
+  xy: 286, 202
+  size: 27, 18
+  orig: 27, 18
+  offset: 0, 0
+  index: -1
+aphrodite_fire_02_hand_01
+  rotate: true
+  xy: 470, 16
+  size: 50, 92
+  orig: 50, 92
+  offset: 0, 0
+  index: -1
+aphrodite_fire_02_hand_02
+  rotate: true
+  xy: 671, 8
+  size: 77, 84
+  orig: 77, 84
+  offset: 0, 0
+  index: -1
+aphrodite_fire_02_head_01
+  rotate: true
+  xy: 406, 7
+  size: 70, 62
+  orig: 70, 62
+  offset: 0, 0
+  index: -1
+aphrodite_fire_02_horn_01
+  rotate: true
+  xy: 2, 16
+  size: 26, 119
+  orig: 26, 119
+  offset: 0, 0
+  index: -1
+aphrodite_fire_02_horn_02
+  rotate: false
+  xy: 475, 68
+  size: 76, 125
+  orig: 76, 125
+  offset: 0, 0
+  index: -1
+aphrodite_fire_02_lace_02
+  rotate: true
+  xy: 2, 44
+  size: 176, 282
+  orig: 176, 282
+  offset: 0, 0
+  index: -1
+aphrodite_fire_02_lace_03
+  rotate: false
+  xy: 808, 313
+  size: 107, 208
+  orig: 107, 208
+  offset: 0, 0
+  index: -1
+aphrodite_fire_02_lace_04
+  rotate: false
+  xy: 892, 19
+  size: 26, 38
+  orig: 26, 38
+  offset: 0, 0
+  index: -1
+aphrodite_fire_02_lace_05
+  rotate: false
+  xy: 123, 13
+  size: 61, 29
+  orig: 61, 29
+  offset: 0, 0
+  index: -1
+aphrodite_fire_02_leg_01
+  rotate: true
+  xy: 286, 79
+  size: 114, 187
+  orig: 114, 187
+  offset: 0, 0
+  index: -1
+aphrodite_fire_02_leg_02
+  rotate: false
+  xy: 723, 282
+  size: 83, 239
+  orig: 83, 239
+  offset: 0, 0
+  index: -1
+aphrodite_fire_02_mouth
+  rotate: false
+  xy: 2, 2
+  size: 13, 12
+  orig: 13, 12
+  offset: 0, 0
+  index: -1
+aphrodite_fire_02_tail
+  rotate: false
+  xy: 351, 288
+  size: 370, 233
+  orig: 370, 233
+  offset: 0, 0
+  index: -1
+aphrodite_fire_02_thing_01
+  rotate: false
+  xy: 892, 59
+  size: 58, 53
+  orig: 58, 53
+  offset: 0, 0
+  index: -1
+aphrodite_fire_02_weapon
+  rotate: false
+  xy: 823, 179
+  size: 111, 132
+  orig: 111, 132
+  offset: 0, 0
+  index: -1

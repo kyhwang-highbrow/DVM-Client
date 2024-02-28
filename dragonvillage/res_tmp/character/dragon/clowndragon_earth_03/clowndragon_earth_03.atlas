@@ -1,0 +1,202 @@
+
+clowndragon_earth_03.png
+size: 634,525
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+clowndragon_earth_03_accessory_01
+  rotate: true
+  xy: 499, 108
+  size: 104, 105
+  orig: 104, 105
+  offset: 0, 0
+  index: -1
+clowndragon_earth_03_arm_01
+  rotate: false
+  xy: 422, 91
+  size: 73, 72
+  orig: 73, 72
+  offset: 0, 0
+  index: -1
+clowndragon_earth_03_arm_02
+  rotate: true
+  xy: 184, 195
+  size: 68, 59
+  orig: 68, 59
+  offset: 0, 0
+  index: -1
+clowndragon_earth_03_body_01
+  rotate: false
+  xy: 192, 363
+  size: 140, 160
+  orig: 140, 160
+  offset: 0, 0
+  index: -1
+clowndragon_earth_03_card_00
+  rotate: false
+  xy: 246, 92
+  size: 74, 103
+  orig: 74, 103
+  offset: 0, 0
+  index: -1
+clowndragon_earth_03_card_01
+  rotate: true
+  xy: 334, 405
+  size: 118, 165
+  orig: 118, 165
+  offset: 0, 0
+  index: -1
+clowndragon_earth_03_card_02
+  rotate: true
+  xy: 334, 285
+  size: 118, 165
+  orig: 118, 165
+  offset: 0, 0
+  index: -1
+clowndragon_earth_03_card_03
+  rotate: false
+  xy: 126, 28
+  size: 118, 165
+  orig: 118, 165
+  offset: 0, 0
+  index: -1
+clowndragon_earth_03_card_04
+  rotate: false
+  xy: 501, 214
+  size: 118, 165
+  orig: 118, 165
+  offset: 0, 0
+  index: -1
+clowndragon_earth_03_card_05
+  rotate: true
+  xy: 332, 165
+  size: 118, 165
+  orig: 118, 165
+  offset: 0, 0
+  index: -1
+clowndragon_earth_03_card_06
+  rotate: false
+  xy: 2, 22
+  size: 122, 171
+  orig: 122, 171
+  offset: 0, 0
+  index: -1
+clowndragon_earth_03_eye_01
+  rotate: false
+  xy: 17, 3
+  size: 25, 17
+  orig: 25, 17
+  offset: 0, 0
+  index: -1
+clowndragon_earth_03_eye_02
+  rotate: false
+  xy: 621, 363
+  size: 11, 16
+  orig: 11, 16
+  offset: 0, 0
+  index: -1
+clowndragon_earth_03_eye_03
+  rotate: false
+  xy: 363, 2
+  size: 29, 19
+  orig: 29, 19
+  offset: 0, 0
+  index: -1
+clowndragon_earth_03_eye_04
+  rotate: false
+  xy: 2, 2
+  size: 13, 18
+  orig: 13, 18
+  offset: 0, 0
+  index: -1
+clowndragon_earth_03_face_01
+  rotate: false
+  xy: 44, 3
+  size: 25, 17
+  orig: 25, 17
+  offset: 0, 0
+  index: -1
+clowndragon_earth_03_foot_01
+  rotate: true
+  xy: 322, 103
+  size: 60, 98
+  orig: 60, 98
+  offset: 0, 0
+  index: -1
+clowndragon_earth_03_foot_02
+  rotate: false
+  xy: 245, 197
+  size: 79, 66
+  orig: 79, 66
+  offset: 0, 0
+  index: -1
+clowndragon_earth_03_hand_01
+  rotate: true
+  xy: 497, 44
+  size: 62, 70
+  orig: 62, 70
+  offset: 0, 0
+  index: -1
+clowndragon_earth_03_hand_02
+  rotate: false
+  xy: 569, 57
+  size: 41, 49
+  orig: 41, 49
+  offset: 0, 0
+  index: -1
+clowndragon_earth_03_head_01
+  rotate: false
+  xy: 2, 351
+  size: 188, 172
+  orig: 188, 172
+  offset: 0, 0
+  index: -1
+clowndragon_earth_03_leg_01
+  rotate: false
+  xy: 246, 2
+  size: 55, 88
+  orig: 55, 88
+  offset: 0, 0
+  index: -1
+clowndragon_earth_03_leg_02
+  rotate: false
+  xy: 363, 23
+  size: 48, 78
+  orig: 48, 78
+  offset: 0, 0
+  index: -1
+clowndragon_earth_03_neck_01
+  rotate: false
+  xy: 2, 195
+  size: 180, 154
+  orig: 180, 154
+  offset: 0, 0
+  index: -1
+clowndragon_earth_03_thigh_01
+  rotate: false
+  xy: 303, 6
+  size: 58, 84
+  orig: 58, 84
+  offset: 0, 0
+  index: -1
+clowndragon_earth_03_thigh_02
+  rotate: false
+  xy: 413, 18
+  size: 80, 71
+  orig: 80, 71
+  offset: 0, 0
+  index: -1
+clowndragon_earth_03_wing_01
+  rotate: true
+  xy: 501, 381
+  size: 142, 125
+  orig: 142, 125
+  offset: 0, 0
+  index: -1
+clowndragon_earth_03_wing_02
+  rotate: true
+  xy: 192, 265
+  size: 96, 138
+  orig: 96, 138
+  offset: 0, 0
+  index: -1

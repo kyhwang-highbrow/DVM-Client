@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+    <dict>
+        <key>frames</key>
+        <dict>
+            <key>moon.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{0,0}</string>
+                <key>spriteSize</key>
+                <string>{321,321}</string>
+                <key>spriteSourceSize</key>
+                <string>{339,339}</string>
+                <key>textureRect</key>
+                <string>{{1,1},{321,321}}</string>
+                <key>textureRotated</key>
+                <false/>
+            </dict>
+        </dict>
+        <key>metadata</key>
+        <dict>
+            <key>format</key>
+            <integer>3</integer>
+            <key>pixelFormat</key>
+            <string>RGBA8888</string>
+            <key>premultiplyAlpha</key>
+            <false/>
+            <key>realTextureFileName</key>
+            <string>skill_moon_drop.png</string>
+            <key>size</key>
+            <string>{323,323}</string>
+            <key>smartupdate</key>
+            <string>$TexturePacker:SmartUpdate:e748251c93d45ea8b0bd8a49df046363:e329c14358aa675c3c22abcf57bb2b06:0e79e5b4e9e46a580430d69977ddde3a$</string>
+            <key>textureFileName</key>
+            <string>skill_moon_drop.png</string>
+        </dict>
+    </dict>
+</plist>

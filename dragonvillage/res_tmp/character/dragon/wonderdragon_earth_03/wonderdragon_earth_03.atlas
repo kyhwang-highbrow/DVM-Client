@@ -1,0 +1,314 @@
+
+wonderdragon_earth_03.png
+size: 1911,512
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+wonderdragon_earth_03_arm_01
+  rotate: false
+  xy: 1232, 206
+  size: 152, 110
+  orig: 152, 110
+  offset: 0, 0
+  index: -1
+wonderdragon_earth_03_body_01
+  rotate: true
+  xy: 978, 2
+  size: 194, 216
+  orig: 194, 216
+  offset: 0, 0
+  index: -1
+wonderdragon_earth_03_body_01_03
+  rotate: false
+  xy: 942, 294
+  size: 194, 216
+  orig: 194, 216
+  offset: 0, 0
+  index: -1
+wonderdragon_earth_03_body_acc_01
+  rotate: true
+  xy: 276, 170
+  size: 340, 203
+  orig: 340, 203
+  offset: 0, 0
+  index: -1
+wonderdragon_earth_03_body_neck_01
+  rotate: true
+  xy: 570, 5
+  size: 186, 198
+  orig: 186, 198
+  offset: 0, 0
+  index: -1
+wonderdragon_earth_03_body_shoulder_01
+  rotate: true
+  xy: 1138, 318
+  size: 192, 120
+  orig: 192, 120
+  offset: 0, 0
+  index: -1
+wonderdragon_earth_03_effect_01
+  rotate: false
+  xy: 712, 280
+  size: 228, 230
+  orig: 228, 230
+  offset: 0, 0
+  index: -1
+wonderdragon_earth_03_effect_02
+  rotate: false
+  xy: 1196, 6
+  size: 193, 193
+  orig: 193, 193
+  offset: 0, 0
+  index: -1
+wonderdragon_earth_03_effect_03_0040
+  rotate: false
+  xy: 2, 9
+  size: 140, 140
+  orig: 140, 140
+  offset: 0, 0
+  index: -1
+wonderdragon_earth_03_effect_03_0042
+  rotate: false
+  xy: 144, 9
+  size: 140, 140
+  orig: 140, 140
+  offset: 0, 0
+  index: -1
+wonderdragon_earth_03_effect_03_0044
+  rotate: false
+  xy: 1547, 220
+  size: 140, 140
+  orig: 140, 140
+  offset: 0, 0
+  index: -1
+wonderdragon_earth_03_effect_03_0046
+  rotate: false
+  xy: 1627, 370
+  size: 140, 140
+  orig: 140, 140
+  offset: 0, 0
+  index: -1
+wonderdragon_earth_03_effect_03_0048
+  rotate: false
+  xy: 1769, 370
+  size: 140, 140
+  orig: 140, 140
+  offset: 0, 0
+  index: -1
+wonderdragon_earth_03_effect_03_0050
+  rotate: false
+  xy: 1587, 78
+  size: 140, 140
+  orig: 140, 140
+  offset: 0, 0
+  index: -1
+wonderdragon_earth_03_effect_03_0052
+  rotate: false
+  xy: 1689, 228
+  size: 140, 140
+  orig: 140, 140
+  offset: 0, 0
+  index: -1
+wonderdragon_earth_03_effect_03_0054
+  rotate: false
+  xy: 1729, 86
+  size: 140, 140
+  orig: 140, 140
+  offset: 0, 0
+  index: -1
+wonderdragon_earth_03_eye_01
+  rotate: false
+  xy: 530, 171
+  size: 29, 20
+  orig: 29, 20
+  offset: 0, 0
+  index: -1
+wonderdragon_earth_03_eye_02
+  rotate: false
+  xy: 712, 252
+  size: 26, 26
+  orig: 26, 26
+  offset: 0, 0
+  index: -1
+wonderdragon_earth_03_eye_03
+  rotate: false
+  xy: 1499, 5
+  size: 52, 52
+  orig: 52, 52
+  offset: 0, 0
+  index: -1
+wonderdragon_earth_03_eye_04
+  rotate: true
+  xy: 1454, 2
+  size: 46, 43
+  orig: 46, 43
+  offset: 0, 0
+  index: -1
+wonderdragon_earth_03_hand_01_finger_1
+  rotate: false
+  xy: 770, 17
+  size: 116, 175
+  orig: 116, 175
+  offset: 0, 0
+  index: -1
+wonderdragon_earth_03_hand_01_finger_2
+  rotate: false
+  xy: 888, 18
+  size: 88, 174
+  orig: 88, 174
+  offset: 0, 0
+  index: -1
+wonderdragon_earth_03_hand_01_finger_3
+  rotate: false
+  xy: 1831, 243
+  size: 66, 125
+  orig: 66, 125
+  offset: 0, 0
+  index: -1
+wonderdragon_earth_03_hand_02
+  rotate: false
+  xy: 1260, 337
+  size: 128, 173
+  orig: 128, 173
+  offset: 0, 0
+  index: -1
+wonderdragon_earth_03_hand_acc_01
+  rotate: true
+  xy: 1553, 22
+  size: 35, 91
+  orig: 35, 91
+  offset: 0, 0
+  index: -1
+wonderdragon_earth_03_hand_acc_02
+  rotate: true
+  xy: 1391, 2
+  size: 46, 61
+  orig: 46, 61
+  offset: 0, 0
+  index: -1
+wonderdragon_earth_03_head_01
+  rotate: true
+  xy: 1438, 209
+  size: 148, 107
+  orig: 148, 107
+  offset: 0, 0
+  index: -1
+wonderdragon_earth_03_head_01_02
+  rotate: true
+  xy: 1518, 362
+  size: 148, 107
+  orig: 148, 107
+  offset: 0, 0
+  index: -1
+wonderdragon_earth_03_head_01_03
+  rotate: true
+  xy: 1478, 59
+  size: 148, 107
+  orig: 148, 107
+  offset: 0, 0
+  index: -1
+wonderdragon_earth_03_head_02
+  rotate: true
+  xy: 920, 198
+  size: 80, 60
+  orig: 80, 60
+  offset: 0, 0
+  index: -1
+wonderdragon_earth_03_head_02_02
+  rotate: true
+  xy: 1787, 4
+  size: 80, 60
+  orig: 80, 60
+  offset: 0, 0
+  index: -1
+wonderdragon_earth_03_head_02_03
+  rotate: true
+  xy: 1849, 4
+  size: 80, 60
+  orig: 80, 60
+  offset: 0, 0
+  index: -1
+wonderdragon_earth_03_head_acc_01
+  rotate: false
+  xy: 982, 200
+  size: 109, 92
+  orig: 109, 92
+  offset: 0, 0
+  index: -1
+wonderdragon_earth_03_head_acc_02
+  rotate: true
+  xy: 657, 249
+  size: 261, 53
+  orig: 261, 53
+  offset: 0, 0
+  index: -1
+wonderdragon_earth_03_head_acc_03
+  rotate: false
+  xy: 657, 194
+  size: 261, 53
+  orig: 261, 53
+  offset: 0, 0
+  index: -1
+wonderdragon_earth_03_head_armor_01
+  rotate: false
+  xy: 1391, 50
+  size: 85, 149
+  orig: 85, 149
+  offset: 0, 0
+  index: -1
+wonderdragon_earth_03_head_armor_02
+  rotate: false
+  xy: 1386, 201
+  size: 50, 134
+  orig: 50, 134
+  offset: 0, 0
+  index: -1
+wonderdragon_earth_03_head_armor_03
+  rotate: true
+  xy: 1646, 2
+  size: 74, 139
+  orig: 74, 139
+  offset: 0, 0
+  index: -1
+wonderdragon_earth_03_leg_01
+  rotate: true
+  xy: 1093, 201
+  size: 91, 137
+  orig: 91, 137
+  offset: 0, 0
+  index: -1
+wonderdragon_earth_03_leg_02
+  rotate: false
+  xy: 1390, 359
+  size: 126, 151
+  orig: 126, 151
+  offset: 0, 0
+  index: -1
+wonderdragon_earth_03_mouth_01
+  rotate: false
+  xy: 481, 171
+  size: 47, 20
+  orig: 47, 20
+  offset: 0, 0
+  index: -1
+wonderdragon_earth_03_tail_01
+  rotate: true
+  xy: 2, 151
+  size: 359, 272
+  orig: 359, 272
+  offset: 0, 0
+  index: -1
+wonderdragon_earth_03_wing_01
+  rotate: true
+  xy: 481, 193
+  size: 317, 174
+  orig: 317, 174
+  offset: 0, 0
+  index: -1
+wonderdragon_earth_03_wing_02
+  rotate: false
+  xy: 286, 12
+  size: 282, 156
+  orig: 282, 156
+  offset: 0, 0
+  index: -1

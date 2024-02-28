@@ -1,0 +1,155 @@
+{
+	"skill_wrath":
+	{
+		"ver":2,
+		"attack_value":
+		[							
+			{
+				"comment":"투사체 바디",
+				"idx":1,
+				"target_idx":[1],
+				"body":[0,0,3000],
+                "count":1,
+				"time":0,
+				"damage_rate":100,
+                "scale":[2,2],
+				"missile_type":"pass",
+				"offset":[0,0],
+				"delete_time":1,
+				
+                "effect":
+                {
+                    "motion_streak":"",
+                    "rotation":false,
+                    "afterimage":false
+                }
+			},
+			
+			{
+				"comment":"리소스",
+				"idx":1,
+				"target_idx":[1],
+				"res":"res/effect/effect_burn/effect_burn.vrp",
+				"visual":"center_idle",
+				"body":[0,0,0],
+                "count":1,
+				"time":0,
+				"period":0,
+				"damage_rate":100,
+                "scale":[2,2],
+				"offset":['target','target'],
+				"missile_type":"pass",
+				"no_rotate":true,
+				"fadeout_time":0.5,
+				
+                "effect":
+                {
+                    "motion_streak":"",
+                    "rotation":false,
+                    "afterimage":false
+                }
+			},
+			
+			{
+				"comment":"리소스",
+				"idx":1,
+				"target_idx":[2],
+				"res":"res/effect/effect_burn/effect_burn.vrp",
+				"visual":"center_idle",
+				"body":[0,0,0],
+                "count":1,
+				"time":0,
+				"period":0,
+				"damage_rate":100,
+                "scale":[2,2],
+				"offset":['target','target'],
+				"missile_type":"pass",
+				"no_rotate":true,
+				"fadeout_time":0.5,
+				
+                "effect":
+                {
+                    "motion_streak":"",
+                    "rotation":false,
+                    "afterimage":false
+                }
+			},
+			
+			{
+				"comment":"리소스",
+				"idx":1,
+				"target_idx":[3],
+				"res":"res/effect/effect_burn/effect_burn.vrp",
+				"visual":"center_idle",
+				"body":[0,0,0],
+                "count":1,
+				"time":0,
+				"period":0,
+				"damage_rate":100,
+                "scale":[2,2],
+				"offset":['target','target'],
+				"missile_type":"pass",
+				"no_rotate":true,
+				"fadeout_time":0.5,
+				
+                "effect":
+                {
+                    "motion_streak":"",
+                    "rotation":false,
+                    "afterimage":false
+                }
+			},
+			
+			{
+				"comment":"리소스",
+				"idx":1,
+				"target_idx":[4],
+				"res":"res/effect/effect_burn/effect_burn.vrp",
+				"visual":"center_idle",
+				"body":[0,0,0],
+                "count":1,
+				"time":0,
+				"period":0,
+				"damage_rate":100,
+                "scale":[2,2],
+				"offset":['target','target'],
+				"missile_type":"pass",
+				"no_rotate":true,
+				"fadeout_time":0.5,
+				
+                "effect":
+                {
+                    "motion_streak":"",
+                    "rotation":false,
+                    "afterimage":false
+                }
+			},
+			
+			{
+				"comment":"리소스",
+				"idx":1,
+				"target_idx":[5],
+				"res":"res/effect/effect_burn/effect_burn.vrp",
+				"visual":"center_idle",
+				"body":[0,0,0],
+                "count":1,
+				"time":0,
+				"period":0,
+				"damage_rate":100,
+                "scale":[2,2],
+				"offset":['target','target'],
+				"missile_type":"pass",
+				"no_rotate":true,
+				"fadeout_time":0.5,
+				
+                "effect":
+                {
+                    "motion_streak":"",
+                    "rotation":false,
+                    "afterimage":false
+                }
+			}
+		]
+	}
+}
+

@@ -1,0 +1,116 @@
+{
+    "difficult":2,
+    "bg":"map_ocean",
+	"wave":
+	[
+        {
+            "idx":1,
+			"camera":
+            {
+                "scale":1,
+                "pos_x":0,
+                "pos_y":0
+            },
+            "wave":
+            {
+				0:
+				[
+					"130032;1;Basic2;RF12;RF22;1"
+					"131012;1;Basic2;RF13;RB13;1"
+					"130032;1;Basic2;RF14;RM14;1"
+					"131012;1;Basic2;RF15;RB15;1"
+					"130032;1;Basic2;RF16;RF26;1"
+				],
+				
+				1.5:
+				[
+					"130012;1;Appear;RF14;RF14;1"
+				]
+            }
+        },
+        {
+            "idx":2,
+			"camera":
+            {
+                "scale":1,
+                "pos_x":0,
+                "pos_y":0
+            },
+            "wave":
+            {
+                0:
+                [
+					"130012;1;Appear;RF13;RF13;1"
+					"130012;1;Appear;RF15;RF15;1"
+					"130062;1;Basic2;RF12;RM12;1"
+					"130062;1;Basic2;RF14;RM14;1"
+					"130062;1;Basic2;RF16;RM16;1"
+				],
+				
+				1.5:
+				[
+					"130052;1;Appear;RO02;RB12;0.5"
+					"130052;1;Appear;RO06;RB16;0.5"
+                ]
+            }
+        },
+		
+        {
+            "idx":3,
+			"camera":
+            {
+                "scale":0.8,
+                "pos_x":0,
+                "pos_y":0
+            },
+			
+			"direction":"boss_wave",
+			
+            "wave":
+            {
+				0:
+				[
+					"134012;1;Basic;BOSS;RM24;3;boss"
+				],
+				
+				0.5:
+				[
+					
+				]
+            },
+			
+			"regen":
+			[
+				{
+					1:
+					[
+						"131012;1;Appear;RO04;RF14;0.5;roam"
+						"131012;1;Appear;RO01;RF21;0.5;roam"
+						"131012;1;Appear;RO07;RF27;0.5;roam"
+					]
+				}
+			]
+        }
+    ],
+	
+	"move":
+	{
+		3:
+		[
+			[
+				"wait;7",
+				"move_6;0.5", "wait;1",
+				"move_7;2", "wait;1",
+				"move_6_r;2", "wait;1",
+				"move_7_r;2", "wait;1",
+				"move_10;0.5", "wait;1",
+				"move_10_t5;2", "wait;1",
+				"move_10_t4;2", "wait;1",
+				"move_10_t3;2", "wait;1",
+				"move_10_t2;2", "wait;1",
+				"move_10_t1;2", "wait;1",
+				"c2_s5_3;0.5", "wait;3"
+			]
+		]
+	}
+}

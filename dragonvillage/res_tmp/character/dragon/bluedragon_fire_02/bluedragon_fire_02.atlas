@@ -1,0 +1,153 @@
+
+bluedragon_fire_02.png
+size: 1008,225
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+bluedragon_fire_02_arm_01
+  rotate: true
+  xy: 864, 58
+  size: 50, 56
+  orig: 50, 56
+  offset: 0, 0
+  index: -1
+bluedragon_fire_02_arm_02
+  rotate: true
+  xy: 798, 32
+  size: 67, 64
+  orig: 67, 64
+  offset: 0, 0
+  index: -1
+bluedragon_fire_02_bead_01
+  rotate: true
+  xy: 609, 3
+  size: 88, 84
+  orig: 88, 84
+  offset: 0, 0
+  index: -1
+bluedragon_fire_02_bead_02
+  rotate: false
+  xy: 208, 7
+  size: 54, 42
+  orig: 54, 42
+  offset: 0, 0
+  index: -1
+bluedragon_fire_02_bead_03
+  rotate: false
+  xy: 142, 51
+  size: 164, 172
+  orig: 164, 172
+  offset: 0, 0
+  index: -1
+bluedragon_fire_02_bead_04
+  rotate: true
+  xy: 560, 93
+  size: 130, 116
+  orig: 130, 116
+  offset: 0, 0
+  index: -1
+bluedragon_fire_02_body_01
+  rotate: false
+  xy: 2, 19
+  size: 138, 204
+  orig: 138, 204
+  offset: 0, 0
+  index: -1
+bluedragon_fire_02_body_02
+  rotate: false
+  xy: 695, 5
+  size: 101, 103
+  orig: 101, 103
+  offset: 0, 0
+  index: -1
+bluedragon_fire_02_body_03
+  rotate: false
+  xy: 678, 110
+  size: 242, 113
+  orig: 242, 113
+  offset: 0, 0
+  index: -1
+bluedragon_fire_02_body_04
+  rotate: true
+  xy: 531, 4
+  size: 79, 76
+  orig: 79, 76
+  offset: 0, 0
+  index: -1
+bluedragon_fire_02_effect_01
+  rotate: true
+  xy: 426, 85
+  size: 138, 132
+  orig: 138, 132
+  offset: 0, 0
+  index: -1
+bluedragon_fire_02_eye_01
+  rotate: true
+  xy: 918, 6
+  size: 50, 56
+  orig: 50, 56
+  offset: 0, 0
+  index: -1
+bluedragon_fire_02_foot_01
+  rotate: false
+  xy: 371, 3
+  size: 50, 73
+  orig: 50, 73
+  offset: 0, 0
+  index: -1
+bluedragon_fire_02_foot_02
+  rotate: true
+  xy: 142, 2
+  size: 47, 64
+  orig: 47, 64
+  offset: 0, 0
+  index: -1
+bluedragon_fire_02_hand_01
+  rotate: false
+  xy: 922, 101
+  size: 75, 59
+  orig: 75, 59
+  offset: 0, 0
+  index: -1
+bluedragon_fire_02_hand_02
+  rotate: false
+  xy: 864, 4
+  size: 52, 52
+  orig: 52, 52
+  offset: 0, 0
+  index: -1
+bluedragon_fire_02_head_01
+  rotate: false
+  xy: 308, 78
+  size: 116, 145
+  orig: 116, 145
+  offset: 0, 0
+  index: -1
+bluedragon_fire_02_head_02
+  rotate: true
+  xy: 423, 4
+  size: 72, 106
+  orig: 72, 106
+  offset: 0, 0
+  index: -1
+bluedragon_fire_02_leg_01
+  rotate: false
+  xy: 308, 3
+  size: 61, 73
+  orig: 61, 73
+  offset: 0, 0
+  index: -1
+bluedragon_fire_02_leg_02
+  rotate: true
+  xy: 922, 162
+  size: 61, 84
+  orig: 61, 84
+  offset: 0, 0
+  index: -1
+bluedragon_fire_02_mouth_01
+  rotate: false
+  xy: 264, 13
+  size: 35, 36
+  orig: 35, 36
+  offset: 0, 0
+  index: -1

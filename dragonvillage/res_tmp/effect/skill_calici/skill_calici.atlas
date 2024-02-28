@@ -1,0 +1,516 @@
+
+skill_calici.png
+size: 2031,2022
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+calici_all_03_effect_01
+  rotate: false
+  xy: 2, 1620
+  size: 400, 400
+  orig: 400, 400
+  offset: 0, 0
+  index: -1
+effect_circle_in
+  rotate: false
+  xy: 1490, 1027
+  size: 189, 189
+  orig: 189, 189
+  offset: 0, 0
+  index: -1
+effect_circle_in_glow
+  rotate: false
+  xy: 1490, 836
+  size: 189, 189
+  orig: 189, 189
+  offset: 0, 0
+  index: -1
+effect_circle_out
+  rotate: false
+  xy: 1772, 557
+  size: 257, 257
+  orig: 257, 257
+  offset: 0, 0
+  index: -1
+effect_dim
+  rotate: false
+  xy: 2, 2
+  size: 8, 8
+  orig: 8, 8
+  offset: 0, 0
+  index: -1
+effect_fire_circle_00001
+  rotate: false
+  xy: 2, 1218
+  size: 400, 400
+  orig: 400, 400
+  offset: 0, 0
+  index: -1
+effect_fire_circle_00002
+  rotate: false
+  xy: 2, 816
+  size: 400, 400
+  orig: 400, 400
+  offset: 0, 0
+  index: -1
+effect_fire_circle_00003
+  rotate: false
+  xy: 2, 414
+  size: 400, 400
+  orig: 400, 400
+  offset: 0, 0
+  index: -1
+effect_fire_circle_00004
+  rotate: false
+  xy: 2, 12
+  size: 400, 400
+  orig: 400, 400
+  offset: 0, 0
+  index: -1
+effect_fire_circle_00005
+  rotate: false
+  xy: 404, 1620
+  size: 400, 400
+  orig: 400, 400
+  offset: 0, 0
+  index: -1
+effect_fire_circle_00006
+  rotate: false
+  xy: 806, 1620
+  size: 400, 400
+  orig: 400, 400
+  offset: 0, 0
+  index: -1
+effect_fire_circle_00007
+  rotate: false
+  xy: 1208, 1620
+  size: 400, 400
+  orig: 400, 400
+  offset: 0, 0
+  index: -1
+effect_fire_circle_00008
+  rotate: false
+  xy: 1610, 1620
+  size: 400, 400
+  orig: 400, 400
+  offset: 0, 0
+  index: -1
+effect_fire_circle_00009
+  rotate: false
+  xy: 404, 1218
+  size: 400, 400
+  orig: 400, 400
+  offset: 0, 0
+  index: -1
+effect_fire_circle_00010
+  rotate: false
+  xy: 404, 816
+  size: 400, 400
+  orig: 400, 400
+  offset: 0, 0
+  index: -1
+effect_fire_circle_00011
+  rotate: false
+  xy: 404, 414
+  size: 400, 400
+  orig: 400, 400
+  offset: 0, 0
+  index: -1
+effect_fire_circle_00012
+  rotate: false
+  xy: 404, 12
+  size: 400, 400
+  orig: 400, 400
+  offset: 0, 0
+  index: -1
+effect_fire_circle_00013
+  rotate: false
+  xy: 806, 1218
+  size: 400, 400
+  orig: 400, 400
+  offset: 0, 0
+  index: -1
+effect_fire_circle_00014
+  rotate: false
+  xy: 1208, 1218
+  size: 400, 400
+  orig: 400, 400
+  offset: 0, 0
+  index: -1
+effect_fire_circle_00015
+  rotate: false
+  xy: 1610, 1218
+  size: 400, 400
+  orig: 400, 400
+  offset: 0, 0
+  index: -1
+effect_fire_circle_00016
+  rotate: false
+  xy: 806, 816
+  size: 400, 400
+  orig: 400, 400
+  offset: 0, 0
+  index: -1
+effect_fire_circle_00017
+  rotate: false
+  xy: 806, 414
+  size: 400, 400
+  orig: 400, 400
+  offset: 0, 0
+  index: -1
+effect_glow_00000
+  rotate: false
+  xy: 1772, 427
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: -1
+effect_ring
+  rotate: false
+  xy: 806, 72
+  size: 340, 340
+  orig: 340, 340
+  offset: 0, 0
+  index: -1
+effect_wing_00002
+  rotate: false
+  xy: 1148, 12
+  size: 280, 400
+  orig: 280, 400
+  offset: 0, 0
+  index: -1
+effect_wing_00003
+  rotate: false
+  xy: 1208, 816
+  size: 280, 400
+  orig: 280, 400
+  offset: 0, 0
+  index: -1
+effect_wing_00004
+  rotate: false
+  xy: 1208, 414
+  size: 280, 400
+  orig: 280, 400
+  offset: 0, 0
+  index: -1
+effect_wing_00005
+  rotate: false
+  xy: 1430, 12
+  size: 280, 400
+  orig: 280, 400
+  offset: 0, 0
+  index: -1
+effect_wing_00006
+  rotate: false
+  xy: 1712, 816
+  size: 280, 400
+  orig: 280, 400
+  offset: 0, 0
+  index: -1
+effect_wing_00007
+  rotate: false
+  xy: 1490, 414
+  size: 280, 400
+  orig: 280, 400
+  offset: 0, 0
+  index: -1
+effect_wing_00008
+  rotate: false
+  xy: 1712, 12
+  size: 280, 400
+  orig: 280, 400
+  offset: 0, 0
+  index: -1
+
+skill_calici2.png
+size: 1913,1631
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+effect_circle_out_glow
+  rotate: false
+  xy: 566, 1090
+  size: 257, 257
+  orig: 257, 257
+  offset: 0, 0
+  index: -1
+effect_cross_00000
+  rotate: false
+  xy: 1340, 384
+  size: 189, 189
+  orig: 189, 189
+  offset: 0, 0
+  index: -1
+effect_cross_00001
+  rotate: false
+  xy: 1531, 384
+  size: 189, 189
+  orig: 189, 189
+  offset: 0, 0
+  index: -1
+effect_cross_00002
+  rotate: false
+  xy: 1722, 384
+  size: 189, 189
+  orig: 189, 189
+  offset: 0, 0
+  index: -1
+effect_cross_00003
+  rotate: false
+  xy: 1340, 193
+  size: 189, 189
+  orig: 189, 189
+  offset: 0, 0
+  index: -1
+effect_cross_00004
+  rotate: false
+  xy: 1340, 2
+  size: 189, 189
+  orig: 189, 189
+  offset: 0, 0
+  index: -1
+effect_cross_00005
+  rotate: false
+  xy: 1531, 193
+  size: 189, 189
+  orig: 189, 189
+  offset: 0, 0
+  index: -1
+effect_cross_00006
+  rotate: false
+  xy: 1722, 193
+  size: 189, 189
+  orig: 189, 189
+  offset: 0, 0
+  index: -1
+effect_cross_00007
+  rotate: false
+  xy: 1531, 2
+  size: 189, 189
+  orig: 189, 189
+  offset: 0, 0
+  index: -1
+effect_cross_00008
+  rotate: false
+  xy: 1722, 2
+  size: 189, 189
+  orig: 189, 189
+  offset: 0, 0
+  index: -1
+effect_feather_00000
+  rotate: false
+  xy: 825, 1091
+  size: 256, 256
+  orig: 256, 256
+  offset: 0, 0
+  index: -1
+effect_feather_00001
+  rotate: false
+  xy: 1083, 1091
+  size: 256, 256
+  orig: 256, 256
+  offset: 0, 0
+  index: -1
+effect_feather_00002
+  rotate: false
+  xy: 1341, 1091
+  size: 256, 256
+  orig: 256, 256
+  offset: 0, 0
+  index: -1
+effect_feather_00003
+  rotate: false
+  xy: 1599, 1091
+  size: 256, 256
+  orig: 256, 256
+  offset: 0, 0
+  index: -1
+effect_feather_00004
+  rotate: false
+  xy: 825, 833
+  size: 256, 256
+  orig: 256, 256
+  offset: 0, 0
+  index: -1
+effect_feather_00005
+  rotate: false
+  xy: 566, 832
+  size: 256, 256
+  orig: 256, 256
+  offset: 0, 0
+  index: -1
+effect_feather_00006
+  rotate: false
+  xy: 1083, 833
+  size: 256, 256
+  orig: 256, 256
+  offset: 0, 0
+  index: -1
+effect_feather_00007
+  rotate: false
+  xy: 1341, 833
+  size: 256, 256
+  orig: 256, 256
+  offset: 0, 0
+  index: -1
+effect_feather_00008
+  rotate: false
+  xy: 1599, 833
+  size: 256, 256
+  orig: 256, 256
+  offset: 0, 0
+  index: -1
+effect_feather_00009
+  rotate: false
+  xy: 824, 575
+  size: 256, 256
+  orig: 256, 256
+  offset: 0, 0
+  index: -1
+effect_feather_00010
+  rotate: false
+  xy: 566, 574
+  size: 256, 256
+  orig: 256, 256
+  offset: 0, 0
+  index: -1
+effect_feather_00011
+  rotate: false
+  xy: 824, 317
+  size: 256, 256
+  orig: 256, 256
+  offset: 0, 0
+  index: -1
+effect_feather_00012
+  rotate: false
+  xy: 566, 316
+  size: 256, 256
+  orig: 256, 256
+  offset: 0, 0
+  index: -1
+effect_feather_00013
+  rotate: false
+  xy: 824, 59
+  size: 256, 256
+  orig: 256, 256
+  offset: 0, 0
+  index: -1
+effect_feather_00014
+  rotate: false
+  xy: 566, 58
+  size: 256, 256
+  orig: 256, 256
+  offset: 0, 0
+  index: -1
+effect_feather_00015
+  rotate: false
+  xy: 1082, 575
+  size: 256, 256
+  orig: 256, 256
+  offset: 0, 0
+  index: -1
+effect_feather_00016
+  rotate: false
+  xy: 1340, 575
+  size: 256, 256
+  orig: 256, 256
+  offset: 0, 0
+  index: -1
+effect_feather_00017
+  rotate: false
+  xy: 1598, 575
+  size: 256, 256
+  orig: 256, 256
+  offset: 0, 0
+  index: -1
+effect_flare_ring
+  rotate: false
+  xy: 1082, 317
+  size: 256, 256
+  orig: 256, 256
+  offset: 0, 0
+  index: -1
+effect_rainbow_00000
+  rotate: false
+  xy: 1082, 59
+  size: 256, 256
+  orig: 256, 256
+  offset: 0, 0
+  index: -1
+effect_wing_00009
+  rotate: false
+  xy: 2, 1229
+  size: 280, 400
+  orig: 280, 400
+  offset: 0, 0
+  index: -1
+effect_wing_00010
+  rotate: false
+  xy: 2, 827
+  size: 280, 400
+  orig: 280, 400
+  offset: 0, 0
+  index: -1
+effect_wing_00011
+  rotate: false
+  xy: 2, 425
+  size: 280, 400
+  orig: 280, 400
+  offset: 0, 0
+  index: -1
+effect_wing_00012
+  rotate: false
+  xy: 2, 23
+  size: 280, 400
+  orig: 280, 400
+  offset: 0, 0
+  index: -1
+effect_wing_00013
+  rotate: true
+  xy: 284, 1349
+  size: 280, 400
+  orig: 280, 400
+  offset: 0, 0
+  index: -1
+effect_wing_00014
+  rotate: true
+  xy: 686, 1349
+  size: 280, 400
+  orig: 280, 400
+  offset: 0, 0
+  index: -1
+effect_wing_00015
+  rotate: true
+  xy: 1088, 1349
+  size: 280, 400
+  orig: 280, 400
+  offset: 0, 0
+  index: -1
+effect_wing_00016
+  rotate: true
+  xy: 1490, 1349
+  size: 280, 400
+  orig: 280, 400
+  offset: 0, 0
+  index: -1
+effect_wing_00017
+  rotate: false
+  xy: 284, 947
+  size: 280, 400
+  orig: 280, 400
+  offset: 0, 0
+  index: -1
+effect_wing_00018
+  rotate: false
+  xy: 284, 545
+  size: 280, 400
+  orig: 280, 400
+  offset: 0, 0
+  index: -1
+effect_wing_00019
+  rotate: false
+  xy: 284, 143
+  size: 280, 400
+  orig: 280, 400
+  offset: 0, 0
+  index: -1

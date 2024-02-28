@@ -1,0 +1,26 @@
+{
+    "difficult":2,
+    "bg":"map_cave",
+	"wave":
+	[
+        {
+            "idx":1,
+			"camera":
+            {
+                "scale":0.7,
+                "pos_x":100,
+                "pos_y":0
+            },
+			
+			"direction":"boss_wave",
+			
+            "wave":
+            {
+                0:
+                [
+					"138001;1;Appear;RO03;RB14;0.5"
+                ]
+            }
+        }
+    ]
+}

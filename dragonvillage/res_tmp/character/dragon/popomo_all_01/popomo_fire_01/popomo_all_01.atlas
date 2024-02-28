@@ -1,0 +1,181 @@
+
+popomo_all_01.png
+size: 927,315
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+effect_popomo_all_01_atk_01
+  rotate: true
+  xy: 582, 118
+  size: 89, 102
+  orig: 89, 102
+  offset: 0, 0
+  index: -1
+effect_popomo_all_01_atk_02
+  rotate: true
+  xy: 389, 8
+  size: 47, 134
+  orig: 47, 134
+  offset: 0, 0
+  index: -1
+effect_popomo_all_01_atk_03
+  rotate: true
+  xy: 310, 10
+  size: 160, 77
+  orig: 160, 77
+  offset: 0, 0
+  index: -1
+effect_popomo_all_01_atk_04
+  rotate: false
+  xy: 829, 10
+  size: 50, 50
+  orig: 50, 50
+  offset: 0, 0
+  index: -1
+effect_popomo_all_01_b
+  rotate: false
+  xy: 2, 2
+  size: 306, 311
+  orig: 306, 311
+  offset: 0, 0
+  index: -1
+effect_popomo_all_01_heart
+  rotate: true
+  xy: 773, 48
+  size: 59, 54
+  orig: 59, 54
+  offset: 0, 0
+  index: -1
+effect_popomo_all_01_mark
+  rotate: false
+  xy: 829, 62
+  size: 55, 56
+  orig: 55, 56
+  offset: 0, 0
+  index: -1
+effect_popomo_all_01_petal
+  rotate: false
+  xy: 310, 172
+  size: 156, 141
+  orig: 156, 141
+  offset: 0, 0
+  index: -1
+popomo_all_01_b_arm
+  rotate: false
+  xy: 762, 139
+  size: 55, 74
+  orig: 55, 74
+  offset: 0, 0
+  index: -1
+popomo_all_01_b_leg
+  rotate: true
+  xy: 686, 109
+  size: 98, 74
+  orig: 98, 74
+  offset: 0, 0
+  index: -1
+popomo_all_01_b_wing
+  rotate: false
+  xy: 504, 69
+  size: 69, 120
+  orig: 69, 120
+  offset: 0, 0
+  index: -1
+popomo_all_01_body
+  rotate: false
+  xy: 708, 215
+  size: 129, 98
+  orig: 129, 98
+  offset: 0, 0
+  index: -1
+popomo_all_01_ear
+  rotate: false
+  xy: 839, 204
+  size: 79, 55
+  orig: 79, 55
+  offset: 0, 0
+  index: -1
+popomo_all_01_eye
+  rotate: false
+  xy: 819, 153
+  size: 78, 49
+  orig: 78, 49
+  offset: 0, 0
+  index: -1
+popomo_all_01_eye_c
+  rotate: false
+  xy: 819, 120
+  size: 77, 31
+  orig: 77, 31
+  offset: 0, 0
+  index: -1
+popomo_all_01_eyebrow_01
+  rotate: false
+  xy: 525, 33
+  size: 37, 34
+  orig: 37, 34
+  offset: 0, 0
+  index: -1
+popomo_all_01_eyebrow_02
+  rotate: true
+  xy: 762, 109
+  size: 28, 32
+  orig: 28, 32
+  offset: 0, 0
+  index: -1
+popomo_all_01_f_arm
+  rotate: true
+  xy: 839, 261
+  size: 52, 86
+  orig: 52, 86
+  offset: 0, 0
+  index: -1
+popomo_all_01_f_wing
+  rotate: false
+  xy: 389, 57
+  size: 113, 113
+  orig: 113, 113
+  offset: 0, 0
+  index: -1
+popomo_all_01_fur_01
+  rotate: false
+  xy: 677, 12
+  size: 94, 95
+  orig: 94, 95
+  offset: 0, 0
+  index: -1
+popomo_all_01_fur_02
+  rotate: false
+  xy: 575, 21
+  size: 100, 95
+  orig: 100, 95
+  offset: 0, 0
+  index: -1
+popomo_all_01_head
+  rotate: true
+  xy: 582, 209
+  size: 104, 124
+  orig: 104, 124
+  offset: 0, 0
+  index: -1
+popomo_all_01_mouth_01
+  rotate: false
+  xy: 773, 10
+  size: 43, 36
+  orig: 43, 36
+  offset: 0, 0
+  index: -1
+popomo_all_01_mouth_02
+  rotate: true
+  xy: 886, 80
+  size: 38, 33
+  orig: 38, 33
+  offset: 0, 0
+  index: -1
+popomo_all_01_tail
+  rotate: false
+  xy: 468, 191
+  size: 112, 122
+  orig: 112, 122
+  offset: 0, 0
+  index: -1

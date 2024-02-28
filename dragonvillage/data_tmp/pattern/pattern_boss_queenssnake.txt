@@ -1,0 +1,41 @@
+{
+    "pattern_boss_queenssnake":
+    [        
+        [
+            "a;basic", "w;2", "a;1", "w;4", "a;basic", "w;2", "a;3", "w;2"
+        ]
+    ],
+	
+    "hp_trriger":
+    {
+        "priority":1,
+        "list":
+        [
+            {
+                "hp_percent":75,
+                "pattern":
+                [
+                    "a;3", "w;3", "a;1", "w;2", "a;basic", "w;2"
+                ]
+            },
+			
+            {
+                "hp_percent":50,
+                "pattern":
+                [
+                    "a;2", "w;3", "a;3", "w;2", "a;1", "w;2", "a;3","w;2"
+                ]
+            }
+        ]
+
+    },
+	
+	"ani_mix":
+	[
+        "idle;attack;0.1",
+        "idle;idle;0.1",
+        "attack;idle;0.1",
+		"skill_2;idle;0.1",
+		"idle;skill_2;0.1"
+    ]
+}

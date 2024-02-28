@@ -1,0 +1,90 @@
+
+grade_slime_02.png
+size: 609,306
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+grade_slime_02_body_01
+  rotate: false
+  xy: 2, 25
+  size: 293, 279
+  orig: 293, 279
+  offset: 0, 0
+  index: -1
+grade_slime_02_body_03
+  rotate: false
+  xy: 374, 6
+  size: 59, 58
+  orig: 59, 58
+  offset: 0, 0
+  index: -1
+grade_slime_02_effect_02
+  rotate: true
+  xy: 551, 168
+  size: 65, 56
+  orig: 65, 56
+  offset: 0, 0
+  index: -1
+grade_slime_02_effect_03
+  rotate: true
+  xy: 440, 74
+  size: 55, 97
+  orig: 55, 97
+  offset: 0, 0
+  index: -1
+grade_slime_02_effect_04
+  rotate: false
+  xy: 442, 131
+  size: 107, 102
+  orig: 107, 102
+  offset: 0, 0
+  index: -1
+grade_slime_02_eye_01
+  rotate: true
+  xy: 297, 18
+  size: 46, 75
+  orig: 46, 75
+  offset: 0, 0
+  index: -1
+grade_slime_02_eye_02
+  rotate: true
+  xy: 440, 2
+  size: 70, 80
+  orig: 70, 80
+  offset: 0, 0
+  index: -1
+grade_slime_02_eye_03
+  rotate: false
+  xy: 551, 91
+  size: 46, 75
+  orig: 46, 75
+  offset: 0, 0
+  index: -1
+grade_slime_02_eye_04
+  rotate: true
+  xy: 522, 2
+  size: 70, 80
+  orig: 70, 80
+  offset: 0, 0
+  index: -1
+grade_slime_02_mouth_01
+  rotate: false
+  xy: 297, 66
+  size: 141, 69
+  orig: 141, 69
+  offset: 0, 0
+  index: -1
+grade_slime_02_mouth_02
+  rotate: false
+  xy: 442, 235
+  size: 141, 69
+  orig: 141, 69
+  offset: 0, 0
+  index: -1
+grade_slime_02_wing_01
+  rotate: false
+  xy: 297, 137
+  size: 143, 167
+  orig: 143, 167
+  offset: 0, 0
+  index: -1

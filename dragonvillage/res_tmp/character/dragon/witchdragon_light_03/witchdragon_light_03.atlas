@@ -1,0 +1,195 @@
+
+witchdragon_light_03.png
+size: 1992,373
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+witchdragon_light_3_body_1
+  rotate: false
+  xy: 882, 141
+  size: 168, 230
+  orig: 168, 230
+  offset: 0, 0
+  index: -1
+witchdragon_light_3_cape_1
+  rotate: false
+  xy: 1258, 204
+  size: 120, 167
+  orig: 120, 167
+  offset: 0, 0
+  index: -1
+witchdragon_light_3_cape_2
+  rotate: false
+  xy: 1712, 17
+  size: 123, 156
+  orig: 123, 156
+  offset: 0, 0
+  index: -1
+witchdragon_light_3_earring_1
+  rotate: false
+  xy: 378, 13
+  size: 14, 26
+  orig: 14, 26
+  offset: 0, 0
+  index: -1
+witchdragon_light_3_eff_1
+  rotate: true
+  xy: 378, 41
+  size: 330, 280
+  orig: 330, 280
+  offset: 0, 0
+  index: -1
+witchdragon_light_3_eff_2
+  rotate: true
+  xy: 2, 13
+  size: 358, 374
+  orig: 358, 374
+  offset: 0, 0
+  index: -1
+witchdragon_light_3_eff_3
+  rotate: false
+  xy: 1059, 9
+  size: 118, 136
+  orig: 118, 136
+  offset: 0, 0
+  index: -1
+witchdragon_light_3_eff_4
+  rotate: false
+  xy: 1409, 2
+  size: 149, 155
+  orig: 149, 155
+  offset: 0, 0
+  index: -1
+witchdragon_light_3_eff_5
+  rotate: false
+  xy: 660, 111
+  size: 220, 260
+  orig: 220, 260
+  offset: 0, 0
+  index: -1
+witchdragon_light_3_eye_1
+  rotate: false
+  xy: 1353, 153
+  size: 45, 49
+  orig: 45, 49
+  offset: 0, 0
+  index: -1
+witchdragon_light_3_ghost_1
+  rotate: true
+  xy: 1501, 163
+  size: 92, 128
+  orig: 92, 128
+  offset: 0, 0
+  index: -1
+witchdragon_light_3_ghost_2
+  rotate: false
+  xy: 935, 3
+  size: 122, 136
+  orig: 122, 136
+  offset: 0, 0
+  index: -1
+witchdragon_light_3_ghost_3
+  rotate: false
+  xy: 1837, 88
+  size: 135, 100
+  orig: 135, 100
+  offset: 0, 0
+  index: -1
+witchdragon_light_3_hair_1
+  rotate: true
+  xy: 1258, 152
+  size: 50, 93
+  orig: 50, 93
+  offset: 0, 0
+  index: -1
+witchdragon_light_3_hair_2
+  rotate: false
+  xy: 1179, 10
+  size: 148, 135
+  orig: 148, 135
+  offset: 0, 0
+  index: -1
+witchdragon_light_3_hair_3
+  rotate: false
+  xy: 1708, 175
+  size: 77, 80
+  orig: 77, 80
+  offset: 0, 0
+  index: -1
+witchdragon_light_3_head_1
+  rotate: true
+  xy: 1560, 4
+  size: 157, 150
+  orig: 157, 150
+  offset: 0, 0
+  index: -1
+witchdragon_light_3_leg_1
+  rotate: false
+  xy: 1329, 4
+  size: 78, 146
+  orig: 78, 146
+  offset: 0, 0
+  index: -1
+witchdragon_light_3_leg_2
+  rotate: true
+  xy: 1837, 190
+  size: 65, 153
+  orig: 65, 153
+  offset: 0, 0
+  index: -1
+witchdragon_light_3_leg_3
+  rotate: true
+  xy: 1837, 18
+  size: 68, 109
+  orig: 68, 109
+  offset: 0, 0
+  index: -1
+witchdragon_light_3_leg_4
+  rotate: true
+  xy: 808, 5
+  size: 104, 125
+  orig: 104, 125
+  offset: 0, 0
+  index: -1
+witchdragon_light_3_magic_1
+  rotate: false
+  xy: 1501, 257
+  size: 466, 114
+  orig: 466, 114
+  offset: 0, 0
+  index: -1
+witchdragon_light_3_tail_1
+  rotate: false
+  xy: 660, 4
+  size: 146, 105
+  orig: 146, 105
+  offset: 0, 0
+  index: -1
+witchdragon_light_3_tailring_1
+  rotate: true
+  xy: 1400, 159
+  size: 47, 63
+  orig: 47, 63
+  offset: 0, 0
+  index: -1
+witchdragon_light_3_thing_1
+  rotate: false
+  xy: 1631, 166
+  size: 75, 89
+  orig: 75, 89
+  offset: 0, 0
+  index: -1
+witchdragon_light_3_wing_1
+  rotate: true
+  xy: 1052, 147
+  size: 224, 204
+  orig: 224, 204
+  offset: 0, 0
+  index: -1
+witchdragon_light_3_wing_2
+  rotate: false
+  xy: 1380, 208
+  size: 119, 163
+  orig: 119, 163
+  offset: 0, 0
+  index: -1

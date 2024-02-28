@@ -1,0 +1,118 @@
+
+serpentdragon_dark_03.png
+size: 746,523
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+serpentdragon_dark_03_body_01
+  rotate: true
+  xy: 2, 2
+  size: 231, 277
+  orig: 231, 277
+  offset: 0, 0
+  index: -1
+serpentdragon_dark_03_body_02
+  rotate: false
+  xy: 408, 57
+  size: 159, 176
+  orig: 159, 176
+  offset: 0, 0
+  index: -1
+serpentdragon_dark_03_effect_02
+  rotate: true
+  xy: 2, 235
+  size: 286, 150
+  orig: 286, 150
+  offset: 0, 0
+  index: -1
+serpentdragon_dark_03_effect_03
+  rotate: true
+  xy: 154, 235
+  size: 286, 150
+  orig: 286, 150
+  offset: 0, 0
+  index: -1
+serpentdragon_dark_03_effect_04
+  rotate: true
+  xy: 306, 235
+  size: 286, 150
+  orig: 286, 150
+  offset: 0, 0
+  index: -1
+serpentdragon_dark_03_effect_05
+  rotate: false
+  xy: 458, 371
+  size: 286, 150
+  orig: 286, 150
+  offset: 0, 0
+  index: -1
+serpentdragon_dark_03_eye_01
+  rotate: true
+  xy: 458, 241
+  size: 18, 17
+  orig: 18, 17
+  offset: 0, 0
+  index: -1
+serpentdragon_dark_03_eye_02
+  rotate: true
+  xy: 477, 241
+  size: 18, 17
+  orig: 18, 17
+  offset: 0, 0
+  index: -1
+serpentdragon_dark_03_eye_03
+  rotate: false
+  xy: 281, 15
+  size: 2, 2
+  orig: 2, 2
+  offset: 0, 0
+  index: -1
+serpentdragon_dark_03_head_01
+  rotate: false
+  xy: 569, 111
+  size: 151, 148
+  orig: 151, 148
+  offset: 0, 0
+  index: -1
+serpentdragon_dark_03_head_02
+  rotate: false
+  xy: 469, 19
+  size: 31, 36
+  orig: 31, 36
+  offset: 0, 0
+  index: -1
+serpentdragon_dark_03_head_03
+  rotate: false
+  xy: 408, 3
+  size: 59, 52
+  orig: 59, 52
+  offset: 0, 0
+  index: -1
+serpentdragon_dark_03_head_06
+  rotate: false
+  xy: 496, 311
+  size: 68, 58
+  orig: 68, 58
+  offset: 0, 0
+  index: -1
+serpentdragon_dark_03_tail_01
+  rotate: true
+  xy: 496, 236
+  size: 73, 56
+  orig: 73, 56
+  offset: 0, 0
+  index: -1
+serpentdragon_dark_03_wing_01
+  rotate: true
+  xy: 281, 19
+  size: 214, 125
+  orig: 214, 125
+  offset: 0, 0
+  index: -1
+serpentdragon_dark_03_wing_02
+  rotate: false
+  xy: 569, 261
+  size: 172, 108
+  orig: 172, 108
+  offset: 0, 0
+  index: -1

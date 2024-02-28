@@ -1,0 +1,36 @@
+{
+    "difficult":2,
+    "bg":"map_gold",
+	"wave":
+	[
+        {
+			"idx":1,
+			"camera":
+            {
+                "scale":0.6,
+                "pos_x":0,
+                "pos_y":0
+            },
+			"direction":"boss_wave",
+            "wave":
+            {
+				0:
+				[
+					"135031;1;SecretGold;RO04;RM24;3"
+				]
+            },
+			
+			"regen":
+			[
+				{
+					0:
+					[
+						"131044;1;Appear;RO01;RF21;0.5"
+						"131044;1;Appear;RO04;RF14;0.5"
+						"131044;1;Appear;RO07;RF27;0.5"
+					]
+				}
+			]
+		}
+    ]
+}

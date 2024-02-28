@@ -1,0 +1,44 @@
+{
+    "difficult":2,
+    "bg":"map_ocean",
+	"wave":
+	[
+        {
+            "idx":1,
+			"camera":
+            {
+                "scale":0.7,
+                "pos_x":100,
+                "pos_y":0
+            },
+			
+			"direction":"boss_wave",
+			
+            "wave":
+            {
+                0:
+                [
+					"138004;1;Appear;RO03;RB24;0.5"
+                ]
+            }
+        }
+    ]
+	
+	"move":
+	{
+		"w1":
+		[
+			[
+				"move_9;0.5",
+				"move_9_r;7",
+				"move_9;7",
+				"move_9_r;7",
+				
+				"move_8;0.5",
+				"move_8_r2;7",
+				"move_8;7",
+				"move_8_r2;7"
+			]
+		]
+	}
+}				

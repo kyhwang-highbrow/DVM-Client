@@ -1,0 +1,58 @@
+{
+    "difficult":2,
+    "bg":"map_volcano_stand",
+	"wave":
+	[
+        {
+            "idx":1,
+			"camera":
+            {
+                "scale":0.7,
+                "pos_x":100,
+                "pos_y":0
+            },
+			
+			"direction":"boss_wave",
+			
+            "wave":
+            {
+                0:
+                [
+					"138002;1;Appear;RO03;RB24;0.5"
+                ],
+
+                0.5:
+                [
+					"138003;1;Appear;RF11;RF11;0.5;w1"
+					"138003;1;Appear;RF13;RF13;0.5;w1"
+					"138003;1;Appear;RF15;RF15;0.5;w1"
+					"138003;1;Appear;RF17;RF17;0.5;w1"
+					"138003;1;Appear;RF22;RF22;0.5;w1"
+					"138003;1;Appear;RF24;RF24;0.5;w1"
+					"138003;1;Appear;RF26;RF26;0.5;w1"
+					"138003;1;Appear;RM13;RM13;0.5;w1"
+					"138003;1;Appear;RM15;RM15;0.5;w1"
+					"138003;1;Appear;RM24;RM24;0.5;w1"
+                ]
+            }
+        }
+    ]
+	
+	"move":
+	{
+		"w1":
+		[
+			[
+				"move_9;0.5",
+				"move_9_r;7",
+				"move_9;7",
+				"move_9_r;7",
+				
+				"move_8;0.5",
+				"move_8_r2;7",
+				"move_8;7",
+				"move_8_r2;7"
+			]
+		]
+	}
+}				

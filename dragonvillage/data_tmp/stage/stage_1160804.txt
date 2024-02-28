@@ -1,0 +1,98 @@
+{
+    "difficult":2,
+    "bg":"map_canyon3",
+	"wave":
+	[
+        {
+            "idx":1,
+			"camera":
+            {
+                "scale":1,
+                "pos_x":0,
+                "pos_y":0
+            },
+            "wave":
+            {
+				0:
+                [
+					"311043;1;Appear;RO02;RB22;0.5"
+					"311052;1;Appear;RO06;RB26;0.5"
+                ],
+				
+				0.6:
+                [
+					"311042;1;Basic2;RB12;RM21;0.5"
+					"311042;1;Basic2;RB16;RM27;0.5"
+				],
+				
+				1.2:
+                [
+					"311081;1;Basic2;RM11;RF22;0.5"
+					"311081;1;Basic2;RM17;RF26;0.5"
+                ]
+            }
+        },
+        {
+            "idx":2,
+			"camera":
+            {
+                "scale":1,
+                "pos_x":0,
+                "pos_y":0
+            },
+            "wave":
+            {
+                0:
+                [
+					"310015;1;Basic2;RF21;RF22;1"
+					"311081;1;Basic2;RM12;RM13;1"
+					"311071;1;Basic2;RF14;RB14;1;roam"
+					"310014;1;Basic2;RF27;RF26;1"
+					"311081;1;Basic2;RM16;RM15;1"
+					"310055;1;Basic2;RB23;RB23;1"
+					"310054;1;Basic2;RB25;RB25;1"
+                ]	
+            }
+        },
+		
+        {
+            "idx":3,
+			"camera":
+            {
+                "scale":0.8,
+                "pos_x":0,
+                "pos_y":0
+            },
+            "wave":
+            {	
+				0:
+				[
+					"313051;1;Basic;TO10;RM14;2;roam"
+				]
+            },
+			
+			"regen":
+			[
+				{
+					0:
+					[
+						"311071;1;Appear;RO02;RB11;0.5"
+						"311071;1;Appear;RO06;RB17;0.5"
+					]
+				},
+				
+				{
+					0:
+					[
+						"310055;1;Appear;RO04;RB24;0.5"
+					]
+				}
+			]
+        }
+    ],
+	
+	"move":
+	{
+		
+	}
+}

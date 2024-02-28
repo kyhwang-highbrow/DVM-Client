@@ -1,0 +1,12 @@
+page,bg,illustration,char,t_char_name,char_pos,char_ani,char_effect,r_scen,t_text,text_pos,text_type,auto_skip,effect_1,effect_2,effect_3,bgm,bgm_action,sound
+1,,,,,,,,,,,,3,title;어둠 속에서 깨어난 작은 용,skip_disable,,,,
+2,,,,,,,,,,,,0.3,,skip_disable,,,,
+3,,,,,,,,,거대한 빛의 날개짓은 그것만으로도 어둠이 물러가게 하고 주변이 더더욱 밝아지기 시작했다.,,narrate,,,,,,,
+4,,,작은 용,,left,idle,,,"""당신은 누구십니까?""",,,,,,,,,
+5,,,,,,,,,작은 용은 질문했다.,,,,,,,,,
+6,,,거대한 빛,,right,idle,,,[나는 너다],,bold_italic,,,,,,,
+7,,,,,,,,,거대한 빛은 작게 미소지었다.,,,,,,,,,
+8,,,,,,,,,이해할 수 없는 대답에 작은 용이 의문을 표하기도 전에 거대한 빛이 말했다.,,,,,,,,,
+9,,,거대한 빛,,right,idle,,,[자 따라오거라. 너에게 보여줘야 하는 것이 많구나],,bold_italic,,,,,,,
+10,,,,,,,,,거대한 빛은 어둠속을 가로지르며 천천히 날아가기 시작했다.,,narrate,,,,,,,
+11,,,,,,,,,머뭇거리던 작은 용은 이내 거대한 빛을 따라 날아가기 시작했다.,,narrate,,,,,,,

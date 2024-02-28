@@ -1,0 +1,13 @@
+{
+	"layer":
+    [
+    
+        {
+            "speed":0
+            "list":           
+			[
+                {"res":"res/bg/clanwar/clanwar.vrp" "animation":"idle" "width":1920 "pos_x":640 "scale":1.2}
+            ]
+        }
+    ]
+}

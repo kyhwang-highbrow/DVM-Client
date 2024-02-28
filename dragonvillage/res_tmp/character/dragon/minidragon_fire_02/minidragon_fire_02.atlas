@@ -1,0 +1,272 @@
+
+minidragon_fire_02.png
+size: 856,364
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+minidragon_fire_02_body
+  rotate: true
+  xy: 582, 18
+  size: 107, 88
+  orig: 107, 88
+  offset: 0, 0
+  index: -1
+minidragon_fire_02_bone_01
+  rotate: true
+  xy: 446, 7
+  size: 67, 59
+  orig: 67, 59
+  offset: 0, 0
+  index: -1
+minidragon_fire_02_bone_02
+  rotate: true
+  xy: 521, 82
+  size: 42, 59
+  orig: 42, 59
+  offset: 0, 0
+  index: -1
+minidragon_fire_02_eff_01
+  rotate: false
+  xy: 835, 135
+  size: 18, 21
+  orig: 18, 21
+  offset: 0, 0
+  index: -1
+minidragon_fire_02_eff_02
+  rotate: false
+  xy: 677, 252
+  size: 23, 42
+  orig: 23, 42
+  offset: 0, 0
+  index: -1
+minidragon_fire_02_eff_04
+  rotate: true
+  xy: 2, 9
+  size: 353, 338
+  orig: 353, 338
+  offset: 0, 0
+  index: -1
+minidragon_fire_02_eff_05
+  rotate: true
+  xy: 566, 127
+  size: 112, 90
+  orig: 112, 90
+  offset: 0, 0
+  index: -1
+minidragon_fire_02_eff_06
+  rotate: true
+  xy: 342, 76
+  size: 133, 129
+  orig: 133, 129
+  offset: 0, 0
+  index: -1
+minidragon_fire_02_eff_07
+  rotate: true
+  xy: 684, 93
+  size: 52, 66
+  orig: 52, 66
+  offset: 0, 0
+  index: -1
+minidragon_fire_02_eff_08
+  rotate: false
+  xy: 755, 296
+  size: 95, 66
+  orig: 95, 66
+  offset: 0, 0
+  index: -1
+minidragon_fire_02_eff_09
+  rotate: true
+  xy: 658, 147
+  size: 103, 95
+  orig: 103, 95
+  offset: 0, 0
+  index: -1
+minidragon_fire_02_eff_099
+  rotate: true
+  xy: 771, 202
+  size: 92, 83
+  orig: 92, 83
+  offset: 0, 0
+  index: -1
+minidragon_fire_02_eye_01
+  rotate: false
+  xy: 817, 105
+  size: 37, 28
+  orig: 37, 28
+  offset: 0, 0
+  index: -1
+minidragon_fire_02_eye_02
+  rotate: false
+  xy: 835, 180
+  size: 19, 20
+  orig: 19, 20
+  offset: 0, 0
+  index: -1
+minidragon_fire_02_eye_03
+  rotate: false
+  xy: 817, 75
+  size: 37, 28
+  orig: 37, 28
+  offset: 0, 0
+  index: -1
+minidragon_fire_02_eye_04
+  rotate: false
+  xy: 835, 158
+  size: 19, 20
+  orig: 19, 20
+  offset: 0, 0
+  index: -1
+minidragon_fire_02_eyebrow_01
+  rotate: false
+  xy: 582, 3
+  size: 26, 13
+  orig: 26, 13
+  offset: 0, 0
+  index: -1
+minidragon_fire_02_eyebrow_02
+  rotate: false
+  xy: 571, 241
+  size: 13, 9
+  orig: 13, 9
+  offset: 0, 0
+  index: -1
+minidragon_fire_02_foot_01
+  rotate: false
+  xy: 733, 19
+  size: 27, 54
+  orig: 27, 54
+  offset: 0, 0
+  index: -1
+minidragon_fire_02_foot_02
+  rotate: false
+  xy: 762, 19
+  size: 26, 54
+  orig: 26, 54
+  offset: 0, 0
+  index: -1
+minidragon_fire_02_fur_01
+  rotate: false
+  xy: 342, 2
+  size: 102, 72
+  orig: 102, 72
+  offset: 0, 0
+  index: -1
+minidragon_fire_02_fur_02
+  rotate: true
+  xy: 825, 40
+  size: 33, 29
+  orig: 33, 29
+  offset: 0, 0
+  index: -1
+minidragon_fire_02_fur_03
+  rotate: false
+  xy: 790, 40
+  size: 33, 33
+  orig: 33, 33
+  offset: 0, 0
+  index: -1
+minidragon_fire_02_fur_04
+  rotate: false
+  xy: 737, 257
+  size: 32, 37
+  orig: 32, 37
+  offset: 0, 0
+  index: -1
+minidragon_fire_02_fur_05
+  rotate: false
+  xy: 702, 257
+  size: 33, 37
+  orig: 33, 37
+  offset: 0, 0
+  index: -1
+minidragon_fire_02_fur_06
+  rotate: false
+  xy: 672, 14
+  size: 59, 59
+  orig: 59, 59
+  offset: 0, 0
+  index: -1
+minidragon_fire_02_hair_01
+  rotate: false
+  xy: 473, 77
+  size: 46, 47
+  orig: 46, 47
+  offset: 0, 0
+  index: -1
+minidragon_fire_02_hair_02
+  rotate: false
+  xy: 507, 2
+  size: 73, 73
+  orig: 73, 73
+  offset: 0, 0
+  index: -1
+minidragon_fire_02_hand_01
+  rotate: true
+  xy: 752, 101
+  size: 35, 63
+  orig: 35, 63
+  offset: 0, 0
+  index: -1
+minidragon_fire_02_hand_02
+  rotate: true
+  xy: 752, 75
+  size: 24, 60
+  orig: 24, 60
+  offset: 0, 0
+  index: -1
+minidragon_fire_02_head
+  rotate: true
+  xy: 571, 252
+  size: 110, 104
+  orig: 110, 104
+  offset: 0, 0
+  index: -1
+minidragon_fire_02_leg_01
+  rotate: true
+  xy: 755, 138
+  size: 62, 78
+  orig: 62, 78
+  offset: 0, 0
+  index: -1
+minidragon_fire_02_leg_02
+  rotate: true
+  xy: 677, 299
+  size: 63, 76
+  orig: 63, 76
+  offset: 0, 0
+  index: -1
+minidragon_fire_02_mouth
+  rotate: false
+  xy: 658, 127
+  size: 24, 18
+  orig: 24, 18
+  offset: 0, 0
+  index: -1
+minidragon_fire_02_tail
+  rotate: false
+  xy: 342, 211
+  size: 129, 151
+  orig: 129, 151
+  offset: 0, 0
+  index: -1
+minidragon_fire_02_thing_01
+  rotate: false
+  xy: 610, 4
+  size: 12, 12
+  orig: 12, 12
+  offset: 0, 0
+  index: -1
+minidragon_fire_02_wing_01
+  rotate: false
+  xy: 473, 126
+  size: 91, 113
+  orig: 91, 113
+  offset: 0, 0
+  index: -1
+minidragon_fire_02_wing_02
+  rotate: false
+  xy: 473, 241
+  size: 96, 121
+  orig: 96, 121
+  offset: 0, 0
+  index: -1

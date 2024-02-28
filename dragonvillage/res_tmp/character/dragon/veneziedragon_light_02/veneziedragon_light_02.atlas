@@ -1,0 +1,230 @@
+
+veneziedragon_light_02.png
+size: 1954,338
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+veneziedragon_light_02_arm_01
+  rotate: true
+  xy: 974, 4
+  size: 67, 75
+  orig: 67, 75
+  offset: 0, 0
+  index: -1
+veneziedragon_light_02_arm_02
+  rotate: false
+  xy: 1608, 109
+  size: 63, 75
+  orig: 63, 75
+  offset: 0, 0
+  index: -1
+veneziedragon_light_02_band_01
+  rotate: false
+  xy: 1676, 210
+  size: 166, 126
+  orig: 166, 126
+  offset: 0, 0
+  index: -1
+veneziedragon_light_02_band_02
+  rotate: true
+  xy: 604, 16
+  size: 40, 110
+  orig: 40, 110
+  offset: 0, 0
+  index: -1
+veneziedragon_light_02_body_01
+  rotate: true
+  xy: 604, 58
+  size: 100, 221
+  orig: 100, 221
+  offset: 0, 0
+  index: -1
+veneziedragon_light_02_chain_02
+  rotate: false
+  xy: 1051, 2
+  size: 34, 69
+  orig: 34, 69
+  offset: 0, 0
+  index: -1
+veneziedragon_light_02_chain_04
+  rotate: true
+  xy: 1289, 9
+  size: 82, 111
+  orig: 82, 111
+  offset: 0, 0
+  index: -1
+veneziedragon_light_02_effect_03
+  rotate: false
+  xy: 1443, 186
+  size: 231, 150
+  orig: 231, 150
+  offset: 0, 0
+  index: -1
+veneziedragon_light_02_eve_01
+  rotate: true
+  xy: 1847, 4
+  size: 40, 51
+  orig: 40, 51
+  offset: 0, 0
+  index: -1
+veneziedragon_light_02_foot_01
+  rotate: true
+  xy: 1443, 106
+  size: 78, 163
+  orig: 78, 163
+  offset: 0, 0
+  index: -1
+veneziedragon_light_02_foot_02
+  rotate: true
+  xy: 1676, 121
+  size: 87, 124
+  orig: 87, 124
+  offset: 0, 0
+  index: -1
+veneziedragon_light_02_hair_01
+  rotate: true
+  xy: 827, 39
+  size: 119, 57
+  orig: 119, 57
+  offset: 0, 0
+  index: -1
+veneziedragon_light_02_hair_02
+  rotate: false
+  xy: 1556, 6
+  size: 109, 98
+  orig: 109, 98
+  offset: 0, 0
+  index: -1
+veneziedragon_light_02_hair_03
+  rotate: true
+  xy: 1802, 100
+  size: 91, 122
+  orig: 91, 122
+  offset: 0, 0
+  index: -1
+veneziedragon_light_02_hair_04
+  rotate: false
+  xy: 1905, 39
+  size: 46, 59
+  orig: 46, 59
+  offset: 0, 0
+  index: -1
+veneziedragon_light_02_hand_01
+  rotate: false
+  xy: 1087, 15
+  size: 63, 56
+  orig: 63, 56
+  offset: 0, 0
+  index: -1
+veneziedragon_light_02_hand_02
+  rotate: false
+  xy: 886, 15
+  size: 86, 56
+  orig: 86, 56
+  offset: 0, 0
+  index: -1
+veneziedragon_light_02_head_02
+  rotate: false
+  xy: 716, 10
+  size: 60, 46
+  orig: 60, 46
+  offset: 0, 0
+  index: -1
+veneziedragon_light_02_head_03
+  rotate: false
+  xy: 1844, 274
+  size: 108, 62
+  orig: 108, 62
+  offset: 0, 0
+  index: -1
+veneziedragon_light_02_head_04
+  rotate: false
+  xy: 1402, 70
+  size: 34, 21
+  orig: 34, 21
+  offset: 0, 0
+  index: -1
+veneziedragon_light_02_horn_01
+  rotate: true
+  xy: 1844, 193
+  size: 79, 103
+  orig: 79, 103
+  offset: 0, 0
+  index: -1
+veneziedragon_light_02_horn_02
+  rotate: false
+  xy: 1673, 26
+  size: 97, 93
+  orig: 97, 93
+  offset: 0, 0
+  index: -1
+veneziedragon_light_02_irons_02
+  rotate: true
+  xy: 1772, 28
+  size: 70, 73
+  orig: 70, 73
+  offset: 0, 0
+  index: -1
+veneziedragon_light_02_irons_04
+  rotate: false
+  xy: 1847, 46
+  size: 56, 52
+  orig: 56, 52
+  offset: 0, 0
+  index: -1
+veneziedragon_light_02_leg_01
+  rotate: true
+  xy: 1168, 13
+  size: 78, 119
+  orig: 78, 119
+  offset: 0, 0
+  index: -1
+veneziedragon_light_02_leg_02
+  rotate: true
+  xy: 1443, 20
+  size: 84, 111
+  orig: 84, 111
+  offset: 0, 0
+  index: -1
+veneziedragon_light_02_tail_01
+  rotate: false
+  xy: 889, 73
+  size: 277, 263
+  orig: 277, 263
+  offset: 0, 0
+  index: -1
+veneziedragon_light_02_wing_01
+  rotate: true
+  xy: 2, 13
+  size: 323, 469
+  orig: 323, 469
+  offset: 0, 0
+  index: -1
+veneziedragon_light_02_wing_02
+  rotate: false
+  xy: 1168, 93
+  size: 273, 243
+  orig: 273, 243
+  offset: 0, 0
+  index: -1
+veneziedragon_light_02_wing_03
+  rotate: true
+  xy: 473, 160
+  size: 176, 414
+  orig: 176, 414
+  offset: 0, 0
+  index: -1
+veneziedragon_light_02_wing_04
+  rotate: false
+  xy: 473, 2
+  size: 129, 156
+  orig: 129, 156
+  offset: 0, 0
+  index: -1
+veneziedragon_light_02_wrist _01
+  rotate: false
+  xy: 778, 8
+  size: 41, 48
+  orig: 41, 48
+  offset: 0, 0
+  index: -1

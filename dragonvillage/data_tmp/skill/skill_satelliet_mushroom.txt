@@ -1,0 +1,35 @@
+{
+	"skill_satelliet_mushroom":
+	{
+		"attack_value":
+		[		
+
+			{
+				"idx":1,
+				"res":"res/missile/missile_mushroom/missile_mushroom.png",
+				"body":[0,0,20],
+                "count":1,				
+                "period":0,
+                "scale":0.7,
+				"time":0,
+				"speed":100,
+				"accel":1000,
+				"h_limit_speed":1500,
+				"accel_delay":0.5,
+				"angular_velocity":0,
+				"offset":[0,0],
+				"dir":-90,
+				"dir_add":0,
+				
+				"movement":"guidtarget",
+				
+                "effect":
+                {
+                    "motion_streak":"res/missile/motion_streak/motion_streak_line_@.png",
+                    "rotation":false,
+                    "afterimage":false
+                }				
+			}
+		]
+	}
+}

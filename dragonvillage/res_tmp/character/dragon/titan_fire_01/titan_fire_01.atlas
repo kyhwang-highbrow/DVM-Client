@@ -1,0 +1,160 @@
+
+titan_fire_01.png
+size: 1288,549
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+titan_fire_01_arm_l_01
+  rotate: false
+  xy: 2, 2
+  size: 261, 204
+  orig: 261, 204
+  offset: 0, 0
+  index: -1
+titan_fire_01_arm_l_02
+  rotate: false
+  xy: 417, 235
+  size: 237, 312
+  orig: 237, 312
+  offset: 0, 0
+  index: -1
+titan_fire_01_arm_r_01
+  rotate: false
+  xy: 1051, 3
+  size: 98, 96
+  orig: 98, 96
+  offset: 0, 0
+  index: -1
+titan_fire_01_arm_r_02
+  rotate: true
+  xy: 922, 382
+  size: 165, 278
+  orig: 165, 278
+  offset: 0, 0
+  index: -1
+titan_fire_01_body_01
+  rotate: false
+  xy: 2, 208
+  size: 413, 339
+  orig: 413, 339
+  offset: 0, 0
+  index: -1
+titan_fire_01_body_02
+  rotate: false
+  xy: 656, 311
+  size: 264, 236
+  orig: 264, 236
+  offset: 0, 0
+  index: -1
+titan_fire_01_body_03
+  rotate: false
+  xy: 957, 4
+  size: 92, 141
+  orig: 92, 141
+  offset: 0, 0
+  index: -1
+titan_fire_01_ef_arm_smoke_01
+  rotate: true
+  xy: 1091, 226
+  size: 154, 161
+  orig: 154, 161
+  offset: 0, 0
+  index: -1
+titan_fire_01_ef_arm_smoke_02
+  rotate: true
+  xy: 856, 147
+  size: 162, 58
+  orig: 162, 58
+  offset: 0, 0
+  index: -1
+titan_fire_01_ef_arm_smoke_03
+  rotate: false
+  xy: 916, 147
+  size: 122, 118
+  orig: 122, 118
+  offset: 0, 0
+  index: -1
+titan_fire_01_ef_arm_smoke_04
+  rotate: true
+  xy: 1202, 382
+  size: 165, 62
+  orig: 165, 62
+  offset: 0, 0
+  index: -1
+titan_fire_01_ef_smoke_01
+  rotate: false
+  xy: 1051, 101
+  size: 162, 54
+  orig: 162, 54
+  offset: 0, 0
+  index: -1
+titan_fire_01_head_01
+  rotate: false
+  xy: 639, 37
+  size: 184, 142
+  orig: 184, 142
+  offset: 0, 0
+  index: -1
+titan_fire_01_head_02
+  rotate: false
+  xy: 1151, 12
+  size: 58, 87
+  orig: 58, 87
+  offset: 0, 0
+  index: -1
+titan_fire_01_head_03
+  rotate: true
+  xy: 488, 8
+  size: 36, 59
+  orig: 36, 59
+  offset: 0, 0
+  index: -1
+titan_fire_01_leg_l_01
+  rotate: true
+  xy: 922, 267
+  size: 113, 167
+  orig: 113, 167
+  offset: 0, 0
+  index: -1
+titan_fire_01_leg_l_02
+  rotate: false
+  xy: 1211, 24
+  size: 75, 75
+  orig: 75, 75
+  offset: 0, 0
+  index: -1
+titan_fire_01_leg_l_03
+  rotate: true
+  xy: 1040, 157
+  size: 67, 155
+  orig: 67, 155
+  offset: 0, 0
+  index: -1
+titan_fire_01_mouth_01
+  rotate: true
+  xy: 488, 46
+  size: 187, 149
+  orig: 187, 149
+  offset: 0, 0
+  index: -1
+titan_fire_01_mouth_02
+  rotate: false
+  xy: 825, 37
+  size: 130, 108
+  orig: 130, 108
+  offset: 0, 0
+  index: -1
+titan_fire_01_wing_l
+  rotate: false
+  xy: 265, 2
+  size: 221, 204
+  orig: 221, 204
+  offset: 0, 0
+  index: -1
+titan_fire_01_wing_r
+  rotate: true
+  xy: 656, 181
+  size: 128, 198
+  orig: 128, 198
+  offset: 0, 0
+  index: -1

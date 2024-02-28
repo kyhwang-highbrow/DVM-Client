@@ -1,0 +1,39 @@
+{
+    "directing":"floating_1",
+	"layer":
+    [
+    
+        {
+            "name":"원경"
+            "speed":0.2
+            "list":
+            [
+                {"res":"res/bg/forest/bg_forest_1_a.png" "width":1280}
+                {"res":"res/bg/forest/bg_forest_1_b.png" "width":1280}
+            ]
+        }
+        
+        
+        {
+            "name":"중경"
+            "speed":0.5
+            "list":
+            [
+                {"res":"res/bg/forest/bg_forest_2_a.png" "width":1280}
+                {"res":"res/bg/forest/bg_forest_2_b.png" "width":1280}
+            ]
+        }
+        
+        
+        {
+            "name":"근경"
+            "speed":0.8
+            "list":
+            [
+                {"res":"res/bg/forest/bg_forest_3_a.png" "width":1280}
+                {"res":"res/bg/forest/bg_forest_3_b.png" "width":1280}
+            ]
+        }
+        
+    ]
+}

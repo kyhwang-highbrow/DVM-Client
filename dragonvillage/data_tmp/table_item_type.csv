@@ -1,0 +1,102 @@
+type,is_read_all,mail_tab_type,r_type_name
+cash,1,money,다이아
+gold,1,money,골드
+fp,1,fp,우정의 징표
+honor,1,money,명예코인
+badge,1,money,훈장
+amethyst,1,money,자수정
+mileage,1,money,마일리지
+topaz,1,money,토파즈
+ancient,1,money,고대주화
+clancoin,1,money,클랜코인
+capsule_coin,1,money,캡슐코인
+valor,1,money,용맹훈장
+amor,1,money,아모르의 서
+oblivion,1,item,망각의 서
+staminas_st,1,staminas,날개
+staminas_pvp,1,item,콜로세움 입장권
+staminas_tower,1,item,고대의탑 입장권
+staminas_cldg,1,item,클랜던전 입장권
+staminas_event_st,1,item,황금 날개
+staminas_arena,1,item,콜로세움 입장권
+staminas_grand_arena,1,item,그랜드 콜로세움 입장권
+capsule,1,money,캡슐
+event,1,item,케이크
+dice,1,item,주사위
+card_play,1,item,이용권
+card_gift,1,item,교환 카드
+alphabet,1,item,알파벳
+rename,,item,닉네임 변경권
+auto_root,,item,아이템 자동 획득
+buff,,item,경험치 부스터
+coupon,,item,쿠폰
+luckybox,,item,럭키박스
+dungeonbox,,item,클랜던전보상
+pick,,item,전설 드래곤 선택권
+summon,,item,10+1 고급소환권
+alphabetbox,,item,알파벳 박스
+evolution_stone,1,item,진화의 보석
+rand,,item,정기
+fruit,1,item,열매
+egg,1,item,알
+ticket,,item,룬 티켓
+transform_material,1,item,모습 변환 아이템
+rune,,item,룬
+fixed_rune,,item,고정 룬
+costume,1,item,코스튬
+reinforce_point,1,item,강화 포인트
+relation_point,1,item,인연 포인트
+dragon,1,item,드래곤
+slime,1,item,슬라임
+package,,item,패키지
+grindstone,1,item,룬 연마석
+max_fixed_ticket,1,item,Max확정권
+opt_keep_ticket,1,item,옵션 유지권
+rune_bless,1,item,룬 축복서
+mastery_material,1,item,특성 재료
+event_bingo,1,item,빙고 아이템
+staminas_cldg_tr,1,item,클랜던전 연습 전투 입장권
+event_illusion,1,item,환상 던전 토큰
+dragon_food,1,item,드래곤 먹이
+quiz_play,1,item,드래곤 이미지 퀴즈 이벤트 티켓
+lucky_fortune_bag,1,item,복주머니
+luckybox_9.9k,,item,럭키박스
+dragon_exp,1,item,드래곤 경험치
+luckybox_9.9k_02,,item,럭키박스
+rune_box,1,item,룬 상자
+staminas_st_100,1,staminas,찬란한 날개
+arena_point,1,item,승점
+staminas_arena_new,1,item,콜로세움 입장권
+medal,1,item,인장
+moneypouch,1,item,용돈 주머니
+moneypouch_01,1,item,두둑한 용돈 주머니
+luckybox_9.9k_03,,item,다이아 랜덤 박스
+roulette_ticket,1,item,룰렛티켓
+clear_ticket,,item,소탕
+memory,1,item,별의 기억
+event_token,1,item,이벤트 재화
+summon_dragon_ticket,1,item,드래곤 소환티켓
+made_rune,,item,옵션 지정 룬
+luckybox_9.9k_04,,item,강화 포인트 랜덤 박스
+mail_slime,,item,신화 스킬 슬라임(우편)
+luckybox_9.9k_05,,item,만원의 행복 패키지
+luckybox_9.9k_06,,item,전설 특성 재료 랜덤박스
+luckybox_9.9k_07,,item,노려라! 속성 전설알 랜덤박스
+luckybox_9.9k_08,,item,절대적인 전설의알 랜덤박스
+luckybox_9.9k_09,,item,전설룬 만원의 행복 랜덤박스
+dragon_skin,1,item,신화 드래곤 스킨
+token_story_dungeon,1,item,스토리 던전 이벤트 토큰
+ticket_story_dungeon,1,item,스토리 던전 이벤트 티켓
+event_vote_ticket,1,item,신화 드래곤 투표권
+event_popularity_mileage,1,item,인기 드래곤 확률 업 마일리지
+event_popularity_ticket,1,item,인기 드래곤 확률 업 티켓
+luckybox_9.9k_10,,item,절대적인 전설의알 랜덤박스
+rune_ticket,1,item,룬 천장 뽑기 상자
+rune_mileage,1,item,일반 룬 마일리지
+rune_ancient_mileage,1,item,고대 룬 마일리지
+subjugation_ticket,1,money,던전 토벌권
+indiv_pass,,item,개인 패스
+indiv_pass_exp,1,item,개인 패스 경험치
+blessing_ticket,1,item,축복 티켓
+research_item,1,money,연구
+profile_frame,,item,프레임

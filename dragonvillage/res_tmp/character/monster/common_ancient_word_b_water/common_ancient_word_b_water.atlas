@@ -1,0 +1,90 @@
+
+common_ancient_word_b_water.png
+size: 202,270
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+common_ancient_word_b_water_acc_01
+  rotate: true
+  xy: 152, 85
+  size: 28, 41
+  orig: 28, 41
+  offset: 0, 0
+  index: -1
+common_ancient_word_b_water_acc_02
+  rotate: true
+  xy: 159, 55
+  size: 28, 41
+  orig: 28, 41
+  offset: 0, 0
+  index: -1
+common_ancient_word_b_water_acc_03
+  rotate: true
+  xy: 159, 25
+  size: 28, 41
+  orig: 28, 41
+  offset: 0, 0
+  index: -1
+common_ancient_word_b_water_body_01
+  rotate: true
+  xy: 109, 170
+  size: 98, 87
+  orig: 98, 87
+  offset: 0, 0
+  index: -1
+common_ancient_word_b_water_body_02
+  rotate: false
+  xy: 2, 2
+  size: 65, 54
+  orig: 65, 54
+  offset: 0, 0
+  index: -1
+common_ancient_word_b_water_body_03
+  rotate: false
+  xy: 109, 123
+  size: 54, 45
+  orig: 54, 45
+  offset: 0, 0
+  index: -1
+common_ancient_word_b_water_effct_01
+  rotate: true
+  xy: 110, 19
+  size: 52, 22
+  orig: 52, 22
+  offset: 0, 0
+  index: -1
+common_ancient_word_b_water_effct_02
+  rotate: true
+  xy: 165, 115
+  size: 53, 27
+  orig: 53, 27
+  offset: 0, 0
+  index: -1
+common_ancient_word_b_water_effct_03
+  rotate: false
+  xy: 2, 58
+  size: 105, 210
+  orig: 105, 210
+  offset: 0, 0
+  index: -1
+common_ancient_word_b_water_word_01
+  rotate: false
+  xy: 109, 73
+  size: 41, 48
+  orig: 41, 48
+  offset: 0, 0
+  index: -1
+common_ancient_word_b_water_word_02
+  rotate: false
+  xy: 69, 11
+  size: 39, 45
+  orig: 39, 45
+  offset: 0, 0
+  index: -1
+common_ancient_word_b_water_word_03
+  rotate: true
+  xy: 134, 20
+  size: 51, 23
+  orig: 51, 23
+  offset: 0, 0
+  index: -1

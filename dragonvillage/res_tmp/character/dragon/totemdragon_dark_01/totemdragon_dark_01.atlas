@@ -1,0 +1,160 @@
+
+totemdragon_dark_01.png
+size: 1032,275
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+totemdragon_dark_01_anther_01
+  rotate: true
+  xy: 211, 12
+  size: 78, 60
+  orig: 78, 60
+  offset: 0, 0
+  index: -1
+totemdragon_dark_01_anther_02
+  rotate: true
+  xy: 386, 2
+  size: 74, 42
+  orig: 74, 42
+  offset: 0, 0
+  index: -1
+totemdragon_dark_01_arm_01
+  rotate: true
+  xy: 555, 41
+  size: 48, 59
+  orig: 48, 59
+  offset: 0, 0
+  index: -1
+totemdragon_dark_01_body_01
+  rotate: true
+  xy: 821, 15
+  size: 108, 122
+  orig: 108, 122
+  offset: 0, 0
+  index: -1
+totemdragon_dark_01_eye_01
+  rotate: true
+  xy: 945, 2
+  size: 13, 21
+  orig: 13, 21
+  offset: 0, 0
+  index: -1
+totemdragon_dark_01_foot_01
+  rotate: true
+  xy: 273, 11
+  size: 65, 111
+  orig: 65, 111
+  offset: 0, 0
+  index: -1
+totemdragon_dark_01_foot_02
+  rotate: false
+  xy: 969, 111
+  size: 59, 101
+  orig: 59, 101
+  offset: 0, 0
+  index: -1
+totemdragon_dark_01_hair_01
+  rotate: false
+  xy: 821, 125
+  size: 146, 148
+  orig: 146, 148
+  offset: 0, 0
+  index: -1
+totemdragon_dark_01_hand_01
+  rotate: false
+  xy: 495, 5
+  size: 56, 71
+  orig: 56, 71
+  offset: 0, 0
+  index: -1
+totemdragon_dark_01_hand_02
+  rotate: true
+  xy: 616, 40
+  size: 49, 54
+  orig: 49, 54
+  offset: 0, 0
+  index: -1
+totemdragon_dark_01_head_01
+  rotate: true
+  xy: 672, 40
+  size: 49, 53
+  orig: 49, 53
+  offset: 0, 0
+  index: -1
+totemdragon_dark_01_head_thing_01
+  rotate: true
+  xy: 553, 2
+  size: 37, 38
+  orig: 37, 38
+  offset: 0, 0
+  index: -1
+totemdragon_dark_01_leg_01
+  rotate: true
+  xy: 108, 13
+  size: 77, 101
+  orig: 77, 101
+  offset: 0, 0
+  index: -1
+totemdragon_dark_01_leg_02
+  rotate: false
+  xy: 430, 6
+  size: 63, 70
+  orig: 63, 70
+  offset: 0, 0
+  index: -1
+totemdragon_dark_01_mouth_01
+  rotate: false
+  xy: 781, 58
+  size: 35, 31
+  orig: 35, 31
+  offset: 0, 0
+  index: -1
+totemdragon_dark_01_neck_01
+  rotate: true
+  xy: 2, 9
+  size: 81, 104
+  orig: 81, 104
+  offset: 0, 0
+  index: -1
+totemdragon_dark_01_shoulder_01
+  rotate: true
+  xy: 945, 17
+  size: 92, 73
+  orig: 92, 73
+  offset: 0, 0
+  index: -1
+totemdragon_dark_01_shoulder_02
+  rotate: true
+  xy: 727, 38
+  size: 51, 52
+  orig: 51, 52
+  offset: 0, 0
+  index: -1
+totemdragon_dark_01_tail_01
+  rotate: true
+  xy: 2, 92
+  size: 181, 285
+  orig: 181, 285
+  offset: 0, 0
+  index: -1
+totemdragon_dark_01_thing_04
+  rotate: false
+  xy: 969, 214
+  size: 61, 59
+  orig: 61, 59
+  offset: 0, 0
+  index: -1
+totemdragon_dark_01_wing_01
+  rotate: true
+  xy: 289, 78
+  size: 195, 264
+  orig: 195, 264
+  offset: 0, 0
+  index: -1
+totemdragon_dark_01_wing_02
+  rotate: true
+  xy: 555, 91
+  size: 182, 264
+  orig: 182, 264
+  offset: 0, 0
+  index: -1

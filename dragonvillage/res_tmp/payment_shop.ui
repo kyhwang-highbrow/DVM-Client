@@ -1,0 +1,198 @@
+{
+	type = 'Header';
+	version = '1.1.2';
+	[1] =
+	{
+		[1] =
+		{
+			type = 'Visual';
+			ui_name = '';
+			x = 0.000000;
+			y = 0.000000;
+			dock_point = { 0.500000; 0.500000; };
+			anchor_point = { 0.500000; 0.500000; };
+			relative_size_type = 0;
+			width = 0;
+			height = 0;
+			scale_x = 1.000000;
+			scale_y = 1.000000;
+			skew_x = 0.000000;
+			skew_y = 0.000000;
+			rotation = 0.000000;
+			visible = true;
+			lua_name = 'bgVisual';
+			file_name = 'bg/ui/dragon_bg_earth/dragon_bg_earth.vrp';
+			auto_play = true;
+			is_repeat = true;
+			visual_id = 'group;idle';
+			color = { 255; 255; 255; };
+			opacity = 255;
+		};
+		[2] =
+		{
+			type = 'LayerColor';
+			ui_name = '';
+			x = 0.000000;
+			y = 0.000000;
+			dock_point = { 0.500000; 0.500000; };
+			anchor_point = { 0.500000; 0.500000; };
+			relative_size_type = 3;
+			width = 0;
+			height = 240;
+			scale_x = 1.000000;
+			scale_y = 1.000000;
+			skew_x = 0.000000;
+			skew_y = 0.000000;
+			rotation = 0.000000;
+			visible = true;
+			lua_name = '';
+			color = { 0; 0; 0; };
+			opacity = 180;
+			src_blend = 770;
+			dest_blend = 771;
+		};
+		[3] =
+		{
+			[1] =
+			{
+				[1] =
+				{
+					type = 'LayerColor';
+					ui_name = 'hide';
+					x = 0.000000;
+					y = 0.000000;
+					dock_point = { 0.500000; 0.500000; };
+					anchor_point = { 0.500000; 0.500000; };
+					relative_size_type = 3;
+					width = 0;
+					height = 0;
+					scale_x = 1.000000;
+					scale_y = 1.000000;
+					skew_x = 0.000000;
+					skew_y = 0.000000;
+					rotation = 0.000000;
+					visible = true;
+					lua_name = '';
+					color = { 255; 255; 255; };
+					opacity = 50;
+					src_blend = 770;
+					dest_blend = 771;
+				};
+				type = 'Node';
+				ui_name = '';
+				x = -516.000000;
+				y = -30.000000;
+				dock_point = { 0.500000; 0.500000; };
+				anchor_point = { 0.500000; 0.500000; };
+				relative_size_type = 0;
+				width = 220;
+				height = 640;
+				scale_x = 1.000000;
+				scale_y = 1.000000;
+				skew_x = 0.000000;
+				skew_y = 0.000000;
+				rotation = 0.000000;
+				visible = true;
+				lua_name = 'tabListNode';
+			};
+			[2] =
+			{
+				[1] =
+				{
+					type = 'LayerColor';
+					ui_name = 'hide';
+					x = 0.000000;
+					y = 0.000000;
+					dock_point = { 0.500000; 0.500000; };
+					anchor_point = { 0.500000; 0.500000; };
+					relative_size_type = 3;
+					width = 0;
+					height = 0;
+					scale_x = 1.000000;
+					scale_y = 1.000000;
+					skew_x = 0.000000;
+					skew_y = 0.000000;
+					rotation = 0.000000;
+					visible = true;
+					lua_name = '';
+					color = { 255; 255; 255; };
+					opacity = 50;
+					src_blend = 770;
+					dest_blend = 771;
+				};
+				type = 'Node';
+				ui_name = '';
+				x = 116.000000;
+				y = -30.000000;
+				dock_point = { 0.500000; 0.500000; };
+				anchor_point = { 0.500000; 0.500000; };
+				relative_size_type = 0;
+				width = 1030;
+				height = 640;
+				scale_x = 1.000000;
+				scale_y = 1.000000;
+				skew_x = 0.000000;
+				skew_y = 0.000000;
+				rotation = 0.000000;
+				visible = true;
+				lua_name = 'contentNode';
+			};
+			[3] =
+			{
+				type = 'Button';
+				ui_name = '';
+				x = 20.000000;
+				y = 20.000000;
+				dock_point = { 1.000000; 1.000000; };
+				anchor_point = { 1.000000; 1.000000; };
+				relative_size_type = 0;
+				width = 80;
+				height = 80;
+				scale_x = 1.000000;
+				scale_y = 1.000000;
+				skew_x = 0.000000;
+				skew_y = 0.000000;
+				rotation = 0.000000;
+				visible = false;
+				lua_name = 'closeBtn';
+				enable = true;
+				normal = 'ui/buttons/70_close_btn_0101.png';
+				selected = 'ui/buttons/70_close_btn_0102.png';
+				disable = '';
+				image_type = 0;
+			};
+			type = 'Menu';
+			ui_name = '';
+			x = 0.000000;
+			y = 0.000000;
+			dock_point = { 0.500000; 0.500000; };
+			anchor_point = { 0.500000; 0.500000; };
+			relative_size_type = 0;
+			width = 1280;
+			height = 720;
+			scale_x = 1.000000;
+			scale_y = 1.000000;
+			skew_x = 0.000000;
+			skew_y = 0.000000;
+			rotation = 0.000000;
+			visible = true;
+			lua_name = '';
+		};
+		type = 'Menu';
+		ui_name = '';
+		x = 0.000000;
+		y = 0.000000;
+		dock_point = { 0.500000; 0.500000; };
+		anchor_point = { 0.500000; 0.500000; };
+		relative_size_type = 3;
+		width = 0;
+		height = 0;
+		scale_x = 1.000000;
+		scale_y = 1.000000;
+		skew_x = 0.000000;
+		skew_y = 0.000000;
+		rotation = 0.000000;
+		visible = true;
+		lua_name = '';
+	};
+};

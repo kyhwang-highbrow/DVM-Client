@@ -1,0 +1,70 @@
+{
+	"skill_boss_queenssnake_3":
+	{
+		"ver":2,
+		"attack_value":
+		[							
+			{
+				"idx":1,
+				"res":"res/missile/missile_mist/missile_mist.vrp",
+				"body":[0,0,20],
+                "count":1,
+				"damage_rate":50,
+                "period":0.3,
+                "scale":0.2,
+				"time":0.3,
+				"speed":100,
+				"accel":100,
+				"h_limit_speed":300,
+				"accel_delay":0,
+				"size_up_time":6,
+				"angular_velocity":0,
+				"offset":[0,0],
+				"dir_array":[0,30,60],
+				"dir_add":0,			
+				"size_up_time":5,
+				"missile_type":"pass",
+				
+						
+				
+                "effect":
+                {
+                    "motion_streak":"",
+                    "rotation":false,
+                    "afterimage":false
+                }				
+			},
+			{
+				"idx":1,
+				"res":"res/missile/missile_mist/missile_mist.vrp",
+				"body":[0,0,20],
+                "count":1,
+				"damage_rate":50,
+                "period":0.3,
+                "scale":0.2,
+				"time":0.9,
+				"speed":100,
+				"accel":100,
+				"h_limit_speed":300,
+				"accel_delay":0,
+				"size_up_time":6,
+				"angular_velocity":0,
+				"offset":[0,0],
+				"dir_array":[15,45],
+				"dir_add":0,			
+				"size_up_time":5,
+				"missile_type":"pass",
+				
+						
+				
+                "effect":
+                {
+                    "motion_streak":"",
+                    "rotation":false,
+                    "afterimage":false
+                }				
+			}
+		]
+	}
+}
+

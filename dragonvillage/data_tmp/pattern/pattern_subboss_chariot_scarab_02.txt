@@ -1,0 +1,63 @@
+{
+	"pattern_subboss_chariot_scarab_02":
+	[				
+		[
+			
+		]
+    ],
+	
+	"time_trriger":
+    {
+        "priority":2,
+        "list":
+        [
+            {
+                "time":0,
+                "pattern":
+                [
+                    "m;RM17;300", "a;2", "w;1", "a;basic", "w;1", "a;basic", "w;1", "a;basic", "w;1", "a;basic", "w;1", "a;basic", "w;1", "a;basic", "w;3"
+                ]
+            },
+			
+			{
+                "time":15,
+                "pattern":
+                [
+                    "m;RF14;300", "a;1", "a;basic", "w;1", "a;basic", "w;1", "a;basic", "w;1", "a;basic", "w;1", "a;basic", "w;1", "a;2", "w;1"
+                ]
+            },
+			
+			{
+                "time":30,
+                "pattern":
+                [
+                    "m;RM11;300", "a;basic", "w;1", "a;basic", "w;1", "a;basic", "w;1", "a;2", "w;10"
+                ]
+            },
+			
+			{
+                "time":45,
+                "pattern":
+                [
+                    "m;RB14;300", "a;basic", "w;1", "a;basic", "w;1", "a;basic", "w;2", "a;2",  "a;2", "w;8"
+                ]
+            },
+			
+			{
+                "time":60,
+                "pattern":
+                [
+                    "m;RB17;300", "a;1", "a;basic", "w;1", "a;basic", "w;1", "a;basic", "w;1", "a;1", "w;1.5"
+                ]
+            },
+			
+			{
+                "time":75,
+                "pattern":
+                [
+					"m;RM21;300", "a;1", "a;basic", "w;1", "a;basic", "w;1", "a;basic", "w;1", "a;1", "w;1.5"
+                ]
+            }
+        ]
+    }
+}

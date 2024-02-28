@@ -1,0 +1,279 @@
+
+hungrydragon_light_03.png
+size: 688,1042
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+hungrydragon_light_03_arm_01
+  rotate: true
+  xy: 566, 273
+  size: 102, 107
+  orig: 102, 107
+  offset: 0, 0
+  index: -1
+hungrydragon_light_03_arm_02
+  rotate: true
+  xy: 347, 105
+  size: 95, 85
+  orig: 95, 85
+  offset: 0, 0
+  index: -1
+hungrydragon_light_03_arm_02_01
+  rotate: true
+  xy: 524, 294
+  size: 25, 40
+  orig: 25, 40
+  offset: 0, 0
+  index: -1
+hungrydragon_light_03_body_01
+  rotate: false
+  xy: 2, 639
+  size: 338, 401
+  orig: 338, 401
+  offset: 0, 0
+  index: -1
+hungrydragon_light_03_effect_01
+  rotate: false
+  xy: 277, 449
+  size: 157, 174
+  orig: 157, 174
+  offset: 0, 0
+  index: -1
+hungrydragon_light_03_effect_02
+  rotate: true
+  xy: 560, 790
+  size: 115, 122
+  orig: 115, 122
+  offset: 0, 0
+  index: -1
+hungrydragon_light_03_effect_03
+  rotate: false
+  xy: 196, 262
+  size: 131, 162
+  orig: 131, 162
+  offset: 0, 0
+  index: -1
+hungrydragon_light_03_effect_04
+  rotate: false
+  xy: 560, 907
+  size: 126, 133
+  orig: 126, 133
+  offset: 0, 0
+  index: -1
+hungrydragon_light_03_effect_05
+  rotate: false
+  xy: 342, 625
+  size: 197, 184
+  orig: 197, 184
+  offset: 0, 0
+  index: -1
+hungrydragon_light_03_effect_06
+  rotate: false
+  xy: 342, 811
+  size: 216, 229
+  orig: 216, 229
+  offset: 0, 0
+  index: -1
+hungrydragon_light_03_effect_07
+  rotate: false
+  xy: 347, 202
+  size: 107, 110
+  orig: 107, 110
+  offset: 0, 0
+  index: -1
+hungrydragon_light_03_effect_08
+  rotate: false
+  xy: 2, 426
+  size: 273, 211
+  orig: 273, 211
+  offset: 0, 0
+  index: -1
+hungrydragon_light_03_effect_09
+  rotate: true
+  xy: 428, 321
+  size: 118, 136
+  orig: 118, 136
+  offset: 0, 0
+  index: -1
+hungrydragon_light_03_effect_10
+  rotate: false
+  xy: 196, 105
+  size: 149, 155
+  orig: 149, 155
+  offset: 0, 0
+  index: -1
+hungrydragon_light_03_effect_11
+  rotate: false
+  xy: 265, 5
+  size: 98, 98
+  orig: 98, 98
+  offset: 0, 0
+  index: -1
+hungrydragon_light_03_eye_01
+  rotate: false
+  xy: 513, 36
+  size: 54, 57
+  orig: 54, 57
+  offset: 0, 0
+  index: -1
+hungrydragon_light_03_eye_02
+  rotate: false
+  xy: 632, 57
+  size: 34, 34
+  orig: 34, 34
+  offset: 0, 0
+  index: -1
+hungrydragon_light_03_eye_03
+  rotate: false
+  xy: 597, 96
+  size: 38, 51
+  orig: 38, 51
+  offset: 0, 0
+  index: -1
+hungrydragon_light_03_eye_04
+  rotate: false
+  xy: 569, 38
+  size: 25, 55
+  orig: 25, 55
+  offset: 0, 0
+  index: -1
+hungrydragon_light_03_foot_01
+  rotate: false
+  xy: 442, 8
+  size: 69, 102
+  orig: 69, 102
+  offset: 0, 0
+  index: -1
+hungrydragon_light_03_foot_01_01
+  rotate: false
+  xy: 365, 7
+  size: 75, 96
+  orig: 75, 96
+  offset: 0, 0
+  index: -1
+hungrydragon_light_03_foot_02
+  rotate: true
+  xy: 524, 160
+  size: 56, 85
+  orig: 56, 85
+  offset: 0, 0
+  index: -1
+hungrydragon_light_03_head_01
+  rotate: true
+  xy: 615, 214
+  size: 57, 65
+  orig: 57, 65
+  offset: 0, 0
+  index: -1
+hungrydragon_light_03_horn_01
+  rotate: false
+  xy: 434, 112
+  size: 84, 87
+  orig: 84, 87
+  offset: 0, 0
+  index: -1
+hungrydragon_light_03_horn_02
+  rotate: true
+  xy: 524, 218
+  size: 53, 89
+  orig: 53, 89
+  offset: 0, 0
+  index: -1
+hungrydragon_light_03_leg_01
+  rotate: false
+  xy: 566, 377
+  size: 105, 113
+  orig: 105, 113
+  offset: 0, 0
+  index: -1
+hungrydragon_light_03_leg_02
+  rotate: false
+  xy: 329, 314
+  size: 97, 133
+  orig: 97, 133
+  offset: 0, 0
+  index: -1
+hungrydragon_light_03_meat_01
+  rotate: false
+  xy: 2, 218
+  size: 192, 206
+  orig: 192, 206
+  offset: 0, 0
+  index: -1
+hungrydragon_light_03_meat_01_01
+  rotate: false
+  xy: 2, 10
+  size: 192, 206
+  orig: 192, 206
+  offset: 0, 0
+  index: -1
+hungrydragon_light_03_meat_02
+  rotate: false
+  xy: 541, 641
+  size: 117, 147
+  orig: 117, 147
+  offset: 0, 0
+  index: -1
+hungrydragon_light_03_meat_02_01
+  rotate: false
+  xy: 565, 492
+  size: 117, 147
+  orig: 117, 147
+  offset: 0, 0
+  index: -1
+hungrydragon_light_03_mouth_01
+  rotate: true
+  xy: 456, 201
+  size: 118, 66
+  orig: 118, 66
+  offset: 0, 0
+  index: -1
+hungrydragon_light_03_mouth_02
+  rotate: true
+  xy: 196, 2
+  size: 101, 67
+  orig: 101, 67
+  offset: 0, 0
+  index: -1
+hungrydragon_light_03_mouth_02_01
+  rotate: true
+  xy: 569, 2
+  size: 34, 54
+  orig: 34, 54
+  offset: 0, 0
+  index: -1
+hungrydragon_light_03_mouth_02_02
+  rotate: false
+  xy: 637, 93
+  size: 34, 54
+  orig: 34, 54
+  offset: 0, 0
+  index: -1
+hungrydragon_light_03_mouth_02_03
+  rotate: false
+  xy: 596, 39
+  size: 34, 54
+  orig: 34, 54
+  offset: 0, 0
+  index: -1
+hungrydragon_light_03_tail_01
+  rotate: true
+  xy: 436, 441
+  size: 182, 127
+  orig: 182, 127
+  offset: 0, 0
+  index: -1
+hungrydragon_light_03_wing_01
+  rotate: false
+  xy: 611, 149
+  size: 75, 63
+  orig: 75, 63
+  offset: 0, 0
+  index: -1
+hungrydragon_light_03_wing_02
+  rotate: false
+  xy: 520, 95
+  size: 75, 63
+  orig: 75, 63
+  offset: 0, 0
+  index: -1

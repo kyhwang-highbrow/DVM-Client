@@ -1,0 +1,104 @@
+
+swordman_earth.png
+size: 512,128
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+swordman_earth_arm_01
+  rotate: true
+  xy: 369, 70
+  size: 40, 42
+  orig: 40, 42
+  offset: 0, 0
+  index: -1
+swordman_earth_arm_02
+  rotate: true
+  xy: 179, 5
+  size: 36, 39
+  orig: 36, 39
+  offset: 0, 0
+  index: -1
+swordman_earth_body_01
+  rotate: true
+  xy: 2, 31
+  size: 79, 127
+  orig: 79, 127
+  offset: 0, 0
+  index: -1
+swordman_earth_body_02
+  rotate: false
+  xy: 132, 8
+  size: 45, 33
+  orig: 45, 33
+  offset: 0, 0
+  index: -1
+swordman_earth_body_03
+  rotate: true
+  xy: 413, 70
+  size: 40, 42
+  orig: 40, 42
+  offset: 0, 0
+  index: -1
+swordman_earth_effect_01
+  rotate: true
+  xy: 308, 71
+  size: 39, 59
+  orig: 39, 59
+  offset: 0, 0
+  index: -1
+swordman_earth_effect_02
+  rotate: false
+  xy: 2, 2
+  size: 76, 27
+  orig: 76, 27
+  offset: 0, 0
+  index: -1
+swordman_earth_effect_03
+  rotate: true
+  xy: 80, 3
+  size: 26, 50
+  orig: 26, 50
+  offset: 0, 0
+  index: -1
+swordman_earth_hand_01
+  rotate: false
+  xy: 249, 22
+  size: 34, 32
+  orig: 34, 32
+  offset: 0, 0
+  index: -1
+swordman_earth_hand_02
+  rotate: false
+  xy: 285, 19
+  size: 29, 35
+  orig: 29, 35
+  offset: 0, 0
+  index: -1
+swordman_earth_head_01
+  rotate: false
+  xy: 242, 56
+  size: 64, 54
+  orig: 64, 54
+  offset: 0, 0
+  index: -1
+swordman_earth_head_02
+  rotate: true
+  xy: 220, 5
+  size: 36, 27
+  orig: 36, 27
+  offset: 0, 0
+  index: -1
+swordman_earth_shoulder_01
+  rotate: true
+  xy: 457, 70
+  size: 40, 42
+  orig: 40, 42
+  offset: 0, 0
+  index: -1
+swordman_earth_wepon_01
+  rotate: false
+  xy: 131, 43
+  size: 109, 67
+  orig: 109, 67
+  offset: 0, 0
+  index: -1

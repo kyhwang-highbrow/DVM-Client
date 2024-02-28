@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+    <dict>
+        <key>frames</key>
+        <dict>
+            <key>egg_super_miracle_10_src.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{-1,10}</string>
+                <key>spriteSize</key>
+                <string>{549,450}</string>
+                <key>spriteSourceSize</key>
+                <string>{773,810}</string>
+                <key>textureRect</key>
+                <string>{{1,1},{549,450}}</string>
+                <key>textureRotated</key>
+                <false/>
+            </dict>
+        </dict>
+        <key>metadata</key>
+        <dict>
+            <key>format</key>
+            <integer>3</integer>
+            <key>pixelFormat</key>
+            <string>RGBA8888</string>
+            <key>premultiplyAlpha</key>
+            <false/>
+            <key>realTextureFileName</key>
+            <string>egg_super_miracle_10.png</string>
+            <key>size</key>
+            <string>{551,452}</string>
+            <key>smartupdate</key>
+            <string>$TexturePacker:SmartUpdate:294f22d9e4cd2c0aabdb06284bfead6c:a9d65c498f236162fc36d51a5af9a55c:f56e2f93f81290b2d99232e37c4ad092$</string>
+            <key>textureFileName</key>
+            <string>egg_super_miracle_10.png</string>
+        </dict>
+    </dict>
+</plist>

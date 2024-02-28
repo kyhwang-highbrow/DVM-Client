@@ -1,0 +1,139 @@
+
+bullsdragon_fire_03.png
+size: 1044,567
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+bullsdragon_fire_03_arm_01
+  rotate: false
+  xy: 610, 64
+  size: 129, 145
+  orig: 129, 145
+  offset: 0, 0
+  index: -1
+bullsdragon_fire_03_arm_02
+  rotate: false
+  xy: 957, 5
+  size: 85, 105
+  orig: 85, 105
+  offset: 0, 0
+  index: -1
+bullsdragon_fire_03_body_01
+  rotate: false
+  xy: 791, 361
+  size: 235, 204
+  orig: 235, 204
+  offset: 0, 0
+  index: -1
+bullsdragon_fire_03_body_02
+  rotate: false
+  xy: 2, 67
+  size: 235, 252
+  orig: 235, 252
+  offset: 0, 0
+  index: -1
+bullsdragon_fire_03_effect_01
+  rotate: false
+  xy: 2, 321
+  size: 281, 244
+  orig: 281, 244
+  offset: 0, 0
+  index: -1
+bullsdragon_fire_03_effect_02
+  rotate: true
+  xy: 239, 98
+  size: 221, 194
+  orig: 221, 194
+  offset: 0, 0
+  index: -1
+bullsdragon_fire_03_eye_01
+  rotate: false
+  xy: 957, 112
+  size: 83, 108
+  orig: 83, 108
+  offset: 0, 0
+  index: -1
+bullsdragon_fire_03_foot_01
+  rotate: true
+  xy: 239, 2
+  size: 94, 103
+  orig: 94, 103
+  offset: 0, 0
+  index: -1
+bullsdragon_fire_03_foot_02
+  rotate: true
+  xy: 344, 2
+  size: 94, 103
+  orig: 94, 103
+  offset: 0, 0
+  index: -1
+bullsdragon_fire_03_hand_01
+  rotate: false
+  xy: 600, 211
+  size: 159, 141
+  orig: 159, 141
+  offset: 0, 0
+  index: -1
+bullsdragon_fire_03_hand_02
+  rotate: false
+  xy: 449, 13
+  size: 159, 141
+  orig: 159, 141
+  offset: 0, 0
+  index: -1
+bullsdragon_fire_03_head_01
+  rotate: false
+  xy: 435, 156
+  size: 163, 196
+  orig: 163, 196
+  offset: 0, 0
+  index: -1
+bullsdragon_fire_03_head_03
+  rotate: false
+  xy: 761, 215
+  size: 114, 137
+  orig: 114, 137
+  offset: 0, 0
+  index: -1
+bullsdragon_fire_03_head_04
+  rotate: false
+  xy: 877, 222
+  size: 119, 137
+  orig: 119, 137
+  offset: 0, 0
+  index: -1
+bullsdragon_fire_03_leg_01
+  rotate: false
+  xy: 741, 76
+  size: 106, 133
+  orig: 106, 133
+  offset: 0, 0
+  index: -1
+bullsdragon_fire_03_leg_02
+  rotate: false
+  xy: 849, 80
+  size: 106, 133
+  orig: 106, 133
+  offset: 0, 0
+  index: -1
+bullsdragon_fire_03_mouth_01
+  rotate: true
+  xy: 2, 6
+  size: 59, 72
+  orig: 59, 72
+  offset: 0, 0
+  index: -1
+bullsdragon_fire_03_wing_01
+  rotate: true
+  xy: 285, 354
+  size: 211, 251
+  orig: 211, 251
+  offset: 0, 0
+  index: -1
+bullsdragon_fire_03_wing_02
+  rotate: true
+  xy: 538, 354
+  size: 211, 251
+  orig: 211, 251
+  offset: 0, 0
+  index: -1

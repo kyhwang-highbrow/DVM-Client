@@ -1,0 +1,300 @@
+
+goni_halloween_01.png
+size: 746,523
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+goni_halloween_01_acc_02
+  rotate: false
+  xy: 485, 248
+  size: 119, 57
+  orig: 119, 57
+  offset: 0, 0
+  index: -1
+goni_halloween_01_acc_03
+  rotate: false
+  xy: 511, 2
+  size: 50, 51
+  orig: 50, 51
+  offset: 0, 0
+  index: -1
+goni_halloween_01_acc_04
+  rotate: false
+  xy: 643, 62
+  size: 51, 47
+  orig: 51, 47
+  offset: 0, 0
+  index: -1
+goni_halloween_01_acc_05
+  rotate: true
+  xy: 400, 3
+  size: 32, 35
+  orig: 32, 35
+  offset: 0, 0
+  index: -1
+goni_halloween_01_acc_06
+  rotate: false
+  xy: 691, 328
+  size: 49, 50
+  orig: 49, 50
+  offset: 0, 0
+  index: -1
+goni_halloween_01_acc_07
+  rotate: false
+  xy: 669, 269
+  size: 49, 50
+  orig: 49, 50
+  offset: 0, 0
+  index: -1
+goni_halloween_01_arm_01
+  rotate: false
+  xy: 448, 47
+  size: 61, 70
+  orig: 61, 70
+  offset: 0, 0
+  index: -1
+goni_halloween_01_arm_02
+  rotate: true
+  xy: 606, 173
+  size: 47, 61
+  orig: 47, 61
+  offset: 0, 0
+  index: -1
+goni_halloween_01_arm_03
+  rotate: true
+  xy: 448, 3
+  size: 42, 60
+  orig: 42, 60
+  offset: 0, 0
+  index: -1
+goni_halloween_01_body_01
+  rotate: false
+  xy: 204, 5
+  size: 85, 106
+  orig: 85, 106
+  offset: 0, 0
+  index: -1
+goni_halloween_01_body_02
+  rotate: true
+  xy: 659, 9
+  size: 51, 47
+  orig: 51, 47
+  offset: 0, 0
+  index: -1
+goni_halloween_01_brow_01
+  rotate: false
+  xy: 688, 186
+  size: 22, 17
+  orig: 22, 17
+  offset: 0, 0
+  index: -1
+goni_halloween_01_brow_02
+  rotate: false
+  xy: 688, 173
+  size: 15, 11
+  orig: 15, 11
+  offset: 0, 0
+  index: -1
+goni_halloween_01_ear_01
+  rotate: false
+  xy: 516, 123
+  size: 63, 66
+  orig: 63, 66
+  offset: 0, 0
+  index: -1
+goni_halloween_01_ear_02
+  rotate: false
+  xy: 516, 55
+  size: 63, 66
+  orig: 63, 66
+  offset: 0, 0
+  index: -1
+goni_halloween_01_effect_01
+  rotate: false
+  xy: 337, 220
+  size: 146, 138
+  orig: 146, 138
+  offset: 0, 0
+  index: -1
+goni_halloween_01_eye_01
+  rotate: false
+  xy: 448, 195
+  size: 21, 23
+  orig: 21, 23
+  offset: 0, 0
+  index: -1
+goni_halloween_01_eye_02
+  rotate: false
+  xy: 688, 205
+  size: 21, 23
+  orig: 21, 23
+  offset: 0, 0
+  index: -1
+goni_halloween_01_eye_03
+  rotate: true
+  xy: 669, 183
+  size: 45, 17
+  orig: 45, 17
+  offset: 0, 0
+  index: -1
+goni_halloween_01_face_01
+  rotate: true
+  xy: 2, 2
+  size: 91, 99
+  orig: 91, 99
+  offset: 0, 0
+  index: -1
+goni_halloween_01_face_02
+  rotate: true
+  xy: 103, 2
+  size: 91, 99
+  orig: 91, 99
+  offset: 0, 0
+  index: -1
+goni_halloween_01_foot_02
+  rotate: false
+  xy: 646, 380
+  size: 98, 141
+  orig: 98, 141
+  offset: 0, 0
+  index: -1
+goni_halloween_01_hair_01
+  rotate: false
+  xy: 606, 222
+  size: 61, 83
+  orig: 61, 83
+  offset: 0, 0
+  index: -1
+goni_halloween_01_hair_02
+  rotate: false
+  xy: 563, 2
+  size: 50, 51
+  orig: 50, 51
+  offset: 0, 0
+  index: -1
+goni_halloween_01_hair_03
+  rotate: false
+  xy: 639, 321
+  size: 50, 51
+  orig: 50, 51
+  offset: 0, 0
+  index: -1
+goni_halloween_01_hand_01
+  rotate: false
+  xy: 615, 4
+  size: 42, 55
+  orig: 42, 55
+  offset: 0, 0
+  index: -1
+goni_halloween_01_hand_02
+  rotate: false
+  xy: 362, 2
+  size: 36, 33
+  orig: 36, 33
+  offset: 0, 0
+  index: -1
+goni_halloween_01_hand_03
+  rotate: false
+  xy: 656, 111
+  size: 42, 60
+  orig: 42, 60
+  offset: 0, 0
+  index: -1
+goni_halloween_01_head_01
+  rotate: true
+  xy: 330, 119
+  size: 99, 116
+  orig: 99, 116
+  offset: 0, 0
+  index: -1
+goni_halloween_01_i_effect_01
+  rotate: false
+  xy: 2, 291
+  size: 333, 230
+  orig: 333, 230
+  offset: 0, 0
+  index: -1
+goni_halloween_01_i_effect_02
+  rotate: false
+  xy: 495, 374
+  size: 149, 147
+  orig: 149, 147
+  offset: 0, 0
+  index: -1
+goni_halloween_01_i_effect_05
+  rotate: false
+  xy: 362, 37
+  size: 84, 80
+  orig: 84, 80
+  offset: 0, 0
+  index: -1
+goni_halloween_01_i_effect_06
+  rotate: false
+  xy: 448, 119
+  size: 66, 70
+  orig: 66, 70
+  offset: 0, 0
+  index: -1
+goni_halloween_01_i_effect_08
+  rotate: true
+  xy: 495, 307
+  size: 65, 142
+  orig: 65, 142
+  offset: 0, 0
+  index: -1
+goni_halloween_01_i_effect_14
+  rotate: false
+  xy: 485, 191
+  size: 119, 55
+  orig: 119, 55
+  offset: 0, 0
+  index: -1
+goni_halloween_01_i_effect_15
+  rotate: false
+  xy: 2, 95
+  size: 195, 194
+  orig: 195, 194
+  offset: 0, 0
+  index: -1
+goni_halloween_01_lowbody_01
+  rotate: false
+  xy: 199, 113
+  size: 129, 176
+  orig: 129, 176
+  offset: 0, 0
+  index: -1
+goni_halloween_01_lowbody_02
+  rotate: false
+  xy: 337, 360
+  size: 156, 161
+  orig: 156, 161
+  offset: 0, 0
+  index: -1
+goni_halloween_01_lowbody_03
+  rotate: false
+  xy: 581, 116
+  size: 73, 55
+  orig: 73, 55
+  offset: 0, 0
+  index: -1
+goni_halloween_01_tail_01
+  rotate: false
+  xy: 291, 5
+  size: 69, 106
+  orig: 69, 106
+  offset: 0, 0
+  index: -1
+goni_halloween_01_wepon_01
+  rotate: true
+  xy: 581, 61
+  size: 53, 60
+  orig: 53, 60
+  offset: 0, 0
+  index: -1
+goni_halloween_01_wepon_02
+  rotate: false
+  xy: 669, 230
+  size: 42, 37
+  orig: 42, 37
+  offset: 0, 0
+  index: -1

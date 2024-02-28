@@ -1,0 +1,289 @@
+name,category,type,t_name,r_comment,res,res_2,res_icon,sound,symbol,groggy,overlab,overlab_option,duration,atk,def,hp,aspd,cri_chance,cri_dmg,cri_avoid,hit_rate,avoid,hp_drain,heal_power,recovery_power,dmg_adj_rate,atk_dmg_adj_rate,attr_adj_rate,attr_weak_adj_rate,cri_dmg_adj_rate,reflex_normal,reflex_skill,debuff_time,target_debuff_time,accuracy,resistance,pierce,guard_rear,final_dmg_rate,dot_interval,abs_switch,direction,val_1,val_2,val_3,val_4,desc_1,desc_2,desc_3,desc_4,t_desc,erasable,show_icon,to_programmer
+atk_up,good,buff,공격력 증가,,,,res/ui/icons/status_effect/atk_up.png,sfx_buff_get_1,x,false,3,1,15,20,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,0,,,,,,15,20,x,x,공격력 증가,1,1,정수x퍼센트 (곱연산)
+aspd_up,good,buff,공격 속도 증가,,,,res/ui/icons/status_effect/aspd_up.png,sfx_buff_get_1,x,false,3,1,15,0,0,0,20,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,0,,,,,,15,20,x,x,공격 속도 증가,1,1,퍼센트+퍼센트 (합연산)
+cri_chance_up,good,buff,치명 확률 증가,,,,res/ui/icons/status_effect/cri_chance_up.png,sfx_buff_get_1,x,false,1,0,15,0,0,0,0,30,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,0,,,,,,15,x,x,x,치명 확률 증가,1,1,퍼센트+퍼센트 (합연산)
+def_up,good,buff,방어력 증가,,,,res/ui/icons/status_effect/def_up.png,sfx_buff_get_1,x,false,3,1,15,0,20,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,0,,,,,,15,x,x,x,방어력 증가,1,1,정수x퍼센트 (곱연산)
+cri_avoid_up,good,buff,치명회피 증가 ,,,,res/ui/icons/status_effect/cri_avoid_up.png,sfx_buff_get_1,x,false,1,0,15,0,0,0,0,0,0,30,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,0,,,,,,15,x,x,x,치명 회피 증가,1,1,퍼센트+퍼센트 (합연산)
+avoid_up,good,buff,회피율 증가 ,,,,res/ui/icons/status_effect/avoid_up.png,sfx_buff_get_1,x,false,1,0,15,0,0,0,0,0,0,0,0,30,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,0,,,,,,15,x,x,x,회피 증가,1,1,퍼센트+퍼센트 (합연산)
+hit_rate_up,good,buff,적중률 증가 ,,,,res/ui/icons/status_effect/hit_rate_up.png,sfx_buff_get_1,x,false,1,0,15,0,0,0,0,0,0,0,30,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,0,,,,,,15,x,x,x,적중 증가,1,1,퍼센트+퍼센트 (합연산)
+hp_drain,good,buff,생명력 흡수,,res/effect/effect_bloodsucking/effect_bloodsucking.vrp,,res/ui/icons/status_effect/hp_drain.png,sfx_buff_get_1,x,false,1,0,10,0,0,0,0,0,0,0,0,0,100,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,1,,,,,,,,,,흡혈 효과 획득,1,1,
+zombie,good,zombie,좀비,,res/effect/effect_zombie_new/effect_zombie_new.vrp,,res/ui/icons/status_effect/zombie.png,sfx_buff_get_1,x,false,1,0,10,0,0,-9999,0,0,0,0,0,0,0,0,-9999,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,0,,,,,,x,x,x,x,!!!,1,1,x
+zombie_aspd,good,zombie,좀비+공속증가,,res/effect/effect_zombie_new/effect_zombie_new.vrp,,res/ui/icons/status_effect/zombie.png,sfx_buff_get_1,x,false,1,0,10,0,0,0,300,0,0,0,0,0,0,0,-9999,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,0,,,,,,x,x,x,x,좀비화,1,1,x
+zombie_cri_chance,good,zombie,좀비+치확증가,,res/effect/effect_zombie_new/effect_zombie_new.vrp,,res/ui/icons/status_effect/zombie.png,sfx_buff_get_1,x,false,1,0,10,0,0,0,0,50,0,0,0,0,0,0,-9999,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,0,,,,,,x,x,x,x,좀비화,1,1,x
+berserk,good,zombie,광전사,,res/effect/effect_zombie/effect_zombie.vrp,,,sfx_buff_get_1,x,false,1,0,10,0,0,0,300,0,0,0,0,0,0,0,-9999,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,0,,,,,,x,x,x,x,광전사,0,0,x
+resurrect,good,resurrect,부활,"부활 후 회복 규칙
+1. 시전자의 크리 발동에 따라 힐량이 배가 될 수 있음
+2. 시전자의 heal_power 스탯에 따라 힐량이 늘어날 수 있음
+3. 대상자의 recovery_power(치유량 증가)에 따라 힐량이 늘어날 수 있음
+4. 대상자의 final_heal_rate (최종 치유량)에 따라 힐량이 변동될 수 있음 ",,,,sfx_buff_get_1,x,false,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,0,,,,,,x,x,x,x,부활,1,1,x
+resurrect_time,good,resurrect_time,부활,"부활버프, 버프를 받은 상태에서 죽을 때 자동 부활",,,,sfx_buff_get_1,x,false,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,0,,,,,,x,x,x,x,부활,1,1,x
+add_mana,good,add_mana,마나 추가,,,,,sfx_buff_get_1,x,false,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,0,,,,,,x,x,x,x,,0,0,
+mana_reduce,good,mana_reduce,마나 감소버프,,,,,sfx_buff_get_1,x,false,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,0,,,,,,x,x,x,x,,0,0,
+mana_reduce_abs,good,mana_reduce,마나 감소버프(횟수),,,,,sfx_buff_get_1,x,false,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,0,,use_abs,,,,x,x,x,x,,0,0,
+heal,good,dot_heal,회복,,res/effect/effect_tamer_heal/effect_tamer_heal.vrp,,res/ui/icons/status_effect/heal.png,sfx_heal,x,false,5,1,15,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,,atk,,,,x,x,x,x,,1,1,x
+barrier_protection,good,barrier,보호막,,res/effect/effect_protection_new/effect_protection_new.vrp,,res/ui/icons/status_effect/p_resist.png,sfx_shield,x,false,1,0,20,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,0,barrier,100,,,,x,x,x,x,,1,1,시전자 체력의 val_1% 만큼 데미지를 흡수하는 보호막 생성
+barrier_protection_time,good,barrier_time,보호막(무적),,res/effect/effect_immunity_new/effect_immunity_new.vrp,,res/ui/icons/status_effect/Invulnerable.png,sfx_shield,x,false,1,0,20,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,0,barrier,,,,,x,x,x,x,,1,1,duration동안 데미지를 흡수하는 보호막 생성
+barrier_protection_time_perfect,good,barrier_time,보호막(무적),,res/effect/effect_immunity_new/effect_immunity_new.vrp,,res/ui/icons/status_effect/Invulnerable.png,sfx_shield,x,false,1,0,20,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,0,barrier,keep_hp,,,,x,x,x,x,,1,1,duration동안 데미지를 흡수하는 보호막 생성
+alive_resist,good,buff,피해 저항,지정 드래곤 생존 시 유지되는 버프,,,res/ui/icons/status_effect/p_resist.png,sfx_buff_get_1,x,false,1,0,10,0,0,0,0,0,0,0,0,0,0,0,0,-100,0,0,0,0,0,0,0,0,0,0,0,0,0,,0,barrier,,,,,10,x,x,x,,0,0,최종 데미지에서 곱연산
+resist,good,buff,피해 저항,,,,res/ui/icons/status_effect/p_resist.png,sfx_buff_get_1,x,false,1,0,10,0,0,0,0,0,0,0,0,0,0,0,0,-100,0,0,0,0,0,0,0,0,0,0,0,0,0,,0,barrier,,,,,10,x,x,x,,0,0,최종 데미지에서 곱연산
+immunity_debuff,good,immune,면역,,res/effect/effect_react_armor_new/effect_react_armor_new.vrp,,res/ui/icons/status_effect/immunity_debuff.png,sfx_shield,x,false,1,0,15,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,0,,,,,,x,x,x,x,,1,1,
+recovery_add,good,buff,받는 회복량 증가,,res/effect/effect_tactics_up/effect_tactics_up.vrp,,res/ui/icons/status_effect/recovery_add.png,sfx_buff_get_1,x,false,1,0,15,0,0,0,0,0,0,0,0,0,0,0,100,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,,,,,,,x,x,x,x,,1,1,
+tamer_atk_up,good,buff,공격력 증가,,res/effect/effect_tamer_combat/effect_tamer_combat.vrp,,res/ui/icons/status_effect/atk_up.png,sfx_buff_get_1,x,false,1,0,15,100,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,0,,15,100,,,15,100,x,x,공격력 증가,0,1,정수x퍼센트 (곱연산)
+tamer_def_up,good,buff,방어력 증가,,res/effect/effect_tamer_defense/effect_tamer_defense.vrp,,res/ui/icons/status_effect/def_up.png,sfx_buff_get_1,x,false,1,0,15,0,100,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,0,,,,,,15,x,x,x,방어력 증가,0,1,정수x퍼센트 (곱연산)
+tamer_heal,good,dot_heal,회복,,res/effect/effect_tamer_heal/effect_tamer_heal.vrp,,res/ui/icons/status_effect/heal.png,sfx_buff_get_1,x,false,1,0,15,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,,hp_target,,,,x,x,x,x,,0,1,x
+atk_down,bad,debuff,공격력 감소,,,,res/ui/icons/status_effect/atk_down.png,sfx_debuff,x,false,3,1,15,-20,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,0,,,,,,15,x,x,x,공격력 감소,1,1,정수x퍼센트 (곱연산)
+aspd_down,bad,debuff,공격 속도 감소,,,,res/ui/icons/status_effect/aspd_down.png,sfx_debuff,x,false,3,1,15,0,0,0,-20,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,0,,,,,,15,,x,x,공격 속도 감소,1,1,퍼센트+퍼센트 (합연산)
+cri_chance_down,bad,debuff,치명 확률 감소 ,,,,res/ui/icons/status_effect/cri_chance_down.png,sfx_debuff,x,false,1,0,15,0,0,0,0,-30,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,0,,,,,,x,x,x,x,치명 확률 감소,1,1,퍼센트+퍼센트 (합연산)
+def_down,bad,debuff,방어력 감소,,,,res/ui/icons/status_effect/def_down.png,sfx_debuff,x,false,3,1,15,0,-20,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,0,,,,,,x,x,x,x,방어력 감소,1,1,정수x퍼센트 (곱연산)
+cri_avoid_down,bad,debuff,치명 회피 감소 ,,,,res/ui/icons/status_effect/cri_avoid_down.png,sfx_debuff,x,false,1,0,15,0,0,0,0,0,0,-30,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,0,,,,,,x,x,x,x,치명 회피 감소,1,1,퍼센트+퍼센트 (합연산)
+avoid_down,bad,debuff,회피율 감소,,,,res/ui/icons/status_effect/avoid_down.png,sfx_debuff,x,false,1,0,15,0,0,0,0,0,0,0,0,-30,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,0,,,,,,x,x,x,x,회피 감소,1,1,퍼센트+퍼센트 (합연산)
+hit_rate_down,bad,debuff,적중률 감소,,,,res/ui/icons/status_effect/hit_rate_down.png,sfx_debuff,x,false,1,0,15,0,0,0,0,0,0,0,-30,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,0,,,,,,x,x,x,x,적중 감소,1,1,퍼센트+퍼센트 (합연산)
+heal_dec,bad,debuff,회복량 감소,,,,res/ui/icons/status_effect/recovery_dec.png,sfx_debuff,x,false,1,0,15,0,0,0,0,0,0,0,0,0,0,-100,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,,,,,,,x,x,x,x,,1,1,
+recovery_dec,bad,debuff,받는 회복량 감소,,,,res/ui/icons/status_effect/recovery_dec.png,sfx_debuff,x,false,1,0,15,0,0,0,0,0,0,0,0,0,0,0,-70,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,,,,,,,x,x,x,x,받는 치유량 감소,1,1,
+flame_mark,none,debuff,화염의 표식,세에레 전용 상태효과,res/effect/effect_seere/effect_seere.vrp,,res/ui/icons/status_effect/target.png,efx_burn,x,false,1,0,15,0,0,0,0,0,0,0,0,0,0,0,0,20,0,0,0,0,0,0,0,0,0,0,0,0,0,,0,,,,,,x,x,x,x,,0,1,정수x퍼센트 (곱연산)
+unenforceable,bad,debuff,강화불가 (긍정 버프 불가),새로운 타입,,,res/ui/icons/status_effect/recovery_dec.png,sfx_debuff,x,false,1,0,15,0,0,0,0,0,0,0,0,0,0,-100,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,,,,,,,x,x,x,x,,1,1,
+stun,bad,cc,기절,,res/effect/effect_stun/effect_stun.vrp,,res/ui/icons/status_effect/stun.png,efx_stun,x,true,1,0,5,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,0,,,,,,x,x,x,x,기절,1,1,x
+stun_none,none,cc,기절,,res/effect/effect_stun/effect_stun.vrp,,res/ui/icons/status_effect/stun.png,efx_stun,x,true,1,0,5,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,0,,,,,,x,x,x,x,기절,1,1,x
+sleep,bad,cc,수면,,res/effect/effect_sleep/effect_sleep.spine,,res/ui/icons/status_effect/sleep.png,sfx_debuff,x,true,1,0,10,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,0,,,,1,,x,x,x,x,수면,1,1,받는 피해 2배 증가
+silence,bad,cc,침묵,,res/effect/effect_silence/effect_silence.vrp,,res/ui/icons/status_effect/silence.png,sfx_debuff,x,false,1,0,10,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,0,,1,1,1,,x,x,x,x,침묵,1,1,스킬 사용 불가
+dot_damage,bad,dot_dmg,지속피해(신규),,res/effect/effect_bleed/effect_bleed.vrp,,res/ui/icons/status_effect/bleed.png,efx_burn,x,false,3,1,20,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,,,,,,x,x,x,x,,1,1,
+transfer_bad,bad,transfer,모든 해로운 효과 전이,,,,,sfx_buff_get_1,x,false,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,0,,category;bad,,,,x,x,x,x,,1,1,대상의 bad 카테고리의 상태효과를 전이
+ice_element,good,buff,얼음 조각(피해량 감소),,res/missile/missile_ice/missile_ice_ready_@.vrp,,,sfx_buff_get_1,x,false,5,1,-1,0,0,0,0,0,0,0,0,0,0,0,0,-100,0,0,0,0,0,0,0,0,0,0,0,0,0,,0,polygons,,,,,3,x,x,x,,0,1,
+ice_element_dot,good,consume_missile,얼음 조각 지속피해,,res/missile/missile_ice/missile_ice_@.vrp,res/missile/motion_streak/motion_streak_white.png,,efx_bleed,x,false,5,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,0,,ice_element,,dot_damage;0.5;10;target_max_hp;50,,x,x,x,x,,1,1,
+ice_element_atk_down,good,consume_missile,얼음 조각 공격감소,,res/missile/missile_ice/missile_ice_@.vrp,res/missile/motion_streak/motion_streak_white.png,,sfx_wind,x,false,5,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,0,,ice_element,,atk_down;100;20;0;50,,x,x,x,x,,1,1,
+ice_element_def_down,good,consume_missile,얼음 조각 방어감소,,res/missile/missile_ice/missile_ice_@.vrp,res/missile/motion_streak/motion_streak_white.png,,sfx_wind,x,false,5,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,0,,ice_element,,def_down;100;20;0;50,,x,x,x,x,,1,1,
+ice_element_dot_50,good,consume_missile,얼음 조각 지속피해(50%),,res/missile/missile_ice/missile_ice_@.vrp,res/missile/motion_streak/motion_streak_white.png,,efx_bleed,x,false,5,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,0,,ice_element,,dot_damage;0.5;10;target_max_hp;50,,x,x,x,x,,1,1,
+ice_element_atk_down_50,good,consume_missile,얼음 조각 공격감소(50%),,res/missile/missile_ice/missile_ice_@.vrp,res/missile/motion_streak/motion_streak_white.png,,sfx_wind,x,false,5,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,0,,ice_element,,atk_down;100;20;0;50,,x,x,x,x,,1,1,
+ice_element_def_down_50,good,consume_missile,얼음 조각 방어감소(50%),,res/missile/missile_ice/missile_ice_@.vrp,res/missile/motion_streak/motion_streak_white.png,,sfx_wind,x,false,5,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,0,,ice_element,,def_down;100;20;0;50,,x,x,x,x,,1,1,
+oberon_element,none,buff,최대 체력 증가,,res/missile/shot_normal_earth/shot_normal_earth.spine,,,sfx_buff_get_1,x,false,5,1,-1,0,0,6,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,0,polygons,,,,,3,x,x,x,,1,1,
+dusk_resist,none,buff,받는 피해 감소,,res/missile/shot_water_soul_01/shot_water_soul_01.vrp,,,sfx_buff_get_1,x,false,1,0,10,0,0,0,0,0,0,0,0,0,0,0,0,-100,0,0,0,0,0,0,0,0,0,0,0,0,0,,0,polygons,,,,,10,x,x,x,,0,1,
+remove_oberon_element,none,dispell,오베론 요정 제거,,,res/effect/effect_status_effect_clear/effect_status_effect_clear.vrp,,sfx_heal,x,false,1,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,0,,name;oberon_element,,,,x,x,x,x,,0,1,
+remove_atk_up_wrath,none,dispell,라스 분노 제거,,,res/effect/effect_status_effect_clear/effect_status_effect_clear.vrp,,,x,false,1,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,0,,name;atk_up_wrath,,,,x,x,x,x,,0,1,
+remove_def_down,none,dispell,방어력 감소 제거,,,res/effect/effect_status_effect_clear/effect_status_effect_clear.vrp,,sfx_heal,x,false,1,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,0,,name;def_down,,,,x,x,x,x,,0,1,
+water_element,good,buff,물방울(피해량 감소),,res/effect/effect_abyssedge_waterdrop/effect_abyssedge_waterdrop.vrp,,,sfx_buff_get_1,x,false,5,1,-1,0,0,0,0,0,0,0,0,0,0,0,0,-100,0,0,0,0,0,0,0,0,0,0,0,0,0,,0,polygons,,,,,3,x,x,x,,0,1,
+water_element_def,good,buff,물방울(방어력 증가),,res/effect/effect_abyssedge_waterdrop/effect_abyssedge_waterdrop.vrp,,,sfx_buff_get_1,x,false,5,1,-1,0,100,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,0,polygons,,,,,3,x,x,x,,0,1,
+kamari_element_atk,bless,buff,공격력 증가,카마리 전용 버프이펙트,res/effect/effect_kamari/effect_kamari.vrp,,,sfx_buff_get_1,x,false,5,1,-1,100,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,0,barrier,,,,,3,x,x,x,,0,0,
+madness,good,buff,공격력 증가,광기,res/effect/effect_breath_charge/effect_breath_charge_fire.vrp,,res/ui/icons/status_effect/fury.png,sfx_buff_get_1,x,false,1,0,-1,100,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,0,barrier,,,,,3,x,x,x,,0,1,
+pride_count,none,buff,멸망의 별,프라이드 전용,res/missile/missile_ice/missile_ice_fire.vrp,,,sfx_shield,x,false,3,1,-1,10,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,0,polygons,,,,,3,x,x,x,,1,1,
+accel_mana,good,accel_mana,마나 회복 속도 증가,,,,,sfx_buff_get_1,x,false,1,0,10,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,0,,,,,,x,x,x,x,,0,0,
+buff_time_increase,good,modify,버프 시간 증가,,,,,sfx_buff_get_1,x,false,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,0,,category;good,,,,x,x,x,x,,1,1,x
+debuff_time_decrease,good,modify,디버프 시간 감소,,,,,sfx_buff_get_1,x,false,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,0,,category;bad,,,,x,x,x,x,,1,1,x
+buff_time_decrease,bad,modify,버프 시간 감소,,,,,sfx_buff_get_1,x,false,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,0,,category;good,,,,x,x,x,x,,1,1,x
+debuff_time_increase,bad,modify,디버프 시간 증가,,,,,sfx_buff_get_1,x,false,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,0,,category;bad,,,,x,x,x,x,,1,1,x
+skill_active_cooldown_decrease,good,skill_modify,스킬 재사용시간 감소,드래그,,,,sfx_buff_get_1,x,false,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,0,,skill_active,,,,x,x,x,x,,0,0,
+skill_1_cooldown_decrease,good,skill_modify,스킬 재사용시간 감소,패시브1,,,,sfx_buff_get_1,x,false,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,0,,skill_1,,,,x,x,x,x,,0,0,
+skill_2_cooldown_decrease,good,skill_modify,스킬 재사용시간 감소,패시브2,,,,sfx_buff_get_1,x,false,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,0,,skill_2,,,,x,x,x,x,,0,0,
+skill_3_cooldown_decrease,good,skill_modify,스킬 재사용시간 감소,패시브3,,,,sfx_buff_get_1,x,false,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,0,,skill_3,,,,x,x,x,x,,0,0,
+skill_1_cooldown_decrease_buff,good,skill_cool_reduce,스킬 재사용시간 감소,패시브1-지속,,,,sfx_buff_get_1,x,false,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,0,,skill_1,,,,x,x,x,x,,0,0,
+skill_2_cooldown_decrease_buff,good,skill_cool_reduce,스킬 재사용시간 감소,패시브2-지속,,,,sfx_buff_get_1,x,false,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,0,,skill_2,,,,x,x,x,x,,0,0,
+skill_active_cooldown_decrease_buff_3,good,skill_cool_reduce,스킬 재사용시간 감소,드래그-지속-3마나,res/effect/effect_fury/effect_fury.vrp,,,sfx_buff_get_1,x,false,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,0,,req_mana_3,,,,x,x,x,x,,0,0,
+skill_active_cooldown_decrease_buff_2,good,skill_cool_reduce,스킬 재사용시간 감소,드래그-지속-2마나,res/effect/effect_fury/effect_fury.vrp,,,sfx_buff_get_1,x,false,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,0,,req_mana_2,,,,x,x,x,x,,0,0,
+skill_active_cooldown_decrease_buff,good,skill_cool_reduce,스킬 재사용시간 감소,드래그-지속,res/effect/effect_fury/effect_fury.vrp,,,sfx_buff_get_1,x,false,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,0,,skill_active,,,,x,x,x,x,,0,0,
+skill_active_cooldown_decrease_abs,good,skill_cool_reduce,스킬 재사용시간 감소,드래그-절대값,,,,sfx_buff_get_1,x,false,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,1,,skill_active,,,,x,x,x,x,,0,0,
+skill_active_cooldown_decrease_abs_3,good,skill_cool_reduce,스킬 재사용시간 감소,드래그-절대값-3마나,,,,sfx_buff_get_1,x,false,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,1,,req_mana_3,,,,x,x,x,x,,0,0,
+skill_active_cooldown_decrease_abs_2,good,skill_cool_reduce,스킬 재사용시간 감소,드래그-절대값-2마나,,,,sfx_buff_get_1,x,false,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,1,,req_mana_2,,,,x,x,x,x,,0,0,
+skill_3_cooldown_decrease_abs,good,skill_cool_reduce,스킬 재사용시간 감소,패시브3-절대값,,,,sfx_buff_get_1,x,false,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,1,,skill_3,,,,x,x,x,x,,0,0,
+skill_2_cooldown_decrease_abs,good,skill_cool_reduce,스킬 재사용시간 감소,패시브2-절대값,,,,sfx_buff_get_1,x,false,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,1,,skill_2,,,,x,x,x,x,,0,0,
+skill_1_cooldown_decrease_abs,good,skill_cool_reduce,스킬 재사용시간 감소,패시브1-절대값,,,,sfx_buff_get_1,x,false,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,1,,skill_1,,,,x,x,x,x,,0,0,
+skill_metamorphosis_cooldown_decrease,good,skill_cool_reduce,스킬 재사용시간 감소,변신-절대값,,,,sfx_buff_get_1,x,false,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,1,,skill_metamorphosis,,,,x,x,x,x,,0,0,
+skill_iris_cooldown_decrease,good,skill_modify,스킬 재사용시간 감소,변신(아이리스 전용),,,,sfx_buff_get_1,x,false,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,0,,208792;chance_value;-59;add,,,,x,x,x,x,,0,0,
+attr_strengthen,good,buff,속성 강화,,,,,sfx_buff_get_1,o,false,1,0,10,0,0,0,0,0,0,0,0,0,0,0,0,0,0,100,0,0,0,0,0,0,0,0,0,0,0,,0,,,,,,10,x,x,x,,0,1,x
+attr_strengthen_weak,good,buff,속성 강화 (역상성),,,,,sfx_buff_get_1,o,false,1,0,10,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,100,0,0,0,0,0,0,0,0,0,0,,0,,,,,,10,x,x,x,,0,1,x
+cri_chance_up_over_80,good,conditional_buff,치명 확률 증가(체력80%이상시만 적용),,,,,,x,false,1,0,15,0,0,0,0,100,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,0,,over_hp_rate,80,,,x,x,x,x,,0,1,퍼센트+퍼센트 (합연산)
+cure,good,dispell,해로운 효과 해제,,,res/effect/effect_status_effect_clear/effect_status_effect_clear.vrp,,sfx_debuff_cure,x,false,1,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,0,,category;bad,,,,x,x,x,x,,0,1,
+cure_atk_down,good,dispell,해로운 효과 해제,,,res/effect/effect_status_effect_clear/effect_status_effect_clear.vrp,,sfx_debuff_cure,x,false,1,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,0,,name;atk_down,,,,x,x,x,x,,0,1,
+remove,bad,dispell,이로운 효과 해제,,,res/effect/effect_status_effect_clear/effect_status_effect_clear.vrp,,sfx_debuff_cure,x,false,1,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,0,,category;good,,,,x,x,x,x,,0,1,
+remove_aspd_def_up,good,dispell,공속증/방증제거,,,res/effect/effect_status_effect_clear/effect_status_effect_clear.vrp,,sfx_debuff_cure,x,false,1,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,0,,name;aspd_up,name;def_up,,,x,x,x,x,,0,1,
+remove_barrier,good,dispell,보호막/무적 제거,,,res/effect/effect_status_effect_clear/effect_status_effect_clear.vrp,,sfx_debuff_cure,x,false,1,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,0,,name;barrier_protection,type;barrier_time,,,x,x,x,x,,0,1,
+remove_immunity_debuff,good,dispell,면역 제거,,,res/effect/effect_status_effect_clear/effect_status_effect_clear.vrp,,sfx_debuff_cure,x,false,1,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,0,,name;immunity_debuff,,,,x,x,x,x,,0,1,
+remove_barrier_protection,good,dispell,보호막 제거,,,res/effect/effect_status_effect_clear/effect_status_effect_clear.vrp,,sfx_debuff_cure,x,false,1,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,0,,name;barrier_protection,,,,x,x,x,x,,0,1,
+remove_barrier_protection_time,good,dispell,무적 제거,,,res/effect/effect_status_effect_clear/effect_status_effect_clear.vrp,,sfx_debuff_cure,x,false,1,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,0,,type;barrier_time,,,,x,x,x,x,,0,1,
+remove_atk_up,good,dispell,공격력 증가 제거,,,res/effect/effect_status_effect_clear/effect_status_effect_clear.vrp,,sfx_debuff_cure,x,false,1,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,0,,name;atk_up,,,,x,x,x,x,,0,1,
+remove_def_up,good,dispell,방어력 증가 제거,,,res/effect/effect_status_effect_clear/effect_status_effect_clear.vrp,,sfx_debuff_cure,x,false,1,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,0,,name;def_up,,,,x,x,x,x,,0,1,
+remove_aspd_up,good,dispell,공격속도 증가 제거,,,res/effect/effect_status_effect_clear/effect_status_effect_clear.vrp,,sfx_debuff_cure,x,false,1,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,0,,name;aspd_up,,,,x,x,x,x,,0,1,
+remove_cri_chance_up,good,dispell,치명확률 증가 제거,,,res/effect/effect_status_effect_clear/effect_status_effect_clear.vrp,,sfx_debuff_cure,x,false,1,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,0,,name;cri_chance_up,,,,x,x,x,x,,0,1,
+remove_dot_damage,good,dispell,지속피해 효과 제거,,,res/effect/effect_status_effect_clear/effect_status_effect_clear.vrp,,sfx_debuff_cure,x,false,1,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,0,,name;dot_damage,,,,x,x,x,x,,0,1,
+reflect,good,buff,반사,,res/effect/effect_reflect_dmg_new/effect_reflect_dmg_new.vrp,,res/ui/icons/status_effect/m_resist.png,sfx_shield,x,false,1,0,10,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,20,20,0,0,0,0,0,0,0,,0,,,,,,x,x,x,x,,1,1,
+dmg_up_optatio_x180,good,buff,피해량 증가 (2배),,,,,,x,false,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,80,0,0,0,0,0,0,0,0,0,0,0,0,,0,,,,,,x,x,x,x,피해량 1.8배로 발동!,0,0,정수x퍼센트 (곱연산)
+dmg_up_optatio_x250,good,buff,피해량 증가 (2.5배),,,,,,x,false,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,150,0,0,0,0,0,0,0,0,0,0,0,0,,0,,,,,,x,x,x,x,피해량 2.5배로 발동!,0,0,정수x퍼센트 (곱연산)
+alive_dmg_down,good,conditional_buff,피해량 감소 (생존시만),생존시만 적용,,,,,x,false,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-100,0,0,0,0,0,0,0,0,0,0,0,0,0,,0,,alive,,,,x,x,x,x,,0,0,
+alive_dmg_up_frosty,good,conditional_buff,피해량 증가 (생존시만),프로스티 전용(생존시만 적용 / 중첩불가),,,,,x,false,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,100,0,0,0,0,0,0,0,0,0,0,0,0,,0,,alive,,,,x,x,x,x,,0,0,
+alive_def_up,good,conditional_buff,방어력 증가 (생존시만),생존시만 적용,,,,,x,false,0,0,0,0,100,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,0,,alive,,,,x,x,x,x,,0,0,
+alive_cri_chance_up_illan,good,conditional_buff,치명 확률 증가,일란 전용(생존시만 적용 / 중첩불가),,,,,x,false,1,0,0,0,0,0,0,100,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,0,,alive,,,,x,x,x,x,,0,0,
+alive_cri_chance_up,good,conditional_buff,치명 확률 증가,생존시만 적용,,,,,x,false,1,0,0,0,0,0,0,100,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,0,,alive,,,,x,x,x,x,,0,0,
+alive_dmg_up_tanatos,good,conditional_buff,피해량 증가 (생존시만),타나토스 전용(생존시만 적용/중첩가능),,,,,x,false,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,100,0,0,0,0,0,0,0,0,0,0,0,0,,0,,alive,,,,x,x,x,x,,0,0,
+alive_cri_chance_down,none,conditional_buff,치명 확률 감소(생존시만),(생존시만 적용/중첩가능),,,,,x,false,0,0,0,0,0,0,0,-100,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,0,,alive,,,,x,x,x,x,,0,0,
+alive_heal_power_down,none,conditional_buff,회복량 감소(생존시만),(생존시만 적용/중첩 불가),,,,,x,false,1,0,0,0,0,0,0,0,0,0,0,0,0,-100,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,0,,alive,,,,x,x,x,x,,0,0,
+alive_resistance_down,none,conditional_buff,효과 저항 감소(생존시만),(생존시만 적용/중첩가능),,,,,x,false,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-100,0,0,0,,0,,alive,,,,x,x,x,x,,0,0,
+alive_cri_avoid_down,none,conditional_buff,치명 회피 감소(생존시만),(생존시만 적용/중첩가능),,,,,x,false,0,0,0,0,0,0,0,0,0,-100,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,0,,alive,,,,x,x,x,x,,0,0,
+alive_atk_down,none,conditional_buff,공격력 감소(생존시만),(생존시만 적용/중첩가능),,,,,x,false,1,0,0,-100,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,0,,alive,,,,x,x,x,x,,0,0,
+alive_avoid_up,none,conditional_buff,회피율 증가(생존시만),(생존시만 적용/중첩가능),,,,,x,false,0,0,0,0,0,0,0,0,0,0,0,100,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,0,,alive,,,,x,x,x,x,,0,0,
+alive_avoid_down,none,conditional_buff,회피율 감소(생존시만),(생존시만 적용/중첩가능),,,,,x,false,0,0,0,0,0,0,0,0,0,0,0,-100,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,0,,alive,,,,x,x,x,x,,0,0,
+dmg_add,bad,debuff,받는 피해 증가,,res/effect/effect_dmg_add/effect_dmg_add.json,,res/ui/icons/status_effect/dmg_add.png,sfx_debuff,x,false,3,1,10,0,0,0,0,0,0,0,0,0,0,0,0,25,0,0,0,0,0,0,0,0,0,0,0,0,0,,0,,,,,,10,x,x,x,,1,1,최종 데미지에서 곱연산
+dmg_add_super,bad,debuff,받는 피해 증가,,res/effect/effect_dmg_add/effect_dmg_add.json,,res/ui/icons/status_effect/dmg_add_super.png,sfx_debuff,x,false,3,1,10,0,0,0,0,0,0,0,0,0,0,0,0,25,0,0,0,0,0,0,0,0,0,0,0,0,0,,0,,,,,,10,x,x,x,,0,1,최종 데미지에서 곱연산
+cldg_dmg_add,bad,debuff,받는 피해 증가,,res/effect/effect_weak_point/effect_weak_point.vrp,,,sfx_debuff,x,false,1,0,10,0,0,0,0,0,0,0,0,0,0,0,0,100,0,0,0,0,0,0,0,0,0,0,0,0,0,,0,,,,,,10,x,x,x,,0,0,최종 데미지에서 곱연산
+metamorphosis_buff,good,buff,변신,아이리스 변신 판별용 버프(기능없음),,,,,x,false,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,0,,,,,,x,x,x,x,,0,1,
+dmg_up_epit,none,buff,환상,"러스트, 레슬로 전용",,,res/ui/icons/status_effect/atk_up.png,sfx_buff_get_1,x,false,5,1,15,0,0,0,0,0,0,0,0,0,0,0,0,0,100,0,0,0,0,0,0,0,0,0,0,0,0,,0,,,,,,15,20,x,x,공격력 증가,0,1,정수x퍼센트 (곱연산)
+dmg_down_bene,none,debuff,평화 선언,베네보렌티아 전용,,,res/ui/icons/status_effect/atk_down.png,sfx_debuff,x,false,5,1,15,0,0,0,0,0,0,0,0,0,0,0,0,0,-100,0,0,0,0,0,0,0,0,0,0,0,0,,0,,,,,,15,20,x,x,공격력 감소,0,1,정수x퍼센트 (곱연산)
+reflect_thorn,good,buff,가시 갑주,,res/effect/effect_reflect_dmg_new/effect_reflect_dmg_new.vrp,,res/ui/icons/status_effect/m_resist.png,sfx_shield,x,false,1,0,10,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,100,100,0,0,0,0,0,0,0,,0,,,,,,x,x,x,x,,1,1,
+atk_up_super,good,buff,공격력 각인,,,,res/ui/icons/status_effect/atk_up_super.png,sfx_buff_get_1,x,false,3,1,15,20,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,0,,,,,,15,20,x,x,공격력 증가,0,1,정수x퍼센트 (곱연산)
+aspd_up_super,good,buff,공격 속도 각인,,,,res/ui/icons/status_effect/aspd_up_super.png,sfx_buff_get_1,x,false,3,1,15,0,0,0,20,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,0,,,,,,15,20,x,x,공격 속도 증가,0,1,퍼센트+퍼센트 (합연산)
+def_up_super,good,buff,방어력 각인,,,,res/ui/icons/status_effect/def_up_super.png,sfx_buff_get_1,x,false,3,1,15,0,20,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,0,,,,,,15,x,x,x,방어력 증가,0,1,정수x퍼센트 (곱연산)
+slippery,bad,debuff,미끄러움,,,,res/ui/icons/status_effect/hit_rate_down.png,sfx_debuff,x,false,1,0,15,0,0,0,100,0,0,0,-100,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,0,,,,,,x,x,x,x,미끄러움,1,1,퍼센트+퍼센트 (합연산)
+passive_atk_up,good,buff,공격력 증가,,,,,,x,false,0,0,15,100,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,0,barrier,15,100,,,x,x,x,x,,0,0,
+passive_aspd_up,good,buff,공격 속도 증가,,,,,,x,false,0,0,15,0,0,0,100,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,0,,,,,,x,x,x,x,,0,0,
+passive_cri_chance_up,good,buff,치명 확률 증가,,,,,,x,false,0,0,15,0,0,0,0,100,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,0,,,,,,x,x,x,x,,0,0,
+passive_def_up,good,buff,방어력 증가,,,,,,x,false,0,0,15,0,100,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,0,,,,,,x,x,x,x,,0,0,
+passive_hp_up,good,buff,생명력 증가,,,,,,x,false,0,0,15,0,0,100,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,0,,,,,,x,x,x,x,,0,0,
+passive_cri_avoid_up,good,buff,치명 방어율 증가,,,,,,x,false,0,0,15,0,0,0,0,0,0,100,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,0,,,,,,x,x,x,x,,0,0,
+passive_avoid_up,good,buff,회피율 증가,,,,,,x,false,0,0,15,0,0,0,0,0,0,0,0,100,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,0,,,,,,x,x,x,x,,0,0,
+passive_hit_rate_up,good,buff,적중률 증가,,,,,,x,false,0,0,15,0,0,0,0,0,0,0,100,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,0,,,,,,x,x,x,x,,0,0,
+passive_cri_dmg_up,good,buff,치명 피해 증가,,,,,,x,false,0,0,15,0,0,0,0,0,100,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,0,,,,,,x,x,x,x,,0,0,
+passive_atk_down,bad,debuff,공격력 감소,,,,,,x,false,0,0,15,-100,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,0,,,,,,15,x,x,x,,0,0,정수x퍼센트 (곱연산)
+passive_aspd_down,bad,debuff,공격 속도 감소,,,,,,x,false,0,0,15,0,0,0,-100,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,0,,,,,,15,,x,x,,0,0,퍼센트+퍼센트 (합연산)
+passive_cri_chance_down,bad,debuff,치명 확률 감소,,,,,,x,false,0,0,15,0,0,0,0,-100,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,0,,,,,,x,x,x,x,,0,0,퍼센트+퍼센트 (합연산)
+passive_def_down,bad,debuff,방어력 감소,,,,,,x,false,0,0,15,0,-100,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,0,,,,,,x,x,x,x,,0,0,정수x퍼센트 (곱연산)
+passive_hp_down,bad,debuff,생명력 감소,,,,,,x,false,0,0,15,0,0,-100,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,0,,,,,,x,x,x,x,,0,0,정수x퍼센트 (곱연산)
+passive_cri_avoid_down,bad,debuff,치명 방어율 감소,,,,,,x,false,0,0,15,0,0,0,0,0,0,-100,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,0,,,,,,x,x,x,x,,0,0,퍼센트+퍼센트 (합연산)
+passive_avoid_down,bad,debuff,회피율 감소,,,,,,x,false,0,0,15,0,0,0,0,0,0,0,0,-100,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,0,,,,,,x,x,x,x,,0,0,퍼센트+퍼센트 (합연산)
+passive_hit_rate_down,bad,debuff,적중률 감소,,,,,,x,false,0,0,15,0,0,0,0,0,0,0,-100,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,0,,,,,,x,x,x,x,,0,0,퍼센트+퍼센트 (합연산)
+passive_cri_dmg_down,bad,debuff,치명 피해 감소,,,,,,x,false,0,0,15,0,0,0,0,0,-100,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,0,,,,,,x,x,x,x,,0,0,퍼센트+퍼센트 (합연산)
+passive_accuracy_effect,good,buff,효과 적중,,,,,,x,false,0,0,10,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,100,0,0,0,0,,0,,,,,,x,x,x,x,,0,0,
+passive_resistance_effect,good,buff,효과 저항,,,,,,x,false,0,0,10,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,100,0,0,0,,0,,,,,,x,x,x,x,,0,0,
+passive_hp_drain,good,buff,공격시 생명력 흡수,,,,,,x,false,0,0,10,0,0,0,0,0,0,0,0,0,100,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,1,,,,,,x,x,x,x,,0,0,
+passive_fury,good,buff,광폭화,,,,res/ui/icons/status_effect/fury.png,,x,false,0,1,-1,0,0,0,0,0,0,0,0,0,0,0,0,0,100,0,0,0,0,0,0,0,0,0,0,0,0,,0,,,,,,x,x,x,x,보스가 강력해집니다.,0,1,
+passive_fury_normal,good,buff,광폭화,일반 몬스터용 광폭화,,,res/ui/icons/status_effect/fury.png,,x,false,0,1,-1,0,0,0,0,0,0,0,0,0,0,0,0,0,100,0,0,0,0,0,0,0,0,0,0,0,0,,0,,,,,,x,x,x,x,몬스터가 강력해집니다.,0,1,
+passive_fury_hit_rate_up,good,buff,광폭화 - 적중률 증가,,,,res/ui/icons/status_effect/fury_hit_rate_up.png,,x,false,0,1,-1,0,0,0,0,0,0,0,100,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,0,,,,,,x,x,x,x,,0,1,
+passive_fury_avoid_up,good,buff,광폭화 - 회피 증가,,,,res/ui/icons/status_effect/fury_avoid_up.png,,x,false,0,1,-1,0,0,0,0,0,0,0,0,100,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,0,,,,,,x,x,x,x,,0,1,
+passive_fury_cri_avoid_up,good,buff,광폭화 - 치명 회피,,,,res/ui/icons/status_effect/fury_cri_avoid_up.png,,x,false,0,1,-1,0,0,0,0,0,0,100,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,0,,,,,,x,x,x,x,,0,1,
+passive_fury_resistance_up,good,buff,광폭화 - 효과 저항,,,,res/ui/icons/status_effect/fury_p_resist.png,,x,false,0,1,-1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,100,0,0,0,,0,,,,,,x,x,x,x,,0,1,
+passive_immun,good,buff,저항 증가,,,,,,x,false,0,1,-1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,100,0,0,0,,0,,,,,,x,x,x,x,,0,0,
+passive_dmg_up,good,buff,피해량 증가,,,,,,x,false,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,100,0,0,0,0,0,0,0,0,0,0,0,0,,0,,,,,,x,x,x,x,"(해제 되지 않고, 이펙트/사운드 없음)",0,0,최종 데미지에서 곱연산
+passive_dmg_down,good,buff,피해량 감소,,,,,,x,false,0,0,-1,0,0,0,0,0,0,0,0,0,0,0,0,-100,0,0,0,0,0,0,0,0,0,0,0,0,0,,0,,,,,,x,x,x,x,,0,0,
+passive_electric_pulse,good,buff,일렉트릭 펄스,,res/effect/effect_pulse/effect_pulse.vrp,,,,x,false,0,0,-1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,0,,,,,,x,x,x,x,,0,0,
+tamer_add_dmg,bad,add_dmg_one_time,추가 피해,,,res/effect/skill_tamer_lightning/skill_tamer_lightning_@.vrp,,,x,false,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,1,,,,,,x,x,x,x,,0,0,
+passive_guard_rear,good,buff,결의,후방에 있는 아군의 피해 대신받음,,,,,x,false,0,0,-1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,100,0,,0,,,,,,x,x,x,x,,0,0,
+passive_atk_up_jet,good,buff,공격력 증가,제트드래곤용(중첩가능),,,,,x,false,3,1,15,100,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,0,,15,100,,,x,x,x,x,,0,0,
+passive_aspd_up_jet,good,buff,공격 속도 증가,제트드래곤용(중첩가능),,,,,x,false,3,1,15,0,0,0,100,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,0,,,,,,x,x,x,x,,0,0,
+passive_aspd_up_darknix,good,buff,공격 속도 증가,다크닉스용(4중첩),,,,,x,false,4,1,15,0,0,0,100,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,0,,,,,,x,x,x,x,,0,0,
+passive_cri_chance_up_darknix,good,buff,치명 확률 증가,다크닉스용(4중첩),,,,,x,false,4,1,15,0,0,0,0,100,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,0,,,,,,x,x,x,x,,0,0,
+passive_skill_active_cooldown_decrease_buff_3,good,skill_cool_reduce,스킬 재사용시간 감소,드래그-지속-3마나,,,,sfx_buff_get_1,x,false,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,0,,req_mana_3,,,,x,x,x,x,,0,0,
+cri_dmg_up,good,buff,치명 피해 증가,,res/effect/effect_tactics_up/effect_tactics_up.vrp,,res/ui/icons/status_effect/cri_dmg_up.png,sfx_buff_get_1,x,false,1,0,15,0,0,0,0,0,50,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,0,,,,,,x,x,x,x,치명 피해 증가,1,1,퍼센트+퍼센트 (합연산)
+cri_dmg_down,bad,debuff,치명 피해 감소,,,,res/ui/icons/status_effect/cri_dmg_down.png,sfx_debuff,x,false,1,0,15,0,0,0,0,0,-50,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,0,,,,,,x,x,x,x,치명 피해 감소,1,1,퍼센트+퍼센트 (합연산)
+test_def_up,good,buff,자룡 패시브,,res/effect/effect_defense_up/effect_defense_up.vrp,,res/ui/icons/status_effect/def_up.png,sfx_buff_get_1,x,false,3,0,15,0,100,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,0,,,,,,x,x,x,x,,1,1,정수x퍼센트 (곱연산)
+hp_up,good,buff,생명력 증가,,res/effect/effect_defense_up/effect_defense_up.vrp,,res/ui/icons/status_effect/hp_up.png,sfx_buff_get_1,x,false,3,0,15,0,0,100,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,0,,,,,,x,x,x,x,,1,1,정수x퍼센트 (곱연산)
+attr_weaken,bad,buff,속성 약화,,res/effect/effect_defense_up/effect_defense_up.vrp,,res/ui/icons/status_effect/def_down.png,sfx_buff_get_1,o,false,1,0,10,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-100,0,0,0,0,0,0,0,0,0,0,0,,0,,,,,,x,x,x,x,,0,1,x
+attr_change,good,buff,속성 변환,,res/effect/effect_wedjat/effect_wedjat.vrp,,res/ui/icons/status_effect/attr_change.png,sfx_buff_get_1,x,false,1,0,10,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,0,,x,,,,x,x,x,x,,0,1,x
+attr_change_earth,good,buff,속성 변환:땅,,,,,sfx_buff_get_1,x,false,1,0,10,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,0,,earth,,,,x,x,x,x,,0,1,x
+attr_change_water,good,buff,속성 변환:물,,,,,sfx_buff_get_1,x,false,1,0,10,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,0,,water,,,,x,x,x,x,,0,1,x
+attr_change_fire,good,buff,속성 변환:불,,,,,sfx_buff_get_1,x,false,1,0,10,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,0,,fire,,,,x,x,x,x,,0,1,x
+attr_change_light,good,buff,속성 변환:빛,,,,,sfx_buff_get_1,x,false,1,0,10,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,0,,light,,,,x,x,x,x,,0,1,x
+attr_change_dark,good,buff,속성 변환:어둠,,,,,sfx_buff_get_1,x,false,1,0,10,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,0,,dark,,,,x,x,x,x,,0,1,x
+def_up_overlab,good,buff,방어력 증가 오버랩,,res/effect/effect_defense_up/effect_defense_up.vrp,,res/ui/icons/status_effect/def_up.png,sfx_buff_get_1,x,false,20,0,5,0,100,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,0,,,,,,x,x,x,x,,1,1,정수x퍼센트 (곱연산)
+atk_up_overlab,good,buff,공격력 증가 오버랩,,res/effect/effect_combat_up/effect_combat_up.vrp,,res/ui/icons/status_effect/atk_up.png,sfx_buff_get_1,x,false,20,0,5,100,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,0,,,,,,x,x,x,x,,1,1,정수x퍼센트 (곱연산)
+atk_up_overlab3,good,buff,공격력 증가(3회중첩),,res/effect/effect_combat_up/effect_combat_up.vrp,,res/ui/icons/status_effect/atk_up.png,sfx_buff_get_1,x,false,3,1,-1,100,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,0,,,,,,x,x,x,x,,1,1,정수x퍼센트 (곱연산)
+atk_up_overlab5,good,buff,공격력 증가(5회중첩),,res/effect/effect_combat_up/effect_combat_up.vrp,,res/ui/icons/status_effect/atk_up.png,sfx_buff_get_1,x,false,5,1,-1,100,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,0,,,,,,x,x,x,x,,1,1,정수x퍼센트 (곱연산)
+def_up_overlab3,good,buff,공격력 증가(5회중첩),,res/effect/effect_defense_up/effect_defense_up.vrp,,res/ui/icons/status_effect/def_up.png,sfx_buff_get_1,x,false,3,1,-1,0,100,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,0,,,,,,x,x,x,x,,1,1,정수x퍼센트 (곱연산)
+def_up_overlab5,good,buff,방어력 증가(5회중첩),,res/effect/effect_defense_up/effect_defense_up.vrp,,res/ui/icons/status_effect/def_up.png,sfx_buff_get_1,x,false,5,1,-1,0,100,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,0,,,,,,x,x,x,x,,1,1,정수x퍼센트 (곱연산)
+godium_earth_buff,good,buff,공격력/치명확률 증가,,res/effect/effect_combat_up/effect_combat_up.vrp,,res/ui/icons/status_effect/atk_up.png,sfx_buff_get_1,x,false,3,0,15,20,0,0,0,15,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,0,,,,,,x,x,x,x,,1,1,정수x퍼센트 (곱연산)
+godium_light_buff,good,buff,공격력/회복량 증가,,res/effect/effect_combat_up/effect_combat_up.vrp,,res/ui/icons/status_effect/atk_up.png,sfx_buff_get_1,x,false,3,0,15,20,0,0,0,0,0,0,0,0,0,0,35,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,0,,,,,,x,x,x,x,,1,1,정수x퍼센트 (곱연산)
+godium_fire_buff,good,buff,공격력/방어관통 증가,,res/effect/effect_combat_up/effect_combat_up.vrp,,res/ui/icons/status_effect/atk_up.png,sfx_buff_get_1,x,false,3,0,15,20,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,30,0,0,,0,,,,,,x,x,x,x,,1,1,정수x퍼센트 (곱연산)
+immortal,good,immortal,불사,,res/effect/effect_athanasia/effect_athanasia.vrp,,res/ui/icons/status_effect/immortal.png,sfx_buff_get_1,x,false,1,0,10,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,0,,,,,,x,x,x,x,,1,1,x
+dot_booster,bad,modify,지속피해효과 강화,,,,,sfx_buff_get_1,x,false,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,0,,type;dot_dmg,,,,x,x,x,x,,1,1,x
+heal2,good,dot_heal,회복,,res/effect/effect_tamer_heal/effect_tamer_heal.vrp,,res/ui/icons/status_effect/heal.png,sfx_heal,x,false,1,0,15,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0.3,0,,atk,,,,x,x,x,x,,1,1,x
+heal_def,good,dot_heal,회복,,res/effect/effect_tamer_heal/effect_tamer_heal.vrp,,res/ui/icons/status_effect/heal.png,sfx_heal,x,false,1,0,15,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,,def,,,,x,x,x,x,,1,1,x
+heal_abs,good,dot_heal,회복,,res/effect/effect_tamer_heal/effect_tamer_heal.vrp,,res/ui/icons/status_effect/heal.png,sfx_heal,x,false,1,0,15,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,,hp_abs,,,,x,x,x,x,,1,1,x
+heal_per_hp,good,dot_heal,회복,,res/effect/effect_tamer_heal/effect_tamer_heal.vrp,,res/ui/icons/status_effect/heal.png,sfx_heal,x,false,1,0,15,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,,hp_target,,,,x,x,x,x,,1,1,x
+heal_overlab,good,dot_heal,회복 오버랩,,res/effect/effect_heal/effect_heal.vrp,,res/ui/icons/status_effect/heal.png,sfx_heal,x,false,5,0,15,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,,atk,,,,x,x,x,x,,1,1,x
+pierce,good,buff,관통,,res/effect/effect_armorpiercing/effect_armorpiercing.vrp,,res/ui/icons/status_effect/pierce.png,sfx_buff_get_1,x,false,1,0,10,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,100,0,0,,0,,,,,,x,x,x,x,,1,1,x
+barrier_protection_abs,good,barrier,보호막,,res/effect/effect_protection_new/effect_protection_new.vrp,,res/ui/icons/status_effect/p_resist.png,sfx_shield,x,false,1,0,-1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,0,barrier,hit_abs,,,,x,x,x,x,,1,1,시전자 체력의 val_1% 만큼 데미지를 흡수하는 보호막 생성
+barrier_protection_darknix,good,barrier_time,경질화,,res/effect/effect_darknix_barrier/effect_darknix_barrier.vrp,,res/ui/icons/status_effect/p_resist.png,sfx_shield,x,false,1,0,20,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,0,barrier,,,,,x,x,x,x,,1,1,시전자 체력의 val_1% 만큼 데미지를 흡수하는 보호막 생성
+barrier_protection_boss,good,barrier_time,경질화,,res/effect/effect_boss_barrier/effect_boss_barrier.vrp,,res/ui/icons/status_effect/p_resist.png,sfx_shield,x,false,1,0,20,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,0,barrier,,,,,x,x,x,x,,1,1,시전자 체력의 val_1% 만큼 데미지를 흡수하는 보호막 생성
+barrier_protection_l,good,barrier,거대 보호막,,res/effect/effect_darknix_barrier/effect_darknix_barrier.vrp,,res/ui/icons/status_effect/p_resist.png,sfx_shield,x,false,1,0,20,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,0,barrier,100,,,,x,x,x,x,,1,1,시전자 체력의 val_1% 만큼 데미지를 흡수하는 보호막 생성
+heal_add,good,buff,회복량 증가,,res/effect/effect_tactics_up/effect_tactics_up.vrp,,res/ui/icons/status_effect/recovery_add.png,sfx_buff_get_1,x,false,1,0,15,0,0,0,0,0,0,0,0,0,0,100,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,,,,,,,x,x,x,x,,1,1,
+hp_down,bad,debuff,최대 생명력 감소,,,,res/ui/icons/status_effect/hp_down.png,sfx_debuff,x,false,3,1,15,0,0,-15,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,0,,,,,,x,x,x,x,,1,1,정수x퍼센트 (곱연산)
+heal_deny,bad,debuff,회복 불가,,res/effect/effect_tactics_down/effect_tactics_down.vrp,,res/ui/icons/status_effect/heal_deny.png,sfx_debuff,x,false,1,0,15,0,0,0,0,0,0,0,0,0,0,-9999,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,,,,,,,x,x,x,x,,1,1,
+blind,bad,cc,실명,,res/effect/effect_blind/effect_blind.vrp,,res/ui/icons/status_effect/blind.png,sfx_debuff,o,false,1,0,10,0,0,0,0,0,0,0,-100,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,,10,100,1,10,x,x,x,x,,1,1,dot류 처럼 인터벌 있음
+electric_shock,bad,cc,감전,,res/effect/effect_electric_shock/effect_electric_shock.vrp,,res/ui/icons/status_effect/electric_shock.png,sfx_debuff,x,false,1,0,3,0,0,0,0,0,0,0,0,0,0,0,0,20,0,0,0,0,0,0,0,0,0,0,0,0,0,,0,,20,,,,x,x,x,x,,1,1,
+bleed,bad,dot_dmg,출혈,,res/effect/effect_bleed/effect_bleed.vrp,,res/ui/icons/status_effect/bleed.png,efx_bleed,x,false,3,0,15,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,,bleed,,,,x,x,x,x,,1,1,
+poison,bad,dot_dmg,중독,,res/effect/effect_poison/effect_poison.vrp,,res/ui/icons/status_effect/poison.png,efx_posion,x,false,3,0,15,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,,poison,,,,x,x,x,x,,1,1,
+burn,bad,dot_dmg,화상,,res/effect/effect_burn/effect_burn.vrp,,res/ui/icons/status_effect/burn.png,efx_burn,x,false,3,0,20,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,,,,,,x,x,x,x,,1,1,
+bleed_overlab,bad,dot_dmg,출혈(중첩가능),,res/effect/effect_bleed/effect_bleed.vrp,,res/ui/icons/status_effect/bleed.png,efx_bleed,x,false,5,1,15,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,,bleed,,,,x,x,x,x,,1,1,
+transfer_dot_dmg,bad,transfer,지속 피해 효과 전이,,,,,sfx_buff_get_1,x,false,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,0,,type;dot_dmg,,,,x,x,x,x,,1,1,대상의 dot_dmg 타입의 상태효과를 전이
+non_debuff_hp_up,good,conditional_buff,조건부 생명력 증가,,res/effect/effect_defense_up/effect_defense_up.vrp,,res/ui/icons/status_effect/hp_up.png,sfx_buff_get_1,x,false,1,0,15,0,0,100,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,0,,non_debuff,,,,x,x,x,x,,0,0,정수x퍼센트 (곱연산)
+non_debuff_atk_up,good,conditional_buff,조건부 공격력 증가,,res/effect/effect_combat_up/effect_combat_up.vrp,,res/ui/icons/status_effect/atk_up.png,sfx_buff_get_1,x,false,1,0,15,100,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,0,,non_debuff,,,,x,x,x,x,,0,0,정수x퍼센트 (곱연산)
+non_debuff_def_up,good,conditional_buff,조건부 방어력 증가,,res/effect/effect_defense_up/effect_defense_up.vrp,,res/ui/icons/status_effect/def_up.png,sfx_buff_get_1,x,false,1,0,15,0,100,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,0,,non_debuff,,,,x,x,x,x,,0,0,정수x퍼센트 (곱연산)
+non_debuff_cri_dmg_up,good,conditional_buff,조건부 치명 피해 증가,,res/effect/effect_tactics_up/effect_tactics_up.vrp,,res/ui/icons/status_effect/cri_dmg_up.png,sfx_buff_get_1,x,false,1,0,15,0,0,0,0,0,100,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,0,,non_debuff,,,,x,x,x,x,,0,1,정수x퍼센트 (곱연산)
+wave_boss_atk_up,good,conditional_buff,보스전 공격력 증가,,res/effect/effect_combat_up/effect_combat_up.vrp,,res/ui/icons/status_effect/atk_up.png,sfx_buff_get_1,x,false,1,0,15,100,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,0,,wave_boss,,,,x,x,x,x,,0,1,정수x퍼센트 (곱연산)
+wave_boss_def_up,good,conditional_buff,보스전 방어력 증가,,res/effect/effect_defense_up/effect_defense_up.vrp,,res/ui/icons/status_effect/def_up.png,sfx_buff_get_1,x,false,1,0,15,0,100,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,0,,wave_boss,,,,x,x,x,x,,0,1,정수x퍼센트 (곱연산)
+wave_boss_aspd_up,good,conditional_buff,보스전 공격 속도 증가,,res/effect/effect_combat_up/effect_combat_up.vrp,,res/ui/icons/status_effect/aspd_up.png,sfx_buff_get_1,x,false,1,0,15,0,0,0,100,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,0,,wave_boss,,,,x,x,x,x,,0,1,퍼센트+퍼센트 (합연산)
+wave_boss_hit_rate_up,good,conditional_buff,보스전 적중률 증가,,res/effect/effect_tactics_up/effect_tactics_up.vrp,,res/ui/icons/status_effect/hit_rate_up.png,sfx_buff_get_1,x,false,1,0,15,0,0,0,0,0,0,0,100,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,0,,wave_boss,,,,x,x,x,x,,0,1,퍼센트+퍼센트 (합연산)
+ice_element_shot,good,consume_missile,얼음 조각 발사,,res/missile/missile_ice/missile_ice_@.vrp,res/missile/motion_streak/motion_streak_white.png,,sfx_wind,x,false,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,0,,ice_element,,,,x,x,x,x,,1,1,
+ice_element_bleed,good,consume_missile,얼음 조각 출혈,,res/missile/missile_ice/missile_ice_@.vrp,res/missile/motion_streak/motion_streak_white.png,,efx_bleed,x,false,5,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,0,,ice_element,,bleed_overlab;10;15,,x,x,x,x,,1,1,
+resist_atk_down,good,modify_dmg,공격력 감소에 대한 피해저항,,,,res/ui/icons/status_effect/p_resist.png,sfx_buff_get_1,x,false,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,0,,1,atk_down,,,x,x,x,x,,1,1,
+add_dmg_atk_down,good,modify_dmg,공격력 감소 적에게 피해증가,,,,res/ui/icons/status_effect/atk_up.png,sfx_buff_get_1,x,false,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,0,,0,atk_down,,,x,x,x,x,,1,1,
+invalid,bad,dispell,모든 효과 해제,,,res/effect/effect_status_effect_clear/effect_status_effect_clear.vrp,,sfx_debuff_cure,x,false,1,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,0,,all,,,,x,x,x,x,,0,1,
+cure_stun,good,dispell,기절 해제,,,res/effect/effect_status_effect_clear/effect_status_effect_clear.vrp,,sfx_debuff_cure,x,false,1,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,0,,name;stun,,,,x,x,x,x,,0,1,
+cure_silence,good,dispell,침묵 해제,,,res/effect/effect_status_effect_clear/effect_status_effect_clear.vrp,,sfx_debuff_cure,x,false,1,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,0,,name;silence,,,,x,x,x,x,,0,1,
+cure_sleep,good,dispell,수면 해제,,,res/effect/effect_status_effect_clear/effect_status_effect_clear.vrp,,sfx_debuff_cure,x,false,1,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,0,,name;sleep,,,,x,x,x,x,,0,1,
+add_dmg,bad,add_dmg,추가 피해,,res/effect/effect_hit_physical_fire/effect_hit_physical_fire.spine,,,sfx_debuff_cure,x,false,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,0,,,,,,x,x,x,x,,0,1,
+add_dmg_abs,bad,add_dmg,추가 피해,,res/effect/effect_hit_physical_fire/effect_hit_physical_fire.spine,,,sfx_debuff_cure,x,false,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,1,,,,,,x,x,x,x,,0,1,
+add_dmg_bleed,bad,add_dmg,출혈 추가 피해,,res/effect/effect_hit_physical_fire/effect_hit_physical_fire.spine,,,efx_damage_critical,x,false,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,0,,,,,,x,x,x,x,,0,1,
+add_dmg_poison,bad,add_dmg,중독 추가 피해,,res/effect/effect_hit_physical_fire/effect_hit_physical_fire.spine,,,efx_damage_critical,x,false,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,0,,,,,,x,x,x,x,,0,1,
+add_dmg_burn,bad,add_dmg,화상 추가 피해,,res/effect/effect_hit_physical_fire/effect_hit_physical_fire.spine,,,efx_damage_critical,x,false,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,0,,,,,,x,x,x,x,,0,1,
+add_dmg_blind,bad,add_dmg,실명 추가 피해,,res/effect/effect_hit_physical_fire/effect_hit_physical_fire.spine,,,efx_damage_critical,x,false,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,0,,,,,,x,x,x,x,,0,1,
+add_dmg_stun,bad,add_dmg,기절 추가 피해,,res/effect/effect_hit_physical_fire/effect_hit_physical_fire.spine,,,efx_damage_critical,x,false,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,0,,,,,,x,x,x,x,,0,1,
+add_dmg_sleep,bad,add_dmg,수면 추가 피해,,res/effect/effect_hit_physical_fire/effect_hit_physical_fire.spine,,,efx_damage_critical,x,false,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,0,,,,,,x,x,x,x,,0,1,
+add_dmg_silence,bad,add_dmg,침묵 추가 피해,,res/effect/effect_hit_physical_fire/effect_hit_physical_fire.spine,,,efx_damage_critical,x,false,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,0,,,,,,x,x,x,x,,0,1,
+add_dmg_one_time,bad,add_dmg_one_time,추가 피해,,res/effect/effect_hit_physical_fire/effect_hit_physical_fire.spine,,,efx_damage_critical,x,false,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,0,,,,,,x,x,x,x,,0,1,
+add_heal,good,add_heal,추가 회복,,res/effect/effect_tamer_heal/effect_tamer_heal.vrp,,,sfx_heal,x,false,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,0,,,,,,x,x,x,x,,0,1,
+resistance_effect,good,buff,효과 저항,,res/effect/effect_react_armor/effect_react_armor.vrp,,res/ui/icons/status_effect/p_resist.png,sfx_shield,x,false,0,0,10,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,100,0,0,0,,0,,,,,,x,x,x,x,,0,1,
+atk_up_wrath,none,buff,타오르는 분노,,,,res/ui/icons/status_effect/fury.png,,x,false,100,1,0,100,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,0,,,,,,x,x,x,x,,1,1,
+darknix,good,passive,파멸의 고동,,res/effect/effect_combat_up/effect_combat_up.vrp,,res/ui/icons/status_effect/atk_up.png,efx_story_fury,x,false,0,1,-1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,100,,0,,,,,,x,x,x,x,,0,1,
+passive_spatter,good,passive,퐁당퐁당,,,,,,x,false,1,0,-1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,0,,200,3,,5,x,x,x,x,,0,1,(퍼플립스 4성 패시브)
+passive_recovery,good,dot_heal,지속 치유,,,,,,x,false,1,0,-1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,10,0,,hp_target,,,,x,x,x,x,,0,1,(리티오 4성 패시브)
+passive_heal_add,good,buff,회복량 증가,,,,,,x,false,1,0,-1,0,0,0,0,0,0,0,0,0,0,100,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,,,,,,,x,x,x,x,,0,1,
+passive_bloodlust,good,buff,피의 맛,,,,,,x,false,5,0,20,20,0,0,20,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,0,,20,,,,x,x,x,x,,0,1,
+passive_recovery_add,good,buff,받는 회복량 증가,,,,,,x,false,0,0,15,0,0,0,0,0,0,0,0,0,0,0,100,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,,,,,,,x,x,x,x,,0,0,
+passive_recovery_dec,bad,debuff,받는 회복량 감소,,,,,,x,false,0,0,15,0,0,0,0,0,0,0,0,0,0,0,-100,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,,,,,,,x,x,x,x,,0,1,
+passive_debuff_time_decrease,good,buff,디버프 시간 감소,,,,,,x,false,0,0,15,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-100,0,0,0,0,0,0,,0,,,,,,x,x,x,x,,0,1,
+passive_target_debuff_time_increase,good,buff,적 디버프 시간 증가,,,,,,x,false,0,0,15,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,100,0,0,0,0,0,,0,,,,,,x,x,x,x,,0,1,
+passive_add_dmg_atk_down,good,modify_dmg,공격력 감소 적에게 피해증가,,,,,,x,false,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,0,,0,atk_down,,,x,x,x,x,,0,1,
+tamer_passive_atk_up,good,buff,곤퓨,,,,,,x,false,0,0,-1,100,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,0,,,,,,x,x,x,x,,0,1,
+tamer_passive_hp_up_abs,good,buff,라이브라,,,,,,x,false,0,0,-1,0,0,100,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,1,,,,,,x,x,x,x,,0,1,
+aphrodite_team_buff,good,skill_modify,여신과 거신,,,,,,x,false,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,0,,"207141,207142,207143,207144,207145;add_option_value_1;5;add",,,,x,x,x,x,,0,0,
+garuda_team_buff,good,skill_modify,야생의 피부,,,,,,x,false,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,0,,"202132,202134;add_option_value_1;40;add","207011,207012,207013;add_option_value_1;40;add",,,x,x,x,x,,0,0,
+card_team_buff,good,skill_modify,혼돈과 질서,,,,,,x,false,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,0,,"204413,204443,204515,204545;cooldown;-4.8;add","207413,207443;cooldown;-1.2;add","207914,207944;cooldown;-3;add",,x,x,x,x,,0,0,
+mana_team_buff,good,skill_modify,,,,,,,x,false,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,0,,"204413,204443,204515,204545;cooldown;-4.8;add","207413,207443;cooldown;-1.2;add","207914,207944;cooldown;-3;add",,x,x,x,x,,0,0,
+passive_atk_up_time,good,buff,중첩 강화,,res/effect/effect_combat_up/effect_combat_up.vrp,,res/ui/icons/status_effect/atk_up.png,efx_story_fury,x,false,100,1,-1,100,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,0,,scale,1,0.05,apply_hitbox,x,x,x,x,,0,1,
+passive_atk_up_pompom,good,buff,폼폼킹 강화,,res/effect/effect_combat_up/effect_combat_up.vrp,,res/ui/icons/status_effect/atk_up.png,efx_story_fury,x,false,100,1,-1,100,100,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,0,,,,,,x,x,x,x,,1,1,
+leader_dot_damage_super_flag,none,flag,영원한 안식,,,,,,x,false,1,1,-1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,0,,,,,,x,x,x,x,,0,1,특정 상태 효과 플래그
+reflect_super,good,buff,반사,,res/effect/effect_reflect_dmg_new/effect_reflect_dmg_new.vrp,,res/ui/icons/status_effect/m_resist.png,sfx_shield,x,false,0,0,10,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,100,100,0,0,0,0,0,0,0,,0,,,,,,x,x,x,x,,0,0,
+reflect_normal,good,buff,반사,,res/effect/effect_reflect_dmg_new/effect_reflect_dmg_new.vrp,,res/ui/icons/status_effect/m_resist.png,sfx_shield,x,false,0,0,10,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,100,0,0,0,0,0,0,0,0,,0,,,,,,x,x,x,x,,0,0,
+immunity_super,good,immune,제거 불가능한 면역,,,,res/ui/icons/status_effect/immunity_debuff.png,sfx_shield,x,false,1,0,15,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,0,,,,,,x,x,x,x,,0,0,
+target_active_skill_only,good,atk_limit,일반 공격/패시브 타겟 불가,,,,,,x,false,0,1,-1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,0,,,,,,x,x,x,x,,0,1,
+target_without_skill,good,atk_limit,드래그 타겟 불가,,,,,,x,false,0,1,-1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,0,,,,,,x,x,x,x,,0,1,
+target_disabled,good,atk_limit,타겟 불가,,,,,,x,false,0,1,-1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,0,,,,,,x,x,x,x,,0,1,
+atk_up_unerasable,good,buff,제거 불가한 공격력 증가(100),,,,res/ui/icons/status_effect/atk_up.png,sfx_buff_get_1,x,false,3,1,15,100,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,0,,,,,,x,x,x,x,공격력 증가,0,1,정수x퍼센트 (곱연산)
+def_up_unerasable,good,buff,제거 불가한 방어력 증가(100),,,,res/ui/icons/status_effect/def_up.png,sfx_buff_get_1,x,false,3,1,15,0,100,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,0,,,,,,x,x,x,x,방어력 증가,0,1,정수x퍼센트 (곱연산)
+dot_damage_super,bad,dot_dmg,해제 불가한 지속피해,,res/effect/effect_bleed/effect_bleed.vrp,,res/ui/icons/status_effect/dot_super.png,efx_burn,x,false,9,1,20,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,,,,,,x,x,x,x,,0,1,
+groggy,none,groggy,받는 피해 증가,,res/effect/effect_weak_point/effect_weak_point.vrp,,,sfx_debuff,x,false,1,0,10,0,0,0,0,0,0,0,0,0,0,0,0,100,0,0,0,0,0,0,0,0,0,0,0,0,0,,0,,,,,,x,x,x,x,"(해제 되지 않고, 이펙트/사운드 없음)",0,0,최종 데미지에서 곱연산
+curse,none,modify_dmg,저주,저주,,,res/ui/icons/status_effect/fury.png,,x,false,0,2,-1,0,0,0,0,0,0,0,0,0,0,0,-10,10,0,0,0,0,0,0,0,0,0,0,0,0,0,,0,,,,,,x,x,x,x,,,,
+dmg_up,bless,bless,피해량 증가,가하는 피해 증가.,,,,,x,false,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,100,0,0,0,0,0,0,0,0,0,0,0,0,,0,,,,,,x,x,x,x,"(해제 되지 않고, 이펙트/사운드 없음)",0,0,최종 데미지에서 곱연산
+aspd_up_bless,bless,bless,공속증가 주간효과,,,,,,x,false,0,1,15,0,0,0,100,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,0,,,,,,x,x,x,x,"공격 속도 증가 (해제 되지 않고, 이펙트/사운드 없음)",0,0,퍼센트+퍼센트 (합연산)
+atk_up_bless,bless,bless,공증가 주간효과,,,,,,x,false,0,1,15,100,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,0,,,,,,x,x,x,x,"공격력 증가(해제 되지 않고, 이펙트/사운드 없음)",0,0,정수x퍼센트 (곱연산)
+def_up_bless,bless,bless,방증가 주간효과,,,,,,x,false,0,1,15,0,100,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,0,,,,,,x,x,x,x,"방어력 증가(해제 되지 않고, 이펙트/사운드 없음)",0,0,정수x퍼센트 (곱연산)
+groggy_bless,bless,bless,받는 피해 증가 주간효과,,,,,,x,false,0,1,10,0,0,0,0,0,0,0,0,0,0,0,0,100,0,0,0,0,0,0,0,0,0,0,0,0,0,,0,,,,,,x,x,x,x,"받는 피해 증가(해제 되지 않고, 이펙트/사운드 없음)",0,0,최종 데미지에서 곱연산
+hp_up_bless,bless,bless,생명증가 주간효과,,,,,,x,false,0,1,15,0,0,100,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,0,,,,,,x,x,x,x,"생명력 증가(해제 되지 않고, 이펙트/사운드 없음)",0,0,정수x퍼센트 (곱연산)
+dmg_up_over_90,bless,conditional_buff,피해량 증가(hp90%이상),,,,,,x,false,0,1,15,0,0,0,0,0,0,0,0,0,0,0,0,0,100,0,0,0,0,0,0,0,0,0,0,0,0,,0,,over_hp_rate,90,,,x,x,x,x,,0,1,최종 데미지에서 곱연산
+accuracy_bless,bless,bless,효과 적중 증가 주간효과,,,,,,x,false,0,1,15,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,100,0,0,0,0,,0,,,,,,x,x,x,x,"효적 증가(해제 되지 않고, 이펙트/사운드 없음)",0,0,정수x퍼센트 (곱연산)
+recovery_dec_bless,bless,bless,받는 회복량 감소,,,,,,x,false,0,1,15,0,0,0,0,0,0,0,0,0,0,0,-100,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,0,,,,,,x,x,x,x,,0,0,정수x퍼센트 (곱연산)
+sleep_unerasable,none,cc,제거 불가능한 수면,,res/effect/effect_sleep/effect_sleep.spine,,res/ui/icons/status_effect/sleep.png,sfx_debuff,x,true,1,0,10,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,0,,,,1,,x,x,x,x,수면,0,0,
+res_scale_up,none,buff,,,,,,,x,false,100,1,-1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,0,,scale_skill,1,0.02,,x,x,x,x,,0,1,
+skill_chain,none,buff,연쇄스킬,,,,,,x,false,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,0,,,,,,x,x,x,x,,0,1,스킬 연쇄용 상태효과
+atk_up_1,good,buff,비중첩 공격력 증가,,,,res/ui/icons/status_effect/atk_up.png,sfx_buff_get_1,x,false,1,1,15,100,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,0,,,,,,x,x,x,x,공격력 증가,1,1,정수x퍼센트 (곱연산)
+aspd_up_1,good,buff,비중첩 공격 속도 증가,,,,res/ui/icons/status_effect/aspd_up.png,sfx_buff_get_1,x,false,1,1,15,0,0,0,100,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,0,,,,,,x,x,x,x,공격 속도 증가,1,1,퍼센트+퍼센트 (합연산)
+def_up_1,good,buff,비중첩 방어력 증가,,,,res/ui/icons/status_effect/def_up.png,sfx_buff_get_1,x,false,1,1,15,0,100,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,0,,,,,,x,x,x,x,방어력 증가,1,1,정수x퍼센트 (곱연산)
+remove_zombie,none,dispell,좀비 제거,,,res/effect/effect_status_effect_clear/effect_status_effect_clear.vrp,,sfx_heal,x,false,1,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,0,,type;zombie,,,,x,x,x,x,,0,1,
+resistance_up,good,buff,효과 저항 증가,,res/effect/effect_react_armor/effect_react_armor.vrp,,res/ui/icons/status_effect/p_resist.png,sfx_shield,x,false,0,0,10,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,100,0,0,0,,0,,,,,,x,x,x,x,효과 저항 증가,1,1,
+check_skill_guardian,none,modify_dmg,수호,수호를 발동한 드래곤 체크용,,,,,x,false,0,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,0,,,,,,x,x,x,x,수호 체크용 눈에 보이지 않는 버프,,,

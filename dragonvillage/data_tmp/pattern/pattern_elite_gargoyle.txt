@@ -1,0 +1,41 @@
+{
+	"pattern_elite_gargoyle":
+	[			
+		[
+			"a;basic", "w;1", "a;basic", "w;1", "a;5", "a;5", "a;basic", "w;1", "a;basic", "w;1", "a;3", "w;3"
+		]
+    ],
+	
+	"hp_trriger":
+    {
+        "priority":1,
+        "list":
+        [
+            {
+                "hp_percent":75,
+                "pattern":
+                [
+					"m;RM14;500", "a;1", "w;3", "m;RB14;300", "a;basic", "w;1", "a;basic", "w;1",
+					"m;RF12;1000", "a;5", "m;RF14;1000", "a;5", "m;RF16;1000", "a;5"
+                ]
+            },
+			
+			{
+                "hp_percent":50,
+                "pattern":
+                [
+					"m;RM12;500", "a;1", "m;RF14;500", "a;2", "a;basic", "w;1", "a;basic", "w;1", "a;5", "w;0.5", "a;5",
+					"m;RM16;500", "a;1", "m;RF14;500", "a;2", "a;basic", "w;1", "a;basic", "w;1", "a;5", "w;0.5", "a;5"
+                ]
+            },
+			
+			{
+                "hp_percent":25,
+                "pattern":
+                [
+					"m;RM14;1000", "a;1", "m;RB14;500", "a;4", "a;4", "a;4", "a;basic", "w;1", "a;basic"
+                ]
+            }
+        ]
+    }
+}

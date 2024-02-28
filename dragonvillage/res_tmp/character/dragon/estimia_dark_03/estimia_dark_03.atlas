@@ -1,0 +1,181 @@
+
+estimia_dark_03.png
+size: 1327,636
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+estimia_dark_03_arm_01
+  rotate: true
+  xy: 1052, 26
+  size: 85, 105
+  orig: 85, 105
+  offset: 0, 0
+  index: -1
+estimia_dark_03_arm_02
+  rotate: false
+  xy: 1160, 100
+  size: 85, 105
+  orig: 85, 105
+  offset: 0, 0
+  index: -1
+estimia_dark_03_body_01
+  rotate: true
+  xy: 883, 314
+  size: 187, 212
+  orig: 187, 212
+  offset: 0, 0
+  index: -1
+estimia_dark_03_body_02
+  rotate: false
+  xy: 883, 503
+  size: 380, 131
+  orig: 380, 131
+  offset: 0, 0
+  index: -1
+estimia_dark_03_body_03
+  rotate: false
+  xy: 1097, 368
+  size: 129, 133
+  orig: 129, 133
+  offset: 0, 0
+  index: -1
+estimia_dark_03_body_04
+  rotate: true
+  xy: 1097, 300
+  size: 66, 116
+  orig: 66, 116
+  offset: 0, 0
+  index: -1
+estimia_dark_03_body_05
+  rotate: false
+  xy: 1247, 144
+  size: 77, 85
+  orig: 77, 85
+  offset: 0, 0
+  index: -1
+estimia_dark_03_body_06
+  rotate: false
+  xy: 1265, 583
+  size: 46, 51
+  orig: 46, 51
+  offset: 0, 0
+  index: -1
+estimia_dark_03_body_07
+  rotate: false
+  xy: 1249, 95
+  size: 43, 47
+  orig: 43, 47
+  offset: 0, 0
+  index: -1
+estimia_dark_03_effect_02
+  rotate: false
+  xy: 1092, 207
+  size: 106, 91
+  orig: 106, 91
+  offset: 0, 0
+  index: -1
+estimia_dark_03_effect_03
+  rotate: false
+  xy: 2, 2
+  size: 632, 632
+  orig: 632, 632
+  offset: 0, 0
+  index: -1
+estimia_dark_03_eye_01
+  rotate: false
+  xy: 849, 2
+  size: 58, 40
+  orig: 58, 40
+  offset: 0, 0
+  index: -1
+estimia_dark_03_eye_02
+  rotate: true
+  xy: 1265, 532
+  size: 49, 46
+  orig: 49, 46
+  offset: 0, 0
+  index: -1
+estimia_dark_03_foot_01
+  rotate: false
+  xy: 849, 179
+  size: 106, 133
+  orig: 106, 133
+  offset: 0, 0
+  index: -1
+estimia_dark_03_foot_02
+  rotate: false
+  xy: 1215, 231
+  size: 110, 96
+  orig: 110, 96
+  offset: 0, 0
+  index: -1
+estimia_dark_03_hand_01
+  rotate: false
+  xy: 1228, 416
+  size: 97, 85
+  orig: 97, 85
+  offset: 0, 0
+  index: -1
+estimia_dark_03_hand_02
+  rotate: false
+  xy: 1228, 329
+  size: 97, 85
+  orig: 97, 85
+  offset: 0, 0
+  index: -1
+estimia_dark_03_head_01
+  rotate: true
+  xy: 957, 67
+  size: 138, 93
+  orig: 138, 93
+  offset: 0, 0
+  index: -1
+estimia_dark_03_head_02
+  rotate: true
+  xy: 957, 3
+  size: 62, 68
+  orig: 62, 68
+  offset: 0, 0
+  index: -1
+estimia_dark_03_head_03
+  rotate: false
+  xy: 957, 207
+  size: 133, 105
+  orig: 133, 105
+  offset: 0, 0
+  index: -1
+estimia_dark_03_head_04
+  rotate: false
+  xy: 1159, 26
+  size: 88, 72
+  orig: 88, 72
+  offset: 0, 0
+  index: -1
+estimia_dark_03_leg_01
+  rotate: false
+  xy: 849, 44
+  size: 106, 133
+  orig: 106, 133
+  offset: 0, 0
+  index: -1
+estimia_dark_03_leg_02
+  rotate: false
+  xy: 1052, 113
+  size: 106, 92
+  orig: 106, 92
+  offset: 0, 0
+  index: -1
+estimia_dark_03_wing_01
+  rotate: false
+  xy: 636, 343
+  size: 245, 291
+  orig: 245, 291
+  offset: 0, 0
+  index: -1
+estimia_dark_03_wing_02
+  rotate: false
+  xy: 636, 40
+  size: 211, 301
+  orig: 211, 301
+  offset: 0, 0
+  index: -1

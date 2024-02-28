@@ -1,0 +1,244 @@
+
+angra_water_02.png
+size: 1985,491
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+angra_water_02_arm_01
+  rotate: true
+  xy: 399, 6
+  size: 128, 147
+  orig: 128, 147
+  offset: 0, 0
+  index: -1
+angra_water_02_arm_02
+  rotate: true
+  xy: 1585, 319
+  size: 170, 133
+  orig: 170, 133
+  offset: 0, 0
+  index: -1
+angra_water_02_arm_03
+  rotate: false
+  xy: 697, 4
+  size: 208, 180
+  orig: 208, 180
+  offset: 0, 0
+  index: -1
+angra_water_02_body_01
+  rotate: false
+  xy: 332, 136
+  size: 268, 353
+  orig: 268, 353
+  offset: 0, 0
+  index: -1
+angra_water_02_effect_01
+  rotate: false
+  xy: 1462, 10
+  size: 206, 206
+  orig: 206, 206
+  offset: 0, 0
+  index: -1
+angra_water_02_effect_02
+  rotate: false
+  xy: 1670, 60
+  size: 166, 166
+  orig: 166, 166
+  offset: 0, 0
+  index: -1
+angra_water_02_effect_03
+  rotate: false
+  xy: 1838, 37
+  size: 142, 142
+  orig: 142, 142
+  offset: 0, 0
+  index: -1
+angra_water_02_effect_04
+  rotate: false
+  xy: 1075, 2
+  size: 200, 189
+  orig: 200, 189
+  offset: 0, 0
+  index: -1
+angra_water_02_effect_05
+  rotate: true
+  xy: 1038, 278
+  size: 211, 199
+  orig: 211, 199
+  offset: 0, 0
+  index: -1
+angra_water_02_effect_06
+  rotate: true
+  xy: 1838, 181
+  size: 161, 144
+  orig: 161, 144
+  offset: 0, 0
+  index: -1
+angra_water_02_effect_07
+  rotate: true
+  xy: 907, 14
+  size: 170, 166
+  orig: 170, 166
+  offset: 0, 0
+  index: -1
+angra_water_02_effect_08
+  rotate: false
+  xy: 1838, 344
+  size: 145, 145
+  orig: 145, 145
+  offset: 0, 0
+  index: -1
+angra_water_02_effect_09
+  rotate: false
+  xy: 1457, 218
+  size: 58, 61
+  orig: 58, 61
+  offset: 0, 0
+  index: -1
+angra_water_02_finger_01
+  rotate: false
+  xy: 328, 14
+  size: 69, 109
+  orig: 69, 109
+  offset: 0, 0
+  index: -1
+angra_water_02_finger_02
+  rotate: true
+  xy: 1082, 196
+  size: 80, 56
+  orig: 80, 56
+  offset: 0, 0
+  index: -1
+angra_water_02_finger_03
+  rotate: true
+  xy: 919, 189
+  size: 70, 55
+  orig: 70, 55
+  offset: 0, 0
+  index: -1
+angra_water_02_finger_04
+  rotate: true
+  xy: 1219, 202
+  size: 74, 84
+  orig: 74, 84
+  offset: 0, 0
+  index: -1
+angra_water_02_finger_05
+  rotate: true
+  xy: 848, 186
+  size: 73, 69
+  orig: 73, 69
+  offset: 0, 0
+  index: -1
+angra_water_02_finger_06
+  rotate: false
+  xy: 1399, 211
+  size: 56, 65
+  orig: 56, 65
+  offset: 0, 0
+  index: -1
+angra_water_02_hair_01
+  rotate: true
+  xy: 1140, 197
+  size: 79, 77
+  orig: 79, 77
+  offset: 0, 0
+  index: -1
+angra_water_02_hair_02
+  rotate: true
+  xy: 1305, 211
+  size: 65, 92
+  orig: 65, 92
+  offset: 0, 0
+  index: -1
+angra_water_02_hair_03
+  rotate: true
+  xy: 1239, 278
+  size: 211, 159
+  orig: 211, 159
+  offset: 0, 0
+  index: -1
+angra_water_02_hand_01
+  rotate: false
+  xy: 548, 11
+  size: 147, 123
+  orig: 147, 123
+  offset: 0, 0
+  index: -1
+angra_water_02_head_01
+  rotate: true
+  xy: 178, 5
+  size: 118, 148
+  orig: 118, 148
+  offset: 0, 0
+  index: -1
+angra_water_02_horn_01
+  rotate: false
+  xy: 1720, 332
+  size: 106, 157
+  orig: 106, 157
+  offset: 0, 0
+  index: -1
+angra_water_02_horn_02
+  rotate: true
+  xy: 976, 193
+  size: 66, 104
+  orig: 66, 104
+  offset: 0, 0
+  index: -1
+angra_water_02_kadeatheye_01
+  rotate: false
+  xy: 1688, 230
+  size: 87, 87
+  orig: 87, 87
+  offset: 0, 0
+  index: -1
+angra_water_02_leg_01
+  rotate: true
+  xy: 2, 5
+  size: 118, 174
+  orig: 118, 174
+  offset: 0, 0
+  index: -1
+angra_water_02_sholder_01
+  rotate: false
+  xy: 1585, 228
+  size: 101, 89
+  orig: 101, 89
+  offset: 0, 0
+  index: -1
+angra_water_02_tail_01
+  rotate: true
+  xy: 1400, 281
+  size: 208, 183
+  orig: 208, 183
+  offset: 0, 0
+  index: -1
+angra_water_02_tail_02
+  rotate: true
+  xy: 848, 261
+  size: 228, 188
+  orig: 228, 188
+  offset: 0, 0
+  index: -1
+angra_water_02_wing_01
+  rotate: false
+  xy: 2, 125
+  size: 328, 364
+  orig: 328, 364
+  offset: 0, 0
+  index: -1
+angra_water_02_wing_02
+  rotate: false
+  xy: 602, 186
+  size: 244, 303
+  orig: 244, 303
+  offset: 0, 0
+  index: -1
+angra_water_02_wing_03
+  rotate: true
+  xy: 1277, 7
+  size: 193, 183
+  orig: 193, 183
+  offset: 0, 0
+  index: -1

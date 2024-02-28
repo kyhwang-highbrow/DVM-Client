@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+    <dict>
+        <key>frames</key>
+        <dict>
+            <key>effect_particle_dark_01.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{2,2},{50,50}}</string>
+                <key>offset</key>
+                <string>{0,0}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{0,0},{50,50}}</string>
+                <key>sourceSize</key>
+                <string>{50,50}</string>
+            </dict>
+        </dict>
+        <key>metadata</key>
+        <dict>
+            <key>format</key>
+            <integer>2</integer>
+            <key>realTextureFileName</key>
+            <string>effect_particle_dark.png</string>
+            <key>size</key>
+            <string>{54,54}</string>
+            <key>smartupdate</key>
+            <string>$TexturePacker:SmartUpdate:8fe3568a8d8175830e29fbd5f1e3aabc:3e2445d6d95ae25528502c0576d56967:c3307076368751270da6cd79e39267b7$</string>
+            <key>textureFileName</key>
+            <string>effect_particle_dark.png</string>
+        </dict>
+    </dict>
+</plist>

@@ -1,0 +1,120 @@
+{
+	"skill_elite_lizard_man_shaman_1":
+	{
+		"ver":2,
+		"attack_value":
+		[
+			{
+				"idx":1,
+				"res":"res/missile/missile_flame/missile_flame_@.vrp",
+				"body":[0,0,30],
+                "count":4,
+				"damage_rate":33,
+                "period":0.8,
+                "scale":1,
+				"time":0,
+				"speed":700,
+				"accel":0,
+				"l_limit_speed":0,
+				"accel_delay":0.1,
+				"angular_velocity":0,
+				"is_abs_pos":true,
+				"offset":[700,500],
+				"vanish_time":10,
+				"dir_array":['random',-125,-100],
+				
+                "effect":
+                {
+                    "motion_streak":"res/missile/motion_streak/motion_streak_seed.png",
+                    "rotation":false,
+                    "afterimage":false
+                }				
+			},
+			
+			{
+				"idx":1,
+				"res":"res/missile/missile_flame/missile_flame_@.vrp",
+				"body":[0,0,30],
+                "count":5,
+				"damage_rate":33,
+                "period":0.6,
+                "scale":1,
+				"time":0.4,
+				"speed":700,
+				"accel":0,
+				"l_limit_speed":0,
+				"accel_delay":0.1,
+				"angular_velocity":0,
+				"is_abs_pos":true,
+				"offset":[550,500],
+				"vanish_time":10,
+				"dir_array":['random',-125,-100],
+				
+				
+                "effect":
+                {
+                    "motion_streak":"res/missile/motion_streak/motion_streak_seed.png",
+                    "rotation":false,
+                    "afterimage":false
+                }				
+			},
+			
+			{
+				"idx":1,
+				"res":"res/missile/missile_flame/missile_flame_@.vrp",
+				"body":[0,0,30],
+                "count":6,
+				"damage_rate":33,
+                "period":0.2,
+                "scale":1,
+				"time":0.4,
+				"speed":700,
+				"accel":0,
+				"l_limit_speed":0,
+				"accel_delay":0.1,
+				"angular_velocity":0,
+				"is_abs_pos":true,
+				"offset":[400,500],
+				"vanish_time":10,
+				"dir_array":['random',-125,-100],
+				
+				
+                "effect":
+                {
+                    "motion_streak":"res/missile/motion_streak/motion_streak_seed.png",
+                    "rotation":false,
+                    "afterimage":false
+                }				
+			},
+			
+			{
+				"idx":1,
+				"res":"res/missile/missile_flame/missile_flame_@.vrp",
+				"body":[0,0,30],
+                "count":3,
+				"damage_rate":33,
+                "period":0.4,
+                "scale":1,
+				"time":0.6,
+				"speed":700,
+				"accel":0,
+				"l_limit_speed":0,
+				"accel_delay":0.1,
+				"angular_velocity":0,
+				"is_abs_pos":true,
+				"offset":[250,500],
+				"vanish_time":10,
+				"dir_array":['random',-125,-100],
+				
+				
+                "effect":
+                {
+                    "motion_streak":"res/missile/motion_streak/motion_streak_seed.png",
+                    "rotation":false,
+                    "afterimage":false
+                }				
+			}
+		]
+	}
+}
+

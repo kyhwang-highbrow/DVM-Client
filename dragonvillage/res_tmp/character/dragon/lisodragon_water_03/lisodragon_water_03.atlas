@@ -1,0 +1,251 @@
+
+lisodragon_water_03.png
+size: 648,1038
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+lisodragon_water_03_Pillow_01
+  rotate: false
+  xy: 2, 748
+  size: 327, 288
+  orig: 327, 288
+  offset: 0, 0
+  index: -1
+lisodragon_water_03_Pillow_02
+  rotate: false
+  xy: 536, 900
+  size: 105, 136
+  orig: 105, 136
+  offset: 0, 0
+  index: -1
+lisodragon_water_03_arm_01
+  rotate: false
+  xy: 236, 86
+  size: 177, 185
+  orig: 177, 185
+  offset: 0, 0
+  index: -1
+lisodragon_water_03_arm_02
+  rotate: true
+  xy: 331, 608
+  size: 177, 185
+  orig: 177, 185
+  offset: 0, 0
+  index: -1
+lisodragon_water_03_body_01
+  rotate: false
+  xy: 2, 488
+  size: 314, 258
+  orig: 314, 258
+  offset: 0, 0
+  index: -1
+lisodragon_water_03_body_02
+  rotate: false
+  xy: 415, 69
+  size: 147, 94
+  orig: 147, 94
+  offset: 0, 0
+  index: -1
+lisodragon_water_03_ear_01
+  rotate: false
+  xy: 83, 4
+  size: 71, 77
+  orig: 71, 77
+  offset: 0, 0
+  index: -1
+lisodragon_water_03_ear_02
+  rotate: false
+  xy: 564, 132
+  size: 60, 62
+  orig: 60, 62
+  offset: 0, 0
+  index: -1
+lisodragon_water_03_effect_01
+  rotate: false
+  xy: 547, 433
+  size: 98, 98
+  orig: 98, 98
+  offset: 0, 0
+  index: -1
+lisodragon_water_03_effect_02
+  rotate: false
+  xy: 547, 333
+  size: 98, 98
+  orig: 98, 98
+  offset: 0, 0
+  index: -1
+lisodragon_water_03_effect_03
+  rotate: false
+  xy: 255, 273
+  size: 150, 213
+  orig: 150, 213
+  offset: 0, 0
+  index: -1
+lisodragon_water_03_eye_01
+  rotate: false
+  xy: 317, 2
+  size: 60, 46
+  orig: 60, 46
+  offset: 0, 0
+  index: -1
+lisodragon_water_03_hand_01
+  rotate: false
+  xy: 518, 533
+  size: 114, 101
+  orig: 114, 101
+  offset: 0, 0
+  index: -1
+lisodragon_water_03_hand_02
+  rotate: false
+  xy: 518, 636
+  size: 114, 146
+  orig: 114, 146
+  offset: 0, 0
+  index: -1
+lisodragon_water_03_head_01
+  rotate: false
+  xy: 2, 83
+  size: 232, 209
+  orig: 232, 209
+  offset: 0, 0
+  index: -1
+lisodragon_water_03_honey_01
+  rotate: true
+  xy: 415, 165
+  size: 141, 123
+  orig: 141, 123
+  offset: 0, 0
+  index: -1
+lisodragon_water_03_honey_02
+  rotate: false
+  xy: 318, 489
+  size: 182, 117
+  orig: 182, 117
+  offset: 0, 0
+  index: -1
+lisodragon_water_03_honey_03
+  rotate: false
+  xy: 236, 52
+  size: 101, 32
+  orig: 101, 32
+  offset: 0, 0
+  index: -1
+lisodragon_water_03_honey_eye_01
+  rotate: true
+  xy: 540, 200
+  size: 106, 38
+  orig: 106, 38
+  offset: 0, 0
+  index: -1
+lisodragon_water_03_honey_mouth_02
+  rotate: false
+  xy: 232, 9
+  size: 83, 41
+  orig: 83, 41
+  offset: 0, 0
+  index: -1
+lisodragon_water_03_honeybee_body_01
+  rotate: false
+  xy: 2, 2
+  size: 79, 79
+  orig: 79, 79
+  offset: 0, 0
+  index: -1
+lisodragon_water_03_honeybee_body_02
+  rotate: false
+  xy: 156, 8
+  size: 74, 73
+  orig: 74, 73
+  offset: 0, 0
+  index: -1
+lisodragon_water_03_honeybee_body_03
+  rotate: false
+  xy: 502, 489
+  size: 40, 42
+  orig: 40, 42
+  offset: 0, 0
+  index: -1
+lisodragon_water_03_honeybee_eye_01
+  rotate: true
+  xy: 611, 70
+  size: 60, 35
+  orig: 60, 35
+  offset: 0, 0
+  index: -1
+lisodragon_water_03_honeybee_head_01
+  rotate: true
+  xy: 580, 196
+  size: 70, 58
+  orig: 70, 58
+  offset: 0, 0
+  index: -1
+lisodragon_water_03_honeybee_wing_01
+  rotate: false
+  xy: 564, 77
+  size: 45, 53
+  orig: 45, 53
+  offset: 0, 0
+  index: -1
+lisodragon_water_03_honeybee_wing_02
+  rotate: true
+  xy: 379, 3
+  size: 45, 53
+  orig: 45, 53
+  offset: 0, 0
+  index: -1
+lisodragon_water_03_honeybee_wing_03
+  rotate: false
+  xy: 434, 14
+  size: 45, 53
+  orig: 45, 53
+  offset: 0, 0
+  index: -1
+lisodragon_water_03_honeybee_wing_04
+  rotate: false
+  xy: 580, 268
+  size: 66, 63
+  orig: 66, 63
+  offset: 0, 0
+  index: -1
+lisodragon_water_03_honeybeer_ear_01
+  rotate: true
+  xy: 339, 50
+  size: 34, 64
+  orig: 34, 64
+  offset: 0, 0
+  index: -1
+lisodragon_water_03_honeybeer_ear_02
+  rotate: true
+  xy: 481, 32
+  size: 35, 57
+  orig: 35, 57
+  offset: 0, 0
+  index: -1
+lisodragon_water_03_leg_01
+  rotate: false
+  xy: 331, 787
+  size: 203, 249
+  orig: 203, 249
+  offset: 0, 0
+  index: -1
+lisodragon_water_03_leg_02
+  rotate: false
+  xy: 2, 294
+  size: 251, 192
+  orig: 251, 192
+  offset: 0, 0
+  index: -1
+lisodragon_water_03_mouth_01
+  rotate: true
+  xy: 536, 784
+  size: 114, 108
+  orig: 114, 108
+  offset: 0, 0
+  index: -1
+lisodragon_water_03_wing_01
+  rotate: false
+  xy: 407, 308
+  size: 138, 179
+  orig: 138, 179
+  offset: 0, 0
+  index: -1

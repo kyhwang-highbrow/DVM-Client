@@ -1,0 +1,377 @@
+
+envy_all_03.png
+size: 2029,1479
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+effect_charging
+  rotate: true
+  xy: 1450, 63
+  size: 200, 189
+  orig: 200, 189
+  offset: 0, 0
+  index: -1
+effect_light_01
+  rotate: true
+  xy: 1249, 28
+  size: 211, 199
+  orig: 211, 199
+  offset: 0, 0
+  index: -1
+effect_light_circle_01
+  rotate: false
+  xy: 1641, 87
+  size: 179, 180
+  orig: 179, 180
+  offset: 0, 0
+  index: -1
+effect_light_star1
+  rotate: false
+  xy: 2, 146
+  size: 381, 327
+  orig: 381, 327
+  offset: 0, 0
+  index: -1
+effect_slash
+  rotate: false
+  xy: 1617, 269
+  size: 248, 204
+  orig: 248, 204
+  offset: 0, 0
+  index: -1
+effect_smmok
+  rotate: false
+  xy: 385, 174
+  size: 342, 299
+  orig: 342, 299
+  offset: 0, 0
+  index: -1
+effect_smoke_001
+  rotate: false
+  xy: 2, 977
+  size: 500, 500
+  orig: 500, 500
+  offset: 0, 0
+  index: -1
+effect_smoke_002
+  rotate: false
+  xy: 2, 475
+  size: 500, 500
+  orig: 500, 500
+  offset: 0, 0
+  index: -1
+effect_smoke_003
+  rotate: false
+  xy: 504, 977
+  size: 500, 500
+  orig: 500, 500
+  offset: 0, 0
+  index: -1
+effect_smoke_004
+  rotate: false
+  xy: 504, 475
+  size: 500, 500
+  orig: 500, 500
+  offset: 0, 0
+  index: -1
+effect_smoke_005
+  rotate: false
+  xy: 1006, 977
+  size: 500, 500
+  orig: 500, 500
+  offset: 0, 0
+  index: -1
+effect_smoke_006
+  rotate: false
+  xy: 1006, 475
+  size: 500, 500
+  orig: 500, 500
+  offset: 0, 0
+  index: -1
+effect_smoke_007
+  rotate: false
+  xy: 1508, 977
+  size: 500, 500
+  orig: 500, 500
+  offset: 0, 0
+  index: -1
+effect_smoke_008
+  rotate: false
+  xy: 1508, 475
+  size: 500, 500
+  orig: 500, 500
+  offset: 0, 0
+  index: -1
+effect_stun_06
+  rotate: false
+  xy: 1867, 270
+  size: 35, 33
+  orig: 35, 33
+  offset: 0, 0
+  index: -1
+envy_all_03_acc_01
+  rotate: false
+  xy: 867, 2
+  size: 64, 98
+  orig: 64, 98
+  offset: 0, 0
+  index: -1
+envy_all_03_acc_02
+  rotate: true
+  xy: 1919, 88
+  size: 85, 108
+  orig: 85, 108
+  offset: 0, 0
+  index: -1
+envy_all_03_acc_03
+  rotate: true
+  xy: 550, 4
+  size: 74, 95
+  orig: 74, 95
+  offset: 0, 0
+  index: -1
+envy_all_03_acc_04
+  rotate: true
+  xy: 647, 5
+  size: 73, 85
+  orig: 73, 85
+  offset: 0, 0
+  index: -1
+envy_all_03_acc_05
+  rotate: true
+  xy: 1919, 2
+  size: 84, 87
+  orig: 84, 87
+  offset: 0, 0
+  index: -1
+envy_all_03_body_01
+  rotate: false
+  xy: 2, 2
+  size: 125, 142
+  orig: 125, 142
+  offset: 0, 0
+  index: -1
+envy_all_03_body_02
+  rotate: true
+  xy: 851, 102
+  size: 91, 102
+  orig: 91, 102
+  offset: 0, 0
+  index: -1
+envy_all_03_body_03
+  rotate: false
+  xy: 729, 100
+  size: 120, 93
+  orig: 120, 93
+  offset: 0, 0
+  index: -1
+envy_all_03_eye_01
+  rotate: false
+  xy: 1728, 2
+  size: 35, 29
+  orig: 35, 29
+  offset: 0, 0
+  index: -1
+envy_all_03_eye_02
+  rotate: false
+  xy: 1765, 2
+  size: 35, 29
+  orig: 35, 29
+  offset: 0, 0
+  index: -1
+envy_all_03_eye_03
+  rotate: false
+  xy: 200, 5
+  size: 33, 31
+  orig: 33, 31
+  offset: 0, 0
+  index: -1
+envy_all_03_eye_04
+  rotate: true
+  xy: 129, 2
+  size: 34, 32
+  orig: 34, 32
+  offset: 0, 0
+  index: -1
+envy_all_03_eye_05
+  rotate: true
+  xy: 1012, 13
+  size: 27, 29
+  orig: 27, 29
+  offset: 0, 0
+  index: -1
+envy_all_03_eye_06
+  rotate: true
+  xy: 1249, 2
+  size: 24, 26
+  orig: 24, 26
+  offset: 0, 0
+  index: -1
+envy_all_03_eyebrow_01
+  rotate: true
+  xy: 1012, 42
+  size: 43, 44
+  orig: 43, 44
+  offset: 0, 0
+  index: -1
+envy_all_03_head_01
+  rotate: false
+  xy: 277, 29
+  size: 106, 115
+  orig: 106, 115
+  offset: 0, 0
+  index: -1
+envy_all_03_head_02
+  rotate: false
+  xy: 933, 12
+  size: 77, 73
+  orig: 77, 73
+  offset: 0, 0
+  index: -1
+envy_all_03_head_03
+  rotate: false
+  xy: 1532, 13
+  size: 86, 48
+  orig: 86, 48
+  offset: 0, 0
+  index: -1
+envy_all_03_head_04
+  rotate: false
+  xy: 163, 3
+  size: 35, 33
+  orig: 35, 33
+  offset: 0, 0
+  index: -1
+envy_all_03_head_05
+  rotate: true
+  xy: 734, 2
+  size: 96, 64
+  orig: 96, 64
+  offset: 0, 0
+  index: -1
+envy_all_03_horn_01
+  rotate: true
+  xy: 1802, 20
+  size: 40, 66
+  orig: 40, 66
+  offset: 0, 0
+  index: -1
+envy_all_03_horn_02
+  rotate: true
+  xy: 1822, 62
+  size: 67, 95
+  orig: 67, 95
+  offset: 0, 0
+  index: -1
+envy_all_03_horn_03
+  rotate: true
+  xy: 1870, 15
+  size: 45, 46
+  orig: 45, 46
+  offset: 0, 0
+  index: -1
+envy_all_03_horn_04
+  rotate: true
+  xy: 1641, 21
+  size: 64, 85
+  orig: 64, 85
+  offset: 0, 0
+  index: -1
+envy_all_03_horn_05
+  rotate: true
+  xy: 1728, 33
+  size: 52, 72
+  orig: 52, 72
+  offset: 0, 0
+  index: -1
+envy_all_03_neck_01
+  rotate: true
+  xy: 1919, 175
+  size: 128, 101
+  orig: 128, 101
+  offset: 0, 0
+  index: -1
+envy_all_03_neck_02
+  rotate: false
+  xy: 550, 80
+  size: 176, 92
+  orig: 176, 92
+  offset: 0, 0
+  index: -1
+envy_all_03_tail_01
+  rotate: false
+  xy: 1058, 241
+  size: 268, 232
+  orig: 268, 232
+  offset: 0, 0
+  index: -1
+envy_all_03_tail_02
+  rotate: true
+  xy: 129, 38
+  size: 106, 146
+  orig: 106, 146
+  offset: 0, 0
+  index: -1
+envy_all_03_wing_01
+  rotate: false
+  xy: 729, 195
+  size: 327, 278
+  orig: 327, 278
+  offset: 0, 0
+  index: -1
+envy_all_03_wing_02
+  rotate: false
+  xy: 1328, 265
+  size: 287, 208
+  orig: 287, 208
+  offset: 0, 0
+  index: -1
+envy_all_03_wing_03
+  rotate: false
+  xy: 385, 2
+  size: 163, 170
+  orig: 163, 170
+  offset: 0, 0
+  index: -1
+envy_all_03_wing_04
+  rotate: true
+  xy: 955, 87
+  size: 106, 80
+  orig: 106, 80
+  offset: 0, 0
+  index: -1
+envy_all_03_wing_05
+  rotate: false
+  xy: 800, 11
+  size: 65, 87
+  orig: 65, 87
+  offset: 0, 0
+  index: -1
+envy_all_03_wing_06
+  rotate: false
+  xy: 1867, 305
+  size: 134, 168
+  orig: 134, 168
+  offset: 0, 0
+  index: -1
+envy_all_03_wing_07
+  rotate: true
+  xy: 1822, 131
+  size: 136, 95
+  orig: 136, 95
+  offset: 0, 0
+  index: -1
+envy_all_03_wing_08
+  rotate: false
+  xy: 1450, 2
+  size: 80, 59
+  orig: 80, 59
+  offset: 0, 0
+  index: -1
+envy_all_03_wing_09
+  rotate: true
+  xy: 1058, 2
+  size: 237, 189
+  orig: 237, 189
+  offset: 0, 0
+  index: -1

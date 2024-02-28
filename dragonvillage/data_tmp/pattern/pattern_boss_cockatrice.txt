@@ -1,0 +1,40 @@
+{
+    "pattern_boss_cockatrice":
+    [        
+        [
+            "a;basic","w;2","a;basic","w;2","a;1", "w;2", "a;2", "w;3"
+        ]
+    ],
+	
+    "hp_trriger":
+    {
+        "priority":1,
+        "list":
+        [
+            {
+                "hp_percent":80,
+                "pattern":
+                [
+                    "a;1","a;1","w;2", "a;3", "w;2", "a;2", "w;3", "a;basic", "w;2"
+                ]
+            },
+			
+            {
+                "hp_percent":40,
+                "pattern":
+                [
+                    "a;4", "w;2", "a;5", "w;2", "a;3", "w;2", "a;2", "w;2", "a;1","w;2"
+                ]
+            }
+        ]
+
+    },
+	"ani_mix":
+	[
+        "idle;attack;0.1",
+        "idle;idle;0.1",
+        "attack;idle;0.1",
+		"skill_4_appear;idle;0.1",
+		"idle;skill_4_appear;0.1"
+    ]
+}

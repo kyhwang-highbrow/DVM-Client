@@ -1,0 +1,118 @@
+
+elite_runeguard2_all.png
+size: 1602,1549
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+elite_runeguard2_all_arm
+  rotate: false
+  xy: 655, 9
+  size: 153, 183
+  orig: 153, 183
+  offset: 0, 0
+  index: -1
+elite_runeguard2_all_backeffect
+  rotate: true
+  xy: 783, 392
+  size: 559, 561
+  orig: 559, 561
+  offset: 0, 0
+  index: -1
+elite_runeguard2_all_effect01
+  rotate: true
+  xy: 1226, 28
+  size: 261, 354
+  orig: 261, 354
+  offset: 0, 0
+  index: -1
+elite_runeguard2_all_face
+  rotate: false
+  xy: 479, 433
+  size: 298, 389
+  orig: 298, 389
+  offset: 0, 0
+  index: -1
+elite_runeguard2_all_faceeffect
+  rotate: true
+  xy: 479, 194
+  size: 237, 287
+  orig: 237, 287
+  offset: 0, 0
+  index: -1
+elite_runeguard2_all_mid
+  rotate: true
+  xy: 479, 2
+  size: 190, 174
+  orig: 190, 174
+  offset: 0, 0
+  index: -1
+elite_runeguard2_all_pointeffect01
+  rotate: false
+  xy: 1481, 1470
+  size: 87, 77
+  orig: 87, 77
+  offset: 0, 0
+  index: -1
+elite_runeguard2_all_pointeffect02
+  rotate: false
+  xy: 783, 953
+  size: 659, 148
+  orig: 659, 148
+  offset: 0, 0
+  index: -1
+elite_runeguard2_all_shoulder01
+  rotate: false
+  xy: 1444, 869
+  size: 154, 232
+  orig: 154, 232
+  offset: 0, 0
+  index: -1
+elite_runeguard2_all_shoulder02
+  rotate: true
+  xy: 1346, 291
+  size: 162, 229
+  orig: 162, 229
+  offset: 0, 0
+  index: -1
+elite_runeguard2_all_skill01
+  rotate: false
+  xy: 424, 824
+  size: 357, 723
+  orig: 357, 723
+  offset: 0, 0
+  index: -1
+elite_runeguard2_all_skill02
+  rotate: false
+  xy: 2, 784
+  size: 420, 763
+  orig: 420, 763
+  offset: 0, 0
+  index: -1
+elite_runeguard2_all_stick
+  rotate: true
+  xy: 783, 1103
+  size: 444, 696
+  orig: 444, 696
+  offset: 0, 0
+  index: -1
+elite_runeguard2_all_stickeffect01
+  rotate: false
+  xy: 2, 57
+  size: 475, 725
+  orig: 475, 725
+  offset: 0, 0
+  index: -1
+elite_runeguard2_all_wing01
+  rotate: true
+  xy: 810, 25
+  size: 365, 414
+  orig: 365, 414
+  offset: 0, 0
+  index: -1
+elite_runeguard2_all_wing02
+  rotate: false
+  xy: 1346, 455
+  size: 254, 412
+  orig: 254, 412
+  offset: 0, 0
+  index: -1

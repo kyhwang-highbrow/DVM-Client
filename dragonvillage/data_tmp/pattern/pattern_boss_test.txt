@@ -1,0 +1,32 @@
+{
+    "pattern_boss_test":
+    [        
+        [
+			"a;1", "w;5"
+        ]
+    ],
+	
+    "hp_trriger":
+    {
+        "priority":1,
+        "list":
+        [
+            {
+                "hp_percent":1,
+                "pattern":
+                [
+					"a;1", "w;5"
+                ]
+            }
+        ]
+    },
+	
+	"ani_mix":
+	[
+        "idle;attack;0.1",
+        "idle;idle;0.1",
+        "attack;idle;0.1",
+		"skill_4_appear;idle;0.1",
+		"idle;skill_4_appear;0.1"
+    ]
+}

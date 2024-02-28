@@ -1,0 +1,118 @@
+
+serpentdragon_light_03.png
+size: 392,1026
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+serpentdragon_light_03_body_01
+  rotate: false
+  xy: 2, 747
+  size: 232, 277
+  orig: 232, 277
+  offset: 0, 0
+  index: -1
+serpentdragon_light_03_body_02
+  rotate: false
+  xy: 2, 569
+  size: 158, 176
+  orig: 158, 176
+  offset: 0, 0
+  index: -1
+serpentdragon_light_03_effect_02
+  rotate: true
+  xy: 2, 281
+  size: 286, 150
+  orig: 286, 150
+  offset: 0, 0
+  index: -1
+serpentdragon_light_03_effect_03
+  rotate: false
+  xy: 2, 129
+  size: 286, 150
+  orig: 286, 150
+  offset: 0, 0
+  index: -1
+serpentdragon_light_03_effect_04
+  rotate: true
+  xy: 154, 281
+  size: 286, 150
+  orig: 286, 150
+  offset: 0, 0
+  index: -1
+serpentdragon_light_03_effect_05
+  rotate: true
+  xy: 236, 738
+  size: 286, 150
+  orig: 286, 150
+  offset: 0, 0
+  index: -1
+serpentdragon_light_03_eye_01
+  rotate: true
+  xy: 200, 581
+  size: 19, 17
+  orig: 19, 17
+  offset: 0, 0
+  index: -1
+serpentdragon_light_03_eye_02
+  rotate: false
+  xy: 290, 201
+  size: 19, 17
+  orig: 19, 17
+  offset: 0, 0
+  index: -1
+serpentdragon_light_03_eye_03
+  rotate: false
+  xy: 222, 743
+  size: 2, 2
+  orig: 2, 2
+  offset: 0, 0
+  index: -1
+serpentdragon_light_03_head_01
+  rotate: false
+  xy: 222, 588
+  size: 151, 148
+  orig: 151, 148
+  offset: 0, 0
+  index: -1
+serpentdragon_light_03_head_02
+  rotate: true
+  xy: 162, 569
+  size: 31, 36
+  orig: 31, 36
+  offset: 0, 0
+  index: -1
+serpentdragon_light_03_head_03
+  rotate: true
+  xy: 290, 220
+  size: 59, 52
+  orig: 59, 52
+  offset: 0, 0
+  index: -1
+serpentdragon_light_03_head_06
+  rotate: true
+  xy: 162, 677
+  size: 68, 58
+  orig: 68, 58
+  offset: 0, 0
+  index: -1
+serpentdragon_light_03_tail_01
+  rotate: true
+  xy: 162, 602
+  size: 73, 56
+  orig: 73, 56
+  offset: 0, 0
+  index: -1
+serpentdragon_light_03_wing_01
+  rotate: false
+  xy: 2, 2
+  size: 214, 125
+  orig: 214, 125
+  offset: 0, 0
+  index: -1
+serpentdragon_light_03_wing_02
+  rotate: false
+  xy: 218, 19
+  size: 172, 108
+  orig: 172, 108
+  offset: 0, 0
+  index: -1

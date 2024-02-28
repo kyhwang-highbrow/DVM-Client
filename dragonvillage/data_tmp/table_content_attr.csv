@@ -1,0 +1,11 @@
+key,content_code,type,attr,atk_multi,def_multi,hp_multi,drag_cool_add,atk_multi_debuff,def_multi_debuff,hp_multi_debuff,drag_cool_add_debuff
+world_raid_earth_buff,world_raid,buff,earth,30,30,30,30,,,,
+world_raid_non_earth_debuff,world_raid,debuff,"water,fire,light,dark",-70,-70,-70,-70,-70,-70,-70,-70
+world_raid_water_buff,world_raid,buff,water,30,30,30,30,,,,
+world_raid_non_water_debuff,world_raid,debuff,"earth,fire,light,dark",-70,-70,-70,-70,-70,-70,-70,-70
+world_raid_fire_buff,world_raid,buff,fire,30,30,30,30,,,,
+world_raid_non_fire_debuff,world_raid,debuff,"earth,water,light,dark",-70,-70,-70,-70,-70,-70,-70,-70
+world_raid_light_buff,world_raid,buff,light,30,30,30,30,,,,
+world_raid_non_light_debuff,world_raid,debuff,"earth,water,fire,dark",-70,-70,-70,-70,-70,-70,-70,-70
+world_raid_dark_buff,world_raid,buff,dark,30,30,30,30,,,,
+world_raid_non_dark_debuff,world_raid,debuff,"earth,water,fire,light",-70,-70,-70,-70,-70,-70,-70,-70

@@ -1,0 +1,55 @@
+
+common_runeminion_all.png
+size: 393,585
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+common_runeminion_all_backeffect
+  rotate: true
+  xy: 2, 347
+  size: 236, 237
+  orig: 236, 237
+  offset: 0, 0
+  index: -1
+common_runeminion_all_runeeffect01
+  rotate: true
+  xy: 2, 205
+  size: 140, 208
+  orig: 140, 208
+  offset: 0, 0
+  index: -1
+common_runeminion_all_runeeffect02
+  rotate: true
+  xy: 272, 110
+  size: 70, 113
+  orig: 70, 113
+  offset: 0, 0
+  index: -1
+common_runeminion_all_runeface01
+  rotate: false
+  xy: 2, 57
+  size: 151, 146
+  orig: 151, 146
+  offset: 0, 0
+  index: -1
+common_runeminion_all_runeface02
+  rotate: false
+  xy: 241, 343
+  size: 140, 240
+  orig: 140, 240
+  offset: 0, 0
+  index: -1
+common_runeminion_all_wing01
+  rotate: true
+  xy: 212, 182
+  size: 159, 179
+  orig: 159, 179
+  offset: 0, 0
+  index: -1
+common_runeminion_all_wing02
+  rotate: false
+  xy: 155, 2
+  size: 115, 178
+  orig: 115, 178
+  offset: 0, 0
+  index: -1

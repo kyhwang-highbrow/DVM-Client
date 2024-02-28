@@ -1,0 +1,76 @@
+
+skill_spin_attack_earth.png
+size: 1024,512
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+skill_spin_attack_earth_arm_02
+  rotate: false
+  xy: 784, 383
+  size: 104, 99
+  orig: 104, 99
+  offset: 0, 0
+  index: -1
+skill_spin_attack_earth_arm_04
+  rotate: false
+  xy: 890, 411
+  size: 68, 71
+  orig: 68, 71
+  offset: 0, 0
+  index: -1
+skill_spin_attack_earth_body_02
+  rotate: false
+  xy: 2, 2
+  size: 125, 164
+  orig: 125, 164
+  offset: 0, 0
+  index: -1
+skill_spin_attack_earth_body_03
+  rotate: false
+  xy: 323, 200
+  size: 125, 164
+  orig: 125, 164
+  offset: 0, 0
+  index: -1
+skill_spin_attack_earth_body_04
+  rotate: false
+  xy: 129, 2
+  size: 125, 164
+  orig: 125, 164
+  offset: 0, 0
+  index: -1
+skill_spin_attack_earth_effect_02
+  rotate: false
+  xy: 323, 366
+  size: 319, 116
+  orig: 319, 116
+  offset: 0, 0
+  index: -1
+skill_spin_attack_earth_effect_03
+  rotate: false
+  xy: 2, 168
+  size: 319, 144
+  orig: 319, 144
+  offset: 0, 0
+  index: -1
+skill_spin_attack_earth_effect_04
+  rotate: false
+  xy: 2, 314
+  size: 319, 168
+  orig: 319, 168
+  offset: 0, 0
+  index: -1
+skill_spin_attack_earth_hand_01
+  rotate: false
+  xy: 450, 233
+  size: 138, 131
+  orig: 138, 131
+  offset: 0, 0
+  index: -1
+skill_spin_attack_earth_hand_02
+  rotate: false
+  xy: 644, 351
+  size: 138, 131
+  orig: 138, 131
+  offset: 0, 0
+  index: -1

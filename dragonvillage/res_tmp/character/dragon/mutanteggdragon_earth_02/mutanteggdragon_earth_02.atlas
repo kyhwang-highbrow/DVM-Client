@@ -1,0 +1,132 @@
+
+mutanteggdragon_earth_02.png
+size: 357,525
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+mutanteggdragon_earth_02_arm_01
+  rotate: false
+  xy: 182, 51
+  size: 50, 64
+  orig: 50, 64
+  offset: 0, 0
+  index: -1
+mutanteggdragon_earth_02_body_01
+  rotate: true
+  xy: 184, 117
+  size: 148, 162
+  orig: 148, 162
+  offset: 0, 0
+  index: -1
+mutanteggdragon_earth_02_ear_01
+  rotate: true
+  xy: 234, 54
+  size: 61, 79
+  orig: 61, 79
+  offset: 0, 0
+  index: -1
+mutanteggdragon_earth_02_eggshell_01
+  rotate: false
+  xy: 2, 239
+  size: 180, 102
+  orig: 180, 102
+  offset: 0, 0
+  index: -1
+mutanteggdragon_earth_02_eggshell_02
+  rotate: false
+  xy: 2, 125
+  size: 178, 112
+  orig: 178, 112
+  offset: 0, 0
+  index: -1
+mutanteggdragon_earth_02_eggshell_03
+  rotate: false
+  xy: 203, 439
+  size: 149, 84
+  orig: 149, 84
+  offset: 0, 0
+  index: -1
+mutanteggdragon_earth_02_eggshell_04
+  rotate: false
+  xy: 203, 353
+  size: 149, 84
+  orig: 149, 84
+  offset: 0, 0
+  index: -1
+mutanteggdragon_earth_02_eggshell_05
+  rotate: false
+  xy: 203, 267
+  size: 149, 84
+  orig: 149, 84
+  offset: 0, 0
+  index: -1
+mutanteggdragon_earth_02_eggshell_06
+  rotate: true
+  xy: 2, 343
+  size: 180, 199
+  orig: 180, 199
+  offset: 0, 0
+  index: -1
+mutanteggdragon_earth_02_eye_01
+  rotate: false
+  xy: 227, 6
+  size: 53, 43
+  orig: 53, 43
+  offset: 0, 0
+  index: -1
+mutanteggdragon_earth_02_eye_02
+  rotate: false
+  xy: 282, 9
+  size: 53, 43
+  orig: 53, 43
+  offset: 0, 0
+  index: -1
+mutanteggdragon_earth_02_face_01
+  rotate: true
+  xy: 337, 87
+  size: 28, 18
+  orig: 28, 18
+  offset: 0, 0
+  index: -1
+mutanteggdragon_earth_02_leg_01
+  rotate: true
+  xy: 140, 4
+  size: 38, 53
+  orig: 38, 53
+  offset: 0, 0
+  index: -1
+mutanteggdragon_earth_02_leg_02
+  rotate: false
+  xy: 195, 2
+  size: 30, 47
+  orig: 30, 47
+  offset: 0, 0
+  index: -1
+mutanteggdragon_earth_02_mouth_01
+  rotate: true
+  xy: 78, 2
+  size: 40, 29
+  orig: 40, 29
+  offset: 0, 0
+  index: -1
+mutanteggdragon_earth_02_mouth_02
+  rotate: true
+  xy: 109, 2
+  size: 40, 29
+  orig: 40, 29
+  offset: 0, 0
+  index: -1
+mutanteggdragon_earth_02_tail_01
+  rotate: true
+  xy: 2, 2
+  size: 121, 74
+  orig: 121, 74
+  offset: 0, 0
+  index: -1
+mutanteggdragon_earth_02_wing_01
+  rotate: false
+  xy: 78, 44
+  size: 102, 79
+  orig: 102, 79
+  offset: 0, 0
+  index: -1

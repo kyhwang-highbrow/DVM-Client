@@ -1,0 +1,67 @@
+{
+	"skill_boss_runeguardian_1":
+	{
+		"attack_value":
+		[
+			{
+				"comment":"실탄",
+				
+				"idx":1,
+				"target_idx":[1],
+				"res":"res/effect/effect_hit_bomb_@/effect_hit_bomb_@.spine",
+				"visual":"idle",
+				"body":[0,0,20],
+                "scale":1,
+				"damage_rate":100,
+                "count":1,
+                "period":0.25,
+				"time":2,
+				"speed":0,
+				"angular_velocity":0,
+				"offset":['target','target'],
+                "dir":0,
+				"map_shake_time":0.5,
+				"missile_type":"pass",
+				"fadeout_time":0.1
+			},
+			
+			{
+				"comment":"이펙트",
+				
+				"idx":1,
+				"target_idx":[1],
+				"res":"res/effect/skill_gdragon_laser/skill_gdragon_laser_@.vrp",
+				"visual":"idle",
+				"body":[0,0,0],
+                "scale":1.5,
+                "count":1,
+                "period":0,
+				"time":1,
+				"speed":0,
+				"angular_velocity":0,
+				"offset":[0,0],
+                "dir":0,
+				"fadeout_time":1
+			},
+			
+			{
+				"comment":"시작 지점 이펙트",
+				
+				"idx":1,
+				"res":"res/effect/skill_electricattack/skill_electricattack_@.vrp",
+				"visual":"start_idle",
+				"body":[0,0,0],
+                "scale":5,
+                "count":1,
+                "period":0,
+				"time":0,
+				"speed":0,
+				"angular_velocity":0,
+				"offset":[0,0],
+                "dir":0,
+				"map_shake_time":1,
+				"fadeout_time":2
+			}
+		]
+	}
+}

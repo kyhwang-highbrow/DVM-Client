@@ -1,0 +1,160 @@
+
+estimia_fire_01.png
+size: 1030,794
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+estimia_fire_01_arm_01
+  rotate: false
+  xy: 943, 254
+  size: 85, 105
+  orig: 85, 105
+  offset: 0, 0
+  index: -1
+estimia_fire_01_arm_02
+  rotate: false
+  xy: 943, 147
+  size: 85, 105
+  orig: 85, 105
+  offset: 0, 0
+  index: -1
+estimia_fire_01_body_01
+  rotate: true
+  xy: 636, 9
+  size: 187, 212
+  orig: 187, 212
+  offset: 0, 0
+  index: -1
+estimia_fire_01_body_02
+  rotate: false
+  xy: 2, 27
+  size: 380, 131
+  orig: 380, 131
+  offset: 0, 0
+  index: -1
+estimia_fire_01_body_05
+  rotate: false
+  xy: 944, 437
+  size: 77, 85
+  orig: 77, 85
+  offset: 0, 0
+  index: -1
+estimia_fire_01_body_06
+  rotate: true
+  xy: 384, 4
+  size: 46, 51
+  orig: 46, 51
+  offset: 0, 0
+  index: -1
+estimia_fire_01_body_07
+  rotate: true
+  xy: 437, 7
+  size: 43, 47
+  orig: 43, 47
+  offset: 0, 0
+  index: -1
+estimia_fire_01_effect_03
+  rotate: false
+  xy: 2, 160
+  size: 632, 632
+  orig: 632, 632
+  offset: 0, 0
+  index: -1
+estimia_fire_01_eye_01
+  rotate: false
+  xy: 850, 2
+  size: 58, 40
+  orig: 58, 40
+  offset: 0, 0
+  index: -1
+estimia_fire_01_eye_02
+  rotate: false
+  xy: 910, 2
+  size: 58, 40
+  orig: 58, 40
+  offset: 0, 0
+  index: -1
+estimia_fire_01_foot_01
+  rotate: false
+  xy: 883, 659
+  size: 106, 133
+  orig: 106, 133
+  offset: 0, 0
+  index: -1
+estimia_fire_01_foot_02
+  rotate: false
+  xy: 519, 62
+  size: 110, 96
+  orig: 110, 96
+  offset: 0, 0
+  index: -1
+estimia_fire_01_hand_01
+  rotate: true
+  xy: 850, 44
+  size: 97, 85
+  orig: 97, 85
+  offset: 0, 0
+  index: -1
+estimia_fire_01_hand_02
+  rotate: true
+  xy: 937, 44
+  size: 97, 85
+  orig: 97, 85
+  offset: 0, 0
+  index: -1
+estimia_fire_01_head_01
+  rotate: true
+  xy: 849, 361
+  size: 138, 93
+  orig: 138, 93
+  offset: 0, 0
+  index: -1
+estimia_fire_01_head_02
+  rotate: false
+  xy: 944, 367
+  size: 62, 68
+  orig: 62, 68
+  offset: 0, 0
+  index: -1
+estimia_fire_01_head_03
+  rotate: true
+  xy: 883, 524
+  size: 133, 105
+  orig: 133, 105
+  offset: 0, 0
+  index: -1
+estimia_fire_01_head_04
+  rotate: true
+  xy: 850, 143
+  size: 108, 88
+  orig: 108, 88
+  offset: 0, 0
+  index: -1
+estimia_fire_01_leg_01
+  rotate: true
+  xy: 384, 52
+  size: 106, 133
+  orig: 106, 133
+  offset: 0, 0
+  index: -1
+estimia_fire_01_leg_02
+  rotate: true
+  xy: 849, 253
+  size: 106, 92
+  orig: 106, 92
+  offset: 0, 0
+  index: -1
+estimia_fire_01_wing_01
+  rotate: false
+  xy: 636, 501
+  size: 245, 291
+  orig: 245, 291
+  offset: 0, 0
+  index: -1
+estimia_fire_01_wing_02
+  rotate: false
+  xy: 636, 198
+  size: 211, 301
+  orig: 211, 301
+  offset: 0, 0
+  index: -1

@@ -1,0 +1,97 @@
+
+priest_dark.png
+size: 512,128
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+priest_dark_arm_01
+  rotate: false
+  xy: 184, 53
+  size: 44, 44
+  orig: 44, 44
+  offset: 0, 0
+  index: -1
+priest_dark_arm_02
+  rotate: true
+  xy: 135, 53
+  size: 44, 47
+  orig: 44, 47
+  offset: 0, 0
+  index: -1
+priest_dark_body_01
+  rotate: false
+  xy: 2, 21
+  size: 65, 105
+  orig: 65, 105
+  offset: 0, 0
+  index: -1
+priest_dark_body_02
+  rotate: false
+  xy: 166, 11
+  size: 40, 40
+  orig: 40, 40
+  offset: 0, 0
+  index: -1
+priest_dark_body_03
+  rotate: true
+  xy: 122, 11
+  size: 40, 42
+  orig: 40, 42
+  offset: 0, 0
+  index: -1
+priest_dark_body_04
+  rotate: false
+  xy: 268, 108
+  size: 33, 18
+  orig: 33, 18
+  offset: 0, 0
+  index: -1
+priest_dark_effect_01
+  rotate: false
+  xy: 208, 13
+  size: 35, 38
+  orig: 35, 38
+  offset: 0, 0
+  index: -1
+priest_dark_effect_02
+  rotate: false
+  xy: 135, 99
+  size: 90, 27
+  orig: 90, 27
+  offset: 0, 0
+  index: -1
+priest_dark_effect_03
+  rotate: true
+  xy: 227, 107
+  size: 19, 39
+  orig: 19, 39
+  offset: 0, 0
+  index: -1
+priest_dark_hand_01
+  rotate: true
+  xy: 230, 67
+  size: 38, 30
+  orig: 38, 30
+  offset: 0, 0
+  index: -1
+priest_dark_hand_02
+  rotate: false
+  xy: 2, 2
+  size: 26, 17
+  orig: 26, 17
+  offset: 0, 0
+  index: -1
+priest_dark_head_01
+  rotate: true
+  xy: 69, 21
+  size: 43, 51
+  orig: 43, 51
+  offset: 0, 0
+  index: -1
+priest_dark_weapon_01
+  rotate: false
+  xy: 69, 66
+  size: 64, 60
+  orig: 64, 60
+  offset: 0, 0
+  index: -1

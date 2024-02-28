@@ -1,0 +1,307 @@
+
+minidragon_water_03.png
+size: 1254,396
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+minidragon_water_03_body
+  rotate: true
+  xy: 1151, 127
+  size: 107, 88
+  orig: 107, 88
+  offset: 0, 0
+  index: -1
+minidragon_water_03_bone_01
+  rotate: true
+  xy: 1005, 54
+  size: 74, 54
+  orig: 74, 54
+  offset: 0, 0
+  index: -1
+minidragon_water_03_bone_02
+  rotate: false
+  xy: 1197, 66
+  size: 42, 59
+  orig: 42, 59
+  offset: 0, 0
+  index: -1
+minidragon_water_03_eff_01
+  rotate: true
+  xy: 1186, 9
+  size: 18, 21
+  orig: 18, 21
+  offset: 0, 0
+  index: -1
+minidragon_water_03_eff_02
+  rotate: true
+  xy: 219, 12
+  size: 23, 42
+  orig: 23, 42
+  offset: 0, 0
+  index: -1
+minidragon_water_03_eff_03
+  rotate: false
+  xy: 2, 37
+  size: 348, 357
+  orig: 348, 357
+  offset: 0, 0
+  index: -1
+minidragon_water_03_eff_04
+  rotate: false
+  xy: 352, 133
+  size: 240, 261
+  orig: 240, 261
+  offset: 0, 0
+  index: -1
+minidragon_water_03_eff_05
+  rotate: true
+  xy: 1134, 68
+  size: 57, 61
+  orig: 57, 61
+  offset: 0, 0
+  index: -1
+minidragon_water_03_eff_06
+  rotate: false
+  xy: 352, 2
+  size: 133, 129
+  orig: 133, 129
+  offset: 0, 0
+  index: -1
+minidragon_water_03_eff_07
+  rotate: false
+  xy: 909, 2
+  size: 40, 51
+  orig: 40, 51
+  offset: 0, 0
+  index: -1
+minidragon_water_03_eff_08
+  rotate: false
+  xy: 769, 2
+  size: 73, 51
+  orig: 73, 51
+  offset: 0, 0
+  index: -1
+minidragon_water_03_eff_09
+  rotate: false
+  xy: 924, 55
+  size: 79, 73
+  orig: 79, 73
+  offset: 0, 0
+  index: -1
+minidragon_water_03_eff_099
+  rotate: false
+  xy: 1061, 77
+  size: 71, 64
+  orig: 71, 64
+  offset: 0, 0
+  index: -1
+minidragon_water_03_eff_fire_001
+  rotate: false
+  xy: 594, 236
+  size: 211, 158
+  orig: 211, 158
+  offset: 0, 0
+  index: -1
+minidragon_water_03_eff_fire_002
+  rotate: false
+  xy: 807, 236
+  size: 211, 158
+  orig: 211, 158
+  offset: 0, 0
+  index: -1
+minidragon_water_03_eff_fire_003
+  rotate: false
+  xy: 1020, 236
+  size: 211, 158
+  orig: 211, 158
+  offset: 0, 0
+  index: -1
+minidragon_water_03_eff_fire_004
+  rotate: false
+  xy: 594, 76
+  size: 211, 158
+  orig: 211, 158
+  offset: 0, 0
+  index: -1
+minidragon_water_03_eye_01
+  rotate: false
+  xy: 263, 7
+  size: 37, 28
+  orig: 37, 28
+  offset: 0, 0
+  index: -1
+minidragon_water_03_eye_02
+  rotate: false
+  xy: 1233, 374
+  size: 19, 20
+  orig: 19, 20
+  offset: 0, 0
+  index: -1
+minidragon_water_03_eye_03
+  rotate: false
+  xy: 807, 55
+  size: 30, 28
+  orig: 30, 28
+  offset: 0, 0
+  index: -1
+minidragon_water_03_eye_04
+  rotate: true
+  xy: 769, 55
+  size: 19, 20
+  orig: 19, 20
+  offset: 0, 0
+  index: -1
+minidragon_water_03_eyebrow_01
+  rotate: true
+  xy: 909, 57
+  size: 26, 13
+  orig: 26, 13
+  offset: 0, 0
+  index: -1
+minidragon_water_03_eyebrow_02
+  rotate: true
+  xy: 341, 22
+  size: 13, 9
+  orig: 13, 9
+  offset: 0, 0
+  index: -1
+minidragon_water_03_foot_01
+  rotate: true
+  xy: 107, 8
+  size: 27, 54
+  orig: 27, 54
+  offset: 0, 0
+  index: -1
+minidragon_water_03_foot_02
+  rotate: true
+  xy: 163, 9
+  size: 26, 54
+  orig: 26, 54
+  offset: 0, 0
+  index: -1
+minidragon_water_03_fur_01
+  rotate: false
+  xy: 585, 2
+  size: 102, 72
+  orig: 102, 72
+  offset: 0, 0
+  index: -1
+minidragon_water_03_fur_02
+  rotate: true
+  xy: 76, 2
+  size: 33, 29
+  orig: 33, 29
+  offset: 0, 0
+  index: -1
+minidragon_water_03_fur_03
+  rotate: false
+  xy: 41, 2
+  size: 33, 33
+  orig: 33, 33
+  offset: 0, 0
+  index: -1
+minidragon_water_03_fur_04
+  rotate: true
+  xy: 302, 3
+  size: 32, 37
+  orig: 32, 37
+  offset: 0, 0
+  index: -1
+minidragon_water_03_fur_05
+  rotate: true
+  xy: 2, 2
+  size: 33, 37
+  orig: 33, 37
+  offset: 0, 0
+  index: -1
+minidragon_water_03_fur_06
+  rotate: false
+  xy: 1125, 7
+  size: 59, 59
+  orig: 59, 59
+  offset: 0, 0
+  index: -1
+minidragon_water_03_hair_01
+  rotate: false
+  xy: 951, 6
+  size: 46, 47
+  orig: 46, 47
+  offset: 0, 0
+  index: -1
+minidragon_water_03_hair_02
+  rotate: false
+  xy: 1061, 2
+  size: 62, 73
+  orig: 62, 73
+  offset: 0, 0
+  index: -1
+minidragon_water_03_hand_01
+  rotate: true
+  xy: 1186, 29
+  size: 35, 63
+  orig: 35, 63
+  offset: 0, 0
+  index: -1
+minidragon_water_03_hand_02
+  rotate: true
+  xy: 999, 28
+  size: 24, 60
+  orig: 24, 60
+  offset: 0, 0
+  index: -1
+minidragon_water_03_head
+  rotate: false
+  xy: 924, 130
+  size: 110, 104
+  orig: 110, 104
+  offset: 0, 0
+  index: -1
+minidragon_water_03_leg_01
+  rotate: true
+  xy: 689, 12
+  size: 62, 78
+  orig: 62, 78
+  offset: 0, 0
+  index: -1
+minidragon_water_03_leg_02
+  rotate: false
+  xy: 844, 7
+  size: 63, 76
+  orig: 63, 76
+  offset: 0, 0
+  index: -1
+minidragon_water_03_mouth
+  rotate: true
+  xy: 999, 2
+  size: 24, 18
+  orig: 24, 18
+  offset: 0, 0
+  index: -1
+minidragon_water_03_tail
+  rotate: false
+  xy: 807, 85
+  size: 115, 149
+  orig: 115, 149
+  offset: 0, 0
+  index: -1
+minidragon_water_03_thing_01
+  rotate: false
+  xy: 1134, 129
+  size: 12, 12
+  orig: 12, 12
+  offset: 0, 0
+  index: -1
+minidragon_water_03_wing_01
+  rotate: true
+  xy: 1036, 143
+  size: 91, 113
+  orig: 91, 113
+  offset: 0, 0
+  index: -1
+minidragon_water_03_wing_02
+  rotate: false
+  xy: 487, 10
+  size: 96, 121
+  orig: 96, 121
+  offset: 0, 0
+  index: -1

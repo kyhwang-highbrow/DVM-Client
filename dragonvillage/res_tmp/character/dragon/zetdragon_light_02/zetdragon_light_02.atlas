@@ -1,0 +1,279 @@
+
+zetdragon_light_02.png
+size: 1886,530
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+zetdragon_light_02_arm_01
+  rotate: false
+  xy: 332, 41
+  size: 139, 87
+  orig: 139, 87
+  offset: 0, 0
+  index: -1
+zetdragon_light_02_arm_02
+  rotate: true
+  xy: 1414, 4
+  size: 146, 91
+  orig: 146, 91
+  offset: 0, 0
+  index: -1
+zetdragon_light_02_arm_03
+  rotate: true
+  xy: 1075, 5
+  size: 150, 171
+  orig: 150, 171
+  offset: 0, 0
+  index: -1
+zetdragon_light_02_arm_04
+  rotate: true
+  xy: 1604, 16
+  size: 64, 114
+  orig: 64, 114
+  offset: 0, 0
+  index: -1
+zetdragon_light_02_blue
+  rotate: false
+  xy: 2, 46
+  size: 328, 87
+  orig: 328, 87
+  offset: 0, 0
+  index: -1
+zetdragon_light_02_body_01
+  rotate: false
+  xy: 2, 135
+  size: 395, 246
+  orig: 395, 246
+  offset: 0, 0
+  index: -1
+zetdragon_light_02_booster_01
+  rotate: false
+  xy: 1248, 3
+  size: 59, 49
+  orig: 59, 49
+  offset: 0, 0
+  index: -1
+zetdragon_light_02_booster_02
+  rotate: false
+  xy: 1309, 6
+  size: 54, 46
+  orig: 54, 46
+  offset: 0, 0
+  index: -1
+zetdragon_light_02_booster_03
+  rotate: true
+  xy: 473, 30
+  size: 98, 110
+  orig: 98, 110
+  offset: 0, 0
+  index: -1
+zetdragon_light_02_booster_04
+  rotate: true
+  xy: 585, 18
+  size: 100, 107
+  orig: 100, 107
+  offset: 0, 0
+  index: -1
+zetdragon_light_02_booster_05
+  rotate: true
+  xy: 1718, 92
+  size: 108, 87
+  orig: 108, 87
+  offset: 0, 0
+  index: -1
+zetdragon_light_02_dust
+  rotate: false
+  xy: 915, 315
+  size: 369, 213
+  orig: 369, 213
+  offset: 0, 0
+  index: -1
+zetdragon_light_02_effect_01
+  rotate: true
+  xy: 1574, 202
+  size: 101, 156
+  orig: 101, 156
+  offset: 0, 0
+  index: -1
+zetdragon_light_02_effect_02
+  rotate: true
+  xy: 647, 120
+  size: 74, 228
+  orig: 74, 228
+  offset: 0, 0
+  index: -1
+zetdragon_light_02_effect_03
+  rotate: true
+  xy: 1285, 152
+  size: 108, 219
+  orig: 108, 219
+  offset: 0, 0
+  index: -1
+zetdragon_light_02_effect_04
+  rotate: true
+  xy: 1807, 138
+  size: 64, 63
+  orig: 64, 63
+  offset: 0, 0
+  index: -1
+zetdragon_light_02_effect_05
+  rotate: true
+  xy: 1821, 72
+  size: 64, 63
+  orig: 64, 63
+  offset: 0, 0
+  index: -1
+zetdragon_light_02_effect_06
+  rotate: true
+  xy: 1821, 6
+  size: 64, 63
+  orig: 64, 63
+  offset: 0, 0
+  index: -1
+zetdragon_light_02_effect_light
+  rotate: false
+  xy: 694, 19
+  size: 99, 99
+  orig: 99, 99
+  offset: 0, 0
+  index: -1
+zetdragon_light_02_effect_lightdust
+  rotate: false
+  xy: 1732, 204
+  size: 127, 99
+  orig: 127, 99
+  offset: 0, 0
+  index: -1
+zetdragon_light_02_foot_01
+  rotate: true
+  xy: 1248, 54
+  size: 96, 164
+  orig: 96, 164
+  offset: 0, 0
+  index: -1
+zetdragon_light_02_hair_01
+  rotate: false
+  xy: 1604, 82
+  size: 112, 118
+  orig: 112, 118
+  offset: 0, 0
+  index: -1
+zetdragon_light_02_hair_02
+  rotate: false
+  xy: 1720, 4
+  size: 99, 86
+  orig: 99, 86
+  offset: 0, 0
+  index: -1
+zetdragon_light_02_hand_01
+  rotate: true
+  xy: 1506, 198
+  size: 62, 66
+  orig: 62, 66
+  offset: 0, 0
+  index: -1
+zetdragon_light_02_hand_02
+  rotate: false
+  xy: 56, 6
+  size: 32, 38
+  orig: 32, 38
+  offset: 0, 0
+  index: -1
+zetdragon_light_02_hand_03
+  rotate: false
+  xy: 1075, 161
+  size: 23, 23
+  orig: 23, 23
+  offset: 0, 0
+  index: -1
+zetdragon_light_02_hand_04
+  rotate: false
+  xy: 1507, 12
+  size: 35, 32
+  orig: 35, 32
+  offset: 0, 0
+  index: -1
+zetdragon_light_02_head_01
+  rotate: false
+  xy: 1507, 46
+  size: 95, 150
+  orig: 95, 150
+  offset: 0, 0
+  index: -1
+zetdragon_light_02_head_02
+  rotate: false
+  xy: 795, 29
+  size: 75, 89
+  orig: 75, 89
+  offset: 0, 0
+  index: -1
+zetdragon_light_02_head_03
+  rotate: true
+  xy: 2, 2
+  size: 42, 52
+  orig: 42, 52
+  offset: 0, 0
+  index: -1
+zetdragon_light_02_jet
+  rotate: false
+  xy: 898, 186
+  size: 211, 127
+  orig: 211, 127
+  offset: 0, 0
+  index: -1
+zetdragon_light_02_skill_03
+  rotate: false
+  xy: 2, 383
+  size: 500, 145
+  orig: 500, 145
+  offset: 0, 0
+  index: -1
+zetdragon_light_02_skill_05
+  rotate: false
+  xy: 504, 375
+  size: 409, 153
+  orig: 409, 153
+  offset: 0, 0
+  index: -1
+zetdragon_light_02_tail_01
+  rotate: true
+  xy: 1574, 305
+  size: 223, 281
+  orig: 223, 281
+  offset: 0, 0
+  index: -1
+zetdragon_light_02_wing_02
+  rotate: false
+  xy: 877, 13
+  size: 196, 171
+  orig: 196, 171
+  offset: 0, 0
+  index: -1
+zetdragon_light_02_wing_03
+  rotate: false
+  xy: 1286, 262
+  size: 286, 266
+  orig: 286, 266
+  offset: 0, 0
+  index: -1
+zetdragon_light_02_wing_07
+  rotate: false
+  xy: 647, 196
+  size: 249, 177
+  orig: 249, 177
+  offset: 0, 0
+  index: -1
+zetdragon_light_02_wingback_01
+  rotate: true
+  xy: 1111, 157
+  size: 156, 172
+  orig: 156, 172
+  offset: 0, 0
+  index: -1
+zetdragon_light_02_won
+  rotate: true
+  xy: 399, 130
+  size: 243, 246
+  orig: 243, 246
+  offset: 0, 0
+  index: -1

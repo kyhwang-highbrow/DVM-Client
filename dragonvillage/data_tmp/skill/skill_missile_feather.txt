@@ -1,0 +1,32 @@
+{
+	"skill_missile_feather":
+	{
+		"attack_value":
+		[		
+			{
+				"idx":1,
+				"res":"res/missile/missile_feather/missile_feather.png",
+				"visual":"idle",
+				"count":5,
+				"damage_rate":100,
+				"period":0,
+                "scale":"1",
+				"body":[0,0,20],
+				"speed":500,
+				"accel":1500,
+				"h_limit_speed":900,
+				"accel_delay":0.2,
+				"offset":[0,0],
+                "dir":-10,
+				"dir_add":5,
+				
+                "effect":
+                {
+                    "motion_streak":"res/missile/motion_streak/motion_streak_line_@.png",
+                    "rotation":false,
+                    "afterimage":false
+                }				
+			}
+		]
+	}
+}

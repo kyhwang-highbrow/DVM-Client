@@ -1,0 +1,97 @@
+
+spearman_dark.png
+size: 512,128
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+spearman_dark_arm_01
+  rotate: true
+  xy: 370, 100
+  size: 26, 34
+  orig: 26, 34
+  offset: 0, 0
+  index: -1
+spearman_dark_arm_02
+  rotate: false
+  xy: 284, 70
+  size: 32, 35
+  orig: 32, 35
+  offset: 0, 0
+  index: -1
+spearman_dark_body_01
+  rotate: true
+  xy: 2, 13
+  size: 61, 99
+  orig: 61, 99
+  offset: 0, 0
+  index: -1
+spearman_dark_body_03
+  rotate: false
+  xy: 103, 32
+  size: 40, 42
+  orig: 40, 42
+  offset: 0, 0
+  index: -1
+spearman_dark_effect_01
+  rotate: false
+  xy: 253, 63
+  size: 29, 42
+  orig: 29, 42
+  offset: 0, 0
+  index: -1
+spearman_dark_effect_02
+  rotate: false
+  xy: 253, 107
+  size: 74, 19
+  orig: 74, 19
+  offset: 0, 0
+  index: -1
+spearman_dark_effect_03
+  rotate: true
+  xy: 329, 107
+  size: 19, 39
+  orig: 19, 39
+  offset: 0, 0
+  index: -1
+spearman_dark_hand_01
+  rotate: false
+  xy: 103, 2
+  size: 30, 28
+  orig: 30, 28
+  offset: 0, 0
+  index: -1
+spearman_dark_hand_02
+  rotate: false
+  xy: 318, 70
+  size: 29, 35
+  orig: 29, 35
+  offset: 0, 0
+  index: -1
+spearman_dark_head_01
+  rotate: false
+  xy: 167, 50
+  size: 84, 76
+  orig: 84, 76
+  offset: 0, 0
+  index: -1
+spearman_dark_head_02
+  rotate: false
+  xy: 145, 57
+  size: 20, 17
+  orig: 20, 17
+  offset: 0, 0
+  index: -1
+spearman_dark_shoulder_01
+  rotate: false
+  xy: 406, 94
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+spearman_dark_wepon_01
+  rotate: false
+  xy: 2, 76
+  size: 163, 50
+  orig: 163, 50
+  offset: 0, 0
+  index: -1

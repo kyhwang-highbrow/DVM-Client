@@ -1,0 +1,47 @@
+{
+	"pattern_elite_harpy":
+	[			
+		[
+			"m;RM14;300", "a;basic", "w;2", "a;basic", "w;2",
+			"m;RF12;300", "a;basic", "w;2", "a;basic", "w;2",
+			"m;RF16;300", "a;basic", "w;2", "a;basic", "w;2"
+		]
+    ],
+	
+	"hp_trriger":
+    {
+        "priority":1,
+        "list":
+        [
+            {
+                "hp_percent":75,
+                "pattern":
+                [
+					"m;RM24;300", "a;1", "a;2", "w;3",
+					"a;basic", "w;1", "a;basic", "w;2",
+					"m;RB22;300", "a;1", "a;2", "w;3",
+					"a;basic", "w;1", "a;basic", "w;2",
+					"m;RB26;300", "a;1", "a;2", "w;3",
+					"a;basic", "w;1", "a;basic", "w;2"
+                ]
+            },
+			
+			{
+                "hp_percent":50,
+                "pattern":
+                [
+					"m;RM24;100", "a;1", "a;3", "a;3", "w;1",		
+					"a;basic", "w;1", "a;basic", "w;1"
+                ]
+            },
+			
+            {
+                "hp_percent":25,
+                "pattern":
+                [
+					"m;RB14;100", "a;3", "a;3", "a;3", "a;3", "a;1", "w;1"
+				]
+            }
+        ]
+    }
+}

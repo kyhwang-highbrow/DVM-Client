@@ -1,0 +1,216 @@
+
+teddydragon_light_03.png
+size: 1056,529
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+teddydragon_light_03_Pillow_01
+  rotate: false
+  xy: 240, 318
+  size: 205, 209
+  orig: 205, 209
+  offset: 0, 0
+  index: -1
+teddydragon_light_03_Pillow_02
+  rotate: false
+  xy: 240, 107
+  size: 205, 209
+  orig: 205, 209
+  offset: 0, 0
+  index: -1
+teddydragon_light_03_arm_01
+  rotate: false
+  xy: 827, 123
+  size: 85, 124
+  orig: 85, 124
+  offset: 0, 0
+  index: -1
+teddydragon_light_03_arm_02
+  rotate: false
+  xy: 894, 281
+  size: 85, 124
+  orig: 85, 124
+  offset: 0, 0
+  index: -1
+teddydragon_light_03_body_01
+  rotate: false
+  xy: 617, 209
+  size: 146, 155
+  orig: 146, 155
+  offset: 0, 0
+  index: -1
+teddydragon_light_03_body_02
+  rotate: false
+  xy: 541, 14
+  size: 147, 94
+  orig: 147, 94
+  offset: 0, 0
+  index: -1
+teddydragon_light_03_ear_01
+  rotate: true
+  xy: 694, 116
+  size: 91, 131
+  orig: 91, 131
+  offset: 0, 0
+  index: -1
+teddydragon_light_03_effect_01
+  rotate: true
+  xy: 914, 134
+  size: 44, 63
+  orig: 44, 63
+  offset: 0, 0
+  index: -1
+teddydragon_light_03_effect_02
+  rotate: true
+  xy: 629, 113
+  size: 59, 63
+  orig: 59, 63
+  offset: 0, 0
+  index: -1
+teddydragon_light_03_effect_03
+  rotate: false
+  xy: 2, 276
+  size: 236, 251
+  orig: 236, 251
+  offset: 0, 0
+  index: -1
+teddydragon_light_03_effect_04
+  rotate: false
+  xy: 2, 23
+  size: 236, 251
+  orig: 236, 251
+  offset: 0, 0
+  index: -1
+teddydragon_light_03_eye_01
+  rotate: true
+  xy: 617, 174
+  size: 33, 32
+  orig: 33, 32
+  offset: 0, 0
+  index: -1
+teddydragon_light_03_eye_02
+  rotate: true
+  xy: 651, 174
+  size: 33, 32
+  orig: 33, 32
+  offset: 0, 0
+  index: -1
+teddydragon_light_03_foot_01
+  rotate: true
+  xy: 914, 180
+  size: 99, 105
+  orig: 99, 105
+  offset: 0, 0
+  index: -1
+teddydragon_light_03_foot_02
+  rotate: true
+  xy: 979, 79
+  size: 99, 75
+  orig: 99, 75
+  offset: 0, 0
+  index: -1
+teddydragon_light_03_head_01
+  rotate: false
+  xy: 617, 366
+  size: 144, 161
+  orig: 144, 161
+  offset: 0, 0
+  index: -1
+teddydragon_light_03_head_02
+  rotate: false
+  xy: 892, 407
+  size: 94, 120
+  orig: 94, 120
+  offset: 0, 0
+  index: -1
+teddydragon_light_03_head_03
+  rotate: true
+  xy: 690, 4
+  size: 107, 120
+  orig: 107, 120
+  offset: 0, 0
+  index: -1
+teddydragon_light_03_horn_01
+  rotate: true
+  xy: 988, 468
+  size: 59, 63
+  orig: 59, 63
+  offset: 0, 0
+  index: -1
+teddydragon_light_03_horn_02
+  rotate: true
+  xy: 988, 407
+  size: 59, 63
+  orig: 59, 63
+  offset: 0, 0
+  index: -1
+teddydragon_light_03_leg_01
+  rotate: false
+  xy: 937, 2
+  size: 99, 75
+  orig: 99, 75
+  offset: 0, 0
+  index: -1
+teddydragon_light_03_leg_02
+  rotate: false
+  xy: 812, 13
+  size: 123, 101
+  orig: 123, 101
+  offset: 0, 0
+  index: -1
+teddydragon_light_03_ribbon_01
+  rotate: true
+  xy: 981, 305
+  size: 100, 71
+  orig: 100, 71
+  offset: 0, 0
+  index: -1
+teddydragon_light_03_ribbon_02
+  rotate: true
+  xy: 447, 110
+  size: 59, 89
+  orig: 59, 89
+  offset: 0, 0
+  index: -1
+teddydragon_light_03_ribbon_03
+  rotate: true
+  xy: 538, 110
+  size: 59, 89
+  orig: 59, 89
+  offset: 0, 0
+  index: -1
+teddydragon_light_03_rug_01
+  rotate: false
+  xy: 240, 4
+  size: 299, 101
+  orig: 299, 101
+  offset: 0, 0
+  index: -1
+teddydragon_light_03_tam_01
+  rotate: false
+  xy: 447, 350
+  size: 168, 177
+  orig: 168, 177
+  offset: 0, 0
+  index: -1
+teddydragon_light_03_tam_02
+  rotate: false
+  xy: 447, 171
+  size: 168, 177
+  orig: 168, 177
+  offset: 0, 0
+  index: -1
+teddydragon_light_03_wing_01
+  rotate: true
+  xy: 763, 389
+  size: 138, 127
+  orig: 138, 127
+  offset: 0, 0
+  index: -1
+teddydragon_light_03_wing_02
+  rotate: true
+  xy: 765, 249
+  size: 138, 127
+  orig: 138, 127
+  offset: 0, 0
+  index: -1

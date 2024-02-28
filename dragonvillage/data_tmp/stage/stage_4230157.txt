@@ -1,0 +1,98 @@
+{
+    "difficult":2,
+    "bg":"map_infinitepowerdungeon",
+	"wave":
+	[
+        {
+            "idx":1,
+			"camera":
+            {
+                "scale":1,
+                "pos_x":0,
+                "pos_y":0
+            },
+			
+			
+            "wave":
+            {
+				0:
+				[
+					"130011;1;Basic2;RB25;RF23;2"
+					"130013;1;Basic2;RB23;RF25;2"
+					"130021;1;Basic2;RM17;RM22;2"
+					"130023;1;Basic2;RM11;RM26;2"
+					"131061;1;Basic2;RF14;RB24;2"
+				]
+            }
+        },
+		
+      	{   
+		    "idx":2,
+			"camera":
+            {
+                "scale":1,
+                "pos_x":0,
+                "pos_y":0
+            },
+			
+			
+			"wave":
+            {
+                0:
+                [
+					"130011;1;Basic2;RB12;RF22;2"
+					"130013;1;Basic2;RF12;RF26;2"
+					"131013;1;Basic2;RF16;RB26;2"
+					"131013;1;Basic2;RB16;RB22;2"
+				],
+				
+				2.2:
+				[
+					"131013;1;Appear;RO04;RM24;0.5"
+				]
+            }
+        },
+		{   
+            "idx":3,
+			"camera":
+            { 
+                "scale":0.8,
+                "pos_x":0,
+                "pos_y":0
+            },
+			
+			"wave":
+            {
+                0:
+                [
+					"132051;1;Basic;RO07;RB24;1;roam"
+				]
+            },
+			
+			"regen":
+			[
+				{
+					0:
+					[
+						"130011;1;Appear;RO02;RF22;0.5"
+						"130013;1;Appear;RO04;RM14;0.5"
+						"130011;1;Appear;RO06;RF26;0.5"
+					]
+				},
+				
+				{
+					0.5:
+					[
+						"131061;1;Basic;TO08;RB11;0.5"
+						"131061;1;Basic;BO08;RB17;0.5"
+					]
+				}
+			]
+        }		
+    ],
+	
+	"move":
+	{
+		
+	}
+}

@@ -1,0 +1,342 @@
+
+totemdragon_earth_03.png
+size: 1457,528
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+totemdragon_earth_03_anther_01
+  rotate: false
+  xy: 856, 58
+  size: 78, 60
+  orig: 78, 60
+  offset: 0, 0
+  index: -1
+totemdragon_earth_03_anther_02
+  rotate: false
+  xy: 1165, 76
+  size: 74, 42
+  orig: 74, 42
+  offset: 0, 0
+  index: -1
+totemdragon_earth_03_arm_01
+  rotate: true
+  xy: 870, 8
+  size: 48, 59
+  orig: 48, 59
+  offset: 0, 0
+  index: -1
+totemdragon_earth_03_body_01
+  rotate: false
+  xy: 512, 127
+  size: 108, 122
+  orig: 108, 122
+  offset: 0, 0
+  index: -1
+totemdragon_earth_03_effect_01
+  rotate: false
+  xy: 2, 164
+  size: 300, 362
+  orig: 300, 362
+  offset: 0, 0
+  index: -1
+totemdragon_earth_03_effect_02
+  rotate: false
+  xy: 1039, 60
+  size: 77, 66
+  orig: 77, 66
+  offset: 0, 0
+  index: -1
+totemdragon_earth_03_effect_body
+  rotate: true
+  xy: 304, 251
+  size: 275, 387
+  orig: 275, 387
+  offset: 0, 0
+  index: -1
+totemdragon_earth_03_effect_hit_splash_tree_cri_02
+  rotate: false
+  xy: 512, 25
+  size: 100, 100
+  orig: 100, 100
+  offset: 0, 0
+  index: -1
+totemdragon_earth_03_effect_hit_splash_tree_cri_03
+  rotate: false
+  xy: 1246, 324
+  size: 206, 202
+  orig: 206, 202
+  offset: 0, 0
+  index: -1
+totemdragon_earth_03_effect_hit_splash_tree_cri_04
+  rotate: false
+  xy: 958, 128
+  size: 206, 202
+  orig: 206, 202
+  offset: 0, 0
+  index: -1
+totemdragon_earth_03_effect_hit_splash_tree_cri_05
+  rotate: false
+  xy: 1166, 120
+  size: 206, 202
+  orig: 206, 202
+  offset: 0, 0
+  index: -1
+totemdragon_earth_03_effect_hit_splash_tree_cri_06
+  rotate: false
+  xy: 304, 47
+  size: 206, 202
+  orig: 206, 202
+  offset: 0, 0
+  index: -1
+totemdragon_earth_03_effect_hit_splash_tree_cri_07
+  rotate: false
+  xy: 150, 53
+  size: 113, 109
+  orig: 113, 109
+  offset: 0, 0
+  index: -1
+totemdragon_earth_03_effect_laser_tree_idle_03
+  rotate: false
+  xy: 150, 13
+  size: 110, 38
+  orig: 110, 38
+  offset: 0, 0
+  index: -1
+totemdragon_earth_03_effect_laser_tree_idle_04
+  rotate: false
+  xy: 338, 7
+  size: 110, 38
+  orig: 110, 38
+  offset: 0, 0
+  index: -1
+totemdragon_earth_03_effect_laser_tree_idle_05
+  rotate: false
+  xy: 689, 120
+  size: 110, 38
+  orig: 110, 38
+  offset: 0, 0
+  index: -1
+totemdragon_earth_03_effect_laser_tree_idle_06
+  rotate: false
+  xy: 801, 120
+  size: 110, 38
+  orig: 110, 38
+  offset: 0, 0
+  index: -1
+totemdragon_earth_03_effect_laser_tree_idle_07
+  rotate: true
+  xy: 614, 15
+  size: 110, 38
+  orig: 110, 38
+  offset: 0, 0
+  index: -1
+totemdragon_earth_03_effect_laser_tree_idle_08
+  rotate: false
+  xy: 654, 5
+  size: 110, 38
+  orig: 110, 38
+  offset: 0, 0
+  index: -1
+totemdragon_earth_03_effect_laser_tree_idle_09
+  rotate: false
+  xy: 654, 5
+  size: 110, 38
+  orig: 110, 38
+  offset: 0, 0
+  index: -1
+totemdragon_earth_03_eye_01
+  rotate: true
+  xy: 935, 145
+  size: 13, 21
+  orig: 13, 21
+  offset: 0, 0
+  index: -1
+totemdragon_earth_03_foot_01
+  rotate: false
+  xy: 622, 138
+  size: 65, 111
+  orig: 65, 111
+  offset: 0, 0
+  index: -1
+totemdragon_earth_03_foot_02
+  rotate: true
+  xy: 936, 67
+  size: 59, 101
+  orig: 59, 101
+  offset: 0, 0
+  index: -1
+totemdragon_earth_03_hair_01
+  rotate: false
+  xy: 2, 14
+  size: 146, 148
+  orig: 146, 148
+  offset: 0, 0
+  index: -1
+totemdragon_earth_03_hand_01
+  rotate: true
+  xy: 1008, 2
+  size: 56, 71
+  orig: 56, 71
+  offset: 0, 0
+  index: -1
+totemdragon_earth_03_hand_02
+  rotate: false
+  xy: 819, 2
+  size: 49, 54
+  orig: 49, 54
+  offset: 0, 0
+  index: -1
+totemdragon_earth_03_head_01
+  rotate: false
+  xy: 766, 2
+  size: 51, 55
+  orig: 51, 55
+  offset: 0, 0
+  index: -1
+totemdragon_earth_03_head_thing_01
+  rotate: false
+  xy: 265, 80
+  size: 37, 38
+  orig: 37, 38
+  offset: 0, 0
+  index: -1
+totemdragon_earth_03_leg_01
+  rotate: false
+  xy: 1374, 115
+  size: 77, 101
+  orig: 77, 101
+  offset: 0, 0
+  index: -1
+totemdragon_earth_03_leg_02
+  rotate: true
+  xy: 936, 2
+  size: 63, 70
+  orig: 63, 70
+  offset: 0, 0
+  index: -1
+totemdragon_earth_03_mouth_01
+  rotate: false
+  xy: 265, 47
+  size: 35, 31
+  orig: 35, 31
+  offset: 0, 0
+  index: -1
+totemdragon_earth_03_neck_01
+  rotate: false
+  xy: 1374, 218
+  size: 81, 104
+  orig: 81, 104
+  offset: 0, 0
+  index: -1
+totemdragon_earth_03_shoulder_01
+  rotate: false
+  xy: 654, 45
+  size: 92, 73
+  orig: 92, 73
+  offset: 0, 0
+  index: -1
+totemdragon_earth_03_shoulder_02
+  rotate: false
+  xy: 1304, 66
+  size: 51, 52
+  orig: 51, 52
+  offset: 0, 0
+  index: -1
+totemdragon_earth_03_tail_01
+  rotate: true
+  xy: 693, 345
+  size: 181, 285
+  orig: 181, 285
+  offset: 0, 0
+  index: -1
+totemdragon_earth_03_tattoo_01
+  rotate: false
+  xy: 1357, 71
+  size: 40, 42
+  orig: 40, 42
+  offset: 0, 0
+  index: -1
+totemdragon_earth_03_tattoo_02
+  rotate: false
+  xy: 265, 120
+  size: 37, 42
+  orig: 37, 42
+  offset: 0, 0
+  index: -1
+totemdragon_earth_03_tattoo_03
+  rotate: true
+  xy: 262, 2
+  size: 43, 74
+  orig: 43, 74
+  offset: 0, 0
+  index: -1
+totemdragon_earth_03_tattoo_04
+  rotate: true
+  xy: 1399, 83
+  size: 30, 52
+  orig: 30, 52
+  offset: 0, 0
+  index: -1
+totemdragon_earth_03_thing_01
+  rotate: false
+  xy: 913, 133
+  size: 20, 25
+  orig: 20, 25
+  offset: 0, 0
+  index: -1
+totemdragon_earth_03_thing_02
+  rotate: false
+  xy: 1118, 67
+  size: 45, 59
+  orig: 45, 59
+  offset: 0, 0
+  index: -1
+totemdragon_earth_03_thing_03
+  rotate: true
+  xy: 1081, 2
+  size: 56, 70
+  orig: 56, 70
+  offset: 0, 0
+  index: -1
+totemdragon_earth_03_thing_04
+  rotate: false
+  xy: 1241, 59
+  size: 61, 59
+  orig: 61, 59
+  offset: 0, 0
+  index: -1
+totemdragon_earth_03_thing_05
+  rotate: false
+  xy: 748, 59
+  size: 106, 59
+  orig: 106, 59
+  offset: 0, 0
+  index: -1
+totemdragon_earth_03_thing_06
+  rotate: false
+  xy: 450, 16
+  size: 58, 29
+  orig: 58, 29
+  offset: 0, 0
+  index: -1
+totemdragon_earth_03_thing_07
+  rotate: false
+  xy: 1399, 55
+  size: 53, 26
+  orig: 53, 26
+  offset: 0, 0
+  index: -1
+totemdragon_earth_03_wing_01
+  rotate: true
+  xy: 980, 332
+  size: 194, 264
+  orig: 194, 264
+  offset: 0, 0
+  index: -1
+totemdragon_earth_03_wing_02
+  rotate: true
+  xy: 693, 160
+  size: 183, 263
+  orig: 183, 263
+  offset: 0, 0
+  index: -1

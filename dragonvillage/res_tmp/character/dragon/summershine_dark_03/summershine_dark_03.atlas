@@ -1,0 +1,237 @@
+
+summershine_dark_03.png
+size: 1984,1087
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+summershine_dark_03_arm_01
+  rotate: true
+  xy: 838, 8
+  size: 62, 70
+  orig: 62, 70
+  offset: 0, 0
+  index: -1
+summershine_dark_03_arm_02
+  rotate: true
+  xy: 910, 8
+  size: 62, 70
+  orig: 62, 70
+  offset: 0, 0
+  index: -1
+summershine_dark_03_arm_04
+  rotate: true
+  xy: 1879, 228
+  size: 62, 70
+  orig: 62, 70
+  offset: 0, 0
+  index: -1
+summershine_dark_03_body_01
+  rotate: false
+  xy: 838, 72
+  size: 162, 209
+  orig: 162, 209
+  offset: 0, 0
+  index: -1
+summershine_dark_03_coconut_01
+  rotate: true
+  xy: 1733, 276
+  size: 133, 144
+  orig: 133, 144
+  offset: 0, 0
+  index: -1
+summershine_dark_03_coconut_02
+  rotate: false
+  xy: 1509, 128
+  size: 133, 144
+  orig: 133, 144
+  offset: 0, 0
+  index: -1
+summershine_dark_03_ear_01
+  rotate: true
+  xy: 1879, 292
+  size: 117, 94
+  orig: 117, 94
+  offset: 0, 0
+  index: -1
+summershine_dark_03_effect_01_1
+  rotate: false
+  xy: 2, 7
+  size: 500, 400
+  orig: 500, 400
+  offset: 0, 0
+  index: -1
+summershine_dark_03_effect_01_2
+  rotate: false
+  xy: 575, 685
+  size: 500, 400
+  orig: 500, 400
+  offset: 0, 0
+  index: -1
+summershine_dark_03_effect_01_3
+  rotate: false
+  xy: 1077, 685
+  size: 500, 400
+  orig: 500, 400
+  offset: 0, 0
+  index: -1
+summershine_dark_03_effect_01_4
+  rotate: true
+  xy: 1579, 585
+  size: 500, 400
+  orig: 500, 400
+  offset: 0, 0
+  index: -1
+summershine_dark_03_effect_01_5
+  rotate: false
+  xy: 575, 283
+  size: 500, 400
+  orig: 500, 400
+  offset: 0, 0
+  index: -1
+summershine_dark_03_effect_01_6
+  rotate: false
+  xy: 1077, 283
+  size: 500, 400
+  orig: 500, 400
+  offset: 0, 0
+  index: -1
+summershine_dark_03_effect_02
+  rotate: false
+  xy: 2, 409
+  size: 571, 676
+  orig: 571, 676
+  offset: 0, 0
+  index: -1
+summershine_dark_03_effect_03
+  rotate: false
+  xy: 1819, 90
+  size: 58, 63
+  orig: 58, 63
+  offset: 0, 0
+  index: -1
+summershine_dark_03_effect_04
+  rotate: false
+  xy: 1002, 2
+  size: 139, 126
+  orig: 139, 126
+  offset: 0, 0
+  index: -1
+summershine_dark_03_effect_05
+  rotate: true
+  xy: 504, 52
+  size: 229, 332
+  orig: 229, 332
+  offset: 0, 0
+  index: -1
+summershine_dark_03_effect_06
+  rotate: false
+  xy: 1879, 92
+  size: 58, 63
+  orig: 58, 63
+  offset: 0, 0
+  index: -1
+summershine_dark_03_eye_01
+  rotate: false
+  xy: 504, 338
+  size: 69, 69
+  orig: 69, 69
+  offset: 0, 0
+  index: -1
+summershine_dark_03_foot_01
+  rotate: false
+  xy: 1644, 153
+  size: 110, 119
+  orig: 110, 119
+  offset: 0, 0
+  index: -1
+summershine_dark_03_foot_02
+  rotate: false
+  xy: 1756, 155
+  size: 110, 119
+  orig: 110, 119
+  offset: 0, 0
+  index: -1
+summershine_dark_03_glass_01
+  rotate: false
+  xy: 1868, 157
+  size: 69, 69
+  orig: 69, 69
+  offset: 0, 0
+  index: -1
+summershine_dark_03_head_01
+  rotate: true
+  xy: 1352, 127
+  size: 154, 155
+  orig: 154, 155
+  offset: 0, 0
+  index: -1
+summershine_dark_03_head_02
+  rotate: false
+  xy: 1143, 4
+  size: 125, 124
+  orig: 125, 124
+  offset: 0, 0
+  index: -1
+summershine_dark_03_head_03
+  rotate: false
+  xy: 1748, 82
+  size: 69, 69
+  orig: 69, 69
+  offset: 0, 0
+  index: -1
+summershine_dark_03_leg_01
+  rotate: false
+  xy: 1270, 6
+  size: 110, 119
+  orig: 110, 119
+  offset: 0, 0
+  index: -1
+summershine_dark_03_leg_02
+  rotate: false
+  xy: 1382, 6
+  size: 110, 119
+  orig: 110, 119
+  offset: 0, 0
+  index: -1
+summershine_dark_03_mouth_01
+  rotate: false
+  xy: 1644, 50
+  size: 102, 101
+  orig: 102, 101
+  offset: 0, 0
+  index: -1
+summershine_dark_03_neck_01
+  rotate: true
+  xy: 1494, 23
+  size: 102, 89
+  orig: 102, 89
+  offset: 0, 0
+  index: -1
+summershine_dark_03_neck_02
+  rotate: false
+  xy: 1579, 274
+  size: 152, 135
+  orig: 152, 135
+  offset: 0, 0
+  index: -1
+summershine_dark_03_tail_01
+  rotate: true
+  xy: 1579, 411
+  size: 172, 403
+  orig: 172, 403
+  offset: 0, 0
+  index: -1
+summershine_dark_03_wing_01
+  rotate: false
+  xy: 1002, 130
+  size: 173, 151
+  orig: 173, 151
+  offset: 0, 0
+  index: -1
+summershine_dark_03_wing_02
+  rotate: false
+  xy: 1177, 130
+  size: 173, 151
+  orig: 173, 151
+  offset: 0, 0
+  index: -1

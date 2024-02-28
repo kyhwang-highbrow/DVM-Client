@@ -1,0 +1,132 @@
+
+elite_sharkwarrior_fire.png
+size: 1024,256
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+elite_sharkwarrior_fire_acc_01
+  rotate: false
+  xy: 773, 107
+  size: 99, 50
+  orig: 99, 50
+  offset: 0, 0
+  index: -1
+elite_sharkwarrior_fire_acc_02
+  rotate: true
+  xy: 257, 4
+  size: 44, 58
+  orig: 44, 58
+  offset: 0, 0
+  index: -1
+elite_sharkwarrior_fire_acc_03
+  rotate: true
+  xy: 317, 15
+  size: 33, 47
+  orig: 33, 47
+  offset: 0, 0
+  index: -1
+elite_sharkwarrior_fire_arm_01
+  rotate: false
+  xy: 929, 163
+  size: 77, 91
+  orig: 77, 91
+  offset: 0, 0
+  index: -1
+elite_sharkwarrior_fire_arm_02
+  rotate: true
+  xy: 367, 26
+  size: 62, 84
+  orig: 62, 84
+  offset: 0, 0
+  index: -1
+elite_sharkwarrior_fire_arm_03
+  rotate: false
+  xy: 874, 110
+  size: 40, 47
+  orig: 40, 47
+  offset: 0, 0
+  index: -1
+elite_sharkwarrior_fire_body_01
+  rotate: true
+  xy: 590, 96
+  size: 158, 181
+  orig: 158, 181
+  offset: 0, 0
+  index: -1
+elite_sharkwarrior_fire_body_02
+  rotate: false
+  xy: 773, 159
+  size: 154, 95
+  orig: 154, 95
+  offset: 0, 0
+  index: -1
+elite_sharkwarrior_fire_body_03
+  rotate: false
+  xy: 453, 23
+  size: 77, 65
+  orig: 77, 65
+  offset: 0, 0
+  index: -1
+elite_sharkwarrior_fire_body_04
+  rotate: false
+  xy: 208, 2
+  size: 47, 46
+  orig: 47, 46
+  offset: 0, 0
+  index: -1
+elite_sharkwarrior_fire_effect_01
+  rotate: false
+  xy: 208, 50
+  size: 157, 94
+  orig: 157, 94
+  offset: 0, 0
+  index: -1
+elite_sharkwarrior_fire_effect_02
+  rotate: true
+  xy: 369, 90
+  size: 164, 219
+  orig: 164, 219
+  offset: 0, 0
+  index: -1
+elite_sharkwarrior_fire_eye_01
+  rotate: false
+  xy: 610, 23
+  size: 28, 41
+  orig: 28, 41
+  offset: 0, 0
+  index: -1
+elite_sharkwarrior_fire_eye_02
+  rotate: false
+  xy: 610, 66
+  size: 42, 28
+  orig: 42, 28
+  offset: 0, 0
+  index: -1
+elite_sharkwarrior_fire_eye_03
+  rotate: true
+  xy: 654, 66
+  size: 28, 41
+  orig: 28, 41
+  offset: 0, 0
+  index: -1
+elite_sharkwarrior_fire_head_01
+  rotate: false
+  xy: 2, 16
+  size: 204, 128
+  orig: 204, 128
+  offset: 0, 0
+  index: -1
+elite_sharkwarrior_fire_head_02
+  rotate: false
+  xy: 532, 21
+  size: 76, 67
+  orig: 76, 67
+  offset: 0, 0
+  index: -1
+elite_sharkwarrior_fire_weapon_01
+  rotate: false
+  xy: 2, 146
+  size: 365, 108
+  orig: 365, 108
+  offset: 0, 0
+  index: -1

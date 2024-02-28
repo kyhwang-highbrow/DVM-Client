@@ -1,0 +1,36 @@
+{
+    "difficult":2,
+    "bg":"map_lightningdungeon",
+	"wave":
+	[	
+        {
+            "idx":1,
+			"camera":
+            {
+                "scale":0.8,
+                "pos_x":0,
+                "pos_y":0
+            },
+            "direction":"boss_wave",
+            "wave":
+            {				
+				0:
+				[
+					"141009;1;Basic;BOSS;RB14;0.5;boss"
+				]
+            },
+			"regen":
+			[
+				{
+					0:
+					[
+						"130015;1;Appear;RO07;RF21;0.5"
+						"130015;1;Appear;RO07;RF24;0.5"
+						"141012;1;Appear;RO07;RF27;0.5"
+					]
+				}
+            ]
+   
+		}
+	]
+}

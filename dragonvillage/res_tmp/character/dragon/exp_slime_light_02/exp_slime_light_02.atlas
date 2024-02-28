@@ -1,0 +1,69 @@
+
+exp_slime_light_02.png
+size: 1718,274
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+exp_slime_light_02_body_01
+  rotate: false
+  xy: 2, 2
+  size: 312, 270
+  orig: 312, 270
+  offset: 0, 0
+  index: -1
+exp_slime_light_02_body_02
+  rotate: false
+  xy: 316, 2
+  size: 312, 270
+  orig: 312, 270
+  offset: 0, 0
+  index: -1
+exp_slime_light_02_body_03
+  rotate: false
+  xy: 1634, 122
+  size: 81, 53
+  orig: 81, 53
+  offset: 0, 0
+  index: -1
+exp_slime_light_02_body_04
+  rotate: false
+  xy: 630, 2
+  size: 312, 270
+  orig: 312, 270
+  offset: 0, 0
+  index: -1
+exp_slime_light_02_body_05
+  rotate: false
+  xy: 944, 2
+  size: 312, 270
+  orig: 312, 270
+  offset: 0, 0
+  index: -1
+exp_slime_light_02_eye_01
+  rotate: true
+  xy: 1634, 177
+  size: 95, 82
+  orig: 95, 82
+  offset: 0, 0
+  index: -1
+exp_slime_light_02_mouth_01
+  rotate: false
+  xy: 1634, 70
+  size: 75, 50
+  orig: 75, 50
+  offset: 0, 0
+  index: -1
+exp_slime_light_02_wing_01
+  rotate: false
+  xy: 1258, 2
+  size: 186, 270
+  orig: 186, 270
+  offset: 0, 0
+  index: -1
+exp_slime_light_02_wing_02
+  rotate: false
+  xy: 1446, 2
+  size: 186, 270
+  orig: 186, 270
+  offset: 0, 0
+  index: -1

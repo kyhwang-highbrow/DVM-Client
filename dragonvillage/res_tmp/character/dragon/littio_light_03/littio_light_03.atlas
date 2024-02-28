@@ -1,0 +1,146 @@
+
+littio_light_03.png
+size: 712,285
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+littio_light_03_arm_01
+  rotate: true
+  xy: 658, 176
+  size: 67, 48
+  orig: 67, 48
+  offset: 0, 0
+  index: -1
+littio_light_03_arm_02
+  rotate: true
+  xy: 590, 29
+  size: 56, 61
+  orig: 56, 61
+  offset: 0, 0
+  index: -1
+littio_light_03_body_01
+  rotate: false
+  xy: 398, 167
+  size: 137, 116
+  orig: 137, 116
+  offset: 0, 0
+  index: -1
+littio_light_03_body_02
+  rotate: true
+  xy: 398, 57
+  size: 108, 116
+  orig: 108, 116
+  offset: 0, 0
+  index: -1
+littio_light_03_body_03
+  rotate: false
+  xy: 98, 3
+  size: 109, 74
+  orig: 109, 74
+  offset: 0, 0
+  index: -1
+littio_light_03_body_04
+  rotate: false
+  xy: 2, 2
+  size: 94, 75
+  orig: 94, 75
+  offset: 0, 0
+  index: -1
+littio_light_03_body_05
+  rotate: false
+  xy: 282, 105
+  size: 114, 178
+  orig: 114, 178
+  offset: 0, 0
+  index: -1
+littio_light_03_eye_01
+  rotate: false
+  xy: 664, 72
+  size: 36, 33
+  orig: 36, 33
+  offset: 0, 0
+  index: -1
+littio_light_03_foot_01
+  rotate: true
+  xy: 516, 24
+  size: 58, 66
+  orig: 58, 66
+  offset: 0, 0
+  index: -1
+littio_light_03_foot_02
+  rotate: true
+  xy: 658, 245
+  size: 38, 52
+  orig: 38, 52
+  offset: 0, 0
+  index: -1
+littio_light_03_hand_01
+  rotate: true
+  xy: 209, 4
+  size: 73, 90
+  orig: 73, 90
+  offset: 0, 0
+  index: -1
+littio_light_03_hand_02
+  rotate: false
+  xy: 664, 107
+  size: 45, 67
+  orig: 45, 67
+  offset: 0, 0
+  index: -1
+littio_light_03_head_01
+  rotate: false
+  xy: 537, 170
+  size: 119, 113
+  orig: 119, 113
+  offset: 0, 0
+  index: -1
+littio_light_03_head_03
+  rotate: true
+  xy: 516, 84
+  size: 81, 72
+  orig: 81, 72
+  offset: 0, 0
+  index: -1
+littio_light_03_head_04
+  rotate: true
+  xy: 590, 87
+  size: 81, 72
+  orig: 81, 72
+  offset: 0, 0
+  index: -1
+littio_light_03_leg_01
+  rotate: false
+  xy: 301, 24
+  size: 83, 79
+  orig: 83, 79
+  offset: 0, 0
+  index: -1
+littio_light_03_leg_02
+  rotate: true
+  xy: 386, 8
+  size: 47, 65
+  orig: 47, 65
+  offset: 0, 0
+  index: -1
+littio_light_03_mouth_01
+  rotate: false
+  xy: 453, 10
+  size: 54, 45
+  orig: 54, 45
+  offset: 0, 0
+  index: -1
+littio_light_03_wing_01
+  rotate: false
+  xy: 2, 79
+  size: 138, 204
+  orig: 138, 204
+  offset: 0, 0
+  index: -1
+littio_light_03_wing_02
+  rotate: false
+  xy: 142, 79
+  size: 138, 204
+  orig: 138, 204
+  offset: 0, 0
+  index: -1

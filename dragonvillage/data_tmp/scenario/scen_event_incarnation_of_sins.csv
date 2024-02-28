@@ -1,0 +1,12 @@
+page,bg,illustration,char,t_char_name,char_pos,char_ani,char_effect,r_scen,t_text,text_pos,text_type,auto_skip,effect_1,effect_2,effect_3,bgm,bgm_action,sound
+1,회상,,,,,,,,,,,3,title;죄악의 화신 토벌작전,skip_disable,next_disable,,,ui_boss_warning
+2,,,두른,,left,sorrow,,,호오~ 이것 좀 봐라! 어마어마한 일이 벌어진 것 같군.,,,,,,,bgm_dungeon_special,volume_down,
+3,토벌 공문,,,,,,,,,,,3,clear_char,clear_text,skip_disable,,,ui_wave_start
+4,회상,,,,,,,,,,,1,skip_disable,,,,,
+5,,,누리,,right,thought,,,죄악의 화신이라니 그렇게 위험한 녀석이 날뛰고 있단 말이에요?,,,,,,,,,
+6,,,고니,,left,idle,,,좋아 이 고니님이 실력을 발휘할 기회로군!,,,,,,,,,
+7,,,케사스,,right,fury,,,또 그런식으로 날뛰다가 마을이나 부수게 생겼군.,,,,,,,,,
+8,,,모코지,,left,fury,,,그만 하세요 케사스. 지금은 모두가 힘을 합쳐야 할 때에요.,,,,,,,,,
+9,,,데데,,right,happy,,,그래요. 마을에 피해가 가지 않도록 최선을 다하죠.,,,,,,,,,
+10,,,누리,,left,fury,,,출발하자! 함께라면 분명 막아낼 수 있을 거야!,,,,,,,,,
+11,,,,,,,,,,,,1,black_in,skip_disable,,,,

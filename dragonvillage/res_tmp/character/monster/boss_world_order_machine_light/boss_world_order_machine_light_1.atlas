@@ -1,0 +1,167 @@
+
+boss_world_order_machine_light_1.png
+size: 1748,1019
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+boss_world_order_machine_light_bead_01
+  rotate: true
+  xy: 1578, 172
+  size: 175, 163
+  orig: 175, 163
+  offset: 0, 0
+  index: -1
+boss_world_order_machine_light_bead_02
+  rotate: false
+  xy: 694, 314
+  size: 27, 27
+  orig: 27, 27
+  offset: 0, 0
+  index: -1
+boss_world_order_machine_light_body_01
+  rotate: true
+  xy: 2, 310
+  size: 707, 690
+  orig: 707, 690
+  offset: 0, 0
+  index: -1
+boss_world_order_machine_light_button_01
+  rotate: false
+  xy: 2, 97
+  size: 187, 211
+  orig: 187, 211
+  offset: 0, 0
+  index: -1
+boss_world_order_machine_light_button_02
+  rotate: true
+  xy: 616, 20
+  size: 86, 113
+  orig: 86, 113
+  offset: 0, 0
+  index: -1
+boss_world_order_machine_light_button_03
+  rotate: true
+  xy: 731, 20
+  size: 86, 113
+  orig: 86, 113
+  offset: 0, 0
+  index: -1
+boss_world_order_machine_light_button_04
+  rotate: false
+  xy: 352, 19
+  size: 86, 87
+  orig: 86, 87
+  offset: 0, 0
+  index: -1
+boss_world_order_machine_light_button_05
+  rotate: false
+  xy: 440, 19
+  size: 86, 87
+  orig: 86, 87
+  offset: 0, 0
+  index: -1
+boss_world_order_machine_light_effect_01
+  rotate: false
+  xy: 1391, 147
+  size: 185, 194
+  orig: 185, 194
+  offset: 0, 0
+  index: -1
+boss_world_order_machine_light_effect_02
+  rotate: false
+  xy: 849, 8
+  size: 346, 333
+  orig: 346, 333
+  offset: 0, 0
+  index: -1
+boss_world_order_machine_light_effect_03
+  rotate: false
+  xy: 1400, 684
+  size: 346, 333
+  orig: 346, 333
+  offset: 0, 0
+  index: -1
+boss_world_order_machine_light_effect_04
+  rotate: false
+  xy: 1400, 349
+  size: 346, 333
+  orig: 346, 333
+  offset: 0, 0
+  index: -1
+boss_world_order_machine_light_gem_01
+  rotate: true
+  xy: 191, 108
+  size: 200, 327
+  orig: 200, 327
+  offset: 0, 0
+  index: -1
+boss_world_order_machine_light_gem_02
+  rotate: true
+  xy: 520, 108
+  size: 200, 327
+  orig: 200, 327
+  offset: 0, 0
+  index: -1
+boss_world_order_machine_light_gem_03
+  rotate: true
+  xy: 147, 3
+  size: 92, 63
+  orig: 92, 63
+  offset: 0, 0
+  index: -1
+boss_world_order_machine_light_needle_01
+  rotate: false
+  xy: 212, 8
+  size: 49, 98
+  orig: 49, 98
+  offset: 0, 0
+  index: -1
+boss_world_order_machine_light_ring_01
+  rotate: true
+  xy: 694, 343
+  size: 674, 351
+  orig: 674, 351
+  offset: 0, 0
+  index: -1
+boss_world_order_machine_light_ring_02
+  rotate: true
+  xy: 1047, 343
+  size: 674, 351
+  orig: 674, 351
+  offset: 0, 0
+  index: -1
+boss_world_order_machine_light_stone_01
+  rotate: false
+  xy: 263, 15
+  size: 87, 91
+  orig: 87, 91
+  offset: 0, 0
+  index: -1
+boss_world_order_machine_light_stone_02
+  rotate: false
+  xy: 2, 2
+  size: 143, 93
+  orig: 143, 93
+  offset: 0, 0
+  index: -1
+boss_world_order_machine_light_tooth_01
+  rotate: false
+  xy: 528, 19
+  size: 86, 87
+  orig: 86, 87
+  offset: 0, 0
+  index: -1
+boss_world_order_machine_light_tooth_02
+  rotate: false
+  xy: 1197, 21
+  size: 122, 123
+  orig: 122, 123
+  offset: 0, 0
+  index: -1
+boss_world_order_machine_light_tooth_03
+  rotate: false
+  xy: 1197, 146
+  size: 192, 195
+  orig: 192, 195
+  offset: 0, 0
+  index: -1

@@ -1,0 +1,398 @@
+
+mokoji_uniform.png
+size: 1910,221
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+mokoji_uniform_acce_01
+  rotate: false
+  xy: 380, 3
+  size: 30, 53
+  orig: 30, 53
+  offset: 0, 0
+  index: -1
+mokoji_uniform_acce_02
+  rotate: true
+  xy: 477, 2
+  size: 15, 31
+  orig: 15, 31
+  offset: 0, 0
+  index: -1
+mokoji_uniform_arm_01
+  rotate: true
+  xy: 608, 21
+  size: 36, 64
+  orig: 36, 64
+  offset: 0, 0
+  index: -1
+mokoji_uniform_arm_02
+  rotate: false
+  xy: 1797, 106
+  size: 27, 34
+  orig: 27, 34
+  offset: 0, 0
+  index: -1
+mokoji_uniform_arm_03
+  rotate: false
+  xy: 348, 5
+  size: 30, 45
+  orig: 30, 45
+  offset: 0, 0
+  index: -1
+mokoji_uniform_arm_04
+  rotate: false
+  xy: 440, 6
+  size: 35, 50
+  orig: 35, 50
+  offset: 0, 0
+  index: -1
+mokoji_uniform_arm_05
+  rotate: true
+  xy: 1817, 4
+  size: 22, 26
+  orig: 22, 26
+  offset: 0, 0
+  index: -1
+mokoji_uniform_backbody_01
+  rotate: false
+  xy: 1845, 157
+  size: 63, 62
+  orig: 63, 62
+  offset: 0, 0
+  index: -1
+mokoji_uniform_backbody_02
+  rotate: true
+  xy: 1759, 105
+  size: 35, 36
+  orig: 35, 36
+  offset: 0, 0
+  index: -1
+mokoji_uniform_belt_01
+  rotate: false
+  xy: 1811, 187
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+mokoji_uniform_belt_02
+  rotate: true
+  xy: 1845, 7
+  size: 20, 27
+  orig: 20, 27
+  offset: 0, 0
+  index: -1
+mokoji_uniform_body_01
+  rotate: false
+  xy: 1845, 93
+  size: 63, 62
+  orig: 63, 62
+  offset: 0, 0
+  index: -1
+mokoji_uniform_body_02
+  rotate: true
+  xy: 545, 2
+  size: 55, 61
+  orig: 55, 61
+  offset: 0, 0
+  index: -1
+mokoji_uniform_body_03
+  rotate: true
+  xy: 1746, 142
+  size: 77, 63
+  orig: 77, 63
+  offset: 0, 0
+  index: -1
+mokoji_uniform_cape_01
+  rotate: false
+  xy: 889, 73
+  size: 58, 146
+  orig: 58, 146
+  offset: 0, 0
+  index: -1
+mokoji_uniform_cape_02
+  rotate: true
+  xy: 279, 4
+  size: 46, 67
+  orig: 46, 67
+  offset: 0, 0
+  index: -1
+mokoji_uniform_cape_03
+  rotate: false
+  xy: 1442, 105
+  size: 113, 114
+  orig: 113, 114
+  offset: 0, 0
+  index: -1
+mokoji_uniform_effect_01
+  rotate: true
+  xy: 254, 52
+  size: 167, 115
+  orig: 167, 115
+  offset: 0, 0
+  index: -1
+mokoji_uniform_effect_02
+  rotate: false
+  xy: 958, 3
+  size: 80, 87
+  orig: 80, 87
+  offset: 0, 0
+  index: -1
+mokoji_uniform_effect_03
+  rotate: true
+  xy: 371, 58
+  size: 161, 160
+  orig: 161, 160
+  offset: 0, 0
+  index: -1
+mokoji_uniform_effect_04
+  rotate: true
+  xy: 2, 25
+  size: 194, 189
+  orig: 194, 189
+  offset: 0, 0
+  index: -1
+mokoji_uniform_effect_05
+  rotate: false
+  xy: 1308, 5
+  size: 94, 90
+  orig: 94, 90
+  offset: 0, 0
+  index: -1
+mokoji_uniform_effect_09
+  rotate: true
+  xy: 1557, 105
+  size: 114, 107
+  orig: 114, 107
+  offset: 0, 0
+  index: -1
+mokoji_uniform_effect_10
+  rotate: true
+  xy: 1769, 28
+  size: 75, 73
+  orig: 75, 73
+  offset: 0, 0
+  index: -1
+mokoji_uniform_effect_11
+  rotate: true
+  xy: 749, 73
+  size: 146, 138
+  orig: 146, 138
+  offset: 0, 0
+  index: -1
+mokoji_uniform_effect_12
+  rotate: false
+  xy: 1542, 17
+  size: 225, 86
+  orig: 225, 86
+  offset: 0, 0
+  index: -1
+mokoji_uniform_effect_13
+  rotate: false
+  xy: 533, 59
+  size: 113, 160
+  orig: 113, 160
+  offset: 0, 0
+  index: -1
+mokoji_uniform_eye_01
+  rotate: false
+  xy: 1666, 105
+  size: 58, 29
+  orig: 58, 29
+  offset: 0, 0
+  index: -1
+mokoji_uniform_eye_02
+  rotate: false
+  xy: 2, 2
+  size: 48, 21
+  orig: 48, 21
+  offset: 0, 0
+  index: -1
+mokoji_uniform_eye_03
+  rotate: false
+  xy: 52, 2
+  size: 43, 21
+  orig: 43, 21
+  offset: 0, 0
+  index: -1
+mokoji_uniform_eye_04
+  rotate: false
+  xy: 97, 2
+  size: 43, 21
+  orig: 43, 21
+  offset: 0, 0
+  index: -1
+mokoji_uniform_face_01
+  rotate: false
+  xy: 510, 5
+  size: 17, 12
+  orig: 17, 12
+  offset: 0, 0
+  index: -1
+mokoji_uniform_face_02
+  rotate: true
+  xy: 412, 5
+  size: 51, 26
+  orig: 51, 26
+  offset: 0, 0
+  index: -1
+mokoji_uniform_hair_01
+  rotate: true
+  xy: 1147, 97
+  size: 122, 97
+  orig: 122, 97
+  offset: 0, 0
+  index: -1
+mokoji_uniform_hair_02
+  rotate: true
+  xy: 1404, 6
+  size: 90, 56
+  orig: 90, 56
+  offset: 0, 0
+  index: -1
+mokoji_uniform_hair_03
+  rotate: true
+  xy: 1666, 136
+  size: 83, 78
+  orig: 83, 78
+  offset: 0, 0
+  index: -1
+mokoji_uniform_hair_04
+  rotate: true
+  xy: 1844, 29
+  size: 62, 61
+  orig: 62, 61
+  offset: 0, 0
+  index: -1
+mokoji_uniform_hand_01
+  rotate: false
+  xy: 142, 2
+  size: 24, 21
+  orig: 24, 21
+  offset: 0, 0
+  index: -1
+mokoji_uniform_hand_02
+  rotate: false
+  xy: 168, 2
+  size: 24, 21
+  orig: 24, 21
+  offset: 0, 0
+  index: -1
+mokoji_uniform_hand_03
+  rotate: true
+  xy: 1794, 2
+  size: 24, 21
+  orig: 24, 21
+  offset: 0, 0
+  index: -1
+mokoji_uniform_hand_04
+  rotate: true
+  xy: 1769, 2
+  size: 24, 23
+  orig: 24, 23
+  offset: 0, 0
+  index: -1
+mokoji_uniform_head_01
+  rotate: false
+  xy: 1462, 6
+  size: 78, 97
+  orig: 78, 97
+  offset: 0, 0
+  index: -1
+mokoji_uniform_reg_01
+  rotate: false
+  xy: 1050, 94
+  size: 95, 125
+  orig: 95, 125
+  offset: 0, 0
+  index: -1
+mokoji_uniform_reg_02
+  rotate: false
+  xy: 1246, 97
+  size: 77, 122
+  orig: 77, 122
+  offset: 0, 0
+  index: -1
+mokoji_uniform_reg_03
+  rotate: true
+  xy: 810, 4
+  size: 67, 146
+  orig: 67, 146
+  offset: 0, 0
+  index: -1
+mokoji_uniform_reg_04
+  rotate: true
+  xy: 674, 2
+  size: 60, 134
+  orig: 60, 134
+  offset: 0, 0
+  index: -1
+mokoji_uniform_wepon_01
+  rotate: true
+  xy: 1040, 4
+  size: 86, 266
+  orig: 86, 266
+  offset: 0, 0
+  index: -1
+mokoji_uniform_wepon_02
+  rotate: true
+  xy: 477, 19
+  size: 37, 66
+  orig: 37, 66
+  offset: 0, 0
+  index: -1
+mokoji_uniform_wepon_03
+  rotate: false
+  xy: 236, 3
+  size: 41, 39
+  orig: 41, 39
+  offset: 0, 0
+  index: -1
+mokoji_uniform_wepon_04
+  rotate: true
+  xy: 1811, 160
+  size: 25, 28
+  orig: 25, 28
+  offset: 0, 0
+  index: -1
+mokoji_uniform_wepon_05
+  rotate: false
+  xy: 194, 2
+  size: 40, 40
+  orig: 40, 40
+  offset: 0, 0
+  index: -1
+mokoji_uniform_wepon_06
+  rotate: false
+  xy: 1726, 105
+  size: 31, 29
+  orig: 31, 29
+  offset: 0, 0
+  index: -1
+uniform_effect_01
+  rotate: true
+  xy: 193, 44
+  size: 175, 59
+  orig: 175, 59
+  offset: 0, 0
+  index: -1
+uniform_effect_02
+  rotate: true
+  xy: 648, 64
+  size: 155, 99
+  orig: 155, 99
+  offset: 0, 0
+  index: -1
+uniform_effect_03
+  rotate: false
+  xy: 1325, 98
+  size: 115, 121
+  orig: 115, 121
+  offset: 0, 0
+  index: -1
+uniform_effect_04
+  rotate: true
+  xy: 949, 92
+  size: 127, 99
+  orig: 127, 99
+  offset: 0, 0
+  index: -1

@@ -1,0 +1,239 @@
+{
+	type = 'Header';
+	version = '1.1.2';
+	[1] =
+	{
+		[1] =
+		{
+			[1] =
+			{
+				[1] =
+				{
+					type = 'SocketNode';
+					socket_name = 'ingame_panel_mana_slot_1';
+				};
+				[2] =
+				{
+					type = 'SocketNode';
+					socket_name = 'ingame_panel_mana_slot_2';
+				};
+				[3] =
+				{
+					type = 'SocketNode';
+					socket_name = 'ingame_panel_mana_slot_3';
+				};
+				[4] =
+				{
+					type = 'SocketNode';
+					socket_name = 'ingame_panel_mana_slot_4';
+				};
+				[5] =
+				{
+					type = 'SocketNode';
+					socket_name = 'ingame_panel_mana_slot_5';
+				};
+				type = 'Visual';
+				ui_name = '';
+				x = 0.000000;
+				y = 2.000000;
+				dock_point = { 0.500000; 0.500000; };
+				anchor_point = { 0.500000; 0.500000; };
+				relative_size_type = 0;
+				width = 0;
+				height = 0;
+				scale_x = 1.000000;
+				scale_y = 1.000000;
+				skew_x = 0.000000;
+				skew_y = 0.000000;
+				rotation = 0.000000;
+				visible = true;
+				lua_name = 'tamerSkillVisual';
+				file_name = 'ui/a2d/ingame_panel/ingame_panel.vrp';
+				auto_play = true;
+				is_repeat = true;
+				visual_id = 'group;tamer_full';
+				color = { 255; 255; 255; };
+				opacity = 255;
+			};
+			[2] =
+			{
+				type = 'Sprite';
+				ui_name = '';
+				x = 0.000000;
+				y = 0.000000;
+				dock_point = { 0.500000; 0.500000; };
+				anchor_point = { 0.500000; 0.500000; };
+				relative_size_type = 0;
+				width = 134;
+				height = 134;
+				scale_x = 1.000000;
+				scale_y = 1.000000;
+				skew_x = 0.000000;
+				skew_y = 0.000000;
+				rotation = 0.000000;
+				visible = true;
+				lua_name = '';
+				file_name = 'ui/a2d/ingame_panel/inagame_panel_tamer_skill_0101.png';
+				color = { 255; 255; 255; };
+				opacity = 255;
+				flip_x = false;
+				flip_y = false;
+				src_blend = 770;
+				dest_blend = 771;
+			};
+			[3] =
+			{
+				type = 'Node';
+				ui_name = '';
+				x = -0.000061;
+				y = -0.000001;
+				dock_point = { 0.500000; 0.500000; };
+				anchor_point = { 0.500000; 0.500000; };
+				relative_size_type = 0;
+				width = 100;
+				height = 100;
+				scale_x = 1.050000;
+				scale_y = 1.050000;
+				skew_x = 0.000000;
+				skew_y = 0.000000;
+				rotation = 0.000000;
+				visible = true;
+				action_type = 4;
+				action_delay_1 = 0.000000;
+				action_delay_2 = 0.000000;
+				action_duration = 0.500000;
+				lua_name = 'tamerSkillNode1';
+			};
+			[4] =
+			{
+				type = 'Sprite';
+				ui_name = '';
+				x = 0.000000;
+				y = 0.000000;
+				dock_point = { 0.500000; 0.500000; };
+				anchor_point = { 0.500000; 0.500000; };
+				relative_size_type = 0;
+				width = 132;
+				height = 132;
+				scale_x = 1.000000;
+				scale_y = 1.000000;
+				skew_x = 0.000000;
+				skew_y = 0.000000;
+				rotation = 0.000000;
+				visible = false;
+				lua_name = 'tamerSkilllLockSprite';
+				file_name = 'ui/a2d/ingame_panel/ingame_panel_tamer_skill_lock.png';
+				color = { 255; 255; 255; };
+				opacity = 255;
+				flip_x = false;
+				flip_y = false;
+				src_blend = 770;
+				dest_blend = 771;
+			};
+			[5] =
+			{
+				[1] =
+				{
+					[1] =
+					{
+						type = 'Node';
+						ui_name = '';
+						x = 2.000000;
+						y = -76.000000;
+						dock_point = { 0.500000; 0.500000; };
+						anchor_point = { 0.500000; 0.500000; };
+						relative_size_type = 0;
+						width = 360;
+						height = 380;
+						scale_x = 0.500000;
+						scale_y = 0.500000;
+						skew_x = 0.000000;
+						skew_y = 0.000000;
+						rotation = 0.000000;
+						visible = true;
+						lua_name = 'tamerNode';
+					};
+					type = 'ClippingNode';
+					ui_name = '';
+					x = 0.000000;
+					y = 35.000000;
+					dock_point = { 0.500000; 0.500000; };
+					anchor_point = { 0.500000; 0.500000; };
+					relative_size_type = 0;
+					width = 44;
+					height = 115;
+					scale_x = 1.000000;
+					scale_y = 1.000000;
+					skew_x = 0.000000;
+					skew_y = 0.000000;
+					rotation = 0.000000;
+					visible = true;
+					lua_name = '';
+					stencil_type = 0;
+					stencil_img = '';
+					alpha_threshold = 1.000000;
+					is_invert = false;
+				};
+				type = 'Sprite';
+				ui_name = '';
+				x = 39.000000;
+				y = -37.000000;
+				dock_point = { 0.500000; 0.500000; };
+				anchor_point = { 0.500000; 0.500000; };
+				relative_size_type = 0;
+				width = 52;
+				height = 52;
+				scale_x = 1.000000;
+				scale_y = 1.000000;
+				skew_x = 0.000000;
+				skew_y = 0.000000;
+				rotation = 0.000000;
+				visible = true;
+				lua_name = '';
+				file_name = 'ui/a2d/ingame_panel/ingame_panel_portrait.png';
+				color = { 255; 255; 255; };
+				opacity = 255;
+				flip_x = false;
+				flip_y = false;
+				src_blend = 770;
+				dest_blend = 771;
+			};
+			type = 'Menu';
+			ui_name = 'tamer';
+			x = -562.000000;
+			y = 0.000000;
+			dock_point = { 0.500000; 0.000000; };
+			anchor_point = { 0.500000; 0.000000; };
+			relative_size_type = 0;
+			width = 140;
+			height = 140;
+			scale_x = 1.000000;
+			scale_y = 1.000000;
+			skew_x = 0.000000;
+			skew_y = 0.000000;
+			rotation = 0.000000;
+			visible = true;
+			action_type = 1;
+			action_delay_1 = 0.000000;
+			action_delay_2 = 0.000000;
+			action_duration = 0.500000;
+			lua_name = 'panelMenu';
+		};
+		type = 'Menu';
+		ui_name = '';
+		x = 0.000000;
+		y = 0.000000;
+		dock_point = { 0.500000; 0.500000; };
+		anchor_point = { 0.500000; 0.500000; };
+		relative_size_type = 3;
+		width = 0;
+		height = 0;
+		scale_x = 1.000000;
+		scale_y = 1.000000;
+		skew_x = 0.000000;
+		skew_y = 0.000000;
+		rotation = 0.000000;
+		visible = true;
+		lua_name = '';
+	};
+};

@@ -1,0 +1,202 @@
+
+aphrodite_earth_02.png
+size: 1571,316
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+aphrodite_earth_02_arm_01
+  rotate: false
+  xy: 1495, 5
+  size: 60, 55
+  orig: 60, 55
+  offset: 0, 0
+  index: -1
+aphrodite_earth_02_arm_02
+  rotate: true
+  xy: 1447, 126
+  size: 26, 76
+  orig: 26, 76
+  offset: 0, 0
+  index: -1
+aphrodite_earth_02_body_01
+  rotate: true
+  xy: 1333, 55
+  size: 72, 105
+  orig: 72, 105
+  offset: 0, 0
+  index: -1
+aphrodite_earth_02_body_02
+  rotate: false
+  xy: 1335, 129
+  size: 110, 76
+  orig: 110, 76
+  offset: 0, 0
+  index: -1
+aphrodite_earth_02_dress_01
+  rotate: false
+  xy: 1255, 28
+  size: 76, 112
+  orig: 76, 112
+  offset: 0, 0
+  index: -1
+aphrodite_earth_02_dress_02
+  rotate: false
+  xy: 1007, 138
+  size: 212, 91
+  orig: 212, 91
+  offset: 0, 0
+  index: -1
+aphrodite_earth_02_dress_03
+  rotate: false
+  xy: 912, 13
+  size: 137, 123
+  orig: 137, 123
+  offset: 0, 0
+  index: -1
+aphrodite_earth_02_dress_04
+  rotate: true
+  xy: 437, 13
+  size: 66, 145
+  orig: 66, 145
+  offset: 0, 0
+  index: -1
+aphrodite_earth_02_ear_01
+  rotate: true
+  xy: 1221, 142
+  size: 63, 112
+  orig: 63, 112
+  offset: 0, 0
+  index: -1
+aphrodite_earth_02_ear_02
+  rotate: false
+  xy: 1178, 18
+  size: 75, 118
+  orig: 75, 118
+  offset: 0, 0
+  index: -1
+aphrodite_earth_02_eff_01
+  rotate: false
+  xy: 2, 15
+  size: 347, 299
+  orig: 347, 299
+  offset: 0, 0
+  index: -1
+aphrodite_earth_02_eff_02
+  rotate: false
+  xy: 1051, 11
+  size: 125, 125
+  orig: 125, 125
+  offset: 0, 0
+  index: -1
+aphrodite_earth_02_eye
+  rotate: true
+  xy: 1543, 97
+  size: 27, 19
+  orig: 27, 19
+  offset: 0, 0
+  index: -1
+aphrodite_earth_02_hand_01
+  rotate: true
+  xy: 1333, 3
+  size: 50, 92
+  orig: 50, 92
+  offset: 0, 0
+  index: -1
+aphrodite_earth_02_hand_02
+  rotate: true
+  xy: 351, 2
+  size: 77, 84
+  orig: 77, 84
+  offset: 0, 0
+  index: -1
+aphrodite_earth_02_head_01
+  rotate: false
+  xy: 1440, 62
+  size: 70, 62
+  orig: 70, 62
+  offset: 0, 0
+  index: -1
+aphrodite_earth_02_horn_01
+  rotate: true
+  xy: 1447, 154
+  size: 26, 119
+  orig: 26, 119
+  offset: 0, 0
+  index: -1
+aphrodite_earth_02_horn_02
+  rotate: true
+  xy: 584, 3
+  size: 76, 125
+  orig: 76, 125
+  offset: 0, 0
+  index: -1
+aphrodite_earth_02_lace_02
+  rotate: true
+  xy: 723, 138
+  size: 176, 282
+  orig: 176, 282
+  offset: 0, 0
+  index: -1
+aphrodite_earth_02_lace_03
+  rotate: true
+  xy: 1248, 207
+  size: 107, 208
+  orig: 107, 208
+  offset: 0, 0
+  index: -1
+aphrodite_earth_02_lace_04
+  rotate: true
+  xy: 1525, 126
+  size: 26, 38
+  orig: 26, 38
+  offset: 0, 0
+  index: -1
+aphrodite_earth_02_lace_05
+  rotate: true
+  xy: 1512, 63
+  size: 61, 29
+  orig: 61, 29
+  offset: 0, 0
+  index: -1
+aphrodite_earth_02_leg_01
+  rotate: true
+  xy: 723, 22
+  size: 114, 187
+  orig: 114, 187
+  offset: 0, 0
+  index: -1
+aphrodite_earth_02_leg_02
+  rotate: true
+  xy: 1007, 231
+  size: 83, 239
+  orig: 83, 239
+  offset: 0, 0
+  index: -1
+aphrodite_earth_02_mouth
+  rotate: false
+  xy: 2, 6
+  size: 13, 7
+  orig: 13, 7
+  offset: 0, 0
+  index: -1
+aphrodite_earth_02_tail
+  rotate: false
+  xy: 351, 81
+  size: 370, 233
+  orig: 370, 233
+  offset: 0, 0
+  index: -1
+aphrodite_earth_02_thing_01
+  rotate: true
+  xy: 1440, 2
+  size: 58, 53
+  orig: 58, 53
+  offset: 0, 0
+  index: -1
+aphrodite_earth_02_weapon
+  rotate: false
+  xy: 1458, 182
+  size: 111, 132
+  orig: 111, 132
+  offset: 0, 0
+  index: -1

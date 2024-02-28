@@ -1,0 +1,125 @@
+
+taildragon_dark_01.png
+size: 1147,212
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+taildragon_dark_01_arm_01
+  rotate: false
+  xy: 788, 55
+  size: 61, 89
+  orig: 61, 89
+  offset: 0, 0
+  index: -1
+taildragon_dark_01_arm_02
+  rotate: false
+  xy: 942, 9
+  size: 60, 90
+  orig: 60, 90
+  offset: 0, 0
+  index: -1
+taildragon_dark_01_body_01
+  rotate: false
+  xy: 437, 20
+  size: 173, 190
+  orig: 173, 190
+  offset: 0, 0
+  index: -1
+taildragon_dark_01_eye_01
+  rotate: false
+  xy: 612, 105
+  size: 49, 39
+  orig: 49, 39
+  offset: 0, 0
+  index: -1
+taildragon_dark_01_eye_02
+  rotate: false
+  xy: 663, 105
+  size: 49, 39
+  orig: 49, 39
+  offset: 0, 0
+  index: -1
+taildragon_dark_01_foot_01
+  rotate: false
+  xy: 1079, 107
+  size: 66, 103
+  orig: 66, 103
+  offset: 0, 0
+  index: -1
+taildragon_dark_01_foot_02
+  rotate: false
+  xy: 851, 3
+  size: 67, 78
+  orig: 67, 78
+  offset: 0, 0
+  index: -1
+taildragon_dark_01_hair_01
+  rotate: true
+  xy: 612, 15
+  size: 84, 105
+  orig: 84, 105
+  offset: 0, 0
+  index: -1
+taildragon_dark_01_hand_01
+  rotate: true
+  xy: 851, 83
+  size: 61, 89
+  orig: 61, 89
+  offset: 0, 0
+  index: -1
+taildragon_dark_01_hand_02
+  rotate: false
+  xy: 1004, 9
+  size: 60, 90
+  orig: 60, 90
+  offset: 0, 0
+  index: -1
+taildragon_dark_01_head_01
+  rotate: true
+  xy: 947, 101
+  size: 109, 130
+  orig: 109, 130
+  offset: 0, 0
+  index: -1
+taildragon_dark_01_head_02
+  rotate: true
+  xy: 714, 103
+  size: 41, 40
+  orig: 41, 40
+  offset: 0, 0
+  index: -1
+taildragon_dark_01_leg_01
+  rotate: false
+  xy: 1079, 2
+  size: 66, 103
+  orig: 66, 103
+  offset: 0, 0
+  index: -1
+taildragon_dark_01_leg_02
+  rotate: false
+  xy: 719, 3
+  size: 67, 98
+  orig: 67, 98
+  offset: 0, 0
+  index: -1
+taildragon_dark_01_tail_01
+  rotate: false
+  xy: 612, 146
+  size: 333, 64
+  orig: 333, 64
+  offset: 0, 0
+  index: -1
+taildragon_dark_01_tail_03
+  rotate: false
+  xy: 237, 10
+  size: 198, 200
+  orig: 198, 200
+  offset: 0, 0
+  index: -1
+taildragon_dark_01_tail_04
+  rotate: true
+  xy: 2, 15
+  size: 195, 233
+  orig: 195, 233
+  offset: 0, 0
+  index: -1

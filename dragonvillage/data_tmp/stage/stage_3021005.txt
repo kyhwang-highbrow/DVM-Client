@@ -1,0 +1,41 @@
+{
+    "difficult":2,
+    "bg":"map_cave",
+	"wave":
+	[	
+        {
+            "idx":1,
+			"camera":
+            {
+                "scale":0.6,
+                "pos_x":0,
+                "pos_y":0
+            },
+            "direction":"boss_wave",
+            "wave":
+            {				
+				0:
+				[
+					"205006;1;Basic;BOSS;RB24;0.5;boss"
+					"205002;1;Appear;RB14;MD06;0.5"
+					"204002;1;Appear;RO01;RO11;0.5"
+					"204002;1;Appear;RO03;RO13;0.5"
+					"204002;1;Appear;RO05;RO15;0.5"
+					"204002;1;Appear;RO07;RO17;0.5"
+				]
+            },
+			
+			"regen":
+			[
+				{
+					20:
+					[
+						"205003;1;Basic;RO07;RB18;2"
+						"205003;1;Basic;RO07;RB27;2"
+						"205003;1;Basic;RO07;RB38;2"
+					]
+				}
+			]
+        }
+    ]
+}

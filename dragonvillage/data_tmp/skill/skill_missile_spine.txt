@@ -1,0 +1,36 @@
+{
+	"skill_missile_spine":
+	{
+		"attack_value":
+		[			
+			
+			{
+				"idx":1,
+                
+				"res":"res/missile/missile_spine/missile_spine.png",
+				"visual":"idle",
+                "count":5,
+				"damage_rate":20,
+                "scale":1,
+                "period":0.2,
+				"dir":90,
+				"speed":200,
+				"accel":5000,
+				"accel_delay":0.5,
+
+				"body":[0,0,30],
+				"offset":[-70,30],
+                "dir_add":-10,
+				"movement":"guidtarget",
+				
+                "effect":
+                {
+                    "motion_streak":"res/missile/motion_streak/motion_streak_spine.png",
+                    "rotation":false,
+                    "afterimage":false
+                }
+				
+			}
+		]
+	}
+}

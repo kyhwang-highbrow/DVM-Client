@@ -1,0 +1,202 @@
+
+aphrodite_light_02.png
+size: 1577,316
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+aphrodite_light_02_arm_01
+  rotate: false
+  xy: 1508, 67
+  size: 59, 55
+  orig: 59, 55
+  offset: 0, 0
+  index: -1
+aphrodite_light_02_arm_02
+  rotate: true
+  xy: 492, 4
+  size: 26, 76
+  orig: 26, 76
+  offset: 0, 0
+  index: -1
+aphrodite_light_02_body_01
+  rotate: true
+  xy: 570, 3
+  size: 72, 105
+  orig: 72, 105
+  offset: 0, 0
+  index: -1
+aphrodite_light_02_body_02
+  rotate: false
+  xy: 1056, 26
+  size: 110, 76
+  orig: 110, 76
+  offset: 0, 0
+  index: -1
+aphrodite_light_02_dress_01
+  rotate: true
+  xy: 890, 3
+  size: 76, 112
+  orig: 76, 112
+  offset: 0, 0
+  index: -1
+aphrodite_light_02_dress_02
+  rotate: true
+  xy: 983, 104
+  size: 210, 89
+  orig: 210, 89
+  offset: 0, 0
+  index: -1
+aphrodite_light_02_dress_03
+  rotate: true
+  xy: 1299, 164
+  size: 150, 149
+  orig: 150, 149
+  offset: 0, 0
+  index: -1
+aphrodite_light_02_dress_04
+  rotate: false
+  xy: 1372, 17
+  size: 70, 145
+  orig: 70, 145
+  offset: 0, 0
+  index: -1
+aphrodite_light_02_ear_01
+  rotate: true
+  xy: 1450, 124
+  size: 63, 112
+  orig: 63, 112
+  offset: 0, 0
+  index: -1
+aphrodite_light_02_ear_02
+  rotate: false
+  xy: 1295, 7
+  size: 75, 118
+  orig: 75, 118
+  offset: 0, 0
+  index: -1
+aphrodite_light_02_eff_01
+  rotate: false
+  xy: 2, 15
+  size: 347, 299
+  orig: 347, 299
+  offset: 0, 0
+  index: -1
+aphrodite_light_02_eff_02
+  rotate: false
+  xy: 1450, 189
+  size: 125, 125
+  orig: 125, 125
+  offset: 0, 0
+  index: -1
+aphrodite_light_02_eye
+  rotate: true
+  xy: 351, 3
+  size: 27, 18
+  orig: 27, 18
+  offset: 0, 0
+  index: -1
+aphrodite_light_02_hand_01
+  rotate: false
+  xy: 1004, 10
+  size: 50, 92
+  orig: 50, 92
+  offset: 0, 0
+  index: -1
+aphrodite_light_02_hand_02
+  rotate: true
+  xy: 677, 2
+  size: 77, 84
+  orig: 77, 84
+  offset: 0, 0
+  index: -1
+aphrodite_light_02_head_01
+  rotate: true
+  xy: 1444, 52
+  size: 70, 62
+  orig: 70, 62
+  offset: 0, 0
+  index: -1
+aphrodite_light_02_horn_01
+  rotate: true
+  xy: 371, 4
+  size: 26, 119
+  orig: 26, 119
+  offset: 0, 0
+  index: -1
+aphrodite_light_02_horn_02
+  rotate: true
+  xy: 763, 3
+  size: 76, 125
+  orig: 76, 125
+  offset: 0, 0
+  index: -1
+aphrodite_light_02_lace_02
+  rotate: false
+  xy: 351, 32
+  size: 176, 282
+  orig: 176, 282
+  offset: 0, 0
+  index: -1
+aphrodite_light_02_lace_03
+  rotate: false
+  xy: 1074, 106
+  size: 107, 208
+  orig: 107, 208
+  offset: 0, 0
+  index: -1
+aphrodite_light_02_lace_04
+  rotate: true
+  xy: 529, 49
+  size: 26, 38
+  orig: 26, 38
+  offset: 0, 0
+  index: -1
+aphrodite_light_02_lace_05
+  rotate: false
+  xy: 1299, 133
+  size: 61, 29
+  orig: 61, 29
+  offset: 0, 0
+  index: -1
+aphrodite_light_02_leg_01
+  rotate: false
+  xy: 1183, 127
+  size: 114, 187
+  orig: 114, 187
+  offset: 0, 0
+  index: -1
+aphrodite_light_02_leg_02
+  rotate: false
+  xy: 529, 77
+  size: 81, 237
+  orig: 81, 237
+  offset: 0, 0
+  index: -1
+aphrodite_light_02_mouth
+  rotate: true
+  xy: 529, 34
+  size: 13, 12
+  orig: 13, 12
+  offset: 0, 0
+  index: -1
+aphrodite_light_02_tail
+  rotate: false
+  xy: 612, 81
+  size: 369, 233
+  orig: 369, 233
+  offset: 0, 0
+  index: -1
+aphrodite_light_02_thing_01
+  rotate: true
+  xy: 1508, 7
+  size: 58, 53
+  orig: 58, 53
+  offset: 0, 0
+  index: -1
+aphrodite_light_02_weapon
+  rotate: true
+  xy: 1168, 3
+  size: 101, 125
+  orig: 101, 125
+  offset: 0, 0
+  index: -1

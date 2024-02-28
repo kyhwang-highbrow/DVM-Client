@@ -1,0 +1,13 @@
+
+missile_web.png
+size: 1024,1024
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+missile_web_01
+  rotate: false
+  xy: 2, 2
+  size: 814, 814
+  orig: 814, 814
+  offset: 0, 0
+  index: -1

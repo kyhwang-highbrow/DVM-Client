@@ -1,0 +1,19 @@
+{
+	"missile_move_high_angle":
+	{
+		"attack_value":
+		[		
+			{
+				"idx":1,
+				"body":[0,0,0],
+                "scale":1,
+				"offset":[0,0],
+                "movement":"lua_angle",
+                "lua_param":
+                {
+                    "value1":""
+                }
+			}
+		]
+	}
+}

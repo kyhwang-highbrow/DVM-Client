@@ -1,0 +1,174 @@
+
+optatio_dark_02.png
+size: 1081,548
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+optatio_dark_02_arm_01
+  rotate: false
+  xy: 895, 4
+  size: 107, 85
+  orig: 107, 85
+  offset: 0, 0
+  index: -1
+optatio_dark_02_body_01
+  rotate: false
+  xy: 186, 2
+  size: 178, 155
+  orig: 178, 155
+  offset: 0, 0
+  index: -1
+optatio_dark_02_calf_01
+  rotate: false
+  xy: 358, 162
+  size: 59, 62
+  orig: 59, 62
+  offset: 0, 0
+  index: -1
+optatio_dark_02_effect_01
+  rotate: false
+  xy: 719, 316
+  size: 228, 230
+  orig: 228, 230
+  offset: 0, 0
+  index: -1
+optatio_dark_02_effect_02
+  rotate: true
+  xy: 419, 168
+  size: 56, 48
+  orig: 56, 48
+  offset: 0, 0
+  index: -1
+optatio_dark_02_elbow_01
+  rotate: true
+  xy: 726, 12
+  size: 169, 167
+  orig: 169, 167
+  offset: 0, 0
+  index: -1
+optatio_dark_02_elbow_02
+  rotate: true
+  xy: 978, 436
+  size: 110, 101
+  orig: 110, 101
+  offset: 0, 0
+  index: -1
+optatio_dark_02_foot_01
+  rotate: true
+  xy: 978, 188
+  size: 78, 96
+  orig: 78, 96
+  offset: 0, 0
+  index: -1
+optatio_dark_02_hand_01
+  rotate: false
+  xy: 551, 305
+  size: 166, 241
+  orig: 166, 241
+  offset: 0, 0
+  index: -1
+optatio_dark_02_hand_02
+  rotate: true
+  xy: 779, 196
+  size: 118, 110
+  orig: 118, 110
+  offset: 0, 0
+  index: -1
+optatio_dark_02_hand_03
+  rotate: false
+  xy: 366, 3
+  size: 187, 157
+  orig: 187, 157
+  offset: 0, 0
+  index: -1
+optatio_dark_02_head_01
+  rotate: true
+  xy: 2, 2
+  size: 155, 182
+  orig: 155, 182
+  offset: 0, 0
+  index: -1
+optatio_dark_02_leg_01
+  rotate: false
+  xy: 891, 199
+  size: 85, 115
+  orig: 85, 115
+  offset: 0, 0
+  index: -1
+optatio_dark_02_lowerbody_01
+  rotate: false
+  xy: 978, 352
+  size: 97, 82
+  orig: 97, 82
+  offset: 0, 0
+  index: -1
+optatio_dark_02_lowerbody_02
+  rotate: true
+  xy: 555, 14
+  size: 152, 83
+  orig: 152, 83
+  offset: 0, 0
+  index: -1
+optatio_dark_02_lowerbody_03
+  rotate: false
+  xy: 978, 268
+  size: 97, 82
+  orig: 97, 82
+  offset: 0, 0
+  index: -1
+optatio_dark_02_neck_01
+  rotate: true
+  xy: 669, 183
+  size: 120, 108
+  orig: 120, 108
+  offset: 0, 0
+  index: -1
+optatio_dark_02_shoulder_01
+  rotate: false
+  xy: 551, 168
+  size: 116, 135
+  orig: 116, 135
+  offset: 0, 0
+  index: -1
+optatio_dark_02_tail_01
+  rotate: true
+  xy: 640, 32
+  size: 134, 84
+  orig: 134, 84
+  offset: 0, 0
+  index: -1
+optatio_dark_02_tail_02
+  rotate: true
+  xy: 469, 170
+  size: 54, 77
+  orig: 54, 77
+  offset: 0, 0
+  index: -1
+optatio_dark_02_tail_03
+  rotate: false
+  xy: 976, 96
+  size: 68, 90
+  orig: 68, 90
+  offset: 0, 0
+  index: -1
+optatio_dark_02_thigh_01
+  rotate: true
+  xy: 895, 91
+  size: 106, 79
+  orig: 106, 79
+  offset: 0, 0
+  index: -1
+optatio_dark_02_wing_04
+  rotate: true
+  xy: 2, 159
+  size: 387, 354
+  orig: 387, 354
+  offset: 0, 0
+  index: -1
+optatio_dark_02_wing_05
+  rotate: true
+  xy: 358, 226
+  size: 320, 191
+  orig: 320, 191
+  offset: 0, 0
+  index: -1

@@ -1,0 +1,40 @@
+{
+    "pattern_boss_drake":
+    [        
+        [
+            "a;basic", "w;2", "a;1", "w;2", "a;2", "w;2"
+        ]
+    ],
+	
+    "hp_trriger":
+    {
+        "priority":1,
+        "list":
+        [
+            {
+                "hp_percent":70,
+                "pattern":
+                [
+                    "w;2", "a;3", "w;2", "a;basic", "w;2", "a;4", "w;1", "a;3", "w;2", "a;1"
+                ]
+            },
+			
+            {
+                "hp_percent":15,
+                "pattern":
+                [
+                    "w;2", "a;5"
+                ]
+            }
+        ]
+
+    },
+	"ani_mix":
+	[
+        "idle;attack;0.1",
+        "idle;idle;0.1",
+        "attack;idle;0.1",
+		"skill_2;idle;0.1",
+		"idle;skill_2;0.1"
+    ]
+}

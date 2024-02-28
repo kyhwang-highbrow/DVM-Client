@@ -1,0 +1,132 @@
+
+dede_sleep_l.png
+size: 1182,317
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+dede_sleep_bed_01
+  rotate: true
+  xy: 999, 224
+  size: 91, 181
+  orig: 91, 181
+  offset: 0, 0
+  index: -1
+dede_sleep_bed_02
+  rotate: true
+  xy: 864, 78
+  size: 237, 133
+  orig: 237, 133
+  offset: 0, 0
+  index: -1
+dede_sleep_bed_03
+  rotate: true
+  xy: 274, 5
+  size: 310, 103
+  orig: 310, 103
+  offset: 0, 0
+  index: -1
+dede_sleep_bed_04
+  rotate: true
+  xy: 379, 5
+  size: 310, 103
+  orig: 310, 103
+  offset: 0, 0
+  index: -1
+dede_sleep_bed_05
+  rotate: false
+  xy: 1041, 126
+  size: 42, 96
+  orig: 42, 96
+  offset: 0, 0
+  index: -1
+dede_sleep_bed_06
+  rotate: true
+  xy: 786, 2
+  size: 43, 93
+  orig: 43, 93
+  offset: 0, 0
+  index: -1
+dede_sleep_bed_07
+  rotate: true
+  xy: 786, 47
+  size: 268, 76
+  orig: 268, 76
+  offset: 0, 0
+  index: -1
+dede_sleep_bed_08
+  rotate: false
+  xy: 999, 114
+  size: 40, 108
+  orig: 40, 108
+  offset: 0, 0
+  index: -1
+dede_sleep_bed_09
+  rotate: true
+  xy: 2, 5
+  size: 310, 134
+  orig: 310, 134
+  offset: 0, 0
+  index: -1
+dede_sleep_bed_10
+  rotate: true
+  xy: 138, 5
+  size: 310, 134
+  orig: 310, 134
+  offset: 0, 0
+  index: -1
+dede_sleep_body_01
+  rotate: false
+  xy: 999, 81
+  size: 16, 31
+  orig: 16, 31
+  offset: 0, 0
+  index: -1
+dede_sleep_body_02
+  rotate: true
+  xy: 1017, 84
+  size: 28, 47
+  orig: 28, 47
+  offset: 0, 0
+  index: -1
+dede_sleep_body_03
+  rotate: false
+  xy: 1085, 158
+  size: 74, 64
+  orig: 74, 64
+  offset: 0, 0
+  index: -1
+dede_sleep_duvet_01
+  rotate: false
+  xy: 881, 2
+  size: 161, 74
+  orig: 161, 74
+  offset: 0, 0
+  index: -1
+dede_sleep_eff_01
+  rotate: false
+  xy: 864, 59
+  size: 15, 17
+  orig: 15, 17
+  offset: 0, 0
+  index: -1
+dede_sleep_head_01
+  rotate: false
+  xy: 1085, 94
+  size: 58, 62
+  orig: 58, 62
+  offset: 0, 0
+  index: -1
+dede_sleep_mat
+  rotate: false
+  xy: 484, 15
+  size: 300, 300
+  orig: 300, 300
+  offset: 0, 0
+  index: -1
+dede_sleep_pillow
+  rotate: false
+  xy: 1044, 2
+  size: 102, 80
+  orig: 102, 80
+  offset: 0, 0
+  index: -1

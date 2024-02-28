@@ -1,0 +1,195 @@
+
+taros_dark_02.png
+size: 1673,337
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+taros_dark_02_arm_01
+  rotate: false
+  xy: 682, 127
+  size: 158, 208
+  orig: 158, 208
+  offset: 0, 0
+  index: -1
+taros_dark_02_arm_02
+  rotate: true
+  xy: 1002, 152
+  size: 183, 168
+  orig: 183, 168
+  offset: 0, 0
+  index: -1
+taros_dark_02_arm_03
+  rotate: false
+  xy: 1516, 142
+  size: 43, 63
+  orig: 43, 63
+  offset: 0, 0
+  index: -1
+taros_dark_02_arm_04
+  rotate: false
+  xy: 842, 127
+  size: 158, 208
+  orig: 158, 208
+  offset: 0, 0
+  index: -1
+taros_dark_02_body_01
+  rotate: true
+  xy: 203, 52
+  size: 283, 334
+  orig: 283, 334
+  offset: 0, 0
+  index: -1
+taros_dark_02_body_02
+  rotate: false
+  xy: 1172, 165
+  size: 162, 170
+  orig: 162, 170
+  offset: 0, 0
+  index: -1
+taros_dark_02_claw
+  rotate: false
+  xy: 307, 5
+  size: 257, 45
+  orig: 257, 45
+  offset: 0, 0
+  index: -1
+taros_dark_02_effect_01
+  rotate: false
+  xy: 256, 4
+  size: 49, 46
+  orig: 49, 46
+  offset: 0, 0
+  index: -1
+taros_dark_02_effect_02
+  rotate: false
+  xy: 203, 3
+  size: 51, 47
+  orig: 51, 47
+  offset: 0, 0
+  index: -1
+taros_dark_02_effect_03
+  rotate: false
+  xy: 1386, 2
+  size: 29, 31
+  orig: 29, 31
+  offset: 0, 0
+  index: -1
+taros_dark_02_effect_05
+  rotate: true
+  xy: 539, 103
+  size: 232, 141
+  orig: 232, 141
+  offset: 0, 0
+  index: -1
+taros_dark_02_effect_06
+  rotate: false
+  xy: 911, 7
+  size: 195, 118
+  orig: 195, 118
+  offset: 0, 0
+  index: -1
+taros_dark_02_effect_08
+  rotate: false
+  xy: 1386, 35
+  size: 128, 142
+  orig: 128, 142
+  offset: 0, 0
+  index: -1
+taros_dark_02_effect_fi_01
+  rotate: true
+  xy: 1108, 3
+  size: 147, 137
+  orig: 147, 137
+  offset: 0, 0
+  index: -1
+taros_dark_02_effect_fi_02
+  rotate: true
+  xy: 1247, 3
+  size: 160, 137
+  orig: 160, 137
+  offset: 0, 0
+  index: -1
+taros_dark_02_effect_fi_03
+  rotate: true
+  xy: 566, 6
+  size: 95, 111
+  orig: 95, 111
+  offset: 0, 0
+  index: -1
+taros_dark_02_effect_fi_04
+  rotate: true
+  xy: 1568, 257
+  size: 78, 87
+  orig: 78, 87
+  offset: 0, 0
+  index: -1
+taros_dark_02_effect_fire
+  rotate: true
+  xy: 1336, 179
+  size: 156, 155
+  orig: 156, 155
+  offset: 0, 0
+  index: -1
+taros_dark_02_eye_01
+  rotate: false
+  xy: 539, 81
+  size: 20, 20
+  orig: 20, 20
+  offset: 0, 0
+  index: -1
+taros_dark_02_head_01
+  rotate: true
+  xy: 1594, 101
+  size: 72, 77
+  orig: 72, 77
+  offset: 0, 0
+  index: -1
+taros_dark_02_head_02
+  rotate: false
+  xy: 762, 2
+  size: 147, 123
+  orig: 147, 123
+  offset: 0, 0
+  index: -1
+taros_dark_02_head_03
+  rotate: true
+  xy: 679, 6
+  size: 95, 81
+  orig: 95, 81
+  offset: 0, 0
+  index: -1
+taros_dark_02_light_01
+  rotate: false
+  xy: 1594, 48
+  size: 58, 51
+  orig: 58, 51
+  offset: 0, 0
+  index: -1
+taros_dark_02_lighting_1
+  rotate: true
+  xy: 1493, 207
+  size: 128, 73
+  orig: 128, 73
+  offset: 0, 0
+  index: -1
+taros_dark_02_lighting_2
+  rotate: true
+  xy: 1516, 15
+  size: 125, 76
+  orig: 125, 76
+  offset: 0, 0
+  index: -1
+taros_dark_02_tail_01
+  rotate: true
+  xy: 2, 4
+  size: 331, 199
+  orig: 331, 199
+  offset: 0, 0
+  index: -1
+taros_dark_02_won
+  rotate: true
+  xy: 1568, 175
+  size: 80, 84
+  orig: 80, 84
+  offset: 0, 0
+  index: -1

@@ -1,0 +1,83 @@
+
+rockdragon_water_02.png
+size: 811,334
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+rockdragon_water_02_arm_01
+  rotate: false
+  xy: 644, 225
+  size: 105, 107
+  orig: 105, 107
+  offset: 0, 0
+  index: -1
+rockdragon_water_02_arm_03
+  rotate: false
+  xy: 644, 225
+  size: 105, 107
+  orig: 105, 107
+  offset: 0, 0
+  index: -1
+rockdragon_water_02_arm_02
+  rotate: true
+  xy: 510, 6
+  size: 113, 204
+  orig: 113, 204
+  offset: 0, 0
+  index: -1
+rockdragon_water_02_arm_04
+  rotate: false
+  xy: 525, 121
+  size: 117, 211
+  orig: 117, 211
+  offset: 0, 0
+  index: -1
+rockdragon_water_02_body_01
+  rotate: false
+  xy: 2, 2
+  size: 333, 330
+  orig: 333, 330
+  offset: 0, 0
+  index: -1
+rockdragon_water_02_effect_04
+  rotate: false
+  xy: 337, 19
+  size: 171, 150
+  orig: 171, 150
+  offset: 0, 0
+  index: -1
+rockdragon_water_02_eye_01
+  rotate: false
+  xy: 751, 178
+  size: 56, 80
+  orig: 56, 80
+  offset: 0, 0
+  index: -1
+rockdragon_water_02_head_01
+  rotate: false
+  xy: 337, 171
+  size: 186, 161
+  orig: 186, 161
+  offset: 0, 0
+  index: -1
+rockdragon_water_02_head_02
+  rotate: false
+  xy: 644, 129
+  size: 105, 94
+  orig: 105, 94
+  offset: 0, 0
+  index: -1
+rockdragon_water_02_leg_01
+  rotate: false
+  xy: 716, 50
+  size: 61, 77
+  orig: 61, 77
+  offset: 0, 0
+  index: -1
+rockdragon_water_02_leg_02
+  rotate: false
+  xy: 751, 260
+  size: 58, 72
+  orig: 58, 72
+  offset: 0, 0
+  index: -1

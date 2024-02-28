@@ -1,0 +1,132 @@
+
+leafdragon_earth_01.png
+size: 246,538
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+leafdragon_earth_01_arm_01
+  rotate: true
+  xy: 101, 208
+  size: 69, 61
+  orig: 69, 61
+  offset: 0, 0
+  index: -1
+leafdragon_earth_01_arm_01_01
+  rotate: true
+  xy: 172, 153
+  size: 69, 61
+  orig: 69, 61
+  offset: 0, 0
+  index: -1
+leafdragon_earth_01_arm_02
+  rotate: false
+  xy: 101, 145
+  size: 69, 61
+  orig: 69, 61
+  offset: 0, 0
+  index: -1
+leafdragon_earth_01_arm_02_01
+  rotate: true
+  xy: 98, 4
+  size: 69, 61
+  orig: 69, 61
+  offset: 0, 0
+  index: -1
+leafdragon_earth_01_body_01
+  rotate: false
+  xy: 2, 156
+  size: 97, 121
+  orig: 97, 121
+  offset: 0, 0
+  index: -1
+leafdragon_earth_01_effect_01
+  rotate: false
+  xy: 164, 224
+  size: 68, 68
+  orig: 68, 68
+  offset: 0, 0
+  index: -1
+leafdragon_earth_01_effect_02
+  rotate: false
+  xy: 68, 75
+  size: 68, 68
+  orig: 68, 68
+  offset: 0, 0
+  index: -1
+leafdragon_earth_01_eye_01
+  rotate: false
+  xy: 145, 409
+  size: 71, 46
+  orig: 71, 46
+  offset: 0, 0
+  index: -1
+leafdragon_earth_01_eye_02
+  rotate: true
+  xy: 2, 2
+  size: 71, 46
+  orig: 71, 46
+  offset: 0, 0
+  index: -1
+leafdragon_earth_01_eye_03
+  rotate: true
+  xy: 50, 2
+  size: 71, 46
+  orig: 71, 46
+  offset: 0, 0
+  index: -1
+leafdragon_earth_01_hand_01
+  rotate: false
+  xy: 138, 82
+  size: 69, 61
+  orig: 69, 61
+  offset: 0, 0
+  index: -1
+leafdragon_earth_01_hand_02
+  rotate: true
+  xy: 161, 11
+  size: 69, 61
+  orig: 69, 61
+  offset: 0, 0
+  index: -1
+leafdragon_earth_01_head_01
+  rotate: false
+  xy: 2, 279
+  size: 138, 128
+  orig: 138, 128
+  offset: 0, 0
+  index: -1
+leafdragon_earth_01_head_02
+  rotate: true
+  xy: 142, 294
+  size: 113, 102
+  orig: 113, 102
+  offset: 0, 0
+  index: -1
+leafdragon_earth_01_head_03
+  rotate: false
+  xy: 2, 409
+  size: 141, 127
+  orig: 141, 127
+  offset: 0, 0
+  index: -1
+leafdragon_earth_01_leg_01
+  rotate: false
+  xy: 145, 457
+  size: 64, 79
+  orig: 64, 79
+  offset: 0, 0
+  index: -1
+leafdragon_earth_01_leg_02
+  rotate: false
+  xy: 2, 75
+  size: 64, 79
+  orig: 64, 79
+  offset: 0, 0
+  index: -1
+leafdragon_earth_01_mouth_01
+  rotate: true
+  xy: 209, 92
+  size: 59, 34
+  orig: 59, 34
+  offset: 0, 0
+  index: -1

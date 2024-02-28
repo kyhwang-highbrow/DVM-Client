@@ -1,0 +1,13 @@
+page,save,goto,t_text,text_pos,text_type,auto_skip,effect_1,effect_2,effect_3,effect_4,effect_5,bg,illustration,char,t_char_name,char_pos,char_ani,char_effect,bgm,bgm_action,sound
+1,,,축하 드립니다. 10회 무료 고급 소환권을 획득하였습니다. 지금 바로 소환을 진행해볼까요?,bot,,,,,,black_layer;off,skip_disable,,,,,,,,,,
+2,101,,마을 버튼을 눌러주세요.,top,,,pointing;homeBtn,activate;homeBtn,next_disable,black_layer;on,skip_disable,,,,,,,,,,
+3,,,,,,,pointing;remove,activate;remove,next_disable,step_close,,,,,,,,,,,
+4,,,,,,0.5,clear_text,,next_disable,black_layer;off,skip_disable,,,,,,,,,,
+5,,,,,,0,pointing;release,activate;release,,,skip_disable,,,,,,,,,,
+6,,101,,,,0.5,clear_text,,next_disable,black_layer;off,skip_disable,,,,,,,,,,
+7,,,10회 고급소환을 진행합니다. 고급 소환 버튼을 클릭해주세요.,top,,,pointing;tutorialSummon11Btn,activate;tutorialSummon11Btn,next_disable,black_layer;on,skip_disable,,,,,,,,,,
+8,102,,,,,0,pointing;release,activate;release,next_disable,black_layer;off,skip_disable,,,,,,,,,,
+9,,,,,,0.5,clear_text,,next_disable,,skip_disable,,,,,,,,,,
+10,,,,,,,wait,,next_disable,touch_block;off,skip_disable,,,,,,,,,,
+11,,,,,,0,,,next_disable,touch_block;on,skip_disable,,,,,,,,,,
+12,,,테이머님! 원하는 드래곤을 얻으셨나요? 멋진 드래곤들과 함께 모험을 즐겨보세요!,bot,,,,,,,skip_disable,,,,,,,,,,

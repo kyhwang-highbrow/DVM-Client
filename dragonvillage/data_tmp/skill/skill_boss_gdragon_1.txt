@@ -1,0 +1,86 @@
+{
+	"skill_boss_gdragon_1":
+	{
+		"attack_value":
+		[		
+			{
+				"comment":"거대용 공통스킬: 불똥 상단",
+				
+				"idx":1,
+				"res":"res/missile/missile_gdragon_basic/missile_gdragon_basic_@.vrp",
+				"body":[0,0,20],
+                "count":25,
+				"damage_rate":4,
+                "scale":1.2,
+                "period":0.05,
+				"speed":1000,
+				"accel":0,
+				"l_limit_speed":0,
+				"accel_delay":40,
+				"angular_velocity":-60,
+				"offset":[-350,-100],
+                "dir_array":['random',10,40],
+				
+                "effect":
+                {
+                    "motion_streak":"",
+                    "rotation":false,
+                    "afterimage":false
+                }
+			},
+			
+			{
+				"comment":"거대용 공통스킬: 불똥 하단",
+				
+				"idx":1,
+				"res":"res/missile/missile_gdragon_basic/missile_gdragon_basic_@.vrp",
+				"body":[0,0,20],
+                "count":25,
+				"damage_rate":4,
+                "scale":1.2,
+                "period":0.05,
+				"speed":1000,
+				"accel":0,
+				"l_limit_speed":0,
+				"accel_delay":40,
+				"angular_velocity":60,
+				"offset":[-350,100],
+                "dir_array":['random',-10,-40],
+				"map_shake_time":0.5,
+				
+                "effect":
+                {
+                    "motion_streak":"",
+                    "rotation":false,
+                    "afterimage":false
+                }
+			},
+			
+			{
+				"comment":"거대용 공통스킬: 불똥 중단",
+				
+				"idx":1,
+				"res":"res/missile/missile_gdragon_basic/missile_gdragon_basic_@.vrp",
+				"body":[0,0,20],
+                "count":25,
+				"damage_rate":4,
+                "scale":1.2,
+                "period":0.05,
+				"speed":1000,
+				"accel":0,
+				"l_limit_speed":0,
+				"accel_delay":40,
+				"angular_velocity":0,
+				"offset":[-350,0],
+                "dir_array":['random',40,-40],
+				
+                "effect":
+                {
+                    "motion_streak":"",
+                    "rotation":false,
+                    "afterimage":false
+                }
+			}
+		]
+	}
+}

@@ -1,0 +1,167 @@
+
+penelion_earth_02.png
+size: 860,1037
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+penelion_earth_02_acc_03
+  rotate: false
+  xy: 2, 345
+  size: 93, 62
+  orig: 93, 62
+  offset: 0, 0
+  index: -1
+penelion_earth_02_armour_06
+  rotate: false
+  xy: 725, 9
+  size: 92, 95
+  orig: 92, 95
+  offset: 0, 0
+  index: -1
+penelion_earth_02_armouracc_01
+  rotate: true
+  xy: 317, 384
+  size: 23, 25
+  orig: 23, 25
+  offset: 0, 0
+  index: -1
+penelion_earth_02_body_01
+  rotate: false
+  xy: 2, 409
+  size: 356, 300
+  orig: 356, 300
+  offset: 0, 0
+  index: -1
+penelion_earth_02_body_02
+  rotate: true
+  xy: 344, 235
+  size: 153, 262
+  orig: 153, 262
+  offset: 0, 0
+  index: -1
+penelion_earth_02_effect_01
+  rotate: true
+  xy: 230, 2
+  size: 231, 234
+  orig: 231, 234
+  offset: 0, 0
+  index: -1
+penelion_earth_02_effect_04
+  rotate: false
+  xy: 2, 711
+  size: 660, 324
+  orig: 660, 324
+  offset: 0, 0
+  index: -1
+penelion_earth_02_effect_06
+  rotate: false
+  xy: 664, 685
+  size: 185, 92
+  orig: 185, 92
+  offset: 0, 0
+  index: -1
+penelion_earth_02_foot_01
+  rotate: true
+  xy: 230, 304
+  size: 47, 112
+  orig: 47, 112
+  offset: 0, 0
+  index: -1
+penelion_earth_02_foot_02
+  rotate: true
+  xy: 230, 250
+  size: 52, 77
+  orig: 52, 77
+  offset: 0, 0
+  index: -1
+penelion_earth_02_foot_03
+  rotate: true
+  xy: 466, 12
+  size: 49, 74
+  orig: 49, 74
+  offset: 0, 0
+  index: -1
+penelion_earth_02_hair_01
+  rotate: false
+  xy: 608, 235
+  size: 92, 107
+  orig: 92, 107
+  offset: 0, 0
+  index: -1
+penelion_earth_02_hair_02
+  rotate: false
+  xy: 664, 779
+  size: 193, 118
+  orig: 193, 118
+  offset: 0, 0
+  index: -1
+penelion_earth_02_hair_03
+  rotate: true
+  xy: 466, 63
+  size: 170, 155
+  orig: 170, 155
+  offset: 0, 0
+  index: -1
+penelion_earth_02_hair_06
+  rotate: true
+  xy: 97, 349
+  size: 58, 102
+  orig: 58, 102
+  offset: 0, 0
+  index: -1
+penelion_earth_02_head_02
+  rotate: true
+  xy: 201, 353
+  size: 54, 114
+  orig: 54, 114
+  offset: 0, 0
+  index: -1
+penelion_earth_02_headarmour_01
+  rotate: false
+  xy: 725, 106
+  size: 131, 118
+  orig: 131, 118
+  offset: 0, 0
+  index: -1
+penelion_earth_02_leg_01
+  rotate: false
+  xy: 623, 54
+  size: 100, 170
+  orig: 100, 170
+  offset: 0, 0
+  index: -1
+penelion_earth_02_tail_01
+  rotate: false
+  xy: 360, 390
+  size: 289, 319
+  orig: 289, 319
+  offset: 0, 0
+  index: -1
+penelion_earth_02_tail_02
+  rotate: true
+  xy: 702, 226
+  size: 116, 134
+  orig: 116, 134
+  offset: 0, 0
+  index: -1
+penelion_earth_02_tail_03
+  rotate: true
+  xy: 664, 899
+  size: 136, 194
+  orig: 136, 194
+  offset: 0, 0
+  index: -1
+penelion_earth_02_wingl_01
+  rotate: true
+  xy: 651, 344
+  size: 339, 200
+  orig: 339, 200
+  offset: 0, 0
+  index: -1
+penelion_earth_02_wingl_02
+  rotate: false
+  xy: 2, 13
+  size: 226, 329
+  orig: 226, 329
+  offset: 0, 0
+  index: -1

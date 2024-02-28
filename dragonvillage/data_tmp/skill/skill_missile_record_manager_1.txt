@@ -1,0 +1,85 @@
+{
+	"skill_missile_record_manager_1":
+	{
+		"attack_value":
+		[		
+			{				
+				"idx":1,
+				"res":"res/missile/missile_dot/missile_dot_@.png",
+				"body":[0,0,20],
+                "count":1,
+				"damage_rate":50,
+				"time":0,
+                "scale":2,
+                "period":0.05,
+				"speed":500,
+				"accel":-500,
+				"accel_delay":0.5,
+				"l_limit_speed":-500,
+				"angular_velocity":-20,
+				"offset":[0,0],
+				"dir_array":[0,45,90,135,180,225,270,315],
+				"dir_add":2,
+				
+                "effect":
+                {
+                    "motion_streak":"",
+                    "rotation":false,
+                    "afterimage":false
+                }
+			},
+			
+			{				
+				"idx":1,
+				"res":"res/missile/missile_dot/missile_dot_@.png",
+				"body":[0,0,20],
+                "count":1,
+				"damage_rate":50,
+				"time":0.5,
+                "scale":2,
+                "period":0.05,
+				"speed":500,
+				"accel":-500,
+				"accel_delay":0.5,
+				"l_limit_speed":-500,
+				"angular_velocity":20,
+				"offset":[0,0],
+				"dir_array":[0,45,90,135,180,225,270,315],
+				"dir_add":-2,
+				
+                "effect":
+                {
+                    "motion_streak":"",
+                    "rotation":false,
+                    "afterimage":false
+                }
+			},
+			
+			{				
+				"idx":1,
+				"res":"res/missile/missile_dot/missile_dot_@.png",
+				"body":[0,0,20],
+                "count":1,
+				"damage_rate":50,
+				"time":1,
+                "scale":2,
+                "period":0.05,
+				"speed":500,
+				"accel":-500,
+				"accel_delay":0.5,
+				"l_limit_speed":-500,
+				"angular_velocity":-20,
+				"offset":[0,0],
+				"dir_array":[0,45,90,135,180,225,270,315],
+				"dir_add":2,
+				
+                "effect":
+                {
+                    "motion_streak":"",
+                    "rotation":false,
+                    "afterimage":false
+                }
+			}
+		]
+	}
+}

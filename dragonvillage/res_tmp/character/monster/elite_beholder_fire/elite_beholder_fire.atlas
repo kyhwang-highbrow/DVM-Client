@@ -1,0 +1,111 @@
+
+elite_beholder_fire.png
+size: 1024,256
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+elite_beholder_fire_acc_01
+  rotate: false
+  xy: 652, 157
+  size: 143, 97
+  orig: 143, 97
+  offset: 0, 0
+  index: -1
+elite_beholder_fire_acc_02
+  rotate: false
+  xy: 797, 116
+  size: 130, 53
+  orig: 130, 53
+  offset: 0, 0
+  index: -1
+elite_beholder_fire_acc_03
+  rotate: false
+  xy: 2, 6
+  size: 53, 42
+  orig: 53, 42
+  offset: 0, 0
+  index: -1
+elite_beholder_fire_acc_04
+  rotate: true
+  xy: 336, 2
+  size: 63, 60
+  orig: 63, 60
+  offset: 0, 0
+  index: -1
+elite_beholder_fire_body_01
+  rotate: false
+  xy: 2, 50
+  size: 212, 204
+  orig: 212, 204
+  offset: 0, 0
+  index: -1
+elite_beholder_fire_body_02
+  rotate: false
+  xy: 216, 56
+  size: 118, 198
+  orig: 118, 198
+  offset: 0, 0
+  index: -1
+elite_beholder_fire_body_03
+  rotate: true
+  xy: 480, 2
+  size: 87, 111
+  orig: 87, 111
+  offset: 0, 0
+  index: -1
+elite_beholder_fire_body_04
+  rotate: true
+  xy: 501, 137
+  size: 117, 149
+  orig: 117, 149
+  offset: 0, 0
+  index: -1
+elite_beholder_fire_body_05
+  rotate: true
+  xy: 796, 18
+  size: 96, 111
+  orig: 96, 111
+  offset: 0, 0
+  index: -1
+elite_beholder_fire_eye_01
+  rotate: false
+  xy: 336, 133
+  size: 163, 121
+  orig: 163, 121
+  offset: 0, 0
+  index: -1
+elite_beholder_fire_eye_02
+  rotate: false
+  xy: 954, 177
+  size: 57, 77
+  orig: 57, 77
+  offset: 0, 0
+  index: -1
+elite_beholder_fire_eye_03
+  rotate: false
+  xy: 398, 33
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+elite_beholder_fire_tail_01
+  rotate: true
+  xy: 797, 171
+  size: 83, 155
+  orig: 83, 155
+  offset: 0, 0
+  index: -1
+elite_beholder_fire_throne_01
+  rotate: false
+  xy: 336, 67
+  size: 142, 64
+  orig: 142, 64
+  offset: 0, 0
+  index: -1
+elite_beholder_fire_throne_02
+  rotate: false
+  xy: 652, 91
+  size: 142, 64
+  orig: 142, 64
+  offset: 0, 0
+  index: -1

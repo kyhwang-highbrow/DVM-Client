@@ -1,0 +1,48 @@
+
+rune_gacha.png
+size: 1678,1284
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+effect_bomb_1
+  rotate: false
+  xy: 1284, 637
+  size: 247, 243
+  orig: 247, 243
+  offset: 0, 0
+  index: -1
+effect_bomb_3
+  rotate: false
+  xy: 2, 2
+  size: 1280, 1280
+  orig: 1280, 1280
+  offset: 0, 0
+  index: -1
+effect_bomb_4
+  rotate: false
+  xy: 1284, 882
+  size: 392, 400
+  orig: 392, 400
+  offset: 0, 0
+  index: -1
+effect_ring
+  rotate: false
+  xy: 1284, 389
+  size: 243, 246
+  orig: 243, 246
+  offset: 0, 0
+  index: -1
+runecard_01
+  rotate: false
+  xy: 1284, 235
+  size: 152, 152
+  orig: 152, 152
+  offset: 0, 0
+  index: -1
+runecard_02
+  rotate: false
+  xy: 1284, 81
+  size: 152, 152
+  orig: 152, 152
+  offset: 0, 0
+  index: -1

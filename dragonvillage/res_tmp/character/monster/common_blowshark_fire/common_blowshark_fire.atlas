@@ -1,0 +1,83 @@
+
+common_blowshark_fire.png
+size: 512,512
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+common_blowshark_fire_arm_01
+  rotate: false
+  xy: 440, 452
+  size: 60, 58
+  orig: 60, 58
+  offset: 0, 0
+  index: -1
+common_blowshark_fire_body_01
+  rotate: false
+  xy: 2, 302
+  size: 242, 208
+  orig: 242, 208
+  offset: 0, 0
+  index: -1
+common_blowshark_fire_body_02
+  rotate: false
+  xy: 68, 18
+  size: 56, 72
+  orig: 56, 72
+  offset: 0, 0
+  index: -1
+common_blowshark_fire_body_03
+  rotate: false
+  xy: 368, 376
+  size: 64, 58
+  orig: 64, 58
+  offset: 0, 0
+  index: -1
+common_blowshark_fire_body_04
+  rotate: false
+  xy: 126, 30
+  size: 58, 60
+  orig: 58, 60
+  offset: 0, 0
+  index: -1
+common_blowshark_fire_body_07
+  rotate: false
+  xy: 2, 92
+  size: 242, 208
+  orig: 242, 208
+  offset: 0, 0
+  index: -1
+common_blowshark_fire_effect_01
+  rotate: false
+  xy: 246, 374
+  size: 120, 136
+  orig: 120, 136
+  offset: 0, 0
+  index: -1
+common_blowshark_fire_eye_01
+  rotate: false
+  xy: 246, 236
+  size: 72, 52
+  orig: 72, 52
+  offset: 0, 0
+  index: -1
+common_blowshark_fire_eye_02
+  rotate: true
+  xy: 2, 2
+  size: 88, 64
+  orig: 88, 64
+  offset: 0, 0
+  index: -1
+common_blowshark_fire_horn_01
+  rotate: false
+  xy: 246, 290
+  size: 84, 82
+  orig: 84, 82
+  offset: 0, 0
+  index: -1
+common_blowshark_fire_mouth_01
+  rotate: false
+  xy: 368, 436
+  size: 70, 74
+  orig: 70, 74
+  offset: 0, 0
+  index: -1

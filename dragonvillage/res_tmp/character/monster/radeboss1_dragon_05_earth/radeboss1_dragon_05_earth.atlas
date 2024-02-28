@@ -1,0 +1,48 @@
+
+radeboss1_dragon_05_earth.png
+size: 504,323
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+e_Layer 1
+  rotate: false
+  xy: 399, 2
+  size: 58, 59
+  orig: 58, 59
+  offset: 0, 0
+  index: -1
+e_dragon_01_body_01
+  rotate: false
+  xy: 2, 12
+  size: 395, 309
+  orig: 395, 309
+  offset: 0, 0
+  index: -1
+e_dragon_01_heard_01
+  rotate: true
+  xy: 399, 125
+  size: 78, 77
+  orig: 78, 77
+  offset: 0, 0
+  index: -1
+e_dragon_01_heard_02
+  rotate: true
+  xy: 399, 205
+  size: 116, 72
+  orig: 116, 72
+  offset: 0, 0
+  index: -1
+e_dragon_01_heard_03
+  rotate: true
+  xy: 461, 65
+  size: 58, 41
+  orig: 58, 41
+  offset: 0, 0
+  index: -1
+e_effect_laser
+  rotate: false
+  xy: 399, 63
+  size: 60, 60
+  orig: 60, 60
+  offset: 0, 0
+  index: -1

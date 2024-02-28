@@ -1,0 +1,76 @@
+
+psykerdragon_light_01.png
+size: 1257,362
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+psykerdragon_light_01_arm_01
+  rotate: true
+  xy: 992, 178
+  size: 182, 211
+  orig: 182, 211
+  offset: 0, 0
+  index: -1
+psykerdragon_light_01_body_01
+  rotate: false
+  xy: 2, 2
+  size: 552, 358
+  orig: 552, 358
+  offset: 0, 0
+  index: -1
+psykerdragon_light_01_effect_01
+  rotate: false
+  xy: 1205, 278
+  size: 49, 82
+  orig: 49, 82
+  offset: 0, 0
+  index: -1
+psykerdragon_light_01_eye_01
+  rotate: false
+  xy: 1205, 181
+  size: 34, 33
+  orig: 34, 33
+  offset: 0, 0
+  index: -1
+psykerdragon_light_01_eye_02
+  rotate: true
+  xy: 1241, 239
+  size: 37, 13
+  orig: 37, 13
+  offset: 0, 0
+  index: -1
+psykerdragon_light_01_eye_03
+  rotate: false
+  xy: 1205, 159
+  size: 43, 20
+  orig: 43, 20
+  offset: 0, 0
+  index: -1
+psykerdragon_light_01_eye_04
+  rotate: true
+  xy: 1205, 216
+  size: 60, 34
+  orig: 60, 34
+  offset: 0, 0
+  index: -1
+psykerdragon_light_01_head_01
+  rotate: true
+  xy: 556, 12
+  size: 348, 434
+  orig: 348, 434
+  offset: 0, 0
+  index: -1
+psykerdragon_light_01_mouth_01
+  rotate: false
+  xy: 1106, 54
+  size: 149, 103
+  orig: 149, 103
+  offset: 0, 0
+  index: -1
+psykerdragon_light_01_wing_01
+  rotate: true
+  xy: 992, 26
+  size: 150, 112
+  orig: 150, 112
+  offset: 0, 0
+  index: -1

@@ -1,0 +1,209 @@
+
+jaryong_earth_03.png
+size: 887,523
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+jaryong_earth_03_arm_01
+  rotate: false
+  xy: 374, 16
+  size: 121, 108
+  orig: 121, 108
+  offset: 0, 0
+  index: -1
+jaryong_earth_03_body_01
+  rotate: false
+  xy: 232, 219
+  size: 224, 188
+  orig: 224, 188
+  offset: 0, 0
+  index: -1
+jaryong_earth_03_body_armor_01
+  rotate: true
+  xy: 781, 322
+  size: 132, 104
+  orig: 132, 104
+  offset: 0, 0
+  index: -1
+jaryong_earth_03_body_armor_02
+  rotate: false
+  xy: 770, 111
+  size: 112, 97
+  orig: 112, 97
+  offset: 0, 0
+  index: -1
+jaryong_earth_03_calf_01
+  rotate: false
+  xy: 627, 29
+  size: 73, 80
+  orig: 73, 80
+  offset: 0, 0
+  index: -1
+jaryong_earth_03_effect_01
+  rotate: false
+  xy: 2, 177
+  size: 228, 230
+  orig: 228, 230
+  offset: 0, 0
+  index: -1
+jaryong_earth_03_effect_02
+  rotate: true
+  xy: 2, 409
+  size: 112, 540
+  orig: 112, 540
+  offset: 0, 0
+  index: -1
+jaryong_earth_03_elbow_01
+  rotate: false
+  xy: 422, 126
+  size: 110, 82
+  orig: 110, 82
+  offset: 0, 0
+  index: -1
+jaryong_earth_03_eye_01
+  rotate: false
+  xy: 497, 2
+  size: 29, 25
+  orig: 29, 25
+  offset: 0, 0
+  index: -1
+jaryong_earth_03_eye_02
+  rotate: false
+  xy: 458, 219
+  size: 8, 12
+  orig: 8, 12
+  offset: 0, 0
+  index: -1
+jaryong_earth_03_eye_03
+  rotate: false
+  xy: 504, 388
+  size: 22, 19
+  orig: 22, 19
+  offset: 0, 0
+  index: -1
+jaryong_earth_03_foot_01
+  rotate: true
+  xy: 745, 53
+  size: 56, 121
+  orig: 56, 121
+  offset: 0, 0
+  index: -1
+jaryong_earth_03_foot_02
+  rotate: false
+  xy: 158, 59
+  size: 67, 116
+  orig: 67, 116
+  offset: 0, 0
+  index: -1
+jaryong_earth_03_hair_01
+  rotate: false
+  xy: 232, 126
+  size: 188, 91
+  orig: 188, 91
+  offset: 0, 0
+  index: -1
+jaryong_earth_03_hair_03
+  rotate: false
+  xy: 660, 242
+  size: 119, 144
+  orig: 119, 144
+  offset: 0, 0
+  index: -1
+jaryong_earth_03_hair_04
+  rotate: true
+  xy: 458, 233
+  size: 174, 44
+  orig: 174, 44
+  offset: 0, 0
+  index: -1
+jaryong_earth_03_hand_01
+  rotate: true
+  xy: 792, 456
+  size: 65, 89
+  orig: 65, 89
+  offset: 0, 0
+  index: -1
+jaryong_earth_03_hand_02
+  rotate: false
+  xy: 702, 27
+  size: 41, 84
+  orig: 41, 84
+  offset: 0, 0
+  index: -1
+jaryong_earth_03_head_01
+  rotate: true
+  xy: 781, 210
+  size: 110, 104
+  orig: 110, 104
+  offset: 0, 0
+  index: -1
+jaryong_earth_03_headarmor_01
+  rotate: false
+  xy: 2, 25
+  size: 154, 150
+  orig: 154, 150
+  offset: 0, 0
+  index: -1
+jaryong_earth_03_headarmor_01_1
+  rotate: false
+  xy: 504, 236
+  size: 154, 150
+  orig: 154, 150
+  offset: 0, 0
+  index: -1
+jaryong_earth_03_headarmor_02
+  rotate: true
+  xy: 227, 35
+  size: 89, 145
+  orig: 89, 145
+  offset: 0, 0
+  index: -1
+jaryong_earth_03_mouth_01
+  rotate: true
+  xy: 2, 3
+  size: 20, 26
+  orig: 20, 26
+  offset: 0, 0
+  index: -1
+jaryong_earth_03_mouth_02
+  rotate: false
+  xy: 158, 38
+  size: 40, 19
+  orig: 40, 19
+  offset: 0, 0
+  index: -1
+jaryong_earth_03_shoulder_01
+  rotate: false
+  xy: 534, 111
+  size: 128, 123
+  orig: 128, 123
+  offset: 0, 0
+  index: -1
+jaryong_earth_03_tail_01
+  rotate: true
+  xy: 664, 113
+  size: 127, 104
+  orig: 127, 104
+  offset: 0, 0
+  index: -1
+jaryong_earth_03_tail_02
+  rotate: false
+  xy: 544, 461
+  size: 246, 60
+  orig: 246, 60
+  offset: 0, 0
+  index: -1
+jaryong_earth_03_tail_03
+  rotate: false
+  xy: 544, 388
+  size: 229, 71
+  orig: 229, 71
+  offset: 0, 0
+  index: -1
+jaryong_earth_03_thigh_01
+  rotate: true
+  xy: 497, 29
+  size: 80, 128
+  orig: 80, 128
+  offset: 0, 0
+  index: -1

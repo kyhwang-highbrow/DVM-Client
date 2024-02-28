@@ -1,0 +1,33 @@
+{
+	"skill_boss_gdragon_0":
+	{
+		"attack_value":
+		[		
+			{
+				"comment":"거대용 일반공격",
+				
+				"idx":1,
+				"res":"res/missile/missile_gdragon_basic/missile_gdragon_basic_@.vrp",
+				"body":[0,0,15],
+                "count":3,
+				"damage_rate":33,
+                "scale":1,
+                "period":0.1,
+				"speed":1000,
+				"accel":-2000,
+				"l_limit_speed":700,
+				"accel_delay":0,
+				"angular_velocity":0,
+				"offset":[-300,80],
+                "dir_array":[-20,-15,-10,-5,0,5,10,15,20],
+				
+                "effect":
+                {
+                    "motion_streak":"",
+                    "rotation":false,
+                    "afterimage":false
+                }
+			}
+		]
+	}
+}

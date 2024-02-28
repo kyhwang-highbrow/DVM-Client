@@ -1,0 +1,104 @@
+
+swordman_water.png
+size: 512,128
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+swordman_water_arm_01
+  rotate: true
+  xy: 430, 98
+  size: 22, 30
+  orig: 22, 30
+  offset: 0, 0
+  index: -1
+swordman_water_arm_02
+  rotate: false
+  xy: 269, 85
+  size: 32, 35
+  orig: 32, 35
+  offset: 0, 0
+  index: -1
+swordman_water_body_01
+  rotate: true
+  xy: 2, 43
+  size: 77, 139
+  orig: 77, 139
+  offset: 0, 0
+  index: -1
+swordman_water_body_02
+  rotate: false
+  xy: 98, 2
+  size: 41, 39
+  orig: 41, 39
+  offset: 0, 0
+  index: -1
+swordman_water_body_03
+  rotate: false
+  xy: 193, 78
+  size: 40, 42
+  orig: 40, 42
+  offset: 0, 0
+  index: -1
+swordman_water_effect_01
+  rotate: true
+  xy: 143, 45
+  size: 29, 42
+  orig: 29, 42
+  offset: 0, 0
+  index: -1
+swordman_water_effect_02
+  rotate: false
+  xy: 303, 103
+  size: 50, 17
+  orig: 50, 17
+  offset: 0, 0
+  index: -1
+swordman_water_effect_03
+  rotate: true
+  xy: 462, 103
+  size: 17, 35
+  orig: 17, 35
+  offset: 0, 0
+  index: -1
+swordman_water_hand_01
+  rotate: false
+  xy: 303, 81
+  size: 22, 20
+  orig: 22, 20
+  offset: 0, 0
+  index: -1
+swordman_water_hand_02
+  rotate: true
+  xy: 393, 91
+  size: 29, 35
+  orig: 29, 35
+  offset: 0, 0
+  index: -1
+swordman_water_head_01
+  rotate: false
+  xy: 143, 76
+  size: 48, 44
+  orig: 48, 44
+  offset: 0, 0
+  index: -1
+swordman_water_head_02
+  rotate: false
+  xy: 355, 102
+  size: 36, 18
+  orig: 36, 18
+  offset: 0, 0
+  index: -1
+swordman_water_shoulder_01
+  rotate: false
+  xy: 235, 80
+  size: 32, 40
+  orig: 32, 40
+  offset: 0, 0
+  index: -1
+swordman_water_wepon_01
+  rotate: false
+  xy: 2, 2
+  size: 94, 39
+  orig: 94, 39
+  offset: 0, 0
+  index: -1

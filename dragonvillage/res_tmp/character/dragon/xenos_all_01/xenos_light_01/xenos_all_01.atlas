@@ -1,0 +1,370 @@
+
+xenos_all_01.png
+size: 1113,532
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+xenos_all_01_attack_01
+  rotate: true
+  xy: 819, 209
+  size: 104, 91
+  orig: 104, 91
+  offset: 0, 0
+  index: -1
+xenos_all_01_attack_02
+  rotate: true
+  xy: 778, 396
+  size: 134, 89
+  orig: 134, 89
+  offset: 0, 0
+  index: -1
+xenos_all_01_attack_03
+  rotate: false
+  xy: 640, 311
+  size: 80, 80
+  orig: 80, 80
+  offset: 0, 0
+  index: -1
+xenos_all_01_attack_04
+  rotate: false
+  xy: 385, 198
+  size: 110, 111
+  orig: 110, 111
+  offset: 0, 0
+  index: -1
+xenos_all_01_black_01
+  rotate: true
+  xy: 961, 360
+  size: 67, 48
+  orig: 67, 48
+  offset: 0, 0
+  index: -1
+xenos_all_01_black_02
+  rotate: false
+  xy: 833, 148
+  size: 77, 59
+  orig: 77, 59
+  offset: 0, 0
+  index: -1
+xenos_all_01_body_01
+  rotate: true
+  xy: 497, 199
+  size: 110, 156
+  orig: 110, 156
+  offset: 0, 0
+  index: -1
+xenos_all_01_bubble_01
+  rotate: false
+  xy: 753, 204
+  size: 64, 105
+  orig: 64, 105
+  offset: 0, 0
+  index: -1
+xenos_all_01_crab_01
+  rotate: true
+  xy: 963, 102
+  size: 52, 55
+  orig: 52, 55
+  offset: 0, 0
+  index: -1
+xenos_all_01_crab_03
+  rotate: false
+  xy: 565, 3
+  size: 56, 44
+  orig: 56, 44
+  offset: 0, 0
+  index: -1
+xenos_all_01_crab_04
+  rotate: true
+  xy: 799, 315
+  size: 79, 75
+  orig: 79, 75
+  offset: 0, 0
+  index: -1
+xenos_all_01_crab_05
+  rotate: false
+  xy: 1025, 58
+  size: 37, 33
+  orig: 37, 33
+  offset: 0, 0
+  index: -1
+xenos_all_01_ear_01
+  rotate: true
+  xy: 944, 429
+  size: 101, 65
+  orig: 101, 65
+  offset: 0, 0
+  index: -1
+xenos_all_01_ear_02
+  rotate: true
+  xy: 1011, 311
+  size: 59, 96
+  orig: 59, 96
+  offset: 0, 0
+  index: -1
+xenos_all_01_effect_01
+  rotate: false
+  xy: 912, 156
+  size: 86, 77
+  orig: 86, 77
+  offset: 0, 0
+  index: -1
+xenos_all_01_effect_02
+  rotate: true
+  xy: 365, 5
+  size: 189, 198
+  orig: 189, 198
+  offset: 0, 0
+  index: -1
+xenos_all_01_effect_03
+  rotate: true
+  xy: 2, 9
+  size: 180, 193
+  orig: 180, 193
+  offset: 0, 0
+  index: -1
+xenos_all_01_effect_04
+  rotate: false
+  xy: 565, 49
+  size: 142, 148
+  orig: 142, 148
+  offset: 0, 0
+  index: -1
+xenos_all_01_effect_05
+  rotate: true
+  xy: 878, 10
+  size: 58, 57
+  orig: 58, 57
+  offset: 0, 0
+  index: -1
+xenos_all_01_effect_06
+  rotate: true
+  xy: 640, 393
+  size: 137, 136
+  orig: 137, 136
+  offset: 0, 0
+  index: -1
+xenos_all_01_effect_07
+  rotate: true
+  xy: 1010, 216
+  size: 93, 95
+  orig: 93, 95
+  offset: 0, 0
+  index: -1
+xenos_all_01_effect_08
+  rotate: false
+  xy: 197, 22
+  size: 166, 167
+  orig: 166, 167
+  offset: 0, 0
+  index: -1
+xenos_all_01_effect_09
+  rotate: true
+  xy: 709, 65
+  size: 132, 122
+  orig: 132, 122
+  offset: 0, 0
+  index: -1
+xenos_all_01_effect_10
+  rotate: true
+  xy: 289, 196
+  size: 113, 94
+  orig: 113, 94
+  offset: 0, 0
+  index: -1
+xenos_all_01_effect_11
+  rotate: true
+  xy: 289, 311
+  size: 219, 215
+  orig: 219, 215
+  offset: 0, 0
+  index: -1
+xenos_all_01_effect_cycle
+  rotate: true
+  xy: 2, 191
+  size: 339, 285
+  orig: 339, 285
+  offset: 0, 0
+  index: -1
+xenos_all_01_eye_01
+  rotate: true
+  xy: 900, 396
+  size: 28, 26
+  orig: 28, 26
+  offset: 0, 0
+  index: -1
+xenos_all_01_eye_02
+  rotate: true
+  xy: 708, 6
+  size: 41, 30
+  orig: 41, 30
+  offset: 0, 0
+  index: -1
+xenos_all_01_eye_03
+  rotate: true
+  xy: 676, 4
+  size: 43, 30
+  orig: 43, 30
+  offset: 0, 0
+  index: -1
+xenos_all_01_eye_04
+  rotate: false
+  xy: 1072, 68
+  size: 37, 36
+  orig: 37, 36
+  offset: 0, 0
+  index: -1
+xenos_all_01_eye_05
+  rotate: false
+  xy: 928, 397
+  size: 31, 27
+  orig: 31, 27
+  offset: 0, 0
+  index: -1
+xenos_all_01_eye_06
+  rotate: false
+  xy: 912, 282
+  size: 29, 31
+  orig: 29, 31
+  offset: 0, 0
+  index: -1
+xenos_all_01_face_01
+  rotate: true
+  xy: 655, 199
+  size: 110, 96
+  orig: 110, 96
+  offset: 0, 0
+  index: -1
+xenos_all_01_hair_01
+  rotate: true
+  xy: 623, 3
+  size: 44, 51
+  orig: 44, 51
+  offset: 0, 0
+  index: -1
+xenos_all_01_hand_01
+  rotate: false
+  xy: 740, 2
+  size: 71, 61
+  orig: 71, 61
+  offset: 0, 0
+  index: -1
+xenos_all_01_hand_02
+  rotate: true
+  xy: 869, 426
+  size: 104, 73
+  orig: 104, 73
+  offset: 0, 0
+  index: -1
+xenos_all_01_headacc_01
+  rotate: false
+  xy: 1072, 106
+  size: 37, 37
+  orig: 37, 37
+  offset: 0, 0
+  index: -1
+xenos_all_01_hit_01
+  rotate: false
+  xy: 894, 74
+  size: 67, 72
+  orig: 67, 72
+  offset: 0, 0
+  index: -1
+xenos_all_01_hit_02
+  rotate: false
+  xy: 1020, 93
+  size: 50, 50
+  orig: 50, 50
+  offset: 0, 0
+  index: -1
+xenos_all_01_leg_01
+  rotate: false
+  xy: 876, 315
+  size: 65, 79
+  orig: 65, 79
+  offset: 0, 0
+  index: -1
+xenos_all_01_leg_02
+  rotate: false
+  xy: 937, 3
+  size: 86, 69
+  orig: 86, 69
+  offset: 0, 0
+  index: -1
+xenos_all_01_mand_01
+  rotate: true
+  xy: 943, 235
+  size: 62, 63
+  orig: 62, 63
+  offset: 0, 0
+  index: -1
+xenos_all_01_mand_02
+  rotate: false
+  xy: 943, 299
+  size: 65, 59
+  orig: 65, 59
+  offset: 0, 0
+  index: -1
+xenos_all_01_mand_03
+  rotate: true
+  xy: 1011, 445
+  size: 85, 97
+  orig: 85, 97
+  offset: 0, 0
+  index: -1
+xenos_all_01_mouth_01
+  rotate: true
+  xy: 912, 249
+  size: 31, 29
+  orig: 31, 29
+  offset: 0, 0
+  index: -1
+xenos_all_01_nemo_01
+  rotate: true
+  xy: 833, 70
+  size: 76, 59
+  orig: 76, 59
+  offset: 0, 0
+  index: -1
+xenos_all_01_nemo_02
+  rotate: false
+  xy: 1025, 145
+  size: 86, 69
+  orig: 86, 69
+  offset: 0, 0
+  index: -1
+xenos_all_01_push_01
+  rotate: true
+  xy: 506, 324
+  size: 206, 132
+  orig: 206, 132
+  offset: 0, 0
+  index: -1
+xenos_all_01_shell_01
+  rotate: false
+  xy: 813, 2
+  size: 63, 61
+  orig: 63, 61
+  offset: 0, 0
+  index: -1
+xenos_all_01_tears_01
+  rotate: true
+  xy: 869, 396
+  size: 28, 29
+  orig: 28, 29
+  offset: 0, 0
+  index: -1
+xenos_all_01_wing_01
+  rotate: false
+  xy: 1011, 372
+  size: 96, 71
+  orig: 96, 71
+  offset: 0, 0
+  index: -1
+xenos_all_01_wing_02
+  rotate: true
+  xy: 722, 311
+  size: 80, 75
+  orig: 80, 75
+  offset: 0, 0
+  index: -1

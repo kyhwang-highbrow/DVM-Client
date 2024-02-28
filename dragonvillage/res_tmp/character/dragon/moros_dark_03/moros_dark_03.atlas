@@ -1,0 +1,1245 @@
+
+moros_dark_03.png
+size: 1571,1032
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+effect_moros_01_bullet_01
+  rotate: false
+  xy: 295, 31
+  size: 121, 62
+  orig: 121, 62
+  offset: 0, 0
+  index: -1
+effect_moros_01_bullet_02
+  rotate: false
+  xy: 1392, 152
+  size: 49, 49
+  orig: 49, 49
+  offset: 0, 0
+  index: -1
+effect_moros_effect_01
+  rotate: false
+  xy: 1047, 138
+  size: 85, 85
+  orig: 85, 85
+  offset: 0, 0
+  index: -1
+moros_03_arm1_01
+  rotate: true
+  xy: 878, 60
+  size: 79, 53
+  orig: 79, 53
+  offset: 0, 0
+  index: -1
+moros_03_arm1_02
+  rotate: false
+  xy: 769, 32
+  size: 100, 51
+  orig: 100, 51
+  offset: 0, 0
+  index: -1
+moros_03_arm2_01
+  rotate: false
+  xy: 610, 2
+  size: 65, 56
+  orig: 65, 56
+  offset: 0, 0
+  index: -1
+moros_03_arm2_02
+  rotate: false
+  xy: 1489, 694
+  size: 67, 107
+  orig: 67, 107
+  offset: 0, 0
+  index: -1
+moros_03_bead_00
+  rotate: true
+  xy: 523, 60
+  size: 39, 42
+  orig: 39, 42
+  offset: 0, 0
+  index: -1
+moros_03_bead_01
+  rotate: false
+  xy: 1357, 259
+  size: 53, 53
+  orig: 53, 53
+  offset: 0, 0
+  index: -1
+moros_03_bead_02
+  rotate: true
+  xy: 630, 529
+  size: 85, 63
+  orig: 85, 63
+  offset: 0, 0
+  index: -1
+moros_03_bead_03
+  rotate: false
+  xy: 1333, 510
+  size: 106, 101
+  orig: 106, 101
+  offset: 0, 0
+  index: -1
+moros_03_bead_04
+  rotate: false
+  xy: 665, 752
+  size: 286, 278
+  orig: 286, 278
+  offset: 0, 0
+  index: -1
+moros_03_bead_05
+  rotate: false
+  xy: 933, 210
+  size: 108, 112
+  orig: 108, 112
+  offset: 0, 0
+  index: -1
+moros_03_body_01
+  rotate: false
+  xy: 2, 335
+  size: 337, 320
+  orig: 337, 320
+  offset: 0, 0
+  index: -1
+moros_03_chest_01
+  rotate: true
+  xy: 883, 324
+  size: 144, 110
+  orig: 144, 110
+  offset: 0, 0
+  index: -1
+moros_03_chest_acc_01
+  rotate: true
+  xy: 1290, 234
+  size: 26, 34
+  orig: 26, 34
+  offset: 0, 0
+  index: -1
+moros_03_chest_acc_02
+  rotate: false
+  xy: 871, 2
+  size: 57, 56
+  orig: 57, 56
+  offset: 0, 0
+  index: -1
+moros_03_chest_acc_02-1
+  rotate: false
+  xy: 1229, 437
+  size: 85, 85
+  orig: 85, 85
+  offset: 0, 0
+  index: -1
+moros_03_chest_acc_03
+  rotate: false
+  xy: 197, 2
+  size: 22, 28
+  orig: 22, 28
+  offset: 0, 0
+  index: -1
+moros_03_chest_acc_04
+  rotate: true
+  xy: 1545, 509
+  size: 25, 24
+  orig: 25, 24
+  offset: 0, 0
+  index: -1
+moros_03_chest_acc_05
+  rotate: true
+  xy: 1137, 5
+  size: 37, 48
+  orig: 37, 48
+  offset: 0, 0
+  index: -1
+moros_03_chest_acc_06
+  rotate: true
+  xy: 1211, 325
+  size: 57, 77
+  orig: 57, 77
+  offset: 0, 0
+  index: -1
+moros_03_chest_acc_07
+  rotate: true
+  xy: 341, 569
+  size: 39, 29
+  orig: 39, 29
+  offset: 0, 0
+  index: -1
+moros_03_chest_acc_08
+  rotate: false
+  xy: 1281, 2
+  size: 35, 24
+  orig: 35, 24
+  offset: 0, 0
+  index: -1
+moros_03_chest_acc_09
+  rotate: false
+  xy: 1213, 406
+  size: 14, 14
+  orig: 14, 14
+  offset: 0, 0
+  index: -1
+moros_03_cloak_00-1
+  rotate: true
+  xy: 522, 2
+  size: 56, 86
+  orig: 56, 86
+  offset: 0, 0
+  index: -1
+moros_03_cloak_00-2
+  rotate: false
+  xy: 2, 657
+  size: 368, 373
+  orig: 368, 373
+  offset: 0, 0
+  index: -1
+moros_03_cloak_01
+  rotate: true
+  xy: 1425, 116
+  size: 34, 32
+  orig: 34, 32
+  offset: 0, 0
+  index: -1
+moros_03_cloak_02
+  rotate: true
+  xy: 677, 42
+  size: 67, 90
+  orig: 67, 90
+  offset: 0, 0
+  index: -1
+moros_03_cloak_03
+  rotate: false
+  xy: 1361, 314
+  size: 37, 60
+  orig: 37, 60
+  offset: 0, 0
+  index: -1
+moros_03_cloak_04
+  rotate: false
+  xy: 1289, 28
+  size: 53, 30
+  orig: 53, 30
+  offset: 0, 0
+  index: -1
+moros_03_cloak_05
+  rotate: true
+  xy: 1484, 263
+  size: 50, 60
+  orig: 50, 60
+  offset: 0, 0
+  index: -1
+moros_03_cloak_06
+  rotate: false
+  xy: 953, 785
+  size: 276, 245
+  orig: 276, 245
+  offset: 0, 0
+  index: -1
+moros_03_cloak_acc_01
+  rotate: false
+  xy: 1147, 492
+  size: 22, 23
+  orig: 22, 23
+  offset: 0, 0
+  index: -1
+moros_03_cloak_acc_02
+  rotate: false
+  xy: 910, 649
+  size: 32, 33
+  orig: 32, 33
+  offset: 0, 0
+  index: -1
+moros_03_cloak_acc_03
+  rotate: false
+  xy: 1537, 324
+  size: 32, 42
+  orig: 32, 42
+  offset: 0, 0
+  index: -1
+moros_03_cloak_acc_04
+  rotate: true
+  xy: 48, 2
+  size: 28, 43
+  orig: 28, 43
+  offset: 0, 0
+  index: -1
+moros_03_ear_01
+  rotate: true
+  xy: 341, 531
+  size: 36, 29
+  orig: 36, 29
+  offset: 0, 0
+  index: -1
+moros_03_eye_01
+  rotate: true
+  xy: 1531, 676
+  size: 16, 10
+  orig: 16, 10
+  offset: 0, 0
+  index: -1
+moros_03_eye_effect_01
+  rotate: true
+  xy: 1236, 39
+  size: 13, 14
+  orig: 13, 14
+  offset: 0, 0
+  index: -1
+moros_03_eye_effect_03
+  rotate: false
+  xy: 1443, 68
+  size: 46, 46
+  orig: 46, 46
+  offset: 0, 0
+  index: -1
+moros_03_feather_01
+  rotate: true
+  xy: 1545, 574
+  size: 66, 24
+  orig: 66, 24
+  offset: 0, 0
+  index: -1
+moros_03_feather_02
+  rotate: false
+  xy: 1489, 675
+  size: 40, 17
+  orig: 40, 17
+  offset: 0, 0
+  index: -1
+moros_03_feather_03
+  rotate: false
+  xy: 1165, 323
+  size: 44, 59
+  orig: 44, 59
+  offset: 0, 0
+  index: -1
+moros_03_feather_04
+  rotate: true
+  xy: 1108, 2
+  size: 40, 27
+  orig: 40, 27
+  offset: 0, 0
+  index: -1
+moros_03_feather_05
+  rotate: false
+  xy: 1173, 422
+  size: 54, 93
+  orig: 54, 93
+  offset: 0, 0
+  index: -1
+moros_03_feather_06
+  rotate: true
+  xy: 872, 649
+  size: 33, 36
+  orig: 33, 36
+  offset: 0, 0
+  index: -1
+moros_03_feather_07
+  rotate: true
+  xy: 1482, 168
+  size: 41, 45
+  orig: 41, 45
+  offset: 0, 0
+  index: -1
+moros_03_feather_08
+  rotate: true
+  xy: 695, 597
+  size: 17, 13
+  orig: 17, 13
+  offset: 0, 0
+  index: -1
+moros_03_feather_09
+  rotate: true
+  xy: 1443, 46
+  size: 20, 46
+  orig: 20, 46
+  offset: 0, 0
+  index: -1
+moros_03_feather_10
+  rotate: false
+  xy: 630, 642
+  size: 32, 85
+  orig: 32, 85
+  offset: 0, 0
+  index: -1
+moros_03_feather_11
+  rotate: false
+  xy: 1201, 234
+  size: 31, 15
+  orig: 31, 15
+  offset: 0, 0
+  index: -1
+moros_03_feather_12
+  rotate: false
+  xy: 295, 312
+  size: 41, 21
+  orig: 41, 21
+  offset: 0, 0
+  index: -1
+moros_03_feather_13
+  rotate: true
+  xy: 814, 5
+  size: 25, 43
+  orig: 25, 43
+  offset: 0, 0
+  index: -1
+moros_03_feather_14
+  rotate: true
+  xy: 1551, 257
+  size: 21, 18
+  orig: 21, 18
+  offset: 0, 0
+  index: -1
+moros_03_feather_15
+  rotate: true
+  xy: 1229, 384
+  size: 51, 86
+  orig: 51, 86
+  offset: 0, 0
+  index: -1
+moros_03_feather_16
+  rotate: true
+  xy: 1141, 234
+  size: 87, 58
+  orig: 87, 58
+  offset: 0, 0
+  index: -1
+moros_03_finger1_01
+  rotate: true
+  xy: 1546, 280
+  size: 42, 23
+  orig: 42, 23
+  offset: 0, 0
+  index: -1
+moros_03_finger1_02
+  rotate: false
+  xy: 1318, 2
+  size: 35, 24
+  orig: 35, 24
+  offset: 0, 0
+  index: -1
+moros_03_finger1_03
+  rotate: true
+  xy: 1523, 84
+  size: 20, 23
+  orig: 20, 23
+  offset: 0, 0
+  index: -1
+moros_03_finger1_03-1
+  rotate: true
+  xy: 1333, 613
+  size: 16, 23
+  orig: 16, 23
+  offset: 0, 0
+  index: -1
+moros_03_finger2_01
+  rotate: true
+  xy: 371, 2
+  size: 27, 34
+  orig: 27, 34
+  offset: 0, 0
+  index: -1
+moros_03_finger2_02
+  rotate: true
+  xy: 1246, 234
+  size: 25, 38
+  orig: 25, 38
+  offset: 0, 0
+  index: -1
+moros_03_finger2_03
+  rotate: false
+  xy: 1545, 536
+  size: 24, 36
+  orig: 24, 36
+  offset: 0, 0
+  index: -1
+moros_03_finger2_04
+  rotate: true
+  xy: 630, 616
+  size: 24, 30
+  orig: 24, 30
+  offset: 0, 0
+  index: -1
+moros_03_fur_01
+  rotate: true
+  xy: 1484, 211
+  size: 50, 64
+  orig: 50, 64
+  offset: 0, 0
+  index: -1
+moros_03_fur_02
+  rotate: false
+  xy: 129, 5
+  size: 66, 25
+  orig: 66, 25
+  offset: 0, 0
+  index: -1
+moros_03_fur_03
+  rotate: false
+  xy: 1047, 89
+  size: 85, 47
+  orig: 85, 47
+  offset: 0, 0
+  index: -1
+moros_03_fur_04
+  rotate: true
+  xy: 1491, 84
+  size: 36, 30
+  orig: 36, 30
+  offset: 0, 0
+  index: -1
+moros_03_fur_05
+  rotate: true
+  xy: 1481, 904
+  size: 126, 87
+  orig: 126, 87
+  offset: 0, 0
+  index: -1
+moros_03_fur_back_01
+  rotate: false
+  xy: 1192, 39
+  size: 42, 60
+  orig: 42, 60
+  offset: 0, 0
+  index: -1
+moros_03_fur_back_02
+  rotate: false
+  xy: 1410, 439
+  size: 82, 68
+  orig: 82, 68
+  offset: 0, 0
+  index: -1
+moros_03_fur_back_03
+  rotate: true
+  xy: 1359, 613
+  size: 60, 110
+  orig: 60, 110
+  offset: 0, 0
+  index: -1
+moros_03_fur_back_04
+  rotate: false
+  xy: 930, 3
+  size: 99, 51
+  orig: 99, 51
+  offset: 0, 0
+  index: -1
+moros_03_fur_back_05
+  rotate: false
+  xy: 1237, 631
+  size: 120, 50
+  orig: 120, 50
+  offset: 0, 0
+  index: -1
+moros_03_fur_back_06
+  rotate: false
+  xy: 710, 323
+  size: 171, 109
+  orig: 171, 109
+  offset: 0, 0
+  index: -1
+moros_03_fur_back_07
+  rotate: false
+  xy: 1016, 492
+  size: 129, 155
+  orig: 129, 155
+  offset: 0, 0
+  index: -1
+moros_03_hair_01
+  rotate: true
+  xy: 1489, 368
+  size: 67, 74
+  orig: 67, 74
+  offset: 0, 0
+  index: -1
+moros_03_hair_02
+  rotate: false
+  xy: 1355, 2
+  size: 15, 24
+  orig: 15, 24
+  offset: 0, 0
+  index: -1
+moros_03_hand1_01
+  rotate: true
+  xy: 1467, 315
+  size: 51, 68
+  orig: 51, 68
+  offset: 0, 0
+  index: -1
+moros_03_hand2_02
+  rotate: true
+  xy: 1471, 613
+  size: 60, 70
+  orig: 60, 70
+  offset: 0, 0
+  index: -1
+moros_03_head_01
+  rotate: true
+  xy: 995, 441
+  size: 27, 19
+  orig: 27, 19
+  offset: 0, 0
+  index: -1
+moros_03_head_02
+  rotate: false
+  xy: 1494, 437
+  size: 75, 70
+  orig: 75, 70
+  offset: 0, 0
+  index: -1
+moros_03_head_03
+  rotate: false
+  xy: 1035, 114
+  size: 10, 11
+  orig: 10, 11
+  offset: 0, 0
+  index: -1
+moros_03_horn_01
+  rotate: true
+  xy: 647, 60
+  size: 39, 22
+  orig: 39, 22
+  offset: 0, 0
+  index: -1
+moros_03_horn_02
+  rotate: false
+  xy: 1237, 683
+  size: 128, 118
+  orig: 128, 118
+  offset: 0, 0
+  index: -1
+moros_03_horn_03
+  rotate: false
+  xy: 1147, 517
+  size: 77, 127
+  orig: 77, 127
+  offset: 0, 0
+  index: -1
+moros_03_horn_effect_01
+  rotate: false
+  xy: 1548, 84
+  size: 21, 20
+  orig: 21, 20
+  offset: 0, 0
+  index: -1
+moros_03_lag1_01
+  rotate: false
+  xy: 664, 111
+  size: 103, 205
+  orig: 103, 205
+  offset: 0, 0
+  index: -1
+moros_03_lag1_acc_01
+  rotate: true
+  xy: 872, 684
+  size: 66, 79
+  orig: 66, 79
+  offset: 0, 0
+  index: -1
+moros_03_lag2_01
+  rotate: false
+  xy: 933, 127
+  size: 112, 81
+  orig: 112, 81
+  offset: 0, 0
+  index: -1
+moros_03_lag2_01-1
+  rotate: true
+  xy: 245, 3
+  size: 27, 46
+  orig: 27, 46
+  offset: 0, 0
+  index: -1
+moros_03_lag2_02
+  rotate: false
+  xy: 1226, 524
+  size: 105, 105
+  orig: 105, 105
+  offset: 0, 0
+  index: -1
+moros_03_mouth_01
+  rotate: true
+  xy: 93, 2
+  size: 28, 34
+  orig: 28, 34
+  offset: 0, 0
+  index: -1
+moros_03_neck_01
+  rotate: false
+  xy: 1160, 646
+  size: 75, 137
+  orig: 75, 137
+  offset: 0, 0
+  index: -1
+moros_03_neck_01-1
+  rotate: false
+  xy: 1289, 60
+  size: 53, 54
+  orig: 53, 54
+  offset: 0, 0
+  index: -1
+moros_03_tail_acc_01
+  rotate: true
+  xy: 1443, 152
+  size: 35, 23
+  orig: 35, 23
+  offset: 0, 0
+  index: -1
+moros_03_tail_acc_02
+  rotate: true
+  xy: 221, 2
+  size: 28, 22
+  orig: 28, 22
+  offset: 0, 0
+  index: -1
+moros_03_teeth_01
+  rotate: false
+  xy: 1372, 6
+  size: 18, 20
+  orig: 18, 20
+  offset: 0, 0
+  index: -1
+moros_03_teeth_02
+  rotate: true
+  xy: 1393, 203
+  size: 16, 21
+  orig: 16, 21
+  offset: 0, 0
+  index: -1
+moros_03_tongue_01
+  rotate: false
+  xy: 1523, 106
+  size: 25, 25
+  orig: 25, 25
+  offset: 0, 0
+  index: -1
+moros_03_weapon_effect_01
+  rotate: true
+  xy: 1543, 642
+  size: 50, 26
+  orig: 50, 26
+  offset: 0, 0
+  index: -1
+moros_03_weapon_effect_02
+  rotate: false
+  xy: 1316, 441
+  size: 92, 67
+  orig: 92, 67
+  offset: 0, 0
+  index: -1
+moros_03_weapon_effect_03
+  rotate: false
+  xy: 341, 610
+  size: 29, 45
+  orig: 29, 45
+  offset: 0, 0
+  index: -1
+moros_03_weapon_effect_04
+  rotate: false
+  xy: 1481, 803
+  size: 74, 99
+  orig: 74, 99
+  offset: 0, 0
+  index: -1
+moros_03_weapon_effect_05
+  rotate: false
+  xy: 2, 2
+  size: 44, 28
+  orig: 44, 28
+  offset: 0, 0
+  index: -1
+moros_03_weapon_effect_06
+  rotate: false
+  xy: 995, 324
+  size: 70, 95
+  orig: 70, 95
+  offset: 0, 0
+  index: -1
+moros_03_weapon_effect_07
+  rotate: true
+  xy: 1529, 172
+  size: 37, 20
+  orig: 37, 20
+  offset: 0, 0
+  index: -1
+moros_03_weapon_effect_08
+  rotate: true
+  xy: 1134, 89
+  size: 62, 49
+  orig: 62, 49
+  offset: 0, 0
+  index: -1
+moros_03_weapon_effect_09
+  rotate: false
+  xy: 1557, 883
+  size: 12, 19
+  orig: 12, 19
+  offset: 0, 0
+  index: -1
+moros_03_weapon_effect_10
+  rotate: true
+  xy: 766, 4
+  size: 26, 46
+  orig: 26, 46
+  offset: 0, 0
+  index: -1
+moros_03_weapon_effect_11
+  rotate: false
+  xy: 1344, 61
+  size: 46, 53
+  orig: 46, 53
+  offset: 0, 0
+  index: -1
+moros_03_weapon_effect_12
+  rotate: false
+  xy: 677, 4
+  size: 87, 36
+  orig: 87, 36
+  offset: 0, 0
+  index: -1
+moros_03_weapon_effect_star1
+  rotate: false
+  xy: 1491, 50
+  size: 27, 32
+  orig: 27, 32
+  offset: 0, 0
+  index: -1
+moros_03_weapon_effect_star2
+  rotate: true
+  xy: 1235, 2
+  size: 35, 44
+  orig: 35, 44
+  offset: 0, 0
+  index: -1
+moros_03_weapon_effect_star3
+  rotate: false
+  xy: 1478, 14
+  size: 25, 30
+  orig: 25, 30
+  offset: 0, 0
+  index: -1
+moros_03_weapon_effect_star4
+  rotate: false
+  xy: 1505, 19
+  size: 23, 29
+  orig: 23, 29
+  offset: 0, 0
+  index: -1
+moros_03_weapon_effect_star5
+  rotate: true
+  xy: 1339, 116
+  size: 34, 44
+  orig: 34, 44
+  offset: 0, 0
+  index: -1
+moros_03_weapon_effect_star6
+  rotate: false
+  xy: 1231, 803
+  size: 248, 227
+  orig: 248, 227
+  offset: 0, 0
+  index: -1
+moros_body_acc_01
+  rotate: false
+  xy: 1316, 510
+  size: 11, 12
+  orig: 11, 12
+  offset: 0, 0
+  index: -1
+moros_body_acc_02
+  rotate: false
+  xy: 1385, 116
+  size: 38, 34
+  orig: 38, 34
+  offset: 0, 0
+  index: -1
+moros_body_acc_03
+  rotate: false
+  xy: 1515, 133
+  size: 26, 33
+  orig: 26, 33
+  offset: 0, 0
+  index: -1
+moros_effect_02
+  rotate: false
+  xy: 1367, 675
+  size: 120, 126
+  orig: 120, 126
+  offset: 0, 0
+  index: -1
+moros_effect_03
+  rotate: false
+  xy: 1441, 509
+  size: 102, 102
+  orig: 102, 102
+  offset: 0, 0
+  index: -1
+moros_effect_04
+  rotate: true
+  xy: 1344, 28
+  size: 31, 35
+  orig: 31, 35
+  offset: 0, 0
+  index: -1
+moros_effect_05
+  rotate: false
+  xy: 1337, 203
+  size: 54, 54
+  orig: 54, 54
+  offset: 0, 0
+  index: -1
+moros_effect_06
+  rotate: true
+  xy: 1228, 174
+  size: 58, 50
+  orig: 58, 50
+  offset: 0, 0
+  index: -1
+moros_halo1_01
+  rotate: true
+  xy: 1201, 251
+  size: 70, 43
+  orig: 70, 43
+  offset: 0, 0
+  index: -1
+moros_halo1_02
+  rotate: true
+  xy: 569, 318
+  size: 209, 139
+  orig: 209, 139
+  offset: 0, 0
+  index: -1
+moros_halo1_02-1
+  rotate: false
+  xy: 1067, 323
+  size: 96, 96
+  orig: 96, 96
+  offset: 0, 0
+  index: -1
+moros_halo1_03
+  rotate: false
+  xy: 1229, 114
+  size: 51, 58
+  orig: 51, 58
+  offset: 0, 0
+  index: -1
+moros_halo1_04
+  rotate: false
+  xy: 1400, 315
+  size: 65, 57
+  orig: 65, 57
+  offset: 0, 0
+  index: -1
+moros_halo1_05
+  rotate: false
+  xy: 1443, 189
+  size: 37, 30
+  orig: 37, 30
+  offset: 0, 0
+  index: -1
+moros_halo1_06
+  rotate: false
+  xy: 1412, 266
+  size: 70, 47
+  orig: 70, 47
+  offset: 0, 0
+  index: -1
+moros_halo1_07
+  rotate: false
+  xy: 1165, 384
+  size: 46, 35
+  orig: 46, 35
+  offset: 0, 0
+  index: -1
+moros_halo1_08
+  rotate: false
+  xy: 933, 56
+  size: 100, 69
+  orig: 100, 69
+  offset: 0, 0
+  index: -1
+moros_halo1_09
+  rotate: false
+  xy: 1339, 152
+  size: 51, 49
+  orig: 51, 49
+  offset: 0, 0
+  index: -1
+moros_halo1_10
+  rotate: true
+  xy: 1118, 421
+  size: 69, 53
+  orig: 69, 53
+  offset: 0, 0
+  index: -1
+moros_halo1_11
+  rotate: true
+  xy: 710, 434
+  size: 180, 162
+  orig: 180, 162
+  offset: 0, 0
+  index: -1
+moros_halo1_12
+  rotate: false
+  xy: 1123, 44
+  size: 67, 43
+  orig: 67, 43
+  offset: 0, 0
+  index: -1
+moros_halo1_13
+  rotate: false
+  xy: 341, 312
+  size: 226, 215
+  orig: 226, 215
+  offset: 0, 0
+  index: -1
+moros_halo1_14
+  rotate: true
+  xy: 567, 60
+  size: 39, 38
+  orig: 39, 38
+  offset: 0, 0
+  index: -1
+moros_halo1_15
+  rotate: false
+  xy: 1280, 175
+  size: 55, 57
+  orig: 55, 57
+  offset: 0, 0
+  index: -1
+moros_halo1_16
+  rotate: true
+  xy: 953, 649
+  size: 134, 205
+  orig: 134, 205
+  offset: 0, 0
+  index: -1
+moros_halo1_effect_06
+  rotate: false
+  xy: 372, 729
+  size: 291, 301
+  orig: 291, 301
+  offset: 0, 0
+  index: -1
+moros_halo2_01
+  rotate: false
+  xy: 1412, 221
+  size: 70, 43
+  orig: 70, 43
+  offset: 0, 0
+  index: -1
+moros_halo2_02
+  rotate: true
+  xy: 523, 101
+  size: 209, 139
+  orig: 209, 139
+  offset: 0, 0
+  index: -1
+moros_halo2_02-1
+  rotate: false
+  xy: 1043, 225
+  size: 96, 96
+  orig: 96, 96
+  offset: 0, 0
+  index: -1
+moros_halo2_03
+  rotate: false
+  xy: 1236, 54
+  size: 51, 58
+  orig: 51, 58
+  offset: 0, 0
+  index: -1
+moros_halo2_04
+  rotate: false
+  xy: 1290, 262
+  size: 65, 57
+  orig: 65, 57
+  offset: 0, 0
+  index: -1
+moros_halo2_05
+  rotate: false
+  xy: 1439, 14
+  size: 37, 30
+  orig: 37, 30
+  offset: 0, 0
+  index: -1
+moros_halo2_06
+  rotate: true
+  xy: 1134, 153
+  size: 70, 47
+  orig: 70, 47
+  offset: 0, 0
+  index: -1
+moros_halo2_07
+  rotate: false
+  xy: 1187, 2
+  size: 46, 35
+  orig: 46, 35
+  offset: 0, 0
+  index: -1
+moros_halo2_08
+  rotate: false
+  xy: 1016, 421
+  size: 100, 69
+  orig: 100, 69
+  offset: 0, 0
+  index: -1
+moros_halo2_09
+  rotate: true
+  xy: 1392, 63
+  size: 51, 49
+  orig: 51, 49
+  offset: 0, 0
+  index: -1
+moros_halo2_10
+  rotate: false
+  xy: 1290, 321
+  size: 69, 53
+  orig: 69, 53
+  offset: 0, 0
+  index: -1
+moros_halo2_11
+  rotate: true
+  xy: 769, 141
+  size: 180, 162
+  orig: 180, 162
+  offset: 0, 0
+  index: -1
+moros_halo2_12
+  rotate: true
+  xy: 1183, 165
+  size: 67, 43
+  orig: 67, 43
+  offset: 0, 0
+  index: -1
+moros_halo2_13
+  rotate: false
+  xy: 295, 95
+  size: 226, 215
+  orig: 226, 215
+  offset: 0, 0
+  index: -1
+moros_halo2_14
+  rotate: true
+  xy: 607, 60
+  size: 39, 38
+  orig: 39, 38
+  offset: 0, 0
+  index: -1
+moros_halo2_15
+  rotate: false
+  xy: 1282, 116
+  size: 55, 57
+  orig: 55, 57
+  offset: 0, 0
+  index: -1
+moros_halo2_16
+  rotate: true
+  xy: 665, 616
+  size: 134, 205
+  orig: 134, 205
+  offset: 0, 0
+  index: -1
+moros_halo2_effect_01
+  rotate: false
+  xy: 2, 32
+  size: 291, 301
+  orig: 291, 301
+  offset: 0, 0
+  index: -1
+moros_wing1_01
+  rotate: true
+  xy: 1035, 44
+  size: 43, 86
+  orig: 43, 86
+  offset: 0, 0
+  index: -1
+moros_wing1_02
+  rotate: true
+  xy: 372, 529
+  size: 198, 256
+  orig: 198, 256
+  offset: 0, 0
+  index: -1
+moros_wing1_03
+  rotate: false
+  xy: 769, 85
+  size: 107, 54
+  orig: 107, 54
+  offset: 0, 0
+  index: -1
+moros_wing1_acc_03
+  rotate: false
+  xy: 1317, 376
+  size: 84, 63
+  orig: 84, 63
+  offset: 0, 0
+  index: -1
+moros_wing1_acc_03-1
+  rotate: false
+  xy: 1403, 374
+  size: 84, 63
+  orig: 84, 63
+  offset: 0, 0
+  index: -1
+moros_wing1_acc_04
+  rotate: true
+  xy: 1392, 17
+  size: 44, 45
+  orig: 44, 45
+  offset: 0, 0
+  index: -1
+moros_wing1_acc_04-1
+  rotate: true
+  xy: 1468, 122
+  size: 44, 45
+  orig: 44, 45
+  offset: 0, 0
+  index: -1
+moros_wing2_01
+  rotate: false
+  xy: 874, 470
+  size: 140, 177
+  orig: 140, 177
+  offset: 0, 0
+  index: -1
+moros_wing2_02
+  rotate: false
+  xy: 418, 21
+  size: 102, 72
+  orig: 102, 72
+  offset: 0, 0
+  index: -1
+moros_wing2_03
+  rotate: true
+  xy: 1031, 8
+  size: 34, 75
+  orig: 34, 75
+  offset: 0, 0
+  index: -1
+moros_wing2_04
+  rotate: false
+  xy: 1246, 261
+  size: 42, 62
+  orig: 42, 62
+  offset: 0, 0
+  index: -1
+moros_wing2_04-1
+  rotate: false
+  xy: 1185, 101
+  size: 42, 62
+  orig: 42, 62
+  offset: 0, 0
+  index: -1
+moros_wing2_05
+  rotate: false
+  xy: 293, 2
+  size: 37, 27
+  orig: 37, 27
+  offset: 0, 0
+  index: -1
+moros_wing2_05-1
+  rotate: false
+  xy: 332, 2
+  size: 37, 27
+  orig: 37, 27
+  offset: 0, 0
+  index: -1

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+    <dict>
+        <key>frames</key>
+        <dict>
+            <key>bg_canyon_5_a_1.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{2,2},{1154,404}}</string>
+                <key>offset</key>
+                <string>{22,-198}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{69,396},{1154,404}}</string>
+                <key>sourceSize</key>
+                <string>{1248,800}</string>
+            </dict>
+        </dict>
+        <key>metadata</key>
+        <dict>
+            <key>format</key>
+            <integer>2</integer>
+            <key>realTextureFileName</key>
+            <string>canyon_5.png</string>
+            <key>size</key>
+            <string>{1158,408}</string>
+            <key>smartupdate</key>
+            <string>$TexturePacker:SmartUpdate:ab3192e9bf281016883fc891d47a3509:d26819c229d53b24117e29f5f8cfd7cd:0a6229ed28f8f22985b8e2060f41ca0b$</string>
+            <key>textureFileName</key>
+            <string>canyon_5.png</string>
+        </dict>
+    </dict>
+</plist>

@@ -1,0 +1,160 @@
+
+leafdragon_light_02.png
+size: 696,286
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+leafdragon_light_02_arm_01
+  rotate: true
+  xy: 434, 86
+  size: 69, 61
+  orig: 69, 61
+  offset: 0, 0
+  index: -1
+leafdragon_light_02_arm_01_01
+  rotate: true
+  xy: 434, 15
+  size: 69, 61
+  orig: 69, 61
+  offset: 0, 0
+  index: -1
+leafdragon_light_02_arm_02
+  rotate: true
+  xy: 371, 16
+  size: 69, 61
+  orig: 69, 61
+  offset: 0, 0
+  index: -1
+leafdragon_light_02_arm_02_01
+  rotate: true
+  xy: 497, 41
+  size: 69, 61
+  orig: 69, 61
+  offset: 0, 0
+  index: -1
+leafdragon_light_02_body_01
+  rotate: false
+  xy: 2, 4
+  size: 97, 121
+  orig: 97, 121
+  offset: 0, 0
+  index: -1
+leafdragon_light_02_body_02
+  rotate: false
+  xy: 592, 192
+  size: 83, 92
+  orig: 83, 92
+  offset: 0, 0
+  index: -1
+leafdragon_light_02_body_03
+  rotate: false
+  xy: 623, 8
+  size: 64, 63
+  orig: 64, 63
+  offset: 0, 0
+  index: -1
+leafdragon_light_02_effect_01
+  rotate: false
+  xy: 364, 87
+  size: 68, 68
+  orig: 68, 68
+  offset: 0, 0
+  index: -1
+leafdragon_light_02_effect_02
+  rotate: false
+  xy: 497, 112
+  size: 68, 68
+  orig: 68, 68
+  offset: 0, 0
+  index: -1
+leafdragon_light_02_eye_01
+  rotate: false
+  xy: 298, 13
+  size: 71, 46
+  orig: 71, 46
+  offset: 0, 0
+  index: -1
+leafdragon_light_02_eye_02
+  rotate: true
+  xy: 567, 109
+  size: 71, 46
+  orig: 71, 46
+  offset: 0, 0
+  index: -1
+leafdragon_light_02_eye_03
+  rotate: false
+  xy: 623, 73
+  size: 71, 46
+  orig: 71, 46
+  offset: 0, 0
+  index: -1
+leafdragon_light_02_hand_01
+  rotate: true
+  xy: 615, 121
+  size: 69, 61
+  orig: 69, 61
+  offset: 0, 0
+  index: -1
+leafdragon_light_02_hand_02
+  rotate: true
+  xy: 560, 38
+  size: 69, 61
+  orig: 69, 61
+  offset: 0, 0
+  index: -1
+leafdragon_light_02_head_01
+  rotate: true
+  xy: 168, 2
+  size: 138, 128
+  orig: 138, 128
+  offset: 0, 0
+  index: -1
+leafdragon_light_02_head_02
+  rotate: false
+  xy: 477, 182
+  size: 113, 102
+  orig: 113, 102
+  offset: 0, 0
+  index: -1
+leafdragon_light_02_head_03
+  rotate: false
+  xy: 334, 157
+  size: 141, 127
+  orig: 141, 127
+  offset: 0, 0
+  index: -1
+leafdragon_light_02_leg_01
+  rotate: false
+  xy: 101, 46
+  size: 64, 79
+  orig: 64, 79
+  offset: 0, 0
+  index: -1
+leafdragon_light_02_leg_02
+  rotate: false
+  xy: 298, 61
+  size: 64, 79
+  orig: 64, 79
+  offset: 0, 0
+  index: -1
+leafdragon_light_02_mouth_01
+  rotate: false
+  xy: 101, 10
+  size: 59, 34
+  orig: 59, 34
+  offset: 0, 0
+  index: -1
+leafdragon_light_02_wing_01
+  rotate: false
+  xy: 168, 142
+  size: 164, 142
+  orig: 164, 142
+  offset: 0, 0
+  index: -1
+leafdragon_light_02_wing_02
+  rotate: false
+  xy: 2, 127
+  size: 164, 157
+  orig: 164, 157
+  offset: 0, 0
+  index: -1

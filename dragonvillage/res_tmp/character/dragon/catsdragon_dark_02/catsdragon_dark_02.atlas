@@ -1,0 +1,230 @@
+
+catsdragon_dark_02.png
+size: 1318,240
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+catsdragon_dark_02_arm_01
+  rotate: false
+  xy: 566, 2
+  size: 89, 85
+  orig: 89, 85
+  offset: 0, 0
+  index: -1
+catsdragon_dark_02_arm_02
+  rotate: true
+  xy: 333, 3
+  size: 59, 77
+  orig: 59, 77
+  offset: 0, 0
+  index: -1
+catsdragon_dark_02_arm_03
+  rotate: false
+  xy: 657, 2
+  size: 89, 85
+  orig: 89, 85
+  offset: 0, 0
+  index: -1
+catsdragon_dark_02_arm_04
+  rotate: true
+  xy: 1061, 149
+  size: 89, 85
+  orig: 89, 85
+  offset: 0, 0
+  index: -1
+catsdragon_dark_02_arm_05
+  rotate: false
+  xy: 1108, 5
+  size: 40, 52
+  orig: 40, 52
+  offset: 0, 0
+  index: -1
+catsdragon_dark_02_body_01
+  rotate: false
+  xy: 541, 89
+  size: 135, 149
+  orig: 135, 149
+  offset: 0, 0
+  index: -1
+catsdragon_dark_02_body_02
+  rotate: true
+  xy: 748, 2
+  size: 99, 95
+  orig: 99, 95
+  offset: 0, 0
+  index: -1
+catsdragon_dark_02_body_03
+  rotate: false
+  xy: 928, 42
+  size: 87, 95
+  orig: 87, 95
+  offset: 0, 0
+  index: -1
+catsdragon_dark_02_body_04
+  rotate: true
+  xy: 1042, 3
+  size: 47, 64
+  orig: 47, 64
+  offset: 0, 0
+  index: -1
+catsdragon_dark_02_body_06
+  rotate: true
+  xy: 2, 28
+  size: 210, 329
+  orig: 210, 329
+  offset: 0, 0
+  index: -1
+catsdragon_dark_02_body_07
+  rotate: true
+  xy: 678, 103
+  size: 135, 95
+  orig: 135, 95
+  offset: 0, 0
+  index: -1
+catsdragon_dark_02_body_08
+  rotate: true
+  xy: 874, 139
+  size: 99, 95
+  orig: 99, 95
+  offset: 0, 0
+  index: -1
+catsdragon_dark_02_eye_01
+  rotate: true
+  xy: 1148, 150
+  size: 88, 42
+  orig: 88, 42
+  offset: 0, 0
+  index: -1
+catsdragon_dark_02_eye_03
+  rotate: false
+  xy: 1150, 15
+  size: 88, 42
+  orig: 88, 42
+  offset: 0, 0
+  index: -1
+catsdragon_dark_02_eye_04
+  rotate: true
+  xy: 1184, 60
+  size: 88, 42
+  orig: 88, 42
+  offset: 0, 0
+  index: -1
+catsdragon_dark_02_eye_05
+  rotate: true
+  xy: 1192, 150
+  size: 88, 42
+  orig: 88, 42
+  offset: 0, 0
+  index: -1
+catsdragon_dark_02_foot_01
+  rotate: true
+  xy: 412, 8
+  size: 54, 70
+  orig: 54, 70
+  offset: 0, 0
+  index: -1
+catsdragon_dark_02_hand_01
+  rotate: true
+  xy: 484, 4
+  size: 64, 80
+  orig: 64, 80
+  offset: 0, 0
+  index: -1
+catsdragon_dark_02_hand_02
+  rotate: true
+  xy: 1236, 174
+  size: 64, 80
+  orig: 64, 80
+  offset: 0, 0
+  index: -1
+catsdragon_dark_02_hand_03
+  rotate: true
+  xy: 1236, 108
+  size: 64, 80
+  orig: 64, 80
+  offset: 0, 0
+  index: -1
+catsdragon_dark_02_hand_04
+  rotate: false
+  xy: 1240, 26
+  size: 64, 80
+  orig: 64, 80
+  offset: 0, 0
+  index: -1
+catsdragon_dark_02_head_01
+  rotate: true
+  xy: 775, 121
+  size: 117, 97
+  orig: 117, 97
+  offset: 0, 0
+  index: -1
+catsdragon_dark_02_head_02
+  rotate: false
+  xy: 845, 14
+  size: 81, 105
+  orig: 81, 105
+  offset: 0, 0
+  index: -1
+catsdragon_dark_02_head_03
+  rotate: false
+  xy: 1017, 52
+  size: 81, 90
+  orig: 81, 90
+  offset: 0, 0
+  index: -1
+catsdragon_dark_02_leg_01
+  rotate: true
+  xy: 971, 144
+  size: 94, 88
+  orig: 94, 88
+  offset: 0, 0
+  index: -1
+catsdragon_dark_02_leg_02
+  rotate: true
+  xy: 1100, 59
+  size: 88, 82
+  orig: 88, 82
+  offset: 0, 0
+  index: -1
+catsdragon_dark_02_mouth_01
+  rotate: false
+  xy: 928, 9
+  size: 41, 31
+  orig: 41, 31
+  offset: 0, 0
+  index: -1
+catsdragon_dark_02_mouth_02
+  rotate: false
+  xy: 971, 9
+  size: 41, 31
+  orig: 41, 31
+  offset: 0, 0
+  index: -1
+catsdragon_dark_02_mouth_03
+  rotate: false
+  xy: 1014, 9
+  size: 26, 31
+  orig: 26, 31
+  offset: 0, 0
+  index: -1
+catsdragon_dark_02_tear_01
+  rotate: true
+  xy: 2, 3
+  size: 23, 19
+  orig: 23, 19
+  offset: 0, 0
+  index: -1
+catsdragon_dark_02_wing_01
+  rotate: false
+  xy: 430, 70
+  size: 109, 168
+  orig: 109, 168
+  offset: 0, 0
+  index: -1
+catsdragon_dark_02_wing_02
+  rotate: false
+  xy: 333, 64
+  size: 95, 174
+  orig: 95, 174
+  offset: 0, 0
+  index: -1

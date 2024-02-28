@@ -1,0 +1,265 @@
+
+whirlwind_light_03.png
+size: 702,1045
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+whirlwind_light_03_arm_01
+  rotate: false
+  xy: 93, 16
+  size: 64, 97
+  orig: 64, 97
+  offset: 0, 0
+  index: -1
+whirlwind_light_03_arm_01_01
+  rotate: true
+  xy: 527, 94
+  size: 95, 90
+  orig: 95, 90
+  offset: 0, 0
+  index: -1
+whirlwind_light_03_arm_02
+  rotate: true
+  xy: 423, 2
+  size: 75, 93
+  orig: 75, 93
+  offset: 0, 0
+  index: -1
+whirlwind_light_03_body_01
+  rotate: false
+  xy: 342, 25
+  size: 79, 155
+  orig: 79, 155
+  offset: 0, 0
+  index: -1
+whirlwind_light_03_body_02
+  rotate: false
+  xy: 569, 888
+  size: 126, 155
+  orig: 126, 155
+  offset: 0, 0
+  index: -1
+whirlwind_light_03_body_04
+  rotate: false
+  xy: 2, 888
+  size: 341, 155
+  orig: 341, 155
+  offset: 0, 0
+  index: -1
+whirlwind_light_03_body_05
+  rotate: true
+  xy: 601, 508
+  size: 113, 96
+  orig: 113, 96
+  offset: 0, 0
+  index: -1
+whirlwind_light_03_effect_01
+  rotate: false
+  xy: 386, 773
+  size: 180, 113
+  orig: 180, 113
+  offset: 0, 0
+  index: -1
+whirlwind_light_03_effect_02
+  rotate: true
+  xy: 568, 718
+  size: 168, 113
+  orig: 168, 113
+  offset: 0, 0
+  index: -1
+whirlwind_light_03_effect_03
+  rotate: true
+  xy: 486, 488
+  size: 168, 113
+  orig: 168, 113
+  offset: 0, 0
+  index: -1
+whirlwind_light_03_effect_04
+  rotate: true
+  xy: 551, 318
+  size: 168, 113
+  orig: 168, 113
+  offset: 0, 0
+  index: -1
+whirlwind_light_03_effect_05
+  rotate: false
+  xy: 416, 191
+  size: 168, 113
+  orig: 168, 113
+  offset: 0, 0
+  index: -1
+whirlwind_light_03_effect_06
+  rotate: false
+  xy: 159, 647
+  size: 180, 113
+  orig: 180, 113
+  offset: 0, 0
+  index: -1
+whirlwind_light_03_effect_07
+  rotate: false
+  xy: 386, 658
+  size: 180, 113
+  orig: 180, 113
+  offset: 0, 0
+  index: -1
+whirlwind_light_03_effect_08
+  rotate: true
+  xy: 321, 307
+  size: 180, 113
+  orig: 180, 113
+  offset: 0, 0
+  index: -1
+whirlwind_light_03_effect_09
+  rotate: true
+  xy: 436, 306
+  size: 180, 113
+  orig: 180, 113
+  offset: 0, 0
+  index: -1
+whirlwind_light_03_effect_10
+  rotate: false
+  xy: 2, 449
+  size: 150, 213
+  orig: 150, 213
+  offset: 0, 0
+  index: -1
+whirlwind_light_03_eye_01
+  rotate: false
+  xy: 624, 66
+  size: 53, 59
+  orig: 53, 59
+  offset: 0, 0
+  index: -1
+whirlwind_light_03_hand_01
+  rotate: false
+  xy: 527, 2
+  size: 95, 90
+  orig: 95, 90
+  offset: 0, 0
+  index: -1
+whirlwind_light_03_hand_02
+  rotate: true
+  xy: 619, 127
+  size: 75, 62
+  orig: 75, 62
+  offset: 0, 0
+  index: -1
+whirlwind_light_03_head_01
+  rotate: true
+  xy: 2, 2
+  size: 111, 89
+  orig: 111, 89
+  offset: 0, 0
+  index: -1
+whirlwind_light_03_head_02
+  rotate: false
+  xy: 423, 79
+  size: 102, 110
+  orig: 102, 110
+  offset: 0, 0
+  index: -1
+whirlwind_light_03_head_05
+  rotate: true
+  xy: 601, 623
+  size: 93, 99
+  orig: 93, 99
+  offset: 0, 0
+  index: -1
+whirlwind_light_03_head_06
+  rotate: false
+  xy: 163, 2
+  size: 105, 153
+  orig: 105, 153
+  offset: 0, 0
+  index: -1
+whirlwind_light_03_head_07
+  rotate: true
+  xy: 2, 282
+  size: 165, 159
+  orig: 165, 159
+  offset: 0, 0
+  index: -1
+whirlwind_light_03_head_08
+  rotate: false
+  xy: 270, 17
+  size: 70, 138
+  orig: 70, 138
+  offset: 0, 0
+  index: -1
+whirlwind_light_03_head_09
+  rotate: true
+  xy: 2, 115
+  size: 165, 159
+  orig: 165, 159
+  offset: 0, 0
+  index: -1
+whirlwind_light_03_leg_01
+  rotate: false
+  xy: 586, 204
+  size: 93, 112
+  orig: 93, 112
+  offset: 0, 0
+  index: -1
+whirlwind_light_03_leg_02
+  rotate: false
+  xy: 321, 182
+  size: 93, 123
+  orig: 93, 123
+  offset: 0, 0
+  index: -1
+whirlwind_light_03_mouth_01
+  rotate: true
+  xy: 341, 715
+  size: 45, 40
+  orig: 45, 40
+  offset: 0, 0
+  index: -1
+whirlwind_light_03_wing_01
+  rotate: true
+  xy: 159, 762
+  size: 124, 225
+  orig: 124, 225
+  offset: 0, 0
+  index: -1
+whirlwind_light_03_wing_02
+  rotate: false
+  xy: 154, 489
+  size: 164, 156
+  orig: 164, 156
+  offset: 0, 0
+  index: -1
+whirlwind_light_03_wing_02_01
+  rotate: true
+  xy: 163, 323
+  size: 164, 156
+  orig: 164, 156
+  offset: 0, 0
+  index: -1
+whirlwind_light_03_wing_02_02
+  rotate: true
+  xy: 163, 157
+  size: 164, 156
+  orig: 164, 156
+  offset: 0, 0
+  index: -1
+whirlwind_light_03_wing_02_03
+  rotate: false
+  xy: 320, 489
+  size: 164, 156
+  orig: 164, 156
+  offset: 0, 0
+  index: -1
+whirlwind_light_03_wing_03
+  rotate: false
+  xy: 2, 664
+  size: 155, 222
+  orig: 155, 222
+  offset: 0, 0
+  index: -1
+whirlwind_light_03_wing_04
+  rotate: true
+  xy: 345, 888
+  size: 155, 222
+  orig: 155, 222
+  offset: 0, 0
+  index: -1

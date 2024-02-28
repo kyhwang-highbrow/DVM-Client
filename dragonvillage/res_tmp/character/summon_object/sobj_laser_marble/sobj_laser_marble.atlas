@@ -1,0 +1,34 @@
+
+sobj_laser_marble.png
+size: 349,103
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+effect_marble_1
+  rotate: true
+  xy: 296, 43
+  size: 58, 51
+  orig: 58, 51
+  offset: 0, 0
+  index: -1
+effect_marble_2
+  rotate: false
+  xy: 204, 14
+  size: 90, 87
+  orig: 90, 87
+  offset: 0, 0
+  index: -1
+marble_1
+  rotate: false
+  xy: 2, 2
+  size: 99, 99
+  orig: 99, 99
+  offset: 0, 0
+  index: -1
+marble_2
+  rotate: false
+  xy: 103, 2
+  size: 99, 99
+  orig: 99, 99
+  offset: 0, 0
+  index: -1

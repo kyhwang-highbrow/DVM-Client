@@ -1,0 +1,83 @@
+
+dummy_sleep_l.png
+size: 801,320
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+dummy_sleep_bed_01
+  rotate: false
+  xy: 579, 2
+  size: 91, 181
+  orig: 91, 181
+  offset: 0, 0
+  index: -1
+dummy_sleep_bed_02
+  rotate: false
+  xy: 562, 185
+  size: 237, 133
+  orig: 237, 133
+  offset: 0, 0
+  index: -1
+dummy_sleep_bed_03
+  rotate: true
+  xy: 274, 8
+  size: 310, 103
+  orig: 310, 103
+  offset: 0, 0
+  index: -1
+dummy_sleep_bed_04
+  rotate: true
+  xy: 379, 8
+  size: 310, 103
+  orig: 310, 103
+  offset: 0, 0
+  index: -1
+dummy_sleep_bed_05
+  rotate: true
+  xy: 672, 17
+  size: 42, 96
+  orig: 42, 96
+  offset: 0, 0
+  index: -1
+dummy_sleep_bed_06
+  rotate: true
+  xy: 484, 5
+  size: 43, 93
+  orig: 43, 93
+  offset: 0, 0
+  index: -1
+dummy_sleep_bed_07
+  rotate: true
+  xy: 484, 50
+  size: 268, 76
+  orig: 268, 76
+  offset: 0, 0
+  index: -1
+dummy_sleep_bed_08
+  rotate: true
+  xy: 672, 143
+  size: 40, 108
+  orig: 40, 108
+  offset: 0, 0
+  index: -1
+dummy_sleep_bed_09
+  rotate: true
+  xy: 2, 8
+  size: 310, 134
+  orig: 310, 134
+  offset: 0, 0
+  index: -1
+dummy_sleep_bed_10
+  rotate: true
+  xy: 138, 8
+  size: 310, 134
+  orig: 310, 134
+  offset: 0, 0
+  index: -1
+dummy_sleep_pillow
+  rotate: false
+  xy: 672, 61
+  size: 102, 80
+  orig: 102, 80
+  offset: 0, 0
+  index: -1

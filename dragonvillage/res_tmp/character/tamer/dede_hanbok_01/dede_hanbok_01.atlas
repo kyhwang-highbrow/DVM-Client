@@ -1,0 +1,356 @@
+
+dede_hanbok_01.png
+size: 1050,527
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+dede_hanbok_01_acce_01
+  rotate: true
+  xy: 952, 98
+  size: 24, 21
+  orig: 24, 21
+  offset: 0, 0
+  index: -1
+dede_hanbok_01_acce_02
+  rotate: false
+  xy: 836, 81
+  size: 30, 45
+  orig: 30, 45
+  offset: 0, 0
+  index: -1
+dede_hanbok_01_acce_03
+  rotate: false
+  xy: 920, 77
+  size: 30, 45
+  orig: 30, 45
+  offset: 0, 0
+  index: -1
+dede_hanbok_01_acce_04
+  rotate: false
+  xy: 838, 2
+  size: 27, 40
+  orig: 27, 40
+  offset: 0, 0
+  index: -1
+dede_hanbok_01_arm_01
+  rotate: true
+  xy: 232, 315
+  size: 27, 73
+  orig: 27, 73
+  offset: 0, 0
+  index: -1
+dede_hanbok_01_arm_02
+  rotate: true
+  xy: 782, 10
+  size: 25, 54
+  orig: 25, 54
+  offset: 0, 0
+  index: -1
+dede_hanbok_01_arm_03
+  rotate: true
+  xy: 868, 40
+  size: 30, 45
+  orig: 30, 45
+  offset: 0, 0
+  index: -1
+dede_hanbok_01_arm_04
+  rotate: true
+  xy: 975, 78
+  size: 30, 45
+  orig: 30, 45
+  offset: 0, 0
+  index: -1
+dede_hanbok_01_arm_05
+  rotate: false
+  xy: 365, 313
+  size: 30, 29
+  orig: 30, 29
+  offset: 0, 0
+  index: -1
+dede_hanbok_01_body_01
+  rotate: true
+  xy: 646, 242
+  size: 109, 97
+  orig: 109, 97
+  offset: 0, 0
+  index: -1
+dede_hanbok_01_effect_01
+  rotate: false
+  xy: 908, 356
+  size: 130, 169
+  orig: 130, 169
+  offset: 0, 0
+  index: -1
+dede_hanbok_01_effect_02
+  rotate: true
+  xy: 319, 15
+  size: 130, 169
+  orig: 130, 169
+  offset: 0, 0
+  index: -1
+dede_hanbok_01_effect_03
+  rotate: false
+  xy: 745, 365
+  size: 161, 160
+  orig: 161, 160
+  offset: 0, 0
+  index: -1
+dede_hanbok_01_effect_04
+  rotate: false
+  xy: 232, 344
+  size: 163, 181
+  orig: 163, 181
+  offset: 0, 0
+  index: -1
+dede_hanbok_01_effect_05
+  rotate: false
+  xy: 907, 222
+  size: 132, 132
+  orig: 132, 132
+  offset: 0, 0
+  index: -1
+dede_hanbok_01_effect_06
+  rotate: false
+  xy: 397, 353
+  size: 172, 172
+  orig: 172, 172
+  offset: 0, 0
+  index: -1
+dede_hanbok_01_effect_07
+  rotate: false
+  xy: 2, 109
+  size: 200, 200
+  orig: 200, 200
+  offset: 0, 0
+  index: -1
+dede_hanbok_01_effect_08
+  rotate: false
+  xy: 571, 353
+  size: 172, 172
+  orig: 172, 172
+  offset: 0, 0
+  index: -1
+dede_hanbok_01_effect_09
+  rotate: false
+  xy: 2, 311
+  size: 228, 214
+  orig: 228, 214
+  offset: 0, 0
+  index: -1
+dede_hanbok_01_effect_10
+  rotate: false
+  xy: 482, 161
+  size: 149, 146
+  orig: 149, 146
+  offset: 0, 0
+  index: -1
+dede_hanbok_01_effect_11
+  rotate: true
+  xy: 490, 13
+  size: 146, 138
+  orig: 146, 138
+  offset: 0, 0
+  index: -1
+dede_hanbok_01_effect_12
+  rotate: true
+  xy: 397, 309
+  size: 42, 247
+  orig: 42, 247
+  offset: 0, 0
+  index: -1
+dede_hanbok_01_effect_13
+  rotate: false
+  xy: 319, 147
+  size: 161, 160
+  orig: 161, 160
+  offset: 0, 0
+  index: -1
+dede_hanbok_01_effect_14
+  rotate: false
+  xy: 2, 21
+  size: 225, 86
+  orig: 225, 86
+  offset: 0, 0
+  index: -1
+dede_hanbok_01_effect_15
+  rotate: false
+  xy: 204, 115
+  size: 113, 194
+  orig: 113, 194
+  offset: 0, 0
+  index: -1
+dede_hanbok_01_effect_16
+  rotate: true
+  xy: 745, 250
+  size: 113, 160
+  orig: 113, 160
+  offset: 0, 0
+  index: -1
+dede_hanbok_01_effect_17
+  rotate: false
+  xy: 633, 110
+  size: 113, 130
+  orig: 113, 130
+  offset: 0, 0
+  index: -1
+dede_hanbok_01_eye_01
+  rotate: false
+  xy: 307, 317
+  size: 56, 25
+  orig: 56, 25
+  offset: 0, 0
+  index: -1
+dede_hanbok_01_eye_02
+  rotate: true
+  xy: 1027, 112
+  size: 48, 21
+  orig: 48, 21
+  offset: 0, 0
+  index: -1
+dede_hanbok_01_eye_03
+  rotate: true
+  xy: 1027, 67
+  size: 43, 21
+  orig: 43, 21
+  offset: 0, 0
+  index: -1
+dede_hanbok_01_foot_01
+  rotate: false
+  xy: 836, 44
+  size: 30, 35
+  orig: 30, 35
+  offset: 0, 0
+  index: -1
+dede_hanbok_01_foot_02
+  rotate: true
+  xy: 975, 46
+  size: 30, 35
+  orig: 30, 35
+  offset: 0, 0
+  index: -1
+dede_hanbok_01_hair_01
+  rotate: false
+  xy: 630, 11
+  size: 109, 97
+  orig: 109, 97
+  offset: 0, 0
+  index: -1
+dede_hanbok_01_hair_02
+  rotate: true
+  xy: 993, 162
+  size: 58, 45
+  orig: 58, 45
+  offset: 0, 0
+  index: -1
+dede_hanbok_01_hair_03
+  rotate: false
+  xy: 748, 104
+  size: 76, 37
+  orig: 76, 37
+  offset: 0, 0
+  index: -1
+dede_hanbok_01_hair_04
+  rotate: true
+  xy: 782, 37
+  size: 65, 52
+  orig: 65, 52
+  offset: 0, 0
+  index: -1
+dede_hanbok_01_hand_01
+  rotate: true
+  xy: 952, 72
+  size: 24, 21
+  orig: 24, 21
+  offset: 0, 0
+  index: -1
+dede_hanbok_01_hand_02
+  rotate: false
+  xy: 920, 54
+  size: 24, 21
+  orig: 24, 21
+  offset: 0, 0
+  index: -1
+dede_hanbok_01_hand_03
+  rotate: true
+  xy: 1012, 35
+  size: 30, 35
+  orig: 30, 35
+  offset: 0, 0
+  index: -1
+dede_hanbok_01_hand_04
+  rotate: false
+  xy: 946, 50
+  size: 20, 20
+  orig: 20, 20
+  offset: 0, 0
+  index: -1
+dede_hanbok_01_hand_05
+  rotate: false
+  xy: 915, 32
+  size: 20, 20
+  orig: 20, 20
+  offset: 0, 0
+  index: -1
+dede_hanbok_01_head_01
+  rotate: false
+  xy: 229, 16
+  size: 78, 97
+  orig: 78, 97
+  offset: 0, 0
+  index: -1
+dede_hanbok_01_neck_01
+  rotate: false
+  xy: 975, 110
+  size: 50, 50
+  orig: 50, 50
+  offset: 0, 0
+  index: -1
+dede_hanbok_01_reg_01
+  rotate: false
+  xy: 748, 143
+  size: 78, 105
+  orig: 78, 105
+  offset: 0, 0
+  index: -1
+dede_hanbok_01_reg_02
+  rotate: true
+  xy: 886, 165
+  size: 55, 105
+  orig: 55, 105
+  offset: 0, 0
+  index: -1
+dede_hanbok_01_reg_03
+  rotate: true
+  xy: 886, 124
+  size: 39, 87
+  orig: 39, 87
+  offset: 0, 0
+  index: -1
+dede_hanbok_01_reg_04
+  rotate: false
+  xy: 741, 15
+  size: 39, 87
+  orig: 39, 87
+  offset: 0, 0
+  index: -1
+dede_hanbok_01_sholder_01
+  rotate: false
+  xy: 868, 72
+  size: 50, 50
+  orig: 50, 50
+  offset: 0, 0
+  index: -1
+dede_hanbok_01_sholder_02
+  rotate: true
+  xy: 867, 8
+  size: 30, 45
+  orig: 30, 45
+  offset: 0, 0
+  index: -1
+dede_hanbok_01_wepon_01
+  rotate: false
+  xy: 828, 128
+  size: 56, 120
+  orig: 56, 120
+  offset: 0, 0
+  index: -1

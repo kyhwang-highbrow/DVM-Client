@@ -1,0 +1,37 @@
+{
+	"skill_elite_1":
+	{
+		"ver":2,
+		"attack_value":
+		[							
+			{
+				"idx":1,
+				"res":"res/missile/missile_ring/missile_ring_@.vrp",
+				"body":[0,0,30],
+                "count":3,
+				"damage_rate":33,
+                "period":0.5,
+                "scale":0.8,
+				"time":0,
+				"speed":1000,
+				"accel":-1200,
+				"l_limit_speed":600,
+				"accel_delay":0,
+				"angular_velocity":0,
+				"offset":[0,0],
+				
+				"dir_array":[0,20,40,60,80,100,120,140,160,180,200,220,240,260,280,300,320,340],
+				"dir_add":10,			
+				
+				
+                "effect":
+                {
+                    "motion_streak":"",
+                    "rotation":false,
+                    "afterimage":false
+                }				
+			}
+		]
+	}
+}
+

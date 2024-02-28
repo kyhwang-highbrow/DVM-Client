@@ -1,0 +1,91 @@
+{
+	"skill_guid_1":
+	{
+		"attack_value":
+		[		
+			{
+				"idx":1,
+                
+				"res":"res/missile/shot_normal_@/shot_normal_@.spine",
+				"visual":"idle",
+                "count":2,
+				"damage_rate":20,
+                "scale":0.9,
+                "period":0.1,
+				"dir":120,
+				"speed":40,
+				"accel":950,
+				"accel_delay":0.6,
+
+				"body":[0,0,30],
+				"offset":[0,0],
+                "dir_add":120,
+				"movement":"guidtarget",
+				
+                "effect":
+                {
+                    "motion_streak":"",
+                    "rotation":false,
+                    "afterimage":true
+                }
+				
+			},
+			
+			{
+				"idx":1,
+                
+				"res":"res/missile/shot_normal_@/shot_normal_@.spine",
+				"visual":"idle",
+                "count":1,
+				"damage_rate":20,
+                "scale":1.1,
+                "period":0.2,
+				"dir":0,
+				"speed":20,
+				"accel":950,
+				"accel_delay":0.8,
+
+				"body":[0,0,20],
+				"offset":[0,0],
+                "dir_add":0,
+				"movement":"guidtarget",
+				
+                "effect":
+                {
+                    "motion_streak":"",
+                    "rotation":false,
+                    "afterimage":true
+                }
+				
+			},
+			{
+				"idx":1,
+                
+				"res":"res/missile/shot_normal_@/shot_normal_@.spine",
+				"visual":"idle",
+                "count":2,
+				"damage_rate":20,
+                "scale":1.2,
+                "period":0.1,
+				"dir":190,
+				"speed":40,
+				"accel":1000,
+				"accel_delay":0.7,
+
+				"body":[0,0,15],
+				"offset":[0,0],
+                "dir_add":-28,
+				"movement":"guidtarget",
+				
+                "effect":
+                {
+                    "motion_streak":"",
+                    "rotation":false,
+                    "afterimage":true
+                }
+				
+			}
+
+		]
+	}
+}

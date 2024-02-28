@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+    <dict>
+        <key>frames</key>
+        <dict>
+            <key>card_light.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{0,0}</string>
+                <key>spriteSize</key>
+                <string>{200,200}</string>
+                <key>spriteSourceSize</key>
+                <string>{200,200}</string>
+                <key>textureRect</key>
+                <string>{{1,1},{200,200}}</string>
+                <key>textureRotated</key>
+                <false/>
+            </dict>
+        </dict>
+        <key>metadata</key>
+        <dict>
+            <key>format</key>
+            <integer>3</integer>
+            <key>realTextureFileName</key>
+            <string>gacha.png</string>
+            <key>size</key>
+            <string>{202,202}</string>
+            <key>smartupdate</key>
+            <string>$TexturePacker:SmartUpdate:94fca561db3d0b58bc1d0961a7255dcc:b1cb0d03c494b70a2cac0fcce53a77ae:0ee78ab6ba4799a2aaa099e0fb0ca202$</string>
+            <key>textureFileName</key>
+            <string>gacha.png</string>
+        </dict>
+    </dict>
+</plist>

@@ -1,0 +1,21 @@
+{
+	"skill_missile_poisonflask":
+	{
+		"attack_value":
+		[		
+			{
+				"idx":1,
+				"res":"res/missile/missile_poisonflask/missile_poisonflask.vrp",
+				"visual":"idle",
+				"body":[0,0,0],
+                "scale":1,
+				"offset":[0,0],
+                "movement":"lua_bombard",
+                "lua_param":
+                {
+                    "value1":"res/effect/effect_hit_magical_fire/effect_hit_magical_fire.spine"
+                }
+			}
+		]
+	}
+}

@@ -1,0 +1,335 @@
+
+mokoji_bluedress_01.png
+size: 1444,269
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+mokoji_bluedress_01_acce_01
+  rotate: true
+  xy: 150, 8
+  size: 68, 60
+  orig: 68, 60
+  offset: 0, 0
+  index: -1
+mokoji_bluedress_01_acce_02
+  rotate: true
+  xy: 289, 11
+  size: 15, 51
+  orig: 15, 51
+  offset: 0, 0
+  index: -1
+mokoji_bluedress_01_acce_03
+  rotate: true
+  xy: 1401, 213
+  size: 54, 41
+  orig: 54, 41
+  offset: 0, 0
+  index: -1
+mokoji_bluedress_01_acce_04
+  rotate: true
+  xy: 711, 9
+  size: 16, 33
+  orig: 16, 33
+  offset: 0, 0
+  index: -1
+mokoji_bluedress_01_arm_01
+  rotate: true
+  xy: 1203, 17
+  size: 36, 64
+  orig: 36, 64
+  offset: 0, 0
+  index: -1
+mokoji_bluedress_01_arm_02
+  rotate: false
+  xy: 1415, 125
+  size: 27, 34
+  orig: 27, 34
+  offset: 0, 0
+  index: -1
+mokoji_bluedress_01_arm_03
+  rotate: false
+  xy: 1389, 49
+  size: 30, 45
+  orig: 30, 45
+  offset: 0, 0
+  index: -1
+mokoji_bluedress_01_arm_04
+  rotate: false
+  xy: 1401, 161
+  size: 35, 50
+  orig: 35, 50
+  offset: 0, 0
+  index: -1
+mokoji_bluedress_01_backbody_01
+  rotate: false
+  xy: 1285, 96
+  size: 63, 62
+  orig: 63, 62
+  offset: 0, 0
+  index: -1
+mokoji_bluedress_01_backbody_02
+  rotate: false
+  xy: 425, 100
+  size: 35, 36
+  orig: 35, 36
+  offset: 0, 0
+  index: -1
+mokoji_bluedress_01_body_01
+  rotate: false
+  xy: 1350, 96
+  size: 63, 62
+  orig: 63, 62
+  offset: 0, 0
+  index: -1
+mokoji_bluedress_01_body_02
+  rotate: false
+  xy: 746, 13
+  size: 55, 61
+  orig: 55, 61
+  offset: 0, 0
+  index: -1
+mokoji_bluedress_01_body_03
+  rotate: false
+  xy: 289, 28
+  size: 79, 63
+  orig: 79, 63
+  offset: 0, 0
+  index: -1
+mokoji_bluedress_01_cape_01
+  rotate: false
+  xy: 1002, 4
+  size: 58, 146
+  orig: 58, 146
+  offset: 0, 0
+  index: -1
+mokoji_bluedress_01_cape_03
+  rotate: false
+  xy: 466, 94
+  size: 175, 173
+  orig: 175, 173
+  offset: 0, 0
+  index: -1
+mokoji_bluedress_01_effect_01
+  rotate: false
+  xy: 954, 152
+  size: 167, 115
+  orig: 167, 115
+  offset: 0, 0
+  index: -1
+mokoji_bluedress_01_effect_02
+  rotate: false
+  xy: 579, 5
+  size: 80, 87
+  orig: 80, 87
+  offset: 0, 0
+  index: -1
+mokoji_bluedress_01_effect_03
+  rotate: false
+  xy: 643, 107
+  size: 161, 160
+  orig: 161, 160
+  offset: 0, 0
+  index: -1
+mokoji_bluedress_01_effect_04
+  rotate: false
+  xy: 2, 78
+  size: 194, 189
+  orig: 194, 189
+  offset: 0, 0
+  index: -1
+mokoji_bluedress_01_effect_05
+  rotate: false
+  xy: 425, 2
+  size: 94, 90
+  orig: 94, 90
+  offset: 0, 0
+  index: -1
+mokoji_bluedress_01_effect_09
+  rotate: false
+  xy: 1285, 160
+  size: 114, 107
+  orig: 114, 107
+  offset: 0, 0
+  index: -1
+mokoji_bluedress_01_effect_10
+  rotate: false
+  xy: 212, 18
+  size: 75, 73
+  orig: 75, 73
+  offset: 0, 0
+  index: -1
+mokoji_bluedress_01_effect_11
+  rotate: false
+  xy: 806, 129
+  size: 146, 138
+  orig: 146, 138
+  offset: 0, 0
+  index: -1
+mokoji_bluedress_01_effect_12
+  rotate: false
+  xy: 198, 93
+  size: 225, 86
+  orig: 225, 86
+  offset: 0, 0
+  index: -1
+mokoji_bluedress_01_effect_13
+  rotate: true
+  xy: 1123, 154
+  size: 113, 160
+  orig: 113, 160
+  offset: 0, 0
+  index: -1
+mokoji_bluedress_01_eye_01
+  rotate: false
+  xy: 746, 76
+  size: 58, 29
+  orig: 58, 29
+  offset: 0, 0
+  index: -1
+mokoji_bluedress_01_eye_02
+  rotate: false
+  xy: 661, 4
+  size: 48, 21
+  orig: 48, 21
+  offset: 0, 0
+  index: -1
+mokoji_bluedress_01_eye_03
+  rotate: false
+  xy: 954, 129
+  size: 43, 21
+  orig: 43, 21
+  offset: 0, 0
+  index: -1
+mokoji_bluedress_01_eye_04
+  rotate: true
+  xy: 1421, 80
+  size: 43, 21
+  orig: 43, 21
+  offset: 0, 0
+  index: -1
+mokoji_bluedress_01_face_01
+  rotate: true
+  xy: 1269, 36
+  size: 17, 12
+  orig: 17, 12
+  offset: 0, 0
+  index: -1
+mokoji_bluedress_01_face_02
+  rotate: false
+  xy: 1124, 2
+  size: 51, 26
+  orig: 51, 26
+  offset: 0, 0
+  index: -1
+mokoji_bluedress_01_hair_01
+  rotate: true
+  xy: 903, 5
+  size: 122, 97
+  orig: 122, 97
+  offset: 0, 0
+  index: -1
+mokoji_bluedress_01_hair_02
+  rotate: true
+  xy: 521, 2
+  size: 90, 56
+  orig: 90, 56
+  offset: 0, 0
+  index: -1
+mokoji_bluedress_01_hair_03
+  rotate: false
+  xy: 661, 27
+  size: 83, 78
+  orig: 83, 78
+  offset: 0, 0
+  index: -1
+mokoji_bluedress_01_hair_04
+  rotate: false
+  xy: 1283, 33
+  size: 62, 61
+  orig: 62, 61
+  offset: 0, 0
+  index: -1
+mokoji_bluedress_01_hand_01
+  rotate: true
+  xy: 1421, 54
+  size: 24, 21
+  orig: 24, 21
+  offset: 0, 0
+  index: -1
+mokoji_bluedress_01_hand_02
+  rotate: true
+  xy: 342, 2
+  size: 24, 21
+  orig: 24, 21
+  offset: 0, 0
+  index: -1
+mokoji_bluedress_01_head_01
+  rotate: false
+  xy: 1203, 55
+  size: 78, 97
+  orig: 78, 97
+  offset: 0, 0
+  index: -1
+mokoji_bluedress_01_reg_01
+  rotate: false
+  xy: 806, 2
+  size: 95, 125
+  orig: 95, 125
+  offset: 0, 0
+  index: -1
+mokoji_bluedress_01_reg_02
+  rotate: false
+  xy: 1124, 30
+  size: 77, 122
+  orig: 77, 122
+  offset: 0, 0
+  index: -1
+mokoji_bluedress_01_reg_03
+  rotate: true
+  xy: 2, 9
+  size: 67, 146
+  orig: 67, 146
+  offset: 0, 0
+  index: -1
+mokoji_bluedress_01_reg_04
+  rotate: false
+  xy: 1062, 16
+  size: 60, 134
+  orig: 60, 134
+  offset: 0, 0
+  index: -1
+mokoji_bluedress_01_wepon_01
+  rotate: true
+  xy: 198, 181
+  size: 86, 266
+  orig: 86, 266
+  offset: 0, 0
+  index: -1
+mokoji_bluedress_01_wepon_02
+  rotate: false
+  xy: 370, 25
+  size: 37, 66
+  orig: 37, 66
+  offset: 0, 0
+  index: -1
+mokoji_bluedress_01_wepon_03
+  rotate: true
+  xy: 425, 138
+  size: 41, 39
+  orig: 41, 39
+  offset: 0, 0
+  index: -1
+mokoji_bluedress_01_wepon_05
+  rotate: false
+  xy: 1347, 54
+  size: 40, 40
+  orig: 40, 40
+  offset: 0, 0
+  index: -1
+mokoji_bluedress_01_wepon_06
+  rotate: false
+  xy: 1269, 2
+  size: 31, 29
+  orig: 31, 29
+  offset: 0, 0
+  index: -1

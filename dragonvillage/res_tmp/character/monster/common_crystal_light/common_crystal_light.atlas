@@ -1,0 +1,55 @@
+
+common_crystal_light.png
+size: 1024,256
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+common_crystal_light_effect_01
+  rotate: true
+  xy: 2, 11
+  size: 207, 261
+  orig: 207, 261
+  offset: 0, 0
+  index: -1
+common_crystal_light_eye_01
+  rotate: true
+  xy: 265, 17
+  size: 84, 164
+  orig: 84, 164
+  offset: 0, 0
+  index: -1
+common_crystal_light_jew_01
+  rotate: true
+  xy: 431, 2
+  size: 84, 164
+  orig: 84, 164
+  offset: 0, 0
+  index: -1
+common_crystal_light_ring_01
+  rotate: false
+  xy: 448, 88
+  size: 160, 130
+  orig: 160, 130
+  offset: 0, 0
+  index: -1
+common_crystal_light_ring_01_01
+  rotate: false
+  xy: 265, 103
+  size: 181, 115
+  orig: 181, 115
+  offset: 0, 0
+  index: -1
+common_crystal_light_ring_02
+  rotate: false
+  xy: 610, 77
+  size: 146, 141
+  orig: 146, 141
+  offset: 0, 0
+  index: -1
+common_crystal_light_ring_02_01
+  rotate: false
+  xy: 758, 104
+  size: 142, 114
+  orig: 142, 114
+  offset: 0, 0
+  index: -1

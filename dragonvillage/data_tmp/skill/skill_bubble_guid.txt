@@ -1,0 +1,87 @@
+{
+	"skill_bubble_guid":
+	{
+		"attack_value":
+		[		
+			{
+				"idx":1,
+                
+				"res":"res/missile/missile_bubble_@/missile_bubble_@.vrp",
+				"visual":"idle",
+                "count":2,
+                "scale":0.9,
+                "period":0.1,
+				"dir":120,
+				"speed":140,
+				"accel":750,
+				"accel_delay":0.7,
+
+				"body":[0,0,30],
+				"offset":[0,0],
+                "dir_add":65,
+				"movement":"guidtarget",
+				
+                "effect":
+                {
+                    "motion_streak":"res/missile/motion_streak/motion_streak_line_@.png",
+                    "rotation":false,
+                    "afterimage":true
+                }
+				
+			},
+			
+			{
+				"idx":1,
+                
+				"res":"res/missile/missile_bubble_@/missile_bubble_@.vrp",
+				"visual":"idle",
+                "count":1,
+                "scale":1.9,
+                "period":0.2,
+				"dir":130,
+				"speed":20,
+				"accel":900,
+				"accel_delay":0.7,
+
+				"body":[0,0,20],
+				"offset":[0,0],
+                "dir_add":20,
+				"movement":"guidtarget",
+				
+                "effect":
+                {
+                    "motion_streak":"res/missile/motion_streak/motion_streak_line_@.png",
+                    "rotation":false,
+                    "afterimage":true
+                }
+				
+			},
+			{
+				"idx":1,
+                
+				"res":"res/missile/missile_bubble_@/missile_bubble_@.vrp",
+				"visual":"idle",
+                "count":2,
+                "scale":1.2,
+                "period":0.1,
+				"dir":290,
+				"speed":90,
+				"accel":1000,
+				"accel_delay":0.7,
+
+				"body":[0,0,15],
+				"offset":[0,0],
+                "dir_add":-120,
+				"movement":"guidtarget",
+				
+                "effect":
+                {
+                    "motion_streak":"res/missile/motion_streak/motion_streak_line_@.png",
+                    "rotation":false,
+                    "afterimage":true
+                }
+				
+			}
+		]
+	}
+}

@@ -1,0 +1,433 @@
+
+party_fire_02.png
+size: 888,1032
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+party_fire_02_arm_01
+  rotate: true
+  xy: 715, 185
+  size: 41, 62
+  orig: 41, 62
+  offset: 0, 0
+  index: -1
+party_fire_02_arm_02
+  rotate: false
+  xy: 840, 131
+  size: 45, 49
+  orig: 45, 49
+  offset: 0, 0
+  index: -1
+party_fire_02_balloon _01
+  rotate: true
+  xy: 395, 682
+  size: 101, 105
+  orig: 101, 105
+  offset: 0, 0
+  index: -1
+party_fire_02_body_01
+  rotate: false
+  xy: 798, 328
+  size: 87, 152
+  orig: 87, 152
+  offset: 0, 0
+  index: -1
+party_fire_02_effect _09
+  rotate: false
+  xy: 542, 286
+  size: 253, 54
+  orig: 253, 54
+  offset: 0, 0
+  index: -1
+party_fire_02_effect _10
+  rotate: true
+  xy: 2, 884
+  size: 59, 487
+  orig: 59, 487
+  offset: 0, 0
+  index: -1
+party_fire_02_effect _10_01
+  rotate: false
+  xy: 489, 342
+  size: 307, 191
+  orig: 307, 191
+  offset: 0, 0
+  index: -1
+party_fire_02_effect _11
+  rotate: true
+  xy: 2, 981
+  size: 49, 500
+  orig: 49, 500
+  offset: 0, 0
+  index: -1
+party_fire_02_effect _11_01
+  rotate: true
+  xy: 2, 19
+  size: 307, 191
+  orig: 307, 191
+  offset: 0, 0
+  index: -1
+party_fire_02_effect _12
+  rotate: true
+  xy: 2, 945
+  size: 34, 490
+  orig: 34, 490
+  offset: 0, 0
+  index: -1
+party_fire_02_effect _12_01
+  rotate: true
+  xy: 504, 743
+  size: 287, 379
+  orig: 287, 379
+  offset: 0, 0
+  index: -1
+party_fire_02_effect _13
+  rotate: true
+  xy: 2, 843
+  size: 39, 482
+  orig: 39, 482
+  offset: 0, 0
+  index: -1
+party_fire_02_effect _13_01
+  rotate: false
+  xy: 497, 16
+  size: 216, 257
+  orig: 216, 257
+  offset: 0, 0
+  index: -1
+party_fire_02_effect _14
+  rotate: true
+  xy: 2, 795
+  size: 46, 476
+  orig: 46, 476
+  offset: 0, 0
+  index: -1
+party_fire_02_effect _14_01
+  rotate: true
+  xy: 195, 317
+  size: 222, 190
+  orig: 222, 190
+  offset: 0, 0
+  index: -1
+party_fire_02_effect _15
+  rotate: false
+  xy: 502, 535
+  size: 319, 206
+  orig: 319, 206
+  offset: 0, 0
+  index: -1
+party_fire_02_effect _16
+  rotate: false
+  xy: 2, 541
+  size: 391, 252
+  orig: 391, 252
+  offset: 0, 0
+  index: -1
+party_fire_02_effect _17
+  rotate: true
+  xy: 2, 340
+  size: 199, 190
+  orig: 199, 190
+  offset: 0, 0
+  index: -1
+party_fire_02_eye_01
+  rotate: true
+  xy: 775, 28
+  size: 34, 32
+  orig: 34, 32
+  offset: 0, 0
+  index: -1
+party_fire_02_eye_01_01
+  rotate: true
+  xy: 809, 28
+  size: 34, 32
+  orig: 34, 32
+  offset: 0, 0
+  index: -1
+party_fire_02_eye_02
+  rotate: true
+  xy: 831, 3
+  size: 23, 28
+  orig: 23, 28
+  offset: 0, 0
+  index: -1
+party_fire_02_eye_02_01
+  rotate: false
+  xy: 861, 37
+  size: 23, 28
+  orig: 23, 28
+  offset: 0, 0
+  index: -1
+party_fire_02_face_01
+  rotate: false
+  xy: 395, 493
+  size: 92, 89
+  orig: 92, 89
+  offset: 0, 0
+  index: -1
+party_fire_02_face_01_01
+  rotate: true
+  xy: 715, 88
+  size: 43, 47
+  orig: 43, 47
+  offset: 0, 0
+  index: -1
+party_fire_02_face_01_02
+  rotate: false
+  xy: 750, 11
+  size: 23, 36
+  orig: 23, 36
+  offset: 0, 0
+  index: -1
+party_fire_02_face_01_03
+  rotate: false
+  xy: 480, 785
+  size: 21, 28
+  orig: 21, 28
+  offset: 0, 0
+  index: -1
+party_fire_02_firework_01
+  rotate: false
+  xy: 195, 11
+  size: 148, 127
+  orig: 148, 127
+  offset: 0, 0
+  index: -1
+party_fire_02_firework_02
+  rotate: false
+  xy: 377, 146
+  size: 38, 127
+  orig: 38, 127
+  offset: 0, 0
+  index: -1
+party_fire_02_firework_02_01
+  rotate: false
+  xy: 457, 146
+  size: 38, 127
+  orig: 38, 127
+  offset: 0, 0
+  index: -1
+party_fire_02_firework_03
+  rotate: false
+  xy: 417, 146
+  size: 38, 127
+  orig: 38, 127
+  offset: 0, 0
+  index: -1
+party_fire_02_firework_04
+  rotate: false
+  xy: 345, 11
+  size: 148, 127
+  orig: 148, 127
+  offset: 0, 0
+  index: -1
+party_fire_02_foot_01
+  rotate: false
+  xy: 715, 228
+  size: 71, 56
+  orig: 71, 56
+  offset: 0, 0
+  index: -1
+party_fire_02_foot_02
+  rotate: true
+  xy: 487, 275
+  size: 65, 53
+  orig: 65, 53
+  offset: 0, 0
+  index: -1
+party_fire_02_foot_02_01
+  rotate: true
+  xy: 810, 65
+  size: 30, 33
+  orig: 30, 33
+  offset: 0, 0
+  index: -1
+party_fire_02_hair_01
+  rotate: true
+  xy: 395, 584
+  size: 96, 101
+  orig: 96, 101
+  offset: 0, 0
+  index: -1
+party_fire_02_hair_02
+  rotate: true
+  xy: 798, 482
+  size: 48, 88
+  orig: 48, 88
+  offset: 0, 0
+  index: -1
+party_fire_02_hand_01
+  rotate: false
+  xy: 830, 97
+  size: 48, 32
+  orig: 48, 32
+  offset: 0, 0
+  index: -1
+party_fire_02_hand_02
+  rotate: false
+  xy: 840, 182
+  size: 46, 30
+  orig: 46, 30
+  offset: 0, 0
+  index: -1
+party_fire_02_leg_02
+  rotate: false
+  xy: 823, 602
+  size: 62, 69
+  orig: 62, 69
+  offset: 0, 0
+  index: -1
+party_fire_02_pop_01
+  rotate: true
+  xy: 465, 361
+  size: 25, 21
+  orig: 25, 21
+  offset: 0, 0
+  index: -1
+party_fire_02_pop_02
+  rotate: false
+  xy: 715, 10
+  size: 33, 37
+  orig: 33, 37
+  offset: 0, 0
+  index: -1
+party_fire_02_pop_03
+  rotate: false
+  xy: 480, 815
+  size: 22, 26
+  orig: 22, 26
+  offset: 0, 0
+  index: -1
+party_fire_02_pop_04
+  rotate: false
+  xy: 764, 64
+  size: 44, 42
+  orig: 44, 42
+  offset: 0, 0
+  index: -1
+party_fire_02_pop_05
+  rotate: true
+  xy: 775, 2
+  size: 24, 26
+  orig: 24, 26
+  offset: 0, 0
+  index: -1
+party_fire_02_pop_06
+  rotate: true
+  xy: 803, 2
+  size: 24, 26
+  orig: 24, 26
+  offset: 0, 0
+  index: -1
+party_fire_02_pop_07
+  rotate: false
+  xy: 861, 67
+  size: 25, 28
+  orig: 25, 28
+  offset: 0, 0
+  index: -1
+party_fire_02_pop_eve_01
+  rotate: false
+  xy: 486, 862
+  size: 15, 20
+  orig: 15, 20
+  offset: 0, 0
+  index: -1
+party_fire_02_pop_eve_02
+  rotate: false
+  xy: 486, 848
+  size: 14, 12
+  orig: 14, 12
+  offset: 0, 0
+  index: -1
+party_fire_02_ribbon_01
+  rotate: true
+  xy: 779, 163
+  size: 49, 59
+  orig: 49, 59
+  offset: 0, 0
+  index: -1
+party_fire_02_ribbon_01_01
+  rotate: true
+  xy: 715, 133
+  size: 50, 56
+  orig: 50, 56
+  offset: 0, 0
+  index: -1
+party_fire_02_ribbon_01_02
+  rotate: true
+  xy: 773, 108
+  size: 53, 55
+  orig: 53, 55
+  offset: 0, 0
+  index: -1
+party_fire_02_ribbon_02
+  rotate: false
+  xy: 387, 275
+  size: 76, 67
+  orig: 76, 67
+  offset: 0, 0
+  index: -1
+party_fire_02_ribbon_02_01
+  rotate: true
+  xy: 823, 532
+  size: 68, 62
+  orig: 68, 62
+  offset: 0, 0
+  index: -1
+party_fire_02_ribbon_02_02
+  rotate: false
+  xy: 823, 673
+  size: 63, 68
+  orig: 63, 68
+  offset: 0, 0
+  index: -1
+party_fire_02_ribbon_03
+  rotate: true
+  xy: 797, 214
+  size: 112, 75
+  orig: 112, 75
+  offset: 0, 0
+  index: -1
+party_fire_02_ribbon_04
+  rotate: false
+  xy: 387, 417
+  size: 89, 74
+  orig: 89, 74
+  offset: 0, 0
+  index: -1
+party_fire_02_ribbon_foot_01
+  rotate: false
+  xy: 715, 49
+  size: 37, 37
+  orig: 37, 37
+  offset: 0, 0
+  index: -1
+party_fire_02_ribbon_hand_01
+  rotate: false
+  xy: 465, 335
+  size: 20, 24
+  orig: 20, 24
+  offset: 0, 0
+  index: -1
+party_fire_02_ribbon_hand_02
+  rotate: false
+  xy: 465, 388
+  size: 21, 27
+  orig: 21, 27
+  offset: 0, 0
+  index: -1
+party_fire_02_ribbon_leg_01
+  rotate: true
+  xy: 387, 344
+  size: 71, 76
+  orig: 71, 76
+  offset: 0, 0
+  index: -1
+party_fire_02_tail_01
+  rotate: true
+  xy: 195, 140
+  size: 175, 180
+  orig: 175, 180
+  offset: 0, 0
+  index: -1

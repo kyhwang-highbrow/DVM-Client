@@ -1,0 +1,39 @@
+write chunk  "<root>" : 0
+write chunk  "<root>::header" : 0
+write chunk  "<root>::visuals" : 32
+write chunk  "<root>::visuals::visual-8" : 40
+write chunk  "<root>::layers" : 68
+write chunk  "<root>::layers::layer-10" : 68
+write chunk  "<root>::layers::layer-13" : 148
+write chunk  "<root>::sprites" : 228
+write chunk  "<root>::sockets" : 244
+write chunk  "<root>::event_shapes" : 248
+write chunk  "<root>::fonts" : 252
+write chunk  "<root>::plists" : 252
+write chunk  "<root>::string_pool" : 260
+write chunk  "<root>::string_pool::group" : 284
+write chunk  "<root>::string_pool::idle" : 292
+write chunk  "<root>::string_pool::missile_bat_01.png" : 300
+write chunk  "<root>::string_pool::missile_bat_02.png" : 320
+write chunk  "<root>::string_pool::missile_bat_03.png" : 340
+write chunk  "<root>::string_pool::missile_bat.plist" : 360
+ -- link - at "<root>::header" : (8) to "visuals" : (32)
+ -- link - at "<root>::header" : (12) to "sprites" : (228)
+ -- link - at "<root>::header" : (16) to "sockets" : (244)
+ -- link - at "<root>::header" : (20) to "event_shapes" : (248)
+ -- link - at "<root>::header" : (28) to "plists" : (252)
+ -- link - at "<root>::visuals" : (36) to "visual-8" : (40)
+ -- link - at "<root>::visuals::visual-8" : (40) to "group" : (284)
+ -- link - at "<root>::visuals::visual-8" : (44) to "idle" : (292)
+ -- link - at "<root>::visuals::visual-8" : (60) to "layer-10" : (68)
+ -- link - at "<root>::visuals::visual-8" : (64) to "layer-13" : (148)
+ -- link - at "<root>::sprites" : (232) to "missile_bat_01.png" : (300)
+ -- link - at "<root>::sprites" : (236) to "missile_bat_02.png" : (320)
+ -- link - at "<root>::sprites" : (240) to "missile_bat_03.png" : (340)
+ -- link - at "<root>::plists" : (256) to "missile_bat.plist" : (360)
+ -- link - at "<root>::string_pool" : (260) to "group" : (284)
+ -- link - at "<root>::string_pool" : (264) to "idle" : (292)
+ -- link - at "<root>::string_pool" : (268) to "missile_bat_01.png" : (300)
+ -- link - at "<root>::string_pool" : (272) to "missile_bat_02.png" : (320)
+ -- link - at "<root>::string_pool" : (276) to "missile_bat_03.png" : (340)
+ -- link - at "<root>::string_pool" : (280) to "missile_bat.plist" : (360)

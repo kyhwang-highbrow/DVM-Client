@@ -1,0 +1,41 @@
+{
+    "difficult":2,
+    "bg":"map_forest",
+	"wave":
+	[
+		
+		{   
+            "idx":1,
+			"camera":
+            {
+                "scale":0.8,
+                "pos_x":0,
+                "pos_y":0
+            },
+			"direction":"boss_wave",
+			"wave":
+            {
+                0:
+                [
+					"132011;1;Basic;RO06;RB14;2;roam"
+                ]
+            },
+			
+			"regen":
+			[
+				{
+					0:
+					[
+						"130011;1;Appear;RO02;RF23;0.5"
+						"130011;1;Appear;RO06;RF25;0.5"
+					]
+				}
+			]
+        }
+    ],
+	
+	"move":
+	{
+		
+	}
+}

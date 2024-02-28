@@ -1,0 +1,104 @@
+
+bullsdragon_water_01.png
+size: 562,280
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+bullsdragon_water_01_arm_01
+  rotate: false
+  xy: 424, 32
+  size: 58, 58
+  orig: 58, 58
+  offset: 0, 0
+  index: -1
+bullsdragon_water_01_arm_02
+  rotate: false
+  xy: 484, 32
+  size: 58, 58
+  orig: 58, 58
+  offset: 0, 0
+  index: -1
+bullsdragon_water_01_body_01
+  rotate: true
+  xy: 156, 141
+  size: 137, 135
+  orig: 137, 135
+  offset: 0, 0
+  index: -1
+bullsdragon_water_01_body_02
+  rotate: true
+  xy: 199, 2
+  size: 137, 135
+  orig: 137, 135
+  offset: 0, 0
+  index: -1
+bullsdragon_water_01_effect_01
+  rotate: true
+  xy: 2, 7
+  size: 107, 102
+  orig: 107, 102
+  offset: 0, 0
+  index: -1
+bullsdragon_water_01_eye_01
+  rotate: false
+  xy: 336, 7
+  size: 86, 68
+  orig: 86, 68
+  offset: 0, 0
+  index: -1
+bullsdragon_water_01_hand_01
+  rotate: false
+  xy: 106, 10
+  size: 91, 104
+  orig: 91, 104
+  offset: 0, 0
+  index: -1
+bullsdragon_water_01_hand_02
+  rotate: false
+  xy: 293, 174
+  size: 91, 104
+  orig: 91, 104
+  offset: 0, 0
+  index: -1
+bullsdragon_water_01_head_01
+  rotate: false
+  xy: 2, 116
+  size: 152, 162
+  orig: 152, 162
+  offset: 0, 0
+  index: -1
+bullsdragon_water_01_leg_01
+  rotate: false
+  xy: 423, 92
+  size: 87, 89
+  orig: 87, 89
+  offset: 0, 0
+  index: -1
+bullsdragon_water_01_leg_02
+  rotate: false
+  xy: 473, 189
+  size: 87, 89
+  orig: 87, 89
+  offset: 0, 0
+  index: -1
+bullsdragon_water_01_mouth_01
+  rotate: false
+  xy: 293, 142
+  size: 37, 30
+  orig: 37, 30
+  offset: 0, 0
+  index: -1
+bullsdragon_water_01_wing_01
+  rotate: false
+  xy: 336, 77
+  size: 85, 95
+  orig: 85, 95
+  offset: 0, 0
+  index: -1
+bullsdragon_water_01_wing_02
+  rotate: false
+  xy: 386, 183
+  size: 85, 95
+  orig: 85, 95
+  offset: 0, 0
+  index: -1

@@ -1,0 +1,230 @@
+
+hungrydragon_earth_02.png
+size: 1527,349
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+hungrydragon_earth_02_arm_01
+  rotate: true
+  xy: 1418, 245
+  size: 102, 107
+  orig: 102, 107
+  offset: 0, 0
+  index: -1
+hungrydragon_earth_02_arm_02
+  rotate: false
+  xy: 491, 4
+  size: 95, 85
+  orig: 95, 85
+  offset: 0, 0
+  index: -1
+hungrydragon_earth_02_arm_02_01
+  rotate: false
+  xy: 663, 99
+  size: 25, 40
+  orig: 25, 40
+  offset: 0, 0
+  index: -1
+hungrydragon_earth_02_body_01
+  rotate: true
+  xy: 2, 9
+  size: 338, 401
+  orig: 338, 401
+  offset: 0, 0
+  index: -1
+hungrydragon_earth_02_effect_07
+  rotate: false
+  xy: 1309, 237
+  size: 107, 110
+  orig: 107, 110
+  offset: 0, 0
+  index: -1
+hungrydragon_earth_02_effect_10
+  rotate: false
+  xy: 1051, 192
+  size: 149, 155
+  orig: 149, 155
+  offset: 0, 0
+  index: -1
+hungrydragon_earth_02_effect_11
+  rotate: false
+  xy: 1418, 74
+  size: 98, 98
+  orig: 98, 98
+  offset: 0, 0
+  index: -1
+hungrydragon_earth_02_eye_01
+  rotate: false
+  xy: 1333, 75
+  size: 54, 57
+  orig: 54, 57
+  offset: 0, 0
+  index: -1
+hungrydragon_earth_02_eye_02
+  rotate: false
+  xy: 1483, 38
+  size: 34, 34
+  orig: 34, 34
+  offset: 0, 0
+  index: -1
+hungrydragon_earth_02_eye_03
+  rotate: true
+  xy: 690, 101
+  size: 38, 51
+  orig: 38, 51
+  offset: 0, 0
+  index: -1
+hungrydragon_earth_02_eye_04
+  rotate: false
+  xy: 1389, 77
+  size: 25, 55
+  orig: 25, 55
+  offset: 0, 0
+  index: -1
+hungrydragon_earth_02_foot_01
+  rotate: true
+  xy: 1418, 174
+  size: 69, 102
+  orig: 69, 102
+  offset: 0, 0
+  index: -1
+hungrydragon_earth_02_foot_01_01
+  rotate: true
+  xy: 646, 14
+  size: 75, 96
+  orig: 75, 96
+  offset: 0, 0
+  index: -1
+hungrydragon_earth_02_foot_02
+  rotate: false
+  xy: 588, 4
+  size: 56, 85
+  orig: 56, 85
+  offset: 0, 0
+  index: -1
+hungrydragon_earth_02_fx_smoke
+  rotate: false
+  xy: 405, 91
+  size: 256, 256
+  orig: 256, 256
+  offset: 0, 0
+  index: -1
+hungrydragon_earth_02_head_01
+  rotate: false
+  xy: 1333, 7
+  size: 57, 65
+  orig: 57, 65
+  offset: 0, 0
+  index: -1
+hungrydragon_earth_02_horn_01
+  rotate: false
+  xy: 405, 2
+  size: 84, 87
+  orig: 84, 87
+  offset: 0, 0
+  index: -1
+hungrydragon_earth_02_horn_02
+  rotate: true
+  xy: 1392, 19
+  size: 53, 89
+  orig: 53, 89
+  offset: 0, 0
+  index: -1
+hungrydragon_earth_02_leg_01
+  rotate: false
+  xy: 1202, 234
+  size: 105, 113
+  orig: 105, 113
+  offset: 0, 0
+  index: -1
+hungrydragon_earth_02_leg_02
+  rotate: false
+  xy: 744, 6
+  size: 97, 133
+  orig: 97, 133
+  offset: 0, 0
+  index: -1
+hungrydragon_earth_02_meat_01
+  rotate: false
+  xy: 663, 141
+  size: 192, 206
+  orig: 192, 206
+  offset: 0, 0
+  index: -1
+hungrydragon_earth_02_meat_01_01
+  rotate: false
+  xy: 857, 141
+  size: 192, 206
+  orig: 192, 206
+  offset: 0, 0
+  index: -1
+hungrydragon_earth_02_meat_02
+  rotate: false
+  xy: 1095, 7
+  size: 117, 147
+  orig: 117, 147
+  offset: 0, 0
+  index: -1
+hungrydragon_earth_02_meat_02_01
+  rotate: false
+  xy: 1214, 7
+  size: 117, 147
+  orig: 117, 147
+  offset: 0, 0
+  index: -1
+hungrydragon_earth_02_mouth_01
+  rotate: true
+  xy: 1027, 21
+  size: 118, 66
+  orig: 118, 66
+  offset: 0, 0
+  index: -1
+hungrydragon_earth_02_mouth_02
+  rotate: true
+  xy: 1349, 134
+  size: 101, 67
+  orig: 101, 67
+  offset: 0, 0
+  index: -1
+hungrydragon_earth_02_mouth_02_01
+  rotate: true
+  xy: 1051, 156
+  size: 34, 54
+  orig: 34, 54
+  offset: 0, 0
+  index: -1
+hungrydragon_earth_02_mouth_02_02
+  rotate: true
+  xy: 1107, 156
+  size: 34, 54
+  orig: 34, 54
+  offset: 0, 0
+  index: -1
+hungrydragon_earth_02_mouth_02_03
+  rotate: true
+  xy: 1163, 156
+  size: 34, 54
+  orig: 34, 54
+  offset: 0, 0
+  index: -1
+hungrydragon_earth_02_tail_01
+  rotate: false
+  xy: 843, 12
+  size: 182, 127
+  orig: 182, 127
+  offset: 0, 0
+  index: -1
+hungrydragon_earth_02_wing_01
+  rotate: true
+  xy: 1219, 157
+  size: 75, 63
+  orig: 75, 63
+  offset: 0, 0
+  index: -1
+hungrydragon_earth_02_wing_02
+  rotate: true
+  xy: 1284, 157
+  size: 75, 63
+  orig: 75, 63
+  offset: 0, 0
+  index: -1

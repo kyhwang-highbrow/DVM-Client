@@ -1,0 +1,58 @@
+{
+	"skill_elite_killerbee_1":
+	{
+		"attack_value":
+		[		
+			{
+				"idx":1,
+				"res":"res/missile/missile_minibee/missile_minibee.spine",
+				"body":[0,0,20],
+                "count":6,
+				"damage_rate":7,
+                "scale":0.5,
+                "period":0.02,
+				"speed":1000,
+				"accel":-1000,
+				"l_limit_speed":400,
+				"accel_delay":0,
+				"angular_velocity":0,
+				"offset":[0,0],
+                "dir_array":['random'],
+				"movement":"guid",
+				
+                "effect":
+                {
+                    "motion_streak":"res/missile/motion_streak/motion_streak_killerbee.png",
+                    "rotation":false,
+                    "afterimage":false
+                }
+			},
+			
+			{
+				"idx":1,
+				"res":"res/missile/missile_minibee/missile_minibee.spine",
+				"body":[0,0,25],
+                "count":4,
+				"damage_rate":15,
+                "scale":1,
+                "period":0.02,
+				"speed":1000,
+				"accel":-1000,
+				"l_limit_speed":600,
+				"accel_delay":0,
+				"angular_velocity":0,
+				"offset":[0,0],
+                "dir_array":['random'],
+				"movement":"guid",
+				"damage_rate":60,
+				
+                "effect":
+                {
+                    "motion_streak":"res/missile/motion_streak/motion_streak_killerbee.png",
+                    "rotation":false,
+                    "afterimage":false
+                }
+			}
+		]
+	}
+}

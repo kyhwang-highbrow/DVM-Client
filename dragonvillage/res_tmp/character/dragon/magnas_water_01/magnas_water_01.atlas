@@ -1,0 +1,118 @@
+
+magnas_water_01.png
+size: 616,538
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+magnas_water_01_acc_01
+  rotate: true
+  xy: 187, 451
+  size: 85, 277
+  orig: 85, 277
+  offset: 0, 0
+  index: -1
+magnas_water_01_acc_02
+  rotate: true
+  xy: 187, 364
+  size: 85, 277
+  orig: 85, 277
+  offset: 0, 0
+  index: -1
+magnas_water_01_body_01
+  rotate: true
+  xy: 466, 372
+  size: 164, 148
+  orig: 164, 148
+  offset: 0, 0
+  index: -1
+magnas_water_01_body_02
+  rotate: false
+  xy: 373, 239
+  size: 116, 123
+  orig: 116, 123
+  offset: 0, 0
+  index: -1
+magnas_water_01_body_03
+  rotate: false
+  xy: 478, 129
+  size: 99, 97
+  orig: 99, 97
+  offset: 0, 0
+  index: -1
+magnas_water_01_effect_02
+  rotate: true
+  xy: 491, 228
+  size: 142, 116
+  orig: 142, 116
+  offset: 0, 0
+  index: -1
+magnas_water_01_effect_03
+  rotate: false
+  xy: 345, 110
+  size: 131, 127
+  orig: 131, 127
+  offset: 0, 0
+  index: -1
+magnas_water_01_effect_04
+  rotate: false
+  xy: 187, 247
+  size: 184, 115
+  orig: 184, 115
+  offset: 0, 0
+  index: -1
+magnas_water_01_effect_05
+  rotate: true
+  xy: 183, 134
+  size: 111, 160
+  orig: 111, 160
+  offset: 0, 0
+  index: -1
+magnas_water_01_hair_01
+  rotate: true
+  xy: 457, 12
+  size: 96, 89
+  orig: 96, 89
+  offset: 0, 0
+  index: -1
+magnas_water_01_head_01
+  rotate: false
+  xy: 2, 2
+  size: 169, 160
+  orig: 169, 160
+  offset: 0, 0
+  index: -1
+magnas_water_01_ray1
+  rotate: true
+  xy: 2, 164
+  size: 184, 179
+  orig: 184, 179
+  offset: 0, 0
+  index: -1
+magnas_water_01_ray2
+  rotate: false
+  xy: 2, 350
+  size: 183, 186
+  orig: 183, 186
+  offset: 0, 0
+  index: -1
+magnas_water_01_ray2eye
+  rotate: true
+  xy: 548, 71
+  size: 56, 48
+  orig: 56, 48
+  offset: 0, 0
+  index: -1
+magnas_water_01_ray3
+  rotate: true
+  xy: 173, 8
+  size: 124, 140
+  orig: 124, 140
+  offset: 0, 0
+  index: -1
+magnas_water_01_wing_01
+  rotate: false
+  xy: 315, 14
+  size: 140, 94
+  orig: 140, 94
+  offset: 0, 0
+  index: -1

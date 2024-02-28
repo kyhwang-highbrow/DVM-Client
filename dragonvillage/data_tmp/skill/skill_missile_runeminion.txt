@@ -1,0 +1,48 @@
+{
+	"skill_missile_runeminion":
+	{
+		"attack_value":
+		[		
+			{
+				"idx":1,
+				"target_idx":[1],
+				"res":"res/missile/missile_ball/missile_ball_@.vrp",
+				"body":[0,0,20],
+                "count":1,
+                "scale":1,
+                "period":0.1,
+				"time":0,
+				"speed":0,
+				"accel":1000,
+				"h_limit_speed":1000,
+				"accel_delay":0,
+				"angular_velocity":0,
+				"offset":[0,0],
+                "dir":90,
+				"movement":"guid",
+				"bFixedAttack":true
+				
+			},
+			
+			{
+				"idx":1,
+				"target_idx":[2],
+				"res":"res/missile/missile_ball/missile_ball_@.vrp",
+				"body":[0,0,20],
+                "count":1,
+                "scale":1,
+                "period":0.1,
+				"time":0,
+				"speed":0,
+				"accel":1000,
+				"h_limit_speed":1000,
+				"accel_delay":0,
+				"angular_velocity":0,
+				"offset":[0,0],
+                "dir":-90,
+				"movement":"guid",
+				"bFixedAttack":true
+			}
+		]
+	}
+}

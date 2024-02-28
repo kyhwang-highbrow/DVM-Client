@@ -1,0 +1,160 @@
+
+taildragon_water_02.png
+size: 1246,290
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+taildragon_water_02_arm_01
+  rotate: false
+  xy: 920, 12
+  size: 61, 89
+  orig: 61, 89
+  offset: 0, 0
+  index: -1
+taildragon_water_02_arm_02
+  rotate: false
+  xy: 1174, 107
+  size: 60, 90
+  orig: 60, 90
+  offset: 0, 0
+  index: -1
+taildragon_water_02_body_01
+  rotate: false
+  xy: 599, 98
+  size: 173, 190
+  orig: 173, 190
+  offset: 0, 0
+  index: -1
+taildragon_water_02_eye_01
+  rotate: true
+  xy: 2, 4
+  size: 49, 39
+  orig: 49, 39
+  offset: 0, 0
+  index: -1
+taildragon_water_02_eye_02
+  rotate: true
+  xy: 43, 4
+  size: 49, 39
+  orig: 49, 39
+  offset: 0, 0
+  index: -1
+taildragon_water_02_eye_03
+  rotate: true
+  xy: 84, 4
+  size: 49, 39
+  orig: 49, 39
+  offset: 0, 0
+  index: -1
+taildragon_water_02_foot_01
+  rotate: true
+  xy: 501, 20
+  size: 66, 103
+  orig: 66, 103
+  offset: 0, 0
+  index: -1
+taildragon_water_02_foot_02
+  rotate: false
+  xy: 1177, 27
+  size: 67, 78
+  orig: 67, 78
+  offset: 0, 0
+  index: -1
+taildragon_water_02_hair_01
+  rotate: true
+  xy: 606, 2
+  size: 94, 138
+  orig: 94, 138
+  offset: 0, 0
+  index: -1
+taildragon_water_02_hair_04
+  rotate: false
+  xy: 1067, 168
+  size: 105, 120
+  orig: 105, 120
+  offset: 0, 0
+  index: -1
+taildragon_water_02_hand_01
+  rotate: false
+  xy: 1174, 199
+  size: 61, 89
+  orig: 61, 89
+  offset: 0, 0
+  index: -1
+taildragon_water_02_hand_02
+  rotate: false
+  xy: 1115, 15
+  size: 60, 90
+  orig: 60, 90
+  offset: 0, 0
+  index: -1
+taildragon_water_02_head_01
+  rotate: true
+  xy: 983, 6
+  size: 119, 130
+  orig: 119, 130
+  offset: 0, 0
+  index: -1
+taildragon_water_02_head_02
+  rotate: true
+  xy: 125, 12
+  size: 41, 40
+  orig: 41, 40
+  offset: 0, 0
+  index: -1
+taildragon_water_02_leg_01
+  rotate: true
+  xy: 746, 30
+  size: 66, 103
+  orig: 66, 103
+  offset: 0, 0
+  index: -1
+taildragon_water_02_leg_02
+  rotate: false
+  xy: 851, 3
+  size: 67, 98
+  orig: 67, 98
+  offset: 0, 0
+  index: -1
+taildragon_water_02_tail_01
+  rotate: false
+  xy: 199, 22
+  size: 300, 64
+  orig: 300, 64
+  offset: 0, 0
+  index: -1
+taildragon_water_02_tail_03
+  rotate: false
+  xy: 199, 88
+  size: 198, 200
+  orig: 198, 200
+  offset: 0, 0
+  index: -1
+taildragon_water_02_tail_04
+  rotate: false
+  xy: 2, 55
+  size: 195, 233
+  orig: 195, 233
+  offset: 0, 0
+  index: -1
+taildragon_water_02_tail_06
+  rotate: false
+  xy: 399, 88
+  size: 198, 200
+  orig: 198, 200
+  offset: 0, 0
+  index: -1
+taildragon_water_02_wing_01
+  rotate: true
+  xy: 774, 103
+  size: 185, 171
+  orig: 185, 171
+  offset: 0, 0
+  index: -1
+taildragon_water_02_wing_02
+  rotate: false
+  xy: 947, 127
+  size: 118, 161
+  orig: 118, 161
+  offset: 0, 0
+  index: -1

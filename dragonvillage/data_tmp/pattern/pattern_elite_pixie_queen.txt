@@ -1,0 +1,25 @@
+{
+	"pattern_elite_pixie_queen":
+	[			
+		[
+			"a;1", "w;5", "a;basic", "w;1", "a;basic", "w;1", "m;RF22;500", "a;basic", "w;1", "m;RF26;500", "a;basic", "w;1", "m;RB24;500", "a;basic", "w;1",
+			"m;RF14;500", "a;1", "w;5", "m;RF17;500", "a;3", "m;RB24;700", "a;basic", "w;1",
+			"m;RB14;500", "a;1", "w;5", "m;RF12;500", "a;3", "m;RB24;700", "a;basic", "w;1"
+		]
+    ],
+	
+	"hp_trriger":
+    {
+        "priority":1,
+        "list":
+        [
+            {
+                "hp_percent":1,
+                "pattern":
+                [
+					"w;1"
+                ]
+            }
+        ]
+    }
+}

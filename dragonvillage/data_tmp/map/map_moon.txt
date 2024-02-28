@@ -1,0 +1,15 @@
+{
+    "directing":"floating_1",
+	"layer":
+    [
+        {
+            "name":"배경"
+            "speed":0
+            "list":
+            [
+                {"res":"res/bg/rune_guardian_dungeon/rune_guardian_dungeon.vrp" "animation":"idle" "width":1920 "pos_x":640 "scale":1.5}
+            ]
+        }
+		
+    ]
+}

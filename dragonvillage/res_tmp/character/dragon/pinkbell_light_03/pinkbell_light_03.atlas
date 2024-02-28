@@ -1,0 +1,293 @@
+
+pinkbell_light_03.png
+size: 2017,677
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+pinkbell_light_03_arm_01
+  rotate: false
+  xy: 1950, 610
+  size: 65, 65
+  orig: 65, 65
+  offset: 0, 0
+  index: -1
+pinkbell_light_03_arm_02
+  rotate: false
+  xy: 1950, 543
+  size: 65, 65
+  orig: 65, 65
+  offset: 0, 0
+  index: -1
+pinkbell_light_03_body_01
+  rotate: true
+  xy: 1793, 549
+  size: 126, 155
+  orig: 126, 155
+  offset: 0, 0
+  index: -1
+pinkbell_light_03_body_02
+  rotate: false
+  xy: 1810, 357
+  size: 102, 77
+  orig: 102, 77
+  offset: 0, 0
+  index: -1
+pinkbell_light_03_body_03
+  rotate: false
+  xy: 1943, 212
+  size: 69, 64
+  orig: 69, 64
+  offset: 0, 0
+  index: -1
+pinkbell_light_03_effect_01
+  rotate: true
+  xy: 1786, 436
+  size: 105, 139
+  orig: 105, 139
+  offset: 0, 0
+  index: -1
+pinkbell_light_03_effect_02
+  rotate: false
+  xy: 1789, 162
+  size: 65, 65
+  orig: 65, 65
+  offset: 0, 0
+  index: -1
+pinkbell_light_03_effect_03
+  rotate: false
+  xy: 1714, 142
+  size: 65, 65
+  orig: 65, 65
+  offset: 0, 0
+  index: -1
+pinkbell_light_03_effect_04
+  rotate: false
+  xy: 1856, 159
+  size: 65, 65
+  orig: 65, 65
+  offset: 0, 0
+  index: -1
+pinkbell_light_03_effect_05
+  rotate: false
+  xy: 1781, 95
+  size: 65, 65
+  orig: 65, 65
+  offset: 0, 0
+  index: -1
+pinkbell_light_03_effect_07_01
+  rotate: true
+  xy: 2, 249
+  size: 426, 245
+  orig: 426, 245
+  offset: 0, 0
+  index: -1
+pinkbell_light_03_effect_07_02
+  rotate: false
+  xy: 2, 2
+  size: 426, 245
+  orig: 426, 245
+  offset: 0, 0
+  index: -1
+pinkbell_light_03_effect_07_03
+  rotate: true
+  xy: 249, 249
+  size: 426, 245
+  orig: 426, 245
+  offset: 0, 0
+  index: -1
+pinkbell_light_03_effect_07_04
+  rotate: false
+  xy: 430, 2
+  size: 426, 245
+  orig: 426, 245
+  offset: 0, 0
+  index: -1
+pinkbell_light_03_effect_07_05
+  rotate: true
+  xy: 496, 249
+  size: 426, 245
+  orig: 426, 245
+  offset: 0, 0
+  index: -1
+pinkbell_light_03_effect_08_01
+  rotate: true
+  xy: 743, 249
+  size: 426, 245
+  orig: 426, 245
+  offset: 0, 0
+  index: -1
+pinkbell_light_03_effect_08_02
+  rotate: false
+  xy: 858, 2
+  size: 426, 245
+  orig: 426, 245
+  offset: 0, 0
+  index: -1
+pinkbell_light_03_effect_08_03
+  rotate: true
+  xy: 990, 249
+  size: 426, 245
+  orig: 426, 245
+  offset: 0, 0
+  index: -1
+pinkbell_light_03_effect_08_04
+  rotate: true
+  xy: 1237, 249
+  size: 426, 245
+  orig: 426, 245
+  offset: 0, 0
+  index: -1
+pinkbell_light_03_effect_08_05
+  rotate: false
+  xy: 1286, 2
+  size: 426, 245
+  orig: 426, 245
+  offset: 0, 0
+  index: -1
+pinkbell_light_03_eye_01
+  rotate: true
+  xy: 1848, 100
+  size: 57, 62
+  orig: 57, 62
+  offset: 0, 0
+  index: -1
+pinkbell_light_03_eye_02
+  rotate: false
+  xy: 1781, 31
+  size: 57, 62
+  orig: 57, 62
+  offset: 0, 0
+  index: -1
+pinkbell_light_03_eye_03
+  rotate: false
+  xy: 1840, 31
+  size: 57, 62
+  orig: 57, 62
+  offset: 0, 0
+  index: -1
+pinkbell_light_03_eye_04
+  rotate: false
+  xy: 1899, 36
+  size: 57, 62
+  orig: 57, 62
+  offset: 0, 0
+  index: -1
+pinkbell_light_03_eyebrow_01
+  rotate: false
+  xy: 1958, 81
+  size: 57, 62
+  orig: 57, 62
+  offset: 0, 0
+  index: -1
+pinkbell_light_03_foot_01
+  rotate: true
+  xy: 1660, 369
+  size: 62, 73
+  orig: 62, 73
+  offset: 0, 0
+  index: -1
+pinkbell_light_03_foot_02
+  rotate: true
+  xy: 1714, 209
+  size: 50, 73
+  orig: 50, 73
+  offset: 0, 0
+  index: -1
+pinkbell_light_03_foot_03
+  rotate: true
+  xy: 1735, 369
+  size: 62, 73
+  orig: 62, 73
+  offset: 0, 0
+  index: -1
+pinkbell_light_03_foot_04
+  rotate: true
+  xy: 1793, 293
+  size: 62, 73
+  orig: 62, 73
+  offset: 0, 0
+  index: -1
+pinkbell_light_03_hand_01
+  rotate: false
+  xy: 1714, 75
+  size: 65, 65
+  orig: 65, 65
+  offset: 0, 0
+  index: -1
+pinkbell_light_03_hand_02
+  rotate: false
+  xy: 1714, 8
+  size: 65, 65
+  orig: 65, 65
+  offset: 0, 0
+  index: -1
+pinkbell_light_03_head_01
+  rotate: false
+  xy: 1660, 555
+  size: 124, 120
+  orig: 124, 120
+  offset: 0, 0
+  index: -1
+pinkbell_light_03_head_02
+  rotate: false
+  xy: 1927, 452
+  size: 81, 89
+  orig: 81, 89
+  offset: 0, 0
+  index: -1
+pinkbell_light_03_head_02_effect_01
+  rotate: false
+  xy: 1927, 361
+  size: 81, 89
+  orig: 81, 89
+  offset: 0, 0
+  index: -1
+pinkbell_light_03_head_02_effect_02
+  rotate: true
+  xy: 1914, 278
+  size: 81, 89
+  orig: 81, 89
+  offset: 0, 0
+  index: -1
+pinkbell_light_03_head_03
+  rotate: false
+  xy: 1660, 433
+  size: 124, 120
+  orig: 124, 120
+  offset: 0, 0
+  index: -1
+pinkbell_light_03_leg_01
+  rotate: true
+  xy: 1793, 229
+  size: 62, 73
+  orig: 62, 73
+  offset: 0, 0
+  index: -1
+pinkbell_light_03_leg_02
+  rotate: true
+  xy: 1868, 226
+  size: 50, 73
+  orig: 50, 73
+  offset: 0, 0
+  index: -1
+pinkbell_light_03_mouth_01
+  rotate: false
+  xy: 1923, 145
+  size: 65, 65
+  orig: 65, 65
+  offset: 0, 0
+  index: -1
+pinkbell_light_03_wing_01
+  rotate: false
+  xy: 1484, 368
+  size: 174, 307
+  orig: 174, 307
+  offset: 0, 0
+  index: -1
+pinkbell_light_03_wing_02
+  rotate: true
+  xy: 1484, 261
+  size: 105, 307
+  orig: 105, 307
+  offset: 0, 0
+  index: -1

@@ -1,0 +1,69 @@
+
+skill_life_link_plant.png
+size: 2048,128
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+plant_03
+  rotate: false
+  xy: 880, 2
+  size: 120, 120
+  orig: 120, 120
+  offset: 0, 0
+  index: -1
+plant_04
+  rotate: false
+  xy: 1002, 2
+  size: 120, 120
+  orig: 120, 120
+  offset: 0, 0
+  index: -1
+plant_05
+  rotate: false
+  xy: 1124, 2
+  size: 120, 120
+  orig: 120, 120
+  offset: 0, 0
+  index: -1
+plant_06
+  rotate: false
+  xy: 1246, 2
+  size: 120, 120
+  orig: 120, 120
+  offset: 0, 0
+  index: -1
+plant_08
+  rotate: false
+  xy: 1368, 2
+  size: 120, 120
+  orig: 120, 120
+  offset: 0, 0
+  index: -1
+plant_10
+  rotate: false
+  xy: 1490, 18
+  size: 125, 104
+  orig: 125, 104
+  offset: 0, 0
+  index: -1
+skill_life_link_plant_01
+  rotate: false
+  xy: 2, 52
+  size: 475, 70
+  orig: 475, 70
+  offset: 0, 0
+  index: -1
+skill_life_link_plant_02
+  rotate: false
+  xy: 708, 3
+  size: 170, 119
+  orig: 170, 119
+  offset: 0, 0
+  index: -1
+skill_life_link_plant_03
+  rotate: false
+  xy: 479, 26
+  size: 227, 96
+  orig: 227, 96
+  offset: 0, 0
+  index: -1

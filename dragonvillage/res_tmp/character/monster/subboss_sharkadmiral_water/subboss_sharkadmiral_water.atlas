@@ -1,0 +1,118 @@
+
+subboss_sharkadmiral_water.png
+size: 2048,256
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+sharkadmiral_arm_01
+  rotate: false
+  xy: 653, 87
+  size: 150, 167
+  orig: 150, 167
+  offset: 0, 0
+  index: -1
+sharkadmiral_arm_02
+  rotate: false
+  xy: 1109, 107
+  size: 102, 147
+  orig: 102, 147
+  offset: 0, 0
+  index: -1
+sharkadmiral_body_01
+  rotate: true
+  xy: 259, 66
+  size: 188, 195
+  orig: 188, 195
+  offset: 0, 0
+  index: -1
+sharkadmiral_body_02
+  rotate: false
+  xy: 805, 87
+  size: 150, 167
+  orig: 150, 167
+  offset: 0, 0
+  index: -1
+sharkadmiral_body_03
+  rotate: false
+  xy: 1337, 159
+  size: 102, 95
+  orig: 102, 95
+  offset: 0, 0
+  index: -1
+sharkadmiral_effect_01
+  rotate: true
+  xy: 2, 62
+  size: 192, 255
+  orig: 192, 255
+  offset: 0, 0
+  index: -1
+sharkadmiral_face_01
+  rotate: false
+  xy: 1441, 165
+  size: 95, 89
+  orig: 95, 89
+  offset: 0, 0
+  index: -1
+sharkadmiral_hand_01
+  rotate: false
+  xy: 2, 2
+  size: 52, 58
+  orig: 52, 58
+  offset: 0, 0
+  index: -1
+sharkadmiral_leg_01
+  rotate: false
+  xy: 1702, 183
+  size: 63, 71
+  orig: 63, 71
+  offset: 0, 0
+  index: -1
+sharkadmiral_leg_02
+  rotate: false
+  xy: 719, 22
+  size: 73, 63
+  orig: 73, 63
+  offset: 0, 0
+  index: -1
+sharkadmiral_lowerbody_01
+  rotate: false
+  xy: 1213, 152
+  size: 122, 102
+  orig: 122, 102
+  offset: 0, 0
+  index: -1
+sharkadmiral_sholder_01
+  rotate: true
+  xy: 653, 2
+  size: 83, 64
+  orig: 83, 64
+  offset: 0, 0
+  index: -1
+sharkadmiral_wear_01
+  rotate: false
+  xy: 957, 87
+  size: 150, 167
+  orig: 150, 167
+  offset: 0, 0
+  index: -1
+sharkadmiral_wear_02
+  rotate: false
+  xy: 1634, 175
+  size: 66, 79
+  orig: 66, 79
+  offset: 0, 0
+  index: -1
+sharkadmiral_wepon_01
+  rotate: true
+  xy: 456, 66
+  size: 188, 195
+  orig: 188, 195
+  offset: 0, 0
+  index: -1
+sharkadmiral_wepon_02
+  rotate: false
+  xy: 1538, 175
+  size: 94, 79
+  orig: 94, 79
+  offset: 0, 0
+  index: -1

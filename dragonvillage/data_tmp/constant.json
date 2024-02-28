@@ -1,0 +1,764 @@
+{
+    // 인게임에서 사용되는 변수들
+    "INGAME" : {
+        // body_size
+        "DRAGON_BODY_SIZE" : 35,
+        "MONSTER_BODY_SIZE" : {
+            "s" : 30,
+            "m" : 45,
+            "l" : 60,
+            "xl" : 60,
+            "xxl" : 100
+        },
+        
+        // 콜로세움에서의 아군, 적군 체력 배수
+        "COLOSSEUM_HP_MULTI" : 6.5,
+		
+		// 콜로세움에서의 모든 데미지 배수
+        "COLOSSEUM_DAMAGE_MULTI" : 0.7,
+
+        // 전방 유닛 생사에 따른 데미지 감소량
+        "COVER_COEF" : 0.5,
+
+		// 몬스터 스킬 사용시 이동 시간
+		"MONSTER_SKILL_MOVE_TIME" : 1,
+        
+        // 테이머와 관련된 상수
+        "TAMER_ID" : 110001,
+
+        // 게임에 참여하는 드래곤 수
+        "PARTICIPATE_DRAGON_CNT" : 5,
+
+        // 공용탄 미사일이 목표를 지나치고 난 후 사라지는 시간
+        "MISSILE_FADE_OUT_TIME" : 0.2,
+
+        // 공용탄 미사일 발사 주기, (발사 주기 / 미사일 발사 수 = 발사 간격),
+        "FIRE_LIMIT_TIME" : 0.5,
+
+        // 드래곤 스킬 HIT 콤보에 따른 쿨타임 시간 감축 단위 계수 
+        "COOLTIME_BUFF_RATE" : 0.2,
+
+        // 웨이브 인터미션 맵 스크롤 가감 속도
+        "WAVE_INTERMISSION_MAP_SPEED" : 2000,
+
+        // 인게임 시작 시 테이머 등장 시간 .. 등장과 함께 맵 스크롤 속도 느려짐
+        "TAMER_APPEAR_TIME" : 1,
+        "MAP_SCROLL_SPEED_DOWN_ACCEL" : 350,
+
+        // 액티브 스킬 글로벌 쿨타임(테이머 스킬 포함)
+        "SKILL_GLOBAL_COOLTIME" : 1,
+
+        // StatusEffect Global cool time
+        "STATUEEFFECT_GLOBAL_COOL" : 0.5,
+
+        // 화면 떨림 연출 시간
+        "SHAKE_DURATION" : 0.5,
+
+        // 스크립트 제어 화면 떨림 변수
+        "SHAKE_CUSTOM_MIN_POS" : 10,
+        "SHAKE_CUSTOM_MAX_POS" : 15,
+
+        // 빠른 모드시 배속
+        "QUICK_MODE_TIME_SCALE" : 1.5,
+		
+		// 적군 로밍 이동 시간
+		"ENEMY_ROAM_TIME_RANGE" : [ 1.5, 3 ],
+		
+		// 적군 로밍 베지어 범위
+		"ENEMY_ROAM_BEZIER_RANGE" : [ 0, 300 ],
+
+        // 믄스터 리젠
+		"REGEN_APPEAR" : 0,
+        "REGEN_INTERVAL" : 20,
+        "REGEN_INTERVAL_RUNE_GUARDIAN_DUNGEON" : 20,
+        
+        // DPS&HPS 업데이트 주기
+        "DPS_INTERVAL" : 1,
+		
+		// 마나 한 칸이 차는데 걸리는 시간(초)
+		"MANA_INTERVAL" : 7,
+        
+        // 콜로세움에서 마나 한 칸이 차는데 걸리는 시간(초)
+        "MANA_INTERVAL_COLOSSEUM" : 4.5,
+        
+		// 빗맞힘 확률(%)
+		"MISS_RATE" : 50,
+		
+		// 드래그 스킬 중 하이라이트 단계(0~255)
+		"HIGHLIGHT_LEVEL_FOR_DRAG_SKILL" : 200,
+		
+		// 인디케이터 조작 중 하이라이트 단계(0~255)
+		"HIGHLIGHT_LEVEL_FOR_INDICATOR" : 180,
+		
+		// 고대 유적 보스 드론의 피해량 감소(%)
+		"ANCIENT_RUIN_BOSS_DRON_DAMAGE_REDUCE" : 20,
+		
+        // 룬 해제비용 무료 레벨
+		"FREE_RUNE_UNEQUIP_USER_LV" : 75,
+		
+		// ----------------------------------------------------
+        // 드래곤 액티브 스킬 연출 관련
+        // ----------------------------------------------------
+        "DRAGON_SKILL_DIRECTION_DURATION" : [
+            1,      // 컷씬 유지 시간
+            1.5,    // 암전 유지 시간
+            0.5    // 암전 풀리는 시간
+        ],
+		
+		// ----------------------------------------------------
+        // 드래곤 basic_time 스킬 연출 관련
+        // ----------------------------------------------------
+        "DRAGON_TIME_SKILL_DIRECTION_DURATION" : [
+            1,    // 암전 유지 시간
+            0.1    // 암전 풀리는 시간
+        ],
+		
+		// ----------------------------------------------------
+        // 전투 공식 관련
+        // ----------------------------------------------------
+        "FINAL_RATE_CRITICAL" : [ 0, 100 ],	// 크리
+		"FINAL_RATE_HIT" : [ 0, 100 ],		// 명중
+		"FINAL_RATE_ACCURACY" : [ 0, 85 ],	// 효과 적중
+		"FINAL_ATTACK_TICK" : [ 0.5, 9 ],	// 공격 주기
+		
+		// ----------------------------------------------------
+        // 직군별 스텟 보너스
+        // ----------------------------------------------------
+		"STAT_BONUS_BY_ROLE" : 
+		{
+			"dealer" : {
+				"hit_rate" : 10,
+				"accuracy" : 5
+			},
+			"tanker" : {
+				"avoid" : 10,
+				"cri_avoid" : 5
+			},
+			"supporter" : {
+				"accuracy" : 10,
+				"hit_rate" : 5
+			},
+			"healer" : {
+				"cri_avoid" : 10,
+				"avoid" : 5
+			}
+		},
+		
+		// ----------------------------------------------------
+        // 스텟별 버프값(%)의 최소 및 최대값
+        // ----------------------------------------------------
+		"BUFF_MULTI_MIN_MAX" : 
+		{
+			"atk" : [ -100, 99999 ]	// 공격력
+		},
+		
+		// ----------------------------------------------------
+        // 전투 시간에 따른 버프(광폭화)
+        // ----------------------------------------------------
+		"FIGHT_BY_TIME_BUFF" :
+		{
+			"ENABLE" : true,
+			
+			// 콜로세움
+			"COLOSSEUM" : {
+				60:
+				[
+					"final_dmg_rate_multi;20"
+				],
+				120:
+				[
+					"final_dmg_rate_multi;20"
+				],
+				180:
+				[
+					"final_dmg_rate_multi;20"
+				],
+				240:
+				[
+					"final_dmg_rate_multi;20"
+				]
+			},
+			
+			// 아레나
+			"ARENA" : {
+				30:
+				[
+					"final_dmg_rate_multi;15",
+					"final_heal_rate_multi_debuff;-12.5",
+					"hit_rate_add;5"
+				],
+				60:
+				[
+					"final_dmg_rate_multi;30",
+					"final_heal_rate_multi_debuff;-12.5",
+					"hit_rate_add;5"
+				],
+				90:
+				[
+					"final_dmg_rate_multi;30",
+					"final_heal_rate_multi_debuff;-12.5",
+					"hit_rate_add;5"
+				],
+				120:
+				[
+					"final_dmg_rate_multi;30",
+					"final_heal_rate_multi_debuff;-12.5",
+					"hit_rate_add;5"
+				]
+			}
+			
+			// 아레나 뉴
+			"ARENA_NEW" : {
+				0:
+				[
+					"final_heal_rate_multi_debuff;-30"
+				],
+				30:
+				[
+					"final_dmg_rate_multi;25",
+					"final_heal_rate_multi_debuff;-10",
+					"hit_rate_add;5"
+				],
+				60:
+				[
+					"final_dmg_rate_multi;25",
+					"final_heal_rate_multi_debuff;-10",
+					"hit_rate_add;5"
+				],
+				90:
+				[
+					"final_dmg_rate_multi;25",
+					"final_heal_rate_multi_debuff;-10",
+					"hit_rate_add;10"
+				],
+				120:
+				[
+					"final_dmg_rate_multi;25",
+					"final_heal_rate_multi_debuff;-20",
+					"hit_rate_add;10"
+				]
+			}
+			
+			"ARENA_BG_CHANGE_IDX" : [ 2, 4 ]
+		}
+    },
+    
+    // game mode 별 연출 상수
+    "MODE_DIRECTING" : {
+        // #  드래곤/몬스터 배치 후 흔들림 랜덤 범위(-(min~max) ~ +(min~max))
+        "CHARACTER_FLOATING_MIN_X_SCOPE" : 5,
+        "CHARACTER_FLOATING_MAX_X_SCOPE" : 8,
+        "CHARACTER_FLOATING_MIN_Y_SCOPE" : 14,
+        "CHARACTER_FLOATING_MAX_Y_SCOPE" : 20,
+    
+        // #  드래곤/몬스터 배치 후 흔들림 반복 주기 시간(초)
+        "CHARACTER_FLOATING_TIME" : 1,
+
+        // 각 모드 별 통합 연출 상수
+        // 모험 모드
+        "ADVENTURE" : {
+            "1" : {
+                "MAP_FLOATING_Y_SCOPE" : 15,
+                "MAP_FLOATING_TIME" : 3.5,
+                "MAP_FLOATING_ROTATE_SCOPE" : 0,
+                "MAP_FLOATING_ROTATE_TIME" : 5,
+                "WAVE_INTERMISSION_TIME" : 1.5
+            },
+            "2" : {
+                "MAP_FLOATING_Y_SCOPE" : 6,
+                "MAP_FLOATING_TIME" : 3,
+                "MAP_FLOATING_ROTATE_SCOPE" : 0,
+                "MAP_FLOATING_ROTATE_TIME" : 5,
+                "WAVE_INTERMISSION_TIME" : 1.5
+            },
+            "3" : {
+                "MAP_FLOATING_Y_SCOPE" : 6,
+                "MAP_FLOATING_TIME" : 3,
+                "MAP_FLOATING_ROTATE_SCOPE" : 0,
+                "MAP_FLOATING_ROTATE_TIME" : 5,
+                "WAVE_INTERMISSION_TIME" : 1.5
+            },
+            "4" : {
+                "MAP_FLOATING_Y_SCOPE" : 6,
+                "MAP_FLOATING_TIME" : 3,
+                "MAP_FLOATING_ROTATE_SCOPE" : 0,
+                "MAP_FLOATING_ROTATE_TIME" : 5,
+                "WAVE_INTERMISSION_TIME" : 1.5
+            },
+            "5" : {
+                "MAP_FLOATING_Y_SCOPE" : 6,
+                "MAP_FLOATING_TIME" : 3,
+                "MAP_FLOATING_ROTATE_SCOPE" : 0,
+                "MAP_FLOATING_ROTATE_TIME" : 5,
+                "WAVE_INTERMISSION_TIME" : 1.5
+            },
+            "6" : {
+                "MAP_FLOATING_Y_SCOPE" : 6,
+                "MAP_FLOATING_TIME" : 3,
+                "MAP_FLOATING_ROTATE_SCOPE" : 0,
+                "MAP_FLOATING_ROTATE_TIME" : 5,
+                "WAVE_INTERMISSION_TIME" : 1.5
+            },
+            "7" : {
+                "MAP_FLOATING_Y_SCOPE" : 6,
+                "MAP_FLOATING_TIME" : 3,
+                "MAP_FLOATING_ROTATE_SCOPE" : 0,
+                "MAP_FLOATING_ROTATE_TIME" : 5,
+                "WAVE_INTERMISSION_TIME" : 1.5
+            },
+            "8" : {
+                "MAP_FLOATING_Y_SCOPE" : 6,
+                "MAP_FLOATING_TIME" : 3,
+                "MAP_FLOATING_ROTATE_SCOPE" : 0,
+                "MAP_FLOATING_ROTATE_TIME" : 5,
+                "WAVE_INTERMISSION_TIME" : 1.5
+            },
+            "9" : {
+                "MAP_FLOATING_Y_SCOPE" : 6,
+                "MAP_FLOATING_TIME" : 3,
+                "MAP_FLOATING_ROTATE_SCOPE" : 0,
+                "MAP_FLOATING_ROTATE_TIME" : 5,
+                "WAVE_INTERMISSION_TIME" : 1.5
+            },
+            "10" : {
+                "MAP_FLOATING_Y_SCOPE" : 6,
+                "MAP_FLOATING_TIME" : 3,
+                "MAP_FLOATING_ROTATE_SCOPE" : 0,
+                "MAP_FLOATING_ROTATE_TIME" : 5,
+                "WAVE_INTERMISSION_TIME" : 1.5
+            },
+            "11" : {
+                "MAP_FLOATING_Y_SCOPE" : 6,
+                "MAP_FLOATING_TIME" : 3,
+                "MAP_FLOATING_ROTATE_SCOPE" : 0,
+                "MAP_FLOATING_ROTATE_TIME" : 5,
+                "WAVE_INTERMISSION_TIME" : 1.5
+            },
+            "12" : {
+                "MAP_FLOATING_Y_SCOPE" : 6,
+                "MAP_FLOATING_TIME" : 3,
+                "MAP_FLOATING_ROTATE_SCOPE" : 0,
+                "MAP_FLOATING_ROTATE_TIME" : 5,
+                "WAVE_INTERMISSION_TIME" : 1.5
+            },
+            "98" : {
+                "MAP_FLOATING_Y_SCOPE" : 6,
+                "MAP_FLOATING_TIME" : 3,
+                "MAP_FLOATING_ROTATE_SCOPE" : 0,
+                "MAP_FLOATING_ROTATE_TIME" : 5,
+                "WAVE_INTERMISSION_TIME" : 1.5
+            },
+            "99" : {
+                "MAP_FLOATING_Y_SCOPE" : 6,
+                "MAP_FLOATING_TIME" : 3,
+                "MAP_FLOATING_ROTATE_SCOPE" : 0,
+                "MAP_FLOATING_ROTATE_TIME" : 5,
+                "WAVE_INTERMISSION_TIME" : 1.5
+            }
+        },
+        // 인트로 전투
+        "INTRO" : {
+            "0" : {
+                "MAP_FLOATING_Y_SCOPE" : 6,
+                "MAP_FLOATING_TIME" : 3,
+                "MAP_FLOATING_ROTATE_SCOPE" : 0,
+                "MAP_FLOATING_ROTATE_TIME" : 5,
+                "WAVE_INTERMISSION_TIME" : 1.5
+            }
+		},
+        // 네스트 던전
+        "NEST_DUNGEON" : {
+            "EVOLUTION_STONE" : {
+                "MAP_FLOATING_Y_SCOPE" : 6,
+                "MAP_FLOATING_TIME" : 3,
+                "MAP_FLOATING_ROTATE_SCOPE" : 0,
+                "MAP_FLOATING_ROTATE_TIME" : 5,
+                "WAVE_INTERMISSION_TIME" : 1.5
+            },
+            "NIGHTMARE" : {
+                "MAP_FLOATING_Y_SCOPE" : 6,
+                "MAP_FLOATING_TIME" : 3,
+                "MAP_FLOATING_ROTATE_SCOPE" : 0,
+                "MAP_FLOATING_ROTATE_TIME" : 5,
+                "WAVE_INTERMISSION_TIME" : 1.5
+            },
+            "GOLD" : {
+                "MAP_FLOATING_Y_SCOPE" : 6,
+                "MAP_FLOATING_TIME" : 3,
+                "MAP_FLOATING_ROTATE_SCOPE" : 0,
+                "MAP_FLOATING_ROTATE_TIME" : 5,
+                "WAVE_INTERMISSION_TIME" : 1.5
+            },
+            "TREE" : {
+                "MAP_FLOATING_Y_SCOPE" : 64,
+                "MAP_FLOATING_TIME" : 12,
+                "MAP_FLOATING_ROTATE_SCOPE" : 5,
+                "MAP_FLOATING_ROTATE_TIME" : 10,
+                "WAVE_INTERMISSION_TIME" : 2
+            }
+        },
+        
+        // 룬 수호자 던전
+        "RUNE_GUARDIAN" : {
+            "MAP_FLOATING_Y_SCOPE" : 6,
+            "MAP_FLOATING_TIME" : 3,
+            "MAP_FLOATING_ROTATE_SCOPE" : 0,
+            "MAP_FLOATING_ROTATE_TIME" : 5,
+            "WAVE_INTERMISSION_TIME" : 1.5
+        },
+        
+        // 비밀 던전
+        "SECRET" : {
+            "GOLD" : {
+                "MAP_FLOATING_Y_SCOPE" : 6,
+                "MAP_FLOATING_TIME" : 3,
+                "MAP_FLOATING_ROTATE_SCOPE" : 0,
+                "MAP_FLOATING_ROTATE_TIME" : 5,
+                "WAVE_INTERMISSION_TIME" : 1.5
+            },
+            "RELATION" : {
+                "MAP_FLOATING_Y_SCOPE" : 6,
+                "MAP_FLOATING_TIME" : 3,
+                "MAP_FLOATING_ROTATE_SCOPE" : 0,
+                "MAP_FLOATING_ROTATE_TIME" : 5,
+                "WAVE_INTERMISSION_TIME" : 1.5
+            }
+        },
+		
+		// 고대의 탑
+        "ANCIENT_TOWER" : {
+            "MAP_FLOATING_Y_SCOPE" : 64,
+			"MAP_FLOATING_TIME" : 12,
+			"MAP_FLOATING_ROTATE_SCOPE" : 5,
+			"MAP_FLOATING_ROTATE_TIME" : 10,
+			"WAVE_INTERMISSION_TIME" : 2
+        },
+		
+		// 이벤트 골드 던전
+		"EVENT_GOLD" : {
+            "MAP_FLOATING_Y_SCOPE" : 64,
+			"MAP_FLOATING_TIME" : 12,
+			"MAP_FLOATING_ROTATE_SCOPE" : 5,
+			"MAP_FLOATING_ROTATE_TIME" : 10,
+			"WAVE_INTERMISSION_TIME" : 2
+        },
+        
+		// 고대 유적 던전
+		"ANCIENT_RUIN" : {
+            "MAP_FLOATING_Y_SCOPE" : 0,
+			"MAP_FLOATING_TIME" : 12,
+			"MAP_FLOATING_ROTATE_SCOPE" : 0,
+			"MAP_FLOATING_ROTATE_TIME" : 10,
+			"WAVE_INTERMISSION_TIME" : 2
+        },
+		
+        // 콜로세움
+        "COLOSSEUM" : {
+            "MAP_FLOATING_Y_SCOPE" : 150,
+            "MAP_FLOATING_TIME" : 40,
+            "MAP_FLOATING_ROTATE_SCOPE" : 0,
+            "MAP_FLOATING_ROTATE_TIME" : 5,
+            "WAVE_INTERMISSION_TIME" : 1.5
+        },
+		
+		// 아레나
+        "ARENA" : {
+            "MAP_FLOATING_Y_SCOPE" : 150,
+            "MAP_FLOATING_TIME" : 40,
+            "MAP_FLOATING_ROTATE_SCOPE" : 0,
+            "MAP_FLOATING_ROTATE_TIME" : 5,
+            "WAVE_INTERMISSION_TIME" : 1.5
+        },
+		
+		// 차원문
+        "DIMENSION_GATE" : {
+            "ANGRA" : {
+                "MAP_FLOATING_Y_SCOPE" : 6,
+                "MAP_FLOATING_TIME" : 3,
+                "MAP_FLOATING_ROTATE_SCOPE" : 0,
+                "MAP_FLOATING_ROTATE_TIME" : 5,
+                "WAVE_INTERMISSION_TIME" : 1.5
+            },
+            "MANUS" : {
+                "MAP_FLOATING_Y_SCOPE" : 6,
+                "MAP_FLOATING_TIME" : 3,
+                "MAP_FLOATING_ROTATE_SCOPE" : 0,
+                "MAP_FLOATING_ROTATE_TIME" : 5,
+                "WAVE_INTERMISSION_TIME" : 1.5
+            }
+        }
+    },
+    
+    // 테이머
+    "TAMER" : {
+        // 테이머 상황별 표정 리스트        
+        "FACE" : {
+            "goni" : {
+                "win" : ["happy"],
+                "lose" :["sorrow"]
+            },
+            "nuri" : {
+                "win" : ["happy"],
+                "lose" :["sorrow"]
+            },
+            "dede" : {
+                "win" : ["happy"],
+                "lose" :["sorrow"]
+            },
+            "kesath" : {
+                "win" : ["happy"],
+                "lose" :["fury"]
+            },
+            "durun" : {
+                "win" : ["thought"],
+                "lose" :["fury"]
+            },
+            "mokoji" : {
+                "win" : ["happy"],
+                "lose" :["sorrow"]
+            }
+        }
+    },
+    
+    // 스킬 공용 & 개별
+    "SKILL" : {
+        //# Common
+        "ANGLE_LIMIT" : 60,
+        "LONG_LENGTH" : 2048,
+        
+        // #SkillAoeSquare_Charge
+        "AS_CHARGE_SPEED" : 5000,               // 돌진(돌격) 속도
+        "AS_COMEBACK_SPEED" : 1500,             // 돌진(돌격) 종료 후 제자리 위치 하는 속도
+        
+        // # SkillAoeCone
+        "CONE_RANGE" : 360,
+        
+        // # SkillLeafBlade
+        "LEAF_COLLISION_SIZE" : 30,
+        "LEAF_STRAIGHT_ANGLE" : 30,
+        "LEAF_INDICATOR_EFFECT_DELAY" : 0.005,
+        "LEAF_ANGLE_LIMIT" : 60,
+        "LEAF_DIST_LIMIT" : 400,
+
+        // # SkillVoltesX
+        "VOLTES_LINE_SIZE" : 120,
+        "VOLTES_ATTACK_INTERVAL" : 0.3,
+        "VOLTES_FINAL_ATTACK_TIME" : 2,
+        
+        // #SkillCross
+        "CROSS_SIZE" : 100,
+
+        // #SkillRapidShot
+        "RAPIDSHOT_Y_POS_RANGE": 50,				// 발사체를 y 좌표 상에서 랜덤하게 등장시킬 범위 (+ ~ -)
+        "RAPIDSHOT_INTERVAL" : 0.05,				// 발사체 등장 간격 
+        "RAPIDSHOT_FIRE_DELAY": 0.5,				// 등장 후 발사 딜레이
+
+        // #SkillEnumrate
+        "ENUMRATE_TOTAL_LENGTH" : 500,			// 발사체를 늘어놓는 전체 거리 (무기간 간격 = 전체거리/발사체 개수)
+        "ENUMRATE_APPEAR_INTERVAR": 0.03,		    // 발사체 등장 간격
+        "ENUMRATE_FIRE_DELAY" : 0.5,				// 등장 후 발사 딜레이 
+        "ENUMRATE_ATK_START_POS_DIST" : 100,		// 드래곤 원점과 스킬 중심좌표 사이의 거리
+        "ENUMRATE_ANGLE_LIMIT" : 45,				// 시전 각도 제한
+        "ENUMRATE_DIST_LIMIT" : 200,				// 시전 거리 제한
+        
+        // #SkillEnumrate_Penetration - Sitael
+        "PENERATION_ATK_START_POS_DIST" : 100,		// 드래곤 원점과 스킬 중심좌표 사이의 거리
+        "PENERATION_TOTAL_LENGTH" : 500,			// 발사체를 늘어놓는 전체 거리 (무기간 간격 = 전체거리/발사체 개수)
+        "PENERATION_APPEAR_INTERVAR": 0.03,		    // 발사체 등장 간격
+        "PENERATION_FIRE_DELAY" : 0.5,				// 등장 후 발사 딜레이 
+
+        // #SkillEnumrate_Curve // 삐에로 드래곤
+        "CURVE_HEIGHT_RANGE" : 200,			// 발사체 곡선 궤적의 최대 높이 범위 (+ ~ -)
+        "CURVE_INTERVAL" : 0.08,			    // 발사체 등장 간격
+        "CURVE_FIRE_DELAY" : 0.5,				// 등장 후 발사 딜레이
+        "CURVE_SPEED" : 0.3,					// 타겟한테까지 가는 시간 (mp/s 가 아닌 sec)
+
+        // # 자룡 드래그
+        "JARYONG_APPEAR_INTERVAR": 0.016,			// 발사체 등장 간격
+        "JARYONG_FIRE_DELAY" : 0.016,				// 발사체 발사 딜레이
+
+        // # 수라드래곤 드래그
+        "SURA_ADD_HEIGHT_RANGE" : 200,													// 추가 탄의 궤적 높이
+        "SURA_ADD_POWER_RATE" : 50,													    // 추가 탄의 power_rate
+        "SURA_ADD_ATK_TYPE" : "basic",													// 추가 탄의 공격타입
+        "SURA_ADD_MISSILE_RES" : "res/missile/missile_lotus/missile_lotus_@.png",		// 추가 탄의 미사일 리소스
+        
+        // # 원더드래곤 드래그
+        "WONDER_CLAW_WIDTH" : 30,                    // 발톱의 폭
+        "WONDER_CLAW_SPACE" : 100,                   // 발톱의 간격
+
+        // # skill_charge
+        "CHARGE_SPEED" : 1500,                      // 돌진 및 복귀 속도
+        "CHARGE_PHYS_SIZE" : 100                    // 돌진 충돌 박스 사이즈
+    },
+    
+    "FORMATION" : {
+        "MAX_LEVEL" : 70                // 옵션 계산시의 최고 레벨
+    },
+    
+    "INDICATOR" : {
+		// ----------------------------------------------------
+        // 인디케이터 사이즈
+        // ----------------------------------------------------
+        // 인게임 적용 사이즈
+		"INDICATOR_SIZE" : {
+            "round" : [100, 150, 200, 250, 300, 350, 400, 450, 500, 550, 600],          // 반지름
+            "square" : [],
+            "square_width" : [100, 150, 200, 250, 300, 350, 400, 450, 500, 550, 600],   // 가로 길이
+            "square_height" : [100, 150, 300, 350, 400, 450, 500, 550, 600, 650, 700],  // 세로 길이
+            "fan" : [10, 20, 30, 40, 50, 60, 70, 80, 90, 100],
+            "bar" : [60, 90, 150, 180, 210, 240, 270, 300, 330, 360],
+            "target" : [],
+            "target_cone" : [30, 45, 60, 75, 90, 105, 120, 135, 150, 165],
+            "wedge" : [15, 20, 25, 30, 35, 40, 45, 50, 55, 60],
+            "leaf" : [],
+            "voltes_x" : [],
+            "cross" : [100, 150, 200, 250, 300, 350, 400, 450, 500, 550, 600]
+        },
+        // 인디케이터 리소스 사이즈
+        "INDICATOR_RES_SIZE" : {
+            "round" : 200,          // 반지름
+            "square_width" : 300,   // 가로 길이
+            "square_height" : 300,  // 세로 길이
+            "bar" : 120,
+            "cross" : 100
+        },
+        
+        // 인디케이터 보너스 별 색상
+        "COLOR_LEVEL" : {
+            "-1" : "gray",
+            "0" : "sky_blue",
+            "1" : "light_green",
+            "2" : "red"
+        },
+        
+        // ----------------------------------------------------
+        // 인디케이터 경로
+        // ----------------------------------------------------
+		"RES" : {
+            "target" : "res/indicator/indicator_type_target/indicator_type_target.vrp",
+            "effect" : "res/indicator/indicator_effect_target/indicator_effect_target.vrp",
+			"effect2": "res/indicator/weakpoint/weakpoint.vrp",
+            "round" : "res/indicator/round/round.vrp",
+            "square" : "",
+            "square_width" : "res/indicator/square_witdh/square_witdh.vrp",
+            "square_height" : "res/indicator/square_witdh/square_witdh.vrp",
+            "fan" : "res/indicator/fan/fan.vrp",
+            "bar" : "res/indicator/bar/bar.vrp",
+            "target_cone_30" : "res/indicator/target_cone_30/target_cone_30.vrp",
+            "target_cone_45" : "res/indicator/target_cone_45/target_cone_45.vrp",
+            "target_cone_60" : "res/indicator/target_cone_60/target_cone_60.vrp",
+            "wedge10" : "res/indicator/wedge_10/wedge_10.vrp",
+            "wedge15" : "res/indicator/wedge_15/wedge_15.vrp",
+            "wedge20" : "res/indicator/wedge_20/wedge_20.vrp",
+            "wedge25" : "res/indicator/wedge_25/wedge_25.vrp",
+            "wedge30" : "res/indicator/wedge_30/wedge_30.vrp",
+            "wedge40" : "res/indicator/wedge_40/wedge_40.vrp",
+            "leaf" : "res/indicator/leaf/leaf.vrp",
+            "voltes_x" : "res/indicator/voltes_x/voltes_x.vrp",
+            "cross" : "res/indicator/cross/cross.vrp"
+        }
+    },
+    
+    "UI" : {
+		"DRAGON_SKILL_COMBAT_POWER" : {
+			"LEADER" : [ 250, 200, 150, 150 ],
+			"LEADER_ADD" : [ 35, 30, 25, 25 ],
+			"DRAG" : [ 500, 400, 300, 300 ],
+			"DRAG_ADD" : [ 70, 60, 50, 50 ],
+			"PASSIVE1" : [ 250, 200, 150, 150 ],
+			"PASSIVE1_ADD" : [ 35, 30, 25, 25 ],
+			"PASSIVE2" : [ 250, 200, 150, 150 ],
+			"PASSIVE2_ADD" : [ 35, 30, 25, 25 ],
+			"PASSIVE3" : [ 250, 200, 150, 150 ],
+			"PASSIVE3_ADD" : [ 35, 30, 25, 25 ],
+			"DRAG_UPGRADE" : [ 250, 200, 150, 150 ],
+			"DRAG_UPGRADE_ADD" : [ 35, 30, 25, 25 ]
+		},
+		
+		"FORMATION_LEVEL_COMBAT_POWER" : 15,
+		
+		"TAMER_SKILL_COMBAT_POWER" : [ 5.5, 2.5, 2.5 ],
+		
+		"BOSS_COMBAT_POWER_PARAMETER_PER_RARITY" : [ 40, 20, 15 ],
+		
+		"BOSS_COMBAT_POWER_VALUE" : [ 250, 208, 1750 ],
+		
+        // 스탯 UI 참조용
+        "MAX_STAT" : {
+            "hp" : 600000,
+            "atk" : 10000,
+            "def" : 10000,
+            "aspd" : 250,
+            "cri_chance" : 100,
+            "cri_dmg" : 250
+        },
+        "HALF_STAT" : {
+            "hp" : 120000,
+            "atk" : 5000,
+            "def" : 5000,
+            "aspd" : 175,
+            "cri_chance" : 50,
+            "cri_dmg" : 125
+        },
+        
+        "STATUS_EFFECT_ICON_GAP" : {
+            //idx, gap_x, gap_y 순
+            "COMMON" : [4, 18, 20],
+            "CLAN_RAID" : [3, 25, 26]
+        }
+    },
+    
+    // 디버깅용
+    "DEBUG" : {
+		// # 콜로세움에서 적군 마나 및 쿨타임 정보를 인게임에 표시한다.
+        "DISPLAY_ENEMY_MANA_COOLDOWN" : false,
+		
+        // # 드래곤 활성화 스킬을 출력한다. 
+        "PRINT_DRAGON_SKILL" : false,
+
+        // # 인게임 공격 정보를 콘솔에 출력한다
+        "PRINT_ATTACK_INFO" : false,
+
+        // # 보스 패턴 정보를 콘솔에 출력한다
+        "PRINT_BOSS_PATTERN" : false,
+
+        // # 진형별로 소환된 리스트의 이름을 출력 (미사용중 17.3.13 kms)
+        "PRINT_SPAWN_LIST" : false,
+
+        // # 보호막량을 인게임에 표시한다.
+        "DISPLAY_SHIELD_HP" : false,
+
+        // # 체력을 인게임에 숫자로 표시한다.
+        "DISPLAY_UNIT_HP" : false,
+        
+        // # 유닛의 x좌표, y좌표, x home 좌표, y home 좌표를 표시한다.
+        "DISPLAY_UNIT_POS" : false,
+
+        // # 메모리 사용량 등 각종 디버깅 정보를 인게임에 출력한다
+        "DISPLAY_DEBUG_INFO" : false,
+                
+        // # 유닛별 특정 log를 출력한다. true 가 아닌 실제 키를 넣어야한다.
+        "DISPLAY_UNIT_LOG" : false,
+
+        // # 캐릭터 무적
+        "PLAYER_INVINCIBLE" : false,
+        "ENEMY_INVINCIBLE" : false,
+        "INVINCIBLE_STATE" : 1,
+
+        // # 보스가 특정 패턴만 실행하게 한다. false or 숫자
+        "TEST_PATTERN" : false,
+		
+		// # 추가 피해를 노란색 폰트로 표시
+        "ADD_DMG_YELLOW_FONT" : false,
+
+        // # 해당 튜토리얼은 항상 동작, ex) tutorial_ancient_tower, tutorial_clan, tutorial_clan_guest
+        "TEST_TUTORIAL" : ""
+    },
+    
+    // 리소스 테스트용
+    "ART" : {
+        "STATUS_EFFECT_RES" : "res/effect/effect_burn/effect_burn.vrp",
+        "SUMMON_TEST" : "legend"
+    }
+}

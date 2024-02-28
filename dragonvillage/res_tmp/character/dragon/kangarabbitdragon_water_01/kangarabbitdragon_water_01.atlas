@@ -1,0 +1,118 @@
+
+kangarabbitdragon_water_01.png
+size: 577,274
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+kangarabbitdragon_water_01_arm_01
+  rotate: false
+  xy: 523, 175
+  size: 47, 36
+  orig: 47, 36
+  offset: 0, 0
+  index: -1
+kangarabbitdragon_water_01_arm_02
+  rotate: false
+  xy: 547, 15
+  size: 28, 46
+  orig: 28, 46
+  offset: 0, 0
+  index: -1
+kangarabbitdragon_water_01_arm_03
+  rotate: false
+  xy: 332, 6
+  size: 48, 21
+  orig: 48, 21
+  offset: 0, 0
+  index: -1
+kangarabbitdragon_water_01_body_01
+  rotate: false
+  xy: 325, 122
+  size: 119, 150
+  orig: 119, 150
+  offset: 0, 0
+  index: -1
+kangarabbitdragon_water_01_ear_01
+  rotate: true
+  xy: 332, 29
+  size: 91, 81
+  orig: 91, 81
+  offset: 0, 0
+  index: -1
+kangarabbitdragon_water_01_ear_02
+  rotate: true
+  xy: 446, 213
+  size: 59, 117
+  orig: 59, 117
+  offset: 0, 0
+  index: -1
+kangarabbitdragon_water_01_effect_02_1
+  rotate: false
+  xy: 446, 136
+  size: 75, 75
+  orig: 75, 75
+  offset: 0, 0
+  index: -1
+kangarabbitdragon_water_01_effect_02_2
+  rotate: true
+  xy: 163, 111
+  size: 161, 160
+  orig: 161, 160
+  offset: 0, 0
+  index: -1
+kangarabbitdragon_water_01_effect_02_3
+  rotate: true
+  xy: 2, 104
+  size: 168, 159
+  orig: 168, 159
+  offset: 0, 0
+  index: -1
+kangarabbitdragon_water_01_eye_01
+  rotate: false
+  xy: 382, 2
+  size: 24, 25
+  orig: 24, 25
+  offset: 0, 0
+  index: -1
+kangarabbitdragon_water_01_foot_01
+  rotate: true
+  xy: 241, 8
+  size: 101, 89
+  orig: 101, 89
+  offset: 0, 0
+  index: -1
+kangarabbitdragon_water_01_foot_02
+  rotate: false
+  xy: 415, 22
+  size: 73, 98
+  orig: 73, 98
+  offset: 0, 0
+  index: -1
+kangarabbitdragon_water_01_glob_01
+  rotate: false
+  xy: 490, 63
+  size: 74, 71
+  orig: 74, 71
+  offset: 0, 0
+  index: -1
+kangarabbitdragon_water_01_glob_02
+  rotate: false
+  xy: 490, 5
+  size: 55, 56
+  orig: 55, 56
+  offset: 0, 0
+  index: -1
+kangarabbitdragon_water_01_head_01
+  rotate: false
+  xy: 130, 12
+  size: 109, 90
+  orig: 109, 90
+  offset: 0, 0
+  index: -1
+kangarabbitdragon_water_01_tail_01
+  rotate: false
+  xy: 2, 2
+  size: 126, 100
+  orig: 126, 100
+  offset: 0, 0
+  index: -1

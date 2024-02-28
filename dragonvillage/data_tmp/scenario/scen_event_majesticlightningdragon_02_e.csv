@@ -1,0 +1,12 @@
+page,bg,illustration,char,t_char_name,char_pos,char_ani,char_effect,r_scen,t_text,text_pos,text_type,auto_skip,effect_1,effect_2,effect_3,bgm,bgm_action,sound
+1,,,,,,,,,,,,3,title;정의란 무엇인가?,skip_disable,,,,
+2,,,,,,,,,,,,0.3,skip_disable,,,,,
+3,,,,,,,,,,,,,,,,,,
+4,,,,,,,,,테일러와 번개고룡이 사라진 왕국은 쇠퇴하였고 이내 멸망에 이르게 되었다.,,narrate,,,,,,,
+5,,,,,,,,,번개고룡은 멸망하는 왕국을 바라보았다.,,narrate,,,,,,,
+6,챕터8,,로버트 테일러,,left,idle,,,"번개고룡, 우리의 잘못된 정의가 한 왕국을 멸하였는지도 몰라...",,bold,,,,,,,
+7,챕터8,,번개고룡,,right,idle,,,희생 없는 평화를 수호하고자 하는 우리의 정의는 실현될 수 없는 걸까?,,bold,,,,,,,
+8,챕터8,,로버트 테일러,,left,idle,,,분명 그때가 올 거야. 하지만 지금은...,,bold,,,,,,,
+9,챕터8,,번개고룡,,right,idle,,,지금은?,,bold,,,,,,,
+10,챕터8,,로버트 테일러,,left,idle,,,우리의 힘을 최대한 숨겨야 해.,,bold,,,,,,,
+11,,,,,,,,,로버트 테일러는 전장에서 벗어나 자신의 정체를 숨긴 채 세상을 떠돌기 시작했다.,,narrate,,,,,,,

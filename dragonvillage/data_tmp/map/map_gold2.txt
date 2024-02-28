@@ -1,0 +1,14 @@
+{
+	"directing":"floating_1",
+	"layer":
+    [
+        {
+            "name":"map_gold2"
+            "speed":0
+			"list":
+			[
+                {"res":"res/bg/map_gold/map_gold.vrp" "animation":"idle" "width":1920 "pos_x":640 "scale":1.2}
+            ]
+        }
+    ]
+}

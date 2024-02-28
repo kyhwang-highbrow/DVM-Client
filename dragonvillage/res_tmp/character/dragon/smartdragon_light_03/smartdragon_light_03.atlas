@@ -1,0 +1,321 @@
+
+smartdragon_light_03.png
+size: 1397,523
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+smartdragon_light_03_arm_01
+  rotate: true
+  xy: 825, 10
+  size: 60, 80
+  orig: 60, 80
+  offset: 0, 0
+  index: -1
+smartdragon_light_03_arm_02
+  rotate: false
+  xy: 1231, 40
+  size: 62, 62
+  orig: 62, 62
+  offset: 0, 0
+  index: -1
+smartdragon_light_03_body_01
+  rotate: false
+  xy: 716, 174
+  size: 212, 174
+  orig: 212, 174
+  offset: 0, 0
+  index: -1
+smartdragon_light_03_body_c_01
+  rotate: true
+  xy: 499, 238
+  size: 109, 158
+  orig: 109, 158
+  offset: 0, 0
+  index: -1
+smartdragon_light_03_body_c_02
+  rotate: false
+  xy: 837, 72
+  size: 95, 100
+  orig: 95, 100
+  offset: 0, 0
+  index: -1
+smartdragon_light_03_body_c_03
+  rotate: false
+  xy: 659, 218
+  size: 53, 129
+  orig: 53, 129
+  offset: 0, 0
+  index: -1
+smartdragon_light_03_book_01
+  rotate: false
+  xy: 1052, 115
+  size: 209, 176
+  orig: 209, 176
+  offset: 0, 0
+  index: -1
+smartdragon_light_03_book_02
+  rotate: false
+  xy: 1303, 291
+  size: 90, 131
+  orig: 90, 131
+  offset: 0, 0
+  index: -1
+smartdragon_light_03_book_03
+  rotate: false
+  xy: 1303, 424
+  size: 92, 97
+  orig: 92, 97
+  offset: 0, 0
+  index: -1
+smartdragon_light_03_effect_01
+  rotate: true
+  xy: 1071, 293
+  size: 228, 230
+  orig: 228, 230
+  offset: 0, 0
+  index: -1
+smartdragon_light_03_effect_02
+  rotate: false
+  xy: 1016, 163
+  size: 7, 23
+  orig: 7, 23
+  offset: 0, 0
+  index: -1
+smartdragon_light_03_effect_03_01
+  rotate: false
+  xy: 358, 2
+  size: 353, 171
+  orig: 353, 171
+  offset: 0, 0
+  index: -1
+smartdragon_light_03_effect_03_02
+  rotate: false
+  xy: 716, 350
+  size: 353, 171
+  orig: 353, 171
+  offset: 0, 0
+  index: -1
+smartdragon_light_03_effect_03_03
+  rotate: false
+  xy: 2, 2
+  size: 354, 171
+  orig: 354, 171
+  offset: 0, 0
+  index: -1
+smartdragon_light_03_effect_03_04
+  rotate: false
+  xy: 360, 349
+  size: 354, 172
+  orig: 354, 172
+  offset: 0, 0
+  index: -1
+smartdragon_light_03_effect_03_05
+  rotate: false
+  xy: 2, 175
+  size: 355, 172
+  orig: 355, 172
+  offset: 0, 0
+  index: -1
+smartdragon_light_03_effect_03_06
+  rotate: false
+  xy: 2, 349
+  size: 356, 172
+  orig: 356, 172
+  offset: 0, 0
+  index: -1
+smartdragon_light_03_effect_04_1
+  rotate: false
+  xy: 934, 106
+  size: 80, 80
+  orig: 80, 80
+  offset: 0, 0
+  index: -1
+smartdragon_light_03_effect_04_2
+  rotate: false
+  xy: 934, 24
+  size: 80, 80
+  orig: 80, 80
+  offset: 0, 0
+  index: -1
+smartdragon_light_03_effect_04_3
+  rotate: false
+  xy: 1016, 33
+  size: 80, 80
+  orig: 80, 80
+  offset: 0, 0
+  index: -1
+smartdragon_light_03_effect_04_4
+  rotate: false
+  xy: 1098, 33
+  size: 80, 80
+  orig: 80, 80
+  offset: 0, 0
+  index: -1
+smartdragon_light_03_eye_01
+  rotate: false
+  xy: 1365, 233
+  size: 23, 14
+  orig: 23, 14
+  offset: 0, 0
+  index: -1
+smartdragon_light_03_eye_02
+  rotate: true
+  xy: 1280, 24
+  size: 14, 12
+  orig: 14, 12
+  offset: 0, 0
+  index: -1
+smartdragon_light_03_eye_03
+  rotate: true
+  xy: 1052, 327
+  size: 21, 17
+  orig: 21, 17
+  offset: 0, 0
+  index: -1
+smartdragon_light_03_eye_04
+  rotate: true
+  xy: 1231, 106
+  size: 7, 11
+  orig: 7, 11
+  offset: 0, 0
+  index: -1
+smartdragon_light_03_eye_05
+  rotate: false
+  xy: 1390, 236
+  size: 5, 11
+  orig: 5, 11
+  offset: 0, 0
+  index: -1
+smartdragon_light_03_eye_06
+  rotate: false
+  xy: 648, 220
+  size: 8, 16
+  orig: 8, 16
+  offset: 0, 0
+  index: -1
+smartdragon_light_03_foot_01
+  rotate: false
+  xy: 1180, 37
+  size: 49, 76
+  orig: 49, 76
+  offset: 0, 0
+  index: -1
+smartdragon_light_03_foot_02
+  rotate: true
+  xy: 1295, 64
+  size: 38, 72
+  orig: 38, 72
+  offset: 0, 0
+  index: -1
+smartdragon_light_03_hand_01
+  rotate: false
+  xy: 930, 188
+  size: 94, 38
+  orig: 94, 38
+  offset: 0, 0
+  index: -1
+smartdragon_light_03_hand_02
+  rotate: true
+  xy: 499, 192
+  size: 44, 74
+  orig: 44, 74
+  offset: 0, 0
+  index: -1
+smartdragon_light_03_head_01
+  rotate: false
+  xy: 359, 208
+  size: 138, 139
+  orig: 138, 139
+  offset: 0, 0
+  index: -1
+smartdragon_light_03_head_glasses_01
+  rotate: false
+  xy: 389, 196
+  size: 12, 10
+  orig: 12, 10
+  offset: 0, 0
+  index: -1
+smartdragon_light_03_head_glasses_02
+  rotate: true
+  xy: 1231, 2
+  size: 36, 47
+  orig: 36, 47
+  offset: 0, 0
+  index: -1
+smartdragon_light_03_head_glasses_03
+  rotate: false
+  xy: 907, 30
+  size: 22, 40
+  orig: 22, 40
+  offset: 0, 0
+  index: -1
+smartdragon_light_03_head_graduationcap_01
+  rotate: false
+  xy: 1263, 189
+  size: 100, 100
+  orig: 100, 100
+  offset: 0, 0
+  index: -1
+smartdragon_light_03_head_graduationcap_02
+  rotate: true
+  xy: 1295, 22
+  size: 40, 70
+  orig: 40, 70
+  offset: 0, 0
+  index: -1
+smartdragon_light_03_head_graduationcap_03
+  rotate: false
+  xy: 930, 228
+  size: 120, 120
+  orig: 120, 120
+  offset: 0, 0
+  index: -1
+smartdragon_light_03_head_graduationcap_04
+  rotate: false
+  xy: 1365, 249
+  size: 30, 40
+  orig: 30, 40
+  offset: 0, 0
+  index: -1
+smartdragon_light_03_leg_01
+  rotate: true
+  xy: 713, 3
+  size: 76, 110
+  orig: 76, 110
+  offset: 0, 0
+  index: -1
+smartdragon_light_03_leg_02
+  rotate: true
+  xy: 575, 186
+  size: 50, 71
+  orig: 50, 71
+  offset: 0, 0
+  index: -1
+smartdragon_light_03_mouth_01
+  rotate: true
+  xy: 359, 175
+  size: 31, 28
+  orig: 31, 28
+  offset: 0, 0
+  index: -1
+smartdragon_light_03_mouth_02
+  rotate: false
+  xy: 1026, 210
+  size: 23, 16
+  orig: 23, 16
+  offset: 0, 0
+  index: -1
+smartdragon_light_03_wing_01
+  rotate: false
+  xy: 713, 81
+  size: 122, 91
+  orig: 122, 91
+  offset: 0, 0
+  index: -1
+smartdragon_light_03_wing_02
+  rotate: true
+  xy: 1263, 104
+  size: 83, 112
+  orig: 83, 112
+  offset: 0, 0
+  index: -1

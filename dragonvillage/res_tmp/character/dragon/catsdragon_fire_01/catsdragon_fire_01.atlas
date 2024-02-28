@@ -1,0 +1,195 @@
+
+catsdragon_fire_01.png
+size: 371,527
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+catsdragon_fire_01_arm_01
+  rotate: false
+  xy: 134, 161
+  size: 89, 85
+  orig: 89, 85
+  offset: 0, 0
+  index: -1
+catsdragon_fire_01_arm_02
+  rotate: true
+  xy: 225, 17
+  size: 59, 77
+  orig: 59, 77
+  offset: 0, 0
+  index: -1
+catsdragon_fire_01_arm_03
+  rotate: false
+  xy: 134, 74
+  size: 89, 85
+  orig: 89, 85
+  offset: 0, 0
+  index: -1
+catsdragon_fire_01_arm_04
+  rotate: false
+  xy: 231, 244
+  size: 89, 85
+  orig: 89, 85
+  offset: 0, 0
+  index: -1
+catsdragon_fire_01_arm_05
+  rotate: false
+  xy: 85, 45
+  size: 40, 52
+  orig: 40, 52
+  offset: 0, 0
+  index: -1
+catsdragon_fire_01_body_01
+  rotate: false
+  xy: 2, 376
+  size: 135, 149
+  orig: 135, 149
+  offset: 0, 0
+  index: -1
+catsdragon_fire_01_body_03
+  rotate: false
+  xy: 2, 279
+  size: 135, 95
+  orig: 135, 95
+  offset: 0, 0
+  index: -1
+catsdragon_fire_01_body_06
+  rotate: true
+  xy: 2, 140
+  size: 137, 86
+  orig: 137, 86
+  offset: 0, 0
+  index: -1
+catsdragon_fire_01_body_07
+  rotate: false
+  xy: 139, 430
+  size: 135, 95
+  orig: 135, 95
+  offset: 0, 0
+  index: -1
+catsdragon_fire_01_eye_01
+  rotate: true
+  xy: 90, 189
+  size: 88, 42
+  orig: 88, 42
+  offset: 0, 0
+  index: -1
+catsdragon_fire_01_eye_03
+  rotate: true
+  xy: 90, 99
+  size: 88, 42
+  orig: 88, 42
+  offset: 0, 0
+  index: -1
+catsdragon_fire_01_eye_04
+  rotate: true
+  xy: 258, 340
+  size: 88, 42
+  orig: 88, 42
+  offset: 0, 0
+  index: -1
+catsdragon_fire_01_eye_05
+  rotate: true
+  xy: 322, 259
+  size: 88, 42
+  orig: 88, 42
+  offset: 0, 0
+  index: -1
+catsdragon_fire_01_foot_01
+  rotate: false
+  xy: 315, 172
+  size: 54, 70
+  orig: 54, 70
+  offset: 0, 0
+  index: -1
+catsdragon_fire_01_hand_01
+  rotate: false
+  xy: 225, 78
+  size: 64, 80
+  orig: 64, 80
+  offset: 0, 0
+  index: -1
+catsdragon_fire_01_hand_02
+  rotate: false
+  xy: 302, 349
+  size: 64, 80
+  orig: 64, 80
+  offset: 0, 0
+  index: -1
+catsdragon_fire_01_hand_03
+  rotate: false
+  xy: 291, 78
+  size: 64, 80
+  orig: 64, 80
+  offset: 0, 0
+  index: -1
+catsdragon_fire_01_hand_04
+  rotate: true
+  xy: 127, 8
+  size: 64, 80
+  orig: 64, 80
+  offset: 0, 0
+  index: -1
+catsdragon_fire_01_head_01
+  rotate: false
+  xy: 139, 331
+  size: 117, 97
+  orig: 117, 97
+  offset: 0, 0
+  index: -1
+catsdragon_fire_01_head_02
+  rotate: false
+  xy: 2, 33
+  size: 81, 105
+  orig: 81, 105
+  offset: 0, 0
+  index: -1
+catsdragon_fire_01_head_03
+  rotate: true
+  xy: 139, 248
+  size: 81, 90
+  orig: 81, 90
+  offset: 0, 0
+  index: -1
+catsdragon_fire_01_leg_01
+  rotate: true
+  xy: 276, 431
+  size: 94, 88
+  orig: 94, 88
+  offset: 0, 0
+  index: -1
+catsdragon_fire_01_leg_02
+  rotate: false
+  xy: 225, 160
+  size: 88, 82
+  orig: 88, 82
+  offset: 0, 0
+  index: -1
+catsdragon_fire_01_mouth_01
+  rotate: true
+  xy: 85, 2
+  size: 41, 31
+  orig: 41, 31
+  offset: 0, 0
+  index: -1
+catsdragon_fire_01_mouth_02
+  rotate: false
+  xy: 304, 45
+  size: 41, 31
+  orig: 41, 31
+  offset: 0, 0
+  index: -1
+catsdragon_fire_01_mouth_03
+  rotate: true
+  xy: 2, 5
+  size: 26, 31
+  orig: 26, 31
+  offset: 0, 0
+  index: -1
+catsdragon_fire_01_tear_01
+  rotate: false
+  xy: 304, 24
+  size: 23, 19
+  orig: 23, 19
+  offset: 0, 0
+  index: -1

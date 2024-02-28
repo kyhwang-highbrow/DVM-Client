@@ -1,0 +1,426 @@
+
+dede_uniform.png
+size: 2033,305
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+dede_uniform_acce_01
+  rotate: false
+  xy: 350, 80
+  size: 24, 21
+  orig: 24, 21
+  offset: 0, 0
+  index: -1
+dede_uniform_acce_02
+  rotate: true
+  xy: 1883, 273
+  size: 30, 45
+  orig: 30, 45
+  offset: 0, 0
+  index: -1
+dede_uniform_acce_03
+  rotate: true
+  xy: 1883, 241
+  size: 30, 45
+  orig: 30, 45
+  offset: 0, 0
+  index: -1
+dede_uniform_arm_01
+  rotate: false
+  xy: 93, 9
+  size: 30, 64
+  orig: 30, 64
+  offset: 0, 0
+  index: -1
+dede_uniform_arm_02
+  rotate: true
+  xy: 1947, 196
+  size: 27, 48
+  orig: 27, 48
+  offset: 0, 0
+  index: -1
+dede_uniform_arm_03
+  rotate: false
+  xy: 1883, 194
+  size: 30, 45
+  orig: 30, 45
+  offset: 0, 0
+  index: -1
+dede_uniform_arm_04
+  rotate: false
+  xy: 1997, 178
+  size: 30, 45
+  orig: 30, 45
+  offset: 0, 0
+  index: -1
+dede_uniform_arm_05
+  rotate: false
+  xy: 1915, 194
+  size: 30, 29
+  orig: 30, 29
+  offset: 0, 0
+  index: -1
+dede_uniform_body_01
+  rotate: true
+  xy: 1142, 20
+  size: 109, 97
+  orig: 109, 97
+  offset: 0, 0
+  index: -1
+dede_uniform_body_02
+  rotate: true
+  xy: 2, 2
+  size: 52, 37
+  orig: 52, 37
+  offset: 0, 0
+  index: -1
+dede_uniform_cape_01
+  rotate: true
+  xy: 302, 18
+  size: 58, 77
+  orig: 58, 77
+  offset: 0, 0
+  index: -1
+dede_uniform_cape_02
+  rotate: false
+  xy: 1990, 155
+  size: 24, 21
+  orig: 24, 21
+  offset: 0, 0
+  index: -1
+dede_uniform_cape_03
+  rotate: true
+  xy: 1694, 43
+  size: 109, 97
+  orig: 109, 97
+  offset: 0, 0
+  index: -1
+dede_uniform_effect_01
+  rotate: false
+  xy: 1180, 134
+  size: 130, 169
+  orig: 130, 169
+  offset: 0, 0
+  index: -1
+dede_uniform_effect_02
+  rotate: true
+  xy: 1241, 2
+  size: 130, 169
+  orig: 130, 169
+  offset: 0, 0
+  index: -1
+dede_uniform_effect_03
+  rotate: true
+  xy: 1312, 142
+  size: 161, 160
+  orig: 161, 160
+  offset: 0, 0
+  index: -1
+dede_uniform_effect_04
+  rotate: false
+  xy: 667, 122
+  size: 163, 181
+  orig: 163, 181
+  offset: 0, 0
+  index: -1
+dede_uniform_effect_05
+  rotate: false
+  xy: 1560, 8
+  size: 132, 132
+  orig: 132, 132
+  offset: 0, 0
+  index: -1
+dede_uniform_effect_06
+  rotate: false
+  xy: 832, 131
+  size: 172, 172
+  orig: 172, 172
+  offset: 0, 0
+  index: -1
+dede_uniform_effect_07
+  rotate: false
+  xy: 350, 103
+  size: 200, 200
+  orig: 200, 200
+  offset: 0, 0
+  index: -1
+dede_uniform_effect_08
+  rotate: false
+  xy: 1006, 131
+  size: 172, 172
+  orig: 172, 172
+  offset: 0, 0
+  index: -1
+dede_uniform_effect_09
+  rotate: true
+  xy: 46, 75
+  size: 228, 214
+  orig: 228, 214
+  offset: 0, 0
+  index: -1
+dede_uniform_effect_10
+  rotate: true
+  xy: 1636, 154
+  size: 149, 146
+  orig: 149, 146
+  offset: 0, 0
+  index: -1
+dede_uniform_effect_11
+  rotate: false
+  xy: 1412, 2
+  size: 146, 138
+  orig: 146, 138
+  offset: 0, 0
+  index: -1
+dede_uniform_effect_12
+  rotate: false
+  xy: 2, 56
+  size: 42, 247
+  orig: 42, 247
+  offset: 0, 0
+  index: -1
+dede_uniform_effect_13
+  rotate: true
+  xy: 1474, 142
+  size: 161, 160
+  orig: 161, 160
+  offset: 0, 0
+  index: -1
+dede_uniform_effect_14
+  rotate: true
+  xy: 262, 78
+  size: 225, 86
+  orig: 225, 86
+  offset: 0, 0
+  index: -1
+dede_uniform_effect_15
+  rotate: false
+  xy: 552, 109
+  size: 113, 194
+  orig: 113, 194
+  offset: 0, 0
+  index: -1
+dede_uniform_effect_16
+  rotate: true
+  xy: 790, 7
+  size: 113, 160
+  orig: 113, 160
+  offset: 0, 0
+  index: -1
+dede_uniform_effect_17
+  rotate: true
+  xy: 1010, 16
+  size: 113, 130
+  orig: 113, 130
+  offset: 0, 0
+  index: -1
+dede_uniform_eye_01
+  rotate: true
+  xy: 1930, 99
+  size: 56, 25
+  orig: 56, 25
+  offset: 0, 0
+  index: -1
+dede_uniform_eye_02
+  rotate: false
+  xy: 1983, 109
+  size: 48, 21
+  orig: 48, 21
+  offset: 0, 0
+  index: -1
+dede_uniform_eye_03
+  rotate: true
+  xy: 1872, 3
+  size: 43, 21
+  orig: 43, 21
+  offset: 0, 0
+  index: -1
+dede_uniform_foot_01
+  rotate: false
+  xy: 1862, 157
+  size: 30, 35
+  orig: 30, 35
+  offset: 0, 0
+  index: -1
+dede_uniform_foot_02
+  rotate: false
+  xy: 1894, 157
+  size: 30, 35
+  orig: 30, 35
+  offset: 0, 0
+  index: -1
+dede_uniform_hair_01
+  rotate: true
+  xy: 1784, 194
+  size: 109, 97
+  orig: 109, 97
+  offset: 0, 0
+  index: -1
+dede_uniform_hair_02
+  rotate: false
+  xy: 1895, 3
+  size: 58, 45
+  orig: 58, 45
+  offset: 0, 0
+  index: -1
+dede_uniform_hair_03
+  rotate: false
+  xy: 1784, 155
+  size: 76, 37
+  orig: 76, 37
+  offset: 0, 0
+  index: -1
+dede_uniform_hand_01
+  rotate: false
+  xy: 1990, 132
+  size: 24, 21
+  orig: 24, 21
+  offset: 0, 0
+  index: -1
+dede_uniform_hand_02
+  rotate: false
+  xy: 1957, 126
+  size: 24, 21
+  orig: 24, 21
+  offset: 0, 0
+  index: -1
+dede_uniform_hand_03
+  rotate: false
+  xy: 1926, 157
+  size: 30, 35
+  orig: 30, 35
+  offset: 0, 0
+  index: -1
+dede_uniform_hand_04
+  rotate: false
+  xy: 2009, 64
+  size: 20, 20
+  orig: 20, 20
+  offset: 0, 0
+  index: -1
+dede_uniform_hand_05
+  rotate: false
+  xy: 2009, 42
+  size: 20, 20
+  orig: 20, 20
+  offset: 0, 0
+  index: -1
+dede_uniform_head_01
+  rotate: true
+  xy: 1930, 225
+  size: 78, 97
+  orig: 78, 97
+  offset: 0, 0
+  index: -1
+dede_uniform_neck_01
+  rotate: false
+  xy: 41, 4
+  size: 50, 50
+  orig: 50, 50
+  offset: 0, 0
+  index: -1
+dede_uniform_parch_01
+  rotate: false
+  xy: 1957, 103
+  size: 24, 21
+  orig: 24, 21
+  offset: 0, 0
+  index: -1
+dede_uniform_parch_02
+  rotate: true
+  xy: 1930, 73
+  size: 24, 21
+  orig: 24, 21
+  offset: 0, 0
+  index: -1
+dede_uniform_reg_01
+  rotate: false
+  xy: 1793, 48
+  size: 78, 105
+  orig: 78, 105
+  offset: 0, 0
+  index: -1
+dede_uniform_reg_02
+  rotate: false
+  xy: 1873, 50
+  size: 55, 105
+  orig: 55, 105
+  offset: 0, 0
+  index: -1
+dede_uniform_reg_03
+  rotate: true
+  xy: 1694, 2
+  size: 39, 87
+  orig: 39, 87
+  offset: 0, 0
+  index: -1
+dede_uniform_reg_04
+  rotate: true
+  xy: 1783, 2
+  size: 39, 87
+  orig: 39, 87
+  offset: 0, 0
+  index: -1
+dede_uniform_ribbon_01
+  rotate: false
+  xy: 1930, 50
+  size: 21, 21
+  orig: 21, 21
+  offset: 0, 0
+  index: -1
+dede_uniform_ribbon_02
+  rotate: false
+  xy: 2009, 86
+  size: 21, 21
+  orig: 21, 21
+  offset: 0, 0
+  index: -1
+dede_uniform_sholder_01
+  rotate: false
+  xy: 1957, 51
+  size: 50, 50
+  orig: 50, 50
+  offset: 0, 0
+  index: -1
+dede_uniform_sholder_02
+  rotate: false
+  xy: 1958, 149
+  size: 30, 45
+  orig: 30, 45
+  offset: 0, 0
+  index: -1
+dede_uniform_wepon_01
+  rotate: false
+  xy: 952, 9
+  size: 56, 120
+  orig: 56, 120
+  offset: 0, 0
+  index: -1
+uniform_effect_01
+  rotate: false
+  xy: 125, 14
+  size: 175, 59
+  orig: 175, 59
+  offset: 0, 0
+  index: -1
+uniform_effect_02
+  rotate: false
+  xy: 381, 2
+  size: 155, 99
+  orig: 155, 99
+  offset: 0, 0
+  index: -1
+uniform_effect_03
+  rotate: true
+  xy: 667, 5
+  size: 115, 121
+  orig: 115, 121
+  offset: 0, 0
+  index: -1
+uniform_effect_04
+  rotate: false
+  xy: 538, 2
+  size: 127, 99
+  orig: 127, 99
+  offset: 0, 0
+  index: -1

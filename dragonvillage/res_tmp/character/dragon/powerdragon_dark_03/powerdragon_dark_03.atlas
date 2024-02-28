@@ -1,0 +1,146 @@
+
+powerdragon_dark_03.png
+size: 1944,1291
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+powerdragon_dark_03_arm_01
+  rotate: false
+  xy: 2, 696
+  size: 427, 593
+  orig: 427, 593
+  offset: 0, 0
+  index: -1
+powerdragon_dark_03_arm_02
+  rotate: true
+  xy: 1079, 993
+  size: 296, 489
+  orig: 296, 489
+  offset: 0, 0
+  index: -1
+powerdragon_dark_03_body_01
+  rotate: false
+  xy: 431, 506
+  size: 448, 437
+  orig: 448, 437
+  offset: 0, 0
+  index: -1
+powerdragon_dark_03_body_02
+  rotate: true
+  xy: 1570, 953
+  size: 336, 372
+  orig: 336, 372
+  offset: 0, 0
+  index: -1
+powerdragon_dark_03_body_03
+  rotate: false
+  xy: 1172, 619
+  size: 336, 372
+  orig: 336, 372
+  offset: 0, 0
+  index: -1
+powerdragon_dark_03_eff_01
+  rotate: false
+  xy: 2, 14
+  size: 172, 85
+  orig: 172, 85
+  offset: 0, 0
+  index: -1
+powerdragon_dark_03_eff_02
+  rotate: true
+  xy: 1829, 779
+  size: 172, 85
+  orig: 172, 85
+  offset: 0, 0
+  index: -1
+powerdragon_dark_03_eff_03
+  rotate: false
+  xy: 176, 49
+  size: 155, 50
+  orig: 155, 50
+  offset: 0, 0
+  index: -1
+powerdragon_dark_03_eff_04
+  rotate: false
+  xy: 431, 32
+  size: 472, 174
+  orig: 472, 174
+  offset: 0, 0
+  index: -1
+powerdragon_dark_03_eff_05
+  rotate: false
+  xy: 431, 945
+  size: 646, 344
+  orig: 646, 344
+  offset: 0, 0
+  index: -1
+powerdragon_dark_03_eye_01
+  rotate: false
+  xy: 1510, 649
+  size: 317, 302
+  orig: 317, 302
+  offset: 0, 0
+  index: -1
+powerdragon_dark_03_foot_01
+  rotate: false
+  xy: 881, 523
+  size: 289, 420
+  orig: 289, 420
+  offset: 0, 0
+  index: -1
+powerdragon_dark_03_foot_02
+  rotate: true
+  xy: 905, 2
+  size: 200, 273
+  orig: 200, 273
+  offset: 0, 0
+  index: -1
+powerdragon_dark_03_hand_01
+  rotate: false
+  xy: 2, 101
+  size: 427, 593
+  orig: 427, 593
+  offset: 0, 0
+  index: -1
+powerdragon_dark_03_hand_02
+  rotate: true
+  xy: 431, 208
+  size: 296, 489
+  orig: 296, 489
+  offset: 0, 0
+  index: -1
+powerdragon_dark_03_head_01
+  rotate: true
+  xy: 922, 204
+  size: 317, 302
+  orig: 317, 302
+  offset: 0, 0
+  index: -1
+powerdragon_dark_03_jaw_01
+  rotate: true
+  xy: 1226, 300
+  size: 317, 302
+  orig: 317, 302
+  offset: 0, 0
+  index: -1
+powerdragon_dark_03_jaw_02
+  rotate: true
+  xy: 1530, 330
+  size: 317, 302
+  orig: 317, 302
+  offset: 0, 0
+  index: -1
+powerdragon_dark_03_wing_01
+  rotate: false
+  xy: 1226, 88
+  size: 368, 210
+  orig: 368, 210
+  offset: 0, 0
+  index: -1
+powerdragon_dark_03_wing_02
+  rotate: false
+  xy: 1596, 103
+  size: 337, 225
+  orig: 337, 225
+  offset: 0, 0
+  index: -1

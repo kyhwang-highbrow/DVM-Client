@@ -1,0 +1,223 @@
+
+frosty_all_01.png
+size: 1204,205
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+effect_frosty_all_01_eff_01
+  rotate: true
+  xy: 775, 2
+  size: 53, 90
+  orig: 53, 90
+  offset: 0, 0
+  index: -1
+effect_frosty_all_01_eff_02
+  rotate: false
+  xy: 685, 2
+  size: 47, 45
+  orig: 47, 45
+  offset: 0, 0
+  index: -1
+effect_frosty_all_01_eff_03
+  rotate: true
+  xy: 681, 49
+  size: 154, 65
+  orig: 154, 65
+  offset: 0, 0
+  index: -1
+effect_frosty_all_01_eff_05
+  rotate: false
+  xy: 1045, 11
+  size: 86, 90
+  orig: 86, 90
+  offset: 0, 0
+  index: -1
+effect_frosty_all_01_eff_07
+  rotate: true
+  xy: 225, 29
+  size: 174, 306
+  orig: 174, 306
+  offset: 0, 0
+  index: -1
+frosty_all_01_acc_01
+  rotate: false
+  xy: 1039, 103
+  size: 64, 100
+  orig: 64, 100
+  offset: 0, 0
+  index: -1
+frosty_all_01_acc_02
+  rotate: true
+  xy: 1133, 42
+  size: 47, 51
+  orig: 47, 51
+  offset: 0, 0
+  index: -1
+frosty_all_01_acc_03
+  rotate: false
+  xy: 225, 2
+  size: 41, 25
+  orig: 41, 25
+  offset: 0, 0
+  index: -1
+frosty_all_01_acc_04
+  rotate: true
+  xy: 938, 3
+  size: 71, 105
+  orig: 71, 105
+  offset: 0, 0
+  index: -1
+frosty_all_01_arm_01
+  rotate: false
+  xy: 268, 2
+  size: 32, 25
+  orig: 32, 25
+  offset: 0, 0
+  index: -1
+frosty_all_01_arm_02
+  rotate: false
+  xy: 392, 7
+  size: 29, 20
+  orig: 29, 20
+  offset: 0, 0
+  index: -1
+frosty_all_01_ball
+  rotate: true
+  xy: 2, 7
+  size: 196, 221
+  orig: 196, 221
+  offset: 0, 0
+  index: -1
+frosty_all_01_body_01
+  rotate: false
+  xy: 748, 57
+  size: 112, 146
+  orig: 112, 146
+  offset: 0, 0
+  index: -1
+frosty_all_01_effect_lightdust
+  rotate: true
+  xy: 938, 76
+  size: 127, 99
+  orig: 127, 99
+  offset: 0, 0
+  index: -1
+frosty_all_01_eye_01
+  rotate: false
+  xy: 358, 5
+  size: 32, 22
+  orig: 32, 22
+  offset: 0, 0
+  index: -1
+frosty_all_01_eye_02
+  rotate: true
+  xy: 440, 9
+  size: 18, 14
+  orig: 18, 14
+  offset: 0, 0
+  index: -1
+frosty_all_01_eye_03
+  rotate: false
+  xy: 655, 10
+  size: 28, 29
+  orig: 28, 29
+  offset: 0, 0
+  index: -1
+frosty_all_01_eye_04
+  rotate: false
+  xy: 302, 2
+  size: 16, 25
+  orig: 16, 25
+  offset: 0, 0
+  index: -1
+frosty_all_01_eye_05
+  rotate: false
+  xy: 556, 2
+  size: 43, 37
+  orig: 43, 37
+  offset: 0, 0
+  index: -1
+frosty_all_01_eye_06
+  rotate: true
+  xy: 320, 5
+  size: 22, 36
+  orig: 22, 36
+  offset: 0, 0
+  index: -1
+frosty_all_01_eye_07
+  rotate: false
+  xy: 475, 11
+  size: 79, 16
+  orig: 79, 16
+  offset: 0, 0
+  index: -1
+frosty_all_01_leg_01
+  rotate: false
+  xy: 734, 4
+  size: 39, 43
+  orig: 39, 43
+  offset: 0, 0
+  index: -1
+frosty_all_01_leg_02
+  rotate: false
+  xy: 601, 4
+  size: 52, 35
+  orig: 52, 35
+  offset: 0, 0
+  index: -1
+frosty_all_01_light_01
+  rotate: false
+  xy: 1133, 91
+  size: 58, 51
+  orig: 58, 51
+  offset: 0, 0
+  index: -1
+frosty_all_01_mouth_01
+  rotate: true
+  xy: 423, 9
+  size: 18, 15
+  orig: 18, 15
+  offset: 0, 0
+  index: -1
+frosty_all_01_mouth_02
+  rotate: false
+  xy: 1105, 191
+  size: 14, 12
+  orig: 14, 12
+  offset: 0, 0
+  index: -1
+frosty_all_01_mouth_03
+  rotate: false
+  xy: 456, 10
+  size: 17, 17
+  orig: 17, 17
+  offset: 0, 0
+  index: -1
+frosty_all_01_splash
+  rotate: true
+  xy: 533, 41
+  size: 162, 146
+  orig: 162, 146
+  offset: 0, 0
+  index: -1
+frosty_all_01_tail_01
+  rotate: false
+  xy: 862, 67
+  size: 74, 136
+  orig: 74, 136
+  offset: 0, 0
+  index: -1
+frosty_all_01_wing_01
+  rotate: true
+  xy: 867, 6
+  size: 59, 69
+  orig: 59, 69
+  offset: 0, 0
+  index: -1
+frosty_all_01_wing_02
+  rotate: true
+  xy: 1133, 144
+  size: 59, 69
+  orig: 59, 69
+  offset: 0, 0
+  index: -1

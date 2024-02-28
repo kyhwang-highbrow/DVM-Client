@@ -1,0 +1,146 @@
+
+powerdragon_light_03.png
+size: 2026,1518
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+powerdragon_light_03_arm_01
+  rotate: true
+  xy: 1037, 1089
+  size: 427, 593
+  orig: 427, 593
+  offset: 0, 0
+  index: -1
+powerdragon_light_03_arm_02
+  rotate: false
+  xy: 2, 22
+  size: 296, 489
+  orig: 296, 489
+  offset: 0, 0
+  index: -1
+powerdragon_light_03_body_01
+  rotate: true
+  xy: 598, 63
+  size: 448, 437
+  orig: 448, 437
+  offset: 0, 0
+  index: -1
+powerdragon_light_03_body_02
+  rotate: true
+  xy: 1632, 1180
+  size: 336, 372
+  orig: 336, 372
+  offset: 0, 0
+  index: -1
+powerdragon_light_03_body_03
+  rotate: true
+  xy: 1632, 842
+  size: 336, 372
+  orig: 336, 372
+  offset: 0, 0
+  index: -1
+powerdragon_light_03_eff_01
+  rotate: false
+  xy: 991, 543
+  size: 172, 85
+  orig: 172, 85
+  offset: 0, 0
+  index: -1
+powerdragon_light_03_eff_02
+  rotate: true
+  xy: 909, 1344
+  size: 172, 85
+  orig: 172, 85
+  offset: 0, 0
+  index: -1
+powerdragon_light_03_eff_03
+  rotate: true
+  xy: 909, 1170
+  size: 172, 85
+  orig: 172, 85
+  offset: 0, 0
+  index: -1
+powerdragon_light_03_eff_04
+  rotate: true
+  xy: 618, 525
+  size: 562, 371
+  orig: 562, 371
+  offset: 0, 0
+  index: -1
+powerdragon_light_03_eff_05
+  rotate: true
+  xy: 2, 513
+  size: 1003, 614
+  orig: 1003, 614
+  offset: 0, 0
+  index: -1
+powerdragon_light_03_eye_01
+  rotate: true
+  xy: 1264, 22
+  size: 317, 302
+  orig: 317, 302
+  offset: 0, 0
+  index: -1
+powerdragon_light_03_foot_01
+  rotate: false
+  xy: 618, 1096
+  size: 289, 420
+  orig: 289, 420
+  offset: 0, 0
+  index: -1
+powerdragon_light_03_foot_02
+  rotate: false
+  xy: 1520, 355
+  size: 200, 273
+  orig: 200, 273
+  offset: 0, 0
+  index: -1
+powerdragon_light_03_hand_01
+  rotate: true
+  xy: 1037, 660
+  size: 427, 593
+  orig: 427, 593
+  offset: 0, 0
+  index: -1
+powerdragon_light_03_hand_02
+  rotate: false
+  xy: 300, 22
+  size: 296, 489
+  orig: 296, 489
+  offset: 0, 0
+  index: -1
+powerdragon_light_03_head_01
+  rotate: true
+  xy: 1165, 341
+  size: 317, 353
+  orig: 317, 353
+  offset: 0, 0
+  index: -1
+powerdragon_light_03_jaw_01
+  rotate: true
+  xy: 1722, 311
+  size: 317, 302
+  orig: 317, 302
+  offset: 0, 0
+  index: -1
+powerdragon_light_03_jaw_02
+  rotate: false
+  xy: 1568, 7
+  size: 317, 302
+  orig: 317, 302
+  offset: 0, 0
+  index: -1
+powerdragon_light_03_wing_01
+  rotate: false
+  xy: 1632, 630
+  size: 368, 210
+  orig: 368, 210
+  offset: 0, 0
+  index: -1
+powerdragon_light_03_wing_02
+  rotate: true
+  xy: 1037, 2
+  size: 337, 225
+  orig: 337, 225
+  offset: 0, 0
+  index: -1

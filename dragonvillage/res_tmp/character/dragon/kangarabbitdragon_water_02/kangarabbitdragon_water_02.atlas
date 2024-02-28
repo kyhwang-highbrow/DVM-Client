@@ -1,0 +1,167 @@
+
+kangarabbitdragon_water_02.png
+size: 854,275
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+kangarabbitdragon_water_02_arm_01
+  rotate: true
+  xy: 627, 115
+  size: 47, 36
+  orig: 47, 36
+  offset: 0, 0
+  index: -1
+kangarabbitdragon_water_02_arm_02
+  rotate: false
+  xy: 665, 116
+  size: 28, 46
+  orig: 28, 46
+  offset: 0, 0
+  index: -1
+kangarabbitdragon_water_02_arm_03
+  rotate: true
+  xy: 604, 114
+  size: 48, 21
+  orig: 48, 21
+  offset: 0, 0
+  index: -1
+kangarabbitdragon_water_02_baby_ear_01
+  rotate: false
+  xy: 281, 73
+  size: 24, 30
+  orig: 24, 30
+  offset: 0, 0
+  index: -1
+kangarabbitdragon_water_02_baby_ear_02
+  rotate: false
+  xy: 739, 146
+  size: 28, 27
+  orig: 28, 27
+  offset: 0, 0
+  index: -1
+kangarabbitdragon_water_02_body_01
+  rotate: true
+  xy: 410, 3
+  size: 100, 126
+  orig: 100, 126
+  offset: 0, 0
+  index: -1
+kangarabbitdragon_water_02_ear_01
+  rotate: true
+  xy: 771, 182
+  size: 91, 81
+  orig: 91, 81
+  offset: 0, 0
+  index: -1
+kangarabbitdragon_water_02_ear_02
+  rotate: true
+  xy: 2, 8
+  size: 59, 117
+  orig: 59, 117
+  offset: 0, 0
+  index: -1
+kangarabbitdragon_water_02_effect_01_1
+  rotate: true
+  xy: 272, 16
+  size: 51, 45
+  orig: 51, 45
+  offset: 0, 0
+  index: -1
+kangarabbitdragon_water_02_effect_01_2
+  rotate: true
+  xy: 2, 69
+  size: 204, 277
+  orig: 204, 277
+  offset: 0, 0
+  index: -1
+kangarabbitdragon_water_02_effect_01_7
+  rotate: false
+  xy: 695, 118
+  size: 42, 44
+  orig: 42, 44
+  offset: 0, 0
+  index: -1
+kangarabbitdragon_water_02_effect_02_1
+  rotate: false
+  xy: 771, 105
+  size: 75, 75
+  orig: 75, 75
+  offset: 0, 0
+  index: -1
+kangarabbitdragon_water_02_effect_02_2
+  rotate: true
+  xy: 442, 112
+  size: 161, 160
+  orig: 161, 160
+  offset: 0, 0
+  index: -1
+kangarabbitdragon_water_02_effect_02_3
+  rotate: true
+  xy: 281, 105
+  size: 168, 159
+  orig: 168, 159
+  offset: 0, 0
+  index: -1
+kangarabbitdragon_water_02_eye_01
+  rotate: true
+  xy: 739, 120
+  size: 24, 25
+  orig: 24, 25
+  offset: 0, 0
+  index: -1
+kangarabbitdragon_water_02_foot_01
+  rotate: true
+  xy: 319, 2
+  size: 101, 89
+  orig: 101, 89
+  offset: 0, 0
+  index: -1
+kangarabbitdragon_water_02_foot_02
+  rotate: false
+  xy: 696, 175
+  size: 73, 98
+  orig: 73, 98
+  offset: 0, 0
+  index: -1
+kangarabbitdragon_water_02_glob_01
+  rotate: true
+  xy: 737, 29
+  size: 74, 71
+  orig: 74, 71
+  offset: 0, 0
+  index: -1
+kangarabbitdragon_water_02_glob_02
+  rotate: false
+  xy: 215, 11
+  size: 55, 56
+  orig: 55, 56
+  offset: 0, 0
+  index: -1
+kangarabbitdragon_water_02_head_01
+  rotate: true
+  xy: 604, 164
+  size: 109, 90
+  orig: 109, 90
+  offset: 0, 0
+  index: -1
+kangarabbitdragon_water_02_tail_01
+  rotate: false
+  xy: 538, 10
+  size: 126, 100
+  orig: 126, 100
+  offset: 0, 0
+  index: -1
+kangarabbitdragon_water_02_wing_01
+  rotate: false
+  xy: 666, 15
+  size: 69, 99
+  orig: 69, 99
+  offset: 0, 0
+  index: -1
+kangarabbitdragon_water_02_wing_02
+  rotate: false
+  xy: 121, 8
+  size: 92, 59
+  orig: 92, 59
+  offset: 0, 0
+  index: -1

@@ -1,0 +1,118 @@
+
+archer_dark.png
+size: 512,128
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+archer_dark_arm_01
+  rotate: true
+  xy: 166, 7
+  size: 26, 34
+  orig: 26, 34
+  offset: 0, 0
+  index: -1
+archer_dark_arm_02
+  rotate: false
+  xy: 393, 91
+  size: 32, 35
+  orig: 32, 35
+  offset: 0, 0
+  index: -1
+archer_dark_body_01
+  rotate: true
+  xy: 2, 10
+  size: 61, 99
+  orig: 61, 99
+  offset: 0, 0
+  index: -1
+archer_dark_body_02
+  rotate: true
+  xy: 103, 31
+  size: 40, 29
+  orig: 40, 29
+  offset: 0, 0
+  index: -1
+archer_dark_body_03
+  rotate: false
+  xy: 351, 84
+  size: 40, 42
+  orig: 40, 42
+  offset: 0, 0
+  index: -1
+archer_dark_body_04
+  rotate: true
+  xy: 289, 82
+  size: 44, 60
+  orig: 44, 60
+  offset: 0, 0
+  index: -1
+archer_dark_effect_01
+  rotate: false
+  xy: 203, 78
+  size: 74, 19
+  orig: 74, 19
+  offset: 0, 0
+  index: -1
+archer_dark_effect_02
+  rotate: false
+  xy: 427, 109
+  size: 50, 17
+  orig: 50, 17
+  offset: 0, 0
+  index: -1
+archer_dark_effect_03
+  rotate: true
+  xy: 427, 88
+  size: 19, 39
+  orig: 19, 39
+  offset: 0, 0
+  index: -1
+archer_dark_hand_01
+  rotate: false
+  xy: 134, 2
+  size: 30, 28
+  orig: 30, 28
+  offset: 0, 0
+  index: -1
+archer_dark_hand_02
+  rotate: false
+  xy: 134, 32
+  size: 29, 35
+  orig: 29, 35
+  offset: 0, 0
+  index: -1
+archer_dark_head_01
+  rotate: false
+  xy: 139, 69
+  size: 62, 57
+  orig: 62, 57
+  offset: 0, 0
+  index: -1
+archer_dark_head_02
+  rotate: false
+  xy: 203, 58
+  size: 36, 18
+  orig: 36, 18
+  offset: 0, 0
+  index: -1
+archer_dark_shoulder_01
+  rotate: false
+  xy: 165, 35
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+archer_dark_weapon_01
+  rotate: false
+  xy: 2, 73
+  size: 135, 53
+  orig: 135, 53
+  offset: 0, 0
+  index: -1
+archer_dark_weapon_02
+  rotate: false
+  xy: 203, 99
+  size: 84, 27
+  orig: 84, 27
+  offset: 0, 0
+  index: -1

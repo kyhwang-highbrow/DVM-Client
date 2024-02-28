@@ -1,0 +1,40 @@
+{
+	"skill_boss_drake_1":
+	{
+		"ver":2,
+		"attack_value":
+		[							
+			{
+				"idx":1,
+				"res":"res/missile/missile_ring/missile_ring_@.vrp",
+				"body":[0,0,20],
+                "count":8,
+				"damage_rate":12.5,
+                "period":0.08,
+                "scale":0.5,
+				"time":0,
+				"speed":950,
+				"accel":0,
+				"l_limit_speed":0,
+				"angular_velocity":0,
+				"offset":[0,0],
+				"size_up_time":0.5,
+				
+				
+				
+				"dir_array":[0],
+				"dir_add":0,			
+				
+				
+				
+                "effect":
+                {
+                    "motion_streak":"",
+                    "rotation":false,
+                    "afterimage":false
+                }				
+			}
+		]
+	}
+}
+

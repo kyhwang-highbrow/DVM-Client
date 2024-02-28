@@ -1,0 +1,356 @@
+
+penelion_dark_03.png
+size: 1890,791
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+penelion_dark_03_acc_01
+  rotate: false
+  xy: 1662, 2
+  size: 40, 79
+  orig: 40, 79
+  offset: 0, 0
+  index: -1
+penelion_dark_03_acc_02
+  rotate: false
+  xy: 1811, 2
+  size: 26, 37
+  orig: 26, 37
+  offset: 0, 0
+  index: -1
+penelion_dark_03_acc_03
+  rotate: true
+  xy: 1207, 161
+  size: 93, 62
+  orig: 93, 62
+  offset: 0, 0
+  index: -1
+penelion_dark_03_acc_04
+  rotate: false
+  xy: 1719, 17
+  size: 90, 77
+  orig: 90, 77
+  offset: 0, 0
+  index: -1
+penelion_dark_03_armour_01
+  rotate: true
+  xy: 655, 11
+  size: 44, 64
+  orig: 44, 64
+  offset: 0, 0
+  index: -1
+penelion_dark_03_armour_02
+  rotate: false
+  xy: 1192, 57
+  size: 85, 102
+  orig: 85, 102
+  offset: 0, 0
+  index: -1
+penelion_dark_03_armour_03
+  rotate: true
+  xy: 1134, 14
+  size: 44, 51
+  orig: 44, 51
+  offset: 0, 0
+  index: -1
+penelion_dark_03_armour_04
+  rotate: true
+  xy: 1468, 16
+  size: 59, 78
+  orig: 59, 78
+  offset: 0, 0
+  index: -1
+penelion_dark_03_armour_05
+  rotate: true
+  xy: 1562, 2
+  size: 78, 98
+  orig: 78, 98
+  offset: 0, 0
+  index: -1
+penelion_dark_03_armour_06
+  rotate: true
+  xy: 1622, 83
+  size: 92, 95
+  orig: 92, 95
+  offset: 0, 0
+  index: -1
+penelion_dark_03_armour_07
+  rotate: true
+  xy: 587, 12
+  size: 43, 66
+  orig: 43, 66
+  offset: 0, 0
+  index: -1
+penelion_dark_03_armour_08
+  rotate: false
+  xy: 620, 416
+  size: 38, 47
+  orig: 38, 47
+  offset: 0, 0
+  index: -1
+penelion_dark_03_body_01
+  rotate: false
+  xy: 1043, 489
+  size: 356, 300
+  orig: 356, 300
+  offset: 0, 0
+  index: -1
+penelion_dark_03_body_02
+  rotate: true
+  xy: 620, 57
+  size: 153, 262
+  orig: 153, 262
+  offset: 0, 0
+  index: -1
+penelion_dark_03_cape_01
+  rotate: true
+  xy: 884, 46
+  size: 164, 134
+  orig: 164, 134
+  offset: 0, 0
+  index: -1
+penelion_dark_03_cape_02
+  rotate: false
+  xy: 1731, 148
+  size: 153, 100
+  orig: 153, 100
+  offset: 0, 0
+  index: -1
+penelion_dark_03_cape_03
+  rotate: false
+  xy: 135, 3
+  size: 129, 70
+  orig: 129, 70
+  offset: 0, 0
+  index: -1
+penelion_dark_03_cape_04
+  rotate: true
+  xy: 1733, 250
+  size: 97, 154
+  orig: 97, 154
+  offset: 0, 0
+  index: -1
+penelion_dark_03_cape_05
+  rotate: true
+  xy: 2, 3
+  size: 70, 131
+  orig: 70, 131
+  offset: 0, 0
+  index: -1
+penelion_dark_03_cape_06
+  rotate: false
+  xy: 1719, 96
+  size: 109, 50
+  orig: 109, 50
+  offset: 0, 0
+  index: -1
+penelion_dark_03_cape_07
+  rotate: false
+  xy: 961, 256
+  size: 79, 64
+  orig: 79, 64
+  offset: 0, 0
+  index: -1
+penelion_dark_03_effect_01
+  rotate: true
+  xy: 1043, 256
+  size: 231, 234
+  orig: 231, 234
+  offset: 0, 0
+  index: -1
+penelion_dark_03_effect_02
+  rotate: true
+  xy: 1279, 268
+  size: 219, 218
+  orig: 219, 218
+  offset: 0, 0
+  index: -1
+penelion_dark_03_effect_03
+  rotate: false
+  xy: 664, 414
+  size: 377, 375
+  orig: 377, 375
+  offset: 0, 0
+  index: -1
+penelion_dark_03_effect_04
+  rotate: false
+  xy: 2, 465
+  size: 660, 324
+  orig: 660, 324
+  offset: 0, 0
+  index: -1
+penelion_dark_03_effect_05
+  rotate: true
+  xy: 1722, 521
+  size: 268, 161
+  orig: 268, 161
+  offset: 0, 0
+  index: -1
+penelion_dark_03_effect_06
+  rotate: false
+  xy: 1020, 162
+  size: 185, 92
+  orig: 185, 92
+  offset: 0, 0
+  index: -1
+penelion_dark_03_effect_08
+  rotate: false
+  xy: 2, 75
+  size: 388, 388
+  orig: 388, 388
+  offset: 0, 0
+  index: -1
+penelion_dark_03_foot_01
+  rotate: true
+  xy: 1020, 11
+  size: 47, 112
+  orig: 47, 112
+  offset: 0, 0
+  index: -1
+penelion_dark_03_foot_02
+  rotate: true
+  xy: 1811, 41
+  size: 52, 77
+  orig: 52, 77
+  offset: 0, 0
+  index: -1
+penelion_dark_03_foot_03
+  rotate: true
+  xy: 1187, 6
+  size: 49, 74
+  orig: 49, 74
+  offset: 0, 0
+  index: -1
+penelion_dark_03_hair_01
+  rotate: false
+  xy: 1468, 77
+  size: 92, 107
+  orig: 92, 107
+  offset: 0, 0
+  index: -1
+penelion_dark_03_hair_02
+  rotate: false
+  xy: 392, 14
+  size: 193, 118
+  orig: 193, 118
+  offset: 0, 0
+  index: -1
+penelion_dark_03_hair_03
+  rotate: true
+  xy: 1733, 349
+  size: 170, 155
+  orig: 170, 155
+  offset: 0, 0
+  index: -1
+penelion_dark_03_hair_04
+  rotate: true
+  xy: 1635, 177
+  size: 121, 94
+  orig: 121, 94
+  offset: 0, 0
+  index: -1
+penelion_dark_03_hair_05
+  rotate: true
+  xy: 266, 6
+  size: 67, 124
+  orig: 67, 124
+  offset: 0, 0
+  index: -1
+penelion_dark_03_hair_06
+  rotate: false
+  xy: 1562, 82
+  size: 58, 102
+  orig: 58, 102
+  offset: 0, 0
+  index: -1
+penelion_dark_03_head_02
+  rotate: false
+  xy: 1412, 65
+  size: 54, 114
+  orig: 54, 114
+  offset: 0, 0
+  index: -1
+penelion_dark_03_headarmour_01
+  rotate: false
+  xy: 1279, 61
+  size: 131, 118
+  orig: 131, 118
+  offset: 0, 0
+  index: -1
+penelion_dark_03_headarmour_02
+  rotate: false
+  xy: 961, 322
+  size: 80, 90
+  orig: 80, 90
+  offset: 0, 0
+  index: -1
+penelion_dark_03_headarmour_03
+  rotate: true
+  xy: 721, 8
+  size: 47, 59
+  orig: 47, 59
+  offset: 0, 0
+  index: -1
+penelion_dark_03_leg_01
+  rotate: true
+  xy: 1020, 60
+  size: 100, 170
+  orig: 100, 170
+  offset: 0, 0
+  index: -1
+penelion_dark_03_light
+  rotate: false
+  xy: 1830, 95
+  size: 58, 51
+  orig: 58, 51
+  offset: 0, 0
+  index: -1
+penelion_dark_03_tail_01
+  rotate: true
+  xy: 1401, 500
+  size: 289, 319
+  orig: 289, 319
+  offset: 0, 0
+  index: -1
+penelion_dark_03_tail_02
+  rotate: true
+  xy: 1499, 186
+  size: 116, 134
+  orig: 116, 134
+  offset: 0, 0
+  index: -1
+penelion_dark_03_tail_03
+  rotate: false
+  xy: 1499, 304
+  size: 136, 194
+  orig: 136, 194
+  offset: 0, 0
+  index: -1
+penelion_dark_03_wingl_01
+  rotate: false
+  xy: 620, 212
+  size: 339, 200
+  orig: 339, 200
+  offset: 0, 0
+  index: -1
+penelion_dark_03_wingl_02
+  rotate: false
+  xy: 392, 134
+  size: 226, 329
+  orig: 226, 329
+  offset: 0, 0
+  index: -1
+penelion_dark_03_wingl_03
+  rotate: false
+  xy: 1279, 181
+  size: 184, 85
+  orig: 184, 85
+  offset: 0, 0
+  index: -1
+penelion_dark_03_wingl_04
+  rotate: true
+  xy: 1637, 300
+  size: 198, 94
+  orig: 198, 94
+  offset: 0, 0
+  index: -1

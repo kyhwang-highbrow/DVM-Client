@@ -1,0 +1,5 @@
+idx,did,r_name,level,atk_multi,def_multi,hp_multi,aspd_add,cri_chance_add,cri_dmg_add,cri_avoid_add,hit_rate_add,avoid_add,accuracy_add,resistance_add
+1,120745,어둠 앙그라,1,10,10,10,10,10,10,10,10,10,10,10
+2,120745,어둠 앙그라,2,20,20,20,20,20,20,20,20,20,20,20
+3,120745,어둠 앙그라,3,30,30,30,30,30,30,30,30,30,30,30
+4,120745,어둠 앙그라,4,40,40,40,40,40,40,40,40,40,40,40

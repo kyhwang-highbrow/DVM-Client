@@ -1,0 +1,124 @@
+{
+    "difficult":2,
+    "bg":"map_ancient_tower",
+	"wave":
+	[
+        {
+            "idx":1,
+			"camera":
+            {
+                "scale":1,
+                "pos_x":0,
+                "pos_y":0
+            },
+            "wave":
+            {
+                0:
+                [
+					"130014;1;FadeIn;RB12;RF22;2"
+					"130015;1;FadeIn;RF12;RF26;2"
+					"130064;1;FadeIn;RF16;RB26;2"
+					"130065;1;FadeIn;RB16;RB22;2"
+				],
+				
+				2.2:
+				[
+					"130054;1;FadeIn;RO04;RM21;0.5"
+					"130055;1;FadeIn;RO04;RM23;0.5"
+					"130054;1;FadeIn;RO04;RM25;0.5"
+					"130055;1;FadeIn;RO04;RM27;0.5"
+				]
+            }
+        },
+        {
+            "idx":2,
+			"camera":
+            {
+                "scale":1,
+                "pos_x":0,
+                "pos_y":0
+            },
+            "wave":
+            {
+                0:
+                [
+					"131065;1;Basic2;RB21;RF21;3"
+					"130015;1;Basic2;RB24;RF24;3"
+					"131065;1;Basic2;RB27;RF27;3"
+				],
+				
+				1:
+				[
+					"131111;1;FadeIn;RO02;RB21;1"
+					"131052;1;FadeIn;RO04;RB24;1"
+					"131043;1;FadeIn;RO06;RB27;1"
+				],
+				
+				2:
+				[		
+					"131014;1;FadeIn;RO01;RM21;1"
+					"131073;1;FadeIn;RO04;RM24;1"
+					"131014;1;FadeIn;RO07;RM27;1"
+				]
+            }
+        },
+		
+        {
+            "idx":3,
+			"camera":
+            {
+                "scale":0.9,
+                "pos_x":0,
+                "pos_y":0
+            },
+            "wave":
+            {
+				
+				0:
+				[
+					"121404;1;Appear;RO04;RB14;0.5;roam"
+				]
+            },
+			
+			"regen":
+			[
+				{
+					0:
+					[
+						"130014;1;FadeIn;RB24;RF23;2"
+					]
+				},
+				
+				{
+					0:
+					[
+						"130014;1;FadeIn;RB15;RF14;2"
+					]
+				},
+				
+				{
+					0:
+					[
+						"130014;1;FadeIn;RB13;RF25;2"
+					]
+				},
+				
+				{
+					0:
+					[
+						"131014;1;Appear;RO02;RM21;0.5"
+						"131014;1;Appear;RO06;RM27;0.5"
+					]
+				},
+				
+				{
+					0:
+					[
+						"131034;1;Appear;RO02;RB23;0.5"
+						"131034;1;Appear;RO06;RB25;0.5"
+					]
+				}
+			]
+        }
+    ]
+}

@@ -1,0 +1,97 @@
+{
+	"skill_boss_queenssnake_2":
+	{
+		"ver":2,
+		"attack_value":
+		[							
+			{
+				"idx":1,
+				"res":"res/missile/missile_crescent/missile_crescent_@.vrp",
+				"body":[0,0,20],
+                "count":40,
+				"damage_rate":15,
+                "period":0.05,
+                "scale":0.2,
+				"time":0,
+				"speed":-600,
+				"accel":1000,
+				"h_limit_speed":900,
+				"accel_delay":0,
+				"size_up_time":6,
+				"angular_velocity":0,
+				"offset":[-130,40],
+				"dir_array":[90,210,330],
+				"dir_add":3,			
+				"missile_type":"pass",
+				
+						
+				
+                "effect":
+                {
+                    "motion_streak":"",
+                    "rotation":false,
+                    "afterimage":false
+                }				
+			},
+			{
+				"idx":1,
+				"res":"res/missile/missile_crescent/missile_crescent_@.vrp",
+				"body":[0,0,20],
+                "count":41,
+				"damage_rate":15,
+                "period":0.05,
+                "scale":0.2,
+				"time":0,
+				"speed":-600,
+				"accel":1000,
+				"h_limit_speed":900,
+				"accel_delay":0,
+				"size_up_time":6,
+				"angular_velocity":0,
+				"offset":[-130,40],
+				"dir_array":[90,210,330],
+				"dir_add":-3,
+				"missile_type":"pass",
+						
+				
+                "effect":
+                {
+                    "motion_streak":"",
+                    "rotation":false,
+                    "afterimage":false
+                }				
+			},
+			
+			
+			{
+				"idx":1,
+				"res":"res/missile/missile_wedge_2/missile_wedge_2_@.vrp",
+				"body":[0,0,20],
+                "count":5,
+				"damage_rate":33,
+                "period":0.5,
+                "scale":1,
+				"time":0.5,
+				"speed":0,
+				"accel":1000,
+				"h_limit_speed":900,
+				"accel_delay":0,
+				
+				"angular_velocity":0,
+				"offset":[-130,40],
+				"dir_array":[90,210,330],
+				"dir_add":180,
+				"missile_type":"pass",
+						
+				
+                "effect":
+                {
+                    "motion_streak":"",
+                    "rotation":false,
+                    "afterimage":false
+                }				
+			}
+		]
+	}
+}
+

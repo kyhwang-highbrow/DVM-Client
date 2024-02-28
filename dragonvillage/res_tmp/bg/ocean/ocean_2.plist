@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+    <dict>
+        <key>frames</key>
+        <dict>
+            <key>bg_ocean_2_a.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{2,2},{983,380}}</string>
+                <key>offset</key>
+                <string>{8,47}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{24,163},{983,380}}</string>
+                <key>sourceSize</key>
+                <string>{1015,800}</string>
+            </dict>
+        </dict>
+        <key>metadata</key>
+        <dict>
+            <key>format</key>
+            <integer>2</integer>
+            <key>realTextureFileName</key>
+            <string>ocean_2.png</string>
+            <key>size</key>
+            <string>{987,384}</string>
+            <key>smartupdate</key>
+            <string>$TexturePacker:SmartUpdate:9c7e0e4b072ee477d63d7a54a3890d37:e6764ee3cd2012e063aa4a06fc64412d:1bf8b77410509432f5f36b02b83ee5ef$</string>
+            <key>textureFileName</key>
+            <string>ocean_2.png</string>
+        </dict>
+    </dict>
+</plist>

@@ -1,0 +1,111 @@
+
+skill_envy.png
+size: 968,304
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+arrow_shoot
+  rotate: false
+  xy: 346, 29
+  size: 59, 273
+  orig: 59, 273
+  offset: 0, 0
+  index: -1
+effect_smmok
+  rotate: false
+  xy: 2, 3
+  size: 342, 299
+  orig: 342, 299
+  offset: 0, 0
+  index: -1
+missile_spine_dark
+  rotate: false
+  xy: 797, 17
+  size: 46, 73
+  orig: 46, 73
+  offset: 0, 0
+  index: -1
+missile_spine_earth
+  rotate: false
+  xy: 845, 17
+  size: 46, 73
+  orig: 46, 73
+  offset: 0, 0
+  index: -1
+missile_spine_fire
+  rotate: true
+  xy: 893, 126
+  size: 46, 73
+  orig: 46, 73
+  offset: 0, 0
+  index: -1
+missile_spine_light
+  rotate: true
+  xy: 893, 78
+  size: 46, 73
+  orig: 46, 73
+  offset: 0, 0
+  index: -1
+missile_spine_water
+  rotate: false
+  xy: 893, 3
+  size: 46, 73
+  orig: 46, 73
+  offset: 0, 0
+  index: -1
+skill_balrog_01
+  rotate: false
+  xy: 407, 2
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: -1
+skill_balrog_02
+  rotate: false
+  xy: 537, 2
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: -1
+skill_balrog_03
+  rotate: false
+  xy: 575, 174
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: -1
+skill_balrog_04
+  rotate: false
+  xy: 667, 44
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: -1
+skill_balrog_05
+  rotate: false
+  xy: 705, 174
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: -1
+skill_balrog_06
+  rotate: false
+  xy: 835, 174
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: -1
+skill_balrog_07
+  rotate: false
+  xy: 797, 92
+  size: 80, 80
+  orig: 80, 80
+  offset: 0, 0
+  index: -1
+skill_balrog_ice_02
+  rotate: true
+  xy: 407, 132
+  size: 170, 166
+  orig: 170, 166
+  offset: 0, 0
+  index: -1

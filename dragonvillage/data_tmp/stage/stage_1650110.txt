@@ -1,0 +1,112 @@
+{
+    "bg":"map_ancient_ruin",
+	"wave":
+	[
+        {
+            "idx":1,
+			"camera":
+            {
+                "scale":0.6,
+                "pos_x":0,
+                "pos_y":0
+            },
+			
+			"wave":
+            {
+				0:
+				[
+					"130015;1;Appear;RO02;team1_RF12;0.5"
+					"130015;1;Appear;RO01;team1_RF21;0.5"
+					"130015;1;Appear;RO03;team1_RF23;0.5"
+					"130055;1;Appear;RO01;team1_RM21;0.5"
+					"130055;1;Appear;RO03;team1_RM23;0.5"
+					"130065;1;Appear;RO02;team1_RB12;0.5"
+					"130045;1;Appear;RO01;team1_RB21;0.5"
+					"130045;1;Appear;RO03;team1_RB23;0.5"
+				],
+				
+				0.5:
+				[
+					"130015;1;Appear;RO06;team2_RF16;0.5"
+					"130015;1;Appear;RO05;team2_RF25;0.5"
+					"130015;1;Appear;RO07;team2_RF27;0.5"
+					"130035;1;Appear;RO05;team2_RM25;0.5"
+					"130035;1;Appear;RO07;team2_RM27;0.5"
+					"130065;1;Appear;RO06;team2_RB16;0.5"
+					"130055;1;Appear;RO05;team2_RB25;0.5"
+					"130055;1;Appear;RO07;team2_RB27;0.5"
+				]
+            }
+        },
+		
+		{   
+		    "idx":2,
+			"camera":
+            {
+                "scale":0.6,
+                "pos_x":0,
+                "pos_y":0
+            },
+			
+			
+			"wave":
+            {
+                0:
+                [
+					"130015;1;Appear;RO02;team1_RF12;0.5"
+					"130015;1;Appear;RO01;team1_RF21;0.5"
+					"130015;1;Appear;RO03;team1_RF23;0.5"
+					"130015;1;Appear;RO06;team2_RF16;0.5"
+					"130015;1;Appear;RO05;team2_RF25;0.5"
+					"130015;1;Appear;RO07;team2_RF27;0.5"
+                ],
+
+				0.5:
+                [
+					"130045;1;Appear;RO02;team1_RM22;0.5"
+					"130045;1;Appear;RO01;team1_RB11;0.5"
+					"130045;1;Appear;RO03;team1_RB13;0.5"
+					"130055;1;Appear;RO02;team1_RB22;0.5"
+					"130035;1;Appear;RO06;team2_RM26;0.5"
+					"130035;1;Appear;RO05;team2_RB15;0.5"
+					"130035;1;Appear;RO07;team2_RB17;0.5"
+					"130055;1;Appear;RO06;team2_RB26;0.5"
+				],
+				
+				1:
+				[
+					"130015;1;Appear;RO04;RF14;0.5"
+					"130065;1;Appear;RO04;RM14;0.5"
+					"130065;1;Appear;RO04;RB14;0.5"
+				]
+            }
+        },
+		
+		{   
+            "idx":3,
+			"camera":
+            {
+                "scale":0.6,
+                "pos_x":0,
+                "pos_y":0
+            },
+			"wave":
+            {
+				0:
+				[
+					"152015;1;AncientRuinDragon;BOSS;BOSS2;3"
+				]
+            },
+			
+			"regen":
+			[
+				{
+					0:
+					[
+						"152035;1;Appear;RO02;RF23;0.5;roam"
+					]
+				}
+			]
+		}
+    ]
+}

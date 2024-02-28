@@ -1,0 +1,143 @@
+{
+	"skill_boss_world_order_machine_4":
+	{
+		"attack_value":
+		[		
+			{
+				"comment":"질서 유지장치: 톱니탄",
+				"idx":1,
+				"res":"res/missile/missile_dot/missile_dot_@.png",
+				"body":[0,0,20],
+                "count":7,
+				"damage_rate":50,
+                "scale":2,
+				"time":3,
+                "period":0,
+				"speed":1000,
+				"accel":-2000,
+				"l_limit_speed":100,
+				"accel_delay":0,
+				"angular_velocity":0,
+				"offset":[0,0],
+				"dir_array":[32,77,122,167,212,257,302,347],
+                "dir_add":4,
+				
+                "effect":
+                {
+                    "motion_streak":"",
+                    "rotation":false,
+                    "afterimage":false
+                }
+			},
+			
+			{
+				"comment":"질서 유지장치: 톱니탄",
+				"idx":1,
+				"res":"res/missile/missile_dot/missile_dot_@.png",
+				"body":[0,0,20],
+                "count":5,
+				"damage_rate":50,
+				"time":5,
+                "scale":2,
+                "period":0,
+				"speed":1000,
+				"accel":-2000,
+				"l_limit_speed":100,
+				"accel_delay":0,
+				"angular_velocity":0,
+				"offset":[0,0],
+				"dir_array":[12,57,102,147,192,237,282,327],
+                "dir_add":4,
+				
+                "effect":
+                {
+                    "motion_streak":"",
+                    "rotation":false,
+                    "afterimage":false
+                }
+			},
+			
+			{
+				"comment":"질서 유지장치: 톱니탄",
+				"idx":1,
+				"res":"res/missile/missile_dot/missile_dot_@.png",
+				"body":[0,0,20],
+                "count":6,
+				"damage_rate":20,
+				"time":3,
+                "scale":2,
+                "period":0.4,
+				"speed":1000,
+				"accel":-2000,
+				"l_limit_speed":100,
+				"accel_delay":0,
+				"angular_velocity":0,
+				"offset":[0,0],
+				"dir_array":[32,77,122,167,212,257,302,347,12,57,102,147,192,237,282,327],
+                "dir_add":0,
+				
+                "effect":
+                {
+                    "motion_streak":"",
+                    "rotation":false,
+                    "afterimage":false
+                }
+			},
+			
+			{
+				"comment":"질서 유지장치: 톱니탄",
+				"idx":1,
+				"res":"res/missile/missile_dot/missile_dot_@.png",
+				"body":[0,0,20],
+                "count":45,
+				"damage_rate":50,
+				"time":7,
+                "scale":2,
+                "period":0,
+				"speed":500,
+				"accel":-500,
+				"l_limit_speed":100,
+				"accel_delay":0,
+				"angular_velocity":0,
+				"offset":[0,0],
+				"dir_array":[0],
+                "dir_add":8,
+				
+                "effect":
+                {
+                    "motion_streak":"",
+                    "rotation":false,
+                    "afterimage":false
+                }
+			},
+			
+			{
+				"idx":1,
+				"res":"res/missile/missile_dot/missile_dot_@.png",
+				"body":[0,0,20],
+                "count":9,
+                "period":0,
+                "scale":2,
+				"time":0,
+				"speed":300,
+				"accel":-700,
+				"l_limit_speed":0,
+				"accel_delay":0,
+				"angular_velocity":0,
+				"offset":[0,0],
+				"dir_array":[0],
+				"dir_add":40,
+				"missile_type":"pass",
+                "vanish_time":7,
+				"reset_time":0.5,
+				
+				"effect":
+                {
+                    "motion_streak":"",
+                    "rotation":false,
+                    "afterimage":false
+                }
+			}
+		]
+	}
+}

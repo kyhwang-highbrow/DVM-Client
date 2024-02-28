@@ -1,0 +1,125 @@
+
+bullsdragon_earth_02.png
+size: 462,1049
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+bullsdragon_earth_02_arm_01
+  rotate: true
+  xy: 2, 112
+  size: 129, 145
+  orig: 129, 145
+  offset: 0, 0
+  index: -1
+bullsdragon_earth_02_arm_02
+  rotate: false
+  xy: 368, 67
+  size: 85, 105
+  orig: 85, 105
+  offset: 0, 0
+  index: -1
+bullsdragon_earth_02_body_01
+  rotate: true
+  xy: 256, 812
+  size: 235, 204
+  orig: 235, 204
+  offset: 0, 0
+  index: -1
+bullsdragon_earth_02_body_02
+  rotate: true
+  xy: 2, 812
+  size: 235, 252
+  orig: 235, 252
+  offset: 0, 0
+  index: -1
+bullsdragon_earth_02_eye_01
+  rotate: false
+  xy: 163, 276
+  size: 83, 108
+  orig: 83, 108
+  offset: 0, 0
+  index: -1
+bullsdragon_earth_02_foot_01
+  rotate: false
+  xy: 149, 110
+  size: 94, 103
+  orig: 94, 103
+  offset: 0, 0
+  index: -1
+bullsdragon_earth_02_foot_02
+  rotate: false
+  xy: 272, 69
+  size: 94, 103
+  orig: 94, 103
+  offset: 0, 0
+  index: -1
+bullsdragon_earth_02_hand_01
+  rotate: false
+  xy: 2, 243
+  size: 159, 141
+  orig: 159, 141
+  offset: 0, 0
+  index: -1
+bullsdragon_earth_02_hand_02
+  rotate: false
+  xy: 248, 174
+  size: 159, 141
+  orig: 159, 141
+  offset: 0, 0
+  index: -1
+bullsdragon_earth_02_head_01
+  rotate: true
+  xy: 255, 647
+  size: 163, 196
+  orig: 163, 196
+  offset: 0, 0
+  index: -1
+bullsdragon_earth_02_head_03
+  rotate: true
+  xy: 255, 482
+  size: 163, 196
+  orig: 163, 196
+  offset: 0, 0
+  index: -1
+bullsdragon_earth_02_head_04
+  rotate: true
+  xy: 255, 317
+  size: 163, 196
+  orig: 163, 196
+  offset: 0, 0
+  index: -1
+bullsdragon_earth_02_leg_01
+  rotate: true
+  xy: 2, 4
+  size: 106, 133
+  orig: 106, 133
+  offset: 0, 0
+  index: -1
+bullsdragon_earth_02_leg_02
+  rotate: true
+  xy: 137, 2
+  size: 106, 133
+  orig: 106, 133
+  offset: 0, 0
+  index: -1
+bullsdragon_earth_02_mouth_01
+  rotate: true
+  xy: 163, 215
+  size: 59, 72
+  orig: 59, 72
+  offset: 0, 0
+  index: -1
+bullsdragon_earth_02_wing_01
+  rotate: true
+  xy: 2, 599
+  size: 211, 251
+  orig: 211, 251
+  offset: 0, 0
+  index: -1
+bullsdragon_earth_02_wing_02
+  rotate: true
+  xy: 2, 386
+  size: 211, 251
+  orig: 211, 251
+  offset: 0, 0
+  index: -1

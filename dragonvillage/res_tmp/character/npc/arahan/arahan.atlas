@@ -1,0 +1,314 @@
+
+arahan.png
+size: 1968,650
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+arahan_arm_01
+  rotate: false
+  xy: 1510, 349
+  size: 161, 115
+  orig: 161, 115
+  offset: 0, 0
+  index: -1
+arahan_arm_02
+  rotate: false
+  xy: 1677, 30
+  size: 184, 139
+  orig: 184, 139
+  offset: 0, 0
+  index: -1
+arahan_arm_03
+  rotate: false
+  xy: 593, 74
+  size: 55, 38
+  orig: 55, 38
+  offset: 0, 0
+  index: -1
+arahan_arm_04
+  rotate: false
+  xy: 838, 248
+  size: 78, 40
+  orig: 78, 40
+  offset: 0, 0
+  index: -1
+arahan_body_01
+  rotate: false
+  xy: 943, 9
+  size: 203, 279
+  orig: 203, 279
+  offset: 0, 0
+  index: -1
+arahan_effect_02
+  rotate: true
+  xy: 593, 8
+  size: 64, 53
+  orig: 64, 53
+  offset: 0, 0
+  index: -1
+arahan_eye_01
+  rotate: false
+  xy: 459, 112
+  size: 16, 14
+  orig: 16, 14
+  offset: 0, 0
+  index: -1
+arahan_eye_02
+  rotate: false
+  xy: 323, 5
+  size: 10, 10
+  orig: 10, 10
+  offset: 0, 0
+  index: -1
+arahan_eye_03
+  rotate: false
+  xy: 86, 2
+  size: 7, 6
+  orig: 7, 6
+  offset: 0, 0
+  index: -1
+arahan_eye_04
+  rotate: false
+  xy: 1494, 16
+  size: 50, 23
+  orig: 50, 23
+  offset: 0, 0
+  index: -1
+arahan_face_01
+  rotate: true
+  xy: 423, 112
+  size: 14, 34
+  orig: 14, 34
+  offset: 0, 0
+  index: -1
+arahan_face_02
+  rotate: true
+  xy: 827, 3
+  size: 16, 20
+  orig: 16, 20
+  offset: 0, 0
+  index: -1
+arahan_face_04
+  rotate: false
+  xy: 802, 3
+  size: 23, 16
+  orig: 23, 16
+  offset: 0, 0
+  index: -1
+arahan_face_08
+  rotate: true
+  xy: 918, 262
+  size: 26, 18
+  orig: 26, 18
+  offset: 0, 0
+  index: -1
+arahan_face_10
+  rotate: false
+  xy: 288, 3
+  size: 33, 12
+  orig: 33, 12
+  offset: 0, 0
+  index: -1
+arahan_face_11
+  rotate: false
+  xy: 335, 7
+  size: 20, 8
+  orig: 20, 8
+  offset: 0, 0
+  index: -1
+arahan_foot_01
+  rotate: true
+  xy: 288, 17
+  size: 92, 69
+  orig: 92, 69
+  offset: 0, 0
+  index: -1
+arahan_foot_02
+  rotate: true
+  xy: 359, 17
+  size: 92, 69
+  orig: 92, 69
+  offset: 0, 0
+  index: -1
+arahan_hair_01
+  rotate: false
+  xy: 1510, 466
+  size: 161, 182
+  orig: 161, 182
+  offset: 0, 0
+  index: -1
+arahan_hair_02
+  rotate: false
+  xy: 568, 114
+  size: 83, 126
+  orig: 83, 126
+  offset: 0, 0
+  index: -1
+arahan_hair_03
+  rotate: true
+  xy: 203, 4
+  size: 105, 83
+  orig: 105, 83
+  offset: 0, 0
+  index: -1
+arahan_hair_04
+  rotate: false
+  xy: 1892, 565
+  size: 73, 83
+  orig: 73, 83
+  offset: 0, 0
+  index: -1
+arahan_hair_05
+  rotate: false
+  xy: 1892, 480
+  size: 73, 83
+  orig: 73, 83
+  offset: 0, 0
+  index: -1
+arahan_hand_01
+  rotate: true
+  xy: 2, 5
+  size: 100, 82
+  orig: 100, 82
+  offset: 0, 0
+  index: -1
+arahan_head_01
+  rotate: true
+  xy: 86, 10
+  size: 95, 115
+  orig: 95, 115
+  offset: 0, 0
+  index: -1
+arahan_leg_01
+  rotate: false
+  xy: 1881, 21
+  size: 84, 152
+  orig: 84, 152
+  offset: 0, 0
+  index: -1
+arahan_leg_02
+  rotate: false
+  xy: 653, 11
+  size: 147, 229
+  orig: 147, 229
+  offset: 0, 0
+  index: -1
+arahan_leg_03
+  rotate: false
+  xy: 1361, 295
+  size: 147, 353
+  orig: 147, 353
+  offset: 0, 0
+  index: -1
+arahan_neck_01
+  rotate: true
+  xy: 1892, 416
+  size: 62, 72
+  orig: 62, 72
+  offset: 0, 0
+  index: -1
+arahan_neck_02
+  rotate: true
+  xy: 1881, 175
+  size: 112, 85
+  orig: 112, 85
+  offset: 0, 0
+  index: -1
+arahan_neck_03
+  rotate: false
+  xy: 568, 242
+  size: 268, 406
+  orig: 268, 406
+  offset: 0, 0
+  index: -1
+arahan_neck_04
+  rotate: false
+  xy: 1888, 289
+  size: 78, 125
+  orig: 78, 125
+  offset: 0, 0
+  index: -1
+arahan_neck_05
+  rotate: true
+  xy: 1677, 171
+  size: 190, 202
+  orig: 190, 202
+  offset: 0, 0
+  index: -1
+arahan_pants_01
+  rotate: false
+  xy: 1030, 293
+  size: 329, 355
+  orig: 329, 355
+  offset: 0, 0
+  index: -1
+arahan_pants_02
+  rotate: true
+  xy: 1677, 363
+  size: 80, 209
+  orig: 80, 209
+  offset: 0, 0
+  index: -1
+arahan_pants_03
+  rotate: false
+  xy: 1494, 41
+  size: 181, 252
+  orig: 181, 252
+  offset: 0, 0
+  index: -1
+arahan_pants_04
+  rotate: false
+  xy: 430, 2
+  size: 161, 108
+  orig: 161, 108
+  offset: 0, 0
+  index: -1
+arahan_shield_01
+  rotate: true
+  xy: 1148, 20
+  size: 271, 344
+  orig: 271, 344
+  offset: 0, 0
+  index: -1
+arahan_shoulder_01
+  rotate: true
+  xy: 1677, 445
+  size: 203, 213
+  orig: 203, 213
+  offset: 0, 0
+  index: -1
+arahan_shoulder_02
+  rotate: false
+  xy: 802, 21
+  size: 139, 219
+  orig: 139, 219
+  offset: 0, 0
+  index: -1
+arahan_wepon_01
+  rotate: true
+  xy: 2, 107
+  size: 541, 161
+  orig: 541, 161
+  offset: 0, 0
+  index: -1
+arahan_wepon_02
+  rotate: true
+  xy: 423, 128
+  size: 520, 143
+  orig: 520, 143
+  offset: 0, 0
+  index: -1
+arahan_wepon_03
+  rotate: false
+  xy: 165, 111
+  size: 256, 537
+  orig: 256, 537
+  offset: 0, 0
+  index: -1
+arahan_wepon_04
+  rotate: true
+  xy: 838, 290
+  size: 358, 190
+  orig: 358, 190
+  offset: 0, 0
+  index: -1

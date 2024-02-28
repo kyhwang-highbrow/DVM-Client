@@ -1,0 +1,39 @@
+{
+	"pattern_elite_lizard_man_shaman":
+	[			
+		[
+			"m;RB14;300", "a;basic", "w;1", "a;basic", "w;1", "a;3", "w;2", "m;RM14;300", "a;1", "w;3"
+		]
+    ],
+	
+	"hp_trriger":
+    {
+        "priority":1,
+        "list":
+        [
+            {
+                "hp_percent":75,
+                "pattern":
+                [
+					"a;8", "m;RF22;300", "a;1", "w;3", "a;4", "w;1", "m;RB14;300", "a;basic", "w;1", "a;basic", "w;1", "m;RB12;300", "a;basic", "w;1", "a;basic", "w;1", "a;2", "w;1", "a;basic", "w;1"
+                ]
+            },
+			
+			{
+                "hp_percent":50,
+                "pattern":
+                [
+					"a;8", "m;RF26;300", "a;1", "w;3", "a;4", "w;1", "m;RB14;300", "a;basic", "w;1", "a;basic", "w;1", "m;RB16;300", "a;basic", "w;1", "a;basic", "w;1", "a;2", "w;1", "a;basic", "w;1"
+                ]
+            },
+			
+			{
+                "hp_percent":25,
+                "pattern":
+                [
+					"m;RF14;300", "a;4", "a;4", "m;RM24;300", "a;1", "w;1", "a;1", "w;1", "a;basic", "w;1", "a;2", "w;1", "a;basic", "w;1"
+                ]
+            }
+        ]
+    }
+}

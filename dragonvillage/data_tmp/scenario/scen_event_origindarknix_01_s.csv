@@ -1,0 +1,12 @@
+page,bg,illustration,char,t_char_name,char_pos,char_ani,char_effect,r_scen,t_text,text_pos,text_type,auto_skip,effect_1,effect_2,effect_3,bgm,bgm_action,sound
+1,,,,,,,,,,,,3,title;빛과 어둠,skip_disable,,,,
+2,,,,,,,,,,,,0.3,skip_disable,,,,,
+3,,,,,,,,,악에 사로잡힌 몬스터의 습격은 끝없는 불행을 만들었다.,,narrate,5,,,,,,
+4,,,,,,,,,무고한 생명의 간절한 소망이 담긴 빛은 하늘 위 신에게로 향했다.,,narrate,5,,,,,,
+5,,,,,,,,,그 빛이 닿은 것일까. 불행으로 뒤덮였던 어둑한 하늘에서 강한 빛을 내는 두 드래곤이 나타났다.,,narrate,5,,,,,,
+6,프롤로그,,,,,,,,,,,5,clear_text,,,,,
+7,,,,,,,,,,,,5,vrp;scene_1_appear,,,,,
+8,,,,,,,,,,,,5,vrp;scene_1_idle,,,,,
+9,,,고대신룡1,고대신룡,left,fury,,,"세상을 어지럽히는 자들이여, 빛의 힘으로 정화하리라!",,bold,5,,,,,,
+10,,,다크닉스2,다크닉스,right,fury,,,"그리 미약한 힘으로 싸우려 하다니, 어리석다.",,bold,5,,,,,,
+11,,,,,,,,,고대신룡과 다크닉스의 포효가 울렸다. 그건 필시 평화의 징조였다.,,narrate,5,,,,,,

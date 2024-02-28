@@ -1,0 +1,118 @@
+
+taildragon_light_01.png
+size: 1122,212
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+taildragon_light_01_arm_01
+  rotate: false
+  xy: 438, 55
+  size: 61, 89
+  orig: 61, 89
+  offset: 0, 0
+  index: -1
+taildragon_light_01_arm_02
+  rotate: false
+  xy: 949, 15
+  size: 60, 90
+  orig: 60, 90
+  offset: 0, 0
+  index: -1
+taildragon_light_01_body_01
+  rotate: false
+  xy: 774, 20
+  size: 173, 190
+  orig: 173, 190
+  offset: 0, 0
+  index: -1
+taildragon_light_01_eye_01
+  rotate: false
+  xy: 369, 5
+  size: 49, 39
+  orig: 49, 39
+  offset: 0, 0
+  index: -1
+taildragon_light_01_eye_02
+  rotate: false
+  xy: 438, 14
+  size: 49, 39
+  orig: 49, 39
+  offset: 0, 0
+  index: -1
+taildragon_light_01_foot_01
+  rotate: false
+  xy: 949, 107
+  size: 66, 103
+  orig: 66, 103
+  offset: 0, 0
+  index: -1
+taildragon_light_01_foot_02
+  rotate: false
+  xy: 1011, 2
+  size: 67, 78
+  orig: 67, 78
+  offset: 0, 0
+  index: -1
+taildragon_light_01_hand_01
+  rotate: false
+  xy: 501, 55
+  size: 61, 89
+  orig: 61, 89
+  offset: 0, 0
+  index: -1
+taildragon_light_01_hand_02
+  rotate: true
+  xy: 1017, 82
+  size: 60, 90
+  orig: 60, 90
+  offset: 0, 0
+  index: -1
+taildragon_light_01_head_01
+  rotate: true
+  xy: 237, 35
+  size: 109, 130
+  orig: 109, 130
+  offset: 0, 0
+  index: -1
+taildragon_light_01_head_02
+  rotate: true
+  xy: 1080, 39
+  size: 41, 40
+  orig: 41, 40
+  offset: 0, 0
+  index: -1
+taildragon_light_01_leg_01
+  rotate: true
+  xy: 1017, 144
+  size: 66, 103
+  orig: 66, 103
+  offset: 0, 0
+  index: -1
+taildragon_light_01_leg_02
+  rotate: false
+  xy: 369, 46
+  size: 67, 98
+  orig: 67, 98
+  offset: 0, 0
+  index: -1
+taildragon_light_01_tail_01
+  rotate: false
+  xy: 237, 146
+  size: 333, 64
+  orig: 333, 64
+  offset: 0, 0
+  index: -1
+taildragon_light_01_tail_03
+  rotate: true
+  xy: 572, 12
+  size: 198, 200
+  orig: 198, 200
+  offset: 0, 0
+  index: -1
+taildragon_light_01_tail_04
+  rotate: true
+  xy: 2, 15
+  size: 195, 233
+  orig: 195, 233
+  offset: 0, 0
+  index: -1

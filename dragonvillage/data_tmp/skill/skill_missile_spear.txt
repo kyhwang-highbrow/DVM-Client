@@ -1,0 +1,30 @@
+{
+	"skill_missile_spear":
+	{
+		"attack_value":
+		[		
+			{
+				"idx":1,
+				"res":"res/missile/missile_spear/missile_spear.png",
+				"body":[0,0,30],
+                "count":1,
+                "scale":1,
+				"speed":300,
+				"accel":1500,
+				"h_limit_speed":900,
+				"accel_delay":0,
+				"angular_velocity":0,
+				"offset":[-100,20],
+				"missile_type":"pass",
+				
+                "effect":
+                {
+                    "motion_streak":"res/missile/motion_streak/motion_streak_line_@.png",
+                    "rotation":false,
+                    "afterimage":false
+                }
+				
+			}
+		]
+	}
+}

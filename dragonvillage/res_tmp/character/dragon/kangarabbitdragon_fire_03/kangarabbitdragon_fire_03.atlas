@@ -1,0 +1,209 @@
+
+kangarabbitdragon_fire_03.png
+size: 975,271
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+kangarabbitdragon_fire_03_arm_01
+  rotate: false
+  xy: 779, 127
+  size: 47, 37
+  orig: 47, 37
+  offset: 0, 0
+  index: -1
+kangarabbitdragon_fire_03_arm_02
+  rotate: true
+  xy: 281, 71
+  size: 28, 46
+  orig: 28, 46
+  offset: 0, 0
+  index: -1
+kangarabbitdragon_fire_03_arm_03
+  rotate: false
+  xy: 329, 78
+  size: 48, 21
+  orig: 48, 21
+  offset: 0, 0
+  index: -1
+kangarabbitdragon_fire_03_baby_ear_01
+  rotate: true
+  xy: 379, 71
+  size: 28, 27
+  orig: 28, 27
+  offset: 0, 0
+  index: -1
+kangarabbitdragon_fire_03_baby_ear_02
+  rotate: true
+  xy: 725, 122
+  size: 42, 52
+  orig: 42, 52
+  offset: 0, 0
+  index: -1
+kangarabbitdragon_fire_03_baby_hand_01
+  rotate: true
+  xy: 457, 82
+  size: 24, 18
+  orig: 24, 18
+  offset: 0, 0
+  index: -1
+kangarabbitdragon_fire_03_baby_hand_02
+  rotate: false
+  xy: 434, 75
+  size: 21, 24
+  orig: 21, 24
+  offset: 0, 0
+  index: -1
+kangarabbitdragon_fire_03_baby_head_01
+  rotate: true
+  xy: 795, 3
+  size: 43, 40
+  orig: 43, 40
+  offset: 0, 0
+  index: -1
+kangarabbitdragon_fire_03_body_01
+  rotate: false
+  xy: 604, 118
+  size: 119, 151
+  orig: 119, 151
+  offset: 0, 0
+  index: -1
+kangarabbitdragon_fire_03_ear_01
+  rotate: true
+  xy: 816, 178
+  size: 91, 81
+  orig: 91, 81
+  offset: 0, 0
+  index: -1
+kangarabbitdragon_fire_03_ear_02
+  rotate: true
+  xy: 2, 2
+  size: 61, 121
+  orig: 61, 121
+  offset: 0, 0
+  index: -1
+kangarabbitdragon_fire_03_effect_01_1
+  rotate: false
+  xy: 828, 125
+  size: 58, 51
+  orig: 58, 51
+  offset: 0, 0
+  index: -1
+kangarabbitdragon_fire_03_effect_01_2
+  rotate: true
+  xy: 2, 65
+  size: 204, 277
+  orig: 204, 277
+  offset: 0, 0
+  index: -1
+kangarabbitdragon_fire_03_effect_01_3
+  rotate: false
+  xy: 837, 14
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+kangarabbitdragon_fire_03_effect_01_4
+  rotate: true
+  xy: 219, 2
+  size: 61, 85
+  orig: 61, 85
+  offset: 0, 0
+  index: -1
+kangarabbitdragon_fire_03_effect_01_5
+  rotate: false
+  xy: 872, 7
+  size: 73, 77
+  orig: 73, 77
+  offset: 0, 0
+  index: -1
+kangarabbitdragon_fire_03_effect_01_6
+  rotate: true
+  xy: 306, 12
+  size: 57, 73
+  orig: 57, 73
+  offset: 0, 0
+  index: -1
+kangarabbitdragon_fire_03_effect_02_1
+  rotate: false
+  xy: 795, 48
+  size: 75, 75
+  orig: 75, 75
+  offset: 0, 0
+  index: -1
+kangarabbitdragon_fire_03_effect_02_2
+  rotate: true
+  xy: 442, 108
+  size: 161, 160
+  orig: 161, 160
+  offset: 0, 0
+  index: -1
+kangarabbitdragon_fire_03_effect_02_3
+  rotate: true
+  xy: 281, 101
+  size: 168, 159
+  orig: 168, 159
+  offset: 0, 0
+  index: -1
+kangarabbitdragon_fire_03_eye_01
+  rotate: false
+  xy: 408, 73
+  size: 24, 26
+  orig: 24, 26
+  offset: 0, 0
+  index: -1
+kangarabbitdragon_fire_03_foot_01
+  rotate: true
+  xy: 725, 166
+  size: 103, 89
+  orig: 103, 89
+  offset: 0, 0
+  index: -1
+kangarabbitdragon_fire_03_foot_02
+  rotate: false
+  xy: 899, 170
+  size: 74, 99
+  orig: 74, 99
+  offset: 0, 0
+  index: -1
+kangarabbitdragon_fire_03_glob_01
+  rotate: false
+  xy: 438, 2
+  size: 74, 71
+  orig: 74, 71
+  offset: 0, 0
+  index: -1
+kangarabbitdragon_fire_03_glob_02
+  rotate: false
+  xy: 381, 12
+  size: 55, 57
+  orig: 55, 57
+  offset: 0, 0
+  index: -1
+kangarabbitdragon_fire_03_head_01
+  rotate: true
+  xy: 642, 7
+  size: 109, 151
+  orig: 109, 151
+  offset: 0, 0
+  index: -1
+kangarabbitdragon_fire_03_tail_01
+  rotate: false
+  xy: 514, 6
+  size: 126, 100
+  orig: 126, 100
+  offset: 0, 0
+  index: -1
+kangarabbitdragon_fire_03_wing_01
+  rotate: true
+  xy: 888, 86
+  size: 82, 84
+  orig: 82, 84
+  offset: 0, 0
+  index: -1
+kangarabbitdragon_fire_03_wing_02
+  rotate: false
+  xy: 125, 4
+  size: 92, 59
+  orig: 92, 59
+  offset: 0, 0
+  index: -1

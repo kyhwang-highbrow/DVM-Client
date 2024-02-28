@@ -1,0 +1,97 @@
+
+witchdragon_dark_01.png
+size: 1053,234
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+witchdragon_dark_1_body_1
+  rotate: false
+  xy: 2, 2
+  size: 169, 230
+  orig: 169, 230
+  offset: 0, 0
+  index: -1
+witchdragon_dark_1_eff_4
+  rotate: false
+  xy: 595, 77
+  size: 149, 155
+  orig: 149, 155
+  offset: 0, 0
+  index: -1
+witchdragon_dark_1_eff_5
+  rotate: true
+  xy: 173, 12
+  size: 220, 260
+  orig: 220, 260
+  offset: 0, 0
+  index: -1
+witchdragon_dark_1_eye_1
+  rotate: false
+  xy: 435, 6
+  size: 39, 59
+  orig: 39, 59
+  offset: 0, 0
+  index: -1
+witchdragon_dark_1_hair_1
+  rotate: true
+  xy: 476, 15
+  size: 50, 93
+  orig: 50, 93
+  offset: 0, 0
+  index: -1
+witchdragon_dark_1_hair_2
+  rotate: true
+  xy: 813, 84
+  size: 148, 132
+  orig: 148, 132
+  offset: 0, 0
+  index: -1
+witchdragon_dark_1_hair_3
+  rotate: false
+  xy: 813, 2
+  size: 77, 80
+  orig: 77, 80
+  offset: 0, 0
+  index: -1
+witchdragon_dark_1_head_1
+  rotate: false
+  xy: 435, 67
+  size: 158, 165
+  orig: 158, 165
+  offset: 0, 0
+  index: -1
+witchdragon_dark_1_leg_1
+  rotate: true
+  xy: 892, 4
+  size: 78, 148
+  orig: 78, 148
+  offset: 0, 0
+  index: -1
+witchdragon_dark_1_leg_2
+  rotate: false
+  xy: 746, 79
+  size: 65, 153
+  orig: 65, 153
+  offset: 0, 0
+  index: -1
+witchdragon_dark_1_leg_3
+  rotate: true
+  xy: 649, 8
+  size: 67, 108
+  orig: 67, 108
+  offset: 0, 0
+  index: -1
+witchdragon_dark_1_leg_4
+  rotate: false
+  xy: 947, 107
+  size: 104, 125
+  orig: 104, 125
+  offset: 0, 0
+  index: -1
+witchdragon_dark_1_tail_1
+  rotate: false
+  xy: 571, 19
+  size: 76, 46
+  orig: 76, 46
+  offset: 0, 0
+  index: -1

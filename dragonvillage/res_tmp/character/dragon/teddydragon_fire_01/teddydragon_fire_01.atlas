@@ -1,0 +1,139 @@
+
+teddydragon_fire_01.png
+size: 1419,285
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+teddydragon_fire_01_arm_01
+  rotate: false
+  xy: 1018, 2
+  size: 85, 124
+  orig: 85, 124
+  offset: 0, 0
+  index: -1
+teddydragon_fire_01_arm_02
+  rotate: false
+  xy: 1105, 2
+  size: 85, 124
+  orig: 85, 124
+  offset: 0, 0
+  index: -1
+teddydragon_fire_01_body_01
+  rotate: false
+  xy: 964, 128
+  size: 146, 155
+  orig: 146, 155
+  offset: 0, 0
+  index: -1
+teddydragon_fire_01_body_02
+  rotate: false
+  xy: 478, 10
+  size: 147, 94
+  orig: 147, 94
+  offset: 0, 0
+  index: -1
+teddydragon_fire_01_ear_01
+  rotate: true
+  xy: 752, 13
+  size: 91, 131
+  orig: 91, 131
+  offset: 0, 0
+  index: -1
+teddydragon_fire_01_ear_02
+  rotate: true
+  xy: 885, 29
+  size: 91, 131
+  orig: 91, 131
+  offset: 0, 0
+  index: -1
+teddydragon_fire_01_effect_03
+  rotate: false
+  xy: 2, 32
+  size: 236, 251
+  orig: 236, 251
+  offset: 0, 0
+  index: -1
+teddydragon_fire_01_effect_04
+  rotate: false
+  xy: 240, 32
+  size: 236, 251
+  orig: 236, 251
+  offset: 0, 0
+  index: -1
+teddydragon_fire_01_eye_01
+  rotate: true
+  xy: 1321, 42
+  size: 33, 32
+  orig: 33, 32
+  offset: 0, 0
+  index: -1
+teddydragon_fire_01_eye_02
+  rotate: true
+  xy: 1321, 7
+  size: 33, 32
+  orig: 33, 32
+  offset: 0, 0
+  index: -1
+teddydragon_fire_01_foot_01
+  rotate: false
+  xy: 1241, 178
+  size: 99, 105
+  orig: 99, 105
+  offset: 0, 0
+  index: -1
+teddydragon_fire_01_foot_02
+  rotate: true
+  xy: 1321, 77
+  size: 99, 75
+  orig: 99, 75
+  offset: 0, 0
+  index: -1
+teddydragon_fire_01_head_01
+  rotate: false
+  xy: 818, 122
+  size: 144, 161
+  orig: 144, 161
+  offset: 0, 0
+  index: -1
+teddydragon_fire_01_leg_01
+  rotate: true
+  xy: 1342, 184
+  size: 99, 75
+  orig: 99, 75
+  offset: 0, 0
+  index: -1
+teddydragon_fire_01_leg_02
+  rotate: false
+  xy: 627, 3
+  size: 123, 101
+  orig: 123, 101
+  offset: 0, 0
+  index: -1
+teddydragon_fire_01_tam_01
+  rotate: false
+  xy: 478, 106
+  size: 168, 177
+  orig: 168, 177
+  offset: 0, 0
+  index: -1
+teddydragon_fire_01_tam_02
+  rotate: false
+  xy: 648, 106
+  size: 168, 177
+  orig: 168, 177
+  offset: 0, 0
+  index: -1
+teddydragon_fire_01_wing_01
+  rotate: true
+  xy: 1112, 145
+  size: 138, 127
+  orig: 138, 127
+  offset: 0, 0
+  index: -1
+teddydragon_fire_01_wing_02
+  rotate: true
+  xy: 1192, 5
+  size: 138, 127
+  orig: 138, 127
+  offset: 0, 0
+  index: -1

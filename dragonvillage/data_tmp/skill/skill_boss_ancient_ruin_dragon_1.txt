@@ -1,0 +1,72 @@
+{
+	"skill_boss_ancient_ruin_dragon_1":
+	{
+		"ver":2,
+		"attack_value":
+		[
+			{
+				"idx":1,
+				"comment":"이펙트"
+				"res":"res/effect/effect_flame_throwing/effect_flame_throwing.spine",
+				"visual":"idle",
+				"body":[0,0,0],
+                "count":1,
+				"damage_rate":0,
+                "period":0,
+                "scale":1,
+				"time":0,
+				"speed":0,
+				"accel":0,
+				"l_limit_speed":0,
+				"h_limit_speed":0,
+				"accel_delay":0,
+				"angular_velocity":0,
+				"offset":[0,0],
+				"dir":0,
+				"dir_add":0,
+				"missile_type":"pass",
+				"fadeout_time":3,
+				
+                "effect":
+                {
+                    "motion_streak":"",
+                    "rotation":false,
+                    "afterimage":false
+                }				
+			},
+			
+			{
+				"idx":1,
+				"comment":"피격박스"
+				"res":"",
+				"body":[0,0,700],
+                "count":1,
+				"damage_rate":25,
+                "period":0,
+                "scale":1,
+				"time":1,
+				"speed":0,
+				"accel":0,
+				"l_limit_speed":0,
+				"h_limit_speed":0,
+				"accel_delay":0,
+				"angular_velocity":0,
+				"offset":[100,0],
+				"dir":0,
+				"is_abs_pos":true,
+				"dir_add":0,
+				"missile_type":"pass",
+				"fadeout_time":2,
+				"reset_time":0.5,
+				
+                "effect":
+                {
+                    "motion_streak":"",
+                    "rotation":false,
+                    "afterimage":false
+                }				
+			}
+		]
+	}
+}
+

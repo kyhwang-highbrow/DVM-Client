@@ -1,0 +1,125 @@
+
+lightningdragon_earth_02.png
+size: 1972,559
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+lightningdragon_earth_02_arm_01
+  rotate: true
+  xy: 1040, 57
+  size: 98, 93
+  orig: 98, 93
+  offset: 0, 0
+  index: -1
+lightningdragon_earth_02_arm_02
+  rotate: true
+  xy: 725, 14
+  size: 72, 124
+  orig: 72, 124
+  offset: 0, 0
+  index: -1
+lightningdragon_earth_02_body_01
+  rotate: false
+  xy: 1610, 68
+  size: 186, 213
+  orig: 186, 213
+  offset: 0, 0
+  index: -1
+lightningdragon_earth_02_body_02
+  rotate: false
+  xy: 269, 2
+  size: 171, 153
+  orig: 171, 153
+  offset: 0, 0
+  index: -1
+lightningdragon_earth_02_body_03
+  rotate: true
+  xy: 2, 45
+  size: 110, 265
+  orig: 110, 265
+  offset: 0, 0
+  index: -1
+lightningdragon_earth_02_effect_01_1
+  rotate: false
+  xy: 2, 157
+  size: 400, 400
+  orig: 400, 400
+  offset: 0, 0
+  index: -1
+lightningdragon_earth_02_effect_01_2
+  rotate: false
+  xy: 404, 157
+  size: 400, 400
+  orig: 400, 400
+  offset: 0, 0
+  index: -1
+lightningdragon_earth_02_effect_01_3
+  rotate: false
+  xy: 806, 157
+  size: 400, 400
+  orig: 400, 400
+  offset: 0, 0
+  index: -1
+lightningdragon_earth_02_effect_01_4
+  rotate: false
+  xy: 1208, 157
+  size: 400, 400
+  orig: 400, 400
+  offset: 0, 0
+  index: -1
+lightningdragon_earth_02_effect_02
+  rotate: false
+  xy: 603, 35
+  size: 120, 120
+  orig: 120, 120
+  offset: 0, 0
+  index: -1
+lightningdragon_earth_02_foot_01
+  rotate: true
+  xy: 851, 30
+  size: 56, 140
+  orig: 56, 140
+  offset: 0, 0
+  index: -1
+lightningdragon_earth_02_hand_01
+  rotate: true
+  xy: 725, 88
+  size: 67, 161
+  orig: 67, 161
+  offset: 0, 0
+  index: -1
+lightningdragon_earth_02_hand_02
+  rotate: true
+  xy: 442, 45
+  size: 110, 159
+  orig: 110, 159
+  offset: 0, 0
+  index: -1
+lightningdragon_earth_02_head_01
+  rotate: false
+  xy: 1798, 69
+  size: 172, 212
+  orig: 172, 212
+  offset: 0, 0
+  index: -1
+lightningdragon_earth_02_head_02
+  rotate: true
+  xy: 993, 30
+  size: 58, 45
+  orig: 58, 45
+  offset: 0, 0
+  index: -1
+lightningdragon_earth_02_leg_01
+  rotate: true
+  xy: 888, 90
+  size: 65, 109
+  orig: 65, 109
+  offset: 0, 0
+  index: -1
+lightningdragon_earth_02_wing_01
+  rotate: true
+  xy: 1610, 283
+  size: 274, 275
+  orig: 274, 275
+  offset: 0, 0
+  index: -1

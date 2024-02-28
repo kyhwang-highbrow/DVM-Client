@@ -1,0 +1,265 @@
+
+veneziedragon_light_03.png
+size: 1448,528
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+veneziedragon_light_03_acc_01
+  rotate: true
+  xy: 1178, 404
+  size: 122, 188
+  orig: 122, 188
+  offset: 0, 0
+  index: -1
+veneziedragon_light_03_arm_01
+  rotate: true
+  xy: 1100, 226
+  size: 67, 75
+  orig: 67, 75
+  offset: 0, 0
+  index: -1
+veneziedragon_light_03_arm_02
+  rotate: true
+  xy: 1100, 161
+  size: 63, 75
+  orig: 63, 75
+  offset: 0, 0
+  index: -1
+veneziedragon_light_03_band_01
+  rotate: false
+  xy: 1178, 276
+  size: 166, 126
+  orig: 166, 126
+  offset: 0, 0
+  index: -1
+veneziedragon_light_03_band_02
+  rotate: false
+  xy: 783, 4
+  size: 40, 110
+  orig: 40, 110
+  offset: 0, 0
+  index: -1
+veneziedragon_light_03_body_01
+  rotate: true
+  xy: 476, 10
+  size: 100, 221
+  orig: 100, 221
+  offset: 0, 0
+  index: -1
+veneziedragon_light_03_chain_02
+  rotate: true
+  xy: 1026, 259
+  size: 34, 69
+  orig: 34, 69
+  offset: 0, 0
+  index: -1
+veneziedragon_light_03_chain_04
+  rotate: false
+  xy: 699, 3
+  size: 82, 111
+  orig: 82, 111
+  offset: 0, 0
+  index: -1
+veneziedragon_light_03_effect_01
+  rotate: true
+  xy: 505, 202
+  size: 324, 126
+  orig: 324, 126
+  offset: 0, 0
+  index: -1
+veneziedragon_light_03_effect_02
+  rotate: true
+  xy: 633, 202
+  size: 324, 126
+  orig: 324, 126
+  offset: 0, 0
+  index: -1
+veneziedragon_light_03_effect_03
+  rotate: true
+  xy: 1026, 295
+  size: 231, 150
+  orig: 231, 150
+  offset: 0, 0
+  index: -1
+veneziedragon_light_03_eve_01
+  rotate: false
+  xy: 60, 4
+  size: 40, 51
+  orig: 40, 51
+  offset: 0, 0
+  index: -1
+veneziedragon_light_03_foot_01
+  rotate: false
+  xy: 1368, 363
+  size: 78, 163
+  orig: 78, 163
+  offset: 0, 0
+  index: -1
+veneziedragon_light_03_foot_02
+  rotate: true
+  xy: 505, 113
+  size: 87, 124
+  orig: 87, 124
+  offset: 0, 0
+  index: -1
+veneziedragon_light_03_hair_01
+  rotate: false
+  xy: 1314, 86
+  size: 119, 57
+  orig: 119, 57
+  offset: 0, 0
+  index: -1
+veneziedragon_light_03_hair_02
+  rotate: true
+  xy: 1346, 252
+  size: 109, 98
+  orig: 109, 98
+  offset: 0, 0
+  index: -1
+veneziedragon_light_03_hair_03
+  rotate: false
+  xy: 1221, 21
+  size: 91, 122
+  orig: 91, 122
+  offset: 0, 0
+  index: -1
+veneziedragon_light_03_hair_04
+  rotate: true
+  xy: 270, 9
+  size: 46, 59
+  orig: 46, 59
+  offset: 0, 0
+  index: -1
+veneziedragon_light_03_hand_01
+  rotate: true
+  xy: 1314, 21
+  size: 63, 56
+  orig: 63, 56
+  offset: 0, 0
+  index: -1
+veneziedragon_light_03_hand_02
+  rotate: true
+  xy: 631, 114
+  size: 86, 56
+  orig: 86, 56
+  offset: 0, 0
+  index: -1
+veneziedragon_light_03_head_02
+  rotate: false
+  xy: 208, 9
+  size: 60, 46
+  orig: 60, 46
+  offset: 0, 0
+  index: -1
+veneziedragon_light_03_head_03
+  rotate: true
+  xy: 331, 2
+  size: 108, 62
+  orig: 108, 62
+  offset: 0, 0
+  index: -1
+veneziedragon_light_03_head_04
+  rotate: true
+  xy: 802, 213
+  size: 34, 21
+  orig: 34, 21
+  offset: 0, 0
+  index: -1
+veneziedragon_light_03_horn_01
+  rotate: false
+  xy: 395, 7
+  size: 79, 103
+  orig: 79, 103
+  offset: 0, 0
+  index: -1
+veneziedragon_light_03_horn_02
+  rotate: false
+  xy: 1335, 157
+  size: 97, 93
+  orig: 97, 93
+  offset: 0, 0
+  index: -1
+veneziedragon_light_03_irons_01
+  rotate: true
+  xy: 1372, 25
+  size: 59, 61
+  orig: 59, 61
+  offset: 0, 0
+  index: -1
+veneziedragon_light_03_irons_02
+  rotate: true
+  xy: 1100, 89
+  size: 70, 73
+  orig: 70, 73
+  offset: 0, 0
+  index: -1
+veneziedragon_light_03_irons_03
+  rotate: true
+  xy: 102, 5
+  size: 50, 61
+  orig: 50, 61
+  offset: 0, 0
+  index: -1
+veneziedragon_light_03_irons_04
+  rotate: false
+  xy: 2, 3
+  size: 56, 52
+  orig: 56, 52
+  offset: 0, 0
+  index: -1
+veneziedragon_light_03_leg_01
+  rotate: true
+  xy: 1100, 9
+  size: 78, 119
+  orig: 78, 119
+  offset: 0, 0
+  index: -1
+veneziedragon_light_03_leg_02
+  rotate: true
+  xy: 689, 116
+  size: 84, 111
+  orig: 84, 111
+  offset: 0, 0
+  index: -1
+veneziedragon_light_03_tail_01
+  rotate: true
+  xy: 761, 249
+  size: 277, 263
+  orig: 277, 263
+  offset: 0, 0
+  index: -1
+veneziedragon_light_03_wing_01
+  rotate: false
+  xy: 2, 57
+  size: 323, 469
+  orig: 323, 469
+  offset: 0, 0
+  index: -1
+veneziedragon_light_03_wing_02
+  rotate: false
+  xy: 825, 4
+  size: 273, 243
+  orig: 273, 243
+  offset: 0, 0
+  index: -1
+veneziedragon_light_03_wing_03
+  rotate: false
+  xy: 327, 112
+  size: 176, 414
+  orig: 176, 414
+  offset: 0, 0
+  index: -1
+veneziedragon_light_03_wing_04
+  rotate: true
+  xy: 1177, 145
+  size: 129, 156
+  orig: 129, 156
+  offset: 0, 0
+  index: -1
+veneziedragon_light_03_wrist _01
+  rotate: false
+  xy: 165, 7
+  size: 41, 48
+  orig: 41, 48
+  offset: 0, 0
+  index: -1

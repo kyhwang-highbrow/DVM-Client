@@ -1,0 +1,29 @@
+{
+	"skill_bounce":
+	{
+		"attack_value":
+		[		
+			{
+				"idx":1,				
+				"res":"res/missile/missile_glave/missile_glave_@.spine",
+                "movement":"bounce5",
+                "missile_type":"pass",
+                "scale":0.5,
+				"body":[0,0,30],
+				"speed":1000,
+				"accel":1000,
+				"h_limit_speed":1500,
+				"offset":[0,0],
+                "dir":0,
+				
+                "effect":
+                {
+                    "motion_streak":"res/missile/motion_streak/motion_streak_blade.png",
+                    "rotation":false,
+                    "afterimage":true
+                }
+				
+			}
+		]
+	}
+}

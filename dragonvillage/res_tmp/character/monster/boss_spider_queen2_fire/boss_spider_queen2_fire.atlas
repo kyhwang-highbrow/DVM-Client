@@ -1,0 +1,181 @@
+
+boss_spider_queen2_fire.png
+size: 2048,512
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+boss_spider_queen2_fire_arm_01
+  rotate: false
+  xy: 1045, 132
+  size: 91, 101
+  orig: 91, 101
+  offset: 0, 0
+  index: -1
+boss_spider_queen2_fire_arm_012
+  rotate: false
+  xy: 1483, 243
+  size: 102, 91
+  orig: 102, 91
+  offset: 0, 0
+  index: -1
+boss_spider_queen2_fire_body_01
+  rotate: false
+  xy: 355, 206
+  size: 320, 301
+  orig: 320, 301
+  offset: 0, 0
+  index: -1
+boss_spider_queen2_fire_eff_01
+  rotate: false
+  xy: 1827, 329
+  size: 186, 178
+  orig: 186, 178
+  offset: 0, 0
+  index: -1
+boss_spider_queen2_fire_face_01
+  rotate: true
+  xy: 330, 54
+  size: 150, 197
+  orig: 150, 197
+  offset: 0, 0
+  index: -1
+boss_spider_queen2_fire_finger_01
+  rotate: false
+  xy: 212, 22
+  size: 88, 56
+  orig: 88, 56
+  offset: 0, 0
+  index: -1
+boss_spider_queen2_fire_finger_02
+  rotate: false
+  xy: 1138, 165
+  size: 82, 83
+  orig: 82, 83
+  offset: 0, 0
+  index: -1
+boss_spider_queen2_fire_foot_01
+  rotate: true
+  xy: 1606, 342
+  size: 165, 219
+  orig: 165, 219
+  offset: 0, 0
+  index: -1
+boss_spider_queen2_fire_foot_02
+  rotate: true
+  xy: 677, 204
+  size: 127, 212
+  orig: 127, 212
+  offset: 0, 0
+  index: -1
+boss_spider_queen2_fire_foot_03
+  rotate: true
+  xy: 1044, 371
+  size: 136, 333
+  orig: 136, 333
+  offset: 0, 0
+  index: -1
+boss_spider_queen2_fire_foot_04
+  rotate: true
+  xy: 677, 333
+  size: 174, 365
+  orig: 174, 365
+  offset: 0, 0
+  index: -1
+boss_spider_queen2_fire_foot_05
+  rotate: true
+  xy: 2, 80
+  size: 151, 326
+  orig: 151, 326
+  offset: 0, 0
+  index: -1
+boss_spider_queen2_fire_hand_01
+  rotate: true
+  xy: 1308, 284
+  size: 85, 65
+  orig: 85, 65
+  offset: 0, 0
+  index: -1
+boss_spider_queen2_fire_hand_02
+  rotate: false
+  xy: 1135, 250
+  size: 88, 119
+  orig: 88, 119
+  offset: 0, 0
+  index: -1
+boss_spider_queen2_fire_head_01
+  rotate: true
+  xy: 1379, 336
+  size: 171, 225
+  orig: 171, 225
+  offset: 0, 0
+  index: -1
+boss_spider_queen2_fire_leg_01
+  rotate: true
+  xy: 128, 2
+  size: 76, 82
+  orig: 76, 82
+  offset: 0, 0
+  index: -1
+boss_spider_queen2_fire_leg_02
+  rotate: false
+  xy: 667, 25
+  size: 105, 177
+  orig: 105, 177
+  offset: 0, 0
+  index: -1
+boss_spider_queen2_fire_leg_03
+  rotate: true
+  xy: 891, 208
+  size: 123, 152
+  orig: 123, 152
+  offset: 0, 0
+  index: -1
+boss_spider_queen2_fire_leg_04
+  rotate: false
+  xy: 1045, 235
+  size: 88, 134
+  orig: 88, 134
+  offset: 0, 0
+  index: -1
+boss_spider_queen2_fire_leg_05
+  rotate: true
+  xy: 2, 9
+  size: 69, 124
+  orig: 69, 124
+  offset: 0, 0
+  index: -1
+boss_spider_queen2_fire_leg_06
+  rotate: false
+  xy: 774, 58
+  size: 107, 144
+  orig: 107, 144
+  offset: 0, 0
+  index: -1
+boss_spider_queen2_fire_leg_07
+  rotate: false
+  xy: 1225, 256
+  size: 81, 113
+  orig: 81, 113
+  offset: 0, 0
+  index: -1
+boss_spider_queen2_fire_leg_08
+  rotate: true
+  xy: 529, 16
+  size: 188, 136
+  orig: 188, 136
+  offset: 0, 0
+  index: -1
+boss_spider_queen2_fire_leg_09
+  rotate: false
+  xy: 1375, 251
+  size: 106, 83
+  orig: 106, 83
+  offset: 0, 0
+  index: -1
+boss_spider_queen2_fire_lowerbody_01
+  rotate: false
+  xy: 2, 233
+  size: 351, 274
+  orig: 351, 274
+  offset: 0, 0
+  index: -1

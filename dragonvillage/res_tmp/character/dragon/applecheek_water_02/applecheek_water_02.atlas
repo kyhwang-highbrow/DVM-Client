@@ -1,0 +1,146 @@
+
+applecheek_water_02.png
+size: 1067,129
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+applecheek_water_02_apple_01
+  rotate: false
+  xy: 500, 16
+  size: 104, 111
+  orig: 104, 111
+  offset: 0, 0
+  index: -1
+applecheek_water_02_arm_01
+  rotate: true
+  xy: 961, 13
+  size: 50, 42
+  orig: 50, 42
+  offset: 0, 0
+  index: -1
+applecheek_water_02_arm_02
+  rotate: true
+  xy: 1023, 87
+  size: 40, 42
+  orig: 40, 42
+  offset: 0, 0
+  index: -1
+applecheek_water_02_body_01
+  rotate: true
+  xy: 173, 6
+  size: 121, 115
+  orig: 121, 115
+  offset: 0, 0
+  index: -1
+applecheek_water_02_body_03
+  rotate: true
+  xy: 745, 38
+  size: 89, 73
+  orig: 89, 73
+  offset: 0, 0
+  index: -1
+applecheek_water_02_eff_01
+  rotate: true
+  xy: 2, 5
+  size: 122, 169
+  orig: 122, 169
+  offset: 0, 0
+  index: -1
+applecheek_water_02_eff_02
+  rotate: false
+  xy: 820, 2
+  size: 55, 55
+  orig: 55, 55
+  offset: 0, 0
+  index: -1
+applecheek_water_02_eye_01
+  rotate: false
+  xy: 975, 81
+  size: 46, 46
+  orig: 46, 46
+  offset: 0, 0
+  index: -1
+applecheek_water_02_eye_02
+  rotate: false
+  xy: 1005, 33
+  size: 46, 46
+  orig: 46, 46
+  offset: 0, 0
+  index: -1
+applecheek_water_02_foot_01
+  rotate: false
+  xy: 877, 5
+  size: 39, 52
+  orig: 39, 52
+  offset: 0, 0
+  index: -1
+applecheek_water_02_foot_02
+  rotate: false
+  xy: 918, 6
+  size: 41, 51
+  orig: 41, 51
+  offset: 0, 0
+  index: -1
+applecheek_water_02_hand_01
+  rotate: true
+  xy: 931, 65
+  size: 62, 42
+  orig: 62, 42
+  offset: 0, 0
+  index: -1
+applecheek_water_02_hand_02
+  rotate: false
+  xy: 779, 7
+  size: 39, 29
+  orig: 39, 29
+  offset: 0, 0
+  index: -1
+applecheek_water_02_head_01
+  rotate: true
+  xy: 290, 12
+  size: 115, 144
+  orig: 115, 144
+  offset: 0, 0
+  index: -1
+applecheek_water_02_head_02
+  rotate: false
+  xy: 745, 4
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+applecheek_water_02_leg_01
+  rotate: false
+  xy: 879, 59
+  size: 50, 68
+  orig: 50, 68
+  offset: 0, 0
+  index: -1
+applecheek_water_02_leg_02
+  rotate: false
+  xy: 820, 59
+  size: 57, 68
+  orig: 57, 68
+  offset: 0, 0
+  index: -1
+applecheek_water_02_mouth_01
+  rotate: true
+  xy: 1005, 3
+  size: 28, 19
+  orig: 28, 19
+  offset: 0, 0
+  index: -1
+applecheek_water_02_wing_01
+  rotate: true
+  xy: 606, 19
+  size: 108, 137
+  orig: 108, 137
+  offset: 0, 0
+  index: -1
+applecheek_water_02_wing_02
+  rotate: false
+  xy: 436, 13
+  size: 62, 114
+  orig: 62, 114
+  offset: 0, 0
+  index: -1

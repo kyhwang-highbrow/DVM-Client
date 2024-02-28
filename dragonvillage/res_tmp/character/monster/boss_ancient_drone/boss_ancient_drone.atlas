@@ -1,0 +1,90 @@
+
+boss_ancient_drone.png
+size: 524,135
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+boss_ancient_drone_effect_01
+  rotate: false
+  xy: 485, 33
+  size: 37, 37
+  orig: 37, 37
+  offset: 0, 0
+  index: -1
+boss_ancient_drone_effect_02
+  rotate: true
+  xy: 484, 72
+  size: 61, 25
+  orig: 61, 25
+  offset: 0, 0
+  index: -1
+boss_ancient_drone_effect_03
+  rotate: false
+  xy: 345, 3
+  size: 87, 41
+  orig: 87, 41
+  offset: 0, 0
+  index: -1
+boss_ancient_drone_effect_04
+  rotate: false
+  xy: 152, 6
+  size: 57, 29
+  orig: 57, 29
+  offset: 0, 0
+  index: -1
+boss_ancient_drone_effect_04_1
+  rotate: false
+  xy: 211, 10
+  size: 65, 25
+  orig: 65, 25
+  offset: 0, 0
+  index: -1
+boss_ancient_drone_effect_05
+  rotate: false
+  xy: 332, 46
+  size: 86, 87
+  orig: 86, 87
+  offset: 0, 0
+  index: -1
+boss_ancient_drone_effect_06
+  rotate: false
+  xy: 152, 37
+  size: 88, 96
+  orig: 88, 96
+  offset: 0, 0
+  index: -1
+boss_ancient_drone_effect_07
+  rotate: false
+  xy: 242, 37
+  size: 88, 96
+  orig: 88, 96
+  offset: 0, 0
+  index: -1
+boss_ancient_drone_res_01
+  rotate: false
+  xy: 278, 10
+  size: 65, 25
+  orig: 65, 25
+  offset: 0, 0
+  index: -1
+boss_ancient_drone_res_02
+  rotate: false
+  xy: 434, 2
+  size: 49, 67
+  orig: 49, 67
+  offset: 0, 0
+  index: -1
+boss_ancient_drone_res_03
+  rotate: false
+  xy: 420, 71
+  size: 62, 62
+  orig: 62, 62
+  offset: 0, 0
+  index: -1
+boss_ancient_drone_res_04
+  rotate: true
+  xy: 2, 4
+  size: 129, 148
+  orig: 129, 148
+  offset: 0, 0
+  index: -1

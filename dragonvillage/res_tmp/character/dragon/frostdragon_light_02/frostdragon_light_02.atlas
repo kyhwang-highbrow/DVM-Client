@@ -1,0 +1,188 @@
+
+frostdragon_light_02.png
+size: 1938,751
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+frostdragon_light_02_arm_01
+  rotate: true
+  xy: 1417, 78
+  size: 140, 152
+  orig: 140, 152
+  offset: 0, 0
+  index: -1
+frostdragon_light_02_arm_02
+  rotate: true
+  xy: 1571, 13
+  size: 91, 134
+  orig: 91, 134
+  offset: 0, 0
+  index: -1
+frostdragon_light_02_body_01
+  rotate: false
+  xy: 1248, 437
+  size: 324, 312
+  orig: 324, 312
+  offset: 0, 0
+  index: -1
+frostdragon_light_02_effect_01
+  rotate: false
+  xy: 2, 17
+  size: 406, 184
+  orig: 406, 184
+  offset: 0, 0
+  index: -1
+frostdragon_light_02_effect_02
+  rotate: true
+  xy: 1848, 377
+  size: 106, 74
+  orig: 106, 74
+  offset: 0, 0
+  index: -1
+frostdragon_light_02_effect_03
+  rotate: false
+  xy: 388, 459
+  size: 452, 290
+  orig: 452, 290
+  offset: 0, 0
+  index: -1
+frostdragon_light_02_effect_04
+  rotate: false
+  xy: 388, 207
+  size: 388, 250
+  orig: 388, 250
+  offset: 0, 0
+  index: -1
+frostdragon_light_02_effect_05
+  rotate: false
+  xy: 1195, 229
+  size: 234, 206
+  orig: 234, 206
+  offset: 0, 0
+  index: -1
+frostdragon_light_02_effect_06
+  rotate: true
+  xy: 1729, 113
+  size: 130, 114
+  orig: 130, 114
+  offset: 0, 0
+  index: -1
+frostdragon_light_02_effect_07
+  rotate: false
+  xy: 1848, 269
+  size: 88, 106
+  orig: 88, 106
+  offset: 0, 0
+  index: -1
+frostdragon_light_02_effect_08
+  rotate: false
+  xy: 1866, 640
+  size: 61, 109
+  orig: 61, 109
+  offset: 0, 0
+  index: -1
+frostdragon_light_02_effect_09
+  rotate: false
+  xy: 2, 203
+  size: 384, 546
+  orig: 384, 546
+  offset: 0, 0
+  index: -1
+frostdragon_light_02_effect_10
+  rotate: true
+  xy: 842, 465
+  size: 284, 404
+  orig: 284, 404
+  offset: 0, 0
+  index: -1
+frostdragon_light_02_hand_01
+  rotate: false
+  xy: 778, 193
+  size: 163, 264
+  orig: 163, 264
+  offset: 0, 0
+  index: -1
+frostdragon_light_02_hand_02
+  rotate: false
+  xy: 997, 2
+  size: 163, 224
+  orig: 163, 224
+  offset: 0, 0
+  index: -1
+frostdragon_light_02_head_01
+  rotate: true
+  xy: 1431, 220
+  size: 215, 139
+  orig: 215, 139
+  offset: 0, 0
+  index: -1
+frostdragon_light_02_head_02
+  rotate: false
+  xy: 1848, 184
+  size: 86, 83
+  orig: 86, 83
+  offset: 0, 0
+  index: -1
+frostdragon_light_02_head_03
+  rotate: false
+  xy: 1845, 99
+  size: 86, 83
+  orig: 86, 83
+  offset: 0, 0
+  index: -1
+frostdragon_light_02_horn_01
+  rotate: true
+  xy: 1572, 106
+  size: 137, 155
+  orig: 137, 155
+  offset: 0, 0
+  index: -1
+frostdragon_light_02_horn_02
+  rotate: false
+  xy: 1308, 74
+  size: 107, 153
+  orig: 107, 153
+  offset: 0, 0
+  index: -1
+frostdragon_light_02_leg_01
+  rotate: true
+  xy: 740, 15
+  size: 176, 255
+  orig: 176, 255
+  offset: 0, 0
+  index: -1
+frostdragon_light_02_leg_02
+  rotate: false
+  xy: 1162, 18
+  size: 144, 208
+  orig: 144, 208
+  offset: 0, 0
+  index: -1
+frostdragon_light_02_tail_01
+  rotate: false
+  xy: 943, 228
+  size: 250, 235
+  orig: 250, 235
+  offset: 0, 0
+  index: -1
+frostdragon_light_02_tail_02
+  rotate: false
+  xy: 410, 17
+  size: 328, 188
+  orig: 328, 188
+  offset: 0, 0
+  index: -1
+frostdragon_light_02_wing_01
+  rotate: false
+  xy: 1574, 245
+  size: 272, 238
+  orig: 272, 238
+  offset: 0, 0
+  index: -1
+frostdragon_light_02_wing_02
+  rotate: false
+  xy: 1574, 485
+  size: 290, 264
+  orig: 290, 264
+  offset: 0, 0
+  index: -1

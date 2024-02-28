@@ -1,0 +1,286 @@
+
+cosmo_all_event_01.png
+size: 1023,531
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+cosmo_all_01_antennae_01
+  rotate: false
+  xy: 834, 148
+  size: 29, 83
+  orig: 29, 83
+  offset: 0, 0
+  index: -1
+cosmo_all_01_antennae_02
+  rotate: false
+  xy: 955, 117
+  size: 53, 81
+  orig: 53, 81
+  offset: 0, 0
+  index: -1
+cosmo_all_01_arm_01
+  rotate: false
+  xy: 977, 200
+  size: 44, 41
+  orig: 44, 41
+  offset: 0, 0
+  index: -1
+cosmo_all_01_arm_02
+  rotate: true
+  xy: 924, 65
+  size: 50, 57
+  orig: 50, 57
+  offset: 0, 0
+  index: -1
+cosmo_all_01_arm_03
+  rotate: false
+  xy: 810, 23
+  size: 45, 65
+  orig: 45, 65
+  offset: 0, 0
+  index: -1
+cosmo_all_01_arm_04
+  rotate: false
+  xy: 637, 11
+  size: 34, 33
+  orig: 34, 33
+  offset: 0, 0
+  index: -1
+cosmo_all_01_arm_05
+  rotate: true
+  xy: 674, 15
+  size: 81, 54
+  orig: 81, 54
+  offset: 0, 0
+  index: -1
+cosmo_all_01_back
+  rotate: true
+  xy: 183, 7
+  size: 175, 161
+  orig: 175, 161
+  offset: 0, 0
+  index: -1
+cosmo_all_01_bead_01
+  rotate: false
+  xy: 621, 238
+  size: 119, 119
+  orig: 119, 119
+  offset: 0, 0
+  index: -1
+cosmo_all_01_bead_no_shadow_01
+  rotate: false
+  xy: 742, 233
+  size: 119, 119
+  orig: 119, 119
+  offset: 0, 0
+  index: -1
+cosmo_all_01_beadeffect_01
+  rotate: false
+  xy: 349, 168
+  size: 161, 160
+  orig: 161, 160
+  offset: 0, 0
+  index: -1
+cosmo_all_01_beadeffect_02
+  rotate: false
+  xy: 346, 16
+  size: 151, 150
+  orig: 151, 150
+  offset: 0, 0
+  index: -1
+cosmo_all_01_beadeffect_03
+  rotate: false
+  xy: 770, 354
+  size: 176, 175
+  orig: 176, 175
+  offset: 0, 0
+  index: -1
+cosmo_all_01_beadeffect_04
+  rotate: false
+  xy: 2, 184
+  size: 345, 345
+  orig: 345, 345
+  offset: 0, 0
+  index: -1
+cosmo_all_01_beadeffect_06
+  rotate: false
+  xy: 596, 5
+  size: 39, 39
+  orig: 39, 39
+  offset: 0, 0
+  index: -1
+cosmo_all_01_beadeffect_07
+  rotate: false
+  xy: 499, 20
+  size: 95, 24
+  orig: 95, 24
+  offset: 0, 0
+  index: -1
+cosmo_all_01_beadeffect_08
+  rotate: true
+  xy: 512, 201
+  size: 127, 107
+  orig: 127, 107
+  offset: 0, 0
+  index: -1
+cosmo_all_01_beadeffect_09
+  rotate: true
+  xy: 863, 237
+  size: 115, 112
+  orig: 115, 112
+  offset: 0, 0
+  index: -1
+cosmo_all_01_beadeffectt_05
+  rotate: true
+  xy: 963, 11
+  size: 52, 45
+  orig: 52, 45
+  offset: 0, 0
+  index: -1
+cosmo_all_01_beadeffectt_06
+  rotate: false
+  xy: 857, 62
+  size: 65, 55
+  orig: 65, 55
+  offset: 0, 0
+  index: -1
+cosmo_all_01_bit
+  rotate: true
+  xy: 857, 2
+  size: 58, 51
+  orig: 58, 51
+  offset: 0, 0
+  index: -1
+cosmo_all_01_body_01
+  rotate: false
+  xy: 499, 46
+  size: 94, 93
+  orig: 94, 93
+  offset: 0, 0
+  index: -1
+cosmo_all_01_body_02
+  rotate: true
+  xy: 562, 359
+  size: 170, 206
+  orig: 170, 206
+  offset: 0, 0
+  index: -1
+cosmo_all_01_fin_01
+  rotate: false
+  xy: 948, 355
+  size: 67, 94
+  orig: 67, 94
+  offset: 0, 0
+  index: -1
+cosmo_all_01_fin_02
+  rotate: false
+  xy: 595, 46
+  size: 77, 50
+  orig: 77, 50
+  offset: 0, 0
+  index: -1
+cosmo_all_01_fin_03
+  rotate: true
+  xy: 619, 98
+  size: 57, 109
+  orig: 57, 109
+  offset: 0, 0
+  index: -1
+cosmo_all_01_fur_01
+  rotate: true
+  xy: 730, 22
+  size: 66, 78
+  orig: 66, 78
+  offset: 0, 0
+  index: -1
+cosmo_all_01_fur_02
+  rotate: false
+  xy: 910, 2
+  size: 51, 58
+  orig: 51, 58
+  offset: 0, 0
+  index: -1
+cosmo_all_01_head_01
+  rotate: true
+  xy: 736, 157
+  size: 74, 96
+  orig: 74, 96
+  offset: 0, 0
+  index: -1
+cosmo_all_01_leg_01
+  rotate: false
+  xy: 977, 291
+  size: 44, 62
+  orig: 44, 62
+  offset: 0, 0
+  index: -1
+cosmo_all_01_leg_02
+  rotate: false
+  xy: 865, 119
+  size: 88, 53
+  orig: 88, 53
+  offset: 0, 0
+  index: -1
+cosmo_all_01_leg_03
+  rotate: false
+  xy: 865, 174
+  size: 82, 61
+  orig: 82, 61
+  offset: 0, 0
+  index: -1
+cosmo_all_01_leg_04
+  rotate: true
+  xy: 948, 451
+  size: 78, 73
+  orig: 78, 73
+  offset: 0, 0
+  index: -1
+cosmo_all_01_sleep_01
+  rotate: false
+  xy: 820, 111
+  size: 35, 35
+  orig: 35, 35
+  offset: 0, 0
+  index: -1
+cosmo_all_01_sleep_02
+  rotate: false
+  xy: 977, 243
+  size: 44, 46
+  orig: 44, 46
+  offset: 0, 0
+  index: -1
+cosmo_all_01_sleep_03
+  rotate: true
+  xy: 730, 90
+  size: 65, 88
+  orig: 65, 88
+  offset: 0, 0
+  index: -1
+cosmo_all_01_wing_01
+  rotate: true
+  xy: 621, 157
+  size: 79, 113
+  orig: 79, 113
+  offset: 0, 0
+  index: -1
+cosmo_all_01_wing_02
+  rotate: true
+  xy: 512, 141
+  size: 58, 105
+  orig: 58, 105
+  offset: 0, 0
+  index: -1
+cosmo_all_01_won
+  rotate: false
+  xy: 349, 330
+  size: 211, 199
+  orig: 211, 199
+  offset: 0, 0
+  index: -1
+cosmo_all_01_won_1
+  rotate: false
+  xy: 2, 2
+  size: 179, 180
+  orig: 179, 180
+  offset: 0, 0
+  index: -1

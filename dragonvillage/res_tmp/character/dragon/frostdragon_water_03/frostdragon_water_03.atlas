@@ -1,0 +1,195 @@
+
+frostdragon_water_03.png
+size: 1893,804
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+frostdragon_water_03_arm_01
+  rotate: false
+  xy: 941, 44
+  size: 140, 152
+  orig: 140, 152
+  offset: 0, 0
+  index: -1
+frostdragon_water_03_arm_02
+  rotate: false
+  xy: 1526, 9
+  size: 91, 134
+  orig: 91, 134
+  offset: 0, 0
+  index: -1
+frostdragon_water_03_body_01
+  rotate: false
+  xy: 796, 198
+  size: 324, 312
+  orig: 324, 312
+  offset: 0, 0
+  index: -1
+frostdragon_water_03_effect_01
+  rotate: false
+  xy: 388, 268
+  size: 406, 184
+  orig: 406, 184
+  offset: 0, 0
+  index: -1
+frostdragon_water_03_effect_02
+  rotate: true
+  xy: 1805, 274
+  size: 106, 74
+  orig: 106, 74
+  offset: 0, 0
+  index: -1
+frostdragon_water_03_effect_03
+  rotate: false
+  xy: 788, 512
+  size: 452, 290
+  orig: 452, 290
+  offset: 0, 0
+  index: -1
+frostdragon_water_03_effect_04
+  rotate: false
+  xy: 2, 4
+  size: 388, 250
+  orig: 388, 250
+  offset: 0, 0
+  index: -1
+frostdragon_water_03_effect_05
+  rotate: false
+  xy: 1312, 310
+  size: 234, 206
+  orig: 234, 206
+  offset: 0, 0
+  index: -1
+frostdragon_water_03_effect_06
+  rotate: true
+  xy: 1689, 210
+  size: 130, 114
+  orig: 130, 114
+  offset: 0, 0
+  index: -1
+frostdragon_water_03_effect_07
+  rotate: false
+  xy: 1720, 102
+  size: 88, 106
+  orig: 88, 106
+  offset: 0, 0
+  index: -1
+frostdragon_water_03_effect_08
+  rotate: true
+  xy: 684, 205
+  size: 61, 109
+  orig: 61, 109
+  offset: 0, 0
+  index: -1
+frostdragon_water_03_effect_09
+  rotate: false
+  xy: 2, 256
+  size: 384, 546
+  orig: 384, 546
+  offset: 0, 0
+  index: -1
+frostdragon_water_03_effect_10
+  rotate: true
+  xy: 1242, 518
+  size: 284, 404
+  orig: 284, 404
+  offset: 0, 0
+  index: -1
+frostdragon_water_03_hand_01
+  rotate: true
+  xy: 1312, 145
+  size: 163, 264
+  orig: 163, 264
+  offset: 0, 0
+  index: -1
+frostdragon_water_03_hand_02
+  rotate: true
+  xy: 1083, 17
+  size: 163, 224
+  orig: 163, 224
+  offset: 0, 0
+  index: -1
+frostdragon_water_03_head_01
+  rotate: false
+  xy: 1309, 4
+  size: 215, 139
+  orig: 215, 139
+  offset: 0, 0
+  index: -1
+frostdragon_water_03_head_02
+  rotate: false
+  xy: 1805, 467
+  size: 86, 83
+  orig: 86, 83
+  offset: 0, 0
+  index: -1
+frostdragon_water_03_head_03
+  rotate: false
+  xy: 1805, 382
+  size: 86, 83
+  orig: 86, 83
+  offset: 0, 0
+  index: -1
+frostdragon_water_03_horn_01
+  rotate: true
+  xy: 1548, 341
+  size: 175, 109
+  orig: 175, 109
+  offset: 0, 0
+  index: -1
+frostdragon_water_03_horn_02
+  rotate: true
+  xy: 1578, 164
+  size: 175, 109
+  orig: 175, 109
+  offset: 0, 0
+  index: -1
+frostdragon_water_03_horn_03
+  rotate: false
+  xy: 1619, 33
+  size: 99, 129
+  orig: 99, 129
+  offset: 0, 0
+  index: -1
+frostdragon_water_03_leg_01
+  rotate: true
+  xy: 684, 20
+  size: 176, 255
+  orig: 176, 255
+  offset: 0, 0
+  index: -1
+frostdragon_water_03_leg_02
+  rotate: false
+  xy: 1659, 342
+  size: 144, 208
+  orig: 144, 208
+  offset: 0, 0
+  index: -1
+frostdragon_water_03_tail_01
+  rotate: true
+  xy: 1648, 552
+  size: 250, 235
+  orig: 250, 235
+  offset: 0, 0
+  index: -1
+frostdragon_water_03_tail_02
+  rotate: true
+  xy: 1122, 182
+  size: 328, 188
+  orig: 328, 188
+  offset: 0, 0
+  index: -1
+frostdragon_water_03_wing_01
+  rotate: false
+  xy: 388, 454
+  size: 398, 348
+  orig: 398, 348
+  offset: 0, 0
+  index: -1
+frostdragon_water_03_wing_02
+  rotate: false
+  xy: 392, 2
+  size: 290, 264
+  orig: 290, 264
+  offset: 0, 0
+  index: -1

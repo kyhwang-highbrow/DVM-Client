@@ -1,0 +1,32 @@
+{
+	"skill_missile_windcutter":
+	{
+		"attack_value":
+		[		
+			{
+				"idx":1,
+				"res":"res/missile/missile_windcutter/missile_windcutter.png",
+				"body":[0,0,80],
+                "count":1,
+				"damage_rate":100,
+                "scale":2,
+                "period":0.1,
+				"speed":500,
+				"accel":1000,
+				"h_limit_speed":900,
+				"accel_delay":0,
+				"angular_velocity":0,
+				"offset":[0,0],
+                "dir_add":0,
+				"missile_type":"pass",
+				
+                "effect":
+                {
+                    "motion_streak":"",
+                    "rotation":false,
+                    "afterimage":true
+                }				
+			}
+		]
+	}
+}

@@ -1,0 +1,10 @@
+page,bg,illustration,char,t_char_name,char_pos,char_ani,char_effect,r_scen,t_text,text_pos,text_type,auto_skip,effect_1,effect_2,effect_3,bgm,bgm_action,sound
+1,,,,,,,,,,,,3,title;속박 속에서도 굽히지 않은 신의,skip_disable,,,,
+2,,,,,,,,,,,,0.3,skip_disable,,,bgm_sorrow,,
+3,챕터6,,데데,,left,idle,,,그 소녀의 신의가 깃든 눈빛으로부터 시작된 변화는,,,,,,,,,
+4,,,,,,,,,아무것도 믿을 수 없었던 사람들 사이에 희망의 빛이 되어 타오르기 시작한다.,,,,,,,,,
+5,,,,,,,,,변화되는 사람들의 모습을 본 작은 용의 마음 한편에 무언가 꿈틀거리기 시작했다.,,,,,,,,,
+6,,,작은 용,,right,idle,,,뭐지...이건...... 뜨거워',,,,,,,,,
+7,,,,,,,,,"조용히 지켜보던 작은 용은 이번에는 먼저 앞장서 날아가기 시작했고,",,narrate,,,,,,,
+8,,,,,,,,,거대한 빛은 조용히 작은 용을 뒤따라가기 시작했다.,,narrate,,,,,,,
+9,,,,,,,,,,,,1,black_in,skip_disable,,,,

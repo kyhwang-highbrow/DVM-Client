@@ -1,0 +1,8 @@
+page,bg,illustration,char,t_char_name,char_pos,char_ani,char_effect,r_scen,t_text,text_pos,text_type,auto_skip,effect_1,effect_2,effect_3,bgm,bgm_action,sound
+1,,,,,,,,,,,,3,title;그리고 가장 큰 희망이 있었다.,skip_disable,,,,
+2,,,,,,,,,,,,0.3,skip_disable,,,bgm_dungeon_special,,
+3,챕터7,,고대신룡,,right,idle,,,시련이 끝났다.,,,,,,,,,
+4,,,고대신룡,,right,idle,,,"작은 빛, 아니 고대신룡은 자신의 안에서 맥동하는 힘을 느꼈다.",,,,,,,,,
+5,,,고대신룡,,right,idle,,,"더이상 자신에게 조언을 해주던 이는 보이지 않았지만, 그는 더이상 망설이지도 헤매이지도 않았다.",,,,,,,,,
+6,,,고대신룡,,right,idle,,,그는 ‘이노’를 향해 날았다. 그곳에 희망을 전해야하기에…,,,,,,,,,
+7,,,,,,,,,,,,1,black_in,skip_disable,,,,

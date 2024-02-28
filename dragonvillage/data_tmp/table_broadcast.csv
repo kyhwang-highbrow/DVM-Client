@@ -1,0 +1,9 @@
+type,t_desc,value1,value2,value3,value4,value5
+dps,{@WHITE}{1}{@DESC}님이 {@YELLOW}고급 소환{@DESC}으로 {@SKILL_NAME}★{2} {3} {@DESC} 획득,nick,grade,did,,
+dhg,{@WHITE}{1}{@DESC}님이 {@YELLOW}드래곤알{@DESC}로 {@SKILL_NAME}★{2} {3} {@DESC} 획득,nick,grade,did,,
+drg,{@WHITE}{1}{@DESC}님이 {@YELLOW}인연 포인트{@DESC}로 {@SKILL_NAME}★{2} {3} {@DESC} 획득,nick,grade,did,,
+rec,{@WHITE}{1}{@DESC}님이 {@SKILL_NAME}★{2} {3} {4} {@DESC}15강 달성,nick,grade,uopt,rid,
+fri,{@WHITE}{1}{@DESC}님이 {@SKILL_NAME}{2}{@DESC} 친밀도 {@SKILL_NAME}일심동체{@DESC} 달성,nick,did,,,
+col,{@WHITE}{1}{@DESC}님이 {@SKILL_NAME}콜로세움 {2}연승{@DESC} 달성,nick,straight,,,
+sec,{@WHITE}{1}{@DESC}님이 {@SKILL_NAME}{2} 인연 던전 {@DESC} 발견,nick,did,,,
+dcg,{@WHITE}{1}{@DESC}님이 {@YELLOW}조합{@DESC}으로 {@SKILL_NAME}★{2} {3} {@DESC}획득,nick,grade,did,,

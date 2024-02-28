@@ -1,0 +1,138 @@
+lang_code,en_name,hive_code,lang_square,display_name,active,translate_file,font_res,font_size_scale,font_scale_rate_x,font_scale_rate_y,is_rtl,ui_priority,sheet_priority
+af,Afrikaans,,,Afrikaans,TRUE,translate/lang_af,noto_sans_regular.ttf,0.8,0.8,0.8,FALSE,1330,0
+ak,Akan,,,Akan,TRUE,translate/lang_ak,noto_sans_regular.ttf,0.8,0.8,0.8,FALSE,1320,0
+sq,Albanian,,,shqiptare,TRUE,translate/lang_sq,noto_sans_regular.ttf,0.8,0.8,0.8,FALSE,1310,0
+am,Amharic,,,አማርኛ,TRUE,translate/lang_am,noto_sans_ethiopic_regular.ttf,0.8,0.8,0.8,FALSE,1300,0
+ar,Arabic,,,عربي,TRUE,translate/lang_ar,ibm_plex_sans_arabic_regular.ttf,1,1,1,TRUE,1290,0
+hy,Armenian,,,հայերեն,TRUE,translate/lang_hy,noto_sans_armenian_regular.ttf,0.8,0.8,0.8,FALSE,1280,0
+as,Assamese,,,অসমীয়া,TRUE,translate/lang_as,noto_sans_bengali_regular.ttf,0.8,0.8,0.8,FALSE,1270,0
+ay,Aymara,,,Aymara,TRUE,translate/lang_ay,noto_sans_regular.ttf,0.8,0.8,0.8,FALSE,1260,0
+az,Azerbaijani,,,Azərbaycan,TRUE,translate/lang_az,noto_sans_regular.ttf,0.8,0.8,0.8,FALSE,1250,0
+bm,Bambara,,,Bamanankan,TRUE,translate/lang_bm,noto_sans_regular.ttf,0.8,0.8,0.8,FALSE,1240,0
+eu,Basque,,,euskara,TRUE,translate/lang_eu,noto_sans_regular.ttf,0.8,0.8,0.8,FALSE,1230,0
+be,Belarusian,,,беларускі,TRUE,translate/lang_be,noto_sans_regular.ttf,0.8,0.8,0.8,FALSE,1220,0
+bn,Bengali,,,বাংলা,TRUE,translate/lang_bn,noto_sans_bengali_regular.ttf,0.8,0.8,0.8,FALSE,1210,0
+bho,Bhojpuri,,,भोजपुरी,TRUE,translate/lang_bho,noto_sans_regular.ttf,0.8,0.8,0.8,FALSE,1200,0
+bs,Bosnian,,,bosanski,TRUE,translate/lang_bs,noto_sans_regular.ttf,0.8,0.8,0.8,FALSE,1190,0
+bg,Bulgarian,,,български,TRUE,translate/lang_bg,noto_sans_regular.ttf,0.8,0.8,0.8,FALSE,1180,0
+ca,Catalan,,,català,TRUE,translate/lang_ca,common_font_01.ttf,1,1,1,FALSE,1170,0
+ceb,Cebuano,,,Cebuano,TRUE,translate/lang_ceb,noto_sans_regular.ttf,0.8,0.8,0.8,FALSE,1160,0
+ny,Chichewa,,,Chichewa,TRUE,translate/lang_ny,noto_sans_regular.ttf,0.8,0.8,0.8,FALSE,1150,0
+zh-TW,Chinese (Traditional),zh-hant,,中文(繁體),TRUE,translate/lang_zhtw,common_font_01_cn.ttc,0.88,0.88,0.98,FALSE,1140,13
+co,Corsican,,,Corsu,TRUE,translate/lang_co,noto_sans_regular.ttf,0.8,0.8,0.8,FALSE,1130,0
+hr,Croatian,,,Hrvatski,TRUE,translate/lang_hr,noto_sans_regular.ttf,0.8,0.8,0.8,FALSE,1120,0
+cs,Czech,,,čeština,TRUE,translate/lang_cs,noto_sans_regular.ttf,0.8,0.8,0.8,FALSE,1110,0
+da,Danish,,,dansk,TRUE,translate/lang_da,common_font_01.ttf,1,1,1,FALSE,1100,0
+dv,Divehi,,,ދިވެހި...,TRUE,translate/lang_dv,noto_sans_thaana_regular.ttf,1,1,1,TRUE,1090,0
+doi,Dogri,,,डोगरी,TRUE,translate/lang_doi,noto_sans_regular.ttf,0.8,0.8,0.8,FALSE,1080,0
+nl,Dutch,,,Nederlands,TRUE,translate/lang_nl,common_font_01.ttf,1,1,1,FALSE,1070,0
+en,English,,,English,TRUE,translate/lang_en,common_font_01.ttf,1,1,1,FALSE,1060,15
+eo,Esperanto,,,Esperanto,TRUE,translate/lang_eo,noto_sans_regular.ttf,0.8,0.8,0.8,FALSE,1050,0
+et,Estonian,,,eesti keel,TRUE,translate/lang_et,noto_sans_regular.ttf,0.8,0.8,0.8,FALSE,1040,0
+ee,Ewe,,,Eʋegbe,TRUE,translate/lang_ee,noto_sans_regular.ttf,0.8,0.8,0.8,FALSE,1030,0
+tl,Filipino,,,Filipino,TRUE,translate/lang_tl,common_font_01.ttf,1,1,1,FALSE,1020,0
+fi,Finnish,,,Suomalainen,TRUE,translate/lang_fi,noto_sans_regular.ttf,0.8,0.8,0.8,FALSE,1010,0
+fr,French,,,Français,TRUE,translate/lang_fr,common_font_01.ttf,1,1,1,FALSE,1000,0
+fy,Frisian,,,Frysk,TRUE,translate/lang_fy,noto_sans_regular.ttf,0.8,0.8,0.8,FALSE,990,0
+gl,Galician,,,galego,TRUE,translate/lang_gl,noto_sans_regular.ttf,0.8,0.8,0.8,FALSE,980,0
+lg,Ganda,,,Ganda,TRUE,translate/lang_lg,noto_sans_regular.ttf,0.8,0.8,0.8,FALSE,970,0
+ka,Georgian,,,ქართული,TRUE,translate/lang_ka,noto_sans_georgian_regular.ttf,0.8,0.8,0.8,FALSE,960,0
+de,German,,,Deutsch,TRUE,translate/lang_de,common_font_01.ttf,1,1,1,FALSE,950,0
+gom,Goan Konkani,,,गोंय कोंकणी,TRUE,translate/lang_gom,noto_sans_regular.ttf,0.8,0.8,0.8,FALSE,940,0
+el,Greek,,,Ελληνικά,TRUE,translate/lang_el,noto_sans_regular.ttf,0.8,0.8,0.8,FALSE,930,0
+gn,Guarani,,,guarani,TRUE,translate/lang_gn,noto_sans_regular.ttf,0.8,0.8,0.8,FALSE,920,0
+gu,Gujarati,,,ગુજરાતી,TRUE,translate/lang_gu,noto_sans_gujarati_regular.ttf,0.8,0.8,0.8,FALSE,910,0
+ht,Haitian Creole,,,Kreyòl ayisyen,TRUE,translate/lang_ht,noto_sans_regular.ttf,0.8,0.8,0.8,FALSE,900,0
+ha,Hausa,,,Hausa,TRUE,translate/lang_ha,noto_sans_regular.ttf,1,1,1,TRUE,890,0
+haw,Hawaiian,,,ʻŌlelo Hawaiʻi,TRUE,translate/lang_haw,noto_sans_regular.ttf,0.8,0.8,0.8,FALSE,880,0
+hi,Hindi,,,हिंदी,TRUE,translate/lang_hi,noto_sans_regular.ttf,0.8,0.8,0.8,FALSE,870,0
+hmn,Hmong,,,Hmoob,TRUE,translate/lang_hmn,noto_sans_regular.ttf,0.8,0.8,0.8,FALSE,860,0
+hu,Hungarian,,,Magyar,TRUE,translate/lang_hu,noto_sans_regular.ttf,0.8,0.8,0.8,FALSE,850,0
+is,Icelandic,,,íslenskur,TRUE,translate/lang_is,noto_sans_regular.ttf,0.8,0.8,0.8,FALSE,840,0
+ig,Igbo,,,Igbo,TRUE,translate/lang_ig,noto_sans_regular.ttf,0.8,0.8,0.8,FALSE,830,0
+ilo,Iloko,,,Iloko,TRUE,translate/lang_ilo,noto_sans_regular.ttf,0.8,0.8,0.8,FALSE,820,0
+id,Indonesian,,,bahasa Indonesia,TRUE,translate/lang_id,common_font_01.ttf,1,1,1,FALSE,810,0
+ga,Irish,,,Gaeilge,TRUE,translate/lang_ga,noto_sans_regular.ttf,0.8,0.8,0.8,FALSE,800,0
+it,Italian,,,Italiano,TRUE,translate/lang_it,common_font_01.ttf,1,1,1,FALSE,790,0
+ja,Japanese,,,日本語,TRUE,translate/lang_jp,common_font_01_ja.ttf,0.88,0.88,1,FALSE,780,14
+kn,Kannada,,,ಕನ್ನಡ,TRUE,translate/lang_kn,noto_sans_kannada_regular.ttf,0.8,0.8,0.8,FALSE,770,0
+kk,Kazakh,,,қазақ,TRUE,translate/lang_kk,noto_sans_regular.ttf,0.8,0.8,0.8,FALSE,760,0
+km,Khmer,,,ខ្មែរ,TRUE,translate/lang_km,noto_sans_khmer_regular.ttf,0.8,0.8,0.8,FALSE,750,0
+rw,Kinyarwanda,,,Kinyarwanda,TRUE,translate/lang_rw,noto_sans_regular.ttf,0.8,0.8,0.8,FALSE,740,0
+ko,Korean,,,한국어,TRUE,,common_font_01.ttf,1,1,1,FALSE,730,0
+kri,Krio,,,Krio,TRUE,translate/lang_kri,noto_sans_regular.ttf,0.8,0.8,0.8,FALSE,720,0
+ku,Kurdish (Kurmanji),,,Kurdî (Kurmancî),TRUE,translate/lang_ku,noto_sans_regular.ttf,0.8,0.8,0.8,FALSE,710,0
+ckb,Kurdish (Sorani),,,کوردی (سۆرانی),TRUE,translate/lang_ckb,ibm_plex_sans_arabic_regular.ttf,1,1,1,TRUE,700,0
+ky,Kyrgyz,,,Кыргызча,TRUE,translate/lang_ky,noto_sans_regular.ttf,0.8,0.8,0.8,FALSE,690,0
+lo,Lao,,,ພາສາລາວ,TRUE,translate/lang_lo,noto_sans_lao_regular.ttf,0.8,0.8,0.8,FALSE,680,0
+la,Latin,,,Latinus,TRUE,translate/lang_la,noto_sans_regular.ttf,0.8,0.8,0.8,FALSE,670,0
+lv,Latvian,,,latviski,TRUE,translate/lang_lv,noto_sans_regular.ttf,0.8,0.8,0.8,FALSE,660,0
+ln,Lingala,,,Lingala,TRUE,translate/lang_ln,noto_sans_regular.ttf,0.8,0.8,0.8,FALSE,650,0
+lt,Lithuanian,,,lietuvių,TRUE,translate/lang_lt,noto_sans_regular.ttf,0.8,0.8,0.8,FALSE,640,0
+lb,Luxembourgish,,,lëtzebuergesch,TRUE,translate/lang_lb,noto_sans_regular.ttf,0.8,0.8,0.8,FALSE,630,0
+mk,Macedonian,,,македонски,TRUE,translate/lang_mk,noto_sans_regular.ttf,0.8,0.8,0.8,FALSE,620,0
+mai,Maithili,,,मैथिली,TRUE,translate/lang_mai,noto_sans_regular.ttf,0.8,0.8,0.8,FALSE,610,0
+mg,Malagasy,,,Malagasy,TRUE,translate/lang_mg,noto_sans_regular.ttf,0.8,0.8,0.8,FALSE,600,0
+ms,Malay,,,Melayu,TRUE,translate/lang_ms,common_font_01.ttf,1,1,1,FALSE,590,0
+ml,Malayalam,,,മലയാളം,TRUE,translate/lang_ml,noto_sans_malayalam_regular.ttf,0.8,0.8,0.8,FALSE,580,0
+mt,Maltese,,,Malti,TRUE,translate/lang_mt,noto_sans_regular.ttf,0.8,0.8,0.8,FALSE,570,0
+mni-Mtei,Manipuri (Meitei Mayek),,,ꯃꯅꯤꯄꯨꯔꯤ (ꯃꯦꯏꯇꯦꯏ ꯃꯌꯦꯛ),TRUE,translate/lang_mni-Mtei,noto_sans_meetei_mayek_regular.ttf,0.8,0.8,0.8,FALSE,560,0
+mi,Maori,,,Maori,TRUE,translate/lang_mi,noto_sans_regular.ttf,0.8,0.8,0.8,FALSE,550,0
+mr,Marathi,,,मराठी,TRUE,translate/lang_mr,noto_sans_regular.ttf,0.8,0.8,0.8,FALSE,540,0
+lus,Mizo,,,Mizo tawng,TRUE,translate/lang_lus,noto_sans_regular.ttf,0.8,0.8,0.8,FALSE,530,0
+mn,Mongolian,,,Монгол,TRUE,translate/lang_mn,noto_sans_regular.ttf,0.8,0.8,0.8,FALSE,520,0
+my,Myanmar (Burmese),,,မြန်မာ (ဗမာ)၊,TRUE,translate/lang_my,padauk_myanmar_regular.ttf,0.8,0.8,0.8,FALSE,510,0
+ne,Nepali,,,नेपाली,TRUE,translate/lang_ne,noto_sans_regular.ttf,0.8,0.8,0.8,FALSE,500,0
+nso,Northern Sotho,,,Sesotho sa Leboa,TRUE,translate/lang_nso,noto_sans_regular.ttf,0.8,0.8,0.8,FALSE,490,0
+no,Norwegian,,,norsk,TRUE,translate/lang_no,common_font_01.ttf,1,1,1,FALSE,480,0
+or,Odia (Oriya),,,ଓଡିଆ (ଓଡିଆ),TRUE,translate/lang_or,noto_sans_oriya_regular.ttf,0.8,0.8,0.8,FALSE,470,0
+om,Oromo,,,Afaan Oromoo,TRUE,translate/lang_om,noto_sans_regular.ttf,0.8,0.8,0.8,FALSE,460,0
+ps,Pashto,,,پښتو,TRUE,translate/lang_ps,ibm_plex_sans_arabic_regular.ttf,1,1,1,TRUE,450,0
+fa,Persian,,,فارسی,TRUE,translate/lang_fa,ibm_plex_sans_arabic_regular.ttf,1,1,1,TRUE,440,10
+pl,Polish,,,Polski,TRUE,translate/lang_pl,noto_sans_regular.ttf,0.8,0.8,0.8,FALSE,430,0
+pt,Portuguese,,,Português,TRUE,translate/lang_pt,common_font_01.ttf,1,1,1,FALSE,420,0
+pa,Punjabi,,,ਪੰਜਾਬੀ,TRUE,translate/lang_pa,noto_sans_gurmukhi_regular.ttf,0.8,0.8,0.8,FALSE,410,0
+qu,Quechua,,,Runasimi,TRUE,translate/lang_qu,noto_sans_regular.ttf,0.8,0.8,0.8,FALSE,400,0
+ro,Romanian,,,Română,TRUE,translate/lang_ro,noto_sans_regular.ttf,0.8,0.8,0.8,FALSE,390,0
+ru,Russian,,,Русский,TRUE,translate/lang_ru,common_font_01.ttf,1,1,1,FALSE,380,0
+sm,Samoan,,,Samoa,TRUE,translate/lang_sm,noto_sans_regular.ttf,0.8,0.8,0.8,FALSE,370,0
+sa,Sanskrit,,,संस्कृत,TRUE,translate/lang_sa,noto_sans_regular.ttf,0.8,0.8,0.8,FALSE,360,0
+gd,Scots Gaelic,,,Gàidhlig na h-Alba,TRUE,translate/lang_gd,noto_sans_regular.ttf,0.8,0.8,0.8,FALSE,350,0
+sr,Serbian,,,Српски,TRUE,translate/lang_sr,noto_sans_regular.ttf,0.8,0.8,0.8,FALSE,340,0
+st,Sesotho,,,Sesotho,TRUE,translate/lang_st,noto_sans_regular.ttf,0.8,0.8,0.8,FALSE,330,0
+sn,Shona,,,Shona,TRUE,translate/lang_sn,noto_sans_regular.ttf,0.8,0.8,0.8,FALSE,320,0
+sd,Sindhi,,,سنڌي,TRUE,translate/lang_sd,ibm_plex_sans_arabic_regular.ttf,1,1,1,TRUE,310,0
+si,Sinhala,,,සිංහල,TRUE,translate/lang_si,noto_sans_sinhala_regular.ttf,0.8,0.8,0.8,FALSE,300,0
+sk,Slovak,,,slovenský,TRUE,translate/lang_sk,noto_sans_regular.ttf,0.8,0.8,0.8,FALSE,290,0
+sl,Slovenian,,,Slovenščina,TRUE,translate/lang_sl,noto_sans_regular.ttf,0.8,0.8,0.8,FALSE,280,0
+so,Somali,,,Soomaali,TRUE,translate/lang_so,noto_sans_regular.ttf,0.8,0.8,0.8,FALSE,270,0
+es,Spanish,,,español,TRUE,translate/lang_es,common_font_01_ja.ttf,0.7,0.75,0.82,FALSE,260,11
+su,Sundanese,,,basa Sunda,TRUE,translate/lang_su,noto_sans_regular.ttf,0.8,0.8,0.8,FALSE,250,0
+sw,Swahili,,,kiswahili,TRUE,translate/lang_sw,noto_sans_regular.ttf,0.8,0.8,0.8,FALSE,240,0
+sv,Swedish,,,svenska,TRUE,translate/lang_sv,common_font_01.ttf,1,1,1,FALSE,230,0
+tg,Tajik,,,тоҷикӣ,TRUE,translate/lang_tg,noto_sans_regular.ttf,0.8,0.8,0.8,FALSE,220,0
+ta,Tamil,,,தமிழ்,TRUE,translate/lang_ta,noto_sans_tamil_regular.ttf,0.8,0.8,0.8,FALSE,210,0
+tt,Tatar,,,Татар,TRUE,translate/lang_tt,noto_sans_regular.ttf,0.8,0.8,0.8,FALSE,200,0
+te,Telugu,,,తెలుగు,TRUE,translate/lang_te,noto_sans_telugu_regular.ttf,0.8,0.8,0.8,FALSE,190,0
+th,Thai,,,ภาษาไทย,TRUE,translate/lang_th,common_font_01_th.ttf,0.8,0.8,0.8,FALSE,180,12
+ti,Tigrinya,,,ትግሪኛ,TRUE,translate/lang_ti,noto_sans_ethiopic_regular.ttf,0.8,0.8,0.8,FALSE,170,0
+ts,Tsonga,,,Tsonga,TRUE,translate/lang_ts,noto_sans_regular.ttf,0.8,0.8,0.8,FALSE,160,0
+tr,Turkish,,,Türkçe,TRUE,translate/lang_tr,noto_sans_regular.ttf,0.8,0.8,0.8,FALSE,150,0
+tk,Turkmen,,,Türkmenler,TRUE,translate/lang_tk,noto_sans_regular.ttf,0.8,0.8,0.8,FALSE,140,0
+uk,Ukrainian,,,українська,TRUE,translate/lang_uk,noto_sans_regular.ttf,0.8,0.8,0.8,FALSE,130,0
+ur,Urdu,,,اردو,TRUE,translate/lang_ur,ibm_plex_sans_arabic_regular.ttf,1,1,1,TRUE,120,0
+ug,Uyghur,,,ئۇيغۇر,TRUE,translate/lang_ug,ibm_plex_sans_arabic_regular.ttf,1,1,1,TRUE,110,0
+uz,Uzbek,,,o'zbek,TRUE,translate/lang_uz,noto_sans_regular.ttf,0.8,0.8,0.8,FALSE,100,0
+vi,Vietnamese,,,Tiếng Việt,TRUE,translate/lang_vi,common_font_01.ttf,1,1,1,FALSE,90,0
+cy,Welsh,,,Cymraeg,TRUE,translate/lang_cy,noto_sans_regular.ttf,0.8,0.8,0.8,FALSE,80,0
+xh,Xhosa,,,isiXhosa,TRUE,translate/lang_xh,noto_sans_regular.ttf,0.8,0.8,0.8,FALSE,70,0
+yi,Yiddish,,,יידיש,TRUE,translate/lang_yi,noto_sans_hebrew_regular.ttf,1,1,1,TRUE,60,0
+yo,Yoruba,,,Yoruba,TRUE,translate/lang_yo,noto_sans_regular.ttf,0.8,0.8,0.8,FALSE,50,0
+zu,Zulu,,,Zulu,TRUE,translate/lang_zu,noto_sans_regular.ttf,0.8,0.8,0.8,FALSE,40,0
+he,Hebrew,,,עִברִית,TRUE,translate/lang_he,noto_sans_hebrew_regular.ttf,1,1,1,TRUE,30,0
+jv,Javanese,,,basa jawa,TRUE,translate/lang_jv,noto_sans_regular.ttf,0.8,0.8,0.8,FALSE,20,0
+zh-CN,Chinese (Simplified),zh-hans,,中文(简体),TRUE,translate/lang_zh-CN,common_font_01_cn.ttc,0.8,0.8,0.8,FALSE,10,0
+Egy Hiero,,,,,FALSE,,noto_sans_egyptian_hieroglyphs_regular.ttf,1,1,1,FALSE,-100,0
+Anatolian Hiero,,,,,FALSE,,noto_sans_anatolian_hieroglyphs_regular.ttf,1,1,1,FALSE,-100,0
+Canadian Syllabics,,,,,FALSE,,noto_sans_canadian_aboriginal_regular.ttf,1,1,1,FALSE,-100,0
+Runic Alphabet,,,,,FALSE,,noto_sans_runic_regular.ttf,1,1,1,FALSE,-100,0

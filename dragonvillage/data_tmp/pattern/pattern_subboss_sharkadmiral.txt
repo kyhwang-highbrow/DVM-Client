@@ -1,0 +1,39 @@
+{
+	"pattern_subboss_sharkadmiral":
+	[			
+		[
+			"a;basic", "w;3", "a;basic", "w;3", "a;1", "w;3"
+		]
+    ],
+	
+	"hp_trriger":
+    {
+        "priority":1,
+        "list":
+        [
+            {
+                "hp_percent":75,
+                "pattern":
+                [
+					"a;2", "w;2", "a;basic", "w;2", "a;basic", "w;2", "a;basic", "w;2", "a;basic", "a;2"
+                ]
+            },
+			
+			{
+                "hp_percent":50,
+                "pattern":
+                [
+					"a;2", "w;2", "a;1", "w;2", "a;basic", "w;2", "a;basic", "w;2", "a;basic"
+                ]
+            },
+			
+            {
+                "hp_percent":25,
+                "pattern":
+                [
+					"a;3", "a;1", "a;2", "w;1", "a;basic", "w;1"
+				]
+            }
+        ]
+    }
+}

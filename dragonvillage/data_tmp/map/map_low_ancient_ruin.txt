@@ -1,0 +1,12 @@
+{
+	"layer":
+    [
+        {
+            "speed":0.8
+            "list":           
+			[
+                {"res":"res/bg/low_mystery_lab/low_mystery_lab.vrp" "animation":"layer_1_a" "width":2560}
+            ]
+        }
+    ]
+}

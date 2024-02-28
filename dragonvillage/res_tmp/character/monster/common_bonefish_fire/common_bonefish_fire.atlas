@@ -1,0 +1,41 @@
+
+common_bonefish_fire.png
+size: 512,512
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+common_bonefish_fire_body_01
+  rotate: false
+  xy: 144, 222
+  size: 158, 144
+  orig: 158, 144
+  offset: 0, 0
+  index: -1
+common_bonefish_fire_body_02
+  rotate: false
+  xy: 304, 314
+  size: 62, 52
+  orig: 62, 52
+  offset: 0, 0
+  index: -1
+common_bonefish_fire_eye_01
+  rotate: false
+  xy: 2, 88
+  size: 38, 38
+  orig: 38, 38
+  offset: 0, 0
+  index: -1
+common_bonefish_fire_eye_02
+  rotate: false
+  xy: 2, 128
+  size: 64, 62
+  orig: 64, 62
+  offset: 0, 0
+  index: -1
+common_bonefish_fire_head_01
+  rotate: false
+  xy: 2, 192
+  size: 140, 174
+  orig: 140, 174
+  offset: 0, 0
+  index: -1

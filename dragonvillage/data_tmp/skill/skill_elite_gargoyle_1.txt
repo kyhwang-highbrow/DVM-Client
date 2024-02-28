@@ -1,0 +1,253 @@
+{
+	"skill_elite_gargoyle_1":
+	{
+		"ver":2,
+		"attack_value":
+		[
+			{
+				"idx":1,
+				"res":"res/missile/missile_bat/missile_bat.vrp",
+				"body":[0,0,30],
+                "count":6,
+				"damage_rate":5,
+                "period":0.5,
+                "scale":1,
+				"time":0,
+				"speed":600,
+				"accel":0,
+				"l_limit_speed":0,
+				"accel_delay":0.1,
+				"angular_velocity":-5,
+				"offset":[0,0],
+				"dir":160,
+				"dir_add":0,
+				
+				
+                "effect":
+                {
+                    "motion_streak":"",
+                    "rotation":false,
+                    "afterimage":false
+                }				
+			},
+			
+			{
+				"idx":1,
+				"res":"res/missile/missile_bat/missile_bat.vrp",
+				"body":[0,0,30],
+                "count":4,
+				"damage_rate":5,
+                "period":0.8,
+                "scale":0.8,
+				"time":0.5,
+				"speed":600,
+				"accel":0,
+				"l_limit_speed":0,
+				"accel_delay":0.1,
+				"angular_velocity":10,
+				"offset":[0,0],
+				"dir":165,
+				"dir_add":0,
+				
+				
+                "effect":
+                {
+                    "motion_streak":"",
+                    "rotation":false,
+                    "afterimage":false
+                }				
+			},
+			
+			{
+				"idx":1,
+				"res":"res/missile/missile_bat/missile_bat.vrp",
+				"body":[0,0,30],
+                "count":4,
+				"damage_rate":5,
+                "period":0.5,
+                "scale":0.8,
+				"time":0.4,
+				"speed":600,
+				"accel":0,
+				"l_limit_speed":0,
+				"accel_delay":0.1,
+				"angular_velocity":-10,
+				"offset":[0,0],
+				"dir":170,
+				"dir_add":0,
+				
+				
+                "effect":
+                {
+                    "motion_streak":"",
+                    "rotation":false,
+                    "afterimage":false
+                }				
+			},
+			
+			{
+				"idx":1,
+				"res":"res/missile/missile_bat/missile_bat.vrp",
+				"body":[0,0,30],
+                "count":8,
+				"damage_rate":5,
+                "period":0.4,
+                "scale":1,
+				"time":0.3,
+				"speed":600,
+				"accel":0,
+				"l_limit_speed":0,
+				"accel_delay":0.1,
+				"angular_velocity":5,
+				"offset":[0,0],
+				"dir":175,
+				"dir_add":0,
+				
+				
+                "effect":
+                {
+                    "motion_streak":"",
+                    "rotation":false,
+                    "afterimage":false
+                }				
+			},
+			
+			{
+				"idx":1,
+				"res":"res/missile/missile_bat/missile_bat.vrp",
+				"body":[0,0,30],
+                "count":8,
+				"damage_rate":5,
+                "period":0.3,
+                "scale":0.7,
+				"time":0.5,
+				"speed":600,
+				"accel":0,
+				"l_limit_speed":0,
+				"accel_delay":0.1,
+				"angular_velocity":-22,
+				"offset":[0,0],
+				"dir":180,
+				"dir_add":0,
+				
+				
+                "effect":
+                {
+                    "motion_streak":"",
+                    "rotation":false,
+                    "afterimage":false
+                }				
+			},
+			
+			{
+				"idx":1,
+				"res":"res/missile/missile_bat/missile_bat.vrp",
+				"body":[0,0,30],
+                "count":6,
+				"damage_rate":5,
+                "period":0.6,
+                "scale":0.7,
+				"time":0.2,
+				"speed":600,
+				"accel":0,
+				"l_limit_speed":0,
+				"accel_delay":0.1,
+				"angular_velocity":-15,
+				"offset":[0,0],
+				"dir":185,
+				"dir_add":0,
+				
+				
+                "effect":
+                {
+                    "motion_streak":"",
+                    "rotation":false,
+                    "afterimage":false
+                }				
+			},
+			
+			{
+				"idx":1,
+				"res":"res/missile/missile_bat/missile_bat.vrp",
+				"body":[0,0,30],
+                "count":6,
+				"damage_rate":5,
+                "period":0.6,
+                "scale":0.5,
+				"time":0.2,
+				"speed":600,
+				"accel":0,
+				"l_limit_speed":0,
+				"accel_delay":0.1,
+				"angular_velocity":-10,
+				"offset":[0,0],
+				"dir":190,
+				"dir_add":0,
+				
+				
+                "effect":
+                {
+                    "motion_streak":"",
+                    "rotation":false,
+                    "afterimage":false
+                }				
+			},
+			
+			{
+				"idx":1,
+				"res":"res/missile/missile_bat/missile_bat.vrp",
+				"body":[0,0,30],
+                "count":4,
+				"damage_rate":5,
+                "period":0.3,
+                "scale":1,
+				"time":0.4,
+				"speed":600,
+				"accel":0,
+				"l_limit_speed":0,
+				"accel_delay":0.1,
+				"angular_velocity":-30,
+				"offset":[0,0],
+				"dir":195,
+				"dir_add":0,
+				
+				
+                "effect":
+                {
+                    "motion_streak":"",
+                    "rotation":false,
+                    "afterimage":false
+                }				
+			},
+			
+			{
+				"idx":1,
+				"res":"res/missile/missile_bat/missile_bat.vrp",
+				"body":[0,0,30],
+                "count":6,
+				"damage_rate":5,
+                "period":0.5,
+                "scale":1,
+				"time":0.3,
+				"speed":600,
+				
+				"accel":0,
+				"l_limit_speed":0,
+				"accel_delay":0.1,
+				"angular_velocity":-20,
+				"offset":[0,0],
+				"dir":200,
+				"dir_add":0,
+				
+				
+                "effect":
+                {
+                    "motion_streak":"",
+                    "rotation":false,
+                    "afterimage":false
+                }				
+			}
+		]
+	}
+}
+

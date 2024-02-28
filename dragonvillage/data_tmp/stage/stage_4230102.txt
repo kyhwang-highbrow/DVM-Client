@@ -1,0 +1,135 @@
+{
+    "difficult":2,
+    "bg":"map_low_volcano",
+	"wave":
+	[
+        {
+            "idx":1,
+			"camera":
+            {
+                "scale":0.8,
+                "pos_x":0,
+                "pos_y":0
+            },
+            "wave":
+            {
+				0:
+				[
+					"133041;1;Appear;RO04;RM24;0.5;roam"
+				]
+            },
+			
+			"regen":
+			[
+				{
+					0:
+					[
+						"131081;1;Appear;RO04;RF11;0.5"
+					]
+				},
+				
+				{
+					0:
+					[
+						"131081;1;Appear;RO04;RF17;0.5"
+					]
+				},
+				
+				{
+					0:
+					[
+						"131081;1;Appear;RO01;RB21;0.5"
+					]
+				},
+				
+				{
+					0:
+					[
+						"131081;1;Appear;RO01;RB27;0.5"
+					]
+				}
+			]
+        },
+        {
+            "idx":2,
+			"camera":
+            {
+                "scale":0.8,
+                "pos_x":0,
+                "pos_y":0
+            },
+			
+            "wave":
+            {
+				0:
+				[
+					"133061;1;Basic;RO02;RM21;1;roam"
+					"133042;1;Basic;RO06;RM27;1;roam"
+				]
+            },
+			
+			"regen":
+			[
+            {
+                0:
+                [
+					"131021;1;Basic2;RF21;RF22;1"
+					"131021;1;Basic2;RF27;RF26;1"
+					"131021;1;Basic2;RM12;RM13;1"
+					"131021;1;Basic2;RM16;RM15;1"
+					"131081;1;Basic2;RF14;RB14;1"
+					"131081;1;Basic2;RB23;RB23;1"
+					"131081;1;Basic2;RB25;RB25;1"
+				]
+            }
+			]
+        },
+		
+        {
+            "idx":3,
+			"camera":
+            {
+                "scale":0.8,
+                "pos_x":0,
+                "pos_y":0
+            },
+			
+			"direction":"boss_wave",
+			
+            "wave":
+            {
+				0:
+				[
+					"134021;1;Basic;BOSS;RM24;2;roam"
+				]
+            },
+			
+			"regen":
+			[
+				{
+					0:
+					[
+						"131021;1;Appear;RO02;RB21;0.5"
+						"131021;1;Appear;RO06;RB27;0.5"
+					]
+				},
+				
+				{
+					0:
+					[
+						"131081;1;Appear;RO02;RM21;0.5"
+						"131081;1;Appear;RO06;RM27;0.5"
+					]
+				},
+				
+				{
+					0:
+					[
+						"131021;1;Appear;RO02;RF21;0.5"
+						"131021;1;Appear;RO06;RF27;0.5"
+					]
+				}
+			]
+        }
+    ]
+}

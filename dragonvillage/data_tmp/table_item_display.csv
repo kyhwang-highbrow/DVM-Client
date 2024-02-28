@@ -1,0 +1,9 @@
+id,target_item_id,target_item_type,t_name,t_desc,icon,inbox_icon_type
+1001,700821,token_story_dungeon,빛의 증거,"이벤트 기간 동안 태초의 빛 이벤트 상점에서 사용할 수 있는 재화, 이벤트 스테이지나 이벤트 업적을 통해 획득할 수 있다.",res/ui/icons/item/token_event_origingoddragon.png,token_event_origingoddragon
+1002,700822,ticket_story_dungeon,태초의 빛 소환권,"이벤트 기간 동안 태초의 빛 소환에 사용할 수 있는 소환권, 낮은 확률이지만, 태초의 고대신룡을 소환할 수 있다고 한다.",res/ui/icons/item/ticket_event_origingoddragon.png,ticket_event_origingoddragon
+1003,700821,token_story_dungeon,어둠의 증거,"이벤트 기간 동안 파멸의 어둠 이벤트 상점에서 사용할 수 있는 재화, 이벤트 스테이지나 이벤트 업적을 통해 획득할 수 있다.",res/ui/icons/item/token_event_origindarknix.png,token_event_origindarknix
+1004,700822,ticket_story_dungeon,파멸의 어둠 소환권,"이벤트 기간 동안 파멸의 어둠 소환에 사용할 수 있는 소환권, 낮은 확률이지만, 파멸의 다크닉스을 소환할 수 있다고 한다.",res/ui/icons/item/ticket_event_origindarknix.png,ticket_event_origindarknix
+1005,700821,token_story_dungeon,번개의 증거,이벤트 기간 동안 전율의 번개 이벤트 상점에서 사용할 수 있는 재화. 이벤트 스테이지나 이벤트 업적을 통해 획득할 수 있다.,res/ui/icons/item/token_event_majesticlightningdragon.png,token_event_majesticlightningdragon
+1006,700822,ticket_story_dungeon,전율의 번개 소환권,"이벤트 기간 동안 전율의 번개 소환에 사용할 수 있는 소환권. 낮은 확률이지만, 전율의 번개고룡을 소환할 수 있다고 한다.",res/ui/icons/item/ticket_event_majesticlightningdragon.png,ticket_event_majesticlightningdragon
+1007,700821,token_story_dungeon,땅의 증거,이벤트 기간 동안 무한의 땅 이벤트 상점에서 사용할 수 있는 재화. 이벤트 스테이지나 이벤트 업적을 통해 획득할 수 있다.,res/ui/icons/item/token_event_infinitepowerdragon.png,token_event_infinitepowerdragon
+1008,700822,ticket_story_dungeon,무한의 땅 소환권,"이벤트 기간 동안 무한의 땅 소환에 사용할 수 있는 소환권. 낮은 확률이지만, 무한의 파워드래곤을 소환할 수 있다고 한다.",res/ui/icons/item/ticket_event_infinitepowerdragon.png,ticket_event_infinitepowerdragon

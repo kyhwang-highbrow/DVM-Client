@@ -1,0 +1,342 @@
+
+dede_i.png
+size: 1777,1037
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+dede_i_acc_01
+  rotate: true
+  xy: 1395, 77
+  size: 86, 101
+  orig: 86, 101
+  offset: 0, 0
+  index: -1
+dede_i_acc_02
+  rotate: false
+  xy: 1498, 62
+  size: 86, 101
+  orig: 86, 101
+  offset: 0, 0
+  index: -1
+dede_i_acc_03
+  rotate: true
+  xy: 1586, 66
+  size: 86, 101
+  orig: 86, 101
+  offset: 0, 0
+  index: -1
+dede_i_acc_04
+  rotate: false
+  xy: 1689, 36
+  size: 86, 101
+  orig: 86, 101
+  offset: 0, 0
+  index: -1
+dede_i_arm_01
+  rotate: false
+  xy: 597, 18
+  size: 141, 171
+  orig: 141, 171
+  offset: 0, 0
+  index: -1
+dede_i_arm_02
+  rotate: false
+  xy: 1124, 282
+  size: 123, 230
+  orig: 123, 230
+  offset: 0, 0
+  index: -1
+dede_i_arm_03
+  rotate: false
+  xy: 1420, 519
+  size: 167, 238
+  orig: 167, 238
+  offset: 0, 0
+  index: -1
+dede_i_belt_01
+  rotate: true
+  xy: 1249, 317
+  size: 208, 167
+  orig: 208, 167
+  offset: 0, 0
+  index: -1
+dede_i_belt_02
+  rotate: false
+  xy: 1589, 154
+  size: 104, 91
+  orig: 104, 91
+  offset: 0, 0
+  index: -1
+dede_i_body_01
+  rotate: true
+  xy: 1275, 759
+  size: 276, 291
+  orig: 276, 291
+  offset: 0, 0
+  index: -1
+dede_i_brow_01
+  rotate: false
+  xy: 665, 193
+  size: 57, 34
+  orig: 57, 34
+  offset: 0, 0
+  index: -1
+dede_i_brow_02
+  rotate: true
+  xy: 1589, 525
+  size: 46, 24
+  orig: 46, 24
+  offset: 0, 0
+  index: -1
+dede_i_cape_01
+  rotate: false
+  xy: 2, 512
+  size: 383, 523
+  orig: 383, 523
+  offset: 0, 0
+  index: -1
+dede_i_cape_02
+  rotate: false
+  xy: 387, 614
+  size: 276, 421
+  orig: 276, 421
+  offset: 0, 0
+  index: -1
+dede_i_cape_03
+  rotate: false
+  xy: 740, 55
+  size: 131, 172
+  orig: 131, 172
+  offset: 0, 0
+  index: -1
+dede_i_eye_01
+  rotate: false
+  xy: 1377, 21
+  size: 66, 54
+  orig: 66, 54
+  offset: 0, 0
+  index: -1
+dede_i_eye_02
+  rotate: false
+  xy: 740, 19
+  size: 43, 34
+  orig: 43, 34
+  offset: 0, 0
+  index: -1
+dede_i_eye_03
+  rotate: false
+  xy: 1586, 10
+  size: 66, 54
+  orig: 66, 54
+  offset: 0, 0
+  index: -1
+dede_i_eye_04
+  rotate: true
+  xy: 1249, 282
+  size: 33, 34
+  orig: 33, 34
+  offset: 0, 0
+  index: -1
+dede_i_eye_05
+  rotate: false
+  xy: 1654, 30
+  size: 33, 34
+  orig: 33, 34
+  offset: 0, 0
+  index: -1
+dede_i_eye_06
+  rotate: false
+  xy: 1445, 41
+  size: 33, 34
+  orig: 33, 34
+  offset: 0, 0
+  index: -1
+dede_i_eye_07
+  rotate: false
+  xy: 1480, 6
+  size: 66, 54
+  orig: 66, 54
+  offset: 0, 0
+  index: -1
+dede_i_eye_08
+  rotate: true
+  xy: 873, 172
+  size: 55, 40
+  orig: 55, 40
+  offset: 0, 0
+  index: -1
+dede_i_fury_01
+  rotate: false
+  xy: 1568, 805
+  size: 198, 230
+  orig: 198, 230
+  offset: 0, 0
+  index: -1
+dede_i_hair_01
+  rotate: false
+  xy: 943, 514
+  size: 275, 264
+  orig: 275, 264
+  offset: 0, 0
+  index: -1
+dede_i_hair_02
+  rotate: false
+  xy: 1618, 247
+  size: 133, 131
+  orig: 133, 131
+  offset: 0, 0
+  index: -1
+dede_i_hair_03
+  rotate: true
+  xy: 202, 13
+  size: 94, 159
+  orig: 94, 159
+  offset: 0, 0
+  index: -1
+dede_i_hair_04
+  rotate: true
+  xy: 1589, 573
+  size: 230, 169
+  orig: 230, 169
+  offset: 0, 0
+  index: -1
+dede_i_hand_01
+  rotate: false
+  xy: 1373, 165
+  size: 106, 120
+  orig: 106, 120
+  offset: 0, 0
+  index: -1
+dede_i_hand_02
+  rotate: false
+  xy: 1481, 165
+  size: 106, 120
+  orig: 106, 120
+  offset: 0, 0
+  index: -1
+dede_i_hand_03
+  rotate: true
+  xy: 1695, 139
+  size: 106, 66
+  orig: 106, 66
+  offset: 0, 0
+  index: -1
+dede_i_happy_01
+  rotate: false
+  xy: 924, 282
+  size: 198, 230
+  orig: 198, 230
+  offset: 0, 0
+  index: -1
+dede_i_head_01
+  rotate: false
+  xy: 1220, 527
+  size: 198, 230
+  orig: 198, 230
+  offset: 0, 0
+  index: -1
+dede_i_head_02
+  rotate: true
+  xy: 1618, 380
+  size: 191, 138
+  orig: 191, 138
+  offset: 0, 0
+  index: -1
+dede_i_iowerbody_01
+  rotate: false
+  xy: 2, 109
+  size: 383, 401
+  orig: 383, 401
+  offset: 0, 0
+  index: -1
+dede_i_iowerbody_02
+  rotate: true
+  xy: 665, 229
+  size: 383, 257
+  orig: 383, 257
+  offset: 0, 0
+  index: -1
+dede_i_neck_01
+  rotate: false
+  xy: 387, 22
+  size: 208, 167
+  orig: 208, 167
+  offset: 0, 0
+  index: -1
+dede_i_reg_01
+  rotate: false
+  xy: 387, 191
+  size: 276, 421
+  orig: 276, 421
+  offset: 0, 0
+  index: -1
+dede_i_reg_02
+  rotate: false
+  xy: 665, 614
+  size: 276, 421
+  orig: 276, 421
+  offset: 0, 0
+  index: -1
+dede_i_shadow_01
+  rotate: false
+  xy: 1156, 86
+  size: 131, 194
+  orig: 131, 194
+  offset: 0, 0
+  index: -1
+dede_i_sholder_01
+  rotate: false
+  xy: 943, 780
+  size: 330, 255
+  orig: 330, 255
+  offset: 0, 0
+  index: -1
+dede_i_sholder_02
+  rotate: false
+  xy: 1289, 87
+  size: 104, 72
+  orig: 104, 72
+  offset: 0, 0
+  index: -1
+dede_i_sholder_03
+  rotate: false
+  xy: 1312, 13
+  size: 63, 72
+  orig: 63, 72
+  offset: 0, 0
+  index: -1
+dede_i_sholder_04
+  rotate: true
+  xy: 1156, 2
+  size: 82, 154
+  orig: 82, 154
+  offset: 0, 0
+  index: -1
+dede_i_sholder_05
+  rotate: false
+  xy: 1289, 161
+  size: 82, 154
+  orig: 82, 154
+  offset: 0, 0
+  index: -1
+dede_i_sorrow_01
+  rotate: false
+  xy: 1418, 287
+  size: 198, 230
+  orig: 198, 230
+  offset: 0, 0
+  index: -1
+dede_i_thought_01
+  rotate: true
+  xy: 924, 82
+  size: 198, 230
+  orig: 198, 230
+  offset: 0, 0
+  index: -1
+dede_i_wepon_01
+  rotate: false
+  xy: 2, 6
+  size: 198, 101
+  orig: 198, 101
+  offset: 0, 0
+  index: -1

@@ -1,0 +1,552 @@
+
+calici_fire_03.png
+size: 1008,1040
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+calici_all_03_acceffect_01
+  rotate: false
+  xy: 659, 58
+  size: 48, 61
+  orig: 48, 61
+  offset: 0, 0
+  index: -1
+calici_all_03_arm_01
+  rotate: false
+  xy: 802, 184
+  size: 55, 80
+  orig: 55, 80
+  offset: 0, 0
+  index: -1
+calici_all_03_arm_02
+  rotate: false
+  xy: 616, 509
+  size: 193, 83
+  orig: 193, 83
+  offset: 0, 0
+  index: -1
+calici_all_03_arm_03
+  rotate: false
+  xy: 616, 442
+  size: 152, 65
+  orig: 152, 65
+  offset: 0, 0
+  index: -1
+calici_all_03_arm_04
+  rotate: false
+  xy: 2, 12
+  size: 130, 179
+  orig: 130, 179
+  offset: 0, 0
+  index: -1
+calici_all_03_arm_05
+  rotate: true
+  xy: 811, 497
+  size: 95, 82
+  orig: 95, 82
+  offset: 0, 0
+  index: -1
+calici_all_03_body_01
+  rotate: true
+  xy: 852, 860
+  size: 178, 128
+  orig: 178, 128
+  offset: 0, 0
+  index: -1
+calici_all_03_ear_01
+  rotate: false
+  xy: 725, 332
+  size: 110, 82
+  orig: 110, 82
+  offset: 0, 0
+  index: -1
+calici_all_03_ear_02
+  rotate: true
+  xy: 799, 72
+  size: 47, 51
+  orig: 47, 51
+  offset: 0, 0
+  index: -1
+calici_all_03_ear_03
+  rotate: true
+  xy: 445, 2
+  size: 92, 63
+  orig: 92, 63
+  offset: 0, 0
+  index: -1
+calici_all_03_effect_01
+  rotate: false
+  xy: 2, 623
+  size: 410, 415
+  orig: 410, 415
+  offset: 0, 0
+  index: -1
+calici_all_03_effect_02
+  rotate: false
+  xy: 319, 90
+  size: 100, 101
+  orig: 100, 101
+  offset: 0, 0
+  index: -1
+calici_all_03_effect_03
+  rotate: true
+  xy: 414, 500
+  size: 196, 200
+  orig: 196, 200
+  offset: 0, 0
+  index: -1
+calici_all_03_eye_01
+  rotate: false
+  xy: 373, 302
+  size: 44, 32
+  orig: 44, 32
+  offset: 0, 0
+  index: -1
+calici_all_03_hair_01
+  rotate: false
+  xy: 859, 185
+  size: 71, 79
+  orig: 71, 79
+  offset: 0, 0
+  index: -1
+calici_all_03_hair_02
+  rotate: false
+  xy: 865, 722
+  size: 105, 136
+  orig: 105, 136
+  offset: 0, 0
+  index: -1
+calici_all_03_hair_03
+  rotate: false
+  xy: 588, 268
+  size: 133, 91
+  orig: 133, 91
+  offset: 0, 0
+  index: -1
+calici_all_03_hair_04
+  rotate: true
+  xy: 865, 598
+  size: 122, 116
+  orig: 122, 116
+  offset: 0, 0
+  index: -1
+calici_all_03_hair_05
+  rotate: true
+  xy: 589, 361
+  size: 79, 134
+  orig: 79, 134
+  offset: 0, 0
+  index: -1
+calici_all_03_hairin_02
+  rotate: true
+  xy: 543, 135
+  size: 50, 46
+  orig: 50, 46
+  offset: 0, 0
+  index: -1
+calici_all_03_hairin_03
+  rotate: false
+  xy: 798, 28
+  size: 43, 42
+  orig: 43, 42
+  offset: 0, 0
+  index: -1
+calici_all_03_hairin_04
+  rotate: true
+  xy: 889, 82
+  size: 40, 38
+  orig: 40, 38
+  offset: 0, 0
+  index: -1
+calici_all_03_hairin_05
+  rotate: true
+  xy: 756, 79
+  size: 46, 41
+  orig: 46, 41
+  offset: 0, 0
+  index: -1
+calici_all_03_halo_01
+  rotate: false
+  xy: 770, 416
+  size: 119, 79
+  orig: 119, 79
+  offset: 0, 0
+  index: -1
+calici_all_03_halo_02
+  rotate: true
+  xy: 359, 193
+  size: 107, 64
+  orig: 107, 64
+  offset: 0, 0
+  index: -1
+calici_all_03_halo_03
+  rotate: false
+  xy: 588, 204
+  size: 109, 62
+  orig: 109, 62
+  offset: 0, 0
+  index: -1
+calici_all_03_halolight_01
+  rotate: true
+  xy: 644, 2
+  size: 54, 51
+  orig: 54, 51
+  offset: 0, 0
+  index: -1
+calici_all_03_hand_01
+  rotate: false
+  xy: 591, 2
+  size: 51, 62
+  orig: 51, 62
+  offset: 0, 0
+  index: -1
+calici_all_03_hand_02
+  rotate: false
+  xy: 697, 5
+  size: 47, 51
+  orig: 47, 51
+  offset: 0, 0
+  index: -1
+calici_all_03_hand_03
+  rotate: false
+  xy: 709, 70
+  size: 45, 53
+  orig: 45, 53
+  offset: 0, 0
+  index: -1
+calici_all_03_hand_04
+  rotate: false
+  xy: 373, 574
+  size: 39, 47
+  orig: 39, 47
+  offset: 0, 0
+  index: -1
+calici_all_03_handacc_01
+  rotate: false
+  xy: 802, 121
+  size: 61, 61
+  orig: 61, 61
+  offset: 0, 0
+  index: -1
+calici_all_03_handacc_02
+  rotate: false
+  xy: 865, 124
+  size: 62, 59
+  orig: 62, 59
+  offset: 0, 0
+  index: -1
+calici_all_03_handacc_03
+  rotate: false
+  xy: 929, 116
+  size: 67, 54
+  orig: 67, 54
+  offset: 0, 0
+  index: -1
+calici_all_03_handacc_04
+  rotate: true
+  xy: 750, 127
+  size: 67, 50
+  orig: 67, 50
+  offset: 0, 0
+  index: -1
+calici_all_03_handline_01
+  rotate: false
+  xy: 837, 334
+  size: 107, 77
+  orig: 107, 77
+  offset: 0, 0
+  index: -1
+calici_all_03_handline_02
+  rotate: false
+  xy: 891, 413
+  size: 114, 80
+  orig: 114, 80
+  offset: 0, 0
+  index: -1
+calici_all_03_handline_03
+  rotate: true
+  xy: 699, 196
+  size: 68, 101
+  orig: 68, 101
+  offset: 0, 0
+  index: -1
+calici_all_03_handline_04
+  rotate: true
+  xy: 723, 266
+  size: 64, 110
+  orig: 64, 110
+  offset: 0, 0
+  index: -1
+calici_all_03_head_01
+  rotate: false
+  xy: 895, 495
+  size: 111, 101
+  orig: 111, 101
+  offset: 0, 0
+  index: -1
+calici_all_03_horn_01
+  rotate: false
+  xy: 368, 2
+  size: 75, 86
+  orig: 75, 86
+  offset: 0, 0
+  index: -1
+calici_all_03_horn_02
+  rotate: false
+  xy: 687, 125
+  size: 61, 69
+  orig: 61, 69
+  offset: 0, 0
+  index: -1
+calici_all_03_jewel_01
+  rotate: false
+  xy: 972, 773
+  size: 32, 40
+  orig: 32, 40
+  offset: 0, 0
+  index: -1
+calici_all_03_jewel_02
+  rotate: true
+  xy: 373, 500
+  size: 33, 39
+  orig: 33, 39
+  offset: 0, 0
+  index: -1
+calici_all_03_jewel_03
+  rotate: false
+  xy: 373, 535
+  size: 39, 37
+  orig: 39, 37
+  offset: 0, 0
+  index: -1
+calici_all_03_jewel_04
+  rotate: true
+  xy: 889, 50
+  size: 30, 38
+  orig: 30, 38
+  offset: 0, 0
+  index: -1
+calici_all_03_jewel_05
+  rotate: true
+  xy: 746, 7
+  size: 33, 36
+  orig: 33, 36
+  offset: 0, 0
+  index: -1
+calici_all_03_jewel_06
+  rotate: true
+  xy: 972, 733
+  size: 38, 32
+  orig: 38, 32
+  offset: 0, 0
+  index: -1
+calici_all_03_jewel_07
+  rotate: true
+  xy: 555, 219
+  size: 39, 31
+  orig: 39, 31
+  offset: 0, 0
+  index: -1
+calici_all_03_jewel_08
+  rotate: false
+  xy: 852, 71
+  size: 35, 48
+  orig: 35, 48
+  offset: 0, 0
+  index: -1
+calici_all_03_jewel_09
+  rotate: false
+  xy: 929, 42
+  size: 47, 35
+  orig: 47, 35
+  offset: 0, 0
+  index: -1
+calici_all_03_jewel_10
+  rotate: false
+  xy: 929, 79
+  size: 49, 35
+  orig: 49, 35
+  offset: 0, 0
+  index: -1
+calici_all_03_jewel_11
+  rotate: true
+  xy: 756, 42
+  size: 35, 40
+  orig: 35, 40
+  offset: 0, 0
+  index: -1
+calici_all_03_jewel_12
+  rotate: false
+  xy: 543, 96
+  size: 38, 37
+  orig: 38, 37
+  offset: 0, 0
+  index: -1
+calici_all_03_jewel_13
+  rotate: true
+  xy: 972, 815
+  size: 43, 33
+  orig: 43, 33
+  offset: 0, 0
+  index: -1
+calici_all_03_jewel_14
+  rotate: false
+  xy: 843, 3
+  size: 37, 31
+  orig: 37, 31
+  offset: 0, 0
+  index: -1
+calici_all_03_jewel_15
+  rotate: false
+  xy: 843, 36
+  size: 37, 33
+  orig: 37, 33
+  offset: 0, 0
+  index: -1
+calici_all_03_leg_01
+  rotate: true
+  xy: 425, 187
+  size: 71, 128
+  orig: 71, 128
+  offset: 0, 0
+  index: -1
+calici_all_03_leg_02
+  rotate: true
+  xy: 469, 260
+  size: 104, 117
+  orig: 104, 117
+  offset: 0, 0
+  index: -1
+calici_all_03_leg_03
+  rotate: true
+  xy: 932, 237
+  size: 95, 74
+  orig: 95, 74
+  offset: 0, 0
+  index: -1
+calici_all_03_leg_04
+  rotate: false
+  xy: 510, 9
+  size: 79, 85
+  orig: 79, 85
+  offset: 0, 0
+  index: -1
+calici_all_03_neck_01
+  rotate: false
+  xy: 373, 336
+  size: 94, 162
+  orig: 94, 162
+  offset: 0, 0
+  index: -1
+calici_all_03_tail_01
+  rotate: false
+  xy: 646, 800
+  size: 204, 238
+  orig: 204, 238
+  offset: 0, 0
+  index: -1
+calici_all_03_tailacc_01
+  rotate: true
+  xy: 425, 272
+  size: 62, 42
+  orig: 62, 42
+  offset: 0, 0
+  index: -1
+calici_all_03_tailfur_01
+  rotate: false
+  xy: 837, 266
+  size: 93, 66
+  orig: 93, 66
+  offset: 0, 0
+  index: -1
+calici_all_03_tailfur_02
+  rotate: false
+  xy: 421, 96
+  size: 120, 89
+  orig: 120, 89
+  offset: 0, 0
+  index: -1
+calici_all_03_tailfur_03
+  rotate: false
+  xy: 2, 193
+  size: 355, 107
+  orig: 355, 107
+  offset: 0, 0
+  index: -1
+calici_all_03_tailfur_04
+  rotate: false
+  xy: 284, 2
+  size: 82, 86
+  orig: 82, 86
+  offset: 0, 0
+  index: -1
+calici_all_03_tailline_01
+  rotate: false
+  xy: 134, 90
+  size: 183, 101
+  orig: 183, 101
+  offset: 0, 0
+  index: -1
+calici_all_03_tailline_02
+  rotate: false
+  xy: 134, 2
+  size: 148, 86
+  orig: 148, 86
+  offset: 0, 0
+  index: -1
+calici_all_03_underhair_02
+  rotate: true
+  xy: 932, 172
+  size: 63, 72
+  orig: 63, 72
+  offset: 0, 0
+  index: -1
+calici_all_03_underhair_03
+  rotate: false
+  xy: 591, 121
+  size: 94, 81
+  orig: 94, 81
+  offset: 0, 0
+  index: -1
+calici_all_03_underhair_04
+  rotate: true
+  xy: 946, 350
+  size: 61, 60
+  orig: 61, 60
+  offset: 0, 0
+  index: -1
+calici_all_03_underhair_05
+  rotate: false
+  xy: 591, 66
+  size: 66, 53
+  orig: 66, 53
+  offset: 0, 0
+  index: -1
+calici_all_03_wing_01
+  rotate: false
+  xy: 646, 594
+  size: 217, 204
+  orig: 217, 204
+  offset: 0, 0
+  index: -1
+calici_all_03_wing_02
+  rotate: false
+  xy: 2, 302
+  size: 369, 319
+  orig: 369, 319
+  offset: 0, 0
+  index: -1
+calici_all_03_wing_03
+  rotate: false
+  xy: 469, 366
+  size: 118, 132
+  orig: 118, 132
+  offset: 0, 0
+  index: -1
+calici_all_03_wing_04
+  rotate: false
+  xy: 414, 698
+  size: 230, 340
+  orig: 230, 340
+  offset: 0, 0
+  index: -1

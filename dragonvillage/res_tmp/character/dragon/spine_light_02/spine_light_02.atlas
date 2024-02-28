@@ -1,0 +1,132 @@
+
+spine_light_02.png
+size: 743,535
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+spine_light_02_arm_01
+  rotate: false
+  xy: 305, 8
+  size: 115, 107
+  orig: 115, 107
+  offset: 0, 0
+  index: -1
+spine_light_02_arm_02
+  rotate: true
+  xy: 2, 3
+  size: 83, 105
+  orig: 83, 105
+  offset: 0, 0
+  index: -1
+spine_light_02_body_01
+  rotate: false
+  xy: 2, 88
+  size: 194, 176
+  orig: 194, 176
+  offset: 0, 0
+  index: -1
+spine_light_02_body_05
+  rotate: false
+  xy: 630, 281
+  size: 111, 93
+  orig: 111, 93
+  offset: 0, 0
+  index: -1
+spine_light_02_eff_01
+  rotate: true
+  xy: 2, 266
+  size: 267, 327
+  orig: 267, 327
+  offset: 0, 0
+  index: -1
+spine_light_02_eye_01
+  rotate: false
+  xy: 109, 27
+  size: 63, 59
+  orig: 63, 59
+  offset: 0, 0
+  index: -1
+spine_light_02_hand_01
+  rotate: true
+  xy: 513, 271
+  size: 103, 115
+  orig: 103, 115
+  offset: 0, 0
+  index: -1
+spine_light_02_hand_02
+  rotate: false
+  xy: 198, 2
+  size: 105, 117
+  orig: 105, 117
+  offset: 0, 0
+  index: -1
+spine_light_02_head_01
+  rotate: false
+  xy: 513, 376
+  size: 136, 157
+  orig: 136, 157
+  offset: 0, 0
+  index: -1
+spine_light_02_leg_01
+  rotate: false
+  xy: 651, 409
+  size: 87, 124
+  orig: 87, 124
+  offset: 0, 0
+  index: -1
+spine_light_02_leg_02
+  rotate: false
+  xy: 647, 155
+  size: 87, 124
+  orig: 87, 124
+  offset: 0, 0
+  index: -1
+spine_light_02_leg_03
+  rotate: false
+  xy: 647, 29
+  size: 87, 124
+  orig: 87, 124
+  offset: 0, 0
+  index: -1
+spine_light_02_leg_04
+  rotate: true
+  xy: 454, 5
+  size: 87, 124
+  orig: 87, 124
+  offset: 0, 0
+  index: -1
+spine_light_02_mouth_01
+  rotate: true
+  xy: 422, 78
+  size: 37, 30
+  orig: 37, 30
+  offset: 0, 0
+  index: -1
+spine_light_02_wing_01
+  rotate: false
+  xy: 198, 121
+  size: 108, 143
+  orig: 108, 143
+  offset: 0, 0
+  index: -1
+spine_light_02_wing_02
+  rotate: true
+  xy: 308, 117
+  size: 146, 191
+  orig: 146, 191
+  offset: 0, 0
+  index: -1
+spine_light_02_wing_03
+  rotate: false
+  xy: 501, 94
+  size: 144, 169
+  orig: 144, 169
+  offset: 0, 0
+  index: -1
+spine_light_02_wing_05
+  rotate: false
+  xy: 331, 265
+  size: 180, 268
+  orig: 180, 268
+  offset: 0, 0
+  index: -1

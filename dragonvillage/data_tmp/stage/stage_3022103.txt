@@ -1,0 +1,34 @@
+{
+    "difficult":2,
+    "bg":"map_forest_sp",
+	"wave":
+	[	
+        {
+            "idx":1,
+			"camera":
+            {
+                "scale":0.8,
+                "pos_x":0,
+                "pos_y":0
+            },
+            "direction":"boss_wave",
+            "wave":
+            {				
+				0:
+				[
+					"203001;1;Basic;BOSS;RB23;0.5;roam"
+					"203002;1;Basic;BOSS;RM26;0.5;roam"
+				]
+            },
+			
+			"regen":
+			[
+				{
+					0:
+					[
+					]
+				}
+			]
+        }
+    ]
+}

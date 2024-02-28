@@ -1,0 +1,116 @@
+gid,type,order,weight,did,res,t_desc,min_level,max_level
+8001,patch,1,,,res/ui/loading_tip/loading_01.png,,,
+8002,patch,2,,,res/ui/loading_tip/loading_02.png,,,
+8003,patch,3,,,res/ui/loading_tip/loading_03.png,,,
+8004,patch,4,,,res/ui/loading_tip/loading_04.png,,,
+8005,patch,5,,,res/ui/loading_tip/tamer_select.png,드래곤 빌리지M에 등장하는 테이머들은 각각의 방법으로 드래곤들의 전투를 돕습니다.,,
+8006,patch,6,,,res/ui/loading_tip/dragon_evolution.png,"거대용 던전에서 진화 재료를 모으면 드래곤을 진화시킬 수 있습니다.
+진화한 드래곤은 모습이 변할 뿐만 아니라, 새로운 스킬을 배웁니다.",,
+8007,patch,7,,,res/ui/loading_tip/tamer_costume.png,"테이머 선택 화면에서 테이머 코스튬을 구매하고 변경할 수 있습니다.
+마을에서 개성을 뽐내 보세요!",,
+1001,in_adventure,,10,,res/ui/loading_tip/fomation_change.png,"드래곤들의 진형에 따라 전투의 결과가 달라질 수 있습니다.
+보유하신 드래곤들에게 가장 잘 어울리는 진형을 골라보세요!",,
+1002,in_adventure,,10,,res/ui/loading_tip/dargon_upgrade.png,"동일한 등급의 드래곤들의 도움을 받으면, 드래곤의 등급을 올릴 수 있습니다.
+등급을 올리기 위해서는 현재 등급의 수만큼의 드래곤의 도움이 필요합니다.",,
+1003,in_adventure,,10,,res/ui/loading_tip/dragon_evolution.png,"거대용 던전에서 진화 재료를 모으면 드래곤을 진화시킬 수 있습니다.
+진화한 드래곤은 모습이 멋지게 변할 뿐만 아니라, 새로운 스킬을 배웁니다.",,
+1004,in_adventure,,10,,res/ui/loading_tip/dragon_levelup.png,드래곤 경험치를 사용해 드래곤을 성장시켜 보세요!,,
+1005,in_adventure,,10,,res/ui/loading_tip/dragon_skill_enhance.png,동일한 이름의 드래곤의 도움을 받으면 해당 드래곤이 가진 스킬 중 하나가 무작위로 강화됩니다.,,
+1006,in_adventure,,10,,res/ui/loading_tip/friendship_fruit.png,"드래곤들은 자신의 속성에 따라 식성이 다릅니다.
+테이머님이 좋아하는 드래곤은 어떤 열매가 취향일까요?",,
+1007,in_adventure,,10,,res/ui/loading_tip/rune_enhance.png,룬을 강화하면 룬의 능력이 상승합니다.,,
+1008,in_adventure,,10,,res/ui/loading_tip/rune_grade.png,"높은 등급의 룬은 드래곤에게 엄청난 능력을 제공합니다.
+전투가 힘들어질 땐 드래곤에게 룬을 선물해보세요! ",,
+1009,in_adventure,,10,,res/ui/loading_tip/rune_rairty.png,높은 희귀도의 룬은 더 좋은 부 옵션을 가질 수도 있습니다.,,
+1010,in_adventure,,10,,res/ui/loading_tip/rune_set.png,색깔이 같은 룬을 정해진 만큼 한 드래곤이 장착하면 세트 효과가 발동합니다.,,
+1011,in_adventure,,10,,res/ui/loading_tip/tamer_select.png,드래곤 빌리지M에 등장하는 테이머들은 각각의 방법으로 드래곤들의 전투를 돕습니다.,,
+1012,in_adventure,,10,,res/ui/loading_tip/tamer_skill_enhance.png,"테이머의 스킬을 강화하여, 전투를 더욱 유리하게 진행할 수 있습니다.",,
+1013,in_adventure,,10,,res/ui/loading_tip/tamer_costume.png,"테이머 선택 화면에서 테이머 코스튬을 구매하고 변경할 수 있습니다.
+마을에서 개성을 뽐내 보세요!",,
+1014,in_adventure,,10,,res/ui/loading_tip/dargon_skill_drag.png,"알고 계셨나요? 드래그 스킬은 터치만으로 발동이 가능합니다. 
+대상은 자동으로 조준됩니다. 간편하게 원하는 스킬을 사용해 보세요.",,
+1015,in_adventure,,10,,res/ui/loading_tip/dragon_guide_attr.png,"땅,물,불,빛,어둠 5개의 속성은 서로 상성 관계를 가집니다.
+적에 대해 유리한 속성의 드래곤으로 공격하면 효과적입니다.",1,20
+1016,in_adventure,,10,,res/ui/loading_tip/dragon_guide_role.png,"드래곤은 능력에 따라 공격형, 방어형, 회복형, 지원형으로 역할이 나뉩니다.",1,20
+1017,in_adventure,,10,,res/ui/loading_tip/dragon_guide_rarity.png,"드래곤의 희귀도는 일반, 희귀, 영웅, 전설, 신화로 나뉩니다.
+희귀도가 높을 수록 좋은 능력과 스킬을 가집니다.",1,20
+2101,in_nest_es,,10,,res/ui/loading_tip/fomation_change.png,"드래곤들의 진형에 따라 전투의 결과가 달라질 수 있습니다.
+보유하신 드래곤들에게 가장 잘 어울리는 진형을 골라보세요!",,
+2102,in_nest_es,,10,,res/ui/loading_tip/dargon_upgrade.png,"동일한 등급의 드래곤들의 도움을 받으면, 드래곤의 등급을 올릴 수 있습니다.
+등급을 올리기 위해서는 현재 등급의 수만큼의 드래곤의 도움이 필요합니다.",,
+2103,in_nest_es,,10,,res/ui/loading_tip/dragon_evolution.png,"거대용 던전에서 진화 재료를 모으면 드래곤을 진화시킬 수 있습니다.
+진화한 드래곤은 모습이 변할 뿐만 아니라, 새로운 스킬을 배웁니다.",,
+2104,in_nest_es,,10,,res/ui/loading_tip/dragon_levelup.png,드래곤 경험치를 사용해 드래곤을 성장시켜 보세요!,,
+2105,in_nest_es,,10,,res/ui/loading_tip/tamer_costume.png,"테이머 선택 화면에서 테이머 코스튬을 구매하고 변경할 수 있습니다.
+마을에서 개성을 뽐내 보세요!",,
+2106,in_nest_es,,10,,res/ui/loading_tip/dargon_skill_drag.png,"알고 계셨나요? 드래그 스킬은 터치만으로 발동이 가능합니다. 
+대상은 자동으로 조준됩니다. 간편하게 원하는 스킬을 사용해 보세요.",,
+2107,in_nest_es,,10,,res/ui/loading_tip/dragon_guide_attr.png,"땅,물,불,빛,어둠 5개의 속성은 서로 상성 관계를 가집니다.
+적에 대해 유리한 속성의 드래곤으로 공격하면 효과적입니다.",1,20
+2108,in_nest_es,,10,,res/ui/loading_tip/dragon_guide_role.png,"드래곤은 능력에 따라 공격형, 방어형, 회복형, 지원형으로 역할이 나뉩니다.",1,20
+2109,in_nest_es,,10,,res/ui/loading_tip/dragon_guide_rarity.png,"드래곤의 희귀도는 일반, 희귀, 영웅, 전설, 신화로 나뉩니다.
+희귀도가 높을 수록 좋은 능력과 스킬을 가집니다.",1,20
+2201,in_nest_tr,,10,,res/ui/loading_tip/dragon_skill_enhance.png,"동일한 이름의 드래곤의 도움을 받으면 
+해당 드래곤이 가진 스킬 중 하나가 무작위로 강화됩니다.",,
+2202,in_nest_tr,,10,,res/ui/loading_tip/friendship_fruit.png,"드래곤들은 자신의 속성에 따라 식성이 다릅니다.
+테이머님이 좋아하는 드래곤은 어떤 열매가 취향일까요?",,
+2203,in_nest_tr,,10,,res/ui/loading_tip/rune_enhance.png,룬을 강화하면 룬의 능력이 상승합니다.,,
+2204,in_nest_tr,,10,,res/ui/loading_tip/rune_grade.png,"높은 등급의 룬은 드래곤에게 엄청난 능력을 제공합니다.
+전투가 힘들어질 땐 드래곤에게 룬을 선물해보세요! ",,
+2205,in_nest_tr,,10,,res/ui/loading_tip/rune_rairty.png,높은 희귀도의 룬은 더 좋은 부 옵션을 가질 수도 있습니다.,,
+2206,in_nest_tr,,10,,res/ui/loading_tip/tamer_costume.png,"테이머 선택 화면에서 테이머 코스튬을 구매하고 변경할 수 있습니다.
+마을에서 개성을 뽐내 보세요!",,
+2207,in_nest_tr,,10,,res/ui/loading_tip/dargon_skill_drag.png,"알고 계셨나요? 드래그 스킬은 터치만으로 발동이 가능합니다. 
+대상은 자동으로 조준됩니다. 간편하게 원하는 스킬을 사용해 보세요.",,
+2208,in_nest_tr,,10,,res/ui/loading_tip/dragon_guide_attr.png,"땅,물,불,빛,어둠 5개의 속성은 서로 상성 관계를 가집니다.
+적에 대해 유리한 속성의 드래곤으로 공격하면 효과적입니다.",1,20
+2209,in_nest_tr,,10,,res/ui/loading_tip/dragon_guide_role.png,"드래곤은 능력에 따라 공격형, 방어형, 회복형, 지원형으로 역할이 나뉩니다.",1,20
+2210,in_nest_tr,,10,,res/ui/loading_tip/dragon_guide_rarity.png,"드래곤의 희귀도는 일반, 희귀, 영웅, 전설, 신화로 나뉩니다.
+희귀도가 높을 수록 좋은 능력과 스킬을 가집니다.",1,20
+2301,in_nest_nm,,10,,res/ui/loading_tip/rune_grade.png,"높은 등급의 룬은 드래곤에게 엄청난 능력을 제공합니다.
+전투가 힘들어질 땐 드래곤에게 룬을 선물해보세요! ",,
+2302,in_nest_nm,,10,,res/ui/loading_tip/rune_rairty.png,높은 희귀도의 룬은 더 좋은 부 옵션을 가질 수도 있습니다.,,
+2303,in_nest_nm,,10,,res/ui/loading_tip/rune_set.png,색깔이 같은 룬을 정해진 만큼 한 드래곤이 장착하면 세트 효과가 발동합니다.,,
+2304,in_nest_nm,,10,,res/ui/loading_tip/tamer_select.png,드래곤 빌리지M에 등장하는 테이머들은 각각의 방법으로 드래곤들의 전투를 돕습니다.,,
+2305,in_nest_nm,,10,,res/ui/loading_tip/tamer_skill_enhance.png,"테이머의 스킬을 강화하여, 전투를 더욱 유리하게 진행할 수 있습니다.",,
+2306,in_nest_nm,,10,,res/ui/loading_tip/tamer_costume.png,"테이머 선택 화면에서 테이머 코스튬을 구매하고 변경할 수 있습니다.
+마을에서 개성을 뽐내 보세요!",,
+2307,in_nest_nm,,10,,res/ui/loading_tip/dargon_skill_drag.png,"알고 계셨나요? 드래그 스킬은 터치만으로 발동이 가능합니다. 
+대상은 자동으로 조준됩니다. 간편하게 원하는 스킬을 사용해 보세요.",,
+2308,in_nest_nm,,10,,res/ui/loading_tip/dragon_guide_attr.png,"땅,물,불,빛,어둠 5개의 속성은 서로 상성 관계를 가집니다.
+적에 대해 유리한 속성의 드래곤으로 공격하면 효과적입니다.",1,20
+2309,in_nest_nm,,10,,res/ui/loading_tip/dragon_guide_role.png,"드래곤은 능력에 따라 공격형, 방어형, 회복형, 지원형으로 역할이 나뉩니다.",1,20
+2310,in_nest_nm,,10,,res/ui/loading_tip/dragon_guide_rarity.png,"드래곤의 희귀도는 일반, 희귀, 영웅, 전설, 신화로 나뉩니다.
+희귀도가 높을 수록 좋은 능력과 스킬을 가집니다.",1,20
+2401,in_nest_go,,10,,res/ui/loading_tip/dragon_evolution.png,"거대용 던전에서 진화 재료를 모으면 드래곤을 진화시킬 수 있습니다.
+진화한 드래곤은 모습이 변할 뿐만 아니라, 새로운 스킬을 배웁니다.",,
+2402,in_nest_go,,10,,res/ui/loading_tip/dragon_levelup.png,드래곤 경험치를 사용해 드래곤을 성장시켜 보세요!,,
+2403,in_nest_go,,10,,res/ui/loading_tip/dragon_skill_enhance.png,동일한 이름의 드래곤의 도움을 받으면 해당 드래곤이 가진 스킬 중 하나가 무작위로 강화됩니다.,,
+2404,in_nest_go,,10,,res/ui/loading_tip/friendship_fruit.png,"드래곤들은 자신의 속성에 따라 식성이 다릅니다.
+테이머님이 좋아하는 드래곤은 어떤 열매가 취향일까요?",,
+2405,in_nest_go,,10,,res/ui/loading_tip/rune_enhance.png,룬을 강화하면 룬의 능력이 상승합니다.,,
+2406,in_nest_go,,10,,res/ui/loading_tip/tamer_costume.png,"테이머 선택 화면에서 테이머 코스튬을 구매하고 변경할 수 있습니다.
+마을에서 개성을 뽐내 보세요!",,
+2407,in_nest_go,,10,,res/ui/loading_tip/dargon_skill_drag.png,"알고 계셨나요? 드래그 스킬은 터치만으로 발동이 가능합니다. 
+대상은 자동으로 조준됩니다. 간편하게 원하는 스킬을 사용해 보세요.",,
+2501,in_nest_ar,,10,,res/ui/loading_tip/dungeon_ancient_ruin1.png,"고대 유적 던전은 보스의 생명력을 계속 해서 회복 시켜 주는 '드론'이 등장하기 때문에
+드론을 재빨리 파괴하거나, 회복량 감소 효과를 사용하는 것이 중요합니다.",,
+2502,in_nest_ar,,10,,res/ui/loading_tip/dungeon_ancient_ruin2.png,"엑스 마키나가 강력한 화염 방사 공격을 준비할때
+약점을 공격해 피해를 주면 기술을 취소 시킬수 있습니다.",,
+9001,all,,10,,res/ui/loading_tip/dragon_evolution.png,"거대용 던전에서 진화 재료를 모으면 드래곤을 진화시킬 수 있습니다.
+진화한 드래곤은 모습이 변할 뿐만 아니라, 새로운 스킬을 배웁니다.",,
+9002,all,,10,,res/ui/loading_tip/dragon_skill_enhance.png,동일한 이름의 드래곤의 도움을 받으면 해당 드래곤이 가진 스킬 중 하나가 무작위로 강화됩니다.,,
+9003,all,,10,,res/ui/loading_tip/tamer_select.png,드래곤 빌리지M에 등장하는 테이머들은 각각의 방법으로 드래곤들의 전투를 돕습니다.,,
+9004,all,,10,,res/ui/loading_tip/fomation_change.png,"드래곤들의 진형에 따라 전투의 결과가 달라질 수 있습니다.
+보유하신 드래곤들에게 가장 잘 어울리는 진형을 골라보세요!",,
+9005,all,,10,,res/ui/loading_tip/tamer_costume.png,"테이머 선택 화면에서 테이머 코스튬을 구매하고 변경할 수 있습니다.
+마을에서 개성을 뽐내 보세요!",,
+9006,all,,10,,res/ui/loading_tip/dargon_skill_drag.png,"알고 계셨나요? 드래그 스킬은 터치만으로 발동이 가능합니다. 
+대상은 자동으로 조준됩니다. 간편하게 원하는 스킬을 사용해 보세요.",,
+9007,all,,10,,res/ui/loading_tip/dragon_guide_attr.png,"땅,물,불,빛,어둠 5개의 속성은 서로 상성 관계를 가집니다.
+적에 대해 유리한 속성의 드래곤으로 공격하면 효과적입니다.",1,20
+9008,all,,10,,res/ui/loading_tip/dragon_guide_role.png,"드래곤은 능력에 따라 공격형, 방어형, 회복형, 지원형으로 역할이 나뉩니다.",1,20
+9009,all,,10,,res/ui/loading_tip/dragon_guide_rarity.png,"드래곤의 희귀도는 일반, 희귀, 영웅, 전설, 신화로 나뉩니다.
+희귀도가 높을 수록 좋은 능력과 스킬을 가집니다.",1,20
+3001,in_tutorial_battle,,10,,res/ui/loading_tip/loading_01.png,,,
+3002,in_tutorial_lobby,,10,,res/ui/loading_tip/loading_02.png,,,

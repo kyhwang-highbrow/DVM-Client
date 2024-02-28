@@ -1,0 +1,97 @@
+
+witchdragon_light_01.png
+size: 461,543
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+witchdragon_light_1_body_1
+  rotate: false
+  xy: 2, 49
+  size: 168, 230
+  orig: 168, 230
+  offset: 0, 0
+  index: -1
+witchdragon_light_1_eff_4
+  rotate: true
+  xy: 224, 225
+  size: 149, 155
+  orig: 149, 155
+  offset: 0, 0
+  index: -1
+witchdragon_light_1_eff_5
+  rotate: false
+  xy: 2, 281
+  size: 220, 260
+  orig: 220, 260
+  offset: 0, 0
+  index: -1
+witchdragon_light_1_eye_1
+  rotate: true
+  xy: 78, 10
+  size: 37, 57
+  orig: 37, 57
+  offset: 0, 0
+  index: -1
+witchdragon_light_1_hair_1
+  rotate: false
+  xy: 362, 3
+  size: 50, 93
+  orig: 50, 93
+  offset: 0, 0
+  index: -1
+witchdragon_light_1_hair_2
+  rotate: false
+  xy: 172, 88
+  size: 148, 135
+  orig: 148, 135
+  offset: 0, 0
+  index: -1
+witchdragon_light_1_hair_3
+  rotate: false
+  xy: 283, 6
+  size: 77, 80
+  orig: 77, 80
+  offset: 0, 0
+  index: -1
+witchdragon_light_1_head_1
+  rotate: false
+  xy: 224, 376
+  size: 158, 165
+  orig: 158, 165
+  offset: 0, 0
+  index: -1
+witchdragon_light_1_leg_1
+  rotate: false
+  xy: 381, 228
+  size: 78, 146
+  orig: 78, 146
+  offset: 0, 0
+  index: -1
+witchdragon_light_1_leg_2
+  rotate: false
+  xy: 384, 388
+  size: 65, 153
+  orig: 65, 153
+  offset: 0, 0
+  index: -1
+witchdragon_light_1_leg_3
+  rotate: true
+  xy: 172, 18
+  size: 68, 109
+  orig: 68, 109
+  offset: 0, 0
+  index: -1
+witchdragon_light_1_leg_4
+  rotate: false
+  xy: 322, 98
+  size: 104, 125
+  orig: 104, 125
+  offset: 0, 0
+  index: -1
+witchdragon_light_1_tail_1
+  rotate: false
+  xy: 2, 2
+  size: 74, 45
+  orig: 74, 45
+  offset: 0, 0
+  index: -1

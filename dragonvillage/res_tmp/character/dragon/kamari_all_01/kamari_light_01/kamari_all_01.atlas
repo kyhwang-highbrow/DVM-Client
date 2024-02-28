@@ -1,0 +1,370 @@
+
+kamari_all_01.png
+size: 1024,512
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+kamari_all_01_arm_01
+  rotate: false
+  xy: 436, 2
+  size: 62, 73
+  orig: 62, 73
+  offset: 0, 0
+  index: -1
+kamari_all_01_arm_02
+  rotate: false
+  xy: 799, 301
+  size: 77, 58
+  orig: 77, 58
+  offset: 0, 0
+  index: -1
+kamari_all_01_arm_03_01
+  rotate: false
+  xy: 652, 123
+  size: 72, 61
+  orig: 72, 61
+  offset: 0, 0
+  index: -1
+kamari_all_01_arm_03_02
+  rotate: true
+  xy: 922, 236
+  size: 30, 35
+  orig: 30, 35
+  offset: 0, 0
+  index: -1
+kamari_all_01_body
+  rotate: true
+  xy: 380, 167
+  size: 83, 120
+  orig: 83, 120
+  offset: 0, 0
+  index: -1
+kamari_all_01_d_body
+  rotate: true
+  xy: 652, 64
+  size: 57, 68
+  orig: 57, 68
+  offset: 0, 0
+  index: -1
+kamari_all_01_d_effect_00
+  rotate: true
+  xy: 2, 5
+  size: 174, 187
+  orig: 174, 187
+  offset: 0, 0
+  index: -1
+kamari_all_01_d_effect_01
+  rotate: true
+  xy: 191, 25
+  size: 154, 44
+  orig: 154, 44
+  offset: 0, 0
+  index: -1
+kamari_all_01_d_effect_02
+  rotate: false
+  xy: 250, 171
+  size: 128, 79
+  orig: 128, 79
+  offset: 0, 0
+  index: -1
+kamari_all_01_d_effect_03
+  rotate: true
+  xy: 436, 77
+  size: 88, 86
+  orig: 88, 86
+  offset: 0, 0
+  index: -1
+kamari_all_01_d_effect_04
+  rotate: false
+  xy: 726, 120
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+kamari_all_01_d_tail
+  rotate: true
+  xy: 237, 19
+  size: 43, 95
+  orig: 43, 95
+  offset: 0, 0
+  index: -1
+kamari_all_01_d_wing
+  rotate: false
+  xy: 966, 264
+  size: 36, 36
+  orig: 36, 36
+  offset: 0, 0
+  index: -1
+kamari_all_01_ear
+  rotate: true
+  xy: 524, 79
+  size: 88, 74
+  orig: 88, 74
+  offset: 0, 0
+  index: -1
+kamari_all_01_earing_01
+  rotate: true
+  xy: 876, 237
+  size: 31, 44
+  orig: 31, 44
+  offset: 0, 0
+  index: -1
+kamari_all_01_earing_02
+  rotate: true
+  xy: 925, 268
+  size: 38, 39
+  orig: 38, 39
+  offset: 0, 0
+  index: -1
+kamari_all_01_effect_01
+  rotate: false
+  xy: 2, 181
+  size: 246, 329
+  orig: 246, 329
+  offset: 0, 0
+  index: -1
+kamari_all_01_effect_02
+  rotate: false
+  xy: 250, 252
+  size: 257, 258
+  orig: 257, 258
+  offset: 0, 0
+  index: -1
+kamari_all_01_effect_02_light
+  rotate: true
+  xy: 500, 2
+  size: 58, 51
+  orig: 58, 51
+  offset: 0, 0
+  index: -1
+kamari_all_01_effect_03_01
+  rotate: false
+  xy: 799, 361
+  size: 73, 73
+  orig: 73, 73
+  offset: 0, 0
+  index: -1
+kamari_all_01_effect_03_02
+  rotate: true
+  xy: 600, 29
+  size: 56, 50
+  orig: 56, 50
+  offset: 0, 0
+  index: -1
+kamari_all_01_effect_03_03
+  rotate: false
+  xy: 237, 64
+  size: 104, 105
+  orig: 104, 105
+  offset: 0, 0
+  index: -1
+kamari_all_01_effect_back_light
+  rotate: false
+  xy: 343, 73
+  size: 91, 92
+  orig: 91, 92
+  offset: 0, 0
+  index: -1
+kamari_all_01_effect_circle
+  rotate: false
+  xy: 874, 371
+  size: 139, 139
+  orig: 139, 139
+  offset: 0, 0
+  index: -1
+kamari_all_01_effect_light_01_01
+  rotate: true
+  xy: 722, 62
+  size: 56, 65
+  orig: 56, 65
+  offset: 0, 0
+  index: -1
+kamari_all_01_effect_light_01_02
+  rotate: false
+  xy: 792, 181
+  size: 84, 49
+  orig: 84, 49
+  offset: 0, 0
+  index: -1
+kamari_all_01_effect_light_01_03
+  rotate: false
+  xy: 502, 169
+  size: 81, 53
+  orig: 81, 53
+  offset: 0, 0
+  index: -1
+kamari_all_01_effect_won
+  rotate: false
+  xy: 509, 364
+  size: 148, 146
+  orig: 148, 146
+  offset: 0, 0
+  index: -1
+kamari_all_01_egg_01_01
+  rotate: false
+  xy: 652, 18
+  size: 55, 44
+  orig: 55, 44
+  offset: 0, 0
+  index: -1
+kamari_all_01_egg_01_02
+  rotate: false
+  xy: 878, 198
+  size: 37, 37
+  orig: 37, 37
+  offset: 0, 0
+  index: -1
+kamari_all_01_egg_02
+  rotate: false
+  xy: 585, 170
+  size: 61, 52
+  orig: 61, 52
+  offset: 0, 0
+  index: -1
+kamari_all_01_egg_etc
+  rotate: true
+  xy: 766, 10
+  size: 50, 46
+  orig: 50, 46
+  offset: 0, 0
+  index: -1
+kamari_all_01_egg_eye
+  rotate: true
+  xy: 959, 236
+  size: 26, 31
+  orig: 26, 31
+  offset: 0, 0
+  index: -1
+kamari_all_01_etc
+  rotate: true
+  xy: 865, 129
+  size: 50, 46
+  orig: 50, 46
+  offset: 0, 0
+  index: -1
+kamari_all_01_eye_01_01
+  rotate: false
+  xy: 865, 91
+  size: 45, 36
+  orig: 45, 36
+  offset: 0, 0
+  index: -1
+kamari_all_01_eye_01_02
+  rotate: false
+  xy: 878, 270
+  size: 45, 36
+  orig: 45, 36
+  offset: 0, 0
+  index: -1
+kamari_all_01_eye_01_03
+  rotate: false
+  xy: 917, 200
+  size: 28, 34
+  orig: 28, 34
+  offset: 0, 0
+  index: -1
+kamari_all_01_eye_02
+  rotate: false
+  xy: 334, 2
+  size: 28, 23
+  orig: 28, 23
+  offset: 0, 0
+  index: -1
+kamari_all_01_eye_03
+  rotate: true
+  xy: 364, 2
+  size: 23, 22
+  orig: 23, 22
+  offset: 0, 0
+  index: -1
+kamari_all_01_eye_04
+  rotate: true
+  xy: 394, 26
+  size: 45, 36
+  orig: 45, 36
+  offset: 0, 0
+  index: -1
+kamari_all_01_eyebrow
+  rotate: false
+  xy: 343, 27
+  size: 49, 44
+  orig: 49, 44
+  offset: 0, 0
+  index: -1
+kamari_all_01_head_01
+  rotate: false
+  xy: 659, 310
+  size: 138, 124
+  orig: 138, 124
+  offset: 0, 0
+  index: -1
+kamari_all_01_head_02
+  rotate: true
+  xy: 656, 186
+  size: 122, 134
+  orig: 122, 134
+  offset: 0, 0
+  index: -1
+kamari_all_01_leg_01
+  rotate: false
+  xy: 792, 232
+  size: 82, 67
+  orig: 82, 67
+  offset: 0, 0
+  index: -1
+kamari_all_01_leg_02
+  rotate: false
+  xy: 878, 308
+  size: 88, 61
+  orig: 88, 61
+  offset: 0, 0
+  index: -1
+kamari_all_01_necklace_01
+  rotate: false
+  xy: 792, 121
+  size: 71, 58
+  orig: 71, 58
+  offset: 0, 0
+  index: -1
+kamari_all_01_necklace_02
+  rotate: true
+  xy: 553, 2
+  size: 60, 43
+  orig: 60, 43
+  offset: 0, 0
+  index: -1
+kamari_all_01_necklace_03
+  rotate: false
+  xy: 709, 10
+  size: 55, 50
+  orig: 55, 50
+  offset: 0, 0
+  index: -1
+kamari_all_01_sparkle_01
+  rotate: false
+  xy: 509, 224
+  size: 145, 138
+  orig: 145, 138
+  offset: 0, 0
+  index: -1
+kamari_all_01_tail
+  rotate: true
+  xy: 659, 436
+  size: 74, 213
+  orig: 74, 213
+  offset: 0, 0
+  index: -1
+kamari_all_01_wing_01
+  rotate: true
+  xy: 600, 87
+  size: 81, 50
+  orig: 81, 50
+  offset: 0, 0
+  index: -1
+kamari_all_01_wing_02
+  rotate: false
+  xy: 968, 302
+  size: 46, 67
+  orig: 46, 67
+  offset: 0, 0
+  index: -1

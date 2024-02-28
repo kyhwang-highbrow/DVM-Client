@@ -1,0 +1,181 @@
+
+pinkbell_light_02.png
+size: 251,1054
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+pinkbell_light_02_arm_01
+  rotate: false
+  xy: 109, 678
+  size: 65, 65
+  orig: 65, 65
+  offset: 0, 0
+  index: -1
+pinkbell_light_02_arm_02
+  rotate: false
+  xy: 176, 621
+  size: 65, 65
+  orig: 65, 65
+  offset: 0, 0
+  index: -1
+pinkbell_light_02_body_01
+  rotate: true
+  xy: 2, 308
+  size: 126, 155
+  orig: 126, 155
+  offset: 0, 0
+  index: -1
+pinkbell_light_02_body_02
+  rotate: true
+  xy: 161, 398
+  size: 102, 77
+  orig: 102, 77
+  offset: 0, 0
+  index: -1
+pinkbell_light_02_body_03
+  rotate: false
+  xy: 178, 688
+  size: 69, 64
+  orig: 69, 64
+  offset: 0, 0
+  index: -1
+pinkbell_light_02_effect_01
+  rotate: false
+  xy: 2, 45
+  size: 105, 139
+  orig: 105, 139
+  offset: 0, 0
+  index: -1
+pinkbell_light_02_eye_01
+  rotate: true
+  xy: 159, 256
+  size: 57, 62
+  orig: 57, 62
+  offset: 0, 0
+  index: -1
+pinkbell_light_02_eye_02
+  rotate: false
+  xy: 109, 66
+  size: 57, 62
+  orig: 57, 62
+  offset: 0, 0
+  index: -1
+pinkbell_light_02_eye_03
+  rotate: false
+  xy: 109, 2
+  size: 57, 62
+  orig: 57, 62
+  offset: 0, 0
+  index: -1
+pinkbell_light_02_eye_04
+  rotate: true
+  xy: 168, 71
+  size: 57, 62
+  orig: 57, 62
+  offset: 0, 0
+  index: -1
+pinkbell_light_02_eyebrow_01
+  rotate: false
+  xy: 168, 7
+  size: 57, 62
+  orig: 57, 62
+  offset: 0, 0
+  index: -1
+pinkbell_light_02_foot_01
+  rotate: false
+  xy: 178, 979
+  size: 62, 73
+  orig: 62, 73
+  offset: 0, 0
+  index: -1
+pinkbell_light_02_foot_02
+  rotate: true
+  xy: 176, 502
+  size: 50, 73
+  orig: 50, 73
+  offset: 0, 0
+  index: -1
+pinkbell_light_02_foot_03
+  rotate: false
+  xy: 178, 904
+  size: 62, 73
+  orig: 62, 73
+  offset: 0, 0
+  index: -1
+pinkbell_light_02_foot_04
+  rotate: false
+  xy: 178, 829
+  size: 62, 73
+  orig: 62, 73
+  offset: 0, 0
+  index: -1
+pinkbell_light_02_hand_01
+  rotate: false
+  xy: 109, 611
+  size: 65, 65
+  orig: 65, 65
+  offset: 0, 0
+  index: -1
+pinkbell_light_02_hand_02
+  rotate: false
+  xy: 176, 554
+  size: 65, 65
+  orig: 65, 65
+  offset: 0, 0
+  index: -1
+pinkbell_light_02_head_01
+  rotate: false
+  xy: 2, 186
+  size: 124, 120
+  orig: 124, 120
+  offset: 0, 0
+  index: -1
+pinkbell_light_02_head_02
+  rotate: true
+  xy: 159, 315
+  size: 81, 89
+  orig: 81, 89
+  offset: 0, 0
+  index: -1
+pinkbell_light_02_head_03
+  rotate: true
+  xy: 128, 130
+  size: 124, 120
+  orig: 124, 120
+  offset: 0, 0
+  index: -1
+pinkbell_light_02_leg_01
+  rotate: false
+  xy: 178, 754
+  size: 62, 73
+  orig: 62, 73
+  offset: 0, 0
+  index: -1
+pinkbell_light_02_leg_02
+  rotate: false
+  xy: 109, 469
+  size: 50, 73
+  orig: 50, 73
+  offset: 0, 0
+  index: -1
+pinkbell_light_02_mouth_01
+  rotate: false
+  xy: 109, 544
+  size: 65, 65
+  orig: 65, 65
+  offset: 0, 0
+  index: -1
+pinkbell_light_02_wing_01
+  rotate: false
+  xy: 2, 745
+  size: 174, 307
+  orig: 174, 307
+  offset: 0, 0
+  index: -1
+pinkbell_light_02_wing_02
+  rotate: false
+  xy: 2, 436
+  size: 105, 307
+  orig: 105, 307
+  offset: 0, 0
+  index: -1

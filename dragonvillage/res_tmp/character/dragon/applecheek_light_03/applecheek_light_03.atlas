@@ -1,0 +1,181 @@
+
+applecheek_light_03.png
+size: 849,320
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+applecheek_light_03_apple_01
+  rotate: false
+  xy: 553, 36
+  size: 104, 111
+  orig: 104, 111
+  offset: 0, 0
+  index: -1
+applecheek_light_03_arm_01
+  rotate: true
+  xy: 777, 216
+  size: 50, 42
+  orig: 50, 42
+  offset: 0, 0
+  index: -1
+applecheek_light_03_arm_02
+  rotate: true
+  xy: 723, 2
+  size: 40, 42
+  orig: 40, 42
+  offset: 0, 0
+  index: -1
+applecheek_light_03_body_01
+  rotate: true
+  xy: 450, 197
+  size: 121, 115
+  orig: 121, 115
+  offset: 0, 0
+  index: -1
+applecheek_light_03_body_03
+  rotate: true
+  xy: 764, 64
+  size: 89, 73
+  orig: 89, 73
+  offset: 0, 0
+  index: -1
+applecheek_light_03_eff_01
+  rotate: false
+  xy: 326, 149
+  size: 122, 169
+  orig: 122, 169
+  offset: 0, 0
+  index: -1
+applecheek_light_03_eff_02
+  rotate: false
+  xy: 767, 7
+  size: 55, 55
+  orig: 55, 55
+  offset: 0, 0
+  index: -1
+applecheek_light_03_eff_05
+  rotate: true
+  xy: 2, 4
+  size: 314, 322
+  orig: 314, 322
+  offset: 0, 0
+  index: -1
+applecheek_light_03_eff_06
+  rotate: false
+  xy: 553, 5
+  size: 39, 29
+  orig: 39, 29
+  offset: 0, 0
+  index: -1
+applecheek_light_03_eff_07
+  rotate: false
+  xy: 567, 214
+  size: 103, 104
+  orig: 103, 104
+  offset: 0, 0
+  index: -1
+applecheek_light_03_eff_08
+  rotate: false
+  xy: 672, 214
+  size: 103, 104
+  orig: 103, 104
+  offset: 0, 0
+  index: -1
+applecheek_light_03_eff_09
+  rotate: false
+  xy: 659, 44
+  size: 103, 104
+  orig: 103, 104
+  offset: 0, 0
+  index: -1
+applecheek_light_03_eye_01
+  rotate: false
+  xy: 514, 149
+  size: 46, 46
+  orig: 46, 46
+  offset: 0, 0
+  index: -1
+applecheek_light_03_eye_02
+  rotate: false
+  xy: 562, 149
+  size: 46, 46
+  orig: 46, 46
+  offset: 0, 0
+  index: -1
+applecheek_light_03_foot_01
+  rotate: true
+  xy: 669, 3
+  size: 39, 52
+  orig: 39, 52
+  offset: 0, 0
+  index: -1
+applecheek_light_03_foot_02
+  rotate: true
+  xy: 796, 173
+  size: 41, 51
+  orig: 41, 51
+  offset: 0, 0
+  index: -1
+applecheek_light_03_hand_01
+  rotate: false
+  xy: 450, 153
+  size: 62, 42
+  orig: 62, 42
+  offset: 0, 0
+  index: -1
+applecheek_light_03_hand_02
+  rotate: false
+  xy: 594, 5
+  size: 39, 29
+  orig: 39, 29
+  offset: 0, 0
+  index: -1
+applecheek_light_03_head_01
+  rotate: false
+  xy: 326, 3
+  size: 115, 144
+  orig: 115, 144
+  offset: 0, 0
+  index: -1
+applecheek_light_03_head_02
+  rotate: false
+  xy: 635, 2
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+applecheek_light_03_leg_01
+  rotate: true
+  xy: 777, 268
+  size: 50, 68
+  orig: 50, 68
+  offset: 0, 0
+  index: -1
+applecheek_light_03_leg_02
+  rotate: true
+  xy: 726, 155
+  size: 57, 68
+  orig: 57, 68
+  offset: 0, 0
+  index: -1
+applecheek_light_03_mouth_01
+  rotate: true
+  xy: 821, 238
+  size: 28, 19
+  orig: 28, 19
+  offset: 0, 0
+  index: -1
+applecheek_light_03_wing_01
+  rotate: false
+  xy: 443, 10
+  size: 108, 137
+  orig: 108, 137
+  offset: 0, 0
+  index: -1
+applecheek_light_03_wing_02
+  rotate: true
+  xy: 610, 150
+  size: 62, 114
+  orig: 62, 114
+  offset: 0, 0
+  index: -1

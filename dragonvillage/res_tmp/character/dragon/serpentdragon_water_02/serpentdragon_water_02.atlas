@@ -1,0 +1,90 @@
+
+serpentdragon_water_02.png
+size: 698,237
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+serpentdragon_water_02_body_01
+  rotate: true
+  xy: 2, 4
+  size: 231, 277
+  orig: 231, 277
+  offset: 0, 0
+  index: -1
+serpentdragon_water_02_body_02
+  rotate: false
+  xy: 281, 59
+  size: 159, 176
+  orig: 159, 176
+  offset: 0, 0
+  index: -1
+serpentdragon_water_02_eye_01
+  rotate: true
+  xy: 416, 30
+  size: 27, 20
+  orig: 27, 20
+  offset: 0, 0
+  index: -1
+serpentdragon_water_02_eye_02
+  rotate: false
+  xy: 416, 8
+  size: 27, 20
+  orig: 27, 20
+  offset: 0, 0
+  index: -1
+serpentdragon_water_02_eye_03
+  rotate: false
+  xy: 281, 2
+  size: 2, 2
+  orig: 2, 2
+  offset: 0, 0
+  index: -1
+serpentdragon_water_02_head_01
+  rotate: false
+  xy: 560, 108
+  size: 136, 127
+  orig: 136, 127
+  offset: 0, 0
+  index: -1
+serpentdragon_water_02_head_02
+  rotate: false
+  xy: 383, 23
+  size: 31, 34
+  orig: 31, 34
+  offset: 0, 0
+  index: -1
+serpentdragon_water_02_head_03
+  rotate: false
+  xy: 281, 6
+  size: 60, 51
+  orig: 60, 51
+  offset: 0, 0
+  index: -1
+serpentdragon_water_02_head_06
+  rotate: false
+  xy: 445, 10
+  size: 68, 58
+  orig: 68, 58
+  offset: 0, 0
+  index: -1
+serpentdragon_water_02_tail_01
+  rotate: true
+  xy: 343, 8
+  size: 49, 38
+  orig: 49, 38
+  offset: 0, 0
+  index: -1
+serpentdragon_water_02_wing_01
+  rotate: true
+  xy: 442, 70
+  size: 165, 116
+  orig: 165, 116
+  offset: 0, 0
+  index: -1
+serpentdragon_water_02_wing_02
+  rotate: false
+  xy: 560, 8
+  size: 127, 98
+  orig: 127, 98
+  offset: 0, 0
+  index: -1

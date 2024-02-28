@@ -1,0 +1,12 @@
+{
+	"layer":
+    [
+        {
+            "speed":0
+			"list":
+			[
+                {"res":"res/bg/illusion/illusion.vrp" "animation":"idle" "pos_x":640 "pos_y":100}
+            ]
+        }
+    ]
+}

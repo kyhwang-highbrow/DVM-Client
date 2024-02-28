@@ -1,0 +1,216 @@
+
+lambgon_dark_01.png
+size: 549,282
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+lambgon_dark_01_arm_01
+  rotate: false
+  xy: 511, 104
+  size: 36, 46
+  orig: 36, 46
+  offset: 0, 0
+  index: -1
+lambgon_dark_01_arm_02
+  rotate: false
+  xy: 236, 4
+  size: 42, 42
+  orig: 42, 42
+  offset: 0, 0
+  index: -1
+lambgon_dark_01_body_01
+  rotate: false
+  xy: 2, 125
+  size: 126, 155
+  orig: 126, 155
+  offset: 0, 0
+  index: -1
+lambgon_dark_01_body_02
+  rotate: false
+  xy: 124, 49
+  size: 77, 67
+  orig: 77, 67
+  offset: 0, 0
+  index: -1
+lambgon_dark_01_effect_01
+  rotate: false
+  xy: 2, 3
+  size: 120, 120
+  orig: 120, 120
+  offset: 0, 0
+  index: -1
+lambgon_dark_01_effect_05
+  rotate: false
+  xy: 400, 17
+  size: 30, 29
+  orig: 30, 29
+  offset: 0, 0
+  index: -1
+lambgon_dark_01_effect_06
+  rotate: false
+  xy: 388, 97
+  size: 60, 57
+  orig: 60, 57
+  offset: 0, 0
+  index: -1
+lambgon_dark_01_effect_07
+  rotate: true
+  xy: 503, 54
+  size: 41, 34
+  orig: 41, 34
+  offset: 0, 0
+  index: -1
+lambgon_dark_01_effect_08
+  rotate: false
+  xy: 324, 10
+  size: 41, 34
+  orig: 41, 34
+  offset: 0, 0
+  index: -1
+lambgon_dark_01_eye_01
+  rotate: false
+  xy: 370, 156
+  size: 84, 33
+  orig: 84, 33
+  offset: 0, 0
+  index: -1
+lambgon_dark_01_eye_02
+  rotate: false
+  xy: 130, 118
+  size: 84, 33
+  orig: 84, 33
+  offset: 0, 0
+  index: -1
+lambgon_dark_01_eye_03
+  rotate: false
+  xy: 216, 118
+  size: 84, 33
+  orig: 84, 33
+  offset: 0, 0
+  index: -1
+lambgon_dark_01_eye_04
+  rotate: false
+  xy: 302, 118
+  size: 84, 33
+  orig: 84, 33
+  offset: 0, 0
+  index: -1
+lambgon_dark_01_eye_05
+  rotate: false
+  xy: 353, 83
+  size: 33, 33
+  orig: 33, 33
+  offset: 0, 0
+  index: -1
+lambgon_dark_01_eye_06
+  rotate: true
+  xy: 503, 23
+  size: 29, 30
+  orig: 29, 30
+  offset: 0, 0
+  index: -1
+lambgon_dark_01_foot_01
+  rotate: true
+  xy: 203, 48
+  size: 68, 73
+  orig: 68, 73
+  offset: 0, 0
+  index: -1
+lambgon_dark_01_foot_02
+  rotate: true
+  xy: 278, 48
+  size: 68, 73
+  orig: 68, 73
+  offset: 0, 0
+  index: -1
+lambgon_dark_01_hand_01
+  rotate: true
+  xy: 483, 152
+  size: 53, 59
+  orig: 53, 59
+  offset: 0, 0
+  index: -1
+lambgon_dark_01_hand_02
+  rotate: true
+  xy: 450, 97
+  size: 53, 59
+  orig: 53, 59
+  offset: 0, 0
+  index: -1
+lambgon_dark_01_head_01
+  rotate: false
+  xy: 370, 191
+  size: 111, 89
+  orig: 111, 89
+  offset: 0, 0
+  index: -1
+lambgon_dark_01_head_03
+  rotate: false
+  xy: 447, 42
+  size: 54, 53
+  orig: 54, 53
+  offset: 0, 0
+  index: -1
+lambgon_dark_01_head_06
+  rotate: false
+  xy: 124, 2
+  size: 56, 45
+  orig: 56, 45
+  offset: 0, 0
+  index: -1
+lambgon_dark_01_head_07
+  rotate: false
+  xy: 353, 46
+  size: 31, 35
+  orig: 31, 35
+  offset: 0, 0
+  index: -1
+lambgon_dark_01_head_08
+  rotate: false
+  xy: 367, 9
+  size: 31, 35
+  orig: 31, 35
+  offset: 0, 0
+  index: -1
+lambgon_dark_01_head_09
+  rotate: false
+  xy: 182, 11
+  size: 52, 35
+  orig: 52, 35
+  offset: 0, 0
+  index: -1
+lambgon_dark_01_head_10
+  rotate: false
+  xy: 280, 11
+  size: 42, 35
+  orig: 42, 35
+  offset: 0, 0
+  index: -1
+lambgon_dark_01_leg_01
+  rotate: false
+  xy: 483, 207
+  size: 61, 73
+  orig: 61, 73
+  offset: 0, 0
+  index: -1
+lambgon_dark_01_leg_02
+  rotate: true
+  xy: 388, 48
+  size: 47, 57
+  orig: 47, 57
+  offset: 0, 0
+  index: -1
+lambgon_dark_01_weapon_01
+  rotate: false
+  xy: 130, 153
+  size: 118, 127
+  orig: 118, 127
+  offset: 0, 0
+  index: -1
+lambgon_dark_01_weapon_02
+  rotate: false
+  xy: 250, 153
+  size: 118, 127
+  orig: 118, 127
+  offset: 0, 0
+  index: -1

@@ -1,0 +1,174 @@
+
+taildragon_fire_02.png
+size: 338,1034
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+taildragon_fire_02_arm_01
+  rotate: true
+  xy: 237, 712
+  size: 61, 89
+  orig: 61, 89
+  offset: 0, 0
+  index: -1
+taildragon_fire_02_arm_02
+  rotate: true
+  xy: 237, 837
+  size: 60, 90
+  orig: 60, 90
+  offset: 0, 0
+  index: -1
+taildragon_fire_02_body_01
+  rotate: true
+  xy: 2, 196
+  size: 173, 190
+  orig: 173, 190
+  offset: 0, 0
+  index: -1
+taildragon_fire_02_eye_01
+  rotate: false
+  xy: 285, 208
+  size: 49, 39
+  orig: 49, 39
+  offset: 0, 0
+  index: -1
+taildragon_fire_02_eye_02
+  rotate: false
+  xy: 285, 167
+  size: 49, 39
+  orig: 49, 39
+  offset: 0, 0
+  index: -1
+taildragon_fire_02_eye_03
+  rotate: true
+  xy: 175, 2
+  size: 49, 39
+  orig: 49, 39
+  offset: 0, 0
+  index: -1
+taildragon_fire_02_foot_01
+  rotate: true
+  xy: 204, 360
+  size: 66, 103
+  orig: 66, 103
+  offset: 0, 0
+  index: -1
+taildragon_fire_02_foot_02
+  rotate: true
+  xy: 175, 118
+  size: 67, 78
+  orig: 67, 78
+  offset: 0, 0
+  index: -1
+taildragon_fire_02_hair_01
+  rotate: true
+  xy: 216, 7
+  size: 44, 60
+  orig: 44, 60
+  offset: 0, 0
+  index: -1
+taildragon_fire_02_hair_02
+  rotate: true
+  xy: 194, 250
+  size: 40, 100
+  orig: 40, 100
+  offset: 0, 0
+  index: -1
+taildragon_fire_02_hand_01
+  rotate: true
+  xy: 194, 187
+  size: 61, 89
+  orig: 61, 89
+  offset: 0, 0
+  index: -1
+taildragon_fire_02_hand_02
+  rotate: true
+  xy: 237, 775
+  size: 60, 90
+  orig: 60, 90
+  offset: 0, 0
+  index: -1
+taildragon_fire_02_head_01
+  rotate: true
+  xy: 204, 591
+  size: 119, 130
+  orig: 119, 130
+  offset: 0, 0
+  index: -1
+taildragon_fire_02_head_02
+  rotate: true
+  xy: 296, 249
+  size: 41, 40
+  orig: 41, 40
+  offset: 0, 0
+  index: -1
+taildragon_fire_02_head_03
+  rotate: false
+  xy: 255, 102
+  size: 68, 63
+  orig: 68, 63
+  offset: 0, 0
+  index: -1
+taildragon_fire_02_head_04
+  rotate: false
+  xy: 175, 53
+  size: 68, 63
+  orig: 68, 63
+  offset: 0, 0
+  index: -1
+taildragon_fire_02_leg_01
+  rotate: true
+  xy: 194, 292
+  size: 66, 103
+  orig: 66, 103
+  offset: 0, 0
+  index: -1
+taildragon_fire_02_leg_02
+  rotate: true
+  xy: 237, 899
+  size: 67, 98
+  orig: 67, 98
+  offset: 0, 0
+  index: -1
+taildragon_fire_02_tail_01
+  rotate: false
+  xy: 2, 968
+  size: 333, 64
+  orig: 333, 64
+  offset: 0, 0
+  index: -1
+taildragon_fire_02_tail_03
+  rotate: true
+  xy: 2, 571
+  size: 198, 200
+  orig: 198, 200
+  offset: 0, 0
+  index: -1
+taildragon_fire_02_tail_04
+  rotate: true
+  xy: 2, 771
+  size: 195, 233
+  orig: 195, 233
+  offset: 0, 0
+  index: -1
+taildragon_fire_02_tail_06
+  rotate: true
+  xy: 2, 371
+  size: 198, 200
+  orig: 198, 200
+  offset: 0, 0
+  index: -1
+taildragon_fire_02_wing_01
+  rotate: true
+  xy: 2, 9
+  size: 185, 171
+  orig: 185, 171
+  offset: 0, 0
+  index: -1
+taildragon_fire_02_wing_02
+  rotate: false
+  xy: 204, 428
+  size: 118, 161
+  orig: 118, 161
+  offset: 0, 0
+  index: -1

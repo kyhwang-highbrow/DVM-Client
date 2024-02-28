@@ -1,0 +1,38 @@
+{
+	"skill_elite_light_orb_0":
+	{
+		"ver":2,
+		"attack_value":
+		[							
+			{
+				"idx":1,
+				"res":"res/missile/missile_sword/missile_sword_0.png",
+				"body":[0,0,30],
+                "count":1,
+				"damage_rate":50,
+                "period":0,
+                "scale":1,
+				"time":0,
+				"speed":1600,
+				"accel":-1200,
+				"l_limit_speed":-800,
+				"accel_delay":0,
+				"angular_velocity":0,
+				"offset":[0,0],
+				"dir_array":[0],
+				"dir_add":0,
+				"missile_type":"pass",
+				"reset_time":1,
+				"fadeout_time":2.6,
+                
+				"effect":
+                {
+                    "motion_streak":"",
+                    "rotation":false,
+                    "afterimage":false
+                }
+			}
+		]
+	}
+}
+

@@ -1,0 +1,55 @@
+
+rune_gacha_result.png
+size: 885,241
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+c
+  rotate: true
+  xy: 731, 2
+  size: 83, 138
+  orig: 83, 138
+  offset: 0, 0
+  index: -1
+e
+  rotate: true
+  xy: 293, 19
+  size: 88, 139
+  orig: 88, 139
+  offset: 0, 0
+  index: -1
+light
+  rotate: false
+  xy: 493, 3
+  size: 236, 236
+  orig: 236, 236
+  offset: 0, 0
+  index: -1
+s
+  rotate: true
+  xy: 143, 23
+  size: 84, 148
+  orig: 84, 148
+  offset: 0, 0
+  index: -1
+success
+  rotate: false
+  xy: 2, 109
+  size: 489, 130
+  orig: 489, 130
+  offset: 0, 0
+  index: -1
+u
+  rotate: true
+  xy: 2, 6
+  size: 101, 139
+  orig: 101, 139
+  offset: 0, 0
+  index: -1
+white
+  rotate: false
+  xy: 731, 87
+  size: 152, 152
+  orig: 152, 152
+  offset: 0, 0
+  index: -1

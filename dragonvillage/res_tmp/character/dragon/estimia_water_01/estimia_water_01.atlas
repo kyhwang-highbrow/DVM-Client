@@ -1,0 +1,146 @@
+
+estimia_water_01.png
+size: 1232,636
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+estimia_water_01_arm_01
+  rotate: false
+  xy: 1068, 13
+  size: 85, 105
+  orig: 85, 105
+  offset: 0, 0
+  index: -1
+estimia_water_01_arm_02
+  rotate: false
+  xy: 734, 183
+  size: 85, 105
+  orig: 85, 105
+  offset: 0, 0
+  index: -1
+estimia_water_01_body_01
+  rotate: true
+  xy: 1018, 447
+  size: 187, 212
+  orig: 187, 212
+  offset: 0, 0
+  index: -1
+estimia_water_01_body_02
+  rotate: false
+  xy: 636, 503
+  size: 380, 131
+  orig: 380, 131
+  offset: 0, 0
+  index: -1
+estimia_water_01_body_05
+  rotate: false
+  xy: 939, 416
+  size: 77, 85
+  orig: 77, 85
+  offset: 0, 0
+  index: -1
+estimia_water_01_body_06
+  rotate: false
+  xy: 938, 116
+  size: 46, 51
+  orig: 46, 51
+  offset: 0, 0
+  index: -1
+estimia_water_01_body_07
+  rotate: false
+  xy: 1034, 120
+  size: 43, 47
+  orig: 43, 47
+  offset: 0, 0
+  index: -1
+estimia_water_01_effect_03
+  rotate: false
+  xy: 2, 2
+  size: 632, 632
+  orig: 632, 632
+  offset: 0, 0
+  index: -1
+estimia_water_01_eye_01
+  rotate: false
+  xy: 1079, 127
+  size: 58, 40
+  orig: 58, 40
+  offset: 0, 0
+  index: -1
+estimia_water_01_eye_02
+  rotate: true
+  xy: 986, 118
+  size: 49, 46
+  orig: 49, 46
+  offset: 0, 0
+  index: -1
+estimia_water_01_foot_01
+  rotate: false
+  xy: 731, 34
+  size: 106, 133
+  orig: 106, 133
+  offset: 0, 0
+  index: -1
+estimia_water_01_foot_02
+  rotate: true
+  xy: 636, 178
+  size: 110, 96
+  orig: 110, 96
+  offset: 0, 0
+  index: -1
+estimia_water_01_hand_01
+  rotate: false
+  xy: 839, 203
+  size: 97, 85
+  orig: 97, 85
+  offset: 0, 0
+  index: -1
+estimia_water_01_hand_02
+  rotate: false
+  xy: 839, 116
+  size: 97, 85
+  orig: 97, 85
+  offset: 0, 0
+  index: -1
+estimia_water_01_head_01
+  rotate: true
+  xy: 636, 29
+  size: 138, 93
+  orig: 138, 93
+  offset: 0, 0
+  index: -1
+estimia_water_01_head_02
+  rotate: true
+  xy: 1155, 105
+  size: 62, 68
+  orig: 62, 68
+  offset: 0, 0
+  index: -1
+estimia_water_01_leg_01
+  rotate: true
+  xy: 839, 8
+  size: 106, 133
+  orig: 106, 133
+  offset: 0, 0
+  index: -1
+estimia_water_01_leg_02
+  rotate: true
+  xy: 974, 8
+  size: 106, 92
+  orig: 106, 92
+  offset: 0, 0
+  index: -1
+estimia_water_01_wing_01
+  rotate: true
+  xy: 939, 169
+  size: 245, 291
+  orig: 245, 291
+  offset: 0, 0
+  index: -1
+estimia_water_01_wing_02
+  rotate: true
+  xy: 636, 290
+  size: 211, 301
+  orig: 211, 301
+  offset: 0, 0
+  index: -1

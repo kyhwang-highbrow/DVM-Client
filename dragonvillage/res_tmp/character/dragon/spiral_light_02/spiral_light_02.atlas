@@ -1,0 +1,370 @@
+
+spiral_light_02.png
+size: 244,1036
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+ef_02
+  rotate: true
+  xy: 176, 394
+  size: 24, 59
+  orig: 24, 59
+  offset: 0, 0
+  index: -1
+ef_03
+  rotate: false
+  xy: 193, 213
+  size: 42, 43
+  orig: 42, 43
+  offset: 0, 0
+  index: -1
+ef_04
+  rotate: false
+  xy: 138, 129
+  size: 44, 44
+  orig: 44, 44
+  offset: 0, 0
+  index: -1
+ef_05
+  rotate: false
+  xy: 158, 926
+  size: 80, 108
+  orig: 80, 108
+  offset: 0, 0
+  index: -1
+spiral_0
+  rotate: false
+  xy: 2, 686
+  size: 118, 96
+  orig: 118, 96
+  offset: 0, 0
+  index: -1
+spiral_1
+  rotate: false
+  xy: 2, 588
+  size: 106, 96
+  orig: 106, 96
+  offset: 0, 0
+  index: -1
+spiral_2
+  rotate: false
+  xy: 2, 73
+  size: 68, 96
+  orig: 68, 96
+  offset: 0, 0
+  index: -1
+spiral_3
+  rotate: false
+  xy: 122, 686
+  size: 36, 96
+  orig: 36, 96
+  offset: 0, 0
+  index: -1
+spiral_4
+  rotate: false
+  xy: 79, 392
+  size: 36, 96
+  orig: 36, 96
+  offset: 0, 0
+  index: -1
+spiral_5
+  rotate: false
+  xy: 110, 588
+  size: 68, 96
+  orig: 68, 96
+  offset: 0, 0
+  index: -1
+spiral_6
+  rotate: false
+  xy: 2, 490
+  size: 106, 96
+  orig: 106, 96
+  offset: 0, 0
+  index: -1
+spiral_light_02_arm_l_01
+  rotate: false
+  xy: 142, 206
+  size: 49, 51
+  orig: 49, 51
+  offset: 0, 0
+  index: -1
+spiral_light_02_arm_l_02
+  rotate: false
+  xy: 184, 104
+  size: 42, 33
+  orig: 42, 33
+  offset: 0, 0
+  index: -1
+spiral_light_02_arm_l_03
+  rotate: true
+  xy: 204, 70
+  size: 32, 28
+  orig: 32, 28
+  offset: 0, 0
+  index: -1
+spiral_light_02_arm_r_01
+  rotate: false
+  xy: 176, 420
+  size: 47, 47
+  orig: 47, 47
+  offset: 0, 0
+  index: -1
+spiral_light_02_arm_r_02
+  rotate: true
+  xy: 132, 65
+  size: 37, 28
+  orig: 37, 28
+  offset: 0, 0
+  index: -1
+spiral_light_02_arm_r_03
+  rotate: false
+  xy: 138, 104
+  size: 30, 23
+  orig: 30, 23
+  offset: 0, 0
+  index: -1
+spiral_light_02_body_01
+  rotate: false
+  xy: 2, 906
+  size: 154, 128
+  orig: 154, 128
+  offset: 0, 0
+  index: -1
+spiral_light_02_ef_01
+  rotate: false
+  xy: 72, 65
+  size: 58, 57
+  orig: 58, 57
+  offset: 0, 0
+  index: -1
+spiral_light_02_eye_01
+  rotate: true
+  xy: 126, 23
+  size: 40, 32
+  orig: 40, 32
+  offset: 0, 0
+  index: -1
+spiral_light_02_eye_02
+  rotate: false
+  xy: 162, 70
+  size: 40, 32
+  orig: 40, 32
+  offset: 0, 0
+  index: -1
+spiral_light_02_eye_03
+  rotate: false
+  xy: 162, 36
+  size: 40, 32
+  orig: 40, 32
+  offset: 0, 0
+  index: -1
+spiral_light_02_face_01
+  rotate: false
+  xy: 2, 784
+  size: 149, 120
+  orig: 149, 120
+  offset: 0, 0
+  index: -1
+spiral_light_02_face_02
+  rotate: false
+  xy: 2, 2
+  size: 66, 69
+  orig: 66, 69
+  offset: 0, 0
+  index: -1
+spiral_light_02_face_03
+  rotate: false
+  xy: 73, 259
+  size: 75, 30
+  orig: 75, 30
+  offset: 0, 0
+  index: -1
+spiral_light_02_font_01
+  rotate: true
+  xy: 117, 394
+  size: 96, 57
+  orig: 96, 57
+  offset: 0, 0
+  index: -1
+spiral_light_02_font_02
+  rotate: true
+  xy: 2, 171
+  size: 104, 64
+  orig: 104, 64
+  offset: 0, 0
+  index: -1
+spiral_light_02_font_03
+  rotate: false
+  xy: 160, 834
+  size: 82, 90
+  orig: 82, 90
+  offset: 0, 0
+  index: -1
+spiral_light_02_font_04
+  rotate: false
+  xy: 160, 742
+  size: 82, 90
+  orig: 82, 90
+  offset: 0, 0
+  index: -1
+spiral_light_02_gear_f_01
+  rotate: false
+  xy: 204, 34
+  size: 34, 34
+  orig: 34, 34
+  offset: 0, 0
+  index: -1
+spiral_light_02_gear_l_01
+  rotate: true
+  xy: 160, 6
+  size: 28, 29
+  orig: 28, 29
+  offset: 0, 0
+  index: -1
+spiral_light_02_leg_l_01
+  rotate: false
+  xy: 2, 277
+  size: 69, 102
+  orig: 69, 102
+  offset: 0, 0
+  index: -1
+spiral_light_02_leg_l_02
+  rotate: false
+  xy: 180, 562
+  size: 60, 36
+  orig: 60, 36
+  offset: 0, 0
+  index: -1
+spiral_light_02_leg_l_03
+  rotate: false
+  xy: 73, 291
+  size: 74, 88
+  orig: 74, 88
+  offset: 0, 0
+  index: -1
+spiral_light_02_leg_r_01
+  rotate: false
+  xy: 110, 492
+  size: 64, 94
+  orig: 64, 94
+  offset: 0, 0
+  index: -1
+spiral_light_02_leg_r_02
+  rotate: false
+  xy: 142, 175
+  size: 54, 29
+  orig: 54, 29
+  offset: 0, 0
+  index: -1
+spiral_light_02_leg_r_03
+  rotate: false
+  xy: 149, 307
+  size: 65, 85
+  orig: 65, 85
+  offset: 0, 0
+  index: -1
+spiral_light_02_mouth_01
+  rotate: true
+  xy: 2, 381
+  size: 107, 75
+  orig: 107, 75
+  offset: 0, 0
+  index: -1
+spiral_light_02_neck_01
+  rotate: false
+  xy: 72, 124
+  size: 64, 60
+  orig: 64, 60
+  offset: 0, 0
+  index: -1
+spiral_light_02_neck_02
+  rotate: true
+  xy: 180, 600
+  size: 67, 62
+  orig: 67, 62
+  offset: 0, 0
+  index: -1
+spiral_light_02_neck_03
+  rotate: true
+  xy: 180, 669
+  size: 71, 62
+  orig: 71, 62
+  offset: 0, 0
+  index: -1
+spiral_light_02_tail_01
+  rotate: false
+  xy: 68, 186
+  size: 72, 71
+  orig: 72, 71
+  offset: 0, 0
+  index: -1
+spiral_light_02_tail_02
+  rotate: false
+  xy: 70, 5
+  size: 54, 58
+  orig: 54, 58
+  offset: 0, 0
+  index: -1
+spiral_light_02_tail_03
+  rotate: true
+  xy: 150, 259
+  size: 46, 52
+  orig: 46, 52
+  offset: 0, 0
+  index: -1
+spiral_light_02_tail_04
+  rotate: false
+  xy: 204, 258
+  size: 34, 47
+  orig: 34, 47
+  offset: 0, 0
+  index: -1
+spiral_light_02_tail_05
+  rotate: false
+  xy: 216, 319
+  size: 22, 43
+  orig: 22, 43
+  offset: 0, 0
+  index: -1
+spiral_light_02_wing_l_01
+  rotate: false
+  xy: 176, 521
+  size: 56, 39
+  orig: 56, 39
+  offset: 0, 0
+  index: -1
+spiral_light_02_wing_l_02
+  rotate: false
+  xy: 184, 139
+  size: 46, 31
+  orig: 46, 31
+  offset: 0, 0
+  index: -1
+spiral_light_02_wing_l_03
+  rotate: false
+  xy: 216, 364
+  size: 26, 28
+  orig: 26, 28
+  offset: 0, 0
+  index: -1
+spiral_light_02_wing_r_01
+  rotate: false
+  xy: 176, 469
+  size: 45, 50
+  orig: 45, 50
+  offset: 0, 0
+  index: -1
+spiral_light_02_wing_r_02
+  rotate: false
+  xy: 198, 172
+  size: 42, 39
+  orig: 42, 39
+  offset: 0, 0
+  index: -1
+spiral_light_02_wing_r_03
+  rotate: false
+  xy: 191, 10
+  size: 22, 22
+  orig: 22, 22
+  offset: 0, 0
+  index: -1

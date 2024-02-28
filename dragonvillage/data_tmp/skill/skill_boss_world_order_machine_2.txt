@@ -1,0 +1,92 @@
+{
+	"skill_boss_world_order_machine_2":
+	{
+		"attack_value":
+		[		
+			{
+				"comment":"질서 유지장치: 톱니 공격",
+				"idx":1,
+				"body":[0,0,100],
+                "count":1,
+				"damage_rate":50,
+                "scale":1,
+                "period":0,
+				"speed":0,
+				"accel":100,
+				"h_limit_speed":200,
+				"accel_delay":0,
+				"angular_velocity":0,
+				"offset":[300,140],
+				"dir_array":[0],
+                "dir_add":0,
+				"missile_type":"pass",
+				"reset_time":0.5,
+				"res_depth":"bottom"
+				
+                "effect":
+                {
+                    "motion_streak":"",
+                    "rotation":false,
+                    "afterimage":false
+                }
+			},
+			
+			{
+				"comment":"질서 유지장치: 톱니 공격",
+				"idx":1,
+				"res":"res/missile/missile_gear/missile_gear.vrp",
+				"body":[0,0,100],
+                "count":1,
+				"damage_rate":50,
+                "scale":1,
+                "period":0,
+				"speed":0,
+				"accel":100,
+				"h_limit_speed":200,
+				"accel_delay":0,
+				"angular_velocity":0,
+				"offset":[300,0],
+				"dir_array":[0],
+                "dir_add":0,
+				"missile_type":"pass",
+				"reset_time":0.5,
+				"res_depth":"bottom"
+				
+                "effect":
+                {
+                    "motion_streak":"",
+                    "rotation":false,
+                    "afterimage":false
+                }
+			},
+			
+			{
+				"comment":"질서 유지장치: 톱니 공격",
+				"idx":1,
+				"body":[0,0,100],
+                "count":1,
+				"damage_rate":50,
+                "scale":1,
+                "period":0,
+				"speed":0,
+				"accel":100,
+				"h_limit_speed":200,
+				"accel_delay":0,
+				"angular_velocity":0,
+				"offset":[300,-140],
+				"dir_array":[0],
+                "dir_add":0,
+				"missile_type":"pass",
+				"reset_time":0.5,
+				"res_depth":"bottom"
+				
+                "effect":
+                {
+                    "motion_streak":"",
+                    "rotation":false,
+                    "afterimage":false
+                }
+			}
+		]
+	}
+}

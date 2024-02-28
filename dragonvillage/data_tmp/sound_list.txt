@@ -1,0 +1,141 @@
+{
+	"BG":
+	{   
+		"bgm_title": {"res":"sound/bgm/bgm_title.mp3"},		
+		"bgm_lobby": {"res":"sound/bgm/bgm_lobby.mp3"},
+		"bgm_dungeon_ready": {"res":"sound/bgm/bgm_dungeon_ready.mp3"},
+		"bgm_dungeon": {"res":"sound/bgm/bgm_dungeon_general.mp3"},
+		"bgm_dungeon_special": {"res":"sound/bgm/bgm_dungeon_special.mp3"},
+		"bgm_colosseum": {"res":"sound/bgm/bgm_colosseum.mp3"},
+		"bgm_dungeon_midboss": {"res":"sound/bgm/bgm_dungeon_midboss.mp3"},
+		"bgm_dungeon_boss": {"res":"sound/bgm/bgm_dungeon_boss.mp3"},
+		"bgm_dungeon_victory": {"res":"sound/bgm/bgm_dungeon_victory.mp3"},
+		"bgm_dungeon_lose": {"res":"sound/bgm/bgm_dungeon_lose.mp3"},
+		"bgm_everyday": {"res":"sound/bgm/bgm_everyday.mp3"},
+		"bgm_sorrow": {"res":"sound/bgm/bgm_sorrow.mp3"},
+		"bgm_event_roulette": {"res":"sound/bgm/bgm_event_roulette.mp3"},
+
+		"ui_dragon_farewell" : {"res":"sound/ui/ui_dragon_farewell.mp3"},		
+		"ui_dragon_evolution" : {"res":"sound/ui/ui_dragon_evolution.mp3"},
+
+		"evolution_adv" : {"res":"sound/evolution_adv.mp3"}
+	},
+	
+	"EFX":
+	{
+		"efx_attack" : {"res":"sound/efx/efx_attack.mp3"},		
+		"efx_damage_normal" : {"res":"sound/efx/efx_damage_normal.mp3"},		
+		"efx_damage_critical" : {"res":"sound/efx/efx_damage_critical.mp3"},		
+		"efx_dragon_die_normal" : {"res":"sound/efx/efx_dragon_die_normal.mp3"},		
+		"efx_dragon_die_cute" : {"res":"sound/efx/efx_dragon_die_cute.mp3"},		
+		"efx_monster_die" : {"res":"sound/efx/efx_monster_die.mp3"},		
+		"efx_midboss_die" : {"res":"sound/efx/efx_midboss_die.mp3"},		
+		"efx_bleed" : {"res":"sound/efx/efx_bleed.mp3"},		
+		"efx_poison" : {"res":"sound/efx/efx_poison.mp3"},		
+		"efx_posion" : {"res":"sound/efx/efx_posion.mp3"},
+		"efx_burn" : {"res":"sound/efx/efx_burn.mp3"},
+		"efx_story_fury" : {"res":"sound/efx/efx_story_fury.mp3"},
+		"efx_story_hit" : {"res":"sound/efx/efx_story_hit.mp3"},
+		"efx_story_scream" : {"res":"sound/efx/efx_story_scream.mp3"},
+
+		"efx_stun" : {"res":"sound/efx/efx_stun.mp3"},
+        "ui_boss_warning" : {"res":"sound/ui/ui_boss_warning.mp3"},
+        "ui_wave_start" : {"res":"sound/ui/ui_wave_start.mp3"}
+	},
+
+	"SFX":
+	{
+		"sfx_heal" : {"res":"sound/sfx/sfx_heal.mp3"},		
+		"sfx_buff_get" : {"res":"sound/sfx/sfx_buff_get.mp3"},	
+		"sfx_buff_get_1" : {"res":"sound/sfx/sfx_buff_get_1.mp3"},	
+		"sfx_blackhole" : {"res":"sound/sfx/sfx_blackhole.mp3"},
+		"sfx_body_attack" : {"res":"sound/sfx/sfx_body_attack.mp3"},
+		"sfx_breath_fire" : {"res":"sound/sfx/sfx_breath_fire.mp3"},
+		"sfx_breath_ice" : {"res":"sound/sfx/sfx_breath_ice.mp3"},
+		"sfx_breath_laser" : {"res":"sound/sfx/sfx_breath_laser.mp3"},
+		"sfx_breath_thunderbolt" : {"res":"sound/sfx/sfx_breath_thunderbolt.mp3"},
+		"sfx_breath_wind" : {"res":"sound/sfx/sfx_breath_wind.mp3"},
+		"sfx_buff_get_2" : {"res":"sound/sfx/sfx_buff_get_2.mp3"},
+		"sfx_claw" : {"res":"sound/sfx/sfx_claw.mp3"},
+		"sfx_debuff" : {"res":"sound/sfx/sfx_debuff.mp3"},
+		"sfx_debuff_cure" : {"res":"sound/sfx/sfx_debuff_cure.mp3"},
+		"sfx_earthquake" : {"res":"sound/sfx/sfx_earthquake.mp3"},
+		"sfx_explosion_big" : {"res":"sound/sfx/sfx_explosion_big.mp3"},
+		"sfx_explosion_small" : {"res":"sound/sfx/sfx_explosion_small.mp3"},
+		"sfx_hurricane" : {"res":"sound/sfx/sfx_hurricane.mp3"},
+		"sfx_shield" : {"res":"sound/sfx/sfx_shield.mp3"},
+		"sfx_thunderbolt" : {"res":"sound/sfx/sfx_thunderbolt.mp3"},
+		"sfx_wave" : {"res":"sound/sfx/sfx_wave.mp3"},
+		"sfx_wind" : {"res":"sound/sfx/sfx_wind.mp3"}
+	},
+
+	"UI":
+	{
+		"ui_game_start" : {"res":"sound/ui/ui_game_start.mp3"},
+		"ui_summon" : {"res":"sound/ui/ui_summon.mp3"},
+		"ui_passive" : {"res":"sound/ui/ui_passive.mp3"},
+		"ui_wave_start" : {"res":"sound/ui/ui_wave_start.mp3"},
+		"ui_boss_warning" : {"res":"sound/ui/ui_boss_warning.mp3"},
+		"ui_drag_ready" : {"res":"sound/ui/ui_drag_ready.mp3"},
+		"ui_drag_scene" : {"res":"sound/ui/ui_drag_scene.mp3"},
+		"ui_target" : {"res":"sound/ui/ui_target.mp3"},
+		"ui_in_item_get" : {"res":"sound/ui/ui_in_item_get.mp3"},
+		"ui_touch" : {"res":"sound/ui/ui_touch.mp3"},
+		"ui_grow_result" : {"res":"sound/ui/ui_grow_result.mp3"},
+		"ui_eat" : {"res":"sound/ui/ui_eat.mp3"},
+		"ui_out_item_get" : {"res":"sound/ui/ui_out_item_get.mp3"},
+		"ui_reward" : {"res":"sound/ui/ui_reward.mp3"},		
+
+		"ui_dragon_level_up" : {"res":"sound/ui/ui_dragon_level_up.mp3"},
+		"ui_egg_break" : {"res":"sound/ui/ui_egg_break.mp3"},
+		"ui_egg_legend" : {"res":"sound/ui/ui_egg_legend.mp3"},
+		"ui_rune_fail" : {"res":"sound/ui/ui_rune_fail.mp3"},
+		"ui_rune_success" : {"res":"sound/ui/ui_rune_success.mp3"},
+		"ui_star_up" : {"res":"sound/ui/ui_star_up.mp3"},
+		"ui_card_set" : {"res":"sound/ui/ui_card_set.mp3"},
+		"ui_card_flip" : {"res":"sound/ui/ui_card_flip.mp3"}
+	},
+
+
+	"EFFECT":
+	{
+		"monster_skill_cast" : {"res":"sound/monster_skill_cast.mp3"},		
+		"darknix_shout" : {"res":"sound/boss_shout.mp3"},
+        "prologue" : {"res":"sound/skill_godaeshinryong.mp3"},
+		"dragon_levelup" : {"res":"sound/dragon_levelup.mp3"},
+		"fever" : {"res":"sound/fever.mp3"},
+		"reward" : {"res":"sound/reward.mp3"}
+	},
+	
+	"VOICE":
+	{	
+		"appear_infinitepowerdragon" : {"res":"sound/voice/dragon_appear/appear_infinitepowerdragon.mp3"},
+		"appear_majesticlightningdragon" : {"res":"sound/voice/dragon_appear/appear_majesticlightningdragon.mp3"},
+		"appear_darknixofruin" : {"res":"sound/voice/dragon_appear/appear_darknixofruin.mp3"},
+		"appear_origingoddragon" : {"res":"sound/voice/dragon_appear/appear_origingoddragon.mp3"},
+		"appear_nemus" : {"res":"sound/voice/dragon_appear/appear_nemus.mp3"},
+		"appear_macaroon" : {"res":"sound/voice/dragon_appear/appear_macaroon.mp3"},
+		"appear_greed" : {"res":"sound/voice/dragon_appear/appear_greed.mp3"},
+		"appear_wrath" : {"res":"sound/voice/dragon_appear/appear_wrath.mp3"},
+		"appear_benevolentia" : {"res":"sound/voice/dragon_appear/appear_benevolentia.mp3"},
+		"appear_forner" : {"res":"sound/voice/dragon_appear/appear_forner.mp3"},
+		"appear_larus" : {"res":"sound/voice/dragon_appear/appear_larus.mp3"},
+		"appear_pride" : {"res":"sound/voice/dragon_appear/appear_pride.mp3"},
+		"appear_epit" : {"res":"sound/voice/dragon_appear/appear_epit.mp3"},
+		"appear_oberon" : {"res":"sound/voice/dragon_appear/appear_oberon.mp3"},
+		"appear_envy" : {"res":"sound/voice/dragon_appear/appear_envy.mp3"},
+		"appear_instria" : {"res":"sound/voice/dragon_appear/appear_instria.mp3"},
+		"appear_petia" : {"res":"sound/voice/dragon_appear/appear_petia.mp3"},
+		"appear_gluttony" : {"res":"sound/voice/dragon_appear/appear_gluttony.mp3"},
+		"appear_epit" : {"res":"sound/voice/dragon_appear/appear_epit.mp3"},
+		"appear_milatas" : {"res":"sound/voice/dragon_appear/appear_milatas.mp3"},
+		"appear_castitas" : {"res":"sound/voice/dragon_appear/appear_castitas.mp3"},
+		"appear_temperentina" : {"res":"sound/voice/dragon_appear/appear_temperentina.mp3"},
+		"appear_henes" : {"res":"sound/voice/dragon_appear/appear_henes.mp3"},
+		"appear_makara" : {"res":"sound/voice/dragon_appear/appear_makara.mp3"},
+		"appear_seere" : {"res":"sound/voice/dragon_appear/appear_seere.mp3"},
+		"appear_talissah" : {"res":"sound/voice/dragon_appear/appear_talissah.mp3"},
+		"appear_deathlock" : {"res":"sound/voice/dragon_appear/appear_deathlock.mp3"}
+	}
+	
+}

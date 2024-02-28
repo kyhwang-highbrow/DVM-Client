@@ -1,0 +1,39 @@
+mail_type,t_title,t_content,template_type,value_1,value_2,r_comment
+system,운영자,,system,,,운영툴에서 전송한 메일 (서버에서 보내준대로 출력)
+fp,우정 교환,{@condition}{2}{@default}님이 {1}{@default}(을)를 보냈습니다.,form,item,nick,친구 선물로 받는 우정포인트
+use_fp,대표 드래곤 사용,{@condition}{2}{@default}님이 {1}{@default}(을)를 보냈습니다.,form,item,nick,대표 드래곤 사용 시 지급하는 우정 포인트
+ret_fp,우정 교환의 은혜,{@condition}우정 교환{@default}으로 {1}{@default}(을)를 받았습니다.,form,item,,
+rel_in,인연던전 입장 보상,{@condition}{2}{@default}님이 {1}{@default}(을)를 보냈습니다.,form,item,nick,친구가 나의 인연던전 플레이 시
+default,보상,{1}{@default}(을)를 받았습니다.,form,item,,
+buy,상품 구입,{1}{@default}(을)를 받았습니다.,form,item,,상점에서 패키지 상품 구입 시 (2개 이상의 상품)
+q_daily,일일 퀘스트 보상,{1}{@default}(을)를 받았습니다.,form,item,,
+chlg,업적 달성 보상,{1}{@default}(을)를 받았습니다.,form,item,,
+clsm,콜로세움 보상,{1}{@default}(을)를 받았습니다.,form,item,,주간 랭킹 보상
+clsm_win,콜로세움 참여 횟수 보상,{1}{@default}(을)를 받았습니다.,form,item,,콜로세움 참여 횟수 보상
+tower,고대의 탑 보상,{1}{@default}(을)를 받았습니다.,form,item,,주간 랭킹 보상
+event,이벤트 보상,{1}{@default}(을)를 받았습니다.,form,item,,이벤트 보상
+push,푸시 보상,{1}{@default}(을)를 받았습니다.,form,item,,푸시 보상
+atdc_rwd,출석 보상,{1}{@default}(을)를 받았습니다.,form,item,,28일 출석 이벤트 달성 시
+advertising,광고 보상,{1}{@default}(을)를 받았습니다.,form,item,,상점 광고 시청시
+hb_atdc_rwd,홈페이지 출석 보상,홈페이지 출석 보상으로 {1}{@default}(을)를 받았습니다.,form,item,,
+fix_mth,매일매일 다이아,{1}{@default}(을)를 받았습니다.,form,item,,월 정액 상품 수령 시
+promotion,프로모션,{1}{@default}(을)를 받았습니다.,form,item,,하이브로 프로모션 캡슐 교환 시
+coupon,프로모션,{@condition}[{1} 쿠폰] {@item_name}{2} {@default}: {3},custom,,,하이브로 이벤트
+coupon_mail,운영자,{@condition}[{1}]{@} 테이머님에게 쿠폰 코드가 발급되었습니다.,form,title,,운영툴에서 전송한 메일 (서버에서 보내준대로 출력)
+promo_tuto,튜토리얼 완료 보상,{@condition}[{1} 쿠폰] {@item_name}{2} {@default}: {3},custom,,,하이브로 이벤트
+custom,,,,,,
+fpvp,친선전 보상,{@condition}{2}{@default}님과의 친선전으로 {1}{@default}(을)를 받았습니다.,form,item,nick,친선전으로 받는 우정포인트
+frt_happy,만족도 보상,{1}{@default}(을)를 받았습니다.,form,item,,드래곤의 숲 만족도 달성 보상
+frt_object,드래곤의 숲 보상,{1}{@default}(을)를 받았습니다.,form,item,,드래곤의 숲 오브젝트 보상
+cn_clsm,콜로세움 클랜순위 보상,{1}{@default}(을)를 받았습니다.,form,item,,클랜 주간 랭킹 보상
+cn_tower,고대의 탑 클랜순위 보상,{1}{@default}(을)를 받았습니다.,form,item,,클랜 시즌 랭킹 보상
+cn_atdc_rwd,클랜 출석 보상,{1}{@default}(을)를 받았습니다.,form,item,,클랜 출석 보상주간
+cn_clwar,클랜전 보상,{1}{@default}(을)를 받았습니다.,form,item,,클랜전 시즌 랭킹 보상
+dice_event,주사위 이벤트 보상,{1}{@default}(을)를 받았습니다.,form,item,,
+cn_dungeon,클랜 던전 보상,{1}{@default}(을)를 받았습니다.,form,item,,클랜던전 클리어 보상
+naver_event,카페 플러그 이벤트 보상,{1}{@default}(을)를 받았습니다.,form,item,,
+1st_comeback,드빌M에 돌아오신 것을 환영합니다!,{1}{@default}(을)를 받았습니다.,form,item,,
+challenge_season,그림자의 신전 보상,{1}{@default}(을)를 받았습니다.,form,item,,그림자의 신전 시즌 랭킹 보상
+cross_promotion_reward,프로모션 이벤트 보상,{1}{@default}(을)를 받았습니다.,form,item,,프로모션 이벤트 보상
+event_vote_reward,신화 드래곤 인기 투표 보상,{1}{@default}(을)를 받았습니다.,form,item,,신화 드래곤 인기 투표 보상
+support_league_raid,대표 드래곤 사용 보상,{@condition}{2}{@default}님이 레이드에서 테이머님의 도움을 받았습니다.,form,item,nick,대표 드래곤 사용 시 지급하는 우정 포인트

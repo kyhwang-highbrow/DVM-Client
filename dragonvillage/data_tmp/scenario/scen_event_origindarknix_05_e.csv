@@ -1,0 +1,11 @@
+page,bg,illustration,char,t_char_name,char_pos,char_ani,char_effect,r_scen,t_text,text_pos,text_type,auto_skip,effect_1,effect_2,effect_3,bgm,bgm_action,sound
+1,,,,,,,,,,,,3,title;파멸의 다크닉스,skip_disable,,,,
+2,,,,,,,,,,,,0.3,skip_disable,,,,,
+3,,,,,,,,,분노마저 삼켜버린 어둠은 한 줄기 빛도 남기지 않았다.,,narrate,,,,,,,
+4,,,,,,,,,파멸은 오로지 어둠만을 위해 존재했고,,narrate,,,,,,,
+5,,,,,,,,,빛은 그에게 있어 변하지 않는 운명의 굴레일 뿐이었다.,,narrate,,,,,,,
+6,,,,,,,,,수없이 반복되는 잔혹한 기억은 자신을 파멸로 이끄는 복수심만 낳았다.,,narrate,,,,,,,
+7,,,,,,,,,어둠은 끝없는 운명의 굴레마저 집어삼키고,,narrate,,,,,,,
+8,,,,,,,,,기억의 파편 속에 유일한 빛마저 소멸시켰다.,,narrate,,,,,,,
+9,,,,,,,,,자신의 유일한 빛이 사라지자 다크닉스는 고요한 포효를 내지르며,,narrate,,,,,,,
+10,,,,,,,,,파멸의 심연 속으로 사라졌다.,,narrate,,,,,,,

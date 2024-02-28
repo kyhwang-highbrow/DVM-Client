@@ -1,0 +1,132 @@
+
+taildragon_earth_01.png
+size: 1163,207
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+taildragon_earth_01_arm_01
+  rotate: true
+  xy: 612, 78
+  size: 61, 89
+  orig: 61, 89
+  offset: 0, 0
+  index: -1
+taildragon_earth_01_arm_02
+  rotate: true
+  xy: 794, 79
+  size: 60, 90
+  orig: 60, 90
+  offset: 0, 0
+  index: -1
+taildragon_earth_01_body_01
+  rotate: false
+  xy: 437, 15
+  size: 173, 190
+  orig: 173, 190
+  offset: 0, 0
+  index: -1
+taildragon_earth_01_eye_01
+  rotate: false
+  xy: 880, 38
+  size: 49, 39
+  orig: 49, 39
+  offset: 0, 0
+  index: -1
+taildragon_earth_01_eye_02
+  rotate: false
+  xy: 886, 100
+  size: 49, 39
+  orig: 49, 39
+  offset: 0, 0
+  index: -1
+taildragon_earth_01_foot_01
+  rotate: true
+  xy: 1058, 139
+  size: 66, 103
+  orig: 66, 103
+  offset: 0, 0
+  index: -1
+taildragon_earth_01_foot_02
+  rotate: true
+  xy: 1023, 2
+  size: 67, 78
+  orig: 67, 78
+  offset: 0, 0
+  index: -1
+taildragon_earth_01_hair_01
+  rotate: true
+  xy: 712, 5
+  size: 71, 82
+  orig: 71, 82
+  offset: 0, 0
+  index: -1
+taildragon_earth_01_hair_04
+  rotate: true
+  xy: 796, 6
+  size: 71, 82
+  orig: 71, 82
+  offset: 0, 0
+  index: -1
+taildragon_earth_01_hand_01
+  rotate: true
+  xy: 703, 78
+  size: 61, 89
+  orig: 61, 89
+  offset: 0, 0
+  index: -1
+taildragon_earth_01_hand_02
+  rotate: true
+  xy: 931, 13
+  size: 60, 90
+  orig: 60, 90
+  offset: 0, 0
+  index: -1
+taildragon_earth_01_head_01
+  rotate: false
+  xy: 947, 75
+  size: 109, 130
+  orig: 109, 130
+  offset: 0, 0
+  index: -1
+taildragon_earth_01_head_02
+  rotate: false
+  xy: 1103, 29
+  size: 41, 40
+  orig: 41, 40
+  offset: 0, 0
+  index: -1
+taildragon_earth_01_leg_01
+  rotate: true
+  xy: 1058, 71
+  size: 66, 103
+  orig: 66, 103
+  offset: 0, 0
+  index: -1
+taildragon_earth_01_leg_02
+  rotate: true
+  xy: 612, 6
+  size: 67, 98
+  orig: 67, 98
+  offset: 0, 0
+  index: -1
+taildragon_earth_01_tail_01
+  rotate: false
+  xy: 612, 141
+  size: 333, 64
+  orig: 333, 64
+  offset: 0, 0
+  index: -1
+taildragon_earth_01_tail_03
+  rotate: false
+  xy: 237, 5
+  size: 198, 200
+  orig: 198, 200
+  offset: 0, 0
+  index: -1
+taildragon_earth_01_tail_04
+  rotate: true
+  xy: 2, 10
+  size: 195, 233
+  orig: 195, 233
+  offset: 0, 0
+  index: -1

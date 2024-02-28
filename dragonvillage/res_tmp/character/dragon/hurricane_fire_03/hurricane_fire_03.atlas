@@ -1,0 +1,188 @@
+
+hurricane_fire_03.png
+size: 1224,1041
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+hurricane_fire_03_acc_01
+  rotate: false
+  xy: 702, 176
+  size: 175, 138
+  orig: 175, 138
+  offset: 0, 0
+  index: -1
+hurricane_fire_03_acc_02
+  rotate: false
+  xy: 702, 661
+  size: 30, 32
+  orig: 30, 32
+  offset: 0, 0
+  index: -1
+hurricane_fire_03_acc_03
+  rotate: false
+  xy: 1044, 65
+  size: 82, 97
+  orig: 82, 97
+  offset: 0, 0
+  index: -1
+hurricane_fire_03_acc_04
+  rotate: false
+  xy: 1128, 65
+  size: 82, 97
+  orig: 82, 97
+  offset: 0, 0
+  index: -1
+hurricane_fire_03_body_01
+  rotate: false
+  xy: 2, 661
+  size: 391, 378
+  orig: 391, 378
+  offset: 0, 0
+  index: -1
+hurricane_fire_03_body_02
+  rotate: false
+  xy: 395, 229
+  size: 305, 182
+  orig: 305, 182
+  offset: 0, 0
+  index: -1
+hurricane_fire_03_effect_01
+  rotate: false
+  xy: 879, 353
+  size: 183, 235
+  orig: 183, 235
+  offset: 0, 0
+  index: -1
+hurricane_fire_03_effect_02
+  rotate: false
+  xy: 783, 14
+  size: 161, 160
+  orig: 161, 160
+  offset: 0, 0
+  index: -1
+hurricane_fire_03_effect_03
+  rotate: false
+  xy: 449, 68
+  size: 168, 159
+  orig: 168, 159
+  offset: 0, 0
+  index: -1
+hurricane_fire_03_effect_04
+  rotate: true
+  xy: 2, 2
+  size: 277, 268
+  orig: 277, 268
+  offset: 0, 0
+  index: -1
+hurricane_fire_03_effect_05
+  rotate: false
+  xy: 879, 182
+  size: 169, 169
+  orig: 169, 169
+  offset: 0, 0
+  index: -1
+hurricane_fire_03_hair_01
+  rotate: false
+  xy: 395, 413
+  size: 305, 280
+  orig: 305, 280
+  offset: 0, 0
+  index: -1
+hurricane_fire_03_hair_02
+  rotate: false
+  xy: 1064, 402
+  size: 135, 186
+  orig: 135, 186
+  offset: 0, 0
+  index: -1
+hurricane_fire_03_hair_03
+  rotate: false
+  xy: 272, 142
+  size: 112, 137
+  orig: 112, 137
+  offset: 0, 0
+  index: -1
+hurricane_fire_03_hair_04
+  rotate: false
+  xy: 946, 28
+  size: 96, 152
+  orig: 96, 152
+  offset: 0, 0
+  index: -1
+hurricane_fire_03_hair_05
+  rotate: true
+  xy: 1050, 164
+  size: 96, 113
+  orig: 96, 113
+  offset: 0, 0
+  index: -1
+hurricane_fire_03_hand_01
+  rotate: false
+  xy: 1047, 767
+  size: 175, 272
+  orig: 175, 272
+  offset: 0, 0
+  index: -1
+hurricane_fire_03_hand_02
+  rotate: true
+  xy: 740, 590
+  size: 175, 272
+  orig: 175, 272
+  offset: 0, 0
+  index: -1
+hurricane_fire_03_head_01
+  rotate: true
+  xy: 619, 19
+  size: 155, 162
+  orig: 155, 162
+  offset: 0, 0
+  index: -1
+hurricane_fire_03_horn_01
+  rotate: false
+  xy: 272, 2
+  size: 175, 138
+  orig: 175, 138
+  offset: 0, 0
+  index: -1
+hurricane_fire_03_horn_02
+  rotate: false
+  xy: 1064, 262
+  size: 135, 138
+  orig: 135, 138
+  offset: 0, 0
+  index: -1
+hurricane_fire_03_leg_01
+  rotate: false
+  xy: 702, 316
+  size: 175, 272
+  orig: 175, 272
+  offset: 0, 0
+  index: -1
+hurricane_fire_03_leg_02
+  rotate: true
+  xy: 1014, 590
+  size: 175, 192
+  orig: 175, 192
+  offset: 0, 0
+  index: -1
+hurricane_fire_03_tail_01
+  rotate: false
+  xy: 740, 767
+  size: 305, 272
+  orig: 305, 272
+  offset: 0, 0
+  index: -1
+hurricane_fire_03_wing_01
+  rotate: false
+  xy: 2, 281
+  size: 391, 378
+  orig: 391, 378
+  offset: 0, 0
+  index: -1
+hurricane_fire_03_wing_02
+  rotate: false
+  xy: 395, 695
+  size: 343, 344
+  orig: 343, 344
+  offset: 0, 0
+  index: -1

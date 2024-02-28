@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+	<dict>
+		<key>frames</key>
+		<dict>
+			<key>shot_arrow_01.png</key>
+			<dict>
+				<key>frame</key>
+				<string>{{40,78},{31,48}}</string>
+				<key>offset</key>
+				<string>{0,0}</string>
+				<key>rotated</key>
+				<false/>
+				<key>sourceColorRect</key>
+				<string>{{0,0},{31,48}}</string>
+				<key>sourceSize</key>
+				<string>{31,48}</string>
+			</dict>
+
+			<key>shot_arrow_02.png</key>
+			<dict>
+				<key>frame</key>
+				<string>{{0,0},{65,32}}</string>
+				<key>offset</key>
+				<string>{0,0}</string>
+				<key>rotated</key>
+				<false/>
+				<key>sourceColorRect</key>
+				<string>{{0,0},{65,32}}</string>
+				<key>sourceSize</key>
+				<string>{65,32}</string>
+			</dict>
+
+			<key>shot_arrow_03.png</key>
+			<dict>
+				<key>frame</key>
+				<string>{{0,33},{45,44}}</string>
+				<key>offset</key>
+				<string>{0,0}</string>
+				<key>rotated</key>
+				<false/>
+				<key>sourceColorRect</key>
+				<string>{{0,0},{45,44}}</string>
+				<key>sourceSize</key>
+				<string>{45,44}</string>
+			</dict>
+
+			<key>shot_arrow_04.png</key>
+			<dict>
+				<key>frame</key>
+				<string>{{46,33},{30,42}}</string>
+				<key>offset</key>
+				<string>{0,0}</string>
+				<key>rotated</key>
+				<false/>
+				<key>sourceColorRect</key>
+				<string>{{0,0},{30,42}}</string>
+				<key>sourceSize</key>
+				<string>{30,42}</string>
+			</dict>
+
+			<key>shot_arrow_05.png</key>
+			<dict>
+				<key>frame</key>
+				<string>{{0,78},{39,39}}</string>
+				<key>offset</key>
+				<string>{0,0}</string>
+				<key>rotated</key>
+				<false/>
+				<key>sourceColorRect</key>
+				<string>{{0,0},{39,39}}</string>
+				<key>sourceSize</key>
+				<string>{39,39}</string>
+			</dict>
+
+			<key>shot_arrow_06.png</key>
+			<dict>
+				<key>frame</key>
+				<string>{{66,0},{27,28}}</string>
+				<key>offset</key>
+				<string>{0,0}</string>
+				<key>rotated</key>
+				<false/>
+				<key>sourceColorRect</key>
+				<string>{{0,0},{27,28}}</string>
+				<key>sourceSize</key>
+				<string>{27,28}</string>
+			</dict>
+
+			<key>shot_arrow_07.png</key>
+			<dict>
+				<key>frame</key>
+				<string>{{72,76},{13,32}}</string>
+				<key>offset</key>
+				<string>{0,0}</string>
+				<key>rotated</key>
+				<false/>
+				<key>sourceColorRect</key>
+				<string>{{0,0},{13,32}}</string>
+				<key>sourceSize</key>
+				<string>{13,32}</string>
+			</dict>
+
+		</dict>
+
+		<key>metadata</key>
+		<dict>
+			<key>format</key>
+			<integer>2</integer>
+			<key>size</key>
+			<string>{128,128}</string>
+			<key>textureFileName</key>
+			<string>shot_arrow.png</string>
+			</dict>
+		</dict>
+</plist>

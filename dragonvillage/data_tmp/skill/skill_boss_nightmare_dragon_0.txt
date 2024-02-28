@@ -1,0 +1,162 @@
+{
+	"skill_boss_nightmare_dragon_0":
+	{
+		"attack_value":
+		[
+			{
+				"comment":"악몽용 일반공격",
+				
+				"idx":1,
+				"target_idx":[1],
+				"res":"res/effect/effect_hit_physical_@/effect_hit_physical_@.spine",
+				"visual":"idle",
+				"body":[0,0,20],
+                "count":1,
+				"damage_rate":100,
+                "scale":1.5,
+                "period":0,
+				"speed":0,
+				"accel":0,
+				"l_limit_speed":0,
+				"accel_delay":0,
+				"angular_velocity":0,
+				"is_abs_pos":false,
+				"offset":['target','target'],
+                "dir_array":[0],
+				"fadeout_time":0.01,
+				"missile_type":"pass",
+				
+                "effect":
+                {
+                    "motion_streak":"",
+                    "rotation":false,
+                    "afterimage":false
+                }
+			},
+			
+			{
+				"comment":"악몽용 일반공격",
+				
+				"idx":1,
+				"target_idx":[2],
+				"res":"res/effect/effect_hit_physical_@/effect_hit_physical_@.spine",
+				"visual":"idle",
+				"body":[0,0,20],
+                "count":1,
+				"damage_rate":100,
+                "scale":1.5,
+                "period":0,
+				"speed":0,
+				"accel":0,
+				"l_limit_speed":0,
+				"accel_delay":0,
+				"angular_velocity":0,
+				"is_abs_pos":false,
+				"offset":['target','target'],
+                "dir_array":[0],
+				"fadeout_time":0.01,
+				"missile_type":"pass",
+				
+                "effect":
+                {
+                    "motion_streak":"",
+                    "rotation":false,
+                    "afterimage":false
+                }
+			},
+			
+			{
+				"comment":"악몽용 일반공격",
+				
+				"idx":1,
+				"target_idx":[3],
+				"res":"res/effect/effect_hit_physical_@/effect_hit_physical_@.spine",
+				"visual":"idle",
+				"body":[0,0,20],
+                "count":1,
+				"damage_rate":100,
+                "scale":1.5,
+                "period":0,
+				"speed":0,
+				"accel":0,
+				"l_limit_speed":0,
+				"accel_delay":0,
+				"angular_velocity":0,
+				"is_abs_pos":false,
+				"offset":['target','target'],
+                "dir_array":[0],
+				"fadeout_time":0.01,
+				"missile_type":"pass",
+				
+                "effect":
+                {
+                    "motion_streak":"",
+                    "rotation":false,
+                    "afterimage":false
+                }
+			},
+			
+			{
+				"comment":"악몽용 일반공격",
+				
+				"idx":1,
+				"target_idx":[4],
+				"res":"res/effect/effect_hit_physical_@/effect_hit_physical_@.spine",
+				"visual":"idle",
+				"body":[0,0,20],
+                "count":1,
+				"damage_rate":100,
+                "scale":1.5,
+                "period":0,
+				"speed":0,
+				"accel":0,
+				"l_limit_speed":0,
+				"accel_delay":0,
+				"angular_velocity":0,
+				"is_abs_pos":false,
+				"offset":['target','target'],
+                "dir_array":[0],
+				"fadeout_time":0.01,
+				"missile_type":"pass",
+				
+                "effect":
+                {
+                    "motion_streak":"",
+                    "rotation":false,
+                    "afterimage":false
+                }
+			},
+			
+			{
+				"comment":"악몽용 일반공격",
+				
+				"idx":1,
+				"target_idx":[5],
+				"res":"res/effect/effect_hit_physical_@/effect_hit_physical_@.spine",
+				"visual":"idle",
+				"body":[0,0,20],
+                "count":1,
+				"damage_rate":100,
+                "scale":1.5,
+                "period":0,
+				"speed":0,
+				"accel":0,
+				"l_limit_speed":0,
+				"accel_delay":0,
+				"angular_velocity":0,
+				"is_abs_pos":false,
+				"offset":['target','target'],
+                "dir_array":[0],
+				"fadeout_time":0.01,
+				"missile_type":"pass",
+				
+                "effect":
+                {
+                    "motion_streak":"",
+                    "rotation":false,
+                    "afterimage":false
+                }
+			}
+		]
+	}
+}

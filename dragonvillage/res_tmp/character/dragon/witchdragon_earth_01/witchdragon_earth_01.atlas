@@ -1,0 +1,97 @@
+
+witchdragon_earth_01.png
+size: 465,545
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+witchdragon_earth_1_body_1
+  rotate: true
+  xy: 2, 113
+  size: 168, 260
+  orig: 168, 260
+  offset: 0, 0
+  index: -1
+witchdragon_earth_1_eff_4
+  rotate: false
+  xy: 264, 140
+  size: 149, 155
+  orig: 149, 155
+  offset: 0, 0
+  index: -1
+witchdragon_earth_1_eff_5
+  rotate: false
+  xy: 2, 283
+  size: 220, 260
+  orig: 220, 260
+  offset: 0, 0
+  index: -1
+witchdragon_earth_1_eye_1
+  rotate: false
+  xy: 415, 166
+  size: 42, 55
+  orig: 42, 55
+  offset: 0, 0
+  index: -1
+witchdragon_earth_1_hair_1
+  rotate: false
+  xy: 413, 46
+  size: 50, 92
+  orig: 50, 92
+  offset: 0, 0
+  index: -1
+witchdragon_earth_1_hair_2
+  rotate: false
+  xy: 264, 2
+  size: 147, 136
+  orig: 147, 136
+  offset: 0, 0
+  index: -1
+witchdragon_earth_1_hair_3
+  rotate: true
+  xy: 369, 299
+  size: 77, 80
+  orig: 77, 80
+  offset: 0, 0
+  index: -1
+witchdragon_earth_1_head_1
+  rotate: false
+  xy: 224, 378
+  size: 158, 165
+  orig: 158, 165
+  offset: 0, 0
+  index: -1
+witchdragon_earth_1_leg_1
+  rotate: true
+  xy: 224, 297
+  size: 79, 143
+  orig: 79, 143
+  offset: 0, 0
+  index: -1
+witchdragon_earth_1_leg_2
+  rotate: false
+  xy: 384, 391
+  size: 66, 152
+  orig: 66, 152
+  offset: 0, 0
+  index: -1
+witchdragon_earth_1_leg_3
+  rotate: true
+  xy: 129, 43
+  size: 68, 109
+  orig: 68, 109
+  offset: 0, 0
+  index: -1
+witchdragon_earth_1_leg_4
+  rotate: true
+  xy: 2, 7
+  size: 104, 125
+  orig: 104, 125
+  offset: 0, 0
+  index: -1
+witchdragon_earth_1_tail_1
+  rotate: true
+  xy: 415, 223
+  size: 74, 44
+  orig: 74, 44
+  offset: 0, 0
+  index: -1

@@ -1,0 +1,125 @@
+{
+	"skill_elite_owlbear_1":
+	{
+		"ver":2,
+		"attack_value":
+		[							
+			{
+				"idx":1,
+				"res":"res/missile/missile_feather/missile_feather.png",
+				"visual":"idle3",
+				"body":[0,0,20],
+                "count":24,
+				"damage_rate":50,
+                "period":0,
+                "scale":2,
+				"time":0,
+				"speed":1000,
+				"accel":2000,
+				"h_limit_speed":3000,
+				"accel_delay":2.6,
+				"angular_velocity":0,
+				"offset":[0,0],
+				"dir":-0,
+				"dir_add":15,
+				
+				"missile_type":"pass",
+				
+                "effect":
+                {
+                    "motion_streak":"",
+                    "rotation":false,
+                    "afterimage":false
+                }				
+			},
+			
+			{
+				"idx":1,
+				"res":"res/missile/missile_feather/missile_feather.png",
+				"visual":"idle3",
+				"body":[0,0,20],
+                "count":24,
+				"damage_rate":50,
+                "period":0,
+                "scale":1.6,
+				"time":0.2,
+				"speed":1000,
+				"accel":2000,
+				"h_limit_speed":3000,
+				"accel_delay":2.6,
+				"angular_velocity":0,
+				"offset":[0,0],
+				"dir":-7.5,
+				"dir_add":15,
+				
+				"missile_type":"pass",
+				
+                "effect":
+                {
+                    "motion_streak":"",
+                    "rotation":false,
+                    "afterimage":false
+                }				
+			},
+			
+			{
+				"idx":1,
+				"res":"res/missile/missile_feather/missile_feather.png",
+				"visual":"idle3",
+				"body":[0,0,20],
+                "count":24,
+				"damage_rate":50,
+                "period":0,
+                "scale":1.2,
+				"time":0.5,
+				"speed":1000,
+				"accel":2000,
+				"h_limit_speed":3000,
+				"accel_delay":2.6,
+				"angular_velocity":0,
+				"offset":[0,0],
+				"dir":-0,
+				"dir_add":15,
+				
+				"missile_type":"pass",
+				
+                "effect":
+                {
+                    "motion_streak":"",
+                    "rotation":false,
+                    "afterimage":false
+                }				
+			},
+			
+			{
+				"idx":1,
+				"res":"res/missile/missile_feather/missile_feather.png",
+				"visual":"idle3",
+				"body":[0,0,20],
+                "count":24,
+				"damage_rate":50,
+                "period":0,
+                "scale":1,
+				"time":0.7,
+				"speed":1000,
+				"accel":2000,
+				"h_limit_speed":3000,
+				"accel_delay":2.6,
+				"angular_velocity":0,
+				"offset":[0,0],
+				"dir":-7.5,
+				"dir_add":15,
+				
+				"missile_type":"pass",
+				
+                "effect":
+                {
+                    "motion_streak":"",
+                    "rotation":false,
+                    "afterimage":false
+                }				
+			}
+		]
+	}
+}
+

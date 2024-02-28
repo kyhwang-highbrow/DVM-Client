@@ -1,0 +1,28 @@
+page,bg,illustration,char,t_char_name,char_pos,char_ani,char_effect,t_text,text_pos,text_type,auto_skip,effect_1,effect_2,effect_3,effect_4,bgm,bgm_action,sound
+1,,,,,,,,콜로세움은 다른 유저들과 대전을 할 수 있는 콘텐츠입니다.,bot,,,black_layer;off,,,skip_disable,,,
+2,,,,,,,,"대전 시 콜로세움 티켓이 필요합니다.
+티켓은 5개 미만이 되면 30분에 하나씩 충전됩니다.",bot,,,black_layer;on,stencil;stc_stamina,,skip_disable,,,
+3,,,,,,,,"티켓을 사용하여 자신이 상대 하고 싶은 유저를 선택할 수 있습니다.
+상대의 덱을 잘 확인하여 전략적으로 전투를 진행하시길 바랍니다.",bot,,,stencil;stc_list,,,skip_disable,,,
+4,,,,,,,,리스트에 있는 대전상대가 부담스럽다면 새로고침을 사용하여 리스트를 새로 받아 올 수 있습니다.,bot,,,stencil;stc_refresh,,,skip_disable,,,
+5,,,,,,,,"연승을 하면 60분 동안 버프를 획득할 수 있습니다.
+이 버프를 전략적으로 활용하면 부담스러운 대전 상대에게 승리를 거둘 수 있습니다.",top,,,stencil;stc_cwinbuff,,,skip_disable,,,
+6,,,,,,,,,,,0,stencil;release,,,skip_disable,,,
+7,,,,,,,,공격전만큼 중요한 방어전에 대해서 알려 드리겠습니다.,bot,,,pointing;defTabBtn,activate;defTabBtn,next_disable,skip_disable,,,
+8,,,,,,,,,,,0,pointing;release,activate;release,next_enable,skip_disable,,,
+9,,,,,,,,"다른 유저들과 자동으로 대전하게 될 덱을 설정하고,
+그 결과를 알 수 있는 공간입니다.",bot,,,black_layer;off,,,skip_disable,,,
+10,,,,,,,,,bot,,0,black_layer;on,,,skip_disable,,,
+11,,,,,,,,먼저 방어에 사용할 드래곤을 선발해주세요.,bot,,,pointing;defDeckBtn,activate;defDeckBtn,next_disable,skip_disable,,,
+12,,,,,,,,,bot,,0,pointing;release,activate;release,next_enable,skip_disable,,,
+13,,,,,,,,이 곳에서 방어덱을 설정할 수 있습니다.,bot,,,black_layer;off,,,skip_disable,,,
+14,,,,,,,,"방어에 효율적인 드래곤, 테이머, 진형을 자유롭게 세팅할 수 있습니다.",top,,,black_layer;on,stencil;stc_buff,,skip_disable,,,
+15,,,,,,,,,,,0,stencil;release,,,skip_disable,,,
+16,,,,,,,,추천배치로 세팅해보겠습니다.,bot,,,pointing;autoBtn,activate;autoBtn,next_disable,skip_disable,,,
+17,,,,,,,,,,,0,pointing;release,activate;release,next_enable,skip_disable,,,
+18,,,,,,,,세팅된 덱은 언제든지 변경할 수 있습니다.,bot,,,black_layer;on,,,skip_disable,,,
+19,,,,,,,,,,,0,black_layer;on,,,skip_disable,,,
+20,,,,,,,,변경완료 버튼을 눌러 덱을 저장할 수 있습니다.,top,,,pointing;startBtn,activate;startBtn,next_disable,skip_disable,,,
+21,,,,,,,,,,,0,pointing;release,activate;release,next_enable,skip_disable,,,
+22,,,,,,,,"콜로세움 튜토리얼이 종료되었습니다.
+마스터 테이머가 될수 있도록 응원하겠습니다.",bot,,,black_layer;off,,,skip_disable,,,

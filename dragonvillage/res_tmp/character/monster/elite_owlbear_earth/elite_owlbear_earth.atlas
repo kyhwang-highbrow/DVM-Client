@@ -1,0 +1,188 @@
+
+elite_owlbear_earth.png
+size: 1024,512
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+owlbear_earth_arm_01
+  rotate: false
+  xy: 486, 352
+  size: 96, 158
+  orig: 96, 158
+  offset: 0, 0
+  index: -1
+owlbear_earth_arm_02
+  rotate: false
+  xy: 388, 146
+  size: 96, 122
+  orig: 96, 122
+  offset: 0, 0
+  index: -1
+owlbear_earth_arm_03
+  rotate: false
+  xy: 682, 325
+  size: 96, 91
+  orig: 96, 91
+  offset: 0, 0
+  index: -1
+owlbear_earth_arm_04
+  rotate: false
+  xy: 584, 352
+  size: 96, 158
+  orig: 96, 158
+  offset: 0, 0
+  index: -1
+owlbear_earth_body_01
+  rotate: false
+  xy: 244, 119
+  size: 142, 149
+  orig: 142, 149
+  offset: 0, 0
+  index: -1
+owlbear_earth_body_02
+  rotate: false
+  xy: 682, 267
+  size: 67, 56
+  orig: 67, 56
+  offset: 0, 0
+  index: -1
+owlbear_earth_eye_01
+  rotate: false
+  xy: 896, 475
+  size: 34, 35
+  orig: 34, 35
+  offset: 0, 0
+  index: -1
+owlbear_earth_eye_02
+  rotate: false
+  xy: 320, 59
+  size: 56, 58
+  orig: 56, 58
+  offset: 0, 0
+  index: -1
+owlbear_earth_eye_03
+  rotate: false
+  xy: 824, 402
+  size: 29, 31
+  orig: 29, 31
+  offset: 0, 0
+  index: -1
+owlbear_earth_eye_04
+  rotate: true
+  xy: 388, 119
+  size: 25, 26
+  orig: 25, 26
+  offset: 0, 0
+  index: -1
+owlbear_earth_foot_01
+  rotate: true
+  xy: 244, 2
+  size: 38, 40
+  orig: 38, 40
+  offset: 0, 0
+  index: -1
+owlbear_earth_foot_02
+  rotate: true
+  xy: 286, 2
+  size: 38, 40
+  orig: 38, 40
+  offset: 0, 0
+  index: -1
+owlbear_earth_foot_03
+  rotate: false
+  xy: 856, 470
+  size: 38, 40
+  orig: 38, 40
+  offset: 0, 0
+  index: -1
+owlbear_earth_foot_04
+  rotate: false
+  xy: 639, 216
+  size: 38, 40
+  orig: 38, 40
+  offset: 0, 0
+  index: -1
+owlbear_earth_foot_05
+  rotate: false
+  xy: 780, 376
+  size: 42, 57
+  orig: 42, 57
+  offset: 0, 0
+  index: -1
+owlbear_earth_hand_01
+  rotate: false
+  xy: 486, 258
+  size: 96, 92
+  orig: 96, 92
+  offset: 0, 0
+  index: -1
+owlbear_earth_hand_02
+  rotate: false
+  xy: 682, 418
+  size: 96, 92
+  orig: 96, 92
+  offset: 0, 0
+  index: -1
+owlbear_earth_hand_03
+  rotate: false
+  xy: 486, 164
+  size: 96, 92
+  orig: 96, 92
+  offset: 0, 0
+  index: -1
+owlbear_earth_hand_04
+  rotate: false
+  xy: 584, 258
+  size: 96, 92
+  orig: 96, 92
+  offset: 0, 0
+  index: -1
+owlbear_earth_head_01
+  rotate: false
+  xy: 244, 42
+  size: 74, 75
+  orig: 74, 75
+  offset: 0, 0
+  index: -1
+owlbear_earth_head_02
+  rotate: false
+  xy: 584, 181
+  size: 53, 75
+  orig: 53, 75
+  offset: 0, 0
+  index: -1
+owlbear_earth_head_03
+  rotate: false
+  xy: 780, 435
+  size: 74, 75
+  orig: 74, 75
+  offset: 0, 0
+  index: -1
+owlbear_earth_head_04
+  rotate: false
+  xy: 780, 334
+  size: 38, 40
+  orig: 38, 40
+  offset: 0, 0
+  index: -1
+owlbear_earth_skill_01
+  rotate: false
+  xy: 2, 270
+  size: 240, 240
+  orig: 240, 240
+  offset: 0, 0
+  index: -1
+owlbear_earth_skill_02
+  rotate: false
+  xy: 2, 28
+  size: 240, 240
+  orig: 240, 240
+  offset: 0, 0
+  index: -1
+owlbear_earth_skill_03
+  rotate: false
+  xy: 244, 270
+  size: 240, 240
+  orig: 240, 240
+  offset: 0, 0
+  index: -1

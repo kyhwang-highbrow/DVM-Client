@@ -1,0 +1,223 @@
+
+godaeshinryong_dark_03.png
+size: 2001,635
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+godaeshinryong_dark_03_arm_01
+  rotate: false
+  xy: 1638, 16
+  size: 98, 149
+  orig: 98, 149
+  offset: 0, 0
+  index: -1
+godaeshinryong_dark_03_arm_02
+  rotate: false
+  xy: 1900, 245
+  size: 98, 158
+  orig: 98, 158
+  offset: 0, 0
+  index: -1
+godaeshinryong_dark_03_body_01
+  rotate: false
+  xy: 1675, 321
+  size: 223, 186
+  orig: 223, 186
+  offset: 0, 0
+  index: -1
+godaeshinryong_dark_03_body_02
+  rotate: true
+  xy: 198, 34
+  size: 242, 300
+  orig: 242, 300
+  offset: 0, 0
+  index: -1
+godaeshinryong_dark_03_body_acc_01
+  rotate: true
+  xy: 1878, 170
+  size: 73, 106
+  orig: 73, 106
+  offset: 0, 0
+  index: -1
+godaeshinryong_dark_03_body_acc_02
+  rotate: true
+  xy: 1738, 16
+  size: 149, 73
+  orig: 149, 73
+  offset: 0, 0
+  index: -1
+godaeshinryong_dark_03_effect_01
+  rotate: true
+  xy: 1476, 399
+  size: 234, 197
+  orig: 234, 197
+  offset: 0, 0
+  index: -1
+godaeshinryong_dark_03_effect_01_0092
+  rotate: false
+  xy: 500, 63
+  size: 308, 240
+  orig: 308, 240
+  offset: 0, 0
+  index: -1
+godaeshinryong_dark_03_effect_01_0096
+  rotate: true
+  xy: 508, 325
+  size: 308, 240
+  orig: 308, 240
+  offset: 0, 0
+  index: -1
+godaeshinryong_dark_03_effect_01_0100
+  rotate: true
+  xy: 750, 325
+  size: 308, 240
+  orig: 308, 240
+  offset: 0, 0
+  index: -1
+godaeshinryong_dark_03_effect_01_0104
+  rotate: true
+  xy: 810, 15
+  size: 308, 240
+  orig: 308, 240
+  offset: 0, 0
+  index: -1
+godaeshinryong_dark_03_effect_01_0108
+  rotate: true
+  xy: 992, 325
+  size: 308, 240
+  orig: 308, 240
+  offset: 0, 0
+  index: -1
+godaeshinryong_dark_03_effect_01_0112
+  rotate: true
+  xy: 1052, 15
+  size: 308, 240
+  orig: 308, 240
+  offset: 0, 0
+  index: -1
+godaeshinryong_dark_03_effect_01_0116
+  rotate: true
+  xy: 1234, 325
+  size: 308, 240
+  orig: 308, 240
+  offset: 0, 0
+  index: -1
+godaeshinryong_dark_03_effect_01_0120
+  rotate: true
+  xy: 1294, 15
+  size: 308, 240
+  orig: 308, 240
+  offset: 0, 0
+  index: -1
+godaeshinryong_dark_03_effect_02
+  rotate: false
+  xy: 584, 22
+  size: 79, 39
+  orig: 79, 39
+  offset: 0, 0
+  index: -1
+godaeshinryong_dark_03_eye_02
+  rotate: true
+  xy: 198, 2
+  size: 30, 29
+  orig: 30, 29
+  offset: 0, 0
+  index: -1
+godaeshinryong_dark_03_eye_03
+  rotate: false
+  xy: 2, 6
+  size: 44, 16
+  orig: 44, 16
+  offset: 0, 0
+  index: -1
+godaeshinryong_dark_03_head_01
+  rotate: false
+  xy: 2, 24
+  size: 194, 252
+  orig: 194, 252
+  offset: 0, 0
+  index: -1
+godaeshinryong_dark_03_head_02
+  rotate: true
+  xy: 1813, 33
+  size: 132, 186
+  orig: 132, 186
+  offset: 0, 0
+  index: -1
+godaeshinryong_dark_03_head_acc_01
+  rotate: true
+  xy: 1906, 405
+  size: 228, 88
+  orig: 228, 88
+  offset: 0, 0
+  index: -1
+godaeshinryong_dark_03_head_acc_02
+  rotate: false
+  xy: 268, 4
+  size: 25, 28
+  orig: 25, 28
+  offset: 0, 0
+  index: -1
+godaeshinryong_dark_03_head_acc_03
+  rotate: true
+  xy: 1536, 4
+  size: 182, 100
+  orig: 182, 100
+  offset: 0, 0
+  index: -1
+godaeshinryong_dark_03_leg_01
+  rotate: true
+  xy: 1671, 167
+  size: 152, 205
+  orig: 152, 205
+  offset: 0, 0
+  index: -1
+godaeshinryong_dark_03_leg_02
+  rotate: true
+  xy: 1675, 509
+  size: 124, 229
+  orig: 124, 229
+  offset: 0, 0
+  index: -1
+godaeshinryong_dark_03_mouth_01
+  rotate: true
+  xy: 229, 3
+  size: 29, 37
+  orig: 29, 37
+  offset: 0, 0
+  index: -1
+godaeshinryong_dark_03_mouth_02
+  rotate: true
+  xy: 550, 13
+  size: 48, 32
+  orig: 48, 32
+  offset: 0, 0
+  index: -1
+godaeshinryong_dark_03_shoulder_01
+  rotate: false
+  xy: 1536, 188
+  size: 133, 209
+  orig: 133, 209
+  offset: 0, 0
+  index: -1
+godaeshinryong_dark_03_shoulder_02
+  rotate: true
+  xy: 500, 7
+  size: 54, 48
+  orig: 54, 48
+  offset: 0, 0
+  index: -1
+godaeshinryong_dark_03_wing_01
+  rotate: false
+  xy: 2, 278
+  size: 296, 355
+  orig: 296, 355
+  offset: 0, 0
+  index: -1
+godaeshinryong_dark_03_wing_02
+  rotate: false
+  xy: 300, 305
+  size: 206, 328
+  orig: 206, 328
+  offset: 0, 0
+  index: -1

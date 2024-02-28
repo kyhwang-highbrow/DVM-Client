@@ -1,0 +1,132 @@
+
+mutanteggdragon_light_02.png
+size: 1049,192
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+mutanteggdragon_light_02_arm_01
+  rotate: false
+  xy: 523, 12
+  size: 50, 64
+  orig: 50, 64
+  offset: 0, 0
+  index: -1
+mutanteggdragon_light_02_body_01
+  rotate: false
+  xy: 250, 28
+  size: 148, 162
+  orig: 148, 162
+  offset: 0, 0
+  index: -1
+mutanteggdragon_light_02_ear_01
+  rotate: false
+  xy: 882, 25
+  size: 61, 79
+  orig: 61, 79
+  offset: 0, 0
+  index: -1
+mutanteggdragon_light_02_eggshell_01
+  rotate: false
+  xy: 580, 88
+  size: 180, 102
+  orig: 180, 102
+  offset: 0, 0
+  index: -1
+mutanteggdragon_light_02_eggshell_02
+  rotate: false
+  xy: 400, 78
+  size: 178, 112
+  orig: 178, 112
+  offset: 0, 0
+  index: -1
+mutanteggdragon_light_02_eggshell_03
+  rotate: false
+  xy: 580, 2
+  size: 149, 84
+  orig: 149, 84
+  offset: 0, 0
+  index: -1
+mutanteggdragon_light_02_eggshell_04
+  rotate: false
+  xy: 731, 2
+  size: 149, 84
+  orig: 149, 84
+  offset: 0, 0
+  index: -1
+mutanteggdragon_light_02_eggshell_05
+  rotate: false
+  xy: 843, 106
+  size: 149, 84
+  orig: 149, 84
+  offset: 0, 0
+  index: -1
+mutanteggdragon_light_02_eggshell_06
+  rotate: true
+  xy: 2, 10
+  size: 180, 246
+  orig: 180, 246
+  offset: 0, 0
+  index: -1
+mutanteggdragon_light_02_eye_01
+  rotate: false
+  xy: 994, 147
+  size: 53, 43
+  orig: 53, 43
+  offset: 0, 0
+  index: -1
+mutanteggdragon_light_02_eye_02
+  rotate: true
+  xy: 945, 51
+  size: 53, 43
+  orig: 53, 43
+  offset: 0, 0
+  index: -1
+mutanteggdragon_light_02_face_01
+  rotate: false
+  xy: 882, 5
+  size: 28, 18
+  orig: 28, 18
+  offset: 0, 0
+  index: -1
+mutanteggdragon_light_02_leg_01
+  rotate: true
+  xy: 994, 107
+  size: 38, 53
+  orig: 38, 53
+  offset: 0, 0
+  index: -1
+mutanteggdragon_light_02_leg_02
+  rotate: false
+  xy: 945, 2
+  size: 30, 47
+  orig: 30, 47
+  offset: 0, 0
+  index: -1
+mutanteggdragon_light_02_mouth_01
+  rotate: true
+  xy: 977, 9
+  size: 40, 29
+  orig: 40, 29
+  offset: 0, 0
+  index: -1
+mutanteggdragon_light_02_mouth_02
+  rotate: true
+  xy: 990, 64
+  size: 40, 29
+  orig: 40, 29
+  offset: 0, 0
+  index: -1
+mutanteggdragon_light_02_tail_01
+  rotate: false
+  xy: 400, 2
+  size: 121, 74
+  orig: 121, 74
+  offset: 0, 0
+  index: -1
+mutanteggdragon_light_02_wing_01
+  rotate: true
+  xy: 762, 88
+  size: 102, 79
+  orig: 102, 79
+  offset: 0, 0
+  index: -1

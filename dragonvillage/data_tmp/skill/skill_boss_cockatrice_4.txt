@@ -1,0 +1,38 @@
+{
+	"skill_boss_cockatrice_4":
+	{
+		"ver":2,
+		"attack_value":
+		[							
+			{
+				"idx":1,
+				"res":"",
+				"body":[0,0,1000],
+                "count":1,
+				"damage_rate":100,
+                "period":0,
+                "scale":1,
+				"time":0,
+				"speed":0,
+				"accel":0,
+				"h_limit_speed":0,
+				"accel_delay":0,
+				"angular_velocity":0,
+				"offset":[-700,-200],
+				"dir":0,
+				"dir_add":18,		
+				"vanish_time":0.5,				
+				"missile_type":"pass",
+				
+				
+                "effect":
+                {
+                    "motion_streak":"",
+                    "rotation":false,
+                    "afterimage":false
+                }				
+			}
+		]
+	}
+}
+

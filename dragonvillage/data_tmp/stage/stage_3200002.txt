@@ -1,0 +1,37 @@
+{
+	"difficult":2,
+	"bg":"map_ancient_ruin",
+	"direction":"boss_wave",	
+	
+	"wave":
+	[	
+        {
+            "idx":1,
+			"camera":
+            {
+                "scale":0.6,
+                "pos_x":0,
+                "pos_y":0
+            },
+			"wave":
+            {
+				0:
+				[
+					"142004;1;AncientRuinDragon;BOSS;BOSS2;3"
+					
+				]
+            },
+			
+			"regen":
+			[
+				{
+					0:
+					[
+						"142006;1;Appear;RO02;RF23;0.5;roam"
+						"142009;1;Appear;RO02;RF23;0.5;roam"
+					]
+				}
+			]
+		}
+    ]
+}

@@ -1,0 +1,440 @@
+
+thundergod_light_03.png
+size: 1985,714
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+thundergod_light_03_arm_01
+  rotate: false
+  xy: 1447, 300
+  size: 63, 78
+  orig: 63, 78
+  offset: 0, 0
+  index: -1
+thundergod_light_03_arm_acc_01
+  rotate: false
+  xy: 55, 2
+  size: 35, 35
+  orig: 35, 35
+  offset: 0, 0
+  index: -1
+thundergod_light_03_arm_acc_02
+  rotate: true
+  xy: 1895, 60
+  size: 49, 44
+  orig: 49, 44
+  offset: 0, 0
+  index: -1
+thundergod_light_03_arm_acc_03
+  rotate: false
+  xy: 1865, 111
+  size: 63, 61
+  orig: 63, 61
+  offset: 0, 0
+  index: -1
+thundergod_light_03_beard_01
+  rotate: true
+  xy: 1714, 439
+  size: 46, 38
+  orig: 46, 38
+  offset: 0, 0
+  index: -1
+thundergod_light_03_beard_02
+  rotate: true
+  xy: 1445, 242
+  size: 56, 42
+  orig: 56, 42
+  offset: 0, 0
+  index: -1
+thundergod_light_03_beard_03
+  rotate: true
+  xy: 1871, 174
+  size: 70, 74
+  orig: 70, 74
+  offset: 0, 0
+  index: -1
+thundergod_light_03_body_01
+  rotate: false
+  xy: 594, 484
+  size: 329, 228
+  orig: 329, 228
+  offset: 0, 0
+  index: -1
+thundergod_light_03_body_02
+  rotate: false
+  xy: 925, 469
+  size: 302, 243
+  orig: 302, 243
+  offset: 0, 0
+  index: -1
+thundergod_light_03_body_04
+  rotate: false
+  xy: 2, 292
+  size: 390, 232
+  orig: 390, 232
+  offset: 0, 0
+  index: -1
+thundergod_light_03_body_mane_01
+  rotate: false
+  xy: 1486, 487
+  size: 266, 225
+  orig: 266, 225
+  offset: 0, 0
+  index: -1
+thundergod_light_03_body_mane_02
+  rotate: true
+  xy: 1209, 87
+  size: 152, 118
+  orig: 152, 118
+  offset: 0, 0
+  index: -1
+thundergod_light_03_body_mane_03
+  rotate: true
+  xy: 875, 210
+  size: 134, 159
+  orig: 134, 159
+  offset: 0, 0
+  index: -1
+thundergod_light_03_body_mane_04
+  rotate: false
+  xy: 1770, 282
+  size: 123, 123
+  orig: 123, 123
+  offset: 0, 0
+  index: -1
+thundergod_light_03_body_mane_05
+  rotate: true
+  xy: 1441, 104
+  size: 136, 69
+  orig: 136, 69
+  offset: 0, 0
+  index: -1
+thundergod_light_03_effect_01
+  rotate: false
+  xy: 1229, 347
+  size: 216, 112
+  orig: 216, 112
+  offset: 0, 0
+  index: -1
+thundergod_light_03_effect_02
+  rotate: false
+  xy: 1754, 407
+  size: 154, 96
+  orig: 154, 96
+  offset: 0, 0
+  index: -1
+thundergod_light_03_effect_03
+  rotate: true
+  xy: 873, 38
+  size: 170, 111
+  orig: 170, 111
+  offset: 0, 0
+  index: -1
+thundergod_light_03_effect_04
+  rotate: false
+  xy: 321, 71
+  size: 200, 201
+  orig: 200, 201
+  offset: 0, 0
+  index: -1
+thundergod_light_03_effect_05
+  rotate: true
+  xy: 1895, 309
+  size: 96, 76
+  orig: 96, 76
+  offset: 0, 0
+  index: -1
+thundergod_light_03_effect_06
+  rotate: false
+  xy: 2, 526
+  size: 590, 186
+  orig: 590, 186
+  offset: 0, 0
+  index: -1
+thundergod_light_03_effect_07
+  rotate: false
+  xy: 1229, 461
+  size: 255, 251
+  orig: 255, 251
+  offset: 0, 0
+  index: -1
+thundergod_light_03_effect_08
+  rotate: false
+  xy: 1037, 339
+  size: 190, 128
+  orig: 190, 128
+  offset: 0, 0
+  index: -1
+thundergod_light_03_effect_09
+  rotate: false
+  xy: 1512, 119
+  size: 125, 129
+  orig: 125, 129
+  offset: 0, 0
+  index: -1
+thundergod_light_03_effect_1
+  rotate: false
+  xy: 1639, 123
+  size: 125, 125
+  orig: 125, 125
+  offset: 0, 0
+  index: -1
+thundergod_light_03_effect_10
+  rotate: true
+  xy: 1644, 250
+  size: 128, 124
+  orig: 128, 124
+  offset: 0, 0
+  index: -1
+thundergod_light_03_effect_appear
+  rotate: true
+  xy: 2, 39
+  size: 251, 317
+  orig: 251, 317
+  offset: 0, 0
+  index: -1
+thundergod_light_03_effect_bb
+  rotate: false
+  xy: 546, 256
+  size: 327, 87
+  orig: 327, 87
+  offset: 0, 0
+  index: -1
+thundergod_light_03_effect_disappear
+  rotate: false
+  xy: 826, 346
+  size: 209, 121
+  orig: 209, 121
+  offset: 0, 0
+  index: -1
+thundergod_light_03_effect_electric_1
+  rotate: true
+  xy: 1310, 3
+  size: 82, 136
+  orig: 82, 136
+  offset: 0, 0
+  index: -1
+thundergod_light_03_effect_electric_2
+  rotate: false
+  xy: 1079, 94
+  size: 128, 145
+  orig: 128, 145
+  offset: 0, 0
+  index: -1
+thundergod_light_03_effect_light
+  rotate: false
+  xy: 1448, 3
+  size: 99, 99
+  orig: 99, 99
+  offset: 0, 0
+  index: -1
+thundergod_light_03_effect_lightdust
+  rotate: false
+  xy: 1549, 18
+  size: 127, 99
+  orig: 127, 99
+  offset: 0, 0
+  index: -1
+thundergod_light_03_eye_01
+  rotate: false
+  xy: 1930, 111
+  size: 15, 15
+  orig: 15, 15
+  offset: 0, 0
+  index: -1
+thundergod_light_03_eyebrow_01
+  rotate: true
+  xy: 730, 34
+  size: 220, 141
+  orig: 220, 141
+  offset: 0, 0
+  index: -1
+thundergod_light_03_eyebrow_02
+  rotate: false
+  xy: 1447, 391
+  size: 26, 68
+  orig: 26, 68
+  offset: 0, 0
+  index: -1
+thundergod_light_03_hair_01
+  rotate: true
+  xy: 1486, 380
+  size: 105, 226
+  orig: 105, 226
+  offset: 0, 0
+  index: -1
+thundergod_light_03_hair_02
+  rotate: true
+  xy: 1329, 87
+  size: 153, 110
+  orig: 153, 110
+  offset: 0, 0
+  index: -1
+thundergod_light_03_hair_03
+  rotate: true
+  xy: 1770, 201
+  size: 79, 99
+  orig: 79, 99
+  offset: 0, 0
+  index: -1
+thundergod_light_03_hair_04
+  rotate: false
+  xy: 546, 345
+  size: 278, 137
+  orig: 278, 137
+  offset: 0, 0
+  index: -1
+thundergod_light_03_hair_05
+  rotate: true
+  xy: 394, 274
+  size: 250, 150
+  orig: 250, 150
+  offset: 0, 0
+  index: -1
+thundergod_light_03_hair_06
+  rotate: false
+  xy: 1148, 5
+  size: 160, 80
+  orig: 160, 80
+  offset: 0, 0
+  index: -1
+thundergod_light_03_hair_07
+  rotate: true
+  xy: 1895, 246
+  size: 61, 77
+  orig: 61, 77
+  offset: 0, 0
+  index: -1
+thundergod_light_03_hair_08
+  rotate: false
+  xy: 1263, 242
+  size: 180, 103
+  orig: 180, 103
+  offset: 0, 0
+  index: -1
+thundergod_light_03_hair_09
+  rotate: false
+  xy: 1512, 250
+  size: 130, 128
+  orig: 130, 128
+  offset: 0, 0
+  index: -1
+thundergod_light_03_hair_10
+  rotate: true
+  xy: 1766, 113
+  size: 86, 97
+  orig: 86, 97
+  offset: 0, 0
+  index: -1
+thundergod_light_03_head_01
+  rotate: false
+  xy: 1678, 15
+  size: 81, 106
+  orig: 81, 106
+  offset: 0, 0
+  index: -1
+thundergod_light_03_horn_01
+  rotate: false
+  xy: 1754, 505
+  size: 205, 207
+  orig: 205, 207
+  offset: 0, 0
+  index: -1
+thundergod_light_03_horn_04
+  rotate: false
+  xy: 1079, 2
+  size: 67, 90
+  orig: 67, 90
+  offset: 0, 0
+  index: -1
+thundergod_light_03_horn_acc_01
+  rotate: false
+  xy: 986, 40
+  size: 91, 168
+  orig: 91, 168
+  offset: 0, 0
+  index: -1
+thundergod_light_03_horn_acc_02
+  rotate: true
+  xy: 1036, 241
+  size: 96, 225
+  orig: 96, 225
+  offset: 0, 0
+  index: -1
+thundergod_light_03_horn_acc_03
+  rotate: true
+  xy: 546, 504
+  size: 20, 46
+  orig: 20, 46
+  offset: 0, 0
+  index: -1
+thundergod_light_03_horn_acc_04
+  rotate: false
+  xy: 1961, 666
+  size: 22, 46
+  orig: 22, 46
+  offset: 0, 0
+  index: -1
+thundergod_light_03_horn_acc_05
+  rotate: false
+  xy: 1854, 45
+  size: 39, 64
+  orig: 39, 64
+  offset: 0, 0
+  index: -1
+thundergod_light_03_leg_01
+  rotate: true
+  xy: 1910, 411
+  size: 92, 73
+  orig: 92, 73
+  offset: 0, 0
+  index: -1
+thundergod_light_03_leg_02
+  rotate: true
+  xy: 1036, 215
+  size: 24, 41
+  orig: 24, 41
+  offset: 0, 0
+  index: -1
+thundergod_light_03_leg_03
+  rotate: false
+  xy: 1761, 22
+  size: 91, 89
+  orig: 91, 89
+  offset: 0, 0
+  index: -1
+thundergod_light_03_leg_acc_01
+  rotate: true
+  xy: 2, 2
+  size: 35, 51
+  orig: 35, 51
+  offset: 0, 0
+  index: -1
+thundergod_light_03_leg_acc_02
+  rotate: false
+  xy: 1930, 128
+  size: 42, 44
+  orig: 42, 44
+  offset: 0, 0
+  index: -1
+thundergod_light_03_tail_01
+  rotate: true
+  xy: 523, 97
+  size: 157, 205
+  orig: 157, 205
+  offset: 0, 0
+  index: -1
+thundergod_light_03_tail_02
+  rotate: true
+  xy: 321, 3
+  size: 66, 201
+  orig: 66, 201
+  offset: 0, 0
+  index: -1
+thundergod_light_03_tail_03
+  rotate: true
+  xy: 524, 12
+  size: 83, 197
+  orig: 83, 197
+  offset: 0, 0
+  index: -1

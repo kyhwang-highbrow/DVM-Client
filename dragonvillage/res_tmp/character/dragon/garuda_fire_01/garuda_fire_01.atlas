@@ -1,0 +1,188 @@
+
+garuda_fire_01.png
+size: 1986,897
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+garuda_fire_01_arm_01
+  rotate: false
+  xy: 1631, 62
+  size: 130, 195
+  orig: 130, 195
+  offset: 0, 0
+  index: -1
+garuda_fire_01_arm_02
+  rotate: true
+  xy: 1763, 185
+  size: 130, 195
+  orig: 130, 195
+  offset: 0, 0
+  index: -1
+garuda_fire_01_arm_03
+  rotate: false
+  xy: 894, 18
+  size: 130, 99
+  orig: 130, 99
+  offset: 0, 0
+  index: -1
+garuda_fire_01_arm_04
+  rotate: false
+  xy: 1026, 18
+  size: 89, 99
+  orig: 89, 99
+  offset: 0, 0
+  index: -1
+garuda_fire_01_body_01
+  rotate: false
+  xy: 1667, 317
+  size: 301, 189
+  orig: 301, 189
+  offset: 0, 0
+  index: -1
+garuda_fire_01_body_02
+  rotate: false
+  xy: 1278, 43
+  size: 351, 214
+  orig: 351, 214
+  offset: 0, 0
+  index: -1
+garuda_fire_01_body_effect_01_s0059
+  rotate: true
+  xy: 2, 508
+  size: 387, 317
+  orig: 387, 317
+  offset: 0, 0
+  index: -1
+garuda_fire_01_body_effect_01_s0060
+  rotate: true
+  xy: 2, 119
+  size: 387, 317
+  orig: 387, 317
+  offset: 0, 0
+  index: -1
+garuda_fire_01_body_effect_01_s0061
+  rotate: true
+  xy: 321, 508
+  size: 387, 317
+  orig: 387, 317
+  offset: 0, 0
+  index: -1
+garuda_fire_01_body_effect_01_s0062
+  rotate: true
+  xy: 321, 119
+  size: 387, 317
+  orig: 387, 317
+  offset: 0, 0
+  index: -1
+garuda_fire_01_body_effect_01_s0063
+  rotate: true
+  xy: 640, 508
+  size: 387, 317
+  orig: 387, 317
+  offset: 0, 0
+  index: -1
+garuda_fire_01_body_effect_01_s0064
+  rotate: true
+  xy: 640, 119
+  size: 387, 317
+  orig: 387, 317
+  offset: 0, 0
+  index: -1
+garuda_fire_01_body_effect_01_s0065
+  rotate: true
+  xy: 959, 508
+  size: 387, 317
+  orig: 387, 317
+  offset: 0, 0
+  index: -1
+garuda_fire_01_body_effect_01_s0066
+  rotate: true
+  xy: 959, 119
+  size: 387, 317
+  orig: 387, 317
+  offset: 0, 0
+  index: -1
+garuda_fire_01_body_effect_01_s0067
+  rotate: false
+  xy: 1278, 578
+  size: 387, 317
+  orig: 387, 317
+  offset: 0, 0
+  index: -1
+garuda_fire_01_body_effect_01_s0068
+  rotate: true
+  xy: 1667, 508
+  size: 387, 317
+  orig: 387, 317
+  offset: 0, 0
+  index: -1
+garuda_fire_01_body_effect_01_s0069
+  rotate: false
+  xy: 1278, 259
+  size: 387, 317
+  orig: 387, 317
+  offset: 0, 0
+  index: -1
+garuda_fire_01_eye_01
+  rotate: true
+  xy: 2, 2
+  size: 115, 114
+  orig: 115, 114
+  offset: 0, 0
+  index: -1
+garuda_fire_01_foot_01
+  rotate: true
+  xy: 118, 8
+  size: 109, 131
+  orig: 109, 131
+  offset: 0, 0
+  index: -1
+garuda_fire_01_foot_02
+  rotate: true
+  xy: 251, 8
+  size: 109, 131
+  orig: 109, 131
+  offset: 0, 0
+  index: -1
+garuda_fire_01_hand_01
+  rotate: false
+  xy: 640, 16
+  size: 125, 101
+  orig: 125, 101
+  offset: 0, 0
+  index: -1
+garuda_fire_01_hand_02
+  rotate: false
+  xy: 767, 16
+  size: 125, 101
+  orig: 125, 101
+  offset: 0, 0
+  index: -1
+garuda_fire_01_head_01
+  rotate: false
+  xy: 1763, 22
+  size: 147, 161
+  orig: 147, 161
+  offset: 0, 0
+  index: -1
+garuda_fire_01_head_02
+  rotate: true
+  xy: 1117, 27
+  size: 90, 86
+  orig: 90, 86
+  offset: 0, 0
+  index: -1
+garuda_fire_01_leg_01
+  rotate: true
+  xy: 384, 8
+  size: 109, 131
+  orig: 109, 131
+  offset: 0, 0
+  index: -1
+garuda_fire_01_leg_02
+  rotate: true
+  xy: 517, 8
+  size: 109, 121
+  orig: 109, 121
+  offset: 0, 0
+  index: -1

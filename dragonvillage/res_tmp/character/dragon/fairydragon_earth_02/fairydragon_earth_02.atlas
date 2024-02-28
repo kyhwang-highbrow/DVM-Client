@@ -1,0 +1,125 @@
+
+fairydragon_earth_02.png
+size: 537,282
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+fairydragon_earth_02_arm_01
+  rotate: true
+  xy: 306, 228
+  size: 52, 41
+  orig: 52, 41
+  offset: 0, 0
+  index: -1
+fairydragon_earth_02_arm_02
+  rotate: false
+  xy: 66, 8
+  size: 51, 29
+  orig: 51, 29
+  offset: 0, 0
+  index: -1
+fairydragon_earth_02_body_01
+  rotate: false
+  xy: 169, 87
+  size: 135, 193
+  orig: 135, 193
+  offset: 0, 0
+  index: -1
+fairydragon_earth_02_butterfly_01
+  rotate: false
+  xy: 169, 2
+  size: 46, 83
+  orig: 46, 83
+  offset: 0, 0
+  index: -1
+fairydragon_earth_02_butterfly_02
+  rotate: false
+  xy: 2, 5
+  size: 12, 32
+  orig: 12, 32
+  offset: 0, 0
+  index: -1
+fairydragon_earth_02_eye_01
+  rotate: true
+  xy: 306, 173
+  size: 53, 37
+  orig: 53, 37
+  offset: 0, 0
+  index: -1
+fairydragon_earth_02_eye_02
+  rotate: true
+  xy: 306, 118
+  size: 53, 37
+  orig: 53, 37
+  offset: 0, 0
+  index: -1
+fairydragon_earth_02_eye_03
+  rotate: true
+  xy: 459, 2
+  size: 53, 37
+  orig: 53, 37
+  offset: 0, 0
+  index: -1
+fairydragon_earth_02_eye_04
+  rotate: true
+  xy: 498, 2
+  size: 53, 37
+  orig: 53, 37
+  offset: 0, 0
+  index: -1
+fairydragon_earth_02_head_01
+  rotate: true
+  xy: 351, 17
+  size: 164, 106
+  orig: 164, 106
+  offset: 0, 0
+  index: -1
+fairydragon_earth_02_head_02
+  rotate: false
+  xy: 459, 118
+  size: 69, 63
+  orig: 69, 63
+  offset: 0, 0
+  index: -1
+fairydragon_earth_02_head_03
+  rotate: false
+  xy: 217, 4
+  size: 65, 81
+  orig: 65, 81
+  offset: 0, 0
+  index: -1
+fairydragon_earth_02_leg_01
+  rotate: true
+  xy: 284, 8
+  size: 77, 65
+  orig: 77, 65
+  offset: 0, 0
+  index: -1
+fairydragon_earth_02_leg_02
+  rotate: true
+  xy: 459, 57
+  size: 59, 69
+  orig: 59, 69
+  offset: 0, 0
+  index: -1
+fairydragon_earth_02_mouth_01
+  rotate: false
+  xy: 16, 6
+  size: 48, 31
+  orig: 48, 31
+  offset: 0, 0
+  index: -1
+fairydragon_earth_02_wing_01
+  rotate: true
+  xy: 2, 39
+  size: 241, 165
+  orig: 241, 165
+  offset: 0, 0
+  index: -1
+fairydragon_earth_02_wing_02
+  rotate: true
+  xy: 351, 183
+  size: 97, 184
+  orig: 97, 184
+  offset: 0, 0
+  index: -1

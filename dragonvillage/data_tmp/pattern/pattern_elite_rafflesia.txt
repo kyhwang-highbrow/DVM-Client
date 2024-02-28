@@ -1,0 +1,36 @@
+{
+	"pattern_elite_rafflesia":
+	[	
+		
+		[
+			"m;RB14;300", "w;2", "a;basic", "w;2", "a;basic", "w;2", "a;basic", "w;2", "a;1",
+			"m;RB12;300", "w;2", "a;basic", "w;2", "a;basic", "w;2", "a;basic", "w;2", "a;1",
+			"m;RB16;300", "w;2", "a;basic", "w;2", "a;basic", "w;2", "a;basic", "w;2", "a;1"
+		]
+    ],
+	
+	"hp_trriger":
+    {
+        "priority":1,
+        "list":
+        [
+            {
+                "hp_percent":50,
+                "pattern":
+                [
+					"m;RB24;300", "a;2", "m;RM24;300", "w;2", "a;basic", "w;2", "a;basic", "w;2", "a;basic"
+                ]
+            },
+			
+            {
+                "hp_percent":25,
+                "pattern":
+                [
+					"m;RM22;600", "a;4", "w;2", "m;RM24;300",
+					"m;RB24;600", "a;2", "w;2", "m;RM24;300",
+					"m;RM26;600", "a;4", "w;2", "m;RM24;300"
+                ]				
+            }
+        ]
+    }
+}

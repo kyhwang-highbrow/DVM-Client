@@ -1,0 +1,68 @@
+{
+	"skill_pompomking_3":
+	{
+		"ver":2,
+		"attack_value":
+		[
+		
+			{
+				"idx":1,
+				"res":"res/missile/missile_ball/missile_ball_@.vrp",
+				"body":[0,0,0],
+                "count":10,
+                "period":0,
+                "scale":1,
+				"time":0,
+				"speed":500,
+				"accel":-700,
+				"l_limit_speed":50,
+				"accel_delay":0,
+				"angular_velocity":0,
+				"offset":[0,0],
+				"dir_array":[0],
+				"dir_add":36,
+				"missile_type":"pass",
+                "fadeout_time":7,
+				"reset_time":0.5,
+				
+				"add_script":
+				[
+					{
+						"idx":1,
+						"res":"res/missile/missile_ball/missile_ball_@.vrp",
+						"body":[0,0,50],
+						"count":5,
+						"damage_rate":20,
+						"period":0.2,
+						"scale":2,
+						"time":0,
+						"speed":1200,
+						"accel":-1500,
+						"l_limit_speed":0,
+						"accel_delay":0.5,
+						"angular_velocity":0,
+						"offset":[-1000,1000],
+						"dir_array":['random',260,280],
+						"dir_add":0,
+						"missile_type":"pass",
+						"fadeout_time":2.5,
+						"damage_rate":10
+					}
+				],
+				
+				"add_script_dead":false,
+				"add_script_start":1,
+				"add_script_term":0.05,
+				"add_script_max":1,
+				
+				"effect":
+                {
+                    "motion_streak":"",
+                    "rotation":false,
+                    "afterimage":false
+                }
+			}
+		]
+	}
+}
+

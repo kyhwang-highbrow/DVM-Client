@@ -1,0 +1,139 @@
+
+leafdragon_dark_01.png
+size: 136,1035
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+leafdragon_dark_01_arm_01
+  rotate: true
+  xy: 72, 247
+  size: 69, 61
+  orig: 69, 61
+  offset: 0, 0
+  index: -1
+leafdragon_dark_01_arm_01_01
+  rotate: true
+  xy: 2, 121
+  size: 69, 61
+  orig: 69, 61
+  offset: 0, 0
+  index: -1
+leafdragon_dark_01_arm_02
+  rotate: true
+  xy: 72, 176
+  size: 69, 61
+  orig: 69, 61
+  offset: 0, 0
+  index: -1
+leafdragon_dark_01_arm_02_01
+  rotate: false
+  xy: 65, 113
+  size: 69, 61
+  orig: 69, 61
+  offset: 0, 0
+  index: -1
+leafdragon_dark_01_body_01
+  rotate: true
+  xy: 2, 653
+  size: 97, 121
+  orig: 97, 121
+  offset: 0, 0
+  index: -1
+leafdragon_dark_01_body_02
+  rotate: true
+  xy: 2, 464
+  size: 83, 92
+  orig: 83, 92
+  offset: 0, 0
+  index: -1
+leafdragon_dark_01_effect_01
+  rotate: false
+  xy: 2, 262
+  size: 68, 68
+  orig: 68, 68
+  offset: 0, 0
+  index: -1
+leafdragon_dark_01_effect_02
+  rotate: false
+  xy: 2, 192
+  size: 68, 68
+  orig: 68, 68
+  offset: 0, 0
+  index: -1
+leafdragon_dark_01_eye_01
+  rotate: true
+  xy: 83, 391
+  size: 71, 46
+  orig: 71, 46
+  offset: 0, 0
+  index: -1
+leafdragon_dark_01_eye_02
+  rotate: true
+  xy: 83, 318
+  size: 71, 46
+  orig: 71, 46
+  offset: 0, 0
+  index: -1
+leafdragon_dark_01_eye_03
+  rotate: false
+  xy: 2, 2
+  size: 71, 46
+  orig: 71, 46
+  offset: 0, 0
+  index: -1
+leafdragon_dark_01_hand_01
+  rotate: true
+  xy: 2, 50
+  size: 69, 61
+  orig: 69, 61
+  offset: 0, 0
+  index: -1
+leafdragon_dark_01_hand_02
+  rotate: false
+  xy: 65, 50
+  size: 69, 61
+  orig: 69, 61
+  offset: 0, 0
+  index: -1
+leafdragon_dark_01_head_01
+  rotate: true
+  xy: 2, 752
+  size: 138, 128
+  orig: 138, 128
+  offset: 0, 0
+  index: -1
+leafdragon_dark_01_head_02
+  rotate: false
+  xy: 2, 549
+  size: 113, 102
+  orig: 113, 102
+  offset: 0, 0
+  index: -1
+leafdragon_dark_01_head_03
+  rotate: true
+  xy: 2, 892
+  size: 141, 127
+  orig: 141, 127
+  offset: 0, 0
+  index: -1
+leafdragon_dark_01_leg_01
+  rotate: true
+  xy: 2, 398
+  size: 64, 79
+  orig: 64, 79
+  offset: 0, 0
+  index: -1
+leafdragon_dark_01_leg_02
+  rotate: true
+  xy: 2, 332
+  size: 64, 79
+  orig: 64, 79
+  offset: 0, 0
+  index: -1
+leafdragon_dark_01_mouth_01
+  rotate: true
+  xy: 96, 488
+  size: 59, 34
+  orig: 59, 34
+  offset: 0, 0
+  index: -1

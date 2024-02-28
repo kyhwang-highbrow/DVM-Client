@@ -1,0 +1,363 @@
+
+lorus_all_01.png
+size: 958,530
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+lorus_all_01_arm01
+  rotate: true
+  xy: 545, 2
+  size: 45, 72
+  orig: 45, 72
+  offset: 0, 0
+  index: -1
+lorus_all_01_arm02
+  rotate: true
+  xy: 685, 7
+  size: 48, 57
+  orig: 48, 57
+  offset: 0, 0
+  index: -1
+lorus_all_01_arm03
+  rotate: true
+  xy: 619, 3
+  size: 44, 64
+  orig: 44, 64
+  offset: 0, 0
+  index: -1
+lorus_all_01_arm04
+  rotate: false
+  xy: 880, 46
+  size: 40, 47
+  orig: 40, 47
+  offset: 0, 0
+  index: -1
+lorus_all_01_attack01
+  rotate: true
+  xy: 480, 10
+  size: 76, 63
+  orig: 76, 63
+  offset: 0, 0
+  index: -1
+lorus_all_01_attack02
+  rotate: false
+  xy: 853, 321
+  size: 76, 63
+  orig: 76, 63
+  offset: 0, 0
+  index: -1
+lorus_all_01_backface01
+  rotate: false
+  xy: 604, 49
+  size: 68, 62
+  orig: 68, 62
+  offset: 0, 0
+  index: -1
+lorus_all_01_body01
+  rotate: false
+  xy: 853, 386
+  size: 102, 142
+  orig: 102, 142
+  offset: 0, 0
+  index: -1
+lorus_all_01_closedeye_01
+  rotate: false
+  xy: 87, 7
+  size: 40, 28
+  orig: 40, 28
+  offset: 0, 0
+  index: -1
+lorus_all_01_ear01
+  rotate: false
+  xy: 534, 121
+  size: 72, 81
+  orig: 72, 81
+  offset: 0, 0
+  index: -1
+lorus_all_01_ear02
+  rotate: false
+  xy: 545, 49
+  size: 57, 70
+  orig: 57, 70
+  offset: 0, 0
+  index: -1
+lorus_all_01_effect01
+  rotate: false
+  xy: 481, 204
+  size: 214, 132
+  orig: 214, 132
+  offset: 0, 0
+  index: -1
+lorus_all_01_effect02
+  rotate: false
+  xy: 674, 57
+  size: 62, 58
+  orig: 62, 58
+  offset: 0, 0
+  index: -1
+lorus_all_01_effect03
+  rotate: false
+  xy: 481, 338
+  size: 188, 190
+  orig: 188, 190
+  offset: 0, 0
+  index: -1
+lorus_all_01_effect04
+  rotate: true
+  xy: 2, 37
+  size: 248, 229
+  orig: 248, 229
+  offset: 0, 0
+  index: -1
+lorus_all_01_effect05
+  rotate: false
+  xy: 246, 296
+  size: 233, 232
+  orig: 233, 232
+  offset: 0, 0
+  index: -1
+lorus_all_01_effect06
+  rotate: false
+  xy: 2, 287
+  size: 242, 241
+  orig: 242, 241
+  offset: 0, 0
+  index: -1
+lorus_all_01_effect07
+  rotate: true
+  xy: 789, 16
+  size: 56, 42
+  orig: 56, 42
+  offset: 0, 0
+  index: -1
+lorus_all_01_effect09_lightdust
+  rotate: false
+  xy: 697, 154
+  size: 127, 99
+  orig: 127, 99
+  offset: 0, 0
+  index: -1
+lorus_all_01_eye01
+  rotate: false
+  xy: 2, 4
+  size: 41, 31
+  orig: 41, 31
+  offset: 0, 0
+  index: -1
+lorus_all_01_eye02
+  rotate: true
+  xy: 166, 9
+  size: 26, 31
+  orig: 26, 31
+  offset: 0, 0
+  index: -1
+lorus_all_01_eye03
+  rotate: false
+  xy: 129, 5
+  size: 35, 30
+  orig: 35, 30
+  offset: 0, 0
+  index: -1
+lorus_all_01_eyebrow01
+  rotate: true
+  xy: 670, 176
+  size: 26, 25
+  orig: 26, 25
+  offset: 0, 0
+  index: -1
+lorus_all_01_face01
+  rotate: false
+  xy: 310, 85
+  size: 92, 93
+  orig: 92, 93
+  offset: 0, 0
+  index: -1
+lorus_all_01_horneffect01
+  rotate: false
+  xy: 901, 95
+  size: 51, 44
+  orig: 51, 44
+  offset: 0, 0
+  index: -1
+lorus_all_01_laugh01
+  rotate: true
+  xy: 738, 74
+  size: 41, 71
+  orig: 41, 71
+  offset: 0, 0
+  index: -1
+lorus_all_01_laugh02
+  rotate: false
+  xy: 744, 9
+  size: 43, 63
+  orig: 43, 63
+  offset: 0, 0
+  index: -1
+lorus_all_01_laugheye_01
+  rotate: false
+  xy: 45, 6
+  size: 40, 29
+  orig: 40, 29
+  offset: 0, 0
+  index: -1
+lorus_all_01_leg01
+  rotate: false
+  xy: 310, 9
+  size: 92, 74
+  orig: 92, 74
+  offset: 0, 0
+  index: -1
+lorus_all_01_leg02
+  rotate: true
+  xy: 608, 113
+  size: 89, 60
+  orig: 89, 60
+  offset: 0, 0
+  index: -1
+lorus_all_01_mouth01
+  rotate: true
+  xy: 931, 353
+  size: 31, 24
+  orig: 31, 24
+  offset: 0, 0
+  index: -1
+lorus_all_01_mouth02
+  rotate: true
+  xy: 931, 324
+  size: 27, 24
+  orig: 27, 24
+  offset: 0, 0
+  index: -1
+lorus_all_01_mouth03
+  rotate: false
+  xy: 199, 9
+  size: 30, 26
+  orig: 30, 26
+  offset: 0, 0
+  index: -1
+lorus_all_01_neck01
+  rotate: true
+  xy: 404, 78
+  size: 100, 72
+  orig: 100, 72
+  offset: 0, 0
+  index: -1
+lorus_all_01_ring01
+  rotate: true
+  xy: 233, 158
+  size: 127, 75
+  orig: 127, 75
+  offset: 0, 0
+  index: -1
+lorus_all_01_ring02
+  rotate: true
+  xy: 233, 29
+  size: 127, 75
+  orig: 127, 75
+  offset: 0, 0
+  index: -1
+lorus_all_01_ring03
+  rotate: false
+  xy: 697, 255
+  size: 144, 92
+  orig: 144, 92
+  offset: 0, 0
+  index: -1
+lorus_all_01_sleep01
+  rotate: false
+  xy: 310, 180
+  size: 106, 114
+  orig: 106, 114
+  offset: 0, 0
+  index: -1
+lorus_all_01_sleep02
+  rotate: false
+  xy: 901, 194
+  size: 55, 56
+  orig: 55, 56
+  offset: 0, 0
+  index: -1
+lorus_all_01_sleep03
+  rotate: false
+  xy: 901, 141
+  size: 55, 51
+  orig: 55, 51
+  offset: 0, 0
+  index: -1
+lorus_all_01_sleep04
+  rotate: false
+  xy: 671, 349
+  size: 180, 179
+  orig: 180, 179
+  offset: 0, 0
+  index: -1
+lorus_all_01_wing01
+  rotate: false
+  xy: 418, 180
+  size: 54, 114
+  orig: 54, 114
+  offset: 0, 0
+  index: -1
+lorus_all_01_wing02
+  rotate: true
+  xy: 404, 9
+  size: 67, 74
+  orig: 67, 74
+  offset: 0, 0
+  index: -1
+lorus_all_01_wing03
+  rotate: true
+  xy: 670, 117
+  size: 35, 72
+  orig: 35, 72
+  offset: 0, 0
+  index: -1
+lorus_all_01_wing04
+  rotate: false
+  xy: 833, 68
+  size: 45, 48
+  orig: 45, 48
+  offset: 0, 0
+  index: -1
+lorus_all_01_wing05
+  rotate: false
+  xy: 826, 185
+  size: 73, 65
+  orig: 73, 65
+  offset: 0, 0
+  index: -1
+lorus_all_01_wingeffect01
+  rotate: false
+  xy: 478, 88
+  size: 54, 114
+  orig: 54, 114
+  offset: 0, 0
+  index: -1
+lorus_all_01_wingeffect02
+  rotate: true
+  xy: 843, 252
+  size: 67, 74
+  orig: 67, 74
+  offset: 0, 0
+  index: -1
+lorus_all_01_wingeffect03
+  rotate: true
+  xy: 744, 117
+  size: 35, 72
+  orig: 35, 72
+  offset: 0, 0
+  index: -1
+lorus_all_01_wingeffect04
+  rotate: false
+  xy: 833, 18
+  size: 45, 48
+  orig: 45, 48
+  offset: 0, 0
+  index: -1
+lorus_all_01_wingeffect05
+  rotate: false
+  xy: 826, 118
+  size: 73, 65
+  orig: 73, 65
+  offset: 0, 0
+  index: -1

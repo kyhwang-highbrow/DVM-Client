@@ -1,0 +1,153 @@
+{
+    "difficult":2,
+    "bg":"map_nightmare",
+	"wave":
+	[
+        {
+            "idx":1,
+			"camera":
+            {
+                "scale":0.9,
+                "pos_x":0,
+                "pos_y":0
+            },
+			
+            "wave":
+            {
+				0:
+                [
+					"130015;1;Basic2;RO01;RM21;1;l1"
+					"130025;1;Basic2;RO02;RM22;1;l2"
+					"130055;1;Basic2;RO03;RM23;1;l1"
+					"130035;1;Basic2;RO04;RM24;1;l2"
+					"130055;1;Basic2;RO05;RM25;1;l1"
+					"130025;1;Basic2;RO06;RM26;1;l2"
+					"130015;1;Basic2;RO07;RM27;1;l1"
+				]
+            }
+        },
+		
+        {
+            "idx":2,
+			"camera":
+            {
+                "scale":0.9,
+                "pos_x":0,
+                "pos_y":0
+            },
+			
+            "wave":
+            {
+                0:
+				[
+					"130035;1;Appear;RO03;RF13;0.5;t1"
+				],
+				
+				0.2:
+				[
+					"130035;1;Appear;RO01;RF21;0.5;t1"
+				],
+				
+				0.4:
+				[
+					"130035;1;Appear;RO03;RM13;0.5;t1"
+				],
+				
+				0.6:
+				[
+					"130045;1;Appear;RO05;RM25;0.5;t2"
+				],
+				
+				0.8:
+				[
+					"130045;1;Appear;RO07;RB17;0.5;t2"
+				],
+				
+				1:
+				[
+					"130045;1;Appear;RO05;RB25;0.5;t2"
+				]
+            }
+        },
+		
+        {
+            "idx":3,
+			"camera":
+            {
+                "scale":0.8,
+                "pos_x":0,
+                "pos_y":0
+            },
+			
+            "direction":"boss_wave",
+            "wave":
+            {
+				0:
+				[
+					"134024;1;Basic;RO04;RM24;2"
+				]
+            },
+			
+			"regen":
+			[
+				{
+					0:
+					[
+						"131043;1;Appear;RF12;RO01;3"
+					]
+				},
+				
+				{
+					0:
+					[
+						"131111;1;Appear;RF14;RO04;3"
+					]
+				}
+				
+				{
+					0:
+					[
+						"131052;1;Appear;RF16;RO07;3"
+					]
+				}
+			]
+        }
+    ],
+	
+	"move":
+	{	
+		"l1":
+		[
+			[
+				"h_extend_1;3", "h_extend_r1;3"
+			]
+		],
+		
+		"l2":
+		[
+			[
+				"h_extend_2;3", "h_extend_r2;3"
+			]
+		],
+		
+		"t1":
+		[
+			[
+				"triangle_ft_1;2", "triangle_ft_2;2", "triangle_ft_3;2",
+				"triangle_ft_1;2", "triangle_ft_2;2", "triangle_ft_3;2",
+				"triangle_bt_1;2", "triangle_bt_2;2", "triangle_bt_3;2",
+				"triangle_bt_1;2", "triangle_bt_2;2", "triangle_bt_3;2"
+			]
+		],
+		
+		"t2":
+		[
+			[
+				"triangle_bb_1;2", "triangle_bb_2;2", "triangle_bb_3;2",
+				"triangle_bb_1;2", "triangle_bb_2;2", "triangle_bb_3;2",
+				"triangle_fb_1;2", "triangle_fb_2;2", "triangle_fb_3;2",
+				"triangle_fb_1;2", "triangle_fb_2;2", "triangle_fb_3;2"
+			]
+		]
+	}
+}

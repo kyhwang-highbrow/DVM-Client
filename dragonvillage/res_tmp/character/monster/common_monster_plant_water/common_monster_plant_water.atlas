@@ -1,0 +1,48 @@
+
+common_monster_plant_water.png
+size: 512,512
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+monster_plant_water_arm_01
+  rotate: false
+  xy: 2, 142
+  size: 138, 158
+  orig: 138, 158
+  offset: 0, 0
+  index: -1
+monster_plant_water_arm_02
+  rotate: false
+  xy: 280, 344
+  size: 138, 158
+  orig: 138, 158
+  offset: 0, 0
+  index: -1
+monster_plant_water_body_01
+  rotate: false
+  xy: 142, 142
+  size: 138, 158
+  orig: 138, 158
+  offset: 0, 0
+  index: -1
+monster_plant_water_body_03
+  rotate: true
+  xy: 282, 182
+  size: 160, 128
+  orig: 160, 128
+  offset: 0, 0
+  index: -1
+monster_plant_water_body_04
+  rotate: false
+  xy: 2, 302
+  size: 276, 200
+  orig: 276, 200
+  offset: 0, 0
+  index: -1
+monster_plant_water_mouth_01
+  rotate: true
+  xy: 2, 2
+  size: 138, 158
+  orig: 138, 158
+  offset: 0, 0
+  index: -1

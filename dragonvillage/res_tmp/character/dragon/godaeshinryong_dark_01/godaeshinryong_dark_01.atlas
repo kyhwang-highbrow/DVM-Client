@@ -1,0 +1,83 @@
+
+godaeshinryong_dark_01.png
+size: 178,277
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+godaeshinryong_dark_01_arm_01
+  rotate: false
+  xy: 91, 124
+  size: 28, 42
+  orig: 28, 42
+  offset: 0, 0
+  index: -1
+godaeshinryong_dark_01_arm_02
+  rotate: false
+  xy: 2, 2
+  size: 36, 41
+  orig: 36, 41
+  offset: 0, 0
+  index: -1
+godaeshinryong_dark_01_body_01
+  rotate: true
+  xy: 2, 45
+  size: 121, 87
+  orig: 121, 87
+  offset: 0, 0
+  index: -1
+godaeshinryong_dark_01_eye_01
+  rotate: false
+  xy: 40, 7
+  size: 35, 36
+  orig: 35, 36
+  offset: 0, 0
+  index: -1
+godaeshinryong_dark_01_head_01
+  rotate: false
+  xy: 2, 168
+  size: 117, 107
+  orig: 117, 107
+  offset: 0, 0
+  index: -1
+godaeshinryong_dark_01_head_02
+  rotate: true
+  xy: 139, 98
+  size: 24, 25
+  orig: 24, 25
+  offset: 0, 0
+  index: -1
+godaeshinryong_dark_01_head_03
+  rotate: true
+  xy: 121, 124
+  size: 62, 53
+  orig: 62, 53
+  offset: 0, 0
+  index: -1
+godaeshinryong_dark_01_head_04
+  rotate: true
+  xy: 104, 4
+  size: 46, 53
+  orig: 46, 53
+  offset: 0, 0
+  index: -1
+godaeshinryong_dark_01_head_05
+  rotate: true
+  xy: 77, 13
+  size: 30, 25
+  orig: 30, 25
+  offset: 0, 0
+  index: -1
+godaeshinryong_dark_01_leg_01
+  rotate: false
+  xy: 121, 188
+  size: 55, 87
+  orig: 55, 87
+  offset: 0, 0
+  index: -1
+godaeshinryong_dark_01_leg_02
+  rotate: false
+  xy: 91, 52
+  size: 46, 70
+  orig: 46, 70
+  offset: 0, 0
+  index: -1

@@ -1,0 +1,30 @@
+{
+	"missile_move_straight":
+	{
+		"attack_value":
+		[		
+			{
+				"idx":1,
+				"body":[0,0,20],
+                "count":1,
+                "scale":1,
+                "period":0,
+				"speed":500,
+				"accel":0,
+				"h_limit_speed":2000,
+				"accel_delay":0,
+				"angular_velocity":0,
+				"offset":[0,0],
+                "dir_add":0,
+				
+                "effect":
+                {
+                    "motion_streak":"",
+                    "rotation":false,
+                    "afterimage":false
+                }
+				
+			}
+		]
+	}
+}

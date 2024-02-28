@@ -1,0 +1,181 @@
+
+estimia_water_02.png
+size: 1327,636
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+estimia_water_02_arm_01
+  rotate: false
+  xy: 1052, 99
+  size: 85, 105
+  orig: 85, 105
+  offset: 0, 0
+  index: -1
+estimia_water_02_arm_02
+  rotate: false
+  xy: 1139, 99
+  size: 85, 105
+  orig: 85, 105
+  offset: 0, 0
+  index: -1
+estimia_water_02_body_01
+  rotate: true
+  xy: 883, 314
+  size: 187, 212
+  orig: 187, 212
+  offset: 0, 0
+  index: -1
+estimia_water_02_body_02
+  rotate: false
+  xy: 883, 503
+  size: 380, 131
+  orig: 380, 131
+  offset: 0, 0
+  index: -1
+estimia_water_02_body_03
+  rotate: false
+  xy: 1097, 368
+  size: 129, 133
+  orig: 129, 133
+  offset: 0, 0
+  index: -1
+estimia_water_02_body_04
+  rotate: true
+  xy: 1097, 300
+  size: 66, 116
+  orig: 66, 116
+  offset: 0, 0
+  index: -1
+estimia_water_02_body_05
+  rotate: false
+  xy: 1226, 144
+  size: 77, 85
+  orig: 77, 85
+  offset: 0, 0
+  index: -1
+estimia_water_02_body_06
+  rotate: false
+  xy: 1265, 583
+  size: 46, 51
+  orig: 46, 51
+  offset: 0, 0
+  index: -1
+estimia_water_02_body_07
+  rotate: true
+  xy: 1226, 99
+  size: 43, 47
+  orig: 43, 47
+  offset: 0, 0
+  index: -1
+estimia_water_02_effect_03
+  rotate: false
+  xy: 2, 2
+  size: 632, 632
+  orig: 632, 632
+  offset: 0, 0
+  index: -1
+estimia_water_02_eye_01
+  rotate: false
+  xy: 849, 2
+  size: 58, 40
+  orig: 58, 40
+  offset: 0, 0
+  index: -1
+estimia_water_02_eye_02
+  rotate: true
+  xy: 1265, 532
+  size: 49, 46
+  orig: 49, 46
+  offset: 0, 0
+  index: -1
+estimia_water_02_foot_01
+  rotate: false
+  xy: 849, 179
+  size: 106, 133
+  orig: 106, 133
+  offset: 0, 0
+  index: -1
+estimia_water_02_foot_02
+  rotate: false
+  xy: 1215, 231
+  size: 110, 96
+  orig: 110, 96
+  offset: 0, 0
+  index: -1
+estimia_water_02_hand_01
+  rotate: false
+  xy: 1228, 416
+  size: 97, 85
+  orig: 97, 85
+  offset: 0, 0
+  index: -1
+estimia_water_02_hand_02
+  rotate: false
+  xy: 1228, 329
+  size: 97, 85
+  orig: 97, 85
+  offset: 0, 0
+  index: -1
+estimia_water_02_head_01
+  rotate: true
+  xy: 957, 67
+  size: 138, 93
+  orig: 138, 93
+  offset: 0, 0
+  index: -1
+estimia_water_02_head_02
+  rotate: false
+  xy: 1237, 29
+  size: 62, 68
+  orig: 62, 68
+  offset: 0, 0
+  index: -1
+estimia_water_02_head_03
+  rotate: false
+  xy: 957, 207
+  size: 133, 105
+  orig: 133, 105
+  offset: 0, 0
+  index: -1
+estimia_water_02_head_04
+  rotate: false
+  xy: 1147, 25
+  size: 88, 72
+  orig: 88, 72
+  offset: 0, 0
+  index: -1
+estimia_water_02_head_05
+  rotate: true
+  xy: 1052, 35
+  size: 62, 93
+  orig: 62, 93
+  offset: 0, 0
+  index: -1
+estimia_water_02_leg_01
+  rotate: false
+  xy: 849, 44
+  size: 106, 133
+  orig: 106, 133
+  offset: 0, 0
+  index: -1
+estimia_water_02_leg_02
+  rotate: false
+  xy: 1092, 206
+  size: 106, 92
+  orig: 106, 92
+  offset: 0, 0
+  index: -1
+estimia_water_02_wing_01
+  rotate: false
+  xy: 636, 343
+  size: 245, 291
+  orig: 245, 291
+  offset: 0, 0
+  index: -1
+estimia_water_02_wing_02
+  rotate: false
+  xy: 636, 40
+  size: 211, 301
+  orig: 211, 301
+  offset: 0, 0
+  index: -1

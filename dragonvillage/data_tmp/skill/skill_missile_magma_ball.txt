@@ -1,0 +1,31 @@
+{
+	"skill_missile_magma_ball":
+	{
+		"attack_value":
+		[		
+			{
+				"idx":1,
+				"res":"res/missile/missile_magma_ball/missile_magma_ball.png",
+				"body":[0,0,20],
+                "count":1,
+                "scale":1,
+                "period":0.1,
+				"speed":300,
+				"accel":2000,
+				"h_limit_speed":900,
+				"accel_delay":0,
+				"angular_velocity":0,
+				"offset":[0,0],
+                "dir_add":0,
+				
+                "effect":
+                {
+                    "motion_streak":"",
+                    "rotation":true,
+                    "afterimage":false
+                }
+				
+			}
+		]
+	}
+}

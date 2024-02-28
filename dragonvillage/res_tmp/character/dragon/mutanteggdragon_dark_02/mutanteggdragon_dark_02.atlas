@@ -1,0 +1,132 @@
+
+mutanteggdragon_dark_02.png
+size: 359,524
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+mutanteggdragon_dark_02_arm_01
+  rotate: true
+  xy: 2, 2
+  size: 50, 64
+  orig: 50, 64
+  offset: 0, 0
+  index: -1
+mutanteggdragon_dark_02_body_01
+  rotate: false
+  xy: 2, 158
+  size: 148, 162
+  orig: 148, 162
+  offset: 0, 0
+  index: -1
+mutanteggdragon_dark_02_ear_01
+  rotate: true
+  xy: 260, 6
+  size: 61, 79
+  orig: 61, 79
+  offset: 0, 0
+  index: -1
+mutanteggdragon_dark_02_eggshell_01
+  rotate: false
+  xy: 2, 54
+  size: 180, 102
+  orig: 180, 102
+  offset: 0, 0
+  index: -1
+mutanteggdragon_dark_02_eggshell_02
+  rotate: false
+  xy: 178, 410
+  size: 178, 112
+  orig: 178, 112
+  offset: 0, 0
+  index: -1
+mutanteggdragon_dark_02_eggshell_03
+  rotate: false
+  xy: 178, 324
+  size: 149, 84
+  orig: 149, 84
+  offset: 0, 0
+  index: -1
+mutanteggdragon_dark_02_eggshell_04
+  rotate: true
+  xy: 152, 171
+  size: 149, 84
+  orig: 149, 84
+  offset: 0, 0
+  index: -1
+mutanteggdragon_dark_02_eggshell_05
+  rotate: true
+  xy: 238, 173
+  size: 149, 84
+  orig: 149, 84
+  offset: 0, 0
+  index: -1
+mutanteggdragon_dark_02_eggshell_06
+  rotate: false
+  xy: 2, 322
+  size: 174, 200
+  orig: 174, 200
+  offset: 0, 0
+  index: -1
+mutanteggdragon_dark_02_eye_01
+  rotate: false
+  xy: 68, 9
+  size: 53, 43
+  orig: 53, 43
+  offset: 0, 0
+  index: -1
+mutanteggdragon_dark_02_eye_02
+  rotate: false
+  xy: 123, 9
+  size: 53, 43
+  orig: 53, 43
+  offset: 0, 0
+  index: -1
+mutanteggdragon_dark_02_face_01
+  rotate: false
+  xy: 329, 390
+  size: 28, 18
+  orig: 28, 18
+  offset: 0, 0
+  index: -1
+mutanteggdragon_dark_02_leg_01
+  rotate: true
+  xy: 178, 8
+  size: 38, 53
+  orig: 38, 53
+  offset: 0, 0
+  index: -1
+mutanteggdragon_dark_02_leg_02
+  rotate: false
+  xy: 324, 275
+  size: 30, 47
+  orig: 30, 47
+  offset: 0, 0
+  index: -1
+mutanteggdragon_dark_02_mouth_01
+  rotate: true
+  xy: 324, 191
+  size: 40, 29
+  orig: 40, 29
+  offset: 0, 0
+  index: -1
+mutanteggdragon_dark_02_mouth_02
+  rotate: true
+  xy: 324, 233
+  size: 40, 32
+  orig: 40, 32
+  offset: 0, 0
+  index: -1
+mutanteggdragon_dark_02_tail_01
+  rotate: true
+  xy: 184, 48
+  size: 121, 74
+  orig: 121, 74
+  offset: 0, 0
+  index: -1
+mutanteggdragon_dark_02_wing_01
+  rotate: true
+  xy: 260, 69
+  size: 102, 79
+  orig: 102, 79
+  offset: 0, 0
+  index: -1

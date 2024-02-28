@@ -1,0 +1,195 @@
+
+suradragon_water_03.png
+size: 586,1029
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+suradragon_water_03_arm_01
+  rotate: false
+  xy: 509, 60
+  size: 64, 115
+  orig: 64, 115
+  offset: 0, 0
+  index: -1
+suradragon_water_03_arm_02
+  rotate: false
+  xy: 481, 393
+  size: 102, 101
+  orig: 102, 101
+  offset: 0, 0
+  index: -1
+suradragon_water_03_body_01
+  rotate: true
+  xy: 2, 805
+  size: 222, 550
+  orig: 222, 550
+  offset: 0, 0
+  index: -1
+suradragon_water_03_body_acc_01
+  rotate: true
+  xy: 136, 155
+  size: 50, 119
+  orig: 50, 119
+  offset: 0, 0
+  index: -1
+suradragon_water_03_body_armor_01
+  rotate: false
+  xy: 2, 413
+  size: 296, 194
+  orig: 296, 194
+  offset: 0, 0
+  index: -1
+suradragon_water_03_body_armor_02
+  rotate: false
+  xy: 136, 45
+  size: 118, 108
+  orig: 118, 108
+  offset: 0, 0
+  index: -1
+suradragon_water_03_effect_01
+  rotate: false
+  xy: 279, 9
+  size: 228, 230
+  orig: 228, 230
+  offset: 0, 0
+  index: -1
+suradragon_water_03_effect_02
+  rotate: false
+  xy: 488, 668
+  size: 86, 85
+  orig: 86, 85
+  offset: 0, 0
+  index: -1
+suradragon_water_03_effect_03
+  rotate: false
+  xy: 2, 207
+  size: 275, 204
+  orig: 275, 204
+  offset: 0, 0
+  index: -1
+suradragon_water_03_elbow_01
+  rotate: true
+  xy: 528, 177
+  size: 120, 52
+  orig: 120, 52
+  offset: 0, 0
+  index: -1
+suradragon_water_03_elbow_02
+  rotate: true
+  xy: 528, 299
+  size: 58, 55
+  orig: 58, 55
+  offset: 0, 0
+  index: -1
+suradragon_water_03_eye_01
+  rotate: true
+  xy: 554, 843
+  size: 37, 17
+  orig: 37, 17
+  offset: 0, 0
+  index: -1
+suradragon_water_03_eye_02
+  rotate: false
+  xy: 554, 829
+  size: 17, 12
+  orig: 17, 12
+  offset: 0, 0
+  index: -1
+suradragon_water_03_eye_03
+  rotate: false
+  xy: 554, 882
+  size: 26, 14
+  orig: 26, 14
+  offset: 0, 0
+  index: -1
+suradragon_water_03_eye_04
+  rotate: true
+  xy: 573, 874
+  size: 6, 8
+  orig: 6, 8
+  offset: 0, 0
+  index: -1
+suradragon_water_03_foot_armor_01
+  rotate: false
+  xy: 509, 9
+  size: 43, 49
+  orig: 43, 49
+  offset: 0, 0
+  index: -1
+suradragon_water_03_foot_armor_02
+  rotate: false
+  xy: 136, 6
+  size: 32, 37
+  orig: 32, 37
+  offset: 0, 0
+  index: -1
+suradragon_water_03_hand_01
+  rotate: true
+  xy: 488, 632
+  size: 34, 79
+  orig: 34, 79
+  offset: 0, 0
+  index: -1
+suradragon_water_03_hand_02
+  rotate: true
+  xy: 481, 359
+  size: 32, 74
+  orig: 32, 74
+  offset: 0, 0
+  index: -1
+suradragon_water_03_hand_acc_01
+  rotate: true
+  xy: 488, 755
+  size: 48, 91
+  orig: 48, 91
+  offset: 0, 0
+  index: -1
+suradragon_water_03_hand_acc_02
+  rotate: false
+  xy: 554, 968
+  size: 30, 59
+  orig: 30, 59
+  offset: 0, 0
+  index: -1
+suradragon_water_03_head_01
+  rotate: true
+  xy: 488, 496
+  size: 134, 77
+  orig: 134, 77
+  offset: 0, 0
+  index: -1
+suradragon_water_03_head_armor_01
+  rotate: true
+  xy: 300, 392
+  size: 215, 179
+  orig: 215, 179
+  offset: 0, 0
+  index: -1
+suradragon_water_03_head_armor_02
+  rotate: false
+  xy: 554, 898
+  size: 27, 68
+  orig: 27, 68
+  offset: 0, 0
+  index: -1
+suradragon_water_03_leg_01
+  rotate: true
+  xy: 279, 241
+  size: 116, 247
+  orig: 116, 247
+  offset: 0, 0
+  index: -1
+suradragon_water_03_leg_02
+  rotate: false
+  xy: 2, 2
+  size: 132, 203
+  orig: 132, 203
+  offset: 0, 0
+  index: -1
+suradragon_water_03_wing_01
+  rotate: true
+  xy: 2, 609
+  size: 194, 484
+  orig: 194, 484
+  offset: 0, 0
+  index: -1

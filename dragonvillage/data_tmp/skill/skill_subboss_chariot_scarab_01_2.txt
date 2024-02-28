@@ -1,0 +1,154 @@
+{
+	"skill_subboss_chariot_scarab_01_2":
+	{
+		"attack_value":
+		[		
+			{
+				"idx":1,
+				"res":"res/missile/missile_ring/missile_ring_@.vrp",
+				"body":[0,0,0],
+                "count":1,
+                "scale":0.5,
+                "period":1,
+				"speed":500,
+				"accel":0,
+				"h_limit_speed":800,
+				"accel_delay":0,
+				"angular_velocity":180,
+				"offset":[0,150],
+                "dir_array":[180],
+				"missile_type":"pass",
+				"reset_time":0.5,
+				
+				"delete_time":10,
+				
+				"add_script":
+				[
+					{
+						"idx":1,
+						"res":"res/missile/missile_spine/missile_spine_@.png",
+						"body":[0,0,20],
+						"damage_rate":1.6,
+						"count":1,
+						"scale":1,
+						"period":0,
+						"time":0,
+						"speed":800,
+						"accel_delay":0,
+						"offset":[0,0]						
+						"dir_array":[180]
+					}
+				],
+				
+				"add_script_start":0.5,
+				"add_script_term":0.1,
+				"add_script_max":60,
+				
+                "effect":
+                {
+                    "motion_streak":"",
+                    "rotation":false,
+                    "afterimage":true
+                }
+			},
+			
+			{
+				"idx":1,
+				"res":"res/missile/missile_ring/missile_ring_water.vrp",
+				"body":[0,0,0],
+                "count":1,
+                "scale":0.4,
+                "period":1,
+				"speed":300,
+				"accel":0,
+				"h_limit_speed":800,
+				"accel_delay":0,
+				"angular_velocity":-180,
+				"offset":[0,-100],
+                "dir_array":[180],
+				"missile_type":"pass",
+				"reset_time":0.5,
+				
+				"delete_time":10,
+				
+				"add_script":
+				[
+					{
+						"idx":1,
+						"res":"res/missile/missile_spine/missile_spine_water.png",
+						"body":[0,0,20],
+						"count":1,
+						"damage_rate":1.6,
+						"scale":0.8,
+						"period":0,
+						"time":0,
+						"speed":800,
+						"accel_delay":0,
+						"offset":[0,0]						
+						"dir_array":[180]
+					}
+				],
+				
+				"add_script_start":0.5,
+				"add_script_term":0.1,
+				"add_script_max":60,
+				
+                "effect":
+                {
+                    "motion_streak":"",
+                    "rotation":false,
+                    "afterimage":true
+                }
+			},
+			
+			{
+				"idx":1,
+				"res":"res/missile/missile_ring/missile_ring_fire.vrp",
+				"body":[0,0,0],
+                "count":1,
+                "scale":0.3,
+                "period":1,
+				"speed":50,
+				"accel":0,
+				"h_limit_speed":800,
+				"accel_delay":0,
+				"angular_velocity":180,
+				"offset":[0,20],
+                "dir_array":[180],
+				"missile_type":"pass",
+				"reset_time":0.5,
+				
+				"delete_time":10,
+				
+				"add_script":
+				[
+					{
+						"idx":1,
+						"res":"res/missile/missile_spine/missile_spine_fire.png",
+						"body":[0,0,20],
+						"count":1,
+						"damage_rate":1.6,
+						"scale":0.6,
+						"period":0,
+						"time":0,
+						"speed":800,
+						"accel_delay":0,
+						"offset":[0,0]						
+						"dir_array":[180]
+					}
+				],
+				
+				"add_script_start":0.5,
+				"add_script_term":0.1,
+				"add_script_max":60,
+				
+                "effect":
+                {
+                    "motion_streak":"",
+                    "rotation":false,
+                    "afterimage":true
+                }
+			}
+		]
+	}
+}

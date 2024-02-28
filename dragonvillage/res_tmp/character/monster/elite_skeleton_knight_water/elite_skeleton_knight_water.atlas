@@ -1,0 +1,195 @@
+
+elite_skeleton_knight_water.png
+size: 2048,256
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+elite_skeleton_knight_water_acc_01
+  rotate: true
+  xy: 325, 71
+  size: 81, 89
+  orig: 81, 89
+  offset: 0, 0
+  index: -1
+elite_skeleton_knight_water_acc_02
+  rotate: true
+  xy: 154, 13
+  size: 97, 101
+  orig: 97, 101
+  offset: 0, 0
+  index: -1
+elite_skeleton_knight_water_acc_03
+  rotate: true
+  xy: 1013, 97
+  size: 25, 79
+  orig: 25, 79
+  offset: 0, 0
+  index: -1
+elite_skeleton_knight_water_arm_01
+  rotate: true
+  xy: 1643, 163
+  size: 88, 124
+  orig: 88, 124
+  offset: 0, 0
+  index: -1
+elite_skeleton_knight_water_arm_02
+  rotate: false
+  xy: 416, 72
+  size: 50, 80
+  orig: 50, 80
+  offset: 0, 0
+  index: -1
+elite_skeleton_knight_water_arm_03
+  rotate: false
+  xy: 190, 154
+  size: 227, 97
+  orig: 227, 97
+  offset: 0, 0
+  index: -1
+elite_skeleton_knight_water_body_01
+  rotate: false
+  xy: 1769, 157
+  size: 115, 94
+  orig: 115, 94
+  offset: 0, 0
+  index: -1
+elite_skeleton_knight_water_body_02
+  rotate: true
+  xy: 1490, 120
+  size: 42, 114
+  orig: 42, 114
+  offset: 0, 0
+  index: -1
+elite_skeleton_knight_water_body_03
+  rotate: true
+  xy: 190, 112
+  size: 40, 133
+  orig: 40, 133
+  offset: 0, 0
+  index: -1
+elite_skeleton_knight_water_body_04
+  rotate: true
+  xy: 1182, 119
+  size: 132, 152
+  orig: 132, 152
+  offset: 0, 0
+  index: -1
+elite_skeleton_knight_water_body_05
+  rotate: true
+  xy: 1336, 119
+  size: 132, 152
+  orig: 132, 152
+  offset: 0, 0
+  index: -1
+elite_skeleton_knight_water_body_06
+  rotate: true
+  xy: 520, 116
+  size: 36, 93
+  orig: 36, 93
+  offset: 0, 0
+  index: -1
+elite_skeleton_knight_water_effect_01
+  rotate: false
+  xy: 2, 18
+  size: 150, 92
+  orig: 150, 92
+  offset: 0, 0
+  index: -1
+elite_skeleton_knight_water_effect_02
+  rotate: true
+  xy: 1013, 124
+  size: 127, 167
+  orig: 127, 167
+  offset: 0, 0
+  index: -1
+elite_skeleton_knight_water_effect_04
+  rotate: false
+  xy: 2, 112
+  size: 186, 139
+  orig: 186, 139
+  offset: 0, 0
+  index: -1
+elite_skeleton_knight_water_effect_05
+  rotate: true
+  xy: 648, 120
+  size: 131, 189
+  orig: 131, 189
+  offset: 0, 0
+  index: -1
+elite_skeleton_knight_water_effect_06
+  rotate: false
+  xy: 1886, 149
+  size: 107, 102
+  orig: 107, 102
+  offset: 0, 0
+  index: -1
+elite_skeleton_knight_water_eye_01
+  rotate: true
+  xy: 587, 66
+  size: 48, 28
+  orig: 48, 28
+  offset: 0, 0
+  index: -1
+elite_skeleton_knight_water_head_01
+  rotate: true
+  xy: 1490, 164
+  size: 87, 151
+  orig: 87, 151
+  offset: 0, 0
+  index: -1
+elite_skeleton_knight_water_head_02
+  rotate: true
+  xy: 520, 64
+  size: 50, 65
+  orig: 50, 65
+  offset: 0, 0
+  index: -1
+elite_skeleton_knight_water_head_03
+  rotate: false
+  xy: 375, 24
+  size: 36, 45
+  orig: 36, 45
+  offset: 0, 0
+  index: -1
+elite_skeleton_knight_water_leg_01
+  rotate: false
+  xy: 468, 72
+  size: 50, 80
+  orig: 50, 80
+  offset: 0, 0
+  index: -1
+elite_skeleton_knight_water_leg_02
+  rotate: false
+  xy: 257, 2
+  size: 60, 108
+  orig: 60, 108
+  offset: 0, 0
+  index: -1
+elite_skeleton_knight_water_leg_03
+  rotate: false
+  xy: 319, 6
+  size: 54, 63
+  orig: 54, 63
+  offset: 0, 0
+  index: -1
+elite_skeleton_knight_water_leg_04
+  rotate: false
+  xy: 1995, 162
+  size: 49, 89
+  orig: 49, 89
+  offset: 0, 0
+  index: -1
+elite_skeleton_knight_water_weapon_01
+  rotate: true
+  xy: 839, 115
+  size: 136, 172
+  orig: 136, 172
+  offset: 0, 0
+  index: -1
+elite_skeleton_knight_water_weapon_02
+  rotate: false
+  xy: 419, 154
+  size: 227, 97
+  orig: 227, 97
+  offset: 0, 0
+  index: -1

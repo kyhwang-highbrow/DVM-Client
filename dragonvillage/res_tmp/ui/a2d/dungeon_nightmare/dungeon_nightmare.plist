@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+    <dict>
+        <key>frames</key>
+        <dict>
+            <key>dungeon_nightmare_list.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{0,0}</string>
+                <key>spriteSize</key>
+                <string>{290,602}</string>
+                <key>spriteSourceSize</key>
+                <string>{290,602}</string>
+                <key>textureRect</key>
+                <string>{{1,1},{290,602}}</string>
+                <key>textureRotated</key>
+                <false/>
+            </dict>
+        </dict>
+        <key>metadata</key>
+        <dict>
+            <key>format</key>
+            <integer>3</integer>
+            <key>pixelFormat</key>
+            <string>RGBA8888</string>
+            <key>premultiplyAlpha</key>
+            <false/>
+            <key>realTextureFileName</key>
+            <string>dungeon_nightmare.png</string>
+            <key>size</key>
+            <string>{292,604}</string>
+            <key>smartupdate</key>
+            <string>$TexturePacker:SmartUpdate:0a051e27f4191efadd1e799954871c88:281f0cd1fca135dcbeb7ac6b99925c9b:2463fd8b22873024ce7c6afd779de130$</string>
+            <key>textureFileName</key>
+            <string>dungeon_nightmare.png</string>
+        </dict>
+    </dict>
+</plist>

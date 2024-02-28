@@ -1,0 +1,174 @@
+
+teddydragon_water_02.png
+size: 1654,253
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+teddydragon_water_02_arm_01
+  rotate: true
+  xy: 848, 3
+  size: 85, 124
+  orig: 85, 124
+  offset: 0, 0
+  index: -1
+teddydragon_water_02_arm_02
+  rotate: true
+  xy: 974, 3
+  size: 85, 124
+  orig: 85, 124
+  offset: 0, 0
+  index: -1
+teddydragon_water_02_body_01
+  rotate: false
+  xy: 994, 96
+  size: 146, 155
+  orig: 146, 155
+  offset: 0, 0
+  index: -1
+teddydragon_water_02_body_02
+  rotate: true
+  xy: 1142, 104
+  size: 147, 94
+  orig: 147, 94
+  offset: 0, 0
+  index: -1
+teddydragon_water_02_ear_01
+  rotate: true
+  xy: 1100, 3
+  size: 91, 131
+  orig: 91, 131
+  offset: 0, 0
+  index: -1
+teddydragon_water_02_effect_03
+  rotate: true
+  xy: 2, 15
+  size: 236, 251
+  orig: 236, 251
+  offset: 0, 0
+  index: -1
+teddydragon_water_02_effect_04
+  rotate: true
+  xy: 255, 15
+  size: 236, 251
+  orig: 236, 251
+  offset: 0, 0
+  index: -1
+teddydragon_water_02_eye_01
+  rotate: true
+  xy: 812, 39
+  size: 33, 32
+  orig: 33, 32
+  offset: 0, 0
+  index: -1
+teddydragon_water_02_eye_02
+  rotate: true
+  xy: 812, 4
+  size: 33, 32
+  orig: 33, 32
+  offset: 0, 0
+  index: -1
+teddydragon_water_02_foot_01
+  rotate: false
+  xy: 1306, 6
+  size: 99, 105
+  orig: 99, 105
+  offset: 0, 0
+  index: -1
+teddydragon_water_02_foot_02
+  rotate: false
+  xy: 1532, 80
+  size: 99, 75
+  orig: 99, 75
+  offset: 0, 0
+  index: -1
+teddydragon_water_02_head_01
+  rotate: false
+  xy: 848, 90
+  size: 144, 161
+  orig: 144, 161
+  offset: 0, 0
+  index: -1
+teddydragon_water_02_head_02
+  rotate: true
+  xy: 1532, 157
+  size: 94, 120
+  orig: 94, 120
+  offset: 0, 0
+  index: -1
+teddydragon_water_02_horn_01
+  rotate: false
+  xy: 508, 9
+  size: 59, 63
+  orig: 59, 63
+  offset: 0, 0
+  index: -1
+teddydragon_water_02_horn_02
+  rotate: false
+  xy: 569, 9
+  size: 59, 63
+  orig: 59, 63
+  offset: 0, 0
+  index: -1
+teddydragon_water_02_leg_01
+  rotate: false
+  xy: 1532, 3
+  size: 99, 75
+  orig: 99, 75
+  offset: 0, 0
+  index: -1
+teddydragon_water_02_leg_02
+  rotate: false
+  xy: 1407, 10
+  size: 123, 101
+  orig: 123, 101
+  offset: 0, 0
+  index: -1
+teddydragon_water_02_ribbon_01
+  rotate: true
+  xy: 1233, 2
+  size: 100, 71
+  orig: 100, 71
+  offset: 0, 0
+  index: -1
+teddydragon_water_02_ribbon_02
+  rotate: true
+  xy: 630, 13
+  size: 59, 89
+  orig: 59, 89
+  offset: 0, 0
+  index: -1
+teddydragon_water_02_ribbon_03
+  rotate: true
+  xy: 721, 13
+  size: 59, 89
+  orig: 59, 89
+  offset: 0, 0
+  index: -1
+teddydragon_water_02_tam_01
+  rotate: false
+  xy: 508, 74
+  size: 168, 177
+  orig: 168, 177
+  offset: 0, 0
+  index: -1
+teddydragon_water_02_tam_02
+  rotate: false
+  xy: 678, 74
+  size: 168, 177
+  orig: 168, 177
+  offset: 0, 0
+  index: -1
+teddydragon_water_02_wing_01
+  rotate: true
+  xy: 1238, 113
+  size: 138, 127
+  orig: 138, 127
+  offset: 0, 0
+  index: -1
+teddydragon_water_02_wing_02
+  rotate: true
+  xy: 1367, 113
+  size: 138, 127
+  orig: 138, 127
+  offset: 0, 0
+  index: -1

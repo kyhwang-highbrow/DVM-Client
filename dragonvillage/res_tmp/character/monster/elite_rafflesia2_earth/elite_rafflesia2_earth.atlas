@@ -1,0 +1,139 @@
+
+elite_rafflesia2_earth.png
+size: 1024,128
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+rafflesia2_earth_arm_01
+  rotate: false
+  xy: 694, 0
+  size: 68, 43
+  orig: 68, 43
+  offset: 0, 0
+  index: -1
+rafflesia2_earth_arm_02
+  rotate: false
+  xy: 764, 0
+  size: 68, 43
+  orig: 68, 43
+  offset: 0, 0
+  index: -1
+rafflesia2_earth_arm_03
+  rotate: false
+  xy: 903, 81
+  size: 68, 43
+  orig: 68, 43
+  offset: 0, 0
+  index: -1
+rafflesia2_earth_arm_04
+  rotate: false
+  xy: 768, 69
+  size: 68, 55
+  orig: 68, 55
+  offset: 0, 0
+  index: -1
+rafflesia2_earth_body_01
+  rotate: true
+  xy: 838, 64
+  size: 60, 63
+  orig: 60, 63
+  offset: 0, 0
+  index: -1
+rafflesia2_earth_body_02
+  rotate: false
+  xy: 694, 45
+  size: 72, 79
+  orig: 72, 79
+  offset: 0, 0
+  index: -1
+rafflesia2_earth_body_03
+  rotate: false
+  xy: 973, 92
+  size: 47, 32
+  orig: 47, 32
+  offset: 0, 0
+  index: -1
+rafflesia2_earth_body_04
+  rotate: false
+  xy: 973, 58
+  size: 47, 32
+  orig: 47, 32
+  offset: 0, 0
+  index: -1
+rafflesia2_earth_body_05
+  rotate: false
+  xy: 322, 5
+  size: 47, 32
+  orig: 47, 32
+  offset: 0, 0
+  index: -1
+rafflesia2_earth_body_06
+  rotate: false
+  xy: 371, 5
+  size: 47, 32
+  orig: 47, 32
+  offset: 0, 0
+  index: -1
+rafflesia2_earth_face_01
+  rotate: false
+  xy: 834, 17
+  size: 51, 45
+  orig: 51, 45
+  offset: 0, 0
+  index: -1
+rafflesia2_earth_flower_01
+  rotate: false
+  xy: 0, 31
+  size: 112, 93
+  orig: 112, 93
+  offset: 0, 0
+  index: -1
+rafflesia2_earth_flower_02
+  rotate: false
+  xy: 114, 31
+  size: 112, 93
+  orig: 112, 93
+  offset: 0, 0
+  index: -1
+rafflesia2_earth_flower_03
+  rotate: false
+  xy: 322, 39
+  size: 91, 85
+  orig: 91, 85
+  offset: 0, 0
+  index: -1
+rafflesia2_earth_flower_04
+  rotate: false
+  xy: 415, 39
+  size: 91, 85
+  orig: 91, 85
+  offset: 0, 0
+  index: -1
+rafflesia2_earth_flower_05
+  rotate: false
+  xy: 508, 39
+  size: 91, 85
+  orig: 91, 85
+  offset: 0, 0
+  index: -1
+rafflesia2_earth_flower_06
+  rotate: false
+  xy: 601, 39
+  size: 91, 85
+  orig: 91, 85
+  offset: 0, 0
+  index: -1
+rafflesia2_earth_head_01
+  rotate: false
+  xy: 228, 31
+  size: 92, 93
+  orig: 92, 93
+  offset: 0, 0
+  index: -1
+rafflesia2_earth_head_02
+  rotate: false
+  xy: 903, 33
+  size: 48, 46
+  orig: 48, 46
+  offset: 0, 0
+  index: -1

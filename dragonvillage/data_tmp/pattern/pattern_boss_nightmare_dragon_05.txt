@@ -1,0 +1,193 @@
+{
+	"pattern_boss_nightmare_dragon_05":
+	[			
+		[
+			"a;basic", "w;2", "a;basic", "w;2", "a;basic", "w;2",
+			"a;4", "w;2", "a;basic", "w;2", "a;basic", "w;2",
+			"a;1", "w;2", "a;basic", "w;2", "a;basic", "w;2",
+			"a;basic", "w;2", "a;basic", "w;2", "a;basic", "w;2"
+		]
+	]
+	
+	"hp_trriger":
+    {
+        "priority":1,
+        "list":
+        [
+            {
+                "hp_percent":80,
+                "pattern":
+                [
+					"a;1",
+					"a;basic", "w;2", "a;basic", "w;2", "a;basic", "w;2",
+					"a;4", "w;2", "a;basic", "w;2", "a;basic", "w;2",
+					"a;1", "w;2", "a;basic", "w;2", "a;basic", "w;2",
+					"a;basic", "w;2", "a;basic", "w;2", "a;basic", "w;2"
+                ]
+            },
+			
+			{
+                "hp_percent":60,
+                "pattern":
+                [
+					"a;1",
+					"a;basic", "w;2", "a;basic", "w;2", "a;basic", "w;2",
+					"a;4", "w;2", "a;basic", "w;2", "a;basic", "w;2",
+					"a;1", "w;2", "a;basic", "w;2", "a;basic", "w;2",
+					"a;basic", "w;2", "a;basic", "w;2", "a;basic", "w;2"
+                ]
+            },
+			
+			{
+                "hp_percent":40,
+                "pattern":
+                [
+					"a;1",
+					"a;basic", "w;2", "a;basic", "w;2", "a;basic", "w;2",
+					"a;4", "w;2", "a;basic", "w;2", "a;basic", "w;2",
+					"a;1", "w;2", "a;basic", "w;2", "a;basic", "w;2",
+					"a;basic", "w;2", "a;basic", "w;2", "a;basic", "w;2"
+                ]
+            },
+			
+			{
+                "hp_percent":20,
+                "pattern":
+                [
+					"a;1",
+					"a;basic", "w;2", "a;basic", "w;2", "a;basic", "w;2",
+					"a;4", "w;2", "a;basic", "w;2", "a;basic", "w;2",
+					"a;1", "w;2", "a;basic", "w;2", "a;basic", "w;2",
+					"a;basic", "w;2", "a;basic", "w;2", "a;basic", "w;2"
+                ]
+            }
+        ]
+    },
+	
+	"time_trriger":
+    {
+        "priority":1,
+        "list":
+        [
+			{
+                "time":30,
+                "pattern":
+                [
+					"a;2",
+					"a;basic", "w;2", "a;basic", "w;2", "a;basic", "w;2",
+					"a;4", "w;2", "a;basic", "w;2", "a;basic", "w;2",
+					"a;1", "w;2", "a;basic", "w;2", "a;basic", "w;2",
+					"a;basic", "w;2", "a;basic", "w;2", "a;basic", "w;2"
+                ]
+            },
+			
+			{
+                "time":60,
+                "pattern":
+                [
+					"a;2",
+					"a;basic", "w;2", "a;basic", "w;2", "a;basic", "w;2",
+					"a;4", "w;2", "a;basic", "w;2", "a;basic", "w;2",
+					"a;1", "w;2", "a;basic", "w;2", "a;basic", "w;2",
+					"a;basic", "w;2", "a;basic", "w;2", "a;basic", "w;2"
+                ]
+            },
+			
+			{
+                "time":90,
+                "pattern":
+                [
+					"a;2",
+					"a;basic", "w;2", "a;basic", "w;2", "a;basic", "w;2",
+					"a;4", "w;2", "a;basic", "w;2", "a;basic", "w;2",
+					"a;1", "w;2", "a;basic", "w;2", "a;basic", "w;2",
+					"a;4", "w;2", "a;basic", "w;2", "a;basic", "w;2"
+                ]
+            },
+			
+			{
+                "time":120,
+                "pattern":
+                [
+					"a;2",
+					"a;basic", "w;2", "a;basic", "w;2", "a;basic", "w;2",
+					"a;4", "w;2", "a;basic", "w;2", "a;basic", "w;2",
+					"a;1", "w;2", "a;basic", "w;2", "a;basic", "w;2",
+					"a;basic", "w;2", "a;basic", "w;2", "a;basic", "w;2"
+                ]
+            },
+			
+			{
+                "time":150,
+                "pattern":
+                [
+					"a;2",
+					"a;basic", "w;2", "a;basic", "w;2", "a;basic", "w;2",
+					"a;4", "w;2", "a;basic", "w;2", "a;basic", "w;2",
+					"a;1", "w;2", "a;basic", "w;2", "a;basic", "w;2",
+					"a;4", "w;2", "a;basic", "w;2", "a;basic", "w;2"
+                ]
+            },
+			
+			{
+                "time":180,
+                "pattern":
+                [
+					"a;2",
+					"a;basic", "w;2", "a;basic", "w;2", "a;basic", "w;2",
+					"a;4", "w;2", "a;basic", "w;2", "a;basic", "w;2",
+					"a;1", "w;2", "a;basic", "w;2", "a;basic", "w;2",
+					"a;basic", "w;2", "a;basic", "w;2", "a;basic", "w;2"
+                ]
+            },
+			
+			{
+                "time":210,
+                "pattern":
+                [
+					"a;2",
+					"a;basic", "w;2", "a;basic", "w;2", "a;basic", "w;2",
+					"a;4", "w;2", "a;basic", "w;2", "a;basic", "w;2",
+					"a;1", "w;2", "a;basic", "w;2", "a;basic", "w;2",
+					"a;4", "w;2", "a;basic", "w;2", "a;basic", "w;2"
+                ]
+            },
+			
+			{
+                "time":240,
+                "pattern":
+                [
+					"a;2",
+					"a;basic", "w;2", "a;basic", "w;2", "a;basic", "w;2",
+					"a;4", "w;2", "a;basic", "w;2", "a;basic", "w;2",
+					"a;1", "w;2", "a;basic", "w;2", "a;basic", "w;2",
+					"a;basic", "w;2", "a;basic", "w;2", "a;basic", "w;2"
+                ]
+            },
+			
+			{
+                "time":270,
+                "pattern":
+                [
+					"a;2",
+					"a;basic", "w;2", "a;basic", "w;2", "a;basic", "w;2",
+					"a;4", "w;2", "a;basic", "w;2", "a;basic", "w;2",
+					"a;1", "w;2", "a;basic", "w;2", "a;basic", "w;2",
+					"a;4", "w;2", "a;basic", "w;2", "a;basic", "w;2"
+                ]
+            },
+			
+			{
+                "time":300,
+                "pattern":
+                [
+					"a;2",
+					"a;basic", "w;2", "a;basic", "w;2", "a;basic", "w;2",
+					"a;4", "w;2", "a;basic", "w;2", "a;basic", "w;2",
+					"a;1", "w;2", "a;basic", "w;2", "a;basic", "w;2",
+					"a;basic", "w;2", "a;basic", "w;2", "a;basic", "w;2"
+                ]
+            }
+        ]
+    }
+}

@@ -1,0 +1,167 @@
+
+hurricane_water_01.png
+size: 1580,568
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+hurricane_water_01_acc_01
+  rotate: false
+  xy: 1392, 291
+  size: 175, 138
+  orig: 175, 138
+  offset: 0, 0
+  index: -1
+hurricane_water_01_body_01
+  rotate: true
+  xy: 2, 175
+  size: 391, 378
+  orig: 391, 378
+  offset: 0, 0
+  index: -1
+hurricane_water_01_body_02
+  rotate: true
+  xy: 938, 261
+  size: 305, 182
+  orig: 305, 182
+  offset: 0, 0
+  index: -1
+hurricane_water_01_effect_01
+  rotate: false
+  xy: 853, 24
+  size: 183, 235
+  orig: 183, 235
+  offset: 0, 0
+  index: -1
+hurricane_water_01_effect_02
+  rotate: true
+  xy: 491, 15
+  size: 161, 160
+  orig: 161, 160
+  offset: 0, 0
+  index: -1
+hurricane_water_01_effect_03
+  rotate: true
+  xy: 173, 5
+  size: 168, 159
+  orig: 168, 159
+  offset: 0, 0
+  index: -1
+hurricane_water_01_effect_04
+  rotate: true
+  xy: 1122, 289
+  size: 277, 268
+  orig: 277, 268
+  offset: 0, 0
+  index: -1
+hurricane_water_01_effect_05
+  rotate: false
+  xy: 2, 4
+  size: 169, 169
+  orig: 169, 169
+  offset: 0, 0
+  index: -1
+hurricane_water_01_hair_01
+  rotate: true
+  xy: 382, 261
+  size: 305, 280
+  orig: 305, 280
+  offset: 0, 0
+  index: -1
+hurricane_water_01_hair_02
+  rotate: true
+  xy: 1392, 431
+  size: 135, 186
+  orig: 135, 186
+  offset: 0, 0
+  index: -1
+hurricane_water_01_hair_03
+  rotate: false
+  xy: 1225, 55
+  size: 112, 137
+  orig: 112, 137
+  offset: 0, 0
+  index: -1
+hurricane_water_01_hair_04
+  rotate: true
+  xy: 630, 191
+  size: 68, 91
+  orig: 68, 91
+  offset: 0, 0
+  index: -1
+hurricane_water_01_hair_05
+  rotate: true
+  xy: 1432, 96
+  size: 96, 113
+  orig: 96, 113
+  offset: 0, 0
+  index: -1
+hurricane_water_01_hand_01
+  rotate: true
+  xy: 382, 178
+  size: 81, 121
+  orig: 81, 121
+  offset: 0, 0
+  index: -1
+hurricane_water_01_hand_02
+  rotate: true
+  xy: 1225, 194
+  size: 93, 140
+  orig: 93, 140
+  offset: 0, 0
+  index: -1
+hurricane_water_01_head_01
+  rotate: false
+  xy: 334, 11
+  size: 155, 162
+  orig: 155, 162
+  offset: 0, 0
+  index: -1
+hurricane_water_01_horn_01
+  rotate: false
+  xy: 505, 184
+  size: 59, 75
+  orig: 59, 75
+  offset: 0, 0
+  index: -1
+hurricane_water_01_horn_02
+  rotate: false
+  xy: 566, 185
+  size: 62, 74
+  orig: 62, 74
+  offset: 0, 0
+  index: -1
+hurricane_water_01_leg_01
+  rotate: true
+  xy: 1392, 194
+  size: 95, 147
+  orig: 95, 147
+  offset: 0, 0
+  index: -1
+hurricane_water_01_leg_02
+  rotate: false
+  xy: 1339, 61
+  size: 91, 131
+  orig: 91, 131
+  offset: 0, 0
+  index: -1
+hurricane_water_01_tail_01
+  rotate: true
+  xy: 664, 261
+  size: 305, 272
+  orig: 305, 272
+  offset: 0, 0
+  index: -1
+hurricane_water_01_wing_01
+  rotate: false
+  xy: 653, 2
+  size: 198, 187
+  orig: 198, 187
+  offset: 0, 0
+  index: -1
+hurricane_water_01_wing_02
+  rotate: false
+  xy: 1038, 64
+  size: 185, 195
+  orig: 185, 195
+  offset: 0, 0
+  index: -1

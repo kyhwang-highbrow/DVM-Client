@@ -1,0 +1,139 @@
+
+bullsdragon_earth_03.png
+size: 1586,380
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+bullsdragon_earth_03_arm_01
+  rotate: true
+  xy: 285, 12
+  size: 129, 145
+  orig: 129, 145
+  offset: 0, 0
+  index: -1
+bullsdragon_earth_03_arm_02
+  rotate: true
+  xy: 1478, 158
+  size: 85, 105
+  orig: 85, 105
+  offset: 0, 0
+  index: -1
+bullsdragon_earth_03_body_01
+  rotate: false
+  xy: 1045, 174
+  size: 235, 204
+  orig: 235, 204
+  offset: 0, 0
+  index: -1
+bullsdragon_earth_03_body_02
+  rotate: true
+  xy: 285, 143
+  size: 235, 252
+  orig: 235, 252
+  offset: 0, 0
+  index: -1
+bullsdragon_earth_03_effect_01
+  rotate: false
+  xy: 2, 134
+  size: 281, 244
+  orig: 281, 244
+  offset: 0, 0
+  index: -1
+bullsdragon_earth_03_effect_02
+  rotate: true
+  xy: 1282, 157
+  size: 221, 194
+  orig: 221, 194
+  offset: 0, 0
+  index: -1
+bullsdragon_earth_03_eye_01
+  rotate: true
+  xy: 107, 49
+  size: 83, 108
+  orig: 83, 108
+  offset: 0, 0
+  index: -1
+bullsdragon_earth_03_foot_01
+  rotate: false
+  xy: 432, 38
+  size: 94, 103
+  orig: 94, 103
+  offset: 0, 0
+  index: -1
+bullsdragon_earth_03_foot_02
+  rotate: true
+  xy: 2, 38
+  size: 94, 103
+  orig: 94, 103
+  offset: 0, 0
+  index: -1
+bullsdragon_earth_03_hand_01
+  rotate: false
+  xy: 1243, 14
+  size: 159, 141
+  orig: 159, 141
+  offset: 0, 0
+  index: -1
+bullsdragon_earth_03_hand_02
+  rotate: false
+  xy: 1404, 14
+  size: 159, 141
+  orig: 159, 141
+  offset: 0, 0
+  index: -1
+bullsdragon_earth_03_head_01
+  rotate: true
+  xy: 1045, 9
+  size: 163, 196
+  orig: 163, 196
+  offset: 0, 0
+  index: -1
+bullsdragon_earth_03_head_03
+  rotate: true
+  xy: 539, 2
+  size: 163, 196
+  orig: 163, 196
+  offset: 0, 0
+  index: -1
+bullsdragon_earth_03_head_04
+  rotate: true
+  xy: 737, 2
+  size: 163, 196
+  orig: 163, 196
+  offset: 0, 0
+  index: -1
+bullsdragon_earth_03_leg_01
+  rotate: false
+  xy: 935, 32
+  size: 106, 133
+  orig: 106, 133
+  offset: 0, 0
+  index: -1
+bullsdragon_earth_03_leg_02
+  rotate: false
+  xy: 1478, 245
+  size: 106, 133
+  orig: 106, 133
+  offset: 0, 0
+  index: -1
+bullsdragon_earth_03_mouth_01
+  rotate: false
+  xy: 217, 60
+  size: 59, 72
+  orig: 59, 72
+  offset: 0, 0
+  index: -1
+bullsdragon_earth_03_wing_01
+  rotate: true
+  xy: 539, 167
+  size: 211, 251
+  orig: 211, 251
+  offset: 0, 0
+  index: -1
+bullsdragon_earth_03_wing_02
+  rotate: true
+  xy: 792, 167
+  size: 211, 251
+  orig: 211, 251
+  offset: 0, 0
+  index: -1

@@ -1,0 +1,167 @@
+
+karna_dark_02.png
+size: 1305,223
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+karna_dark_02_arm_l_01
+  rotate: false
+  xy: 1080, 15
+  size: 52, 98
+  orig: 52, 98
+  offset: 0, 0
+  index: -1
+karna_dark_02_arm_l_02
+  rotate: true
+  xy: 2, 7
+  size: 65, 122
+  orig: 65, 122
+  offset: 0, 0
+  index: -1
+karna_dark_02_arm_l_deco
+  rotate: true
+  xy: 291, 2
+  size: 32, 60
+  orig: 32, 60
+  offset: 0, 0
+  index: -1
+karna_dark_02_arm_r_01
+  rotate: false
+  xy: 1127, 145
+  size: 110, 76
+  orig: 110, 76
+  offset: 0, 0
+  index: -1
+karna_dark_02_arm_r_02
+  rotate: true
+  xy: 864, 14
+  size: 99, 138
+  orig: 99, 138
+  offset: 0, 0
+  index: -1
+karna_dark_02_arm_r_deco
+  rotate: false
+  xy: 1189, 68
+  size: 44, 75
+  orig: 44, 75
+  offset: 0, 0
+  index: -1
+karna_dark_02_body_01
+  rotate: true
+  xy: 558, 5
+  size: 216, 220
+  orig: 216, 220
+  offset: 0, 0
+  index: -1
+karna_dark_02_eye_01
+  rotate: true
+  xy: 397, 6
+  size: 28, 34
+  orig: 28, 34
+  offset: 0, 0
+  index: -1
+karna_dark_02_eye_02
+  rotate: true
+  xy: 433, 6
+  size: 28, 34
+  orig: 28, 34
+  offset: 0, 0
+  index: -1
+karna_dark_02_eye_03
+  rotate: true
+  xy: 469, 6
+  size: 28, 34
+  orig: 28, 34
+  offset: 0, 0
+  index: -1
+karna_dark_02_hair_01
+  rotate: false
+  xy: 984, 115
+  size: 141, 106
+  orig: 141, 106
+  offset: 0, 0
+  index: -1
+karna_dark_02_head_01
+  rotate: false
+  xy: 217, 8
+  size: 72, 64
+  orig: 72, 64
+  offset: 0, 0
+  index: -1
+karna_dark_02_head_02
+  rotate: true
+  xy: 353, 7
+  size: 27, 42
+  orig: 27, 42
+  offset: 0, 0
+  index: -1
+karna_dark_02_horn_l
+  rotate: true
+  xy: 1134, 7
+  size: 51, 78
+  orig: 51, 78
+  offset: 0, 0
+  index: -1
+karna_dark_02_horn_r
+  rotate: false
+  xy: 1004, 30
+  size: 74, 83
+  orig: 74, 83
+  offset: 0, 0
+  index: -1
+karna_dark_02_leg_l_01
+  rotate: true
+  xy: 126, 8
+  size: 64, 89
+  orig: 64, 89
+  offset: 0, 0
+  index: -1
+karna_dark_02_leg_l_02
+  rotate: false
+  xy: 1134, 60
+  size: 53, 83
+  orig: 53, 83
+  offset: 0, 0
+  index: -1
+karna_dark_02_leg_r_01
+  rotate: false
+  xy: 1239, 103
+  size: 64, 118
+  orig: 64, 118
+  offset: 0, 0
+  index: -1
+karna_dark_02_leg_r_02
+  rotate: false
+  xy: 780, 2
+  size: 82, 111
+  orig: 82, 111
+  offset: 0, 0
+  index: -1
+karna_dark_02_mouth_01
+  rotate: true
+  xy: 1235, 50
+  size: 51, 58
+  orig: 51, 58
+  offset: 0, 0
+  index: -1
+karna_dark_02_tail_01
+  rotate: true
+  xy: 310, 36
+  size: 185, 246
+  orig: 185, 246
+  offset: 0, 0
+  index: -1
+karna_dark_02_wing_l_01
+  rotate: false
+  xy: 780, 115
+  size: 202, 106
+  orig: 202, 106
+  offset: 0, 0
+  index: -1
+karna_dark_02_wing_r_01
+  rotate: false
+  xy: 2, 74
+  size: 306, 147
+  orig: 306, 147
+  offset: 0, 0
+  index: -1

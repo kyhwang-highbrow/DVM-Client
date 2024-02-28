@@ -1,0 +1,118 @@
+
+bullsdragon_dark_01.png
+size: 603,282
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+bullsdragon_dark_01_arm_01
+  rotate: false
+  xy: 512, 134
+  size: 58, 58
+  orig: 58, 58
+  offset: 0, 0
+  index: -1
+bullsdragon_dark_01_arm_02
+  rotate: false
+  xy: 543, 222
+  size: 58, 58
+  orig: 58, 58
+  offset: 0, 0
+  index: -1
+bullsdragon_dark_01_body_01
+  rotate: true
+  xy: 156, 143
+  size: 137, 135
+  orig: 137, 135
+  offset: 0, 0
+  index: -1
+bullsdragon_dark_01_body_02
+  rotate: true
+  xy: 199, 4
+  size: 137, 135
+  orig: 137, 135
+  offset: 0, 0
+  index: -1
+bullsdragon_dark_01_effect_01
+  rotate: true
+  xy: 2, 9
+  size: 107, 102
+  orig: 107, 102
+  offset: 0, 0
+  index: -1
+bullsdragon_dark_01_eye_01
+  rotate: true
+  xy: 473, 194
+  size: 86, 68
+  orig: 86, 68
+  offset: 0, 0
+  index: -1
+bullsdragon_dark_01_hand_01
+  rotate: false
+  xy: 106, 12
+  size: 91, 104
+  orig: 91, 104
+  offset: 0, 0
+  index: -1
+bullsdragon_dark_01_hand_02
+  rotate: false
+  xy: 293, 176
+  size: 91, 104
+  orig: 91, 104
+  offset: 0, 0
+  index: -1
+bullsdragon_dark_01_head_01
+  rotate: false
+  xy: 2, 118
+  size: 152, 162
+  orig: 152, 162
+  offset: 0, 0
+  index: -1
+bullsdragon_dark_01_head_03
+  rotate: true
+  xy: 336, 2
+  size: 75, 83
+  orig: 75, 83
+  offset: 0, 0
+  index: -1
+bullsdragon_dark_01_head_04
+  rotate: true
+  xy: 421, 2
+  size: 75, 83
+  orig: 75, 83
+  offset: 0, 0
+  index: -1
+bullsdragon_dark_01_leg_01
+  rotate: false
+  xy: 423, 94
+  size: 87, 89
+  orig: 87, 89
+  offset: 0, 0
+  index: -1
+bullsdragon_dark_01_leg_02
+  rotate: false
+  xy: 506, 3
+  size: 87, 89
+  orig: 87, 89
+  offset: 0, 0
+  index: -1
+bullsdragon_dark_01_mouth_01
+  rotate: false
+  xy: 293, 144
+  size: 37, 30
+  orig: 37, 30
+  offset: 0, 0
+  index: -1
+bullsdragon_dark_01_wing_01
+  rotate: false
+  xy: 336, 79
+  size: 85, 95
+  orig: 85, 95
+  offset: 0, 0
+  index: -1
+bullsdragon_dark_01_wing_02
+  rotate: false
+  xy: 386, 185
+  size: 85, 95
+  orig: 85, 95
+  offset: 0, 0
+  index: -1

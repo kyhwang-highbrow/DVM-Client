@@ -1,0 +1,153 @@
+
+aphrodite_dark_01.png
+size: 1249,237
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+aphrodite_dark_01_arm_01
+  rotate: false
+  xy: 582, 2
+  size: 59, 55
+  orig: 59, 55
+  offset: 0, 0
+  index: -1
+aphrodite_dark_01_arm_02
+  rotate: true
+  xy: 372, 20
+  size: 26, 76
+  orig: 26, 76
+  offset: 0, 0
+  index: -1
+aphrodite_dark_01_body_01
+  rotate: true
+  xy: 841, 86
+  size: 72, 105
+  orig: 72, 105
+  offset: 0, 0
+  index: -1
+aphrodite_dark_01_body_02
+  rotate: false
+  xy: 817, 7
+  size: 110, 76
+  orig: 110, 76
+  offset: 0, 0
+  index: -1
+aphrodite_dark_01_dress_01
+  rotate: true
+  xy: 703, 7
+  size: 76, 112
+  orig: 76, 112
+  offset: 0, 0
+  index: -1
+aphrodite_dark_01_dress_02
+  rotate: false
+  xy: 488, 59
+  size: 212, 91
+  orig: 212, 91
+  offset: 0, 0
+  index: -1
+aphrodite_dark_01_dress_03
+  rotate: true
+  xy: 948, 98
+  size: 137, 123
+  orig: 137, 123
+  offset: 0, 0
+  index: -1
+aphrodite_dark_01_dress_04
+  rotate: true
+  xy: 702, 85
+  size: 65, 137
+  orig: 65, 137
+  offset: 0, 0
+  index: -1
+aphrodite_dark_01_ear_01
+  rotate: true
+  xy: 929, 21
+  size: 63, 112
+  orig: 63, 112
+  offset: 0, 0
+  index: -1
+aphrodite_dark_01_ear_02
+  rotate: true
+  xy: 729, 160
+  size: 75, 118
+  orig: 75, 118
+  offset: 0, 0
+  index: -1
+aphrodite_dark_01_eff_02
+  rotate: false
+  xy: 1073, 110
+  size: 125, 125
+  orig: 125, 125
+  offset: 0, 0
+  index: -1
+aphrodite_dark_01_eye
+  rotate: false
+  xy: 372, 2
+  size: 26, 16
+  orig: 26, 16
+  offset: 0, 0
+  index: -1
+aphrodite_dark_01_hand_01
+  rotate: true
+  xy: 488, 7
+  size: 50, 92
+  orig: 50, 92
+  offset: 0, 0
+  index: -1
+aphrodite_dark_01_hand_02
+  rotate: false
+  xy: 1043, 12
+  size: 77, 84
+  orig: 77, 84
+  offset: 0, 0
+  index: -1
+aphrodite_dark_01_head_01
+  rotate: true
+  xy: 849, 165
+  size: 70, 62
+  orig: 70, 62
+  offset: 0, 0
+  index: -1
+aphrodite_dark_01_leg_01
+  rotate: false
+  xy: 372, 48
+  size: 114, 187
+  orig: 114, 187
+  offset: 0, 0
+  index: -1
+aphrodite_dark_01_leg_02
+  rotate: true
+  xy: 488, 152
+  size: 83, 239
+  orig: 83, 239
+  offset: 0, 0
+  index: -1
+aphrodite_dark_01_mouth
+  rotate: false
+  xy: 400, 8
+  size: 10, 10
+  orig: 10, 10
+  offset: 0, 0
+  index: -1
+aphrodite_dark_01_tail
+  rotate: false
+  xy: 2, 4
+  size: 368, 231
+  orig: 368, 231
+  offset: 0, 0
+  index: -1
+aphrodite_dark_01_thing_01
+  rotate: false
+  xy: 643, 4
+  size: 58, 53
+  orig: 58, 53
+  offset: 0, 0
+  index: -1
+aphrodite_dark_01_weapon
+  rotate: true
+  xy: 1122, 7
+  size: 101, 125
+  orig: 101, 125
+  offset: 0, 0
+  index: -1

@@ -1,0 +1,146 @@
+
+mutanteggdragon_fire_03.png
+size: 718,394
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+mutanteggdragon_fire_03_arm_01
+  rotate: true
+  xy: 652, 119
+  size: 50, 64
+  orig: 50, 64
+  offset: 0, 0
+  index: -1
+mutanteggdragon_fire_03_body_01
+  rotate: false
+  xy: 472, 230
+  size: 148, 162
+  orig: 148, 162
+  offset: 0, 0
+  index: -1
+mutanteggdragon_fire_03_ear_01
+  rotate: false
+  xy: 576, 35
+  size: 61, 79
+  orig: 61, 79
+  offset: 0, 0
+  index: -1
+mutanteggdragon_fire_03_effect_01
+  rotate: false
+  xy: 2, 91
+  size: 286, 301
+  orig: 286, 301
+  offset: 0, 0
+  index: -1
+mutanteggdragon_fire_03_effect_02
+  rotate: true
+  xy: 652, 171
+  size: 70, 61
+  orig: 70, 61
+  offset: 0, 0
+  index: -1
+mutanteggdragon_fire_03_eggshell_01
+  rotate: false
+  xy: 290, 89
+  size: 180, 102
+  orig: 180, 102
+  offset: 0, 0
+  index: -1
+mutanteggdragon_fire_03_eggshell_02
+  rotate: false
+  xy: 472, 116
+  size: 178, 112
+  orig: 178, 112
+  offset: 0, 0
+  index: -1
+mutanteggdragon_fire_03_eggshell_03
+  rotate: false
+  xy: 2, 5
+  size: 149, 84
+  orig: 149, 84
+  offset: 0, 0
+  index: -1
+mutanteggdragon_fire_03_eggshell_04
+  rotate: true
+  xy: 622, 243
+  size: 149, 84
+  orig: 149, 84
+  offset: 0, 0
+  index: -1
+mutanteggdragon_fire_03_eggshell_05
+  rotate: false
+  xy: 276, 3
+  size: 149, 84
+  orig: 149, 84
+  offset: 0, 0
+  index: -1
+mutanteggdragon_fire_03_eggshell_06
+  rotate: false
+  xy: 290, 193
+  size: 180, 199
+  orig: 180, 199
+  offset: 0, 0
+  index: -1
+mutanteggdragon_fire_03_eye_01
+  rotate: true
+  xy: 427, 34
+  size: 53, 43
+  orig: 53, 43
+  offset: 0, 0
+  index: -1
+mutanteggdragon_fire_03_eye_02
+  rotate: true
+  xy: 639, 61
+  size: 53, 43
+  orig: 53, 43
+  offset: 0, 0
+  index: -1
+mutanteggdragon_fire_03_face_01
+  rotate: false
+  xy: 560, 15
+  size: 28, 18
+  orig: 28, 18
+  offset: 0, 0
+  index: -1
+mutanteggdragon_fire_03_leg_01
+  rotate: true
+  xy: 639, 21
+  size: 38, 53
+  orig: 38, 53
+  offset: 0, 0
+  index: -1
+mutanteggdragon_fire_03_leg_02
+  rotate: true
+  xy: 427, 2
+  size: 30, 47
+  orig: 30, 47
+  offset: 0, 0
+  index: -1
+mutanteggdragon_fire_03_mouth_01
+  rotate: false
+  xy: 476, 4
+  size: 40, 29
+  orig: 40, 29
+  offset: 0, 0
+  index: -1
+mutanteggdragon_fire_03_mouth_02
+  rotate: false
+  xy: 518, 4
+  size: 40, 29
+  orig: 40, 29
+  offset: 0, 0
+  index: -1
+mutanteggdragon_fire_03_tail_01
+  rotate: false
+  xy: 153, 15
+  size: 121, 74
+  orig: 121, 74
+  offset: 0, 0
+  index: -1
+mutanteggdragon_fire_03_wing_01
+  rotate: false
+  xy: 472, 35
+  size: 102, 79
+  orig: 102, 79
+  offset: 0, 0
+  index: -1

@@ -1,0 +1,244 @@
+
+wonderdragon_water_02.png
+size: 2028,401
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+wonderdragon_water_02_arm_01
+  rotate: false
+  xy: 680, 5
+  size: 152, 110
+  orig: 152, 110
+  offset: 0, 0
+  index: -1
+wonderdragon_water_02_body_01
+  rotate: false
+  xy: 1100, 183
+  size: 194, 216
+  orig: 194, 216
+  offset: 0, 0
+  index: -1
+wonderdragon_water_02_body_01_03
+  rotate: false
+  xy: 1296, 183
+  size: 194, 216
+  orig: 194, 216
+  offset: 0, 0
+  index: -1
+wonderdragon_water_02_body_acc_01
+  rotate: true
+  xy: 276, 59
+  size: 340, 203
+  orig: 340, 203
+  offset: 0, 0
+  index: -1
+wonderdragon_water_02_body_neck_01
+  rotate: false
+  xy: 1492, 201
+  size: 186, 198
+  orig: 186, 198
+  offset: 0, 0
+  index: -1
+wonderdragon_water_02_body_shoulder_01
+  rotate: true
+  xy: 1680, 207
+  size: 192, 120
+  orig: 192, 120
+  offset: 0, 0
+  index: -1
+wonderdragon_water_02_effect_01
+  rotate: false
+  xy: 870, 169
+  size: 228, 230
+  orig: 228, 230
+  offset: 0, 0
+  index: -1
+wonderdragon_water_02_effect_02
+  rotate: false
+  xy: 1548, 6
+  size: 193, 193
+  orig: 193, 193
+  offset: 0, 0
+  index: -1
+wonderdragon_water_02_eye_01
+  rotate: true
+  xy: 2, 9
+  size: 29, 20
+  orig: 29, 20
+  offset: 0, 0
+  index: -1
+wonderdragon_water_02_eye_02
+  rotate: false
+  xy: 24, 12
+  size: 26, 26
+  orig: 26, 26
+  offset: 0, 0
+  index: -1
+wonderdragon_water_02_eye_03
+  rotate: false
+  xy: 1743, 3
+  size: 52, 52
+  orig: 52, 52
+  offset: 0, 0
+  index: -1
+wonderdragon_water_02_eye_04
+  rotate: true
+  xy: 1797, 9
+  size: 46, 43
+  orig: 46, 43
+  offset: 0, 0
+  index: -1
+wonderdragon_water_02_hand_01_finger_1
+  rotate: false
+  xy: 1101, 6
+  size: 116, 175
+  orig: 116, 175
+  offset: 0, 0
+  index: -1
+wonderdragon_water_02_hand_01_finger_2
+  rotate: false
+  xy: 1219, 7
+  size: 88, 174
+  orig: 88, 174
+  offset: 0, 0
+  index: -1
+wonderdragon_water_02_hand_01_finger_3
+  rotate: true
+  xy: 1852, 131
+  size: 66, 125
+  orig: 66, 125
+  offset: 0, 0
+  index: -1
+wonderdragon_water_02_hand_02
+  rotate: false
+  xy: 1309, 8
+  size: 128, 173
+  orig: 128, 173
+  offset: 0, 0
+  index: -1
+wonderdragon_water_02_head_01
+  rotate: true
+  xy: 1439, 33
+  size: 148, 107
+  orig: 148, 107
+  offset: 0, 0
+  index: -1
+wonderdragon_water_02_head_01_02
+  rotate: true
+  xy: 1743, 57
+  size: 148, 107
+  orig: 148, 107
+  offset: 0, 0
+  index: -1
+wonderdragon_water_02_head_01_03
+  rotate: false
+  xy: 1852, 292
+  size: 148, 107
+  orig: 148, 107
+  offset: 0, 0
+  index: -1
+wonderdragon_water_02_head_02
+  rotate: true
+  xy: 1802, 210
+  size: 80, 60
+  orig: 80, 60
+  offset: 0, 0
+  index: -1
+wonderdragon_water_02_head_02_02
+  rotate: false
+  xy: 1946, 69
+  size: 80, 60
+  orig: 80, 60
+  offset: 0, 0
+  index: -1
+wonderdragon_water_02_head_02_03
+  rotate: false
+  xy: 1946, 7
+  size: 80, 60
+  orig: 80, 60
+  offset: 0, 0
+  index: -1
+wonderdragon_water_02_head_acc_01
+  rotate: true
+  xy: 1852, 20
+  size: 109, 92
+  orig: 109, 92
+  offset: 0, 0
+  index: -1
+wonderdragon_water_02_head_acc_02
+  rotate: false
+  xy: 276, 4
+  size: 261, 53
+  orig: 261, 53
+  offset: 0, 0
+  index: -1
+wonderdragon_water_02_head_acc_03
+  rotate: true
+  xy: 815, 138
+  size: 261, 53
+  orig: 261, 53
+  offset: 0, 0
+  index: -1
+wonderdragon_water_02_head_armor_01
+  rotate: false
+  xy: 1014, 18
+  size: 85, 149
+  orig: 85, 149
+  offset: 0, 0
+  index: -1
+wonderdragon_water_02_head_armor_02
+  rotate: false
+  xy: 834, 2
+  size: 50, 134
+  orig: 50, 134
+  offset: 0, 0
+  index: -1
+wonderdragon_water_02_head_armor_03
+  rotate: true
+  xy: 539, 6
+  size: 74, 139
+  orig: 74, 139
+  offset: 0, 0
+  index: -1
+wonderdragon_water_02_leg_01
+  rotate: true
+  xy: 1864, 199
+  size: 91, 137
+  orig: 91, 137
+  offset: 0, 0
+  index: -1
+wonderdragon_water_02_leg_02
+  rotate: false
+  xy: 886, 16
+  size: 126, 151
+  orig: 126, 151
+  offset: 0, 0
+  index: -1
+wonderdragon_water_02_mouth_01
+  rotate: false
+  xy: 52, 18
+  size: 47, 20
+  orig: 47, 20
+  offset: 0, 0
+  index: -1
+wonderdragon_water_02_tail_01
+  rotate: true
+  xy: 2, 40
+  size: 359, 272
+  orig: 359, 272
+  offset: 0, 0
+  index: -1
+wonderdragon_water_02_wing_01
+  rotate: true
+  xy: 481, 82
+  size: 317, 174
+  orig: 317, 174
+  offset: 0, 0
+  index: -1
+wonderdragon_water_02_wing_02
+  rotate: true
+  xy: 657, 117
+  size: 282, 156
+  orig: 282, 156
+  offset: 0, 0
+  index: -1

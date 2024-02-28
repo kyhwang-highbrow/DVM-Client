@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+    <dict>
+        <key>frames</key>
+        <dict>
+            <key>bg_volcano_2_a.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{2,2},{1868,800}}</string>
+                <key>offset</key>
+                <string>{26,0}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{52,0},{1868,800}}</string>
+                <key>sourceSize</key>
+                <string>{1920,800}</string>
+            </dict>
+        </dict>
+        <key>metadata</key>
+        <dict>
+            <key>format</key>
+            <integer>2</integer>
+            <key>realTextureFileName</key>
+            <string>volcano_2.png</string>
+            <key>size</key>
+            <string>{1872,804}</string>
+            <key>smartupdate</key>
+            <string>$TexturePacker:SmartUpdate:da446b3098c819e87d87ada441f54210:2bd3b5b983b44d47d456b3a6f9b59ba0:e401b0bf725b937b42dafd77076ad0d2$</string>
+            <key>textureFileName</key>
+            <string>volcano_2.png</string>
+        </dict>
+    </dict>
+</plist>

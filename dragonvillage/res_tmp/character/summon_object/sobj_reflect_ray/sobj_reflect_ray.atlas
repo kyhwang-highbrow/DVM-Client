@@ -1,0 +1,90 @@
+
+sobj_reflect_ray.png
+size: 705,375
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+effect_sobj_reflect_ray_alien_1
+  rotate: true
+  xy: 2, 6
+  size: 367, 352
+  orig: 367, 352
+  offset: 0, 0
+  index: -1
+effect_sobj_reflect_ray_beam
+  rotate: false
+  xy: 588, 101
+  size: 106, 133
+  orig: 106, 133
+  offset: 0, 0
+  index: -1
+sobj_reflect_ray_alien
+  rotate: false
+  xy: 497, 89
+  size: 67, 90
+  orig: 67, 90
+  offset: 0, 0
+  index: -1
+sobj_reflect_ray_body_01
+  rotate: false
+  xy: 356, 181
+  size: 230, 192
+  orig: 230, 192
+  offset: 0, 0
+  index: -1
+sobj_reflect_ray_bolt
+  rotate: false
+  xy: 497, 40
+  size: 50, 47
+  orig: 50, 47
+  offset: 0, 0
+  index: -1
+sobj_reflect_ray_bpdy_02
+  rotate: true
+  xy: 356, 12
+  size: 167, 139
+  orig: 167, 139
+  offset: 0, 0
+  index: -1
+sobj_reflect_ray_eye_d
+  rotate: true
+  xy: 667, 40
+  size: 59, 36
+  orig: 59, 36
+  offset: 0, 0
+  index: -1
+sobj_reflect_ray_eye_i
+  rotate: false
+  xy: 497, 2
+  size: 60, 36
+  orig: 60, 36
+  offset: 0, 0
+  index: -1
+sobj_reflect_ray_nut
+  rotate: false
+  xy: 615, 52
+  size: 50, 47
+  orig: 50, 47
+  offset: 0, 0
+  index: -1
+sobj_reflect_ray_spring
+  rotate: false
+  xy: 615, 8
+  size: 50, 42
+  orig: 50, 42
+  offset: 0, 0
+  index: -1
+sobj_reflect_ray_stick
+  rotate: true
+  xy: 566, 29
+  size: 70, 47
+  orig: 70, 47
+  offset: 0, 0
+  index: -1
+sobj_reflect_ray_window
+  rotate: true
+  xy: 588, 236
+  size: 137, 111
+  orig: 137, 111
+  offset: 0, 0
+  index: -1

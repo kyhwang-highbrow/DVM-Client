@@ -1,0 +1,167 @@
+
+blackjindo_earth_03.png
+size: 1273,370
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+blackjindo_earth_03_acc_01
+  rotate: false
+  xy: 1136, 265
+  size: 113, 103
+  orig: 113, 103
+  offset: 0, 0
+  index: -1
+blackjindo_earth_03_arm_01
+  rotate: false
+  xy: 1177, 71
+  size: 60, 67
+  orig: 60, 67
+  offset: 0, 0
+  index: -1
+blackjindo_earth_03_arm_02
+  rotate: false
+  xy: 1217, 144
+  size: 54, 63
+  orig: 54, 63
+  offset: 0, 0
+  index: -1
+blackjindo_earth_03_body_01
+  rotate: false
+  xy: 969, 2
+  size: 81, 57
+  orig: 81, 57
+  offset: 0, 0
+  index: -1
+blackjindo_earth_03_body_02
+  rotate: false
+  xy: 828, 11
+  size: 139, 168
+  orig: 139, 168
+  offset: 0, 0
+  index: -1
+blackjindo_earth_03_effect_01
+  rotate: false
+  xy: 2, 11
+  size: 411, 357
+  orig: 411, 357
+  offset: 0, 0
+  index: -1
+blackjindo_earth_03_effect_02
+  rotate: false
+  xy: 415, 11
+  size: 411, 357
+  orig: 411, 357
+  offset: 0, 0
+  index: -1
+blackjindo_earth_03_eye_01
+  rotate: true
+  xy: 1102, 189
+  size: 38, 32
+  orig: 38, 32
+  offset: 0, 0
+  index: -1
+blackjindo_earth_03_eye_01_01
+  rotate: true
+  xy: 1239, 104
+  size: 38, 32
+  orig: 38, 32
+  offset: 0, 0
+  index: -1
+blackjindo_earth_03_eye_02
+  rotate: false
+  xy: 969, 157
+  size: 23, 22
+  orig: 23, 22
+  offset: 0, 0
+  index: -1
+blackjindo_earth_03_eye_02_01
+  rotate: false
+  xy: 1102, 165
+  size: 23, 22
+  orig: 23, 22
+  offset: 0, 0
+  index: -1
+blackjindo_earth_03_foot_01
+  rotate: true
+  xy: 1136, 209
+  size: 54, 86
+  orig: 54, 86
+  offset: 0, 0
+  index: -1
+blackjindo_earth_03_foot_02
+  rotate: false
+  xy: 1113, 68
+  size: 62, 70
+  orig: 62, 70
+  offset: 0, 0
+  index: -1
+blackjindo_earth_03_hand_01
+  rotate: false
+  xy: 1136, 140
+  size: 79, 67
+  orig: 79, 67
+  offset: 0, 0
+  index: -1
+blackjindo_earth_03_hand_02
+  rotate: false
+  xy: 1052, 2
+  size: 71, 57
+  orig: 71, 57
+  offset: 0, 0
+  index: -1
+blackjindo_earth_03_head_01
+  rotate: false
+  xy: 994, 229
+  size: 140, 139
+  orig: 140, 139
+  offset: 0, 0
+  index: -1
+blackjindo_earth_03_head_02
+  rotate: false
+  xy: 969, 61
+  size: 82, 88
+  orig: 82, 88
+  offset: 0, 0
+  index: -1
+blackjindo_earth_03_head_03
+  rotate: false
+  xy: 1213, 4
+  size: 50, 65
+  orig: 50, 65
+  offset: 0, 0
+  index: -1
+blackjindo_earth_03_leg_01
+  rotate: true
+  xy: 994, 151
+  size: 76, 106
+  orig: 76, 106
+  offset: 0, 0
+  index: -1
+blackjindo_earth_03_leg_02
+  rotate: false
+  xy: 1053, 61
+  size: 58, 88
+  orig: 58, 88
+  offset: 0, 0
+  index: -1
+blackjindo_earth_03_mouth_01
+  rotate: true
+  xy: 1125, 7
+  size: 59, 42
+  orig: 59, 42
+  offset: 0, 0
+  index: -1
+blackjindo_earth_03_mouth_02
+  rotate: true
+  xy: 1169, 7
+  size: 59, 42
+  orig: 59, 42
+  offset: 0, 0
+  index: -1
+blackjindo_earth_03_tail_01
+  rotate: false
+  xy: 828, 181
+  size: 164, 187
+  orig: 164, 187
+  offset: 0, 0
+  index: -1

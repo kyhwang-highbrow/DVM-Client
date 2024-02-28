@@ -1,0 +1,244 @@
+
+maldek_earth_01.png
+size: 476,523
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+maldek_earth_arm_l
+  rotate: false
+  xy: 399, 291
+  size: 53, 102
+  orig: 53, 102
+  offset: 0, 0
+  index: -1
+maldek_earth_arm_r
+  rotate: false
+  xy: 215, 64
+  size: 46, 105
+  orig: 46, 105
+  offset: 0, 0
+  index: -1
+maldek_earth_body
+  rotate: false
+  xy: 2, 58
+  size: 142, 139
+  orig: 142, 139
+  offset: 0, 0
+  index: -1
+maldek_earth_body_deco_01
+  rotate: true
+  xy: 262, 9
+  size: 35, 43
+  orig: 35, 43
+  offset: 0, 0
+  index: -1
+maldek_earth_body_deco_03
+  rotate: false
+  xy: 307, 3
+  size: 23, 41
+  orig: 23, 41
+  offset: 0, 0
+  index: -1
+maldek_earth_book_01
+  rotate: false
+  xy: 2, 390
+  size: 302, 131
+  orig: 302, 131
+  offset: 0, 0
+  index: -1
+maldek_earth_book_02
+  rotate: true
+  xy: 146, 44
+  size: 125, 67
+  orig: 125, 67
+  offset: 0, 0
+  index: -1
+maldek_earth_book_03
+  rotate: true
+  xy: 306, 395
+  size: 126, 165
+  orig: 126, 165
+  offset: 0, 0
+  index: -1
+maldek_earth_book_ef_01
+  rotate: false
+  xy: 147, 171
+  size: 108, 108
+  orig: 108, 108
+  offset: 0, 0
+  index: -1
+maldek_earth_book_ef_02
+  rotate: false
+  xy: 322, 105
+  size: 76, 76
+  orig: 76, 76
+  offset: 0, 0
+  index: -1
+maldek_earth_book_ef_03
+  rotate: false
+  xy: 313, 304
+  size: 84, 89
+  orig: 84, 89
+  offset: 0, 0
+  index: -1
+maldek_earth_book_ef_04
+  rotate: true
+  xy: 312, 183
+  size: 70, 71
+  orig: 70, 71
+  offset: 0, 0
+  index: -1
+maldek_earth_eye_01
+  rotate: true
+  xy: 445, 88
+  size: 30, 21
+  orig: 30, 21
+  offset: 0, 0
+  index: -1
+maldek_earth_eye_02
+  rotate: true
+  xy: 378, 16
+  size: 30, 21
+  orig: 30, 21
+  offset: 0, 0
+  index: -1
+maldek_earth_eye_03
+  rotate: false
+  xy: 401, 28
+  size: 30, 21
+  orig: 30, 21
+  offset: 0, 0
+  index: -1
+maldek_earth_eye_04
+  rotate: true
+  xy: 454, 363
+  size: 30, 20
+  orig: 30, 20
+  offset: 0, 0
+  index: -1
+maldek_earth_hair
+  rotate: false
+  xy: 156, 8
+  size: 61, 34
+  orig: 61, 34
+  offset: 0, 0
+  index: -1
+maldek_earth_hand_l
+  rotate: false
+  xy: 400, 120
+  size: 63, 63
+  orig: 63, 63
+  offset: 0, 0
+  index: -1
+maldek_earth_hand_r
+  rotate: true
+  xy: 385, 185
+  size: 55, 77
+  orig: 55, 77
+  offset: 0, 0
+  index: -1
+maldek_earth_head_01
+  rotate: false
+  xy: 147, 281
+  size: 116, 107
+  orig: 116, 107
+  offset: 0, 0
+  index: -1
+maldek_earth_head_02
+  rotate: true
+  xy: 263, 46
+  size: 51, 69
+  orig: 51, 69
+  offset: 0, 0
+  index: -1
+maldek_earth_head_deco
+  rotate: false
+  xy: 334, 2
+  size: 42, 44
+  orig: 42, 44
+  offset: 0, 0
+  index: -1
+maldek_earth_leg_l_01
+  rotate: false
+  xy: 257, 183
+  size: 53, 96
+  orig: 53, 96
+  offset: 0, 0
+  index: -1
+maldek_earth_leg_l_02
+  rotate: false
+  xy: 97, 2
+  size: 57, 40
+  orig: 57, 40
+  offset: 0, 0
+  index: -1
+maldek_earth_leg_l_03
+  rotate: false
+  xy: 263, 99
+  size: 57, 82
+  orig: 57, 82
+  offset: 0, 0
+  index: -1
+maldek_earth_leg_r_01
+  rotate: true
+  xy: 395, 242
+  size: 47, 79
+  orig: 47, 79
+  offset: 0, 0
+  index: -1
+maldek_earth_leg_r_02
+  rotate: false
+  xy: 391, 51
+  size: 41, 33
+  orig: 41, 33
+  offset: 0, 0
+  index: -1
+maldek_earth_leg_r_03
+  rotate: true
+  xy: 313, 255
+  size: 47, 80
+  orig: 47, 80
+  offset: 0, 0
+  index: -1
+maldek_earth_mouth
+  rotate: true
+  xy: 219, 5
+  size: 57, 41
+  orig: 57, 41
+  offset: 0, 0
+  index: -1
+maldek_earth_tail
+  rotate: false
+  xy: 2, 199
+  size: 143, 189
+  orig: 143, 189
+  offset: 0, 0
+  index: -1
+maldek_earth_tail_deco_01
+  rotate: false
+  xy: 334, 48
+  size: 55, 55
+  orig: 55, 55
+  offset: 0, 0
+  index: -1
+maldek_earth_tail_deco_02
+  rotate: false
+  xy: 400, 86
+  size: 43, 32
+  orig: 43, 32
+  offset: 0, 0
+  index: -1
+maldek_earth_wing_l
+  rotate: false
+  xy: 265, 284
+  size: 46, 104
+  orig: 46, 104
+  offset: 0, 0
+  index: -1
+maldek_earth_wing_r
+  rotate: true
+  xy: 2, 2
+  size: 54, 93
+  orig: 54, 93
+  offset: 0, 0
+  index: -1

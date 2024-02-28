@@ -1,0 +1,85 @@
+{
+	"skill_missile_beatstab":
+	{
+		"attack_value":
+		[		
+			{
+				"idx":1,
+				"res":"res/missile/missile_sting/missile_sting.png",
+				"visual":"idle",
+				"body":[0,0,30],
+                "count":10,				
+                "period":0.1,
+                "scale":1,
+				"speed":900,
+				"accel":2000,
+				"h_limit_speed":1500,
+				"time":0,
+				"offset":[0,0],
+				"missile_type":"pass",
+				"dir":10,
+				"dir_add":-2,
+				
+                "effect":
+                {
+                    "motion_streak":"res/missile/motion_streak/motion_streak_killerbee.png",
+                    "rotation":false,
+                    "afterimage":false
+                }
+				
+			},
+			
+			{
+				"idx":1,
+				"res":"res/missile/missile_sting/missile_sting.png",
+				"visual":"idle",
+				"body":[0,0,30],
+                "count":10,
+                "period":0.1,
+                "scale":1,
+				"speed":900,
+				"accel":2000,
+				"h_limit_speed":1500,
+				"time":0,
+				"offset":[0,0],
+				"missile_type":"pass",
+				"dir":-10,
+				"dir_add":2,
+				
+                "effect":
+                {
+                    "motion_streak":"res/missile/motion_streak/motion_streak_killerbee.png",
+                    "rotation":false,
+                    "afterimage":false
+                }
+				
+			},
+			
+			{
+				"idx":1,
+				"res":"res/missile/missile_sting/missile_sting.png",
+				"visual":"idle",
+				"body":[0,0,30],
+                "count":10,
+                "period":0.1,
+                "scale":1,
+                "period":0.1,
+				"speed":900,
+				"accel":2000,
+				"h_limit_speed":1500,
+				"time":0,
+				"offset":[0,0],
+				"missile_type":"pass",
+				"dir":0,
+				"dir_add":0,
+				
+                "effect":
+                {
+                    "motion_streak":"res/missile/motion_streak/motion_streak_killerbee.png",
+                    "rotation":false,
+                    "afterimage":false
+                }				
+			}				
+		]
+	}
+}

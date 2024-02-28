@@ -1,0 +1,167 @@
+
+blackdragon_light_02.png
+size: 841,269
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+blackdragon_light_02_arm_01
+  rotate: false
+  xy: 82, 2
+  size: 44, 84
+  orig: 44, 84
+  offset: 0, 0
+  index: -1
+blackdragon_light_02_arm_02
+  rotate: true
+  xy: 705, 3
+  size: 59, 66
+  orig: 59, 66
+  offset: 0, 0
+  index: -1
+blackdragon_light_02_body_01
+  rotate: false
+  xy: 150, 104
+  size: 121, 163
+  orig: 121, 163
+  offset: 0, 0
+  index: -1
+blackdragon_light_02_ear_01
+  rotate: true
+  xy: 560, 34
+  size: 86, 143
+  orig: 86, 143
+  offset: 0, 0
+  index: -1
+blackdragon_light_02_ear_02
+  rotate: false
+  xy: 337, 6
+  size: 50, 114
+  orig: 50, 114
+  offset: 0, 0
+  index: -1
+blackdragon_light_02_eye_01
+  rotate: false
+  xy: 560, 3
+  size: 31, 29
+  orig: 31, 29
+  offset: 0, 0
+  index: -1
+blackdragon_light_02_eye_02
+  rotate: true
+  xy: 500, 6
+  size: 18, 23
+  orig: 18, 23
+  offset: 0, 0
+  index: -1
+blackdragon_light_02_eye_03
+  rotate: false
+  xy: 150, 88
+  size: 34, 14
+  orig: 34, 14
+  offset: 0, 0
+  index: -1
+blackdragon_light_02_eye_04
+  rotate: true
+  xy: 273, 104
+  size: 16, 6
+  orig: 16, 6
+  offset: 0, 0
+  index: -1
+blackdragon_light_02_eye_05
+  rotate: false
+  xy: 593, 3
+  size: 31, 29
+  orig: 31, 29
+  offset: 0, 0
+  index: -1
+blackdragon_light_02_eye_06
+  rotate: true
+  xy: 525, 6
+  size: 18, 23
+  orig: 18, 23
+  offset: 0, 0
+  index: -1
+blackdragon_light_02_foot_01
+  rotate: true
+  xy: 773, 85
+  size: 47, 50
+  orig: 47, 50
+  offset: 0, 0
+  index: -1
+blackdragon_light_02_foot_02
+  rotate: false
+  xy: 773, 35
+  size: 49, 48
+  orig: 49, 48
+  offset: 0, 0
+  index: -1
+blackdragon_light_02_hand_01
+  rotate: true
+  xy: 500, 26
+  size: 94, 58
+  orig: 94, 58
+  offset: 0, 0
+  index: -1
+blackdragon_light_02_hand_02
+  rotate: true
+  xy: 705, 64
+  size: 68, 47
+  orig: 68, 47
+  offset: 0, 0
+  index: -1
+blackdragon_light_02_head_01
+  rotate: true
+  xy: 389, 7
+  size: 113, 109
+  orig: 113, 109
+  offset: 0, 0
+  index: -1
+blackdragon_light_02_leg_01
+  rotate: true
+  xy: 2, 2
+  size: 84, 78
+  orig: 84, 78
+  offset: 0, 0
+  index: -1
+blackdragon_light_02_leg_02
+  rotate: false
+  xy: 128, 7
+  size: 78, 79
+  orig: 78, 79
+  offset: 0, 0
+  index: -1
+blackdragon_light_02_mouth_01
+  rotate: false
+  xy: 186, 88
+  size: 19, 14
+  orig: 19, 14
+  offset: 0, 0
+  index: -1
+blackdragon_light_02_neck_01
+  rotate: true
+  xy: 703, 134
+  size: 133, 136
+  orig: 133, 136
+  offset: 0, 0
+  index: -1
+blackdragon_light_02_neck_02
+  rotate: true
+  xy: 2, 88
+  size: 179, 146
+  orig: 179, 146
+  offset: 0, 0
+  index: -1
+blackdragon_light_02_tail_01
+  rotate: true
+  xy: 273, 122
+  size: 145, 428
+  orig: 145, 428
+  offset: 0, 0
+  index: -1
+blackdragon_light_02_wing_01
+  rotate: false
+  xy: 208, 7
+  size: 127, 95
+  orig: 127, 95
+  offset: 0, 0
+  index: -1

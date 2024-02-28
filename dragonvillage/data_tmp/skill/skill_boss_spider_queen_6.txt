@@ -1,0 +1,24 @@
+{
+	"skill_boss_spider_queen_6":
+	{
+		"attack_value":
+		[		
+			{
+				"idx":1,
+				"res":"res/missile/missile_web/missile_web.spine",
+				"body":[0,0,5000],
+                "count":1,
+				"damage_rate":100,
+                "scale":1,
+                "period":0,
+				"speed":0,
+				"is_abs_pos":true
+				"offset":[1000,0],
+                "dir_array":[0],
+				"delete_time":15,
+				"missile_type":"pass",
+				"res_depth":"bottom"
+			}
+		]
+	}
+}

@@ -1,0 +1,174 @@
+
+pinkbell_fire_02.png
+size: 1384,187
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+pinkbell_fire_02_arm_01
+  rotate: false
+  xy: 703, 13
+  size: 65, 65
+  orig: 65, 65
+  offset: 0, 0
+  index: -1
+pinkbell_fire_02_arm_02
+  rotate: false
+  xy: 770, 16
+  size: 65, 65
+  orig: 65, 65
+  offset: 0, 0
+  index: -1
+pinkbell_fire_02_body_01
+  rotate: true
+  xy: 971, 7
+  size: 126, 155
+  orig: 126, 155
+  offset: 0, 0
+  index: -1
+pinkbell_fire_02_body_02
+  rotate: true
+  xy: 761, 83
+  size: 102, 77
+  orig: 102, 77
+  offset: 0, 0
+  index: -1
+pinkbell_fire_02_body_03
+  rotate: true
+  xy: 637, 9
+  size: 69, 64
+  orig: 69, 64
+  offset: 0, 0
+  index: -1
+pinkbell_fire_02_effect_01
+  rotate: true
+  xy: 620, 80
+  size: 105, 139
+  orig: 105, 139
+  offset: 0, 0
+  index: -1
+pinkbell_fire_02_eye_01
+  rotate: true
+  xy: 1128, 2
+  size: 57, 62
+  orig: 57, 62
+  offset: 0, 0
+  index: -1
+pinkbell_fire_02_eye_02
+  rotate: true
+  xy: 1192, 2
+  size: 57, 62
+  orig: 57, 62
+  offset: 0, 0
+  index: -1
+pinkbell_fire_02_eye_03
+  rotate: true
+  xy: 1256, 2
+  size: 57, 62
+  orig: 57, 62
+  offset: 0, 0
+  index: -1
+pinkbell_fire_02_eye_04
+  rotate: true
+  xy: 1320, 2
+  size: 57, 62
+  orig: 57, 62
+  offset: 0, 0
+  index: -1
+pinkbell_fire_02_foot_01
+  rotate: false
+  xy: 381, 5
+  size: 62, 73
+  orig: 62, 73
+  offset: 0, 0
+  index: -1
+pinkbell_fire_02_foot_02
+  rotate: true
+  xy: 907, 135
+  size: 50, 73
+  orig: 50, 73
+  offset: 0, 0
+  index: -1
+pinkbell_fire_02_foot_03
+  rotate: false
+  xy: 445, 5
+  size: 62, 73
+  orig: 62, 73
+  offset: 0, 0
+  index: -1
+pinkbell_fire_02_foot_04
+  rotate: false
+  xy: 509, 5
+  size: 62, 73
+  orig: 62, 73
+  offset: 0, 0
+  index: -1
+pinkbell_fire_02_hand_01
+  rotate: false
+  xy: 837, 16
+  size: 65, 65
+  orig: 65, 65
+  offset: 0, 0
+  index: -1
+pinkbell_fire_02_hand_02
+  rotate: false
+  xy: 840, 120
+  size: 65, 65
+  orig: 65, 65
+  offset: 0, 0
+  index: -1
+pinkbell_fire_02_head_01
+  rotate: true
+  xy: 1128, 61
+  size: 124, 120
+  orig: 124, 120
+  offset: 0, 0
+  index: -1
+pinkbell_fire_02_head_02
+  rotate: false
+  xy: 311, 2
+  size: 68, 76
+  orig: 68, 76
+  offset: 0, 0
+  index: -1
+pinkbell_fire_02_head_03
+  rotate: true
+  xy: 1250, 61
+  size: 124, 120
+  orig: 124, 120
+  offset: 0, 0
+  index: -1
+pinkbell_fire_02_leg_01
+  rotate: false
+  xy: 573, 5
+  size: 62, 73
+  orig: 62, 73
+  offset: 0, 0
+  index: -1
+pinkbell_fire_02_leg_02
+  rotate: true
+  xy: 982, 135
+  size: 50, 73
+  orig: 50, 73
+  offset: 0, 0
+  index: -1
+pinkbell_fire_02_mouth_01
+  rotate: false
+  xy: 904, 53
+  size: 65, 65
+  orig: 65, 65
+  offset: 0, 0
+  index: -1
+pinkbell_fire_02_wing_01
+  rotate: true
+  xy: 2, 11
+  size: 174, 307
+  orig: 174, 307
+  offset: 0, 0
+  index: -1
+pinkbell_fire_02_wing_02
+  rotate: true
+  xy: 311, 80
+  size: 105, 307
+  orig: 105, 307
+  offset: 0, 0
+  index: -1

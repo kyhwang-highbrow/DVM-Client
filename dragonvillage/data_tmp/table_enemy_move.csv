@@ -1,0 +1,355 @@
+type,pos_01,pos_02,pos_03,pos_04,pos_05,pos_06,pos_07,pos_08,pos_09,pos_10,pos_11,pos_12,pos_13,pos_14,pos_15,pos_16,pos_17,pos_18,pos_19,pos_20,pos_21,r_comment
+design,RF11,RF13,RF15,RF17,RF22,RF24,RF26,RM13,RM15,RM24,,,,,,,,,,,,
+wait,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,지정 시간동안 대기용으로 사용
+RF11,RF11,RF11,RF11,RF11,RF11,RF11,RF11,RF11,RF11,RF11,RF11,RF11,RF11,RF11,RF11,RF11,RF11,RF11,RF11,RF11,RF11,
+RF12,RF12,RF12,RF12,RF12,RF12,RF12,RF12,RF12,RF12,RF12,RF12,RF12,RF12,RF12,RF12,RF12,RF12,RF12,RF12,RF12,RF12,
+RF13,RF13,RF13,RF13,RF13,RF13,RF13,RF13,RF13,RF13,RF13,RF13,RF13,RF13,RF13,RF13,RF13,RF13,RF13,RF13,RF13,RF13,
+RF14,RF14,RF14,RF14,RF14,RF14,RF14,RF14,RF14,RF14,RF14,RF14,RF14,RF14,RF14,RF14,RF14,RF14,RF14,RF14,RF14,RF14,
+RF15,RF15,RF15,RF15,RF15,RF15,RF15,RF15,RF15,RF15,RF15,RF15,RF15,RF15,RF15,RF15,RF15,RF15,RF15,RF15,RF15,RF15,
+RF16,RF16,RF16,RF16,RF16,RF16,RF16,RF16,RF16,RF16,RF16,RF16,RF16,RF16,RF16,RF16,RF16,RF16,RF16,RF16,RF16,RF16,
+RF17,RF17,RF17,RF17,RF17,RF17,RF17,RF17,RF17,RF17,RF17,RF17,RF17,RF17,RF17,RF17,RF17,RF17,RF17,RF17,RF17,RF17,
+RF21,RF21,RF21,RF21,RF21,RF21,RF21,RF21,RF21,RF21,RF21,RF21,RF21,RF21,RF21,RF21,RF21,RF21,RF21,RF21,RF21,RF21,
+RF22,RF22,RF22,RF22,RF22,RF22,RF22,RF22,RF22,RF22,RF22,RF22,RF22,RF22,RF22,RF22,RF22,RF22,RF22,RF22,RF22,RF22,
+RF23,RF23,RF23,RF23,RF23,RF23,RF23,RF23,RF23,RF23,RF23,RF23,RF23,RF23,RF23,RF23,RF23,RF23,RF23,RF23,RF23,RF23,
+RF24,RF24,RF24,RF24,RF24,RF24,RF24,RF24,RF24,RF24,RF24,RF24,RF24,RF24,RF24,RF24,RF24,RF24,RF24,RF24,RF24,RF24,
+RF25,RF25,RF25,RF25,RF25,RF25,RF25,RF25,RF25,RF25,RF25,RF25,RF25,RF25,RF25,RF25,RF25,RF25,RF25,RF25,RF25,RF25,
+RF26,RF26,RF26,RF26,RF26,RF26,RF26,RF26,RF26,RF26,RF26,RF26,RF26,RF26,RF26,RF26,RF26,RF26,RF26,RF26,RF26,RF26,
+RF27,RF27,RF27,RF27,RF27,RF27,RF27,RF27,RF27,RF27,RF27,RF27,RF27,RF27,RF27,RF27,RF27,RF27,RF27,RF27,RF27,RF27,
+RM11,RM11,RM11,RM11,RM11,RM11,RM11,RM11,RM11,RM11,RM11,RM11,RM11,RM11,RM11,RM11,RM11,RM11,RM11,RM11,RM11,RM11,
+RM12,RM12,RM12,RM12,RM12,RM12,RM12,RM12,RM12,RM12,RM12,RM12,RM12,RM12,RM12,RM12,RM12,RM12,RM12,RM12,RM12,RM12,
+RM13,RM13,RM13,RM13,RM13,RM13,RM13,RM13,RM13,RM13,RM13,RM13,RM13,RM13,RM13,RM13,RM13,RM13,RM13,RM13,RM13,RM13,
+RM14,RM14,RM14,RM14,RM14,RM14,RM14,RM14,RM14,RM14,RM14,RM14,RM14,RM14,RM14,RM14,RM14,RM14,RM14,RM14,RM14,RM14,
+RM15,RM15,RM15,RM15,RM15,RM15,RM15,RM15,RM15,RM15,RM15,RM15,RM15,RM15,RM15,RM15,RM15,RM15,RM15,RM15,RM15,RM15,
+RM16,RM16,RM16,RM16,RM16,RM16,RM16,RM16,RM16,RM16,RM16,RM16,RM16,RM16,RM16,RM16,RM16,RM16,RM16,RM16,RM16,RM16,
+RM17,RM17,RM17,RM17,RM17,RM17,RM17,RM17,RM17,RM17,RM17,RM17,RM17,RM17,RM17,RM17,RM17,RM17,RM17,RM17,RM17,RM17,
+RM21,RM21,RM21,RM21,RM21,RM21,RM21,RM21,RM21,RM21,RM21,RM21,RM21,RM21,RM21,RM21,RM21,RM21,RM21,RM21,RM21,RM21,
+RM22,RM22,RM22,RM22,RM22,RM22,RM22,RM22,RM22,RM22,RM22,RM22,RM22,RM22,RM22,RM22,RM22,RM22,RM22,RM22,RM22,RM22,
+RM23,RM23,RM23,RM23,RM23,RM23,RM23,RM23,RM23,RM23,RM23,RM23,RM23,RM23,RM23,RM23,RM23,RM23,RM23,RM23,RM23,RM23,
+RM24,RM24,RM24,RM24,RM24,RM24,RM24,RM24,RM24,RM24,RM24,RM24,RM24,RM24,RM24,RM24,RM24,RM24,RM24,RM24,RM24,RM24,
+RM25,RM25,RM25,RM25,RM25,RM25,RM25,RM25,RM25,RM25,RM25,RM25,RM25,RM25,RM25,RM25,RM25,RM25,RM25,RM25,RM25,RM25,
+RM26,RM26,RM26,RM26,RM26,RM26,RM26,RM26,RM26,RM26,RM26,RM26,RM26,RM26,RM26,RM26,RM26,RM26,RM26,RM26,RM26,RM26,
+RM27,RM27,RM27,RM27,RM27,RM27,RM27,RM27,RM27,RM27,RM27,RM27,RM27,RM27,RM27,RM27,RM27,RM27,RM27,RM27,RM27,RM27,
+RB11,RB11,RB11,RB11,RB11,RB11,RB11,RB11,RB11,RB11,RB11,RB11,RB11,RB11,RB11,RB11,RB11,RB11,RB11,RB11,RB11,RB11,
+RB12,RB12,RB12,RB12,RB12,RB12,RB12,RB12,RB12,RB12,RB12,RB12,RB12,RB12,RB12,RB12,RB12,RB12,RB12,RB12,RB12,RB12,
+RB13,RB13,RB13,RB13,RB13,RB13,RB13,RB13,RB13,RB13,RB13,RB13,RB13,RB13,RB13,RB13,RB13,RB13,RB13,RB13,RB13,RB13,
+RB14,RB14,RB14,RB14,RB14,RB14,RB14,RB14,RB14,RB14,RB14,RB14,RB14,RB14,RB14,RB14,RB14,RB14,RB14,RB14,RB14,RB14,
+RB15,RB15,RB15,RB15,RB15,RB15,RB15,RB15,RB15,RB15,RB15,RB15,RB15,RB15,RB15,RB15,RB15,RB15,RB15,RB15,RB15,RB15,
+RB16,RB16,RB16,RB16,RB16,RB16,RB16,RB16,RB16,RB16,RB16,RB16,RB16,RB16,RB16,RB16,RB16,RB16,RB16,RB16,RB16,RB16,
+RB17,RB17,RB17,RB17,RB17,RB17,RB17,RB17,RB17,RB17,RB17,RB17,RB17,RB17,RB17,RB17,RB17,RB17,RB17,RB17,RB17,RB17,
+RB21,RB21,RB21,RB21,RB21,RB21,RB21,RB21,RB21,RB21,RB21,RB21,RB21,RB21,RB21,RB21,RB21,RB21,RB21,RB21,RB21,RB21,
+RB22,RB22,RB22,RB22,RB22,RB22,RB22,RB22,RB22,RB22,RB22,RB22,RB22,RB22,RB22,RB22,RB22,RB22,RB22,RB22,RB22,RB22,
+RB23,RB23,RB23,RB23,RB23,RB23,RB23,RB23,RB23,RB23,RB23,RB23,RB23,RB23,RB23,RB23,RB23,RB23,RB23,RB23,RB23,RB23,
+RB24,RB24,RB24,RB24,RB24,RB24,RB24,RB24,RB24,RB24,RB24,RB24,RB24,RB24,RB24,RB24,RB24,RB24,RB24,RB24,RB24,RB24,
+RB25,RB25,RB25,RB25,RB25,RB25,RB25,RB25,RB25,RB25,RB25,RB25,RB25,RB25,RB25,RB25,RB25,RB25,RB25,RB25,RB25,RB25,
+RB26,RB26,RB26,RB26,RB26,RB26,RB26,RB26,RB26,RB26,RB26,RB26,RB26,RB26,RB26,RB26,RB26,RB26,RB26,RB26,RB26,RB26,
+RB27,RB27,RB27,RB27,RB27,RB27,RB27,RB27,RB27,RB27,RB27,RB27,RB27,RB27,RB27,RB27,RB27,RB27,RB27,RB27,RB27,RB27,
+c1_s1_1,RF14,RM12,RB14,RM16,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,모험모드 기본 진형
+c1_s1_2,RF13,RF15,RM12,RM16,RB14,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,모험모드 기본 진형
+c1_s1_3,RF23,RF25,RB14,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,모험모드 기본 진형
+c1_s2_1,RF12,RF16,RM14,RB12,RB16,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,모험모드 기본 진형
+c1_s2_2,RB12,RB16,RM13,RM15,RF12,RF16,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,모험모드 기본 진형
+c1_s2_3,RF22,RF26,RB22,RB26,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,모험모드 기본 진형
+c1_s3_1,RF22,RF14,RF26,RM14,RM23,RM25,RB14,x,x,x,x,x,x,x,x,x,x,x,x,x,x,모험모드 기본 진형
+c1_s3_2,RF14,RF22,RF26,RM14,RM23,RM25,RB12,RB16,x,x,x,x,x,x,x,x,x,x,x,x,x,모험모드 기본 진형
+c1_s3_3,RF13,RF15,RF24,RM12,RM16,RB14,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,모험모드 기본 진형
+c1_s4_1,RF21,RF12,RF23,RF16,RF25,RF27,RM23,RM25,RB14,x,x,x,x,x,x,x,x,x,x,x,x,모험모드 기본 진형
+c1_s4_2,RF12,RF23,RM11,RF16,RF25,RM17,RB13,RB15,RB24,x,x,x,x,x,x,x,x,x,x,x,x,모험모드 기본 진형
+c1_s4_3,RF12,RF16,RM27,RB24,RM21,RM14,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,모험모드 기본 진형
+c1_s5_1,RM14,RF22,RF13,RF15,RF26,RM25,RM23,x,x,x,x,x,x,x,x,x,x,x,x,x,x,모험모드 기본 진형
+c1_s5_2,RF23,RF14,RF25,RM22,RM14,RM26,RB23,RB14,RB25,x,x,x,x,x,x,x,x,x,x,x,x,모험모드 기본 진형
+c1_s5_3,RM11,RB12,RB24,RB16,RM17,RM14,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,모험모드 기본 진형
+c1_s6_1,RF13,RB25,RF22,RB16,RM11,RM27,RM21,RM17,RB12,RF26,RB23,RF15,x,x,x,x,x,x,x,x,x,모험모드 기본 진형
+c1_s6_2,RF17,RB21,RF26,RB12,RM17,RM21,RM26,RM12,RB17,RF21,RB26,RF12,x,x,x,x,x,x,x,x,x,모험모드 기본 진형
+c1_s6_3,RF14,RF22,RF26,RM14,RM21,RM27,RB14,x,x,x,x,x,x,x,x,x,x,x,x,x,x,모험모드 기본 진형
+c1_s7_1,RB12,RM23,RM14,RF25,RF16,RF12,RF23,RM25,RB16,x,x,x,x,x,x,x,x,x,x,x,x,모험모드 기본 진형
+c1_s7_2,RM12,RF22,RF13,RF14,RF15,RF26,RM16,RM26,RB15,RB14,RB13,RM22,x,x,x,x,x,x,x,x,x,모험모드 기본 진형
+c1_s7_3,RF13,RF15,RF22,RF26,RM21,RM27,RM27,x,x,x,x,x,x,x,x,x,x,x,x,x,x,모험모드 기본 진형
+c1_s8_1,RB12,RM21,RM11,RF21,RF12,RF13,RF24,RM14,RM24,RB15,RB16,RM27,RM17,RF27,RF16,x,x,x,x,x,x,모험모드 기본 진형
+c1_s8_2,RF22,RM11,RM21,RB12,RF26,RM17,RM27,RB16,RF14,RB24,RM14,RM24,x,x,x,x,x,x,x,x,x,모험모드 기본 진형
+c1_s8_3,RB14,RM11,RM17,RB21,RB27,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,모험모드 기본 진형
+c2_s1_1,RM14,RF12,RF16,RB13,RB15,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,모험모드 기본 진형
+c2_s1_2,RF12,RF16,RB16,RB12,RM14,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,모험모드 기본 진형
+c2_s1_3,RB14,RM21,RM27,RF22,RF26,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,모험모드 기본 진형
+c2_s2_1,RF12,RF16,RF24,RM11,RM17,RB14,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,모험모드 기본 진형
+c2_s2_2,RF14,RB13,RB15,RM11,RM17,RM14,RF22,RF26,x,x,x,x,x,x,x,x,x,x,x,x,x,모험모드 기본 진형
+c2_s2_3,RB14,RB11,RM13,RM15,RB17,RF12,RF16,x,x,x,x,x,x,x,x,x,x,x,x,x,x,모험모드 기본 진형
+c2_s3_1,RM23,RM14,RM25,RB14,RF22,RF26,RB22,RB26,RF14,x,x,x,x,x,x,x,x,x,x,x,x,모험모드 기본 진형
+c2_s3_2,RF14,RF22,RF26,RM22,RM26,RB11,RB13,RB15,RB17,RM14,x,x,x,x,x,x,x,x,x,x,x,모험모드 기본 진형
+c2_s3_3,RM24,RF22,RF26,RM21,RM27,RB22,RB26,x,x,x,x,x,x,x,x,x,x,x,x,x,x,모험모드 기본 진형
+c2_s4_1,RF12,RF25,RF14,RF23,RF16,RM22,RB15,RM24,RB13,RM26,x,x,x,x,x,x,x,x,x,x,x,모험모드 기본 진형
+c2_s4_2,RF12,RF14,RF16,RM11,RM14,RM17,RB12,RB24,RB16,x,x,x,x,x,x,x,x,x,x,x,x,모험모드 기본 진형
+c2_s4_3,RF12,RF16,RM11,RM17,RM14,RB24,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,모험모드 기본 진형
+c2_s5_1,RF22,RB13,RM14,RB15,RF26,RF14,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,모험모드 기본 진형
+c2_s5_2,RF13,RF15,RM12,RM14,RM16,RB13,RB15,RB22,RB26,x,x,x,x,x,x,x,x,x,x,x,x,모험모드 기본 진형
+c2_s5_3,RM24,RF22,RF26,RM21,RM27,RB24,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,모험모드 기본 진형
+c2_s6_1,RF12,RF14,RF16,RM12,RM14,RM16,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,모험모드 기본 진형
+c2_s6_1_2,RM12,RM14,RM16,RF12,RF14,RF16,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,모험모드 기본 진형
+c2_s6_2,RF14,RF23,RF25,RM14,RM22,RB13,RB15,RM26,RF11,RF17,x,x,x,x,x,x,x,x,x,x,x,모험모드 기본 진형
+c2_s6_3,RF11,RF17,RF21,RF27,RM11,RM17,RM21,RM27,RB11,RB17,RB22,RB23,RB24,RB25,RB26,RM14,x,x,x,x,x,모험모드 기본 진형
+c2_s7_1,RB13,RB15,RM11,RM22,RM26,RM17,RF12,RF24,RF16,x,x,x,x,x,x,x,x,x,x,x,x,모험모드 기본 진형
+c2_s7_2,RF14,RF22,RF26,RM22,RM26,RB14,RM14,RB23,RB25,x,x,x,x,x,x,x,x,x,x,x,x,모험모드 기본 진형
+c2_s7_3,RF11,RF17,RF22,RF14,RF26,RM24,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,모험모드 기본 진형
+c2_s8_1,RB13,RM24,RM16,RF27,RF16,RB15,RM12,RF21,RF12,x,x,x,x,x,x,x,x,x,x,x,x,모험모드 기본 진형
+c2_s8_2,RF21,RF12,RF16,RF27,RB17,RB26,RB22,RB11,RM14,RM23,RM25,x,x,x,x,x,x,x,x,x,x,모험모드 기본 진형
+c2_s8_3,RF14,RF21,RF27,RM24,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,모험모드 기본 진형
+c3_s1_1,RF13,RF15,RM12,RM16,RB14,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,모험모드 기본 진형
+c3_s1_2,RF13,RF24,RF15,RB13,RM24,RB15,RM12,RM16,x,x,x,x,x,x,x,x,x,x,x,x,x,모험모드 기본 진형
+c3_s1_3,RB24,RF12,RF24,RF16,RM21,RM27,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,모험모드 기본 진형
+c3_s2_1,RF13,RF15,RF24,RM11,RM17,RM24,RB12,RB16,x,x,x,x,x,x,x,x,x,x,x,x,x,모험모드 기본 진형
+c3_s2_2,RF12,RF14,RF16,RB12,RB14,RB16,RM12,RM16,x,x,x,x,x,x,x,x,x,x,x,x,x,모험모드 기본 진형
+c3_s2_3,RM14,RB12,RB16,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,모험모드 기본 진형
+c3_s3_1,RM24,RB13,RB15,RB24,RF11,RF14,RF17,RF23,RF25,x,x,x,x,x,x,x,x,x,x,x,x,모험모드 기본 진형
+c3_s3_2,RF12,RF16,RF24,RM24,RB12,RB16,RM11,RM17,x,x,x,x,x,x,x,x,x,x,x,x,x,모험모드 기본 진형
+c3_s3_3,RM24,RB27,RB21,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,모험모드 기본 진형
+c3_s4_1,RF16,RF14,RF12,RM13,RB16,RM15,RB14,RB12,RM11,RM17,x,x,x,x,x,x,x,x,x,x,x,모험모드 기본 진형
+c3_s4_2,RM23,RM25,RB23,RB25,RF11,RF13,RF15,RF17,x,x,x,x,x,x,x,x,x,x,x,x,x,모험모드 기본 진형
+c3_s4_3,RB11,RB17,RB24,RM14,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,모험모드 기본 진형
+c3_s5_1,RB12,RB16,RM11,RM17,RF12,RF16,RF23,RF25,RM14,x,x,x,x,x,x,x,x,x,x,x,x,모험모드 기본 진형
+c3_s5_2,RB13,RB15,RM21,RM27,RF21,RF27,RF12,RF16,RM12,RM16,RB24,x,x,x,x,x,x,x,x,x,x,모험모드 기본 진형
+c3_s5_3,RM24,RF22,RF14,RF26,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,모험모드 기본 진형
+c3_s6_1,RM14,RF12,RM22,RM26,RF25,RF16,RF23,RB14,x,x,x,x,x,x,x,x,x,x,x,x,x,모험모드 기본 진형
+c3_s6_2,RF13,RF15,RF22,RF26,RM21,RM13,RM15,RM27,RB22,RB26,x,x,x,x,x,x,x,x,x,x,x,모험모드 기본 진형
+c3_s6_3,RM24,RF13,RF15,RF21,RF27,RB21,RB27,x,x,x,x,x,x,x,x,x,x,x,x,x,x,모험모드 기본 진형
+c3_s7_1,RB12,RB16,RM23,RM25,RF22,RF24,RF26,RF13,RF15,x,x,x,x,x,x,x,x,x,x,x,x,모험모드 기본 진형
+c3_s7_2,RF12,RF21,RM12,RF16,RF27,RM16,RM24,RB13,RB15,RB24,x,x,x,x,x,x,x,x,x,x,x,모험모드 기본 진형
+c3_s7_3,RM21,RM27,RB12,RB16,RB24,RM14,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,모험모드 기본 진형
+c3_s8_1,RM23,RM25,RB12,RB16,RB23,RB25,RF14,RF22,RF26,x,x,x,x,x,x,x,x,x,x,x,x,모험모드 기본 진형
+c3_s8_2,RF12,RF21,RF23,RF16,RF25,RF27,RM23,RM25,RB14,RB23,RB25,x,x,x,x,x,x,x,x,x,x,모험모드 기본 진형
+c3_s8_3,RM24,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,모험모드 기본 진형
+c4_s1_1,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,모험모드 기본 진형
+c4_s1_2,RF13,RF15,RB13,RB15,RF22,RF26,RM22,RM26,x,x,x,x,x,x,x,x,x,x,x,x,x,모험모드 기본 진형
+c4_s1_3,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,모험모드 기본 진형
+c4_s2_1,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,모험모드 기본 진형
+c4_s2_2,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,모험모드 기본 진형
+c4_s2_3,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,모험모드 기본 진형
+c4_s3_1,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,모험모드 기본 진형
+c4_s3_2,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,모험모드 기본 진형
+c4_s3_3,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,모험모드 기본 진형
+c4_s4_1,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,모험모드 기본 진형
+c4_s4_2,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,모험모드 기본 진형
+c4_s4_3,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,모험모드 기본 진형
+c4_s5_1,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,모험모드 기본 진형
+c4_s5_2,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,모험모드 기본 진형
+c4_s5_3,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,모험모드 기본 진형
+c4_s6_1,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,모험모드 기본 진형
+c4_s6_2,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,모험모드 기본 진형
+c4_s6_3,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,모험모드 기본 진형
+c4_s7_1,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,모험모드 기본 진형
+c4_s7_2,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,모험모드 기본 진형
+c4_s7_3,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,모험모드 기본 진형
+c4_s8_1,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,모험모드 기본 진형
+c4_s8_2,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,모험모드 기본 진형
+c4_s8_3,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,모험모드 기본 진형
+c5_s1_1,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,모험모드 기본 진형
+c5_s1_2,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,모험모드 기본 진형
+c5_s1_3,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,모험모드 기본 진형
+c5_s2_1,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,모험모드 기본 진형
+c5_s2_2,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,모험모드 기본 진형
+c5_s2_3,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,모험모드 기본 진형
+c5_s3_1,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,모험모드 기본 진형
+c5_s3_2,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,모험모드 기본 진형
+c5_s3_3,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,모험모드 기본 진형
+c5_s4_1,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,모험모드 기본 진형
+c5_s4_2,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,모험모드 기본 진형
+c5_s4_3,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,모험모드 기본 진형
+c5_s5_1,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,모험모드 기본 진형
+c5_s5_2,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,모험모드 기본 진형
+c5_s5_3,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,모험모드 기본 진형
+c5_s6_1,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,모험모드 기본 진형
+c5_s6_2,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,모험모드 기본 진형
+c5_s6_3,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,모험모드 기본 진형
+c5_s7_1,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,모험모드 기본 진형
+c5_s7_2,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,모험모드 기본 진형
+c5_s7_3,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,모험모드 기본 진형
+c5_s8_1,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,모험모드 기본 진형
+c5_s8_2,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,모험모드 기본 진형
+c5_s8_3,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,모험모드 기본 진형
+c6_s1_1,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,모험모드 기본 진형
+c6_s1_2,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,모험모드 기본 진형
+c6_s1_3,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,모험모드 기본 진형
+c6_s2_1,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,모험모드 기본 진형
+c6_s2_2,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,모험모드 기본 진형
+c6_s2_3,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,모험모드 기본 진형
+c6_s3_1,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,모험모드 기본 진형
+c6_s3_2,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,모험모드 기본 진형
+c6_s3_3,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,모험모드 기본 진형
+c6_s4_1,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,모험모드 기본 진형
+c6_s4_2,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,모험모드 기본 진형
+c6_s4_3,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,모험모드 기본 진형
+c6_s5_1,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,모험모드 기본 진형
+c6_s5_2,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,모험모드 기본 진형
+c6_s5_3,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,모험모드 기본 진형
+c6_s6_1,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,모험모드 기본 진형
+c6_s6_2,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,모험모드 기본 진형
+c6_s6_3,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,모험모드 기본 진형
+c6_s7_1,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,모험모드 기본 진형
+c6_s7_2,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,모험모드 기본 진형
+c6_s7_3,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,모험모드 기본 진형
+c6_s8_1,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,모험모드 기본 진형
+c6_s8_2,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,모험모드 기본 진형
+c6_s8_3,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,모험모드 기본 진형
+c9_s9_1,RB12,RM23,RM14,RF25,RF16,RF12,RF23,RM25,RB16,x,x,x,x,x,x,x,x,x,x,x,x,모험모드 기본 진형
+c10_s10_1,RF23,RB15,RM12,RM26,RM22,RM16,RB13,RF25,x,x,x,x,x,x,x,x,x,x,x,x,x,모험모드 기본 진형
+move_1,RF11,RF21,RM11,RM21,RB11,RB21,RF12,RF22,RM12,RM22,RB12,RB22,x,x,x,x,x,x,x,x,x,상단 두줄
+move_2,RF16,RF26,RM16,RM26,RB16,RB26,RF17,RF27,RM17,RM27,RB17,RB27,x,x,x,x,x,x,x,x,x,하단 두줄
+move_3,RF11,RF13,RF15,RF17,RF22,RF24,RF26,RM11,RM13,RM15,RM17,RM22,RM24,RM26,RB11,RB13,RB15,RB17,RB22,RB24,RB26,좌측부터 체스판 형태로 채우기
+move_4,RB27,RB25,RB23,RB21,RB16,RB14,RB12,RM27,RM25,RM23,RM21,RM16,RM14,RM12,RF27,RF25,RF23,RF21,RF16,RF14,RF12,우측부터 체스판 형태로 채우기
+move_5,RM11,RM13,RM15,RM17,RM22,RM24,RM26,RF22,RF24,RF26,RB11,RB13,RB15,RB17,RF11,RF13,RF15,RF17,RB22,RB24,RB26,세로 중앙부터 체스판 형태로 채우기
+move_6,RF11,RF22,RM13,RM24,RB15,RB26,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,대각선으로 6명(역 슬래시)
+move_6_r,RB26,RB15,RM24,RM13,RF22,RF11,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,후방부터 대각선으로 6명(역 슬래시)
+move_7,RF16,RF25,RM14,RM23,RB12,RB21,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,대각선으로 6명(슬래시)
+move_7_r,RB21,RB12,RM23,RM14,RF25,RF16,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,후방부터 대각선으로 6명(슬래시)
+move_8,RF11,RF17,RF21,RF27,RM11,RM17,RM21,RM27,RB11,RB17,RB21,RB27,x,x,x,x,x,x,x,x,x,가로로 이퀄 형태
+move_8_r,RB27,RB21,RB17,RB11,RM27,RM21,RM17,RM11,RF27,RF21,RF17,RF11,x,x,x,x,x,x,x,x,x,가로로 이퀄 형태(역방향)
+move_8_r2,RF17,RF11,RF27,RF21,RM17,RM11,RM27,RM21,RB17,RB11,RB27,RB21,x,x,x,x,x,x,x,x,x,가로로 이퀄 형태(상하 반대)
+move_9,RF11,RB21,RF13,RB23,RF15,RB25,RF17,RB27,RF21,RF27,RF23,RF25,RB11,RB17,RB13,RB15,x,x,x,x,x,세로로 11자 형태
+move_9_r,RB21,RF11,RB23,RF13,RB25,RF15,RB27,RF17,RF27,RF21,RF25,RF23,RB17,RB11,RB15,RB13,x,x,x,x,x,세로로 11자 형태(역)
+move_10,RB16,RB12,RM17,RM11,RF16,RF12,RM14,x,x,x,x,x,x,x,x,x,x,x,x,x,x,필드 주변으로 6각 형태
+move_10_t1,RM17,RB16,RF16,RB12,RF12,RM11,RM14,x,x,x,x,x,x,x,x,x,x,x,x,x,x,move_10에서 시계방향으로 회전
+move_10_t2,RF16,RM17,RF12,RB16,RM11,RB12,RM14,x,x,x,x,x,x,x,x,x,x,x,x,x,x,move_10에서 시계방향으로 회전
+move_10_t3,RF12,RF16,RM11,RM17,RB12,RB16,RM14,x,x,x,x,x,x,x,x,x,x,x,x,x,x,move_10에서 시계방향으로 회전
+move_10_t4,RM11,RF12,RB12,RF16,RB16,RM17,RM14,x,x,x,x,x,x,x,x,x,x,x,x,x,x,move_10에서 시계방향으로 회전
+move_10_t5,RB12,RM11,RB16,RF12,RM17,RF16,RM14,x,x,x,x,x,x,x,x,x,x,x,x,x,x,move_10에서 시계방향으로 회전
+move_11,RF14,RF12,RF16,RF21,RF27,RF23,RF25,x,x,x,x,x,x,x,x,x,x,x,x,x,x,전방 배치
+move_12,RB24,RB22,RB26,RB11,RB17,RB13,RB15,x,x,x,x,x,x,x,x,x,x,x,x,x,x,후방 배치
+move_13,RM14,RM12,RM16,RF14,RB14,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,열십자 배치
+move_14,RB12,RM23,RM14,RF25,RF16,RF12,RF23,RM25,RB16,x,x,x,x,x,x,x,x,x,x,x,x,엑스 배치
+move_14_t1,RB16,RM25,RM14,RF23,RF12,RB12,RM23,RF25,RF16,x,x,x,x,x,x,x,x,x,x,x,x,엑스 배치 회전
+move_14_t2,RF16,RF25,RM14,RM23,RB12,RB16,RM25,RF23,RF12,x,x,x,x,x,x,x,x,x,x,x,x,엑스 배치 회전
+move_14_t3,RF12,RF23,RM14,RM25,RB16,RF16,RF25,RM23,RB12,x,x,x,x,x,x,x,x,x,x,x,x,엑스 배치 회전
+move_15,RF12,RF16,RF24,RM12,RM16,RM24,RB12,RB16,RB24,x,x,x,x,x,x,x,x,x,x,x,x,중앙 체스판
+move_16,RF14,RF22,RF26,RM11,RM14,RM17,RM22,RM26,RB14,x,x,x,x,x,x,x,x,x,x,x,x,원형 배치
+move_17,RF11,RF17,RM11,RM17,RB11,RB17,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,상하 듬성 배치
+move_18,RF21,RF27,RM11,RM17,RM21,RM27,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,상하 촘촘 배치
+move_19,RF12,RF15,RF16,RF24,RM14,RM24,RB12,RB13,RB16,x,x,x,x,x,x,x,x,x,x,x,x,챕터 1-8-1웨이브 전용
+move_20,RF11,RF17,RF22,RF26,RM13,RM15,RM24,RB13,RB15,RB22,RB26,RF14,x,x,x,x,x,x,x,x,x,어긋난 엑스
+move_20_r,RF17,RF11,RF26,RF22,RM15,RM13,RM24,RB15,RB13,RB26,RB22,RF14,x,x,x,x,x,x,x,x,x,어긋난 엑스 플립
+move_21,RB21,RB27,RB12,RB16,RM23,RM25,RM14,RF23,RF25,RF12,RF16,RB24,x,x,x,x,x,x,x,x,x,어긋난 엑스(역)
+move_21_r,RB27,RB21,RB16,RB12,RM25,RM23,RM14,RF25,RF23,RF16,RF12,RB24,x,x,x,x,x,x,x,x,x,어긋난 엑스(역) 플립
+move_22,RF13,RF15,RF11,RF17,RF24,RM24,RM14,RB14,RB24,x,x,x,x,x,x,x,x,x,x,x,x,ㅏ 모양
+move_23,RB23,RB25,RB21,RB27,RF24,RM24,RM14,RB14,RB24,x,x,x,x,x,x,x,x,x,x,x,x,ㅓ 모양
+move_24,RF11,RF21,RM21,RB11,RM11,RM13,RM15,RM17,x,x,x,x,x,x,x,x,x,x,x,x,x,ㅜ 모양
+move_25,RF17,RF27,RM27,RB17,RM11,RM13,RM15,RM17,x,x,x,x,x,x,x,x,x,x,x,x,x,ㅗ 모양
+move_26,RF12,RF21,RF23,RF16,RF25,RF27,RM24,RB13,RB15,x,x,x,x,x,x,x,x,x,x,x,x,<2<1
+move_26_r,RF11,RF13,RF22,RF15,RF17,RF26,RB13,RB15,RB24,x,x,x,x,x,x,x,x,x,x,x,x,>2>1
+move_27,RM22,RB11,RB13,RM26,RB15,RB17,RF14,RF23,RF25,x,x,x,x,x,x,x,x,x,x,x,x,<1<2
+move_27_r,RF13,RF15,RF24,RB11,RB13,RB22,RB15,RB17,RB26,x,x,x,x,x,x,x,x,x,x,x,x,>1>2
+move_28,RF11,RF17,RB27,RB21,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,모서리 
+move_28_t1,RF17,RB27,RB21,RF11,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,모서리 회전
+move_28_t2,RB27,RB21,RF11,RF17,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,모서리 회전
+move_28_t3,RB21,RF11,RF17,RB27,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,모서리 회전
+move_29,RF13,RF15,RF22,RF26,RM11,RM17,RM21,RM27,RB12,RB16,RB23,RB25,x,x,x,x,x,x,x,x,x,둥근 진형
+move_30,RF11,RF17,RF22,RF26,RM13,RM15,RM23,RM25,RB12,RB16,RB21,RB27,x,x,x,x,x,x,x,x,x,오목 진형
+move_31,RF12,RF14,RF16,RF21,RF27,RB11,RB17,RB22,RB24,RB26,x,x,x,x,x,x,x,x,x,x,x,세로 볼록 진형
+move_32,RF11,RF17,RF22,RF26,RM14,RM24,RB12,RB16,RB21,RB27,x,x,x,x,x,x,x,x,x,x,x,세로 오목 진형
+move_33,RF12,RF13,RF14,RF15,RF16,RF22,RF23,RF24,RF25,RF26,RB22,RB23,RB24,RB25,RB26,x,x,x,x,x,x,2-6-3전용
+move_34,RF21,RF12,RF16,RF27,RB17,RB26,RB22,RB11,x,x,x,x,x,x,x,x,x,x,x,x,x,2점 모서리
+move_34_t1,RF16,RF27,RB17,RB26,RB22,RB11,RF21,RF12,x,x,x,x,x,x,x,x,x,x,x,x,x,2점 모서리 회전
+move_34_t2,RB17,RB26,RB22,RB11,RF21,RF12,RF16,RF27,x,x,x,x,x,x,x,x,x,x,x,x,x,2점 모서리 회전
+move_34_t3,RB22,RB11,RF21,RF12,RF16,RF27,RB17,RB26,x,x,x,x,x,x,x,x,x,x,x,x,x,2점 모서리 회전
+move_35,RF11,RF13,RM13,RM11,RM25,RM27,RB27,RB25,RF22,RB16,x,x,x,x,x,x,x,x,x,x,x,4각 2개
+move_35_t1,RF13,RM13,RM11,RF11,RM27,RB27,RB25,RM25,RF22,RB16,x,x,x,x,x,x,x,x,x,x,x,4각 2개 회전
+move_35_t2,RM13,RM11,RF11,RF13,RB27,RB25,RM25,RM27,RF22,RB16,x,x,x,x,x,x,x,x,x,x,x,4각 2개 회전
+move_35_t3,RM11,RF11,RF13,RM13,RB25,RM25,RM27,RB27,RF22,RB16,x,x,x,x,x,x,x,x,x,x,x,4각 2개 회전
+move_35_r,RM25,RM27,RB27,RB25,RF11,RF13,RM13,RM11,RB16,RF22,x,x,x,x,x,x,x,x,x,x,x,4각 2개(역)
+move_35_r_t1,RM27,RB27,RB25,RM25,RF13,RM13,RM11,RF11,RB16,RF22,x,x,x,x,x,x,x,x,x,x,x,
+move_35_r_t2,RB27,RB25,RM25,RM27,RM13,RM11,RF11,RF13,RB16,RF22,x,x,x,x,x,x,x,x,x,x,x,
+move_35_r_t3,RB25,RM25,RM27,RB27,RM11,RF11,RF13,RM13,RB16,RF22,x,x,x,x,x,x,x,x,x,x,x,
+move_36,RF15,RF17,RM17,RM15,RM21,RM23,RB23,RB21,RF26,RB12,x,x,x,x,x,x,x,x,x,x,x,4각 2개 개
+move_36_t1,RF17,RM17,RM15,RF15,RM23,RB23,RB21,RM21,RF26,RB12,x,x,x,x,x,x,x,x,x,x,x,4각 2개 개 회전
+move_36_t2,RM17,RM15,RF15,RF17,RB23,RB21,RM21,RM23,RF26,RB12,x,x,x,x,x,x,x,x,x,x,x,4각 2개 개 회전
+move_36_t3,RM15,RF15,RF17,RM17,RB21,RM21,RM23,RB23,RF26,RB12,x,x,x,x,x,x,x,x,x,x,x,4각 2개 개 회전
+move_36_r,RM21,RM23,RB23,RB21,RF15,RF17,RM17,RM15,RB12,RF26,x,x,x,x,x,x,x,x,x,x,x,
+move_36_r_t1,RM23,RB23,RB21,RM21,RF17,RM17,RM15,RF15,RB12,RF26,x,x,x,x,x,x,x,x,x,x,x,
+move_36_r_t2,RB23,RB21,RM21,RM23,RM17,RM15,RF15,RF17,RB12,RF26,x,x,x,x,x,x,x,x,x,x,x,
+move_36_r_t3,RB21,RM21,RM23,RB23,RM15,RF15,RF17,RM17,RB12,RF26,x,x,x,x,x,x,x,x,x,x,x,
+move_37,RB12,RB16,RM11,RM17,RF12,RF16,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,대형 6각
+move_37_t1,RB16,RM17,RB12,RF16,RM11,RF12,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,
+move_37_t2,RM17,RF16,RB16,RF12,RB12,RM11,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,
+move_37_t3,RF16,RF12,RM17,RM11,RB16,RB12,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,
+move_37_t4,RF12,RM11,RF16,RB12,RM17,RB16,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,
+move_37_t5,RM11,RB12,RF12,RB16,RF16,RM17,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,
+move_38,RF23,RF25,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,
+move_38_t1,RM23,RF23,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,
+move_38_t2,RM25,RM23,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,
+move_38_t3,RF25,RM25,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,
+move_39,RF13,RF15,RF22,RF26,RM11,RM17,RM22,RM26,RB13,RB15,RM14,x,x,x,x,x,x,x,x,x,x,
+move_40,RF11,RF17,RF22,RF26,RM11,RM17,RM22,RM26,RB11,RB17,RM14,x,x,x,x,x,x,x,x,x,x,
+set_1,RF22,RF22,RF22,RF26,RF26,RF26,RB24,RB24,RB24,x,x,x,x,x,x,x,x,x,x,x,x,3점 준비
+set_1_s,RF22,RF26,RB24,RF22,RF26,RB24,RF22,RF26,RB24,x,x,x,x,x,x,x,x,x,x,x,x,3점 준비 다른 버전
+set_2,RM12,RM16,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,
+movement_1_1,RF12,RF14,RF16,RM12,RM14,RM16,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,모험모드 기본 진형
+movement_1_2,RM12,RM14,RM16,RF12,RF14,RF16,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,모험모드 기본 진형
+movement_2,RF13,RB25,RM11,RM27,RM21,RM17,RB23,RF15,x,x,x,x,x,x,x,x,x,x,x,x,x,
+triangle_turn_1,RM25,RB13,RB25,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,
+triangle_turn_2,RB13,RB25,RM25,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,
+triangle_turn_3,RB25,RM25,RB13,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,
+top_line,RF11,RF21,RM11,RM21,RB11,RB21,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,상단 1열 정렬
+top_line_r,RB21,RB11,RM21,RM11,RF21,RF11,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,상단 1열 정렬_리버스
+bottom_line,RF17,RF27,RM17,RM27,RB17,RB27,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,하단 1열 정렬
+bottom_line_r,RB27,RB17,RM27,RM17,RF27,RF17,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,하단 1열 정렬_리버스
+w_center_line,RF14,RF24,RM14,RM24,RB14,RB24,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,가로중앙 1열 정렬
+w_extend,RF11,RF27,RM11,RM27,RB11,RB27,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,가로상하 산개 정렬
+w_extend_r,RF17,RF21,RM17,RM21,RB17,RB21,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,가로상하 산개 정렬_리버스
+h_center_line,RM21,RM22,RM23,RM24,RM25,RM26,RM27,x,x,x,x,x,x,x,x,x,x,x,x,x,x,세로중앙 1열 정렬
+h_extend,RF21,RF23,RF25,RF27,RB22,RB24,RB26,x,x,x,x,x,x,x,x,x,x,x,x,x,x,
+h_extend_1,RF21,RF23,RF25,RF27,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,세로좌우 산개 정렬1
+h_extend_2,RB22,RB24,RB26,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,세로좌우 산개 정렬2
+h_extend_r,RF26,RF24,RF22,RB27,RB25,RB23,RB21,x,x,x,x,x,x,x,x,x,x,x,x,x,x,
+h_extend_r1,RB21,RB23,RB25,RB27,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,세로좌우 산개 정렬_리버스
+h_extend_r2,RF22,RF24,RF26,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,
+left_line,RF21,RF22,RF23,RF24,RF25,RF26,RF27,x,x,x,x,x,x,x,x,x,x,x,x,x,x,왼쪽 1열 정렬
+left_line_r,RF27,RF26,RF25,RF24,RF23,RF22,RF21,x,x,x,x,x,x,x,x,x,x,x,x,x,x,왼쪽 1열 정렬_리버스
+right_line,RB21,RB22,RB23,RB24,RB25,RB26,RB27,x,x,x,x,x,x,x,x,x,x,x,x,x,x,오른쪽 1열 정렬
+right_line_r,RB27,RB26,RB25,RB24,RB23,RB22,RB21,x,x,x,x,x,x,x,x,x,x,x,x,x,x,오른쪽 1열 정렬_리버스
+triangle_ft_1,RF13,RF21,RM13,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,
+triangle_ft_2,RF21,RM13,RF13,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,
+triangle_ft_3,RM13,RF13,RF21,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,
+triangle_bt_1,RM23,RB23,RB11,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,
+triangle_bt_2,RB11,RM23,RB23,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,
+triangle_bt_3,RB23,RB11,RM23,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,
+triangle_bb_1,RB17,RM25,RB25,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,
+triangle_bb_2,RM25,RB25,RB17,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,
+triangle_bb_3,RB25,RB17,RM25,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,
+triangle_fb_1,RF27,RM15,RF15,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,
+triangle_fb_2,RF15,RF27,RM15,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,
+triangle_fb_3,RM15,RF15,RF27,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,
+relation_1_0,RF14,RF22,RB14,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,인연던전 전용
+relation_1_1,RM11,RM13,RM15,RM17,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,인연던전 전용
+relation_1_2,RF23,RF25,RM23,RM25,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,인연던전 전용
+relation_2_0,RF12,RF16,RM24,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,인연던전 전용
+relation_2_1,RM24,RF12,RF16,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,인연던전 전용
+relation_2_2,RF16,RM24,RF12,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,인연던전 전용
+relation_2_3,RB12,RB16,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,인연던전 전용
+relation_2_4,RB16,RB12,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,인연던전 전용
+relation_3_0,RF14,RF23,RF25,RM12,RM16,RB14,RB22,RB26,x,x,x,x,x,x,x,x,x,x,x,x,x,인연던전 전용
+relation_3_1,RM24,RB24,RB14,RB16,RB12,RF14,RF22,RF26,x,x,x,x,x,x,x,x,x,x,x,x,x,인연던전 전용
+relation_3_2,RF22,RF26,RM21,RM17,RM11,RM27,RB12,RB16,x,x,x,x,x,x,x,x,x,x,x,x,x,인연던전 전용
+relation_4_0,RM14,RF14,RM11,RM17,RB14,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,인연던전 전용
+relation_4_1,RM14,RM17,RF14,RB14,RM11,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,인연던전 전용
+relation_4_2,RM14,RB14,RM17,RM11,RF14,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,인연던전 전용
+relation_4_3,RM14,RM11,RB14,RF14,RM17,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,인연던전 전용
+relation_5_0,RF12,RF16,RF21,RF23,RF25,RF27,RM22,RM26,x,x,x,x,x,x,x,x,x,x,x,x,x,인연던전 전용
+relation_5_1,RF14,RF24,RM11,RM13,RM15,RM17,RM24,RB14,x,x,x,x,x,x,x,x,x,x,x,x,x,인연던전 전용
+relation_5_2,RF14,RF23,RM12,RM17,RM21,RM26,RB15,RB24,x,x,x,x,x,x,x,x,x,x,x,x,x,인연던전 전용
+relation_5_3,RF24,RF25,RM13,RM16,RM23,RM26,RB14,RB15,x,x,x,x,x,x,x,x,x,x,x,x,x,인연던전 전용
+relation_6_0,RF11,RF14,RF17,RM14,RM21,RM24,RM27,RB21,RB24,RB27,x,x,x,x,x,x,x,x,x,x,x,인연던전 전용
+relation_6_1,RB21,RF23,RB27,RF25,RM14,RM23,RM25,RF11,RB14,RF17,x,x,x,x,x,x,x,x,x,x,x,인연던전 전용
+relation_6_2,RF11,RF21,RF17,RF27,RM14,RM24,RB11,RB21,RB17,RB27,x,x,x,x,x,x,x,x,x,x,x,인연던전 전용
+relation_7_0,RF12,RF16,RF24,RM11,RM17,RM24,RB22,RB26,x,x,x,x,x,x,x,x,x,x,x,x,x,인연던전 전용
+relation_7_1,RF11,RF13,RF15,RF17,RF22,RF24,RF26,RB14,x,x,x,x,x,x,x,x,x,x,x,x,x,인연던전 전용
+relation_7_2,RF14,RF25,RM11,RM16,RM22,RM27,RB13,RB24,x,x,x,x,x,x,x,x,x,x,x,x,x,인연던전 전용
+relation_7_3,RF11,RF17,RF22,RF26,RM11,RM17,RM22,RM26,x,x,x,x,x,x,x,x,x,x,x,x,x,인연던전 전용
+relation_8_0,RF11,RF17,RF23,RF25,RM21,RM27,RB12,RB16,RB21,RB27,x,x,x,x,x,x,x,x,x,x,x,인연던전 전용
+relation_8_1,RF14,RF23,RF25,RM12,RM16,RM21,RM25,RB12,RB14,RB23,x,x,x,x,x,x,x,x,x,x,x,인연던전 전용
+relation_8_2,RB24,RB15,RB13,RM26,RM22,RM15,RM11,RF24,RF22,RF13,x,x,x,x,x,x,x,x,x,x,x,인연던전 전용
+relation_8_3,RF11,RF12,RF21,RF22,RM11,RM12,RM21,RM22,RB11,RB12,x,x,x,x,x,x,x,x,x,x,x,인연던전 전용
+relation_8_4,RF16,RF17,RF26,RF27,RM16,RM17,RM26,RM27,RB16,RB17,x,x,x,x,x,x,x,x,x,x,x,인연던전 전용
+relation_9_0,RF12,RF14,RF16,RF27,RM16,RM14,RM12,RF21,RB12,RB16,RB14,x,x,x,x,x,x,x,x,x,x,인연던전 전용
+relation_9_1,RF12,RF14,RF16,RF27,RM16,RM14,RM12,RF21,RF23,RF25,RB14,x,x,x,x,x,x,x,x,x,x,인연던전 전용
+relation_9_2,RF11,RF17,RF21,RF27,RM11,RM17,RM21,RM27,RB11,RB17,RM14,x,x,x,x,x,x,x,x,x,x,인연던전 전용
+relation_9_3,RF12,RF16,RF23,RF25,RM23,RM25,RB12,RB16,RB21,RB27,RM14,x,x,x,x,x,x,x,x,x,x,인연던전 전용
+relation_10_0,RF12,RF16,RF21,RF23,RF25,RF27,RM24,RB11,RB17,RB22,RB26,RB24,x,x,x,x,x,x,x,x,x,인연던전 전용
+relation_10_1,RF11,RF17,RF22,RF26,RM13,RM15,RM24,RB13,RB15,RB22,RB26,RB24,x,x,x,x,x,x,x,x,x,인연던전 전용
+relation_10_2,RF11,RF13,RF15,RF17,RM11,RM17,RB26,RB11,RB17,RB22,RB24,RM24,x,x,x,x,x,x,x,x,x,인연던전 전용
+relation_10_3,RF14,RF23,RF25,RM12,RM16,RM21,RM27,RB12,RB16,RB23,RB25,RM24,x,x,x,x,x,x,x,x,x,인연던전 전용

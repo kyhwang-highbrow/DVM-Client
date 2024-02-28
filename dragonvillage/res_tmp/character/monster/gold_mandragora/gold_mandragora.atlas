@@ -1,0 +1,174 @@
+
+gold_mandragora.png
+size: 1095,1039
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+gold_mandragora_arm_01
+  rotate: false
+  xy: 962, 458
+  size: 100, 99
+  orig: 100, 99
+  offset: 0, 0
+  index: -1
+gold_mandragora_arm_02
+  rotate: true
+  xy: 862, 36
+  size: 108, 89
+  orig: 108, 89
+  offset: 0, 0
+  index: -1
+gold_mandragora_body_01
+  rotate: false
+  xy: 2, 108
+  size: 395, 497
+  orig: 395, 497
+  offset: 0, 0
+  index: -1
+gold_mandragora_boom
+  rotate: false
+  xy: 690, 416
+  size: 270, 273
+  orig: 270, 273
+  offset: 0, 0
+  index: -1
+gold_mandragora_effect_01
+  rotate: true
+  xy: 960, 280
+  size: 134, 133
+  orig: 134, 133
+  offset: 0, 0
+  index: -1
+gold_mandragora_effect_02
+  rotate: false
+  xy: 688, 6
+  size: 172, 138
+  orig: 172, 138
+  offset: 0, 0
+  index: -1
+gold_mandragora_effect_03
+  rotate: false
+  xy: 690, 146
+  size: 268, 268
+  orig: 268, 268
+  offset: 0, 0
+  index: -1
+gold_mandragora_effect_04
+  rotate: false
+  xy: 399, 107
+  size: 287, 206
+  orig: 287, 206
+  offset: 0, 0
+  index: -1
+gold_mandragora_effect_05
+  rotate: true
+  xy: 581, 691
+  size: 346, 481
+  orig: 346, 481
+  offset: 0, 0
+  index: -1
+gold_mandragora_effect_06
+  rotate: false
+  xy: 399, 315
+  size: 289, 290
+  orig: 289, 290
+  offset: 0, 0
+  index: -1
+gold_mandragora_effect_light
+  rotate: false
+  xy: 270, 7
+  size: 99, 99
+  orig: 99, 99
+  offset: 0, 0
+  index: -1
+gold_mandragora_effect_lightdust
+  rotate: false
+  xy: 141, 7
+  size: 127, 99
+  orig: 127, 99
+  offset: 0, 0
+  index: -1
+gold_mandragora_eye_01
+  rotate: true
+  xy: 960, 95
+  size: 71, 75
+  orig: 71, 75
+  offset: 0, 0
+  index: -1
+gold_mandragora_eye_02
+  rotate: false
+  xy: 581, 611
+  size: 83, 78
+  orig: 83, 78
+  offset: 0, 0
+  index: -1
+gold_mandragora_eye_03
+  rotate: false
+  xy: 962, 425
+  size: 66, 31
+  orig: 66, 31
+  offset: 0, 0
+  index: -1
+gold_mandragora_eye_04
+  rotate: true
+  xy: 1064, 989
+  size: 48, 29
+  orig: 48, 29
+  offset: 0, 0
+  index: -1
+gold_mandragora_eye_05
+  rotate: true
+  xy: 483, 42
+  size: 63, 94
+  orig: 63, 94
+  offset: 0, 0
+  index: -1
+gold_mandragora_eye_06
+  rotate: true
+  xy: 371, 3
+  size: 50, 91
+  orig: 50, 91
+  offset: 0, 0
+  index: -1
+gold_mandragora_hair_01
+  rotate: false
+  xy: 2, 607
+  size: 577, 430
+  orig: 577, 430
+  offset: 0, 0
+  index: -1
+gold_mandragora_leg_01
+  rotate: false
+  xy: 2, 2
+  size: 137, 104
+  orig: 137, 104
+  offset: 0, 0
+  index: -1
+gold_mandragora_leg_02
+  rotate: true
+  xy: 960, 168
+  size: 110, 133
+  orig: 110, 133
+  offset: 0, 0
+  index: -1
+gold_mandragora_mouth_01
+  rotate: false
+  xy: 371, 55
+  size: 110, 50
+  orig: 110, 50
+  offset: 0, 0
+  index: -1
+gold_mandragora_mouth_02
+  rotate: false
+  xy: 579, 41
+  size: 94, 64
+  orig: 94, 64
+  offset: 0, 0
+  index: -1
+gold_mandragora_mouth_03
+  rotate: false
+  xy: 962, 559
+  size: 121, 130
+  orig: 121, 130
+  offset: 0, 0
+  index: -1

@@ -1,0 +1,76 @@
+{
+	"skill_missile_gem":
+	{
+		"attack_value":
+		[		
+			{
+				"idx":1,
+				"res":"res/missile/missile_gem/missile_gem.png",
+				"body":[0,0,20],
+                "count":1,
+                "scale":0.8,
+                "period":0.1,
+				"speed":1200,
+				"accel_delay":0,
+				"angular_velocity":0,
+				"offset":[0,0],
+                "dir_add":0,
+				
+				
+                "effect":
+                {
+                    "motion_streak":"res/missile/motion_streak/motion_streak_line_@.png",
+                    
+                    "afterimage":false
+                }
+				
+			},
+			
+			{
+				"idx":1,
+				"res":"res/missile/missile_gem/missile_gem.png",
+				"body":[0,0,20],
+                "count":1,
+                "scale":0.4,
+                "period":0.1,
+				"time":0.05,
+				"speed":1200,
+				"accel_delay":0,
+				"angular_velocity":0,
+				"offset":[0,-25],
+                "dir_add":0,
+				
+                "effect":
+                {
+                    "motion_streak":"res/missile/motion_streak/motion_streak_line_@.png",
+                    
+                    "afterimage":false
+                }
+				
+			},
+			
+			{
+				"idx":1,
+				"res":"res/missile/missile_gem/missile_gem.png",
+				"body":[0,0,20],
+                "count":1,
+                "scale":0.4,
+                "period":0.1,
+				"time":0.05,
+				"speed":1200,
+				"accel_delay":0,
+				"angular_velocity":0,
+				"offset":[0,25],
+                "dir_add":0,
+				
+                "effect":
+                {
+                    "motion_streak":"res/missile/motion_streak/motion_streak_line_@.png",
+                    
+                    "afterimage":false
+                }
+				
+			}
+		]
+	}
+}

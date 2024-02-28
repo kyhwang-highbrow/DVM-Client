@@ -1,0 +1,97 @@
+{
+	"skill_goblinrobber_2":
+	{
+		"ver":2,
+		"attack_value":
+		[							
+			{
+				"idx":1,
+				"res":"res/missile/missile_amethyst/missile_amethyst_1.png",
+				"body":[0,0,0],
+                "count":3,
+				"damage_rate":100,
+                "period":0,
+                "scale":1,
+				"time":0,
+				"speed":2000,
+				"accel":-1000,
+				"l_limit_speed":1000,
+				"accel_delay":0,
+				"angular_velocity":0,
+				"offset":[-200,0],
+				"missile_type":"pass",
+				
+				"dir_array":[-10],
+				"dir_add":10,			
+				
+				"map_shake_time":0.5,
+				
+                "effect":
+                {
+                    "motion_streak":"res/missile/motion_streak/motion_streak_blade.png",
+                    "rotation":false,
+                    "afterimage":false
+                }				
+			},
+			
+			{
+				"idx":1,
+				"res":"res/missile/missile_amethyst/managemrobber_managem_eff_02.png",
+				"body":[0,0,0],
+                "count":4,
+				"damage_rate":100,
+                "period":0,
+                "scale":1,
+				"time":0.2,
+				"speed":2000,
+				"accel":-1000,
+				"l_limit_speed":1000,
+				"accel_delay":0,
+				"angular_velocity":0,
+				"offset":[-200,0],
+				"missile_type":"pass",
+				
+				"dir_array":[-15],
+				"dir_add":10,			
+				
+				
+                "effect":
+                {
+                    "motion_streak":"res/missile/motion_streak/motion_streak_blade.png",
+                    "rotation":false,
+                    "afterimage":false
+                }				
+			},
+			
+			{
+				"idx":1,
+				"res":"res/missile/missile_flame/missile_flame_@.vrp",
+				"body":[0,0,50],
+                "count":3,
+				"damage_rate":33,
+                "period":0.3,
+                "scale":1.5,
+				"time":0,
+				"speed":800,
+				"accel":1000,
+				"h_limit_speed":2000,
+				"accel_delay":0,
+				"angular_velocity":-40,
+				"offset":[-200,100],
+				"dir":20,
+				"dir_add":0,
+				"size_up_time":1.5,
+				"missile_type":"pass",
+				"fadeout_time":1,
+				"res_depth":"bottom",
+				
+                "effect":
+                {
+                    "motion_streak":"",
+                    "rotation":false,
+                    "afterimage":false
+                }				
+			}
+		]
+	}
+}

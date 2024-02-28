@@ -1,0 +1,251 @@
+
+goni_3rd_anniversary.png
+size: 1569,237
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+goni_3rd_anniversary_acc_01
+  rotate: false
+  xy: 1261, 115
+  size: 98, 120
+  orig: 98, 120
+  offset: 0, 0
+  index: -1
+goni_3rd_anniversary_acc_02
+  rotate: false
+  xy: 1470, 121
+  size: 57, 61
+  orig: 57, 61
+  offset: 0, 0
+  index: -1
+goni_3rd_anniversary_acc_03
+  rotate: false
+  xy: 609, 4
+  size: 42, 42
+  orig: 42, 42
+  offset: 0, 0
+  index: -1
+goni_3rd_anniversary_acc_04
+  rotate: true
+  xy: 1489, 184
+  size: 51, 63
+  orig: 51, 63
+  offset: 0, 0
+  index: -1
+goni_3rd_anniversary_arm_01
+  rotate: false
+  xy: 1418, 119
+  size: 50, 63
+  orig: 50, 63
+  offset: 0, 0
+  index: -1
+goni_3rd_anniversary_arm_02
+  rotate: false
+  xy: 869, 15
+  size: 58, 69
+  orig: 58, 69
+  offset: 0, 0
+  index: -1
+goni_3rd_anniversary_arm_03
+  rotate: true
+  xy: 533, 2
+  size: 44, 74
+  orig: 44, 74
+  offset: 0, 0
+  index: -1
+goni_3rd_anniversary_body_01
+  rotate: false
+  xy: 1173, 114
+  size: 86, 121
+  orig: 86, 121
+  offset: 0, 0
+  index: -1
+goni_3rd_anniversary_brow_01
+  rotate: true
+  xy: 418, 16
+  size: 22, 17
+  orig: 22, 17
+  offset: 0, 0
+  index: -1
+goni_3rd_anniversary_brow_02
+  rotate: false
+  xy: 372, 2
+  size: 15, 11
+  orig: 15, 11
+  offset: 0, 0
+  index: -1
+goni_3rd_anniversary_effect_01
+  rotate: true
+  xy: 941, 89
+  size: 146, 138
+  orig: 146, 138
+  offset: 0, 0
+  index: -1
+goni_3rd_anniversary_eye_01
+  rotate: false
+  xy: 372, 15
+  size: 21, 23
+  orig: 21, 23
+  offset: 0, 0
+  index: -1
+goni_3rd_anniversary_eye_02
+  rotate: false
+  xy: 395, 15
+  size: 21, 23
+  orig: 21, 23
+  offset: 0, 0
+  index: -1
+goni_3rd_anniversary_eye_03
+  rotate: false
+  xy: 437, 21
+  size: 45, 17
+  orig: 45, 17
+  offset: 0, 0
+  index: -1
+goni_3rd_anniversary_face_01
+  rotate: false
+  xy: 1303, 14
+  size: 91, 99
+  orig: 91, 99
+  offset: 0, 0
+  index: -1
+goni_3rd_anniversary_face_02
+  rotate: false
+  xy: 1396, 15
+  size: 91, 99
+  orig: 91, 99
+  offset: 0, 0
+  index: -1
+goni_3rd_anniversary_foot_02
+  rotate: false
+  xy: 1081, 101
+  size: 90, 134
+  orig: 90, 134
+  offset: 0, 0
+  index: -1
+goni_3rd_anniversary_hair_01
+  rotate: false
+  xy: 978, 4
+  size: 61, 83
+  orig: 61, 83
+  offset: 0, 0
+  index: -1
+goni_3rd_anniversary_hair_02
+  rotate: false
+  xy: 1418, 184
+  size: 50, 51
+  orig: 50, 51
+  offset: 0, 0
+  index: -1
+goni_3rd_anniversary_hair_03
+  rotate: false
+  xy: 1489, 19
+  size: 50, 51
+  orig: 50, 51
+  offset: 0, 0
+  index: -1
+goni_3rd_anniversary_hand_01
+  rotate: true
+  xy: 1489, 72
+  size: 47, 58
+  orig: 47, 58
+  offset: 0, 0
+  index: -1
+goni_3rd_anniversary_hand_02
+  rotate: true
+  xy: 337, 2
+  size: 36, 33
+  orig: 36, 33
+  offset: 0, 0
+  index: -1
+goni_3rd_anniversary_hand_03
+  rotate: false
+  xy: 929, 17
+  size: 47, 67
+  orig: 47, 67
+  offset: 0, 0
+  index: -1
+goni_3rd_anniversary_head_01
+  rotate: true
+  xy: 1185, 13
+  size: 99, 116
+  orig: 99, 116
+  offset: 0, 0
+  index: -1
+goni_3rd_anniversary_i_effect_01
+  rotate: false
+  xy: 2, 5
+  size: 333, 230
+  orig: 333, 230
+  offset: 0, 0
+  index: -1
+goni_3rd_anniversary_i_effect_02
+  rotate: true
+  xy: 792, 86
+  size: 149, 147
+  orig: 149, 147
+  offset: 0, 0
+  index: -1
+goni_3rd_anniversary_i_effect_05
+  rotate: false
+  xy: 653, 3
+  size: 84, 80
+  orig: 84, 80
+  offset: 0, 0
+  index: -1
+goni_3rd_anniversary_i_effect_06
+  rotate: false
+  xy: 801, 14
+  size: 66, 70
+  orig: 66, 70
+  offset: 0, 0
+  index: -1
+goni_3rd_anniversary_i_effect_08
+  rotate: true
+  xy: 1041, 22
+  size: 65, 142
+  orig: 65, 142
+  offset: 0, 0
+  index: -1
+goni_3rd_anniversary_i_effect_14
+  rotate: true
+  xy: 1361, 116
+  size: 119, 55
+  orig: 119, 55
+  offset: 0, 0
+  index: -1
+goni_3rd_anniversary_i_effect_15
+  rotate: true
+  xy: 337, 40
+  size: 195, 194
+  orig: 195, 194
+  offset: 0, 0
+  index: -1
+goni_3rd_anniversary_lowbody_01
+  rotate: false
+  xy: 533, 48
+  size: 114, 187
+  orig: 114, 187
+  offset: 0, 0
+  index: -1
+goni_3rd_anniversary_lowbody_02
+  rotate: false
+  xy: 649, 85
+  size: 141, 150
+  orig: 141, 150
+  offset: 0, 0
+  index: -1
+goni_3rd_anniversary_wepon_01
+  rotate: false
+  xy: 739, 4
+  size: 60, 79
+  orig: 60, 79
+  offset: 0, 0
+  index: -1
+goni_3rd_anniversary_wepon_02
+  rotate: true
+  xy: 1529, 132
+  size: 50, 38
+  orig: 50, 38
+  offset: 0, 0
+  index: -1

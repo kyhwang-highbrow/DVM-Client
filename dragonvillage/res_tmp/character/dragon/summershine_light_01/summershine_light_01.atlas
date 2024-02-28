@@ -1,0 +1,146 @@
+
+summershine_light_01.png
+size: 1064,311
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+summershine_light_01_arm_01
+  rotate: true
+  xy: 784, 7
+  size: 62, 70
+  orig: 62, 70
+  offset: 0, 0
+  index: -1
+summershine_light_01_arm_02
+  rotate: true
+  xy: 856, 7
+  size: 62, 70
+  orig: 62, 70
+  offset: 0, 0
+  index: -1
+summershine_light_01_arm_04
+  rotate: false
+  xy: 983, 97
+  size: 62, 70
+  orig: 62, 70
+  offset: 0, 0
+  index: -1
+summershine_light_01_body_01
+  rotate: true
+  xy: 407, 147
+  size: 162, 209
+  orig: 162, 209
+  offset: 0, 0
+  index: -1
+summershine_light_01_coconut_01
+  rotate: true
+  xy: 2, 2
+  size: 133, 144
+  orig: 133, 144
+  offset: 0, 0
+  index: -1
+summershine_light_01_coconut_02
+  rotate: true
+  xy: 148, 2
+  size: 133, 144
+  orig: 133, 144
+  offset: 0, 0
+  index: -1
+summershine_light_01_ear_01
+  rotate: true
+  xy: 784, 71
+  size: 117, 94
+  orig: 117, 94
+  offset: 0, 0
+  index: -1
+summershine_light_01_effect_06
+  rotate: true
+  xy: 999, 37
+  size: 58, 63
+  orig: 58, 63
+  offset: 0, 0
+  index: -1
+summershine_light_01_eye_01
+  rotate: false
+  xy: 977, 240
+  size: 69, 69
+  orig: 69, 69
+  offset: 0, 0
+  index: -1
+summershine_light_01_foot_01
+  rotate: false
+  xy: 294, 16
+  size: 110, 119
+  orig: 110, 119
+  offset: 0, 0
+  index: -1
+summershine_light_01_foot_02
+  rotate: false
+  xy: 406, 16
+  size: 110, 119
+  orig: 110, 119
+  offset: 0, 0
+  index: -1
+summershine_light_01_glass_01
+  rotate: true
+  xy: 928, 9
+  size: 75, 69
+  orig: 75, 69
+  offset: 0, 0
+  index: -1
+summershine_light_01_head_01
+  rotate: false
+  xy: 618, 154
+  size: 154, 155
+  orig: 154, 155
+  offset: 0, 0
+  index: -1
+summershine_light_01_head_03
+  rotate: false
+  xy: 983, 169
+  size: 69, 69
+  orig: 69, 69
+  offset: 0, 0
+  index: -1
+summershine_light_01_leg_01
+  rotate: false
+  xy: 672, 33
+  size: 110, 119
+  orig: 110, 119
+  offset: 0, 0
+  index: -1
+summershine_light_01_leg_02
+  rotate: false
+  xy: 774, 190
+  size: 110, 119
+  orig: 110, 119
+  offset: 0, 0
+  index: -1
+summershine_light_01_mouth_01
+  rotate: true
+  xy: 880, 86
+  size: 102, 101
+  orig: 102, 101
+  offset: 0, 0
+  index: -1
+summershine_light_01_neck_01
+  rotate: true
+  xy: 886, 207
+  size: 102, 89
+  orig: 102, 89
+  offset: 0, 0
+  index: -1
+summershine_light_01_neck_02
+  rotate: false
+  xy: 518, 10
+  size: 152, 135
+  orig: 152, 135
+  offset: 0, 0
+  index: -1
+summershine_light_01_tail_01
+  rotate: true
+  xy: 2, 137
+  size: 172, 403
+  orig: 172, 403
+  offset: 0, 0
+  index: -1

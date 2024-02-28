@@ -1,0 +1,82 @@
+
+skill_giantdragon_breath_fire.png
+size: 1024,1024
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+skill_giantdragon_breath_fire_01
+  rotate: false
+  xy: 2, 517
+  size: 649, 438
+  orig: 649, 438
+  offset: 0, 0
+  index: -1
+skill_giantdragon_breath_fire_02
+  rotate: true
+  xy: 652, 2
+  size: 499, 278
+  orig: 499, 278
+  offset: 0, 0
+  index: -1
+skill_giantdragon_breath_fire_04
+  rotate: false
+  xy: 2, 119
+  size: 648, 396
+  orig: 648, 396
+  offset: 0, 0
+  index: -1
+skill_giantdragon_breath_fire_07
+  rotate: false
+  xy: 653, 503
+  size: 358, 452
+  orig: 358, 452
+  offset: 0, 0
+  index: -1
+
+skill_giantdragon_breath_fire2.png
+size: 1024,1024
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+skill_giantdragon_breath_fire_03
+  rotate: false
+  xy: 2, 220
+  size: 607, 328
+  orig: 607, 328
+  offset: 0, 0
+  index: -1
+skill_giantdragon_breath_fire_05
+  rotate: true
+  xy: 2, 2
+  size: 216, 606
+  orig: 216, 606
+  offset: 0, 0
+  index: -1
+skill_giantdragon_breath_fire_06
+  rotate: false
+  xy: 2, 550
+  size: 518, 452
+  orig: 518, 452
+  offset: 0, 0
+  index: -1
+skill_giantdragon_breath_fire_08
+  rotate: true
+  xy: 611, 204
+  size: 344, 225
+  orig: 344, 225
+  offset: 0, 0
+  index: -1
+skill_giantdragon_breath_fire_09
+  rotate: false
+  xy: 522, 550
+  size: 377, 452
+  orig: 377, 452
+  offset: 0, 0
+  index: -1
+skill_giantdragon_breath_fire_10
+  rotate: false
+  xy: 610, 8
+  size: 285, 194
+  orig: 285, 194
+  offset: 0, 0
+  index: -1

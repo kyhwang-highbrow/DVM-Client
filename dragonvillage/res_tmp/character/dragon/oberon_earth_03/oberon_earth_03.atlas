@@ -1,0 +1,923 @@
+
+oberon_earth_03.png
+size: 1985,1034
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+effect_b_light1
+  rotate: true
+  xy: 1281, 359
+  size: 257, 104
+  orig: 257, 104
+  offset: 0, 0
+  index: -1
+effect_b_light3
+  rotate: false
+  xy: 665, 197
+  size: 145, 142
+  orig: 145, 142
+  offset: 0, 0
+  index: -1
+effect_back_att
+  rotate: false
+  xy: 373, 638
+  size: 391, 394
+  orig: 391, 394
+  offset: 0, 0
+  index: -1
+effect_cas1
+  rotate: false
+  xy: 2, 599
+  size: 369, 433
+  orig: 369, 433
+  offset: 0, 0
+  index: -1
+effect_circle1
+  rotate: false
+  xy: 766, 688
+  size: 340, 344
+  orig: 340, 344
+  offset: 0, 0
+  index: -1
+effect_jewel_light
+  rotate: true
+  xy: 701, 341
+  size: 228, 230
+  orig: 228, 230
+  offset: 0, 0
+  index: -1
+effect_light
+  rotate: true
+  xy: 1195, 219
+  size: 97, 62
+  orig: 97, 62
+  offset: 0, 0
+  index: -1
+effect_oberon_all_03_effect_1
+  rotate: true
+  xy: 1007, 211
+  size: 117, 74
+  orig: 117, 74
+  offset: 0, 0
+  index: -1
+effect_oberon_all_03_effect_5
+  rotate: false
+  xy: 1849, 57
+  size: 53, 50
+  orig: 53, 50
+  offset: 0, 0
+  index: -1
+effect_oberon_bottom1
+  rotate: false
+  xy: 2, 6
+  size: 310, 200
+  orig: 310, 200
+  offset: 0, 0
+  index: -1
+effect_oberon_bottom2
+  rotate: false
+  xy: 1108, 618
+  size: 310, 200
+  orig: 310, 200
+  offset: 0, 0
+  index: -1
+effect_oberon_top1
+  rotate: false
+  xy: 1697, 511
+  size: 256, 236
+  orig: 256, 236
+  offset: 0, 0
+  index: -1
+effect_oberon_top2
+  rotate: false
+  xy: 443, 400
+  size: 256, 236
+  orig: 256, 236
+  offset: 0, 0
+  index: -1
+effect_star_light1
+  rotate: false
+  xy: 1083, 416
+  size: 196, 200
+  orig: 196, 200
+  offset: 0, 0
+  index: -1
+effect_stun_06
+  rotate: false
+  xy: 1046, 40
+  size: 35, 33
+  orig: 35, 33
+  offset: 0, 0
+  index: -1
+oberon_03_all_eye_7_wfel
+  rotate: false
+  xy: 1867, 2
+  size: 22, 22
+  orig: 22, 22
+  offset: 0, 0
+  index: -1
+oberon_03_eye2_earth
+  rotate: true
+  xy: 1666, 209
+  size: 27, 18
+  orig: 27, 18
+  offset: 0, 0
+  index: -1
+oberon_all_03_acc_back_1
+  rotate: false
+  xy: 1472, 236
+  size: 104, 87
+  orig: 104, 87
+  offset: 0, 0
+  index: -1
+oberon_all_03_acc_back_2
+  rotate: true
+  xy: 1710, 292
+  size: 102, 157
+  orig: 102, 157
+  offset: 0, 0
+  index: -1
+oberon_all_03_acc_back_3
+  rotate: false
+  xy: 917, 207
+  size: 88, 121
+  orig: 88, 121
+  offset: 0, 0
+  index: -1
+oberon_all_03_acc_back_4
+  rotate: true
+  xy: 443, 305
+  size: 93, 171
+  orig: 93, 171
+  offset: 0, 0
+  index: -1
+oberon_all_03_acc_left_1
+  rotate: true
+  xy: 1259, 160
+  size: 89, 99
+  orig: 89, 99
+  offset: 0, 0
+  index: -1
+oberon_all_03_acc_left_2
+  rotate: false
+  xy: 1816, 220
+  size: 51, 70
+  orig: 51, 70
+  offset: 0, 0
+  index: -1
+oberon_all_03_acc_left_3
+  rotate: true
+  xy: 1429, 3
+  size: 75, 69
+  orig: 75, 69
+  offset: 0, 0
+  index: -1
+oberon_all_03_acc_right_1
+  rotate: true
+  xy: 1719, 133
+  size: 49, 69
+  orig: 49, 69
+  offset: 0, 0
+  index: -1
+oberon_all_03_acc_right_2
+  rotate: true
+  xy: 1354, 253
+  size: 70, 116
+  orig: 70, 116
+  offset: 0, 0
+  index: -1
+oberon_all_03_acc_wing_1
+  rotate: true
+  xy: 1955, 649
+  size: 29, 28
+  orig: 29, 28
+  offset: 0, 0
+  index: -1
+oberon_all_03_acc_wing_2
+  rotate: false
+  xy: 1046, 75
+  size: 35, 34
+  orig: 35, 34
+  offset: 0, 0
+  index: -1
+oberon_all_03_acc_wing_3
+  rotate: true
+  xy: 1007, 111
+  size: 98, 74
+  orig: 98, 74
+  offset: 0, 0
+  index: -1
+oberon_all_03_acc_wing_4
+  rotate: false
+  xy: 1571, 62
+  size: 74, 59
+  orig: 74, 59
+  offset: 0, 0
+  index: -1
+oberon_all_03_arm_1
+  rotate: false
+  xy: 1869, 183
+  size: 109, 64
+  orig: 109, 64
+  offset: 0, 0
+  index: -1
+oberon_all_03_arm_2
+  rotate: true
+  xy: 616, 328
+  size: 70, 47
+  orig: 70, 47
+  offset: 0, 0
+  index: -1
+oberon_all_03_arm_3
+  rotate: false
+  xy: 1806, 113
+  size: 61, 105
+  orig: 61, 105
+  offset: 0, 0
+  index: -1
+oberon_all_03_arm_4
+  rotate: true
+  xy: 1083, 96
+  size: 65, 102
+  orig: 65, 102
+  offset: 0, 0
+  index: -1
+oberon_all_03_body_1
+  rotate: true
+  xy: 683, 2
+  size: 81, 100
+  orig: 81, 100
+  offset: 0, 0
+  index: -1
+oberon_all_03_body_2
+  rotate: true
+  xy: 701, 572
+  size: 64, 60
+  orig: 64, 60
+  offset: 0, 0
+  index: -1
+oberon_all_03_body_3
+  rotate: false
+  xy: 1710, 396
+  size: 180, 113
+  orig: 180, 113
+  offset: 0, 0
+  index: -1
+oberon_all_03_chest_acc_1
+  rotate: true
+  xy: 1647, 62
+  size: 56, 67
+  orig: 56, 67
+  offset: 0, 0
+  index: -1
+oberon_all_03_chest_acc_2
+  rotate: false
+  xy: 926, 146
+  size: 79, 59
+  orig: 79, 59
+  offset: 0, 0
+  index: -1
+oberon_all_03_chest_acc_3
+  rotate: false
+  xy: 1836, 18
+  size: 29, 35
+  orig: 29, 35
+  offset: 0, 0
+  index: -1
+oberon_all_03_chest_acc_4
+  rotate: true
+  xy: 1716, 47
+  size: 42, 62
+  orig: 42, 62
+  offset: 0, 0
+  index: -1
+oberon_all_03_chest_acc_5
+  rotate: true
+  xy: 926, 25
+  size: 75, 64
+  orig: 75, 64
+  offset: 0, 0
+  index: -1
+oberon_all_03_chest_acc_6
+  rotate: false
+  xy: 1420, 777
+  size: 46, 41
+  orig: 46, 41
+  offset: 0, 0
+  index: -1
+oberon_all_03_chest_acc_7
+  rotate: true
+  xy: 1189, 140
+  size: 77, 68
+  orig: 77, 68
+  offset: 0, 0
+  index: -1
+oberon_all_03_chest_acc_8
+  rotate: false
+  xy: 1242, 361
+  size: 36, 53
+  orig: 36, 53
+  offset: 0, 0
+  index: -1
+oberon_all_03_chest_shadow
+  rotate: true
+  xy: 1357, 80
+  size: 76, 64
+  orig: 76, 64
+  offset: 0, 0
+  index: -1
+oberon_all_03_crown_1
+  rotate: true
+  xy: 1479, 92
+  size: 67, 90
+  orig: 67, 90
+  offset: 0, 0
+  index: -1
+oberon_all_03_crown_2
+  rotate: false
+  xy: 1719, 91
+  size: 70, 40
+  orig: 70, 40
+  offset: 0, 0
+  index: -1
+oberon_all_03_effect_2
+  rotate: true
+  xy: 1578, 188
+  size: 48, 86
+  orig: 48, 86
+  offset: 0, 0
+  index: -1
+oberon_all_03_effect_3
+  rotate: false
+  xy: 1360, 158
+  size: 99, 93
+  orig: 99, 93
+  offset: 0, 0
+  index: -1
+oberon_all_03_effect_4
+  rotate: false
+  xy: 1869, 312
+  size: 114, 82
+  orig: 114, 82
+  offset: 0, 0
+  index: -1
+oberon_all_03_effect_attack_1
+  rotate: true
+  xy: 812, 197
+  size: 142, 103
+  orig: 142, 103
+  offset: 0, 0
+  index: -1
+oberon_all_03_effect_attack_10
+  rotate: false
+  xy: 1420, 500
+  size: 275, 275
+  orig: 275, 275
+  offset: 0, 0
+  index: -1
+oberon_all_03_effect_attack_2
+  rotate: false
+  xy: 1083, 224
+  size: 110, 92
+  orig: 110, 92
+  offset: 0, 0
+  index: -1
+oberon_all_03_effect_attack_4
+  rotate: false
+  xy: 933, 330
+  size: 132, 29
+  orig: 132, 29
+  offset: 0, 0
+  index: -1
+oberon_all_03_effect_attack_5
+  rotate: true
+  xy: 443, 165
+  size: 138, 148
+  orig: 138, 148
+  offset: 0, 0
+  index: -1
+oberon_all_03_effect_attack_6
+  rotate: true
+  xy: 1869, 249
+  size: 61, 114
+  orig: 61, 114
+  offset: 0, 0
+  index: -1
+oberon_all_03_effect_attack_7
+  rotate: false
+  xy: 933, 361
+  size: 148, 208
+  orig: 148, 208
+  offset: 0, 0
+  index: -1
+oberon_all_03_effect_attack_8
+  rotate: false
+  xy: 683, 85
+  size: 109, 110
+  orig: 109, 110
+  offset: 0, 0
+  index: -1
+oberon_all_03_effect_attack_9
+  rotate: true
+  xy: 1564, 333
+  size: 165, 144
+  orig: 165, 144
+  offset: 0, 0
+  index: -1
+oberon_all_03_eye_1
+  rotate: false
+  xy: 1354, 326
+  size: 31, 31
+  orig: 31, 31
+  offset: 0, 0
+  index: -1
+oberon_all_03_eye_2
+  rotate: false
+  xy: 1955, 624
+  size: 28, 23
+  orig: 28, 23
+  offset: 0, 0
+  index: -1
+oberon_all_03_eye_3
+  rotate: false
+  xy: 1686, 307
+  size: 22, 24
+  orig: 22, 24
+  offset: 0, 0
+  index: -1
+oberon_all_03_eye_4
+  rotate: true
+  xy: 373, 599
+  size: 37, 32
+  orig: 37, 32
+  offset: 0, 0
+  index: -1
+oberon_all_03_eye_5
+  rotate: false
+  xy: 1725, 750
+  size: 39, 25
+  orig: 39, 25
+  offset: 0, 0
+  index: -1
+oberon_all_03_eye_6
+  rotate: false
+  xy: 1955, 592
+  size: 25, 30
+  orig: 25, 30
+  offset: 0, 0
+  index: -1
+oberon_all_03_fairy_wing_1
+  rotate: true
+  xy: 1347, 2
+  size: 76, 80
+  orig: 76, 80
+  offset: 0, 0
+  index: -1
+oberon_all_03_fairy_wing_10
+  rotate: false
+  xy: 1869, 109
+  size: 100, 72
+  orig: 100, 72
+  offset: 0, 0
+  index: -1
+oberon_all_03_fairy_wing_2
+  rotate: false
+  xy: 912, 102
+  size: 87, 42
+  orig: 87, 42
+  offset: 0, 0
+  index: -1
+oberon_all_03_fairy_wing_3
+  rotate: false
+  xy: 1461, 161
+  size: 105, 73
+  orig: 105, 73
+  offset: 0, 0
+  index: -1
+oberon_all_03_fairy_wing_4
+  rotate: true
+  xy: 430, 2
+  size: 161, 81
+  orig: 161, 81
+  offset: 0, 0
+  index: -1
+oberon_all_03_fairy_wing_5
+  rotate: true
+  xy: 1387, 325
+  size: 173, 175
+  orig: 173, 175
+  offset: 0, 0
+  index: -1
+oberon_all_03_fairy_wing_6
+  rotate: false
+  xy: 1686, 243
+  size: 128, 47
+  orig: 128, 47
+  offset: 0, 0
+  index: -1
+oberon_all_03_fairy_wing_7
+  rotate: true
+  xy: 610, 39
+  size: 124, 71
+  orig: 124, 71
+  offset: 0, 0
+  index: -1
+oberon_all_03_fairy_wing_8
+  rotate: false
+  xy: 794, 98
+  size: 116, 97
+  orig: 116, 97
+  offset: 0, 0
+  index: -1
+oberon_all_03_fairy_wing_9
+  rotate: false
+  xy: 785, 2
+  size: 87, 81
+  orig: 87, 81
+  offset: 0, 0
+  index: -1
+oberon_all_03_foot
+  rotate: true
+  xy: 1686, 184
+  size: 57, 118
+  orig: 57, 118
+  offset: 0, 0
+  index: -1
+oberon_all_03_fur_1
+  rotate: false
+  xy: 1259, 251
+  size: 93, 106
+  orig: 93, 106
+  offset: 0, 0
+  index: -1
+oberon_all_03_fur_11
+  rotate: true
+  xy: 1578, 238
+  size: 93, 106
+  orig: 93, 106
+  offset: 0, 0
+  index: -1
+oberon_all_03_fur_2
+  rotate: false
+  xy: 1083, 50
+  size: 56, 44
+  orig: 56, 44
+  offset: 0, 0
+  index: -1
+oberon_all_03_fur_3
+  rotate: false
+  xy: 1904, 58
+  size: 47, 49
+  orig: 47, 49
+  offset: 0, 0
+  index: -1
+oberon_all_03_fur_4
+  rotate: true
+  xy: 1500, 15
+  size: 75, 68
+  orig: 75, 68
+  offset: 0, 0
+  index: -1
+oberon_all_03_fur_5
+  rotate: false
+  xy: 1571, 123
+  size: 75, 63
+  orig: 75, 63
+  offset: 0, 0
+  index: -1
+oberon_all_03_hand_1
+  rotate: true
+  xy: 610, 2
+  size: 35, 58
+  orig: 35, 58
+  offset: 0, 0
+  index: -1
+oberon_all_03_hand_10
+  rotate: false
+  xy: 1955, 563
+  size: 25, 27
+  orig: 25, 27
+  offset: 0, 0
+  index: -1
+oberon_all_03_hand_11
+  rotate: false
+  xy: 1955, 534
+  size: 27, 27
+  orig: 27, 27
+  offset: 0, 0
+  index: -1
+oberon_all_03_hand_12
+  rotate: false
+  xy: 1697, 749
+  size: 26, 26
+  orig: 26, 26
+  offset: 0, 0
+  index: -1
+oberon_all_03_hand_13
+  rotate: false
+  xy: 992, 41
+  size: 52, 59
+  orig: 52, 59
+  offset: 0, 0
+  index: -1
+oberon_all_03_hand_14
+  rotate: true
+  xy: 1713, 2
+  size: 43, 47
+  orig: 43, 47
+  offset: 0, 0
+  index: -1
+oberon_all_03_hand_15
+  rotate: true
+  xy: 1648, 120
+  size: 62, 69
+  orig: 62, 69
+  offset: 0, 0
+  index: -1
+oberon_all_03_hand_16
+  rotate: false
+  xy: 1387, 563
+  size: 31, 53
+  orig: 31, 53
+  offset: 0, 0
+  index: -1
+oberon_all_03_hand_17
+  rotate: false
+  xy: 1124, 2
+  size: 38, 45
+  orig: 38, 45
+  offset: 0, 0
+  index: -1
+oberon_all_03_hand_18
+  rotate: true
+  xy: 1164, 15
+  size: 32, 51
+  orig: 32, 51
+  offset: 0, 0
+  index: -1
+oberon_all_03_hand_19
+  rotate: false
+  xy: 1904, 27
+  size: 32, 29
+  orig: 32, 29
+  offset: 0, 0
+  index: -1
+oberon_all_03_hand_2
+  rotate: true
+  xy: 665, 354
+  size: 44, 34
+  orig: 44, 34
+  offset: 0, 0
+  index: -1
+oberon_all_03_hand_20
+  rotate: false
+  xy: 1955, 680
+  size: 28, 31
+  orig: 28, 31
+  offset: 0, 0
+  index: -1
+oberon_all_03_hand_21
+  rotate: false
+  xy: 1955, 713
+  size: 28, 34
+  orig: 28, 34
+  offset: 0, 0
+  index: -1
+oberon_all_03_hand_22
+  rotate: true
+  xy: 1780, 2
+  size: 51, 54
+  orig: 51, 54
+  offset: 0, 0
+  index: -1
+oberon_all_03_hand_23
+  rotate: false
+  xy: 992, 3
+  size: 47, 36
+  orig: 47, 36
+  offset: 0, 0
+  index: -1
+oberon_all_03_hand_3
+  rotate: true
+  xy: 1141, 49
+  size: 45, 32
+  orig: 45, 32
+  offset: 0, 0
+  index: -1
+oberon_all_03_hand_4
+  rotate: true
+  xy: 1217, 14
+  size: 33, 39
+  orig: 33, 39
+  offset: 0, 0
+  index: -1
+oberon_all_03_hand_5
+  rotate: false
+  xy: 1867, 26
+  size: 32, 29
+  orig: 32, 29
+  offset: 0, 0
+  index: -1
+oberon_all_03_hand_6
+  rotate: false
+  xy: 407, 600
+  size: 34, 36
+  orig: 34, 36
+  offset: 0, 0
+  index: -1
+oberon_all_03_hand_7
+  rotate: false
+  xy: 1953, 75
+  size: 30, 32
+  orig: 30, 32
+  offset: 0, 0
+  index: -1
+oberon_all_03_hand_8
+  rotate: true
+  xy: 1953, 44
+  size: 29, 30
+  orig: 29, 30
+  offset: 0, 0
+  index: -1
+oberon_all_03_hand_9
+  rotate: false
+  xy: 1041, 2
+  size: 33, 36
+  orig: 33, 36
+  offset: 0, 0
+  index: -1
+oberon_all_03_hand_shadow
+  rotate: true
+  xy: 1669, 2
+  size: 58, 42
+  orig: 58, 42
+  offset: 0, 0
+  index: -1
+oberon_all_03_head_1
+  rotate: false
+  xy: 1423, 80
+  size: 54, 76
+  orig: 54, 76
+  offset: 0, 0
+  index: -1
+oberon_all_03_head_2
+  rotate: true
+  xy: 1187, 49
+  size: 89, 70
+  orig: 89, 70
+  offset: 0, 0
+  index: -1
+oberon_all_03_head_3
+  rotate: false
+  xy: 1083, 163
+  size: 104, 59
+  orig: 104, 59
+  offset: 0, 0
+  index: -1
+oberon_all_03_head_4
+  rotate: false
+  xy: 1259, 2
+  size: 86, 76
+  orig: 86, 76
+  offset: 0, 0
+  index: -1
+oberon_all_03_head_5
+  rotate: false
+  xy: 1791, 55
+  size: 56, 56
+  orig: 56, 56
+  offset: 0, 0
+  index: -1
+oberon_all_03_head_6
+  rotate: true
+  xy: 1066, 620
+  size: 66, 32
+  orig: 66, 32
+  offset: 0, 0
+  index: -1
+oberon_all_03_head_7
+  rotate: true
+  xy: 1387, 514
+  size: 47, 31
+  orig: 47, 31
+  offset: 0, 0
+  index: -1
+oberon_all_03_head_9
+  rotate: false
+  xy: 1259, 80
+  size: 96, 78
+  orig: 96, 78
+  offset: 0, 0
+  index: -1
+oberon_all_03_horn
+  rotate: true
+  xy: 1624, 2
+  size: 58, 43
+  orig: 58, 43
+  offset: 0, 0
+  index: -1
+oberon_all_03_jewel_1
+  rotate: false
+  xy: 874, 6
+  size: 50, 90
+  orig: 50, 90
+  offset: 0, 0
+  index: -1
+oberon_all_03_jewel_2
+  rotate: false
+  xy: 593, 165
+  size: 70, 138
+  orig: 70, 138
+  offset: 0, 0
+  index: -1
+oberon_all_03_jewel_3
+  rotate: false
+  xy: 325, 172
+  size: 116, 152
+  orig: 116, 152
+  offset: 0, 0
+  index: -1
+oberon_all_03_leg_1
+  rotate: false
+  xy: 1892, 397
+  size: 72, 112
+  orig: 72, 112
+  offset: 0, 0
+  index: -1
+oberon_all_03_leg_2
+  rotate: true
+  xy: 1570, 2
+  size: 58, 52
+  orig: 58, 52
+  offset: 0, 0
+  index: -1
+oberon_all_03_tail
+  rotate: false
+  xy: 1491, 777
+  size: 299, 255
+  orig: 299, 255
+  offset: 0, 0
+  index: -1
+oberon_all_03_throne_1
+  rotate: false
+  xy: 513, 4
+  size: 95, 159
+  orig: 95, 159
+  offset: 0, 0
+  index: -1
+oberon_all_03_throne_2
+  rotate: true
+  xy: 314, 2
+  size: 168, 114
+  orig: 168, 114
+  offset: 0, 0
+  index: -1
+oberon_all_03_throne_3
+  rotate: false
+  xy: 766, 571
+  size: 298, 115
+  orig: 298, 115
+  offset: 0, 0
+  index: -1
+oberon_all_03_throne_4
+  rotate: true
+  xy: 1083, 318
+  size: 96, 157
+  orig: 96, 157
+  offset: 0, 0
+  index: -1
+oberon_all_03_throne_5
+  rotate: true
+  xy: 1083, 2
+  size: 46, 39
+  orig: 46, 39
+  offset: 0, 0
+  index: -1
+oberon_all_03_throne_6
+  rotate: false
+  xy: 1108, 820
+  size: 381, 212
+  orig: 381, 212
+  offset: 0, 0
+  index: -1
+oberon_all_03_throne_7
+  rotate: true
+  xy: 2, 208
+  size: 389, 321
+  orig: 389, 321
+  offset: 0, 0
+  index: -1
+oberon_all_03_wing_1
+  rotate: true
+  xy: 1792, 749
+  size: 283, 182
+  orig: 283, 182
+  offset: 0, 0
+  index: -1
+oberon_all_03_wing_2
+  rotate: true
+  xy: 325, 326
+  size: 271, 116
+  orig: 271, 116
+  offset: 0, 0
+  index: -1

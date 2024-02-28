@@ -1,0 +1,537 @@
+
+boss_darkmagician_dark.png
+size: 2048,2048
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+dark/Darkmagician_arm_01
+  rotate: false
+  xy: 790, 359
+  size: 295, 737
+  orig: 295, 737
+  offset: 0, 0
+  index: -1
+dark/Darkmagician_arm_02
+  rotate: false
+  xy: 1792, 245
+  size: 254, 404
+  orig: 254, 404
+  offset: 0, 0
+  index: -1
+dark/Darkmagician_arm_03
+  rotate: true
+  xy: 1087, 2
+  size: 647, 703
+  orig: 647, 703
+  offset: 0, 0
+  index: -1
+dark/Darkmagician_arm_04
+  rotate: true
+  xy: 362, 5
+  size: 327, 343
+  orig: 327, 343
+  offset: 0, 0
+  index: -1
+dark/Darkmagician_effect_01
+  rotate: false
+  xy: 922, 1104
+  size: 198, 187
+  orig: 198, 187
+  offset: 0, 0
+  index: -1
+dark/Darkmagician_effect_03
+  rotate: false
+  xy: 1813, 651
+  size: 202, 197
+  orig: 202, 197
+  offset: 0, 0
+  index: -1
+dark/Darkmagician_finger_03
+  rotate: true
+  xy: 1039, 90
+  size: 65, 45
+  orig: 65, 45
+  offset: 0, 0
+  index: -1
+dark/Darkmagician_hand_02
+  rotate: true
+  xy: 790, 1362
+  size: 92, 131
+  orig: 92, 131
+  offset: 0, 0
+  index: -1
+dark/Darkmagician_headrobe_01
+  rotate: true
+  xy: 1823, 1876
+  size: 170, 220
+  orig: 170, 220
+  offset: 0, 0
+  index: -1
+dark/Darkmagician_headrobe_03
+  rotate: false
+  xy: 707, 10
+  size: 215, 322
+  orig: 215, 322
+  offset: 0, 0
+  index: -1
+dark/Darkmagician_lamp_03
+  rotate: true
+  xy: 1813, 1109
+  size: 182, 232
+  orig: 182, 232
+  offset: 0, 0
+  index: -1
+dark/Darkmagician_lamp_05
+  rotate: true
+  xy: 922, 1294
+  size: 26, 28
+  orig: 26, 28
+  offset: 0, 0
+  index: -1
+dark/Darkmagician_lamp_06
+  rotate: true
+  xy: 790, 1456
+  size: 107, 131
+  orig: 107, 131
+  offset: 0, 0
+  index: -1
+dark/Darkmagician_lamp_07
+  rotate: true
+  xy: 924, 223
+  size: 134, 153
+  orig: 134, 153
+  offset: 0, 0
+  index: -1
+dark/Darkmagician_lamp_09
+  rotate: false
+  xy: 1910, 17
+  size: 93, 111
+  orig: 93, 111
+  offset: 0, 0
+  index: -1
+dark/Darkmagician_lamp_10
+  rotate: false
+  xy: 1039, 30
+  size: 45, 58
+  orig: 45, 58
+  offset: 0, 0
+  index: -1
+dark/Darkmagician_magic_03
+  rotate: false
+  xy: 1823, 1293
+  size: 210, 581
+  orig: 210, 581
+  offset: 0, 0
+  index: -1
+dark/Darkmagician_magic_04
+  rotate: false
+  xy: 790, 1565
+  size: 131, 481
+  orig: 131, 481
+  offset: 0, 0
+  index: -1
+dark/Darkmagician_robe_03
+  rotate: true
+  xy: 924, 1322
+  size: 724, 897
+  orig: 724, 897
+  offset: 0, 0
+  index: -1
+dark/Darkmagician_robe_05
+  rotate: false
+  xy: 2, 5
+  size: 358, 327
+  orig: 358, 327
+  offset: 0, 0
+  index: -1
+dark/Darkmagician_robe_06
+  rotate: false
+  xy: 1122, 651
+  size: 689, 669
+  orig: 689, 669
+  offset: 0, 0
+  index: -1
+dark/Darkmagician_skull_02
+  rotate: true
+  xy: 1910, 130
+  size: 113, 136
+  orig: 113, 136
+  offset: 0, 0
+  index: -1
+dark/Darkmagician_smoke_01
+  rotate: false
+  xy: 1813, 850
+  size: 230, 257
+  orig: 230, 257
+  offset: 0, 0
+  index: -1
+dark/Darkmagician_smoke_03
+  rotate: false
+  xy: 1792, 3
+  size: 116, 240
+  orig: 116, 240
+  offset: 0, 0
+  index: -1
+dark/Darkmagician_smoke_07
+  rotate: false
+  xy: 790, 1098
+  size: 130, 262
+  orig: 130, 262
+  offset: 0, 0
+  index: -1
+dark/Darkmagician_weapon_01
+  rotate: false
+  xy: 2, 334
+  size: 786, 1712
+  orig: 786, 1712
+  offset: 0, 0
+  index: -1
+dark/Darkmagician_weapon_02
+  rotate: true
+  xy: 924, 157
+  size: 64, 139
+  orig: 64, 139
+  offset: 0, 0
+  index: -1
+dark/Darkmagician_weapon_04
+  rotate: false
+  xy: 924, 17
+  size: 113, 138
+  orig: 113, 138
+  offset: 0, 0
+  index: -1
+
+boss_darkmagician_dark2.png
+size: 1907,1798
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+dark/Darkmagician_effect_02
+  rotate: true
+  xy: 1154, 484
+  size: 306, 303
+  orig: 306, 303
+  offset: 0, 0
+  index: -1
+dark/Darkmagician_effect_04
+  rotate: true
+  xy: 847, 204
+  size: 244, 248
+  orig: 244, 248
+  offset: 0, 0
+  index: -1
+dark/Darkmagician_effect_light
+  rotate: false
+  xy: 1459, 297
+  size: 300, 300
+  orig: 300, 300
+  offset: 0, 0
+  index: -1
+dark/Darkmagician_effect_won
+  rotate: false
+  xy: 2, 10
+  size: 442, 448
+  orig: 442, 448
+  offset: 0, 0
+  index: -1
+dark/Darkmagician_elect
+  rotate: false
+  xy: 1154, 182
+  size: 300, 300
+  orig: 300, 300
+  offset: 0, 0
+  index: -1
+dark/Darkmagician_finger_01
+  rotate: false
+  xy: 1368, 1391
+  size: 52, 44
+  orig: 52, 44
+  offset: 0, 0
+  index: -1
+dark/Darkmagician_finger_02
+  rotate: true
+  xy: 1097, 312
+  size: 64, 44
+  orig: 64, 44
+  offset: 0, 0
+  index: -1
+dark/Darkmagician_finger_04
+  rotate: false
+  xy: 737, 2
+  size: 65, 75
+  orig: 65, 75
+  offset: 0, 0
+  index: -1
+dark/Darkmagician_hand_01
+  rotate: false
+  xy: 996, 40
+  size: 137, 162
+  orig: 137, 162
+  offset: 0, 0
+  index: -1
+dark/Darkmagician_hand_03
+  rotate: false
+  xy: 804, 9
+  size: 107, 68
+  orig: 107, 68
+  offset: 0, 0
+  index: -1
+dark/Darkmagician_head_01
+  rotate: false
+  xy: 1805, 1299
+  size: 67, 101
+  orig: 67, 101
+  offset: 0, 0
+  index: -1
+dark/Darkmagician_head_02
+  rotate: false
+  xy: 1368, 1501
+  size: 446, 295
+  orig: 446, 295
+  offset: 0, 0
+  index: -1
+dark/Darkmagician_head_03
+  rotate: false
+  xy: 1805, 1224
+  size: 63, 73
+  orig: 63, 73
+  offset: 0, 0
+  index: -1
+dark/Darkmagician_headrobe_02
+  rotate: false
+  xy: 849, 1387
+  size: 517, 409
+  orig: 517, 409
+  offset: 0, 0
+  index: -1
+dark/Darkmagician_headrobe_04
+  rotate: false
+  xy: 1459, 599
+  size: 261, 317
+  orig: 261, 317
+  offset: 0, 0
+  index: -1
+dark/Darkmagician_lamp_01
+  rotate: false
+  xy: 1220, 25
+  size: 53, 59
+  orig: 53, 59
+  offset: 0, 0
+  index: -1
+dark/Darkmagician_lamp_02
+  rotate: false
+  xy: 1368, 1437
+  size: 52, 62
+  orig: 52, 62
+  offset: 0, 0
+  index: -1
+dark/Darkmagician_lamp_04
+  rotate: false
+  xy: 1135, 17
+  size: 83, 67
+  orig: 83, 67
+  offset: 0, 0
+  index: -1
+dark/Darkmagician_lamp_08
+  rotate: false
+  xy: 1097, 378
+  size: 44, 70
+  orig: 44, 70
+  offset: 0, 0
+  index: -1
+dark/Darkmagician_magic_01
+  rotate: false
+  xy: 1187, 792
+  size: 247, 593
+  orig: 247, 593
+  offset: 0, 0
+  index: -1
+dark/Darkmagician_magic_02
+  rotate: false
+  xy: 1436, 918
+  size: 247, 581
+  orig: 247, 581
+  offset: 0, 0
+  index: -1
+dark/Darkmagician_particle_01
+  rotate: true
+  xy: 449, 490
+  size: 483, 398
+  orig: 483, 398
+  offset: 0, 0
+  index: -1
+dark/Darkmagician_robe_01
+  rotate: false
+  xy: 2, 460
+  size: 445, 513
+  orig: 445, 513
+  offset: 0, 0
+  index: -1
+dark/Darkmagician_robe_02
+  rotate: false
+  xy: 849, 860
+  size: 336, 525
+  orig: 336, 525
+  offset: 0, 0
+  index: -1
+dark/Darkmagician_robe_04
+  rotate: false
+  xy: 2, 975
+  size: 845, 821
+  orig: 845, 821
+  offset: 0, 0
+  index: -1
+dark/Darkmagician_robep_01
+  rotate: true
+  xy: 563, 24
+  size: 207, 172
+  orig: 207, 172
+  offset: 0, 0
+  index: -1
+dark/Darkmagician_robep_02
+  rotate: false
+  xy: 1800, 1057
+  size: 105, 165
+  orig: 105, 165
+  offset: 0, 0
+  index: -1
+dark/Darkmagician_robep_03
+  rotate: true
+  xy: 1800, 973
+  size: 82, 105
+  orig: 82, 105
+  offset: 0, 0
+  index: -1
+dark/Darkmagician_robep_04
+  rotate: true
+  xy: 913, 9
+  size: 68, 79
+  orig: 68, 79
+  offset: 0, 0
+  index: -1
+dark/Darkmagician_sholderrobe_01
+  rotate: false
+  xy: 849, 450
+  size: 303, 408
+  orig: 303, 408
+  offset: 0, 0
+  index: -1
+dark/Darkmagician_sholderrobe_02
+  rotate: true
+  xy: 449, 233
+  size: 255, 277
+  orig: 255, 277
+  offset: 0, 0
+  index: -1
+dark/Darkmagician_skull_01
+  rotate: false
+  xy: 1761, 305
+  size: 92, 111
+  orig: 92, 111
+  offset: 0, 0
+  index: -1
+dark/Darkmagician_skull_03
+  rotate: false
+  xy: 1805, 1402
+  size: 74, 96
+  orig: 74, 96
+  offset: 0, 0
+  index: -1
+dark/Darkmagician_skull_04
+  rotate: true
+  xy: 1816, 1500
+  size: 83, 85
+  orig: 83, 85
+  offset: 0, 0
+  index: -1
+dark/Darkmagician_skull_05
+  rotate: false
+  xy: 1816, 1585
+  size: 89, 104
+  orig: 89, 104
+  offset: 0, 0
+  index: -1
+dark/Darkmagician_skull_06
+  rotate: false
+  xy: 1816, 1691
+  size: 89, 105
+  orig: 89, 105
+  offset: 0, 0
+  index: -1
+dark/Darkmagician_skull_07
+  rotate: true
+  xy: 1308, 92
+  size: 88, 106
+  orig: 88, 106
+  offset: 0, 0
+  index: -1
+dark/Darkmagician_smoke_02
+  rotate: false
+  xy: 1685, 1224
+  size: 118, 275
+  orig: 118, 275
+  offset: 0, 0
+  index: -1
+dark/Darkmagician_smoke_04
+  rotate: false
+  xy: 728, 263
+  size: 117, 225
+  orig: 117, 225
+  offset: 0, 0
+  index: -1
+dark/Darkmagician_smoke_05
+  rotate: false
+  xy: 446, 2
+  size: 115, 229
+  orig: 115, 229
+  offset: 0, 0
+  index: -1
+dark/Darkmagician_smoke_06
+  rotate: false
+  xy: 1761, 418
+  size: 127, 246
+  orig: 127, 246
+  offset: 0, 0
+  index: -1
+dark/Darkmagician_smoke_08
+  rotate: true
+  xy: 737, 79
+  size: 123, 257
+  orig: 123, 257
+  offset: 0, 0
+  index: -1
+dark/Darkmagician_smoke_09
+  rotate: false
+  xy: 1750, 29
+  size: 112, 266
+  orig: 112, 266
+  offset: 0, 0
+  index: -1
+dark/Darkmagician_smoke_10
+  rotate: false
+  xy: 1722, 666
+  size: 109, 277
+  orig: 109, 277
+  offset: 0, 0
+  index: -1
+dark/Darkmagician_smoke_11
+  rotate: false
+  xy: 1685, 945
+  size: 113, 277
+  orig: 113, 277
+  offset: 0, 0
+  index: -1
+dark/Darkmagician_weapon_03
+  rotate: true
+  xy: 1135, 86
+  size: 94, 171
+  orig: 94, 171
+  offset: 0, 0
+  index: -1
+dark/Darkmagician_won1
+  rotate: true
+  xy: 1456, 10
+  size: 285, 292
+  orig: 285, 292
+  offset: 0, 0
+  index: -1

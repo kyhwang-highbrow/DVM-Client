@@ -1,0 +1,188 @@
+
+darnus_all_01.png
+size: 1097,297
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+darnus_all_01_arm_01
+  rotate: true
+  xy: 1021, 14
+  size: 66, 61
+  orig: 66, 61
+  offset: 0, 0
+  index: -1
+darnus_all_01_arm_02
+  rotate: true
+  xy: 789, 56
+  size: 81, 47
+  orig: 81, 47
+  offset: 0, 0
+  index: -1
+darnus_all_01_b_arm
+  rotate: true
+  xy: 666, 3
+  size: 41, 78
+  orig: 41, 78
+  offset: 0, 0
+  index: -1
+darnus_all_01_b_wing
+  rotate: false
+  xy: 833, 143
+  size: 76, 152
+  orig: 76, 152
+  offset: 0, 0
+  index: -1
+darnus_all_01_ball
+  rotate: false
+  xy: 202, 108
+  size: 187, 187
+  orig: 187, 187
+  offset: 0, 0
+  index: -1
+darnus_all_01_body
+  rotate: false
+  xy: 517, 9
+  size: 147, 118
+  orig: 147, 118
+  offset: 0, 0
+  index: -1
+darnus_all_01_fly_01
+  rotate: false
+  xy: 780, 5
+  size: 52, 48
+  orig: 52, 48
+  offset: 0, 0
+  index: -1
+darnus_all_01_fly_02
+  rotate: false
+  xy: 746, 2
+  size: 32, 51
+  orig: 32, 51
+  offset: 0, 0
+  index: -1
+darnus_all_01_fly_03
+  rotate: false
+  xy: 974, 13
+  size: 45, 46
+  orig: 45, 46
+  offset: 0, 0
+  index: -1
+darnus_all_01_head_01
+  rotate: false
+  xy: 2, 3
+  size: 95, 90
+  orig: 95, 90
+  offset: 0, 0
+  index: -1
+darnus_all_01_head_02
+  rotate: true
+  xy: 99, 2
+  size: 99, 109
+  orig: 99, 109
+  offset: 0, 0
+  index: -1
+darnus_all_01_head_03
+  rotate: false
+  xy: 666, 46
+  size: 46, 87
+  orig: 46, 87
+  offset: 0, 0
+  index: -1
+darnus_all_01_leg
+  rotate: false
+  xy: 907, 61
+  size: 67, 80
+  orig: 67, 80
+  offset: 0, 0
+  index: -1
+darnus_all_01_tail_01
+  rotate: true
+  xy: 907, 6
+  size: 53, 65
+  orig: 53, 65
+  offset: 0, 0
+  index: -1
+darnus_all_01_tail_02
+  rotate: false
+  xy: 536, 135
+  size: 137, 160
+  orig: 137, 160
+  offset: 0, 0
+  index: -1
+darnus_all_01_wing
+  rotate: true
+  xy: 88, 103
+  size: 192, 112
+  orig: 192, 112
+  offset: 0, 0
+  index: -1
+effect_darnus_all_01_atk_01
+  rotate: false
+  xy: 714, 55
+  size: 73, 82
+  orig: 73, 82
+  offset: 0, 0
+  index: -1
+effect_darnus_all_01_atk_02
+  rotate: false
+  xy: 838, 4
+  size: 67, 137
+  orig: 67, 137
+  offset: 0, 0
+  index: -1
+effect_darnus_all_01_pose_fly_01
+  rotate: true
+  xy: 313, 17
+  size: 89, 82
+  orig: 89, 82
+  offset: 0, 0
+  index: -1
+effect_darnus_all_01_pose_fly_02
+  rotate: true
+  xy: 391, 129
+  size: 166, 143
+  orig: 166, 143
+  offset: 0, 0
+  index: -1
+effect_darnus_all_01_pose_l_01
+  rotate: true
+  xy: 2, 95
+  size: 200, 84
+  orig: 200, 84
+  offset: 0, 0
+  index: -1
+effect_darnus_all_01_pose_l_02
+  rotate: true
+  xy: 210, 3
+  size: 103, 101
+  orig: 103, 101
+  offset: 0, 0
+  index: -1
+effect_darnus_all_01_pose_l_03
+  rotate: false
+  xy: 1021, 82
+  size: 74, 69
+  orig: 74, 69
+  offset: 0, 0
+  index: -1
+effect_darnus_all_01_pose_l_04
+  rotate: false
+  xy: 911, 153
+  size: 145, 142
+  orig: 145, 142
+  offset: 0, 0
+  index: -1
+effect_darnus_all_01_pose_l_05
+  rotate: false
+  xy: 675, 139
+  size: 156, 156
+  orig: 156, 156
+  offset: 0, 0
+  index: -1
+effect_darnus_all_01_pose_l_06
+  rotate: true
+  xy: 397, 5
+  size: 122, 118
+  orig: 122, 118
+  offset: 0, 0
+  index: -1

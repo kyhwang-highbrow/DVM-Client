@@ -1,0 +1,9 @@
+page,bg,illustration,char,t_char_name,char_pos,char_ani,char_effect,r_scen,t_text,text_pos,text_type,auto_skip,effect_1,effect_2,effect_3,bgm,bgm_action,sound
+1,,,,,,,,,,,,3,title;생명의 가르침,skip_disable,,,,
+2,,,,,,,,,,,,0.3,skip_disable,,,,,
+3,,,,,,,,,,,,,,,,,,
+4,챕터3,,,,,,,,"생명의 근원이 주는 가르침의 말이 하나하나 다가올 때마다, 내면의 두려움은 사라지고 있었다.",,bold,5,,,,,,
+5,,,,,,,,,"파워드래곤은 두 눈을 번뜩였고, 팔을 강하게 휘둘러 모든 몬스터들을 밀쳐냈다.",,bold,5,,,,,,
+6,,,다람쥐,다람쥐 리더,right,idle,,,도망가자! 도망가자!,,bold,5,,,,,,
+7,,,,,,,,,몬스터들은 파워드래곤의 달라진 힘에 줄행랑을 치기 시작했다.,,bold,5,clear_char,,,,,
+8,,,,,,,,,파워드래곤은 이제 수호자로써 생명을 위해선 자신의 능력을 더 제어해 나가야겠다고 생각했다.,,bold,5,,,,,,

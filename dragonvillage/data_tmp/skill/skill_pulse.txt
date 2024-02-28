@@ -1,0 +1,92 @@
+{
+	"skill_pulse":
+	{
+		"ver":2,
+		"attack_value":
+		[							
+			{
+				"comment":"투사체 바디",
+				"idx":1,
+				"body":[0,0,2000],
+                "count":1,
+				"time":0.1,
+                "scale":[0.4,0.4],
+				"offset":[0,0],
+				"missile_type":"pass",
+				"fadeout_time":0.39,
+				
+                "effect":
+                {
+                    "motion_streak":"",
+                    "rotation":false,
+                    "afterimage":false
+                }
+			},
+			
+			{
+				"comment":"리소스1",
+				"idx":1,
+				"res":"res/effect/effect_pulse/effect_pulse.vrp",
+				"body":[0,0,0],
+                "count":1,
+				"time":0.13,
+				"period":0.2,
+                "scale":[0.7,0.7],
+				"offset":[0,0],
+				"missile_type":"pass",
+				"fadeout_time":0.42,
+				
+                "effect":
+                {
+                    "motion_streak":"",
+                    "rotation":false,
+                    "afterimage":false
+                }
+				
+			}
+			{
+				"comment":"리소스2",
+				"idx":1,
+				"res":"res/effect/effect_pulse/effect_pulse.vrp",
+				"body":[0,0,0],
+                "count":1,
+				"time":0.16,
+				"period":0.2,
+                "scale":[0.9,0.9],
+				"offset":[0,0],
+				"missile_type":"pass",
+				"fadeout_time":0.45,
+				
+                "effect":
+                {
+                    "motion_streak":"",
+                    "rotation":false,
+                    "afterimage":false
+                }
+				
+			}
+			{
+				"comment":"리소스3",
+				"idx":1,
+				"res":"res/effect/effect_pulse/effect_pulse.vrp",
+				"body":[0,0,0],
+                "count":1,
+				"time":0.19,
+				"period":0.24,
+                "scale":[1.2,1.2],
+				"offset":[0,0],
+				"missile_type":"pass",
+				"fadeout_time":0.48,
+				
+                "effect":
+                {
+                    "motion_streak":"",
+                    "rotation":false,
+                    "afterimage":false
+                }
+				
+			}
+		]
+	}
+}
+

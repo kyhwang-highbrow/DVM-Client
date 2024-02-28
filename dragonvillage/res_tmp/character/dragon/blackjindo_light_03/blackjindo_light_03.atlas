@@ -1,0 +1,188 @@
+
+blackjindo_light_03.png
+size: 1273,367
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+blackjindo_light_03_arm_01
+  rotate: true
+  xy: 1204, 149
+  size: 60, 67
+  orig: 60, 67
+  offset: 0, 0
+  index: -1
+blackjindo_light_03_arm_02
+  rotate: false
+  xy: 1140, 122
+  size: 54, 63
+  orig: 54, 63
+  offset: 0, 0
+  index: -1
+blackjindo_light_03_body_01
+  rotate: true
+  xy: 1214, 284
+  size: 81, 57
+  orig: 81, 57
+  offset: 0, 0
+  index: -1
+blackjindo_light_03_body_02
+  rotate: false
+  xy: 828, 8
+  size: 139, 168
+  orig: 139, 168
+  offset: 0, 0
+  index: -1
+blackjindo_light_03_effect_01
+  rotate: false
+  xy: 2, 8
+  size: 411, 357
+  orig: 411, 357
+  offset: 0, 0
+  index: -1
+blackjindo_light_03_effect_02
+  rotate: false
+  xy: 415, 8
+  size: 411, 357
+  orig: 411, 357
+  offset: 0, 0
+  index: -1
+blackjindo_light_03_eye_01
+  rotate: true
+  xy: 1050, 102
+  size: 38, 32
+  orig: 38, 32
+  offset: 0, 0
+  index: -1
+blackjindo_light_03_eye_01_01
+  rotate: false
+  xy: 1120, 48
+  size: 38, 32
+  orig: 38, 32
+  offset: 0, 0
+  index: -1
+blackjindo_light_03_eye_02
+  rotate: false
+  xy: 969, 154
+  size: 23, 22
+  orig: 23, 22
+  offset: 0, 0
+  index: -1
+blackjindo_light_03_eye_02_01
+  rotate: false
+  xy: 1160, 58
+  size: 23, 22
+  orig: 23, 22
+  offset: 0, 0
+  index: -1
+blackjindo_light_03_foot_01
+  rotate: false
+  xy: 1084, 138
+  size: 54, 86
+  orig: 54, 86
+  offset: 0, 0
+  index: -1
+blackjindo_light_03_foot_01_01
+  rotate: false
+  xy: 1059, 6
+  size: 39, 34
+  orig: 39, 34
+  offset: 0, 0
+  index: -1
+blackjindo_light_03_foot_02
+  rotate: false
+  xy: 1140, 187
+  size: 62, 70
+  orig: 62, 70
+  offset: 0, 0
+  index: -1
+blackjindo_light_03_foot_02_01
+  rotate: true
+  xy: 1100, 2
+  size: 38, 29
+  orig: 38, 29
+  offset: 0, 0
+  index: -1
+blackjindo_light_03_hand_01
+  rotate: false
+  xy: 969, 73
+  size: 79, 67
+  orig: 79, 67
+  offset: 0, 0
+  index: -1
+blackjindo_light_03_hand_01_01
+  rotate: false
+  xy: 1084, 86
+  size: 52, 50
+  orig: 52, 50
+  offset: 0, 0
+  index: -1
+blackjindo_light_03_hand_02
+  rotate: true
+  xy: 1214, 211
+  size: 71, 57
+  orig: 71, 57
+  offset: 0, 0
+  index: -1
+blackjindo_light_03_hand_02_01
+  rotate: false
+  xy: 1138, 82
+  size: 50, 38
+  orig: 50, 38
+  offset: 0, 0
+  index: -1
+blackjindo_light_03_head_01
+  rotate: false
+  xy: 994, 226
+  size: 140, 139
+  orig: 140, 139
+  offset: 0, 0
+  index: -1
+blackjindo_light_03_head_02
+  rotate: true
+  xy: 994, 142
+  size: 82, 88
+  orig: 82, 88
+  offset: 0, 0
+  index: -1
+blackjindo_light_03_head_03
+  rotate: true
+  xy: 1196, 97
+  size: 50, 65
+  orig: 50, 65
+  offset: 0, 0
+  index: -1
+blackjindo_light_03_leg_01
+  rotate: false
+  xy: 1136, 259
+  size: 76, 106
+  orig: 76, 106
+  offset: 0, 0
+  index: -1
+blackjindo_light_03_leg_02
+  rotate: true
+  xy: 969, 13
+  size: 58, 88
+  orig: 58, 88
+  offset: 0, 0
+  index: -1
+blackjindo_light_03_mouth_01
+  rotate: false
+  xy: 1190, 53
+  size: 59, 42
+  orig: 59, 42
+  offset: 0, 0
+  index: -1
+blackjindo_light_03_mouth_02
+  rotate: false
+  xy: 1059, 42
+  size: 59, 42
+  orig: 59, 42
+  offset: 0, 0
+  index: -1
+blackjindo_light_03_tail_01
+  rotate: false
+  xy: 828, 178
+  size: 164, 187
+  orig: 164, 187
+  offset: 0, 0
+  index: -1

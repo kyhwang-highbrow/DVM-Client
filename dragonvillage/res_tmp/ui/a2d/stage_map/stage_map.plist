@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+    <dict>
+        <key>frames</key>
+        <dict>
+            <key>stage_map_event_01.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{0,0}</string>
+                <key>spriteSize</key>
+                <string>{505,147}</string>
+                <key>spriteSourceSize</key>
+                <string>{505,147}</string>
+                <key>textureRect</key>
+                <string>{{1,1},{505,147}}</string>
+                <key>textureRotated</key>
+                <false/>
+            </dict>
+        </dict>
+        <key>metadata</key>
+        <dict>
+            <key>format</key>
+            <integer>3</integer>
+            <key>pixelFormat</key>
+            <string>RGBA8888</string>
+            <key>premultiplyAlpha</key>
+            <false/>
+            <key>realTextureFileName</key>
+            <string>stage_map.png</string>
+            <key>size</key>
+            <string>{507,149}</string>
+            <key>smartupdate</key>
+            <string>$TexturePacker:SmartUpdate:5477b0808f54c6c6286dedbe598f7fef:08fb165cf6b82e086730eff0fd7a41be:08ee36fc2461b0f8f973c7a273b13dee$</string>
+            <key>textureFileName</key>
+            <string>stage_map.png</string>
+        </dict>
+    </dict>
+</plist>

@@ -1,0 +1,55 @@
+
+skill_heal_target_dark.png
+size: 2048,512
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+shot_heal_straw_01
+  rotate: false
+  xy: 2, 94
+  size: 737, 144
+  orig: 737, 144
+  offset: 0, 0
+  index: -1
+shot_heal_straw_02
+  rotate: false
+  xy: 782, 421
+  size: 738, 87
+  orig: 738, 87
+  offset: 0, 0
+  index: -1
+shot_heal_straw_03
+  rotate: false
+  xy: 2, 240
+  size: 778, 268
+  orig: 778, 268
+  offset: 0, 0
+  index: -1
+shot_heal_straw_04
+  rotate: false
+  xy: 1072, 248
+  size: 154, 171
+  orig: 154, 171
+  offset: 0, 0
+  index: -1
+shot_heal_straw_05
+  rotate: false
+  xy: 782, 138
+  size: 288, 281
+  orig: 288, 281
+  offset: 0, 0
+  index: -1
+shot_heal_straw_06
+  rotate: false
+  xy: 2, 2
+  size: 240, 90
+  orig: 240, 90
+  offset: 0, 0
+  index: -1
+shot_heal_straw_07
+  rotate: true
+  xy: 1522, 458
+  size: 50, 100
+  orig: 50, 100
+  offset: 0, 0
+  index: -1

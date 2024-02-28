@@ -1,0 +1,13 @@
+{
+	"layer":
+    [
+    
+        {
+            "speed":0
+            "list":           
+			[
+                {"res":"res/bg/raidboss1_bg/raidboss1_bg.vrp" "animation":"layer_3_a" "width":1920 "pos_x":640 "scale":1.2}
+            ]
+        }
+    ]
+}

@@ -1,0 +1,62 @@
+
+infinitepower_statue.png
+size: 1162,745
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+fairy_1
+  rotate: false
+  xy: 789, 256
+  size: 229, 238
+  orig: 229, 238
+  offset: 0, 0
+  index: -1
+light_1
+  rotate: false
+  xy: 789, 100
+  size: 220, 154
+  orig: 220, 154
+  offset: 0, 0
+  index: -1
+light_2
+  rotate: true
+  xy: 789, 496
+  size: 247, 371
+  orig: 247, 371
+  offset: 0, 0
+  index: -1
+rock_1
+  rotate: true
+  xy: 1020, 263
+  size: 98, 113
+  orig: 98, 113
+  offset: 0, 0
+  index: -1
+rock_2
+  rotate: false
+  xy: 1020, 363
+  size: 122, 131
+  orig: 122, 131
+  offset: 0, 0
+  index: -1
+rock_3
+  rotate: true
+  xy: 905, 6
+  size: 92, 100
+  orig: 92, 100
+  offset: 0, 0
+  index: -1
+rock_4
+  rotate: false
+  xy: 789, 4
+  size: 114, 94
+  orig: 114, 94
+  offset: 0, 0
+  index: -1
+tree_1
+  rotate: false
+  xy: 2, 2
+  size: 785, 741
+  orig: 785, 741
+  offset: 0, 0
+  index: -1

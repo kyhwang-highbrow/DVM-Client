@@ -1,0 +1,510 @@
+
+kesath_winter_01.png
+size: 1953,445
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+kesath_winter_01_acc_01
+  rotate: true
+  xy: 188, 73
+  size: 29, 28
+  orig: 29, 28
+  offset: 0, 0
+  index: -1
+kesath_winter_01_acc_03
+  rotate: false
+  xy: 1800, 329
+  size: 35, 34
+  orig: 35, 34
+  offset: 0, 0
+  index: -1
+kesath_winter_01_arm_01
+  rotate: true
+  xy: 1235, 2
+  size: 51, 82
+  orig: 51, 82
+  offset: 0, 0
+  index: -1
+kesath_winter_01_arm_02
+  rotate: true
+  xy: 1830, 89
+  size: 65, 63
+  orig: 65, 63
+  offset: 0, 0
+  index: -1
+kesath_winter_01_arm_03
+  rotate: true
+  xy: 1624, 3
+  size: 65, 69
+  orig: 65, 69
+  offset: 0, 0
+  index: -1
+kesath_winter_01_arm_04
+  rotate: false
+  xy: 1548, 180
+  size: 36, 40
+  orig: 36, 40
+  offset: 0, 0
+  index: -1
+kesath_winter_01_arm_05
+  rotate: false
+  xy: 1586, 180
+  size: 36, 40
+  orig: 36, 40
+  offset: 0, 0
+  index: -1
+kesath_winter_01_belt_01
+  rotate: true
+  xy: 1717, 183
+  size: 46, 63
+  orig: 46, 63
+  offset: 0, 0
+  index: -1
+kesath_winter_01_belt_01_01
+  rotate: true
+  xy: 1782, 192
+  size: 46, 63
+  orig: 46, 63
+  offset: 0, 0
+  index: -1
+kesath_winter_01_belt_01_02
+  rotate: false
+  xy: 1895, 91
+  size: 46, 63
+  orig: 46, 63
+  offset: 0, 0
+  index: -1
+kesath_winter_01_belt_02
+  rotate: true
+  xy: 1427, 176
+  size: 35, 38
+  orig: 35, 38
+  offset: 0, 0
+  index: -1
+kesath_winter_01_belt_02_01
+  rotate: false
+  xy: 1800, 405
+  size: 35, 38
+  orig: 35, 38
+  offset: 0, 0
+  index: -1
+kesath_winter_01_belt_02_02
+  rotate: false
+  xy: 1800, 365
+  size: 35, 38
+  orig: 35, 38
+  offset: 0, 0
+  index: -1
+kesath_winter_01_body_01
+  rotate: true
+  xy: 1528, 3
+  size: 65, 94
+  orig: 65, 94
+  offset: 0, 0
+  index: -1
+kesath_winter_01_body_02
+  rotate: true
+  xy: 1305, 59
+  size: 115, 194
+  orig: 115, 194
+  offset: 0, 0
+  index: -1
+kesath_winter_01_body_03
+  rotate: true
+  xy: 1380, 3
+  size: 54, 82
+  orig: 54, 82
+  offset: 0, 0
+  index: -1
+kesath_winter_01_body_04
+  rotate: true
+  xy: 1375, 176
+  size: 35, 50
+  orig: 35, 50
+  offset: 0, 0
+  index: -1
+kesath_winter_01_body_05
+  rotate: true
+  xy: 1288, 176
+  size: 35, 85
+  orig: 35, 85
+  offset: 0, 0
+  index: -1
+kesath_winter_01_body_06
+  rotate: false
+  xy: 784, 136
+  size: 46, 38
+  orig: 46, 38
+  offset: 0, 0
+  index: -1
+kesath_winter_01_body_07
+  rotate: false
+  xy: 1895, 51
+  size: 46, 38
+  orig: 46, 38
+  offset: 0, 0
+  index: -1
+kesath_winter_01_body_08
+  rotate: true
+  xy: 1662, 182
+  size: 47, 53
+  orig: 47, 53
+  offset: 0, 0
+  index: -1
+kesath_winter_01_body_09
+  rotate: false
+  xy: 1464, 3
+  size: 62, 54
+  orig: 62, 54
+  offset: 0, 0
+  index: -1
+kesath_winter_01_body_10
+  rotate: true
+  xy: 1501, 70
+  size: 108, 87
+  orig: 108, 87
+  offset: 0, 0
+  index: -1
+kesath_winter_01_body_10_01
+  rotate: true
+  xy: 1590, 70
+  size: 108, 87
+  orig: 108, 87
+  offset: 0, 0
+  index: -1
+kesath_winter_01_body_10_02
+  rotate: true
+  xy: 1659, 335
+  size: 108, 87
+  orig: 108, 87
+  offset: 0, 0
+  index: -1
+kesath_winter_01_brow_01
+  rotate: false
+  xy: 1035, 8
+  size: 49, 21
+  orig: 49, 21
+  offset: 0, 0
+  index: -1
+kesath_winter_01_cape_01
+  rotate: true
+  xy: 552, 10
+  size: 124, 106
+  orig: 124, 106
+  offset: 0, 0
+  index: -1
+kesath_winter_01_cape_02
+  rotate: true
+  xy: 660, 10
+  size: 124, 53
+  orig: 124, 53
+  offset: 0, 0
+  index: -1
+kesath_winter_01_cape_02_01
+  rotate: true
+  xy: 715, 10
+  size: 124, 53
+  orig: 124, 53
+  offset: 0, 0
+  index: -1
+kesath_winter_01_cape_02_02
+  rotate: true
+  xy: 770, 10
+  size: 124, 53
+  orig: 124, 53
+  offset: 0, 0
+  index: -1
+kesath_winter_01_cape_03
+  rotate: true
+  xy: 371, 10
+  size: 124, 179
+  orig: 124, 179
+  offset: 0, 0
+  index: -1
+kesath_winter_01_effect_01
+  rotate: false
+  xy: 188, 136
+  size: 296, 307
+  orig: 296, 307
+  offset: 0, 0
+  index: -1
+kesath_winter_01_effect_02
+  rotate: false
+  xy: 486, 136
+  size: 296, 307
+  orig: 296, 307
+  offset: 0, 0
+  index: -1
+kesath_winter_01_effect_03
+  rotate: false
+  xy: 832, 4
+  size: 159, 170
+  orig: 159, 170
+  offset: 0, 0
+  index: -1
+kesath_winter_01_effect_04
+  rotate: false
+  xy: 1288, 213
+  size: 173, 230
+  orig: 173, 230
+  offset: 0, 0
+  index: -1
+kesath_winter_01_effect_05
+  rotate: true
+  xy: 784, 176
+  size: 267, 250
+  orig: 267, 250
+  offset: 0, 0
+  index: -1
+kesath_winter_01_effect_06
+  rotate: true
+  xy: 1036, 176
+  size: 267, 250
+  orig: 267, 250
+  offset: 0, 0
+  index: -1
+kesath_winter_01_effect_07
+  rotate: true
+  xy: 1839, 362
+  size: 81, 87
+  orig: 81, 87
+  offset: 0, 0
+  index: -1
+kesath_winter_01_effect_08
+  rotate: false
+  xy: 1775, 240
+  size: 81, 87
+  orig: 81, 87
+  offset: 0, 0
+  index: -1
+kesath_winter_01_effect_effect_09
+  rotate: true
+  xy: 2, 37
+  size: 406, 184
+  orig: 406, 184
+  offset: 0, 0
+  index: -1
+kesath_winter_01_effect_effect_10
+  rotate: true
+  xy: 1463, 222
+  size: 221, 194
+  orig: 221, 194
+  offset: 0, 0
+  index: -1
+kesath_winter_01_effect_i_01
+  rotate: true
+  xy: 1659, 231
+  size: 102, 56
+  orig: 102, 56
+  offset: 0, 0
+  index: -1
+kesath_winter_01_effect_i_02
+  rotate: true
+  xy: 1679, 78
+  size: 102, 56
+  orig: 102, 56
+  offset: 0, 0
+  index: -1
+kesath_winter_01_effect_i_03
+  rotate: false
+  xy: 1847, 156
+  size: 79, 56
+  orig: 79, 56
+  offset: 0, 0
+  index: -1
+kesath_winter_01_effect_i_04
+  rotate: false
+  xy: 1467, 180
+  size: 79, 40
+  orig: 79, 40
+  offset: 0, 0
+  index: -1
+kesath_winter_01_eye_01
+  rotate: false
+  xy: 76, 4
+  size: 55, 31
+  orig: 55, 31
+  offset: 0, 0
+  index: -1
+kesath_winter_01_eye_02
+  rotate: false
+  xy: 133, 4
+  size: 45, 31
+  orig: 45, 31
+  offset: 0, 0
+  index: -1
+kesath_winter_01_eye_03
+  rotate: false
+  xy: 1086, 12
+  size: 45, 17
+  orig: 45, 17
+  offset: 0, 0
+  index: -1
+kesath_winter_01_face_01
+  rotate: false
+  xy: 1737, 82
+  size: 91, 99
+  orig: 91, 99
+  offset: 0, 0
+  index: -1
+kesath_winter_01_finger_01
+  rotate: false
+  xy: 1837, 330
+  size: 35, 30
+  orig: 35, 30
+  offset: 0, 0
+  index: -1
+kesath_winter_01_finger_02
+  rotate: true
+  xy: 1839, 52
+  size: 35, 30
+  orig: 35, 30
+  offset: 0, 0
+  index: -1
+kesath_winter_01_foot_01
+  rotate: true
+  xy: 2, 2
+  size: 33, 38
+  orig: 33, 38
+  offset: 0, 0
+  index: -1
+kesath_winter_01_foot_02
+  rotate: true
+  xy: 1624, 181
+  size: 39, 36
+  orig: 39, 36
+  offset: 0, 0
+  index: -1
+kesath_winter_01_foot_03
+  rotate: true
+  xy: 1902, 10
+  size: 39, 34
+  orig: 39, 34
+  offset: 0, 0
+  index: -1
+kesath_winter_01_hair_01
+  rotate: true
+  xy: 1858, 214
+  size: 61, 83
+  orig: 61, 83
+  offset: 0, 0
+  index: -1
+kesath_winter_01_hair_02
+  rotate: true
+  xy: 1179, 4
+  size: 47, 54
+  orig: 47, 54
+  offset: 0, 0
+  index: -1
+kesath_winter_01_hair_03
+  rotate: true
+  xy: 1754, 3
+  size: 77, 83
+  orig: 77, 83
+  offset: 0, 0
+  index: -1
+kesath_winter_01_hair_04
+  rotate: false
+  xy: 1319, 2
+  size: 59, 55
+  orig: 59, 55
+  offset: 0, 0
+  index: -1
+kesath_winter_01_hair_05
+  rotate: false
+  xy: 1874, 277
+  size: 77, 83
+  orig: 77, 83
+  offset: 0, 0
+  index: -1
+kesath_winter_01_hand_01
+  rotate: true
+  xy: 1839, 4
+  size: 45, 61
+  orig: 45, 61
+  offset: 0, 0
+  index: -1
+kesath_winter_01_hand_03
+  rotate: true
+  xy: 1133, 2
+  size: 49, 44
+  orig: 49, 44
+  offset: 0, 0
+  index: -1
+kesath_winter_01_leg_01
+  rotate: true
+  xy: 1187, 55
+  size: 119, 116
+  orig: 119, 116
+  offset: 0, 0
+  index: -1
+kesath_winter_01_leg_02
+  rotate: false
+  xy: 1095, 53
+  size: 90, 121
+  orig: 90, 121
+  offset: 0, 0
+  index: -1
+kesath_winter_01_lowbody_01
+  rotate: true
+  xy: 218, 5
+  size: 129, 151
+  orig: 129, 151
+  offset: 0, 0
+  index: -1
+kesath_winter_01_wepon_01
+  rotate: true
+  xy: 1695, 8
+  size: 68, 57
+  orig: 68, 57
+  offset: 0, 0
+  index: -1
+kesath_winter_01_wepon_02
+  rotate: true
+  xy: 993, 7
+  size: 22, 40
+  orig: 22, 40
+  offset: 0, 0
+  index: -1
+kesath_winter_01_wepon_03
+  rotate: true
+  xy: 1717, 231
+  size: 102, 56
+  orig: 102, 56
+  offset: 0, 0
+  index: -1
+kesath_winter_01_wepon_04
+  rotate: true
+  xy: 180, 5
+  size: 30, 36
+  orig: 30, 36
+  offset: 0, 0
+  index: -1
+kesath_winter_01_wepon_05
+  rotate: true
+  xy: 188, 104
+  size: 30, 28
+  orig: 30, 28
+  offset: 0, 0
+  index: -1
+kesath_winter_01_wepon_06
+  rotate: true
+  xy: 1748, 351
+  size: 92, 50
+  orig: 92, 50
+  offset: 0, 0
+  index: -1
+kesath_winter_01_wepon_effect_01
+  rotate: false
+  xy: 993, 31
+  size: 100, 143
+  orig: 100, 143
+  offset: 0, 0
+  index: -1
+kesath_winter_01_wepon_effect_02
+  rotate: false
+  xy: 42, 2
+  size: 32, 33
+  orig: 32, 33
+  offset: 0, 0
+  index: -1

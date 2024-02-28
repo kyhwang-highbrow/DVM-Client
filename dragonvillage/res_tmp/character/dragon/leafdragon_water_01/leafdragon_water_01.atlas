@@ -1,0 +1,125 @@
+
+leafdragon_water_01.png
+size: 789,144
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+leafdragon_water_01_arm_01
+  rotate: true
+  xy: 523, 73
+  size: 69, 61
+  orig: 69, 61
+  offset: 0, 0
+  index: -1
+leafdragon_water_01_arm_01_01
+  rotate: true
+  xy: 586, 73
+  size: 69, 61
+  orig: 69, 61
+  offset: 0, 0
+  index: -1
+leafdragon_water_01_arm_02
+  rotate: true
+  xy: 523, 2
+  size: 69, 61
+  orig: 69, 61
+  offset: 0, 0
+  index: -1
+leafdragon_water_01_arm_02_01
+  rotate: true
+  xy: 586, 2
+  size: 69, 61
+  orig: 69, 61
+  offset: 0, 0
+  index: -1
+leafdragon_water_01_body_01
+  rotate: false
+  xy: 132, 21
+  size: 97, 121
+  orig: 97, 121
+  offset: 0, 0
+  index: -1
+leafdragon_water_01_effect_01
+  rotate: false
+  xy: 649, 11
+  size: 68, 68
+  orig: 68, 68
+  offset: 0, 0
+  index: -1
+leafdragon_water_01_effect_02
+  rotate: false
+  xy: 719, 3
+  size: 68, 68
+  orig: 68, 68
+  offset: 0, 0
+  index: -1
+leafdragon_water_01_eye_01
+  rotate: true
+  xy: 335, 59
+  size: 83, 54
+  orig: 83, 54
+  offset: 0, 0
+  index: -1
+leafdragon_water_01_eye_02
+  rotate: false
+  xy: 335, 11
+  size: 71, 46
+  orig: 71, 46
+  offset: 0, 0
+  index: -1
+leafdragon_water_01_eye_03
+  rotate: false
+  xy: 444, 15
+  size: 71, 46
+  orig: 71, 46
+  offset: 0, 0
+  index: -1
+leafdragon_water_01_hand_01
+  rotate: false
+  xy: 649, 81
+  size: 69, 61
+  orig: 69, 61
+  offset: 0, 0
+  index: -1
+leafdragon_water_01_hand_02
+  rotate: true
+  xy: 720, 73
+  size: 69, 61
+  orig: 69, 61
+  offset: 0, 0
+  index: -1
+leafdragon_water_01_head_01
+  rotate: true
+  xy: 2, 4
+  size: 138, 128
+  orig: 138, 128
+  offset: 0, 0
+  index: -1
+leafdragon_water_01_head_02
+  rotate: true
+  xy: 231, 29
+  size: 113, 102
+  orig: 113, 102
+  offset: 0, 0
+  index: -1
+leafdragon_water_01_leg_01
+  rotate: false
+  xy: 391, 63
+  size: 64, 79
+  orig: 64, 79
+  offset: 0, 0
+  index: -1
+leafdragon_water_01_leg_02
+  rotate: false
+  xy: 457, 63
+  size: 64, 79
+  orig: 64, 79
+  offset: 0, 0
+  index: -1
+leafdragon_water_01_mouth_01
+  rotate: true
+  xy: 408, 2
+  size: 59, 34
+  orig: 59, 34
+  offset: 0, 0
+  index: -1

@@ -1,0 +1,228 @@
+
+boss_jeweldragon.png
+size: 2044,2044
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+boss_jeweldragon_eff_01
+  rotate: false
+  xy: 1915, 322
+  size: 127, 167
+  orig: 127, 167
+  offset: 0, 0
+  index: -1
+boss_jeweldragon_eye_01
+  rotate: false
+  xy: 1405, 980
+  size: 521, 487
+  orig: 521, 487
+  offset: 0, 0
+  index: -1
+boss_jeweldragon_eye_02
+  rotate: false
+  xy: 1405, 491
+  size: 521, 487
+  orig: 521, 487
+  offset: 0, 0
+  index: -1
+boss_jeweldragon_eye_03
+  rotate: false
+  xy: 1392, 2
+  size: 521, 487
+  orig: 521, 487
+  offset: 0, 0
+  index: -1
+boss_jeweldragon_fire_bagfront_01
+  rotate: true
+  xy: 2, 71
+  size: 777, 739
+  orig: 777, 739
+  offset: 0, 0
+  index: -1
+boss_jeweldragon_fire_chair_01
+  rotate: false
+  xy: 2, 850
+  size: 1401, 1192
+  orig: 1401, 1192
+  offset: 0, 0
+  index: -1
+boss_jeweldragon_fire_chair_02
+  rotate: true
+  xy: 743, 31
+  size: 817, 647
+  orig: 817, 647
+  offset: 0, 0
+  index: -1
+boss_jeweldragon_fire_foot_01
+  rotate: true
+  xy: 1405, 1469
+  size: 573, 619
+  orig: 573, 619
+  offset: 0, 0
+  index: -1
+boss_jeweldragon_gold_01
+  rotate: false
+  xy: 1928, 1425
+  size: 47, 42
+  orig: 47, 42
+  offset: 0, 0
+  index: -1
+
+boss_jeweldragon2.png
+size: 2043,2046
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+boss_jeweldragon_acc_01
+  rotate: false
+  xy: 1459, 4
+  size: 435, 361
+  orig: 435, 361
+  offset: 0, 0
+  index: -1
+boss_jeweldragon_acc_03
+  rotate: true
+  xy: 1706, 842
+  size: 507, 335
+  orig: 507, 335
+  offset: 0, 0
+  index: -1
+boss_jeweldragon_body_01
+  rotate: false
+  xy: 2, 1059
+  size: 1177, 985
+  orig: 1177, 985
+  offset: 0, 0
+  index: -1
+boss_jeweldragon_body_02
+  rotate: true
+  xy: 2, 29
+  size: 1028, 936
+  orig: 1028, 936
+  offset: 0, 0
+  index: -1
+boss_jeweldragon_chest_01
+  rotate: true
+  xy: 940, 509
+  size: 312, 233
+  orig: 312, 233
+  offset: 0, 0
+  index: -1
+boss_jeweldragon_eff_02
+  rotate: true
+  xy: 940, 823
+  size: 234, 236
+  orig: 234, 236
+  offset: 0, 0
+  index: -1
+boss_jeweldragon_fire_arm_01
+  rotate: true
+  xy: 940, 2
+  size: 363, 517
+  orig: 363, 517
+  offset: 0, 0
+  index: -1
+boss_jeweldragon_fire_bagback_01
+  rotate: true
+  xy: 1181, 1351
+  size: 693, 783
+  orig: 693, 783
+  offset: 0, 0
+  index: -1
+boss_jeweldragon_fire_foot_02
+  rotate: true
+  xy: 1181, 948
+  size: 401, 523
+  orig: 401, 523
+  offset: 0, 0
+  index: -1
+boss_jeweldragon_fire_hand_01
+  rotate: true
+  xy: 1701, 367
+  size: 473, 335
+  orig: 473, 335
+  offset: 0, 0
+  index: -1
+boss_jeweldragon_fire_head_01
+  rotate: false
+  xy: 1178, 459
+  size: 521, 487
+  orig: 521, 487
+  offset: 0, 0
+  index: -1
+
+boss_jeweldragon3.png
+size: 1835,862
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+boss_jeweldragon_acc_02
+  rotate: false
+  xy: 404, 16
+  size: 349, 321
+  orig: 349, 321
+  offset: 0, 0
+  index: -1
+boss_jeweldragon_coin_01
+  rotate: false
+  xy: 491, 445
+  size: 371, 415
+  orig: 371, 415
+  offset: 0, 0
+  index: -1
+boss_jeweldragon_eff_03
+  rotate: false
+  xy: 2, 2
+  size: 400, 335
+  orig: 400, 335
+  offset: 0, 0
+  index: -1
+boss_jeweldragon_fire_hand_02
+  rotate: true
+  xy: 755, 32
+  size: 411, 358
+  orig: 411, 358
+  offset: 0, 0
+  index: -1
+boss_jeweldragon_fire_hand_03
+  rotate: true
+  xy: 864, 449
+  size: 411, 358
+  orig: 411, 358
+  offset: 0, 0
+  index: -1
+boss_jeweldragon_fire_jaw_01
+  rotate: true
+  xy: 2, 339
+  size: 521, 487
+  orig: 521, 487
+  offset: 0, 0
+  index: -1
+boss_jeweldragon_gold_02
+  rotate: true
+  xy: 1584, 615
+  size: 245, 249
+  orig: 245, 249
+  offset: 0, 0
+  index: -1
+boss_jeweldragon_jewel_01
+  rotate: true
+  xy: 1115, 36
+  size: 411, 358
+  orig: 411, 358
+  offset: 0, 0
+  index: -1
+boss_jeweldragon_jewel_02
+  rotate: true
+  xy: 1224, 449
+  size: 411, 358
+  orig: 411, 358
+  offset: 0, 0
+  index: -1
+boss_jeweldragon_jewel_03
+  rotate: true
+  xy: 1475, 36
+  size: 411, 358
+  orig: 411, 358
+  offset: 0, 0
+  index: -1

@@ -1,0 +1,265 @@
+
+hellkaiser_all_03.png
+size: 1984,378
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+effect_hellkaiser_all_03_effect_00
+  rotate: false
+  xy: 797, 149
+  size: 227, 227
+  orig: 227, 227
+  offset: 0, 0
+  index: -1
+effect_hellkaiser_all_03_effect_01
+  rotate: true
+  xy: 1328, 176
+  size: 200, 189
+  orig: 200, 189
+  offset: 0, 0
+  index: -1
+effect_hellkaiser_all_03_effect_02
+  rotate: false
+  xy: 1662, 21
+  size: 155, 159
+  orig: 155, 159
+  offset: 0, 0
+  index: -1
+effect_hellkaiser_all_03_effect_03
+  rotate: false
+  xy: 1311, 4
+  size: 170, 166
+  orig: 170, 166
+  offset: 0, 0
+  index: -1
+effect_hellkaiser_all_03_effect_04
+  rotate: true
+  xy: 1519, 182
+  size: 194, 174
+  orig: 194, 174
+  offset: 0, 0
+  index: -1
+effect_hellkaiser_all_03_effect_05
+  rotate: false
+  xy: 1877, 5
+  size: 61, 56
+  orig: 61, 56
+  offset: 0, 0
+  index: -1
+effect_hellkaiser_all_03_effect_06
+  rotate: false
+  xy: 1026, 167
+  size: 123, 209
+  orig: 123, 209
+  offset: 0, 0
+  index: -1
+effect_hellkaiser_all_03_effect_07
+  rotate: false
+  xy: 1151, 172
+  size: 175, 204
+  orig: 175, 204
+  offset: 0, 0
+  index: -1
+hellkaiser_all_03_acc_01
+  rotate: false
+  xy: 84, 4
+  size: 84, 80
+  orig: 84, 80
+  offset: 0, 0
+  index: -1
+hellkaiser_all_03_acc_02
+  rotate: false
+  xy: 1880, 309
+  size: 76, 67
+  orig: 76, 67
+  offset: 0, 0
+  index: -1
+hellkaiser_all_03_arm_01
+  rotate: true
+  xy: 265, 2
+  size: 96, 99
+  orig: 96, 99
+  offset: 0, 0
+  index: -1
+hellkaiser_all_03_arm_02
+  rotate: true
+  xy: 366, 3
+  size: 95, 59
+  orig: 95, 59
+  offset: 0, 0
+  index: -1
+hellkaiser_all_03_arm_03
+  rotate: false
+  xy: 669, 3
+  size: 101, 120
+  orig: 101, 120
+  offset: 0, 0
+  index: -1
+hellkaiser_all_03_body_01
+  rotate: false
+  xy: 1483, 4
+  size: 177, 170
+  orig: 177, 170
+  offset: 0, 0
+  index: -1
+hellkaiser_all_03_finger_01
+  rotate: true
+  xy: 1819, 114
+  size: 69, 58
+  orig: 69, 58
+  offset: 0, 0
+  index: -1
+hellkaiser_all_03_finger_02
+  rotate: false
+  xy: 1880, 173
+  size: 74, 60
+  orig: 74, 60
+  offset: 0, 0
+  index: -1
+hellkaiser_all_03_finger_03
+  rotate: false
+  xy: 1819, 8
+  size: 30, 40
+  orig: 30, 40
+  offset: 0, 0
+  index: -1
+hellkaiser_all_03_finger_04
+  rotate: false
+  xy: 1945, 138
+  size: 37, 33
+  orig: 37, 33
+  offset: 0, 0
+  index: -1
+hellkaiser_all_03_finger_05
+  rotate: true
+  xy: 1945, 103
+  size: 33, 37
+  orig: 33, 37
+  offset: 0, 0
+  index: -1
+hellkaiser_all_03_finger_06
+  rotate: true
+  xy: 1940, 29
+  size: 32, 40
+  orig: 32, 40
+  offset: 0, 0
+  index: -1
+hellkaiser_all_03_finger_07
+  rotate: false
+  xy: 1879, 63
+  size: 63, 60
+  orig: 63, 60
+  offset: 0, 0
+  index: -1
+hellkaiser_all_03_head_01
+  rotate: false
+  xy: 1155, 2
+  size: 154, 168
+  orig: 154, 168
+  offset: 0, 0
+  index: -1
+hellkaiser_all_03_head_02
+  rotate: true
+  xy: 1880, 235
+  size: 72, 75
+  orig: 72, 75
+  offset: 0, 0
+  index: -1
+hellkaiser_all_03_head_03
+  rotate: true
+  xy: 1879, 125
+  size: 46, 64
+  orig: 46, 64
+  offset: 0, 0
+  index: -1
+hellkaiser_all_03_head_04
+  rotate: true
+  xy: 534, 24
+  size: 77, 133
+  orig: 77, 133
+  offset: 0, 0
+  index: -1
+hellkaiser_all_03_leg_01
+  rotate: true
+  xy: 170, 5
+  size: 79, 93
+  orig: 79, 93
+  offset: 0, 0
+  index: -1
+hellkaiser_all_03_leg_02
+  rotate: false
+  xy: 427, 4
+  size: 105, 94
+  orig: 105, 94
+  offset: 0, 0
+  index: -1
+hellkaiser_all_03_leg_03
+  rotate: false
+  xy: 772, 19
+  size: 69, 104
+  orig: 69, 104
+  offset: 0, 0
+  index: -1
+hellkaiser_all_03_leg_04
+  rotate: true
+  xy: 2, 2
+  size: 82, 80
+  orig: 82, 80
+  offset: 0, 0
+  index: -1
+hellkaiser_all_03_neck_01
+  rotate: true
+  xy: 843, 19
+  size: 128, 102
+  orig: 128, 102
+  offset: 0, 0
+  index: -1
+hellkaiser_all_03_tail_01
+  rotate: true
+  xy: 2, 86
+  size: 290, 184
+  orig: 290, 184
+  offset: 0, 0
+  index: -1
+hellkaiser_all_03_tongue_01
+  rotate: false
+  xy: 1819, 50
+  size: 56, 62
+  orig: 56, 62
+  offset: 0, 0
+  index: -1
+hellkaiser_all_03_wing_01
+  rotate: true
+  xy: 188, 100
+  size: 276, 257
+  orig: 276, 257
+  offset: 0, 0
+  index: -1
+hellkaiser_all_03_wing_02
+  rotate: true
+  xy: 606, 125
+  size: 251, 189
+  orig: 251, 189
+  offset: 0, 0
+  index: -1
+hellkaiser_all_03_wing_03
+  rotate: true
+  xy: 447, 103
+  size: 273, 157
+  orig: 273, 157
+  offset: 0, 0
+  index: -1
+hellkaiser_all_03_wing_04
+  rotate: false
+  xy: 947, 20
+  size: 206, 127
+  orig: 206, 127
+  offset: 0, 0
+  index: -1
+hellkaiser_all_03_wing_05
+  rotate: false
+  xy: 1695, 185
+  size: 183, 191
+  orig: 183, 191
+  offset: 0, 0
+  index: -1

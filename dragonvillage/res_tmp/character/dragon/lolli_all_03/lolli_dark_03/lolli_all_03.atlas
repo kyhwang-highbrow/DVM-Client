@@ -1,0 +1,517 @@
+
+lolli_all_03.png
+size: 1874,466
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+lolie_all_03_eye_01_04
+  rotate: true
+  xy: 1542, 183
+  size: 44, 34
+  orig: 44, 34
+  offset: 0, 0
+  index: -1
+lolli_all_03_arm_01
+  rotate: true
+  xy: 1301, 181
+  size: 43, 61
+  orig: 43, 61
+  offset: 0, 0
+  index: -1
+lolli_all_03_arm_02
+  rotate: true
+  xy: 1590, 3
+  size: 50, 56
+  orig: 50, 56
+  offset: 0, 0
+  index: -1
+lolli_all_03_body
+  rotate: false
+  xy: 1765, 164
+  size: 107, 112
+  orig: 107, 112
+  offset: 0, 0
+  index: -1
+lolli_all_03_candy_01
+  rotate: false
+  xy: 1685, 231
+  size: 78, 77
+  orig: 78, 77
+  offset: 0, 0
+  index: -1
+lolli_all_03_candy_01_02
+  rotate: false
+  xy: 1684, 152
+  size: 78, 77
+  orig: 78, 77
+  offset: 0, 0
+  index: -1
+lolli_all_03_candy_02
+  rotate: true
+  xy: 735, 6
+  size: 62, 61
+  orig: 62, 61
+  offset: 0, 0
+  index: -1
+lolli_all_03_candy_02_02
+  rotate: false
+  xy: 1604, 55
+  size: 62, 61
+  orig: 62, 61
+  offset: 0, 0
+  index: -1
+lolli_all_03_candy_03
+  rotate: true
+  xy: 1614, 235
+  size: 67, 68
+  orig: 67, 68
+  offset: 0, 0
+  index: -1
+lolli_all_03_candy_03_02
+  rotate: true
+  xy: 1614, 166
+  size: 67, 68
+  orig: 67, 68
+  offset: 0, 0
+  index: -1
+lolli_all_03_candy_04
+  rotate: true
+  xy: 149, 2
+  size: 52, 56
+  orig: 52, 56
+  offset: 0, 0
+  index: -1
+lolli_all_03_candy_04_02
+  rotate: true
+  xy: 207, 2
+  size: 52, 56
+  orig: 52, 56
+  offset: 0, 0
+  index: -1
+lolli_all_03_cape_01
+  rotate: false
+  xy: 413, 3
+  size: 98, 65
+  orig: 98, 65
+  offset: 0, 0
+  index: -1
+lolli_all_03_cape_02
+  rotate: false
+  xy: 1493, 182
+  size: 47, 42
+  orig: 47, 42
+  offset: 0, 0
+  index: -1
+lolli_all_03_cape_03
+  rotate: true
+  xy: 1781, 2
+  size: 58, 57
+  orig: 58, 57
+  offset: 0, 0
+  index: -1
+lolli_all_03_ear_01
+  rotate: true
+  xy: 1681, 59
+  size: 91, 58
+  orig: 91, 58
+  offset: 0, 0
+  index: -1
+lolli_all_03_effect_01
+  rotate: true
+  xy: 1604, 387
+  size: 31, 42
+  orig: 31, 42
+  offset: 0, 0
+  index: -1
+lolli_all_03_effect_02
+  rotate: false
+  xy: 1301, 226
+  size: 217, 238
+  orig: 217, 238
+  offset: 0, 0
+  index: -1
+lolli_all_03_effect_03
+  rotate: false
+  xy: 1481, 2
+  size: 49, 48
+  orig: 49, 48
+  offset: 0, 0
+  index: -1
+lolli_all_03_effect_04
+  rotate: true
+  xy: 1520, 376
+  size: 88, 82
+  orig: 88, 82
+  offset: 0, 0
+  index: -1
+lolli_all_03_effect_05
+  rotate: false
+  xy: 1770, 278
+  size: 98, 93
+  orig: 98, 93
+  offset: 0, 0
+  index: -1
+lolli_all_03_effect_06
+  rotate: false
+  xy: 749, 166
+  size: 287, 298
+  orig: 287, 298
+  offset: 0, 0
+  index: -1
+lolli_all_03_effect_07
+  rotate: true
+  xy: 2, 56
+  size: 408, 352
+  orig: 408, 352
+  offset: 0, 0
+  index: -1
+lolli_all_03_effect_07_2
+  rotate: true
+  xy: 1038, 181
+  size: 283, 261
+  orig: 283, 261
+  offset: 0, 0
+  index: -1
+lolli_all_03_effect_back_light
+  rotate: false
+  xy: 356, 70
+  size: 391, 394
+  orig: 391, 394
+  offset: 0, 0
+  index: -1
+lolli_all_03_effect_fire
+  rotate: false
+  xy: 798, 3
+  size: 175, 161
+  orig: 175, 161
+  offset: 0, 0
+  index: -1
+lolli_all_03_effect_light
+  rotate: false
+  xy: 353, 3
+  size: 58, 51
+  orig: 58, 51
+  offset: 0, 0
+  index: -1
+lolli_all_03_effect_lightdust
+  rotate: true
+  xy: 1384, 52
+  size: 127, 99
+  orig: 127, 99
+  offset: 0, 0
+  index: -1
+lolli_all_03_eye_01_01
+  rotate: false
+  xy: 1364, 181
+  size: 45, 43
+  orig: 45, 43
+  offset: 0, 0
+  index: -1
+lolli_all_03_eye_01_02
+  rotate: true
+  xy: 1411, 181
+  size: 43, 30
+  orig: 43, 30
+  offset: 0, 0
+  index: -1
+lolli_all_03_eye_01_03
+  rotate: false
+  xy: 1604, 355
+  size: 41, 30
+  orig: 41, 30
+  offset: 0, 0
+  index: -1
+lolli_all_03_eye_02_01
+  rotate: true
+  xy: 1647, 357
+  size: 25, 31
+  orig: 25, 31
+  offset: 0, 0
+  index: -1
+lolli_all_03_eye_02_02
+  rotate: true
+  xy: 1771, 62
+  size: 25, 24
+  orig: 25, 24
+  offset: 0, 0
+  index: -1
+lolli_all_03_eye_02_03
+  rotate: false
+  xy: 1755, 6
+  size: 24, 24
+  orig: 24, 24
+  offset: 0, 0
+  index: -1
+lolli_all_03_eyebrow_01
+  rotate: true
+  xy: 1697, 27
+  size: 30, 25
+  orig: 30, 25
+  offset: 0, 0
+  index: -1
+lolli_all_03_eyebrow_02
+  rotate: false
+  xy: 1797, 63
+  size: 24, 24
+  orig: 24, 24
+  offset: 0, 0
+  index: -1
+lolli_all_03_foot_01
+  rotate: true
+  xy: 82, 2
+  size: 52, 65
+  orig: 52, 65
+  offset: 0, 0
+  index: -1
+lolli_all_03_foot_02
+  rotate: false
+  xy: 1741, 89
+  size: 61, 61
+  orig: 61, 61
+  offset: 0, 0
+  index: -1
+lolli_all_03_hand_01
+  rotate: true
+  xy: 1532, 2
+  size: 51, 56
+  orig: 51, 56
+  offset: 0, 0
+  index: -1
+lolli_all_03_hand_02
+  rotate: false
+  xy: 265, 2
+  size: 47, 52
+  orig: 47, 52
+  offset: 0, 0
+  index: -1
+lolli_all_03_hand_03
+  rotate: true
+  xy: 1304, 2
+  size: 32, 35
+  orig: 32, 35
+  offset: 0, 0
+  index: -1
+lolli_all_03_head_01
+  rotate: false
+  xy: 975, 5
+  size: 167, 159
+  orig: 167, 159
+  offset: 0, 0
+  index: -1
+lolli_all_03_head_02_01
+  rotate: true
+  xy: 749, 80
+  size: 31, 47
+  orig: 31, 47
+  offset: 0, 0
+  index: -1
+lolli_all_03_head_02_02
+  rotate: true
+  xy: 1685, 310
+  size: 72, 83
+  orig: 72, 83
+  offset: 0, 0
+  index: -1
+lolli_all_03_inside_01
+  rotate: true
+  xy: 1443, 182
+  size: 42, 48
+  orig: 42, 48
+  offset: 0, 0
+  index: -1
+lolli_all_03_inside_02
+  rotate: true
+  xy: 680, 3
+  size: 65, 53
+  orig: 65, 53
+  offset: 0, 0
+  index: -1
+lolli_all_03_inside_03
+  rotate: false
+  xy: 1648, 5
+  size: 47, 48
+  orig: 47, 48
+  offset: 0, 0
+  index: -1
+lolli_all_03_inside_04
+  rotate: true
+  xy: 1724, 28
+  size: 29, 28
+  orig: 29, 28
+  offset: 0, 0
+  index: -1
+lolli_all_03_inside_05
+  rotate: false
+  xy: 2, 2
+  size: 78, 52
+  orig: 78, 52
+  offset: 0, 0
+  index: -1
+lolli_all_03_inside_06
+  rotate: false
+  xy: 1604, 420
+  size: 42, 44
+  orig: 42, 44
+  offset: 0, 0
+  index: -1
+lolli_all_03_inside_07
+  rotate: true
+  xy: 749, 113
+  size: 51, 47
+  orig: 51, 47
+  offset: 0, 0
+  index: -1
+lolli_all_03_inside_08
+  rotate: true
+  xy: 1542, 303
+  size: 71, 59
+  orig: 71, 59
+  offset: 0, 0
+  index: -1
+lolli_all_03_jewerl_01
+  rotate: true
+  xy: 1341, 2
+  size: 32, 35
+  orig: 32, 35
+  offset: 0, 0
+  index: -1
+lolli_all_03_jewerl_02
+  rotate: false
+  xy: 1378, 2
+  size: 26, 32
+  orig: 26, 32
+  offset: 0, 0
+  index: -1
+lolli_all_03_lace_01
+  rotate: false
+  xy: 1485, 55
+  size: 117, 125
+  orig: 117, 125
+  offset: 0, 0
+  index: -1
+lolli_all_03_leg_01
+  rotate: true
+  xy: 1520, 229
+  size: 72, 92
+  orig: 72, 92
+  offset: 0, 0
+  index: -1
+lolli_all_03_leg_02
+  rotate: false
+  xy: 597, 3
+  size: 81, 65
+  orig: 81, 65
+  offset: 0, 0
+  index: -1
+lolli_all_03_mouth_01
+  rotate: false
+  xy: 1578, 199
+  size: 34, 28
+  orig: 34, 28
+  offset: 0, 0
+  index: -1
+lolli_all_03_pompom_01
+  rotate: false
+  xy: 1754, 32
+  size: 25, 25
+  orig: 25, 25
+  offset: 0, 0
+  index: -1
+lolli_all_03_pupil_01_01
+  rotate: true
+  xy: 1264, 2
+  size: 32, 38
+  orig: 32, 38
+  offset: 0, 0
+  index: -1
+lolli_all_03_pupil_01_02
+  rotate: false
+  xy: 1144, 2
+  size: 24, 23
+  orig: 24, 23
+  offset: 0, 0
+  index: -1
+lolli_all_03_pupil_01_03
+  rotate: false
+  xy: 1648, 135
+  size: 31, 29
+  orig: 31, 29
+  offset: 0, 0
+  index: -1
+lolli_all_03_pupil_02_01
+  rotate: true
+  xy: 1724, 2
+  size: 24, 29
+  orig: 24, 29
+  offset: 0, 0
+  index: -1
+lolli_all_03_pupil_02_04
+  rotate: false
+  xy: 1741, 59
+  size: 28, 28
+  orig: 28, 28
+  offset: 0, 0
+  index: -1
+lolli_all_03_ribbon_01
+  rotate: false
+  xy: 1604, 118
+  size: 38, 46
+  orig: 38, 46
+  offset: 0, 0
+  index: -1
+lolli_all_03_ribbon_02
+  rotate: false
+  xy: 1771, 373
+  size: 99, 91
+  orig: 99, 91
+  offset: 0, 0
+  index: -1
+lolli_all_03_tail_01
+  rotate: true
+  xy: 1144, 27
+  size: 152, 118
+  orig: 152, 118
+  offset: 0, 0
+  index: -1
+lolli_all_03_tail_02
+  rotate: false
+  xy: 1648, 384
+  size: 121, 80
+  orig: 121, 80
+  offset: 0, 0
+  index: -1
+lolli_all_03_tail_03
+  rotate: true
+  xy: 1264, 36
+  size: 143, 118
+  orig: 143, 118
+  offset: 0, 0
+  index: -1
+lolli_all_03_tiara_01
+  rotate: true
+  xy: 513, 3
+  size: 65, 82
+  orig: 65, 82
+  offset: 0, 0
+  index: -1
+lolli_all_03_wing_01
+  rotate: false
+  xy: 1603, 304
+  size: 80, 49
+  orig: 80, 49
+  offset: 0, 0
+  index: -1
+lolli_all_03_wing_02
+  rotate: true
+  xy: 314, 2
+  size: 52, 37
+  orig: 52, 37
+  offset: 0, 0
+  index: -1
+lolli_all_03_wing_03
+  rotate: true
+  xy: 1406, 2
+  size: 48, 73
+  orig: 48, 73
+  offset: 0, 0
+  index: -1

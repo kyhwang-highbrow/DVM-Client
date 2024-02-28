@@ -1,0 +1,216 @@
+
+ladydragon_light_03.png
+size: 886,269
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+ladydragon_light_03_acc_01
+  rotate: false
+  xy: 815, 11
+  size: 49, 44
+  orig: 49, 44
+  offset: 0, 0
+  index: -1
+ladydragon_light_03_acc_02
+  rotate: false
+  xy: 2, 7
+  size: 41, 28
+  orig: 41, 28
+  offset: 0, 0
+  index: -1
+ladydragon_light_03_arm_01
+  rotate: true
+  xy: 830, 57
+  size: 42, 54
+  orig: 42, 54
+  offset: 0, 0
+  index: -1
+ladydragon_light_03_arm_02
+  rotate: true
+  xy: 686, 9
+  size: 65, 78
+  orig: 65, 78
+  offset: 0, 0
+  index: -1
+ladydragon_light_03_body_01
+  rotate: false
+  xy: 232, 58
+  size: 138, 209
+  orig: 138, 209
+  offset: 0, 0
+  index: -1
+ladydragon_light_03_ear_01
+  rotate: true
+  xy: 830, 101
+  size: 54, 50
+  orig: 54, 50
+  offset: 0, 0
+  index: -1
+ladydragon_light_03_effect_01
+  rotate: false
+  xy: 2, 37
+  size: 228, 230
+  orig: 228, 230
+  offset: 0, 0
+  index: -1
+ladydragon_light_03_effect_02
+  rotate: true
+  xy: 766, 19
+  size: 55, 47
+  orig: 55, 47
+  offset: 0, 0
+  index: -1
+ladydragon_light_03_effect_03
+  rotate: false
+  xy: 630, 189
+  size: 100, 47
+  orig: 100, 47
+  offset: 0, 0
+  index: -1
+ladydragon_light_03_elbow_01
+  rotate: false
+  xy: 45, 6
+  size: 38, 29
+  orig: 38, 29
+  offset: 0, 0
+  index: -1
+ladydragon_light_03_eye_l_01
+  rotate: true
+  xy: 697, 151
+  size: 36, 32
+  orig: 36, 32
+  offset: 0, 0
+  index: -1
+ladydragon_light_03_eye_l_02
+  rotate: false
+  xy: 815, 60
+  size: 13, 22
+  orig: 13, 22
+  offset: 0, 0
+  index: -1
+ladydragon_light_03_eye_l_03
+  rotate: false
+  xy: 598, 192
+  size: 25, 23
+  orig: 25, 23
+  offset: 0, 0
+  index: -1
+ladydragon_light_03_eye_r_01
+  rotate: false
+  xy: 488, 9
+  size: 17, 14
+  orig: 17, 14
+  offset: 0, 0
+  index: -1
+ladydragon_light_03_eye_r_02
+  rotate: false
+  xy: 866, 37
+  size: 10, 18
+  orig: 10, 18
+  offset: 0, 0
+  index: -1
+ladydragon_light_03_eye_r_03
+  rotate: false
+  xy: 85, 17
+  size: 12, 18
+  orig: 12, 18
+  offset: 0, 0
+  index: -1
+ladydragon_light_03_hair_01
+  rotate: false
+  xy: 372, 58
+  size: 114, 98
+  orig: 114, 98
+  offset: 0, 0
+  index: -1
+ladydragon_light_03_hair_02
+  rotate: false
+  xy: 697, 76
+  size: 89, 70
+  orig: 89, 70
+  offset: 0, 0
+  index: -1
+ladydragon_light_03_hair_04
+  rotate: true
+  xy: 630, 238
+  size: 29, 234
+  orig: 29, 234
+  offset: 0, 0
+  index: -1
+ladydragon_light_03_hair_06
+  rotate: false
+  xy: 830, 157
+  size: 50, 79
+  orig: 50, 79
+  offset: 0, 0
+  index: -1
+ladydragon_light_03_hair_07
+  rotate: true
+  xy: 599, 25
+  size: 82, 85
+  orig: 82, 85
+  offset: 0, 0
+  index: -1
+ladydragon_light_03_hair_08
+  rotate: false
+  xy: 232, 2
+  size: 152, 54
+  orig: 152, 54
+  offset: 0, 0
+  index: -1
+ladydragon_light_03_hair_09
+  rotate: false
+  xy: 488, 25
+  size: 109, 131
+  orig: 109, 131
+  offset: 0, 0
+  index: -1
+ladydragon_light_03_hair_10
+  rotate: true
+  xy: 372, 158
+  size: 57, 224
+  orig: 57, 224
+  offset: 0, 0
+  index: -1
+ladydragon_light_03_hand_01
+  rotate: false
+  xy: 788, 84
+  size: 40, 62
+  orig: 40, 62
+  offset: 0, 0
+  index: -1
+ladydragon_light_03_head_01
+  rotate: false
+  xy: 732, 148
+  size: 96, 88
+  orig: 96, 88
+  offset: 0, 0
+  index: -1
+ladydragon_light_03_leg_01
+  rotate: true
+  xy: 386, 7
+  size: 49, 100
+  orig: 49, 100
+  offset: 0, 0
+  index: -1
+ladydragon_light_03_mouth_01
+  rotate: false
+  xy: 866, 251
+  size: 18, 16
+  orig: 18, 16
+  offset: 0, 0
+  index: -1
+ladydragon_light_03_tail_01
+  rotate: false
+  xy: 372, 217
+  size: 256, 50
+  orig: 256, 50
+  offset: 0, 0
+  index: -1
+ladydragon_light_03_wing_01
+  rotate: false
+  xy: 599, 109
+  size: 96, 78
+  orig: 96, 78
+  offset: 0, 0
+  index: -1

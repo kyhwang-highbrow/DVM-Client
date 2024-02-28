@@ -1,0 +1,180 @@
+{
+    "difficult":2,
+    "bg":"map_nightmare",
+	"wave":
+	[
+        {
+            "idx":1,
+			"camera":
+            {
+                "scale":0.9,
+                "pos_x":0,
+                "pos_y":0
+            },
+            "wave":
+            {
+				0:
+				[
+					"130022;1;Appear;RO03;RF13;0.5;t1"
+				],
+				
+				0.2:
+				[
+					"130022;1;Appear;RO01;RF21;0.5;t1"
+				],
+				
+				0.4:
+				[
+					"130022;1;Appear;RO03;RM13;0.5;t1"
+				],
+				
+				0.6:
+				[
+					"130022;1;Appear;RO05;RM25;0.5;t2"
+				],
+				
+				0.8:
+				[
+					"130022;1;Appear;RO07;RB17;0.5;t2"
+				],
+				
+				1:
+				[
+					"130022;1;Appear;RO05;RB25;0.5;t2"
+				]
+            }
+        },
+        {
+            "idx":2,
+			"camera":
+            {
+                "scale":0.9,
+                "pos_x":0,
+                "pos_y":0
+            },
+            "wave":
+            {
+                0:
+				[
+					"130032;1;Appear;RO03;RF13;0.5;t3"
+				],
+				
+				0.2:
+				[
+					"130032;1;Appear;RO01;RF21;0.5;t3"
+				],
+				
+				0.4:
+				[
+					"130032;1;Appear;RO03;RM13;0.5;t3"
+				],
+				
+				0.6:
+				[
+					"130042;1;Appear;RO05;RM25;0.5;t4"
+				],
+				
+				0.8:
+				[
+					"130042;1;Appear;RO07;RB17;0.5;t4"
+				],
+				
+				1:
+				[
+					"130042;1;Appear;RO05;RB25;0.5;t4"
+				]
+            }
+        },
+		
+        {
+            "idx":3,
+			"camera":
+            {
+                "scale":0.6,
+                "pos_x":0,
+                "pos_y":0
+            },
+            "direction":"boss_wave",
+            "wave":
+            {
+				0:
+				[
+					"136022;1;Basic;BOSS;RM24;2"
+				]
+            },
+			
+			"regen":
+			[
+				{
+					1:
+					[
+					]
+				}
+			]
+        }
+    ],
+	
+	"move":
+	{
+		"t1":
+		[
+			[
+				"triangle_ft_1;2", "triangle_ft_2;2", "triangle_ft_3;2",
+				"triangle_ft_1;2", "triangle_ft_2;2", "triangle_ft_3;2",
+				"triangle_bt_1;2", "triangle_bt_2;2", "triangle_bt_3;2",
+				"triangle_bt_1;2", "triangle_bt_2;2", "triangle_bt_3;2"
+			]
+		],
+		
+		"t2":
+		[
+			[
+				"triangle_bb_1;2", "triangle_bb_2;2", "triangle_bb_3;2",
+				"triangle_bb_1;2", "triangle_bb_2;2", "triangle_bb_3;2",
+				"triangle_fb_1;2", "triangle_fb_2;2", "triangle_fb_3;2",
+				"triangle_fb_1;2", "triangle_fb_2;2", "triangle_fb_3;2"
+			]
+		],
+		
+		"t3":
+		[
+			[
+				"triangle_ft_1;2", "triangle_ft_2;2", "triangle_ft_3;2",
+				"triangle_ft_1;2", "triangle_ft_2;2", "triangle_ft_3;2",
+				"triangle_bt_1;2", "triangle_bt_2;2", "triangle_bt_3;2",
+				"triangle_bt_1;2", "triangle_bt_2;2", "triangle_bt_3;2",
+				"triangle_bb_1;2", "triangle_bb_2;2", "triangle_bb_3;2",
+				"triangle_bb_1;2", "triangle_bb_2;2", "triangle_bb_3;2",
+				"triangle_fb_1;2", "triangle_fb_2;2", "triangle_fb_3;2",
+				"triangle_fb_1;2", "triangle_fb_2;2", "triangle_fb_3;2"
+			]
+		],
+		
+		"t4":
+		[
+			[
+				"triangle_bb_1;2", "triangle_bb_2;2", "triangle_bb_3;2",
+				"triangle_bb_1;2", "triangle_bb_2;2", "triangle_bb_3;2",
+				"triangle_fb_1;2", "triangle_fb_2;2", "triangle_fb_3;2",
+				"triangle_fb_1;2", "triangle_fb_2;2", "triangle_fb_3;2",
+				"triangle_ft_1;2", "triangle_ft_2;2", "triangle_ft_3;2",
+				"triangle_ft_1;2", "triangle_ft_2;2", "triangle_ft_3;2",
+				"triangle_bt_1;2", "triangle_bt_2;2", "triangle_bt_3;2",
+				"triangle_bt_1;2", "triangle_bt_2;2", "triangle_bt_3;2"
+			]
+		],
+		
+		2:
+		[
+			[
+				"wait;7",
+				"RM14;1.5",
+				"move_39;1.5", "wait;10",
+				"RM14;1.5",
+				"move_40;1.5", "wait;10",
+				"RM14;1.5", "c3_s8_2;1.5",
+				"wait;3"
+			]
+		]
+	}
+}

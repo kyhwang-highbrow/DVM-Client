@@ -1,0 +1,10 @@
+page,bg,illustration,char,t_char_name,char_pos,char_ani,char_effect,r_scen,t_text,text_pos,text_type,auto_skip,effect_1,effect_2,effect_3,bgm,bgm_action,sound
+1,,,,,,,,,,,,3,title;진정한 힘을 향하여,skip_disable,,,,
+2,,,,,,,,,,,,0.3,skip_disable,,,,,
+3,,,,,,,,,이 의문이야말로 자신이 넘어야 할 진정한 시련이었다.,,narrate,5,,,,,,
+4,,,,,,,,,파워드래곤은 시련의 열쇠를 찾기 위해 땅 위에 섰다.,,narrate,5,,,,,,
+5,파워드래곤스토리4_2,,,,,,,,땅에서부터 피어오른 기운은 파워드래곤에게 점차 스며들었다.,,bold,5,,,,,,
+6,,,,,,,,,공명이 이루어지는 순간이었다.,,bold,5,,,,,,
+7,,,,,,,,,"파워드래곤은 생명의 근원이 보여주는 자신의 과거, 현재, 미래의 모습을 바라보았다.",,bold,5,,,,,,
+8,,,,,,,,,그중 미래의 모습이 자신을 향해 다가오고 있었다.,,bold,5,,,,,,
+9,,,,,,,,,미래의 모습은 흐릿했으나 점차 선명해졌다.,,bold,5,,,,,,

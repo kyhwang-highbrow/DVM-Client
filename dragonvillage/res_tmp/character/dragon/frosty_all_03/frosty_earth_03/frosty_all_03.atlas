@@ -1,0 +1,363 @@
+
+frosty_all_03.png
+size: 1000,523
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+effect_frosty_all_03_eff_01
+  rotate: false
+  xy: 382, 234
+  size: 154, 65
+  orig: 154, 65
+  offset: 0, 0
+  index: -1
+effect_frosty_all_03_eff_02
+  rotate: false
+  xy: 580, 103
+  size: 87, 129
+  orig: 87, 129
+  offset: 0, 0
+  index: -1
+effect_frosty_all_03_eff_03
+  rotate: false
+  xy: 899, 73
+  size: 43, 56
+  orig: 43, 56
+  offset: 0, 0
+  index: -1
+effect_frosty_all_03_eff_04
+  rotate: true
+  xy: 741, 232
+  size: 79, 77
+  orig: 79, 77
+  offset: 0, 0
+  index: -1
+effect_frosty_all_03_eff_05
+  rotate: true
+  xy: 801, 107
+  size: 86, 90
+  orig: 86, 90
+  offset: 0, 0
+  index: -1
+effect_frosty_all_03_eff_06
+  rotate: false
+  xy: 81, 9
+  size: 84, 14
+  orig: 84, 14
+  offset: 0, 0
+  index: -1
+effect_frosty_all_03_eff_07
+  rotate: false
+  xy: 2, 215
+  size: 174, 306
+  orig: 174, 306
+  offset: 0, 0
+  index: -1
+effect_frosty_all_03_eff_won
+  rotate: false
+  xy: 382, 301
+  size: 212, 220
+  orig: 212, 220
+  offset: 0, 0
+  index: -1
+effect_frosty_all_03_stone_01
+  rotate: false
+  xy: 801, 204
+  size: 15, 26
+  orig: 15, 26
+  offset: 0, 0
+  index: -1
+effect_frosty_all_03_stone_02
+  rotate: true
+  xy: 167, 2
+  size: 18, 26
+  orig: 18, 26
+  offset: 0, 0
+  index: -1
+effect_frosty_all_03_stone_03
+  rotate: true
+  xy: 347, 42
+  size: 67, 147
+  orig: 67, 147
+  offset: 0, 0
+  index: -1
+effect_frosty_all_03_stone_04
+  rotate: true
+  xy: 820, 256
+  size: 95, 106
+  orig: 95, 106
+  offset: 0, 0
+  index: -1
+effect_frosty_all_03_stone_05
+  rotate: false
+  xy: 772, 14
+  size: 71, 91
+  orig: 71, 91
+  offset: 0, 0
+  index: -1
+effect_frosty_all_03_stone_07
+  rotate: false
+  xy: 928, 352
+  size: 66, 169
+  orig: 66, 169
+  offset: 0, 0
+  index: -1
+effect_frosty_all_03_stone_08
+  rotate: false
+  xy: 741, 313
+  size: 77, 208
+  orig: 77, 208
+  offset: 0, 0
+  index: -1
+effect_frosty_all_03_stone_09
+  rotate: false
+  xy: 845, 16
+  size: 52, 89
+  orig: 52, 89
+  offset: 0, 0
+  index: -1
+effect_frosty_all_03_stone_11
+  rotate: false
+  xy: 928, 238
+  size: 67, 112
+  orig: 67, 112
+  offset: 0, 0
+  index: -1
+effect_frosty_all_03_stone_12
+  rotate: false
+  xy: 2, 4
+  size: 77, 209
+  orig: 77, 209
+  offset: 0, 0
+  index: -1
+effect_frosty_all_03_stone_13
+  rotate: false
+  xy: 737, 113
+  size: 62, 117
+  orig: 62, 117
+  offset: 0, 0
+  index: -1
+effect_frosty_all_03_stone_14
+  rotate: true
+  xy: 538, 234
+  size: 65, 126
+  orig: 65, 126
+  offset: 0, 0
+  index: -1
+effect_frosty_all_03_stone_15
+  rotate: false
+  xy: 669, 104
+  size: 66, 126
+  orig: 66, 126
+  offset: 0, 0
+  index: -1
+effect_frosty_all_03_stone_bright
+  rotate: false
+  xy: 596, 308
+  size: 143, 213
+  orig: 143, 213
+  offset: 0, 0
+  index: -1
+frosty_all_03_arm_01
+  rotate: true
+  xy: 178, 22
+  size: 34, 64
+  orig: 34, 64
+  offset: 0, 0
+  index: -1
+frosty_all_03_arm_02
+  rotate: false
+  xy: 951, 130
+  size: 32, 53
+  orig: 32, 53
+  offset: 0, 0
+  index: -1
+frosty_all_03_body_01
+  rotate: true
+  xy: 489, 111
+  size: 121, 89
+  orig: 121, 89
+  offset: 0, 0
+  index: -1
+frosty_all_03_bodyacc_01
+  rotate: false
+  xy: 893, 131
+  size: 56, 52
+  orig: 56, 52
+  offset: 0, 0
+  index: -1
+frosty_all_03_effect_lightdust
+  rotate: false
+  xy: 496, 2
+  size: 127, 99
+  orig: 127, 99
+  offset: 0, 0
+  index: -1
+frosty_all_03_eye_01
+  rotate: false
+  xy: 244, 32
+  size: 16, 24
+  orig: 16, 24
+  offset: 0, 0
+  index: -1
+frosty_all_03_eye_02
+  rotate: true
+  xy: 222, 5
+  size: 15, 16
+  orig: 15, 16
+  offset: 0, 0
+  index: -1
+frosty_all_03_eye_03
+  rotate: false
+  xy: 985, 176
+  size: 13, 20
+  orig: 13, 20
+  offset: 0, 0
+  index: -1
+frosty_all_03_eye_04
+  rotate: true
+  xy: 976, 198
+  size: 15, 22
+  orig: 15, 22
+  offset: 0, 0
+  index: -1
+frosty_all_03_eye_05
+  rotate: true
+  xy: 899, 23
+  size: 48, 38
+  orig: 48, 38
+  offset: 0, 0
+  index: -1
+frosty_all_03_eye_06
+  rotate: true
+  xy: 939, 2
+  size: 25, 26
+  orig: 25, 26
+  offset: 0, 0
+  index: -1
+frosty_all_03_eye_07
+  rotate: false
+  xy: 195, 5
+  size: 25, 15
+  orig: 25, 15
+  offset: 0, 0
+  index: -1
+frosty_all_03_eye_08
+  rotate: false
+  xy: 939, 29
+  size: 24, 29
+  orig: 24, 29
+  offset: 0, 0
+  index: -1
+frosty_all_03_eye_09
+  rotate: false
+  xy: 944, 95
+  size: 35, 33
+  orig: 35, 33
+  offset: 0, 0
+  index: -1
+frosty_all_03_eye_10
+  rotate: false
+  xy: 944, 60
+  size: 35, 33
+  orig: 35, 33
+  offset: 0, 0
+  index: -1
+frosty_all_03_head_01
+  rotate: false
+  xy: 347, 111
+  size: 140, 121
+  orig: 140, 121
+  offset: 0, 0
+  index: -1
+frosty_all_03_head_acc_01
+  rotate: false
+  xy: 976, 215
+  size: 22, 21
+  orig: 22, 21
+  offset: 0, 0
+  index: -1
+frosty_all_03_leg_01
+  rotate: false
+  xy: 705, 8
+  size: 65, 94
+  orig: 65, 94
+  offset: 0, 0
+  index: -1
+frosty_all_03_leg_02
+  rotate: false
+  xy: 666, 243
+  size: 61, 63
+  orig: 61, 63
+  offset: 0, 0
+  index: -1
+frosty_all_03_light_01
+  rotate: false
+  xy: 916, 185
+  size: 58, 51
+  orig: 58, 51
+  offset: 0, 0
+  index: -1
+frosty_all_03_mouth_01
+  rotate: true
+  xy: 347, 234
+  size: 23, 25
+  orig: 23, 25
+  offset: 0, 0
+  index: -1
+frosty_all_03_mouth_02
+  rotate: true
+  xy: 899, 2
+  size: 19, 16
+  orig: 19, 16
+  offset: 0, 0
+  index: -1
+frosty_all_03_tail_01
+  rotate: false
+  xy: 178, 259
+  size: 202, 262
+  orig: 202, 262
+  offset: 0, 0
+  index: -1
+frosty_all_03_wing_01
+  rotate: false
+  xy: 820, 353
+  size: 106, 168
+  orig: 106, 168
+  offset: 0, 0
+  index: -1
+frosty_all_03_wing_02
+  rotate: true
+  xy: 820, 195
+  size: 59, 94
+  orig: 59, 94
+  offset: 0, 0
+  index: -1
+frosty_all_03_wing_03
+  rotate: false
+  xy: 81, 25
+  size: 95, 188
+  orig: 95, 188
+  offset: 0, 0
+  index: -1
+frosty_all_03_wing_04
+  rotate: false
+  xy: 263, 68
+  size: 82, 189
+  orig: 82, 189
+  offset: 0, 0
+  index: -1
+frosty_all_03_wing_05
+  rotate: false
+  xy: 625, 5
+  size: 78, 96
+  orig: 78, 96
+  offset: 0, 0
+  index: -1
+frosty_all_03_wing_06
+  rotate: false
+  xy: 178, 58
+  size: 83, 199
+  orig: 83, 199
+  offset: 0, 0
+  index: -1

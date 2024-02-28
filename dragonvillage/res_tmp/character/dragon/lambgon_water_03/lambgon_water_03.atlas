@@ -1,0 +1,342 @@
+
+lambgon_water_03.png
+size: 1196,1039
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+lambgon_water_03_arm_01
+  rotate: true
+  xy: 997, 2
+  size: 36, 46
+  orig: 36, 46
+  offset: 0, 0
+  index: -1
+lambgon_water_03_arm_02
+  rotate: false
+  xy: 1138, 11
+  size: 42, 42
+  orig: 42, 42
+  offset: 0, 0
+  index: -1
+lambgon_water_03_body_01
+  rotate: false
+  xy: 2, 12
+  size: 126, 155
+  orig: 126, 155
+  offset: 0, 0
+  index: -1
+lambgon_water_03_body_02
+  rotate: false
+  xy: 738, 82
+  size: 129, 109
+  orig: 129, 109
+  offset: 0, 0
+  index: -1
+lambgon_water_03_effect_01
+  rotate: false
+  xy: 616, 71
+  size: 120, 120
+  orig: 120, 120
+  offset: 0, 0
+  index: -1
+lambgon_water_03_effect_03
+  rotate: false
+  xy: 1078, 4
+  size: 41, 34
+  orig: 41, 34
+  offset: 0, 0
+  index: -1
+lambgon_water_03_effect_05
+  rotate: false
+  xy: 616, 40
+  size: 30, 29
+  orig: 30, 29
+  offset: 0, 0
+  index: -1
+lambgon_water_03_effect_06
+  rotate: true
+  xy: 1079, 40
+  size: 60, 57
+  orig: 60, 57
+  offset: 0, 0
+  index: -1
+lambgon_water_03_effect_07
+  rotate: false
+  xy: 1114, 447
+  size: 41, 34
+  orig: 41, 34
+  offset: 0, 0
+  index: -1
+lambgon_water_03_effect_08
+  rotate: false
+  xy: 1138, 681
+  size: 41, 34
+  orig: 41, 34
+  offset: 0, 0
+  index: -1
+lambgon_water_03_effect_09
+  rotate: false
+  xy: 2, 749
+  size: 276, 288
+  orig: 276, 288
+  offset: 0, 0
+  index: -1
+lambgon_water_03_effect_10
+  rotate: false
+  xy: 2, 459
+  size: 276, 288
+  orig: 276, 288
+  offset: 0, 0
+  index: -1
+lambgon_water_03_effect_11
+  rotate: false
+  xy: 2, 169
+  size: 276, 288
+  orig: 276, 288
+  offset: 0, 0
+  index: -1
+lambgon_water_03_effect_12
+  rotate: false
+  xy: 280, 749
+  size: 276, 288
+  orig: 276, 288
+  offset: 0, 0
+  index: -1
+lambgon_water_03_effect_13
+  rotate: false
+  xy: 280, 459
+  size: 276, 288
+  orig: 276, 288
+  offset: 0, 0
+  index: -1
+lambgon_water_03_effect_14
+  rotate: false
+  xy: 280, 169
+  size: 276, 288
+  orig: 276, 288
+  offset: 0, 0
+  index: -1
+lambgon_water_03_effect_15
+  rotate: true
+  xy: 558, 761
+  size: 276, 288
+  orig: 276, 288
+  offset: 0, 0
+  index: -1
+lambgon_water_03_effect_16
+  rotate: true
+  xy: 848, 761
+  size: 276, 288
+  orig: 276, 288
+  offset: 0, 0
+  index: -1
+lambgon_water_03_effect_17
+  rotate: true
+  xy: 558, 483
+  size: 276, 288
+  orig: 276, 288
+  offset: 0, 0
+  index: -1
+lambgon_water_03_effect_18
+  rotate: false
+  xy: 558, 193
+  size: 276, 288
+  orig: 276, 288
+  offset: 0, 0
+  index: -1
+lambgon_water_03_effect_19
+  rotate: false
+  xy: 836, 193
+  size: 276, 288
+  orig: 276, 288
+  offset: 0, 0
+  index: -1
+lambgon_water_03_effect_20
+  rotate: true
+  xy: 848, 483
+  size: 276, 288
+  orig: 276, 288
+  offset: 0, 0
+  index: -1
+lambgon_water_03_eye_01
+  rotate: false
+  xy: 376, 5
+  size: 84, 33
+  orig: 84, 33
+  offset: 0, 0
+  index: -1
+lambgon_water_03_eye_02
+  rotate: false
+  xy: 462, 5
+  size: 84, 33
+  orig: 84, 33
+  offset: 0, 0
+  index: -1
+lambgon_water_03_eye_03
+  rotate: false
+  xy: 548, 5
+  size: 84, 33
+  orig: 84, 33
+  offset: 0, 0
+  index: -1
+lambgon_water_03_eye_04
+  rotate: true
+  xy: 1138, 776
+  size: 84, 33
+  orig: 84, 33
+  offset: 0, 0
+  index: -1
+lambgon_water_03_eye_05
+  rotate: false
+  xy: 1138, 646
+  size: 33, 33
+  orig: 33, 33
+  offset: 0, 0
+  index: -1
+lambgon_water_03_eye_06
+  rotate: true
+  xy: 648, 40
+  size: 29, 30
+  orig: 29, 30
+  offset: 0, 0
+  index: -1
+lambgon_water_03_foot_01
+  rotate: false
+  xy: 763, 7
+  size: 68, 73
+  orig: 68, 73
+  offset: 0, 0
+  index: -1
+lambgon_water_03_foot_02
+  rotate: false
+  xy: 833, 7
+  size: 68, 73
+  orig: 68, 73
+  offset: 0, 0
+  index: -1
+lambgon_water_03_hand_01
+  rotate: false
+  xy: 1138, 978
+  size: 53, 59
+  orig: 53, 59
+  offset: 0, 0
+  index: -1
+lambgon_water_03_hand_02
+  rotate: false
+  xy: 1138, 917
+  size: 53, 59
+  orig: 53, 59
+  offset: 0, 0
+  index: -1
+lambgon_water_03_head_01
+  rotate: false
+  xy: 1079, 102
+  size: 111, 89
+  orig: 111, 89
+  offset: 0, 0
+  index: -1
+lambgon_water_03_head_02
+  rotate: true
+  xy: 903, 2
+  size: 83, 92
+  orig: 83, 92
+  offset: 0, 0
+  index: -1
+lambgon_water_03_head_03
+  rotate: false
+  xy: 1138, 862
+  size: 54, 53
+  orig: 54, 53
+  offset: 0, 0
+  index: -1
+lambgon_water_03_head_04
+  rotate: false
+  xy: 869, 87
+  size: 103, 104
+  orig: 103, 104
+  offset: 0, 0
+  index: -1
+lambgon_water_03_head_05
+  rotate: false
+  xy: 974, 87
+  size: 103, 104
+  orig: 103, 104
+  offset: 0, 0
+  index: -1
+lambgon_water_03_head_06
+  rotate: false
+  xy: 1138, 55
+  size: 56, 45
+  orig: 56, 45
+  offset: 0, 0
+  index: -1
+lambgon_water_03_head_07
+  rotate: false
+  xy: 1045, 50
+  size: 31, 35
+  orig: 31, 35
+  offset: 0, 0
+  index: -1
+lambgon_water_03_head_08
+  rotate: false
+  xy: 1045, 13
+  size: 31, 35
+  orig: 31, 35
+  offset: 0, 0
+  index: -1
+lambgon_water_03_head_09
+  rotate: false
+  xy: 634, 3
+  size: 52, 35
+  orig: 52, 35
+  offset: 0, 0
+  index: -1
+lambgon_water_03_head_10
+  rotate: true
+  xy: 997, 43
+  size: 42, 35
+  orig: 42, 35
+  offset: 0, 0
+  index: -1
+lambgon_water_03_leg_01
+  rotate: true
+  xy: 688, 8
+  size: 61, 73
+  orig: 61, 73
+  offset: 0, 0
+  index: -1
+lambgon_water_03_leg_02
+  rotate: false
+  xy: 1138, 717
+  size: 47, 57
+  orig: 47, 57
+  offset: 0, 0
+  index: -1
+lambgon_water_03_weapon_01
+  rotate: false
+  xy: 376, 40
+  size: 118, 127
+  orig: 118, 127
+  offset: 0, 0
+  index: -1
+lambgon_water_03_weapon_02
+  rotate: false
+  xy: 496, 40
+  size: 118, 127
+  orig: 118, 127
+  offset: 0, 0
+  index: -1
+lambgon_water_03_wing_01
+  rotate: true
+  xy: 130, 20
+  size: 147, 121
+  orig: 147, 121
+  offset: 0, 0
+  index: -1
+lambgon_water_03_wing_02
+  rotate: true
+  xy: 253, 20
+  size: 147, 121
+  orig: 147, 121
+  offset: 0, 0
+  index: -1

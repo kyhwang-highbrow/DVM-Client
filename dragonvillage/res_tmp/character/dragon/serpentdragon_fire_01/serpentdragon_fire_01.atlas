@@ -1,0 +1,90 @@
+
+serpentdragon_fire_01.png
+size: 583,235
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+serpentdragon_fire_01_body_01
+  rotate: true
+  xy: 2, 2
+  size: 231, 277
+  orig: 231, 277
+  offset: 0, 0
+  index: -1
+serpentdragon_fire_01_body_02
+  rotate: true
+  xy: 281, 74
+  size: 159, 176
+  orig: 159, 176
+  offset: 0, 0
+  index: -1
+serpentdragon_fire_01_eye_01
+  rotate: true
+  xy: 425, 13
+  size: 26, 25
+  orig: 26, 25
+  offset: 0, 0
+  index: -1
+serpentdragon_fire_01_eye_02
+  rotate: false
+  xy: 452, 13
+  size: 26, 25
+  orig: 26, 25
+  offset: 0, 0
+  index: -1
+serpentdragon_fire_01_eye_03
+  rotate: false
+  xy: 574, 49
+  size: 2, 2
+  orig: 2, 2
+  offset: 0, 0
+  index: -1
+serpentdragon_fire_01_head_01
+  rotate: true
+  xy: 459, 114
+  size: 119, 113
+  orig: 119, 113
+  offset: 0, 0
+  index: -1
+serpentdragon_fire_01_head_02
+  rotate: false
+  xy: 425, 41
+  size: 31, 31
+  orig: 31, 31
+  offset: 0, 0
+  index: -1
+serpentdragon_fire_01_head_03
+  rotate: true
+  xy: 534, 53
+  size: 59, 47
+  orig: 59, 47
+  offset: 0, 0
+  index: -1
+serpentdragon_fire_01_head_06
+  rotate: false
+  xy: 355, 14
+  size: 68, 58
+  orig: 68, 58
+  offset: 0, 0
+  index: -1
+serpentdragon_fire_01_tail_01
+  rotate: true
+  xy: 534, 2
+  size: 49, 38
+  orig: 49, 38
+  offset: 0, 0
+  index: -1
+serpentdragon_fire_01_wing_01
+  rotate: false
+  xy: 459, 40
+  size: 73, 72
+  orig: 73, 72
+  offset: 0, 0
+  index: -1
+serpentdragon_fire_01_wing_02
+  rotate: true
+  xy: 281, 8
+  size: 64, 72
+  orig: 64, 72
+  offset: 0, 0
+  index: -1

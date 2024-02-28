@@ -1,0 +1,370 @@
+
+spiral_earth_02.png
+size: 1698,149
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+ef_02
+  rotate: true
+  xy: 158, 3
+  size: 24, 59
+  orig: 24, 59
+  offset: 0, 0
+  index: -1
+ef_03
+  rotate: false
+  xy: 1228, 12
+  size: 42, 43
+  orig: 42, 43
+  offset: 0, 0
+  index: -1
+ef_04
+  rotate: false
+  xy: 1182, 11
+  size: 44, 44
+  orig: 44, 44
+  offset: 0, 0
+  index: -1
+ef_05
+  rotate: false
+  xy: 407, 39
+  size: 80, 108
+  orig: 80, 108
+  offset: 0, 0
+  index: -1
+spiral_0
+  rotate: true
+  xy: 158, 29
+  size: 118, 96
+  orig: 118, 96
+  offset: 0, 0
+  index: -1
+spiral_1
+  rotate: true
+  xy: 566, 41
+  size: 106, 96
+  orig: 106, 96
+  offset: 0, 0
+  index: -1
+spiral_2
+  rotate: false
+  xy: 899, 51
+  size: 68, 96
+  orig: 68, 96
+  offset: 0, 0
+  index: -1
+spiral_3
+  rotate: true
+  xy: 507, 2
+  size: 36, 96
+  orig: 36, 96
+  offset: 0, 0
+  index: -1
+spiral_4
+  rotate: true
+  xy: 635, 3
+  size: 36, 96
+  orig: 36, 96
+  offset: 0, 0
+  index: -1
+spiral_5
+  rotate: false
+  xy: 969, 51
+  size: 68, 96
+  orig: 68, 96
+  offset: 0, 0
+  index: -1
+spiral_6
+  rotate: true
+  xy: 664, 41
+  size: 106, 96
+  orig: 106, 96
+  offset: 0, 0
+  index: -1
+spiral_earth_02_arm_l_01
+  rotate: true
+  xy: 1129, 2
+  size: 49, 51
+  orig: 49, 51
+  offset: 0, 0
+  index: -1
+spiral_earth_02_arm_l_02
+  rotate: false
+  xy: 897, 10
+  size: 42, 33
+  orig: 42, 33
+  offset: 0, 0
+  index: -1
+spiral_earth_02_arm_l_03
+  rotate: true
+  xy: 1272, 23
+  size: 32, 28
+  orig: 32, 28
+  offset: 0, 0
+  index: -1
+spiral_earth_02_arm_r_01
+  rotate: false
+  xy: 941, 2
+  size: 47, 47
+  orig: 47, 47
+  offset: 0, 0
+  index: -1
+spiral_earth_02_arm_r_02
+  rotate: true
+  xy: 605, 2
+  size: 37, 28
+  orig: 37, 28
+  offset: 0, 0
+  index: -1
+spiral_earth_02_arm_r_03
+  rotate: false
+  xy: 219, 4
+  size: 30, 23
+  orig: 30, 23
+  offset: 0, 0
+  index: -1
+spiral_earth_02_body_01
+  rotate: false
+  xy: 2, 19
+  size: 154, 128
+  orig: 154, 128
+  offset: 0, 0
+  index: -1
+spiral_earth_02_ef_01
+  rotate: true
+  xy: 1439, 2
+  size: 58, 57
+  orig: 58, 57
+  offset: 0, 0
+  index: -1
+spiral_earth_02_eye_01
+  rotate: false
+  xy: 296, 2
+  size: 40, 32
+  orig: 40, 32
+  offset: 0, 0
+  index: -1
+spiral_earth_02_eye_02
+  rotate: false
+  xy: 338, 2
+  size: 40, 32
+  orig: 40, 32
+  offset: 0, 0
+  index: -1
+spiral_earth_02_eye_03
+  rotate: false
+  xy: 380, 2
+  size: 40, 32
+  orig: 40, 32
+  offset: 0, 0
+  index: -1
+spiral_earth_02_face_01
+  rotate: false
+  xy: 256, 36
+  size: 149, 111
+  orig: 149, 111
+  offset: 0, 0
+  index: -1
+spiral_earth_02_face_02
+  rotate: true
+  xy: 1562, 12
+  size: 66, 61
+  orig: 66, 61
+  offset: 0, 0
+  index: -1
+spiral_earth_02_face_03
+  rotate: false
+  xy: 1302, 25
+  size: 75, 30
+  orig: 75, 30
+  offset: 0, 0
+  index: -1
+spiral_earth_02_font_01
+  rotate: true
+  xy: 1039, 51
+  size: 96, 57
+  orig: 96, 57
+  offset: 0, 0
+  index: -1
+spiral_earth_02_font_02
+  rotate: true
+  xy: 762, 43
+  size: 104, 64
+  orig: 104, 64
+  offset: 0, 0
+  index: -1
+spiral_earth_02_font_03
+  rotate: false
+  xy: 1164, 57
+  size: 82, 90
+  orig: 82, 90
+  offset: 0, 0
+  index: -1
+spiral_earth_02_font_04
+  rotate: false
+  xy: 1248, 57
+  size: 82, 90
+  orig: 82, 90
+  offset: 0, 0
+  index: -1
+spiral_earth_02_gear_f_01
+  rotate: false
+  xy: 471, 3
+  size: 34, 34
+  orig: 34, 34
+  offset: 0, 0
+  index: -1
+spiral_earth_02_gear_l_01
+  rotate: false
+  xy: 1625, 21
+  size: 28, 29
+  orig: 28, 29
+  offset: 0, 0
+  index: -1
+spiral_earth_02_leg_l_01
+  rotate: false
+  xy: 828, 45
+  size: 69, 102
+  orig: 69, 102
+  offset: 0, 0
+  index: -1
+spiral_earth_02_leg_l_02
+  rotate: false
+  xy: 733, 3
+  size: 60, 36
+  orig: 60, 36
+  offset: 0, 0
+  index: -1
+spiral_earth_02_leg_l_03
+  rotate: false
+  xy: 1332, 59
+  size: 74, 88
+  orig: 74, 88
+  offset: 0, 0
+  index: -1
+spiral_earth_02_leg_r_01
+  rotate: false
+  xy: 1098, 53
+  size: 64, 94
+  orig: 64, 94
+  offset: 0, 0
+  index: -1
+spiral_earth_02_leg_r_02
+  rotate: false
+  xy: 1625, 52
+  size: 54, 29
+  orig: 54, 29
+  offset: 0, 0
+  index: -1
+spiral_earth_02_leg_r_03
+  rotate: false
+  xy: 1408, 62
+  size: 65, 85
+  orig: 65, 85
+  offset: 0, 0
+  index: -1
+spiral_earth_02_mouth_01
+  rotate: true
+  xy: 489, 40
+  size: 107, 75
+  orig: 107, 75
+  offset: 0, 0
+  index: -1
+spiral_earth_02_neck_01
+  rotate: true
+  xy: 1612, 83
+  size: 64, 60
+  orig: 64, 60
+  offset: 0, 0
+  index: -1
+spiral_earth_02_neck_02
+  rotate: true
+  xy: 1548, 80
+  size: 67, 62
+  orig: 67, 62
+  offset: 0, 0
+  index: -1
+spiral_earth_02_neck_03
+  rotate: true
+  xy: 1498, 2
+  size: 71, 62
+  orig: 71, 62
+  offset: 0, 0
+  index: -1
+spiral_earth_02_tail_01
+  rotate: true
+  xy: 1475, 75
+  size: 72, 71
+  orig: 72, 71
+  offset: 0, 0
+  index: -1
+spiral_earth_02_tail_02
+  rotate: true
+  xy: 1379, 3
+  size: 54, 58
+  orig: 54, 58
+  offset: 0, 0
+  index: -1
+spiral_earth_02_tail_03
+  rotate: true
+  xy: 990, 3
+  size: 46, 52
+  orig: 46, 52
+  offset: 0, 0
+  index: -1
+spiral_earth_02_tail_04
+  rotate: true
+  xy: 422, 3
+  size: 34, 47
+  orig: 34, 47
+  offset: 0, 0
+  index: -1
+spiral_earth_02_tail_05
+  rotate: true
+  xy: 251, 5
+  size: 22, 43
+  orig: 22, 43
+  offset: 0, 0
+  index: -1
+spiral_earth_02_wing_l_01
+  rotate: false
+  xy: 795, 2
+  size: 56, 39
+  orig: 56, 39
+  offset: 0, 0
+  index: -1
+spiral_earth_02_wing_l_02
+  rotate: true
+  xy: 1044, 3
+  size: 46, 31
+  orig: 46, 31
+  offset: 0, 0
+  index: -1
+spiral_earth_02_wing_l_03
+  rotate: true
+  xy: 1655, 24
+  size: 26, 28
+  orig: 26, 28
+  offset: 0, 0
+  index: -1
+spiral_earth_02_wing_r_01
+  rotate: true
+  xy: 1077, 4
+  size: 45, 50
+  orig: 45, 50
+  offset: 0, 0
+  index: -1
+spiral_earth_02_wing_r_02
+  rotate: false
+  xy: 853, 4
+  size: 42, 39
+  orig: 42, 39
+  offset: 0, 0
+  index: -1
+spiral_earth_02_wing_r_03
+  rotate: false
+  xy: 1674, 125
+  size: 22, 22
+  orig: 22, 22
+  offset: 0, 0
+  index: -1

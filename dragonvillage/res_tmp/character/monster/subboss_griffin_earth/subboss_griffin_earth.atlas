@@ -1,0 +1,202 @@
+
+subboss_griffin_earth.png
+size: 2048,512
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+subboss_griffin_earth_arm_01
+  rotate: false
+  xy: 1762, 360
+  size: 113, 150
+  orig: 113, 150
+  offset: 0, 0
+  index: -1
+subboss_griffin_earth_arm_02
+  rotate: true
+  xy: 491, 2
+  size: 65, 86
+  orig: 65, 86
+  offset: 0, 0
+  index: -1
+subboss_griffin_earth_body_01
+  rotate: false
+  xy: 286, 136
+  size: 113, 114
+  orig: 113, 114
+  offset: 0, 0
+  index: -1
+subboss_griffin_earth_body_02
+  rotate: false
+  xy: 1456, 360
+  size: 151, 150
+  orig: 151, 150
+  offset: 0, 0
+  index: -1
+subboss_griffin_earth_effect_01
+  rotate: false
+  xy: 314, 342
+  size: 328, 168
+  orig: 328, 168
+  offset: 0, 0
+  index: -1
+subboss_griffin_earth_effect_02
+  rotate: false
+  xy: 644, 360
+  size: 292, 150
+  orig: 292, 150
+  offset: 0, 0
+  index: -1
+subboss_griffin_earth_effect_03
+  rotate: false
+  xy: 2, 279
+  size: 310, 231
+  orig: 310, 231
+  offset: 0, 0
+  index: -1
+subboss_griffin_earth_effect_04
+  rotate: false
+  xy: 1877, 360
+  size: 33, 32
+  orig: 33, 32
+  offset: 0, 0
+  index: -1
+subboss_griffin_earth_eye_01
+  rotate: false
+  xy: 90, 18
+  size: 62, 55
+  orig: 62, 55
+  offset: 0, 0
+  index: -1
+subboss_griffin_earth_finger_01
+  rotate: false
+  xy: 2006, 467
+  size: 38, 43
+  orig: 38, 43
+  offset: 0, 0
+  index: -1
+subboss_griffin_earth_finger_02
+  rotate: false
+  xy: 592, 297
+  size: 38, 43
+  orig: 38, 43
+  offset: 0, 0
+  index: -1
+subboss_griffin_earth_foot_01
+  rotate: false
+  xy: 408, 51
+  size: 81, 106
+  orig: 81, 106
+  offset: 0, 0
+  index: -1
+subboss_griffin_earth_foot_02
+  rotate: true
+  xy: 579, 2
+  size: 65, 86
+  orig: 65, 86
+  offset: 0, 0
+  index: -1
+subboss_griffin_earth_hand_01
+  rotate: true
+  xy: 401, 159
+  size: 91, 120
+  orig: 91, 120
+  offset: 0, 0
+  index: -1
+subboss_griffin_earth_hand_02
+  rotate: true
+  xy: 286, 43
+  size: 91, 120
+  orig: 91, 120
+  offset: 0, 0
+  index: -1
+subboss_griffin_earth_head_01
+  rotate: false
+  xy: 1609, 360
+  size: 151, 150
+  orig: 151, 150
+  offset: 0, 0
+  index: -1
+subboss_griffin_earth_head_02
+  rotate: false
+  xy: 1877, 394
+  size: 127, 116
+  orig: 127, 116
+  offset: 0, 0
+  index: -1
+subboss_griffin_earth_head_03
+  rotate: true
+  xy: 2, 8
+  size: 65, 86
+  orig: 65, 86
+  offset: 0, 0
+  index: -1
+subboss_griffin_earth_leg_01
+  rotate: true
+  xy: 523, 159
+  size: 91, 88
+  orig: 91, 88
+  offset: 0, 0
+  index: -1
+subboss_griffin_earth_leg_02
+  rotate: false
+  xy: 491, 69
+  size: 91, 88
+  orig: 91, 88
+  offset: 0, 0
+  index: -1
+subboss_griffin_earth_mouth_01
+  rotate: false
+  xy: 1456, 278
+  size: 91, 80
+  orig: 91, 80
+  offset: 0, 0
+  index: -1
+subboss_griffin_earth_mouth_02
+  rotate: false
+  xy: 408, 2
+  size: 52, 47
+  orig: 52, 47
+  offset: 0, 0
+  index: -1
+subboss_griffin_earth_tail_01
+  rotate: false
+  xy: 314, 252
+  size: 137, 88
+  orig: 137, 88
+  offset: 0, 0
+  index: -1
+subboss_griffin_earth_tail_02
+  rotate: false
+  xy: 453, 252
+  size: 137, 88
+  orig: 137, 88
+  offset: 0, 0
+  index: -1
+subboss_griffin_earth_wing_01
+  rotate: false
+  xy: 2, 75
+  size: 282, 202
+  orig: 282, 202
+  offset: 0, 0
+  index: -1
+subboss_griffin_earth_wing_02
+  rotate: false
+  xy: 938, 308
+  size: 208, 202
+  orig: 208, 202
+  offset: 0, 0
+  index: -1
+subboss_griffin_earth_wing_a
+  rotate: false
+  xy: 1148, 308
+  size: 152, 202
+  orig: 152, 202
+  offset: 0, 0
+  index: -1
+subboss_griffin_earth_wing_b
+  rotate: false
+  xy: 1302, 308
+  size: 152, 202
+  orig: 152, 202
+  offset: 0, 0
+  index: -1

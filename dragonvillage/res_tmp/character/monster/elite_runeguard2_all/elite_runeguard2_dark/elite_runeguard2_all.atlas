@@ -1,0 +1,118 @@
+
+elite_runeguard2_all.png
+size: 1941,1292
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+elite_runeguard2_all_arm
+  rotate: true
+  xy: 1549, 41
+  size: 153, 183
+  orig: 153, 183
+  offset: 0, 0
+  index: -1
+elite_runeguard2_all_backeffect
+  rotate: false
+  xy: 2, 2
+  size: 559, 561
+  orig: 559, 561
+  offset: 0, 0
+  index: -1
+elite_runeguard2_all_effect01
+  rotate: true
+  xy: 954, 78
+  size: 261, 354
+  orig: 261, 354
+  offset: 0, 0
+  index: -1
+elite_runeguard2_all_face
+  rotate: true
+  xy: 563, 41
+  size: 298, 389
+  orig: 298, 389
+  offset: 0, 0
+  index: -1
+elite_runeguard2_all_faceeffect
+  rotate: false
+  xy: 1310, 140
+  size: 237, 288
+  orig: 237, 288
+  offset: 0, 0
+  index: -1
+elite_runeguard2_all_mid
+  rotate: false
+  xy: 1734, 26
+  size: 191, 173
+  orig: 191, 173
+  offset: 0, 0
+  index: -1
+elite_runeguard2_all_pointeffect01
+  rotate: true
+  xy: 479, 613
+  size: 86, 77
+  orig: 86, 77
+  offset: 0, 0
+  index: -1
+elite_runeguard2_all_pointeffect02
+  rotate: false
+  xy: 479, 701
+  size: 657, 167
+  orig: 657, 167
+  offset: 0, 0
+  index: -1
+elite_runeguard2_all_shoulder01
+  rotate: false
+  xy: 1549, 196
+  size: 154, 232
+  orig: 154, 232
+  offset: 0, 0
+  index: -1
+elite_runeguard2_all_shoulder02
+  rotate: false
+  xy: 1705, 201
+  size: 162, 229
+  orig: 162, 229
+  offset: 0, 0
+  index: -1
+elite_runeguard2_all_skill01
+  rotate: true
+  xy: 563, 341
+  size: 358, 723
+  orig: 358, 723
+  offset: 0, 0
+  index: -1
+elite_runeguard2_all_skill02
+  rotate: true
+  xy: 479, 870
+  size: 420, 763
+  orig: 420, 763
+  offset: 0, 0
+  index: -1
+elite_runeguard2_all_stick
+  rotate: true
+  xy: 1244, 846
+  size: 444, 695
+  orig: 444, 695
+  offset: 0, 0
+  index: -1
+elite_runeguard2_all_stickeffect01
+  rotate: false
+  xy: 2, 565
+  size: 475, 725
+  orig: 475, 725
+  offset: 0, 0
+  index: -1
+elite_runeguard2_all_wing01
+  rotate: false
+  xy: 1288, 430
+  size: 365, 414
+  orig: 365, 414
+  offset: 0, 0
+  index: -1
+elite_runeguard2_all_wing02
+  rotate: false
+  xy: 1655, 432
+  size: 254, 412
+  orig: 254, 412
+  offset: 0, 0
+  index: -1

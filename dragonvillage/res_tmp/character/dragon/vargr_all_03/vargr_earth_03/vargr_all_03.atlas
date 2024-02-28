@@ -1,0 +1,447 @@
+
+vargr_all_03.png
+size: 1461,1041
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+effect_01
+  rotate: true
+  xy: 626, 22
+  size: 100, 144
+  orig: 100, 144
+  offset: 0, 0
+  index: -1
+effect_02
+  rotate: true
+  xy: 705, 583
+  size: 100, 144
+  orig: 100, 144
+  offset: 0, 0
+  index: -1
+effect_03
+  rotate: true
+  xy: 834, 695
+  size: 100, 144
+  orig: 100, 144
+  offset: 0, 0
+  index: -1
+effect_04
+  rotate: true
+  xy: 851, 593
+  size: 100, 144
+  orig: 100, 144
+  offset: 0, 0
+  index: -1
+effect_05
+  rotate: true
+  xy: 980, 705
+  size: 100, 144
+  orig: 100, 144
+  offset: 0, 0
+  index: -1
+effect_06
+  rotate: true
+  xy: 997, 603
+  size: 100, 144
+  orig: 100, 144
+  offset: 0, 0
+  index: -1
+effect_07
+  rotate: true
+  xy: 1126, 705
+  size: 100, 144
+  orig: 100, 144
+  offset: 0, 0
+  index: -1
+effect_08
+  rotate: false
+  xy: 1359, 683
+  size: 100, 144
+  orig: 100, 144
+  offset: 0, 0
+  index: -1
+effect_09
+  rotate: false
+  xy: 1143, 559
+  size: 100, 144
+  orig: 100, 144
+  offset: 0, 0
+  index: -1
+effect_10
+  rotate: false
+  xy: 1357, 537
+  size: 100, 144
+  orig: 100, 144
+  offset: 0, 0
+  index: -1
+effect_11
+  rotate: false
+  xy: 1245, 531
+  size: 100, 144
+  orig: 100, 144
+  offset: 0, 0
+  index: -1
+effect_12
+  rotate: false
+  xy: 1123, 413
+  size: 100, 144
+  orig: 100, 144
+  offset: 0, 0
+  index: -1
+effect_13
+  rotate: false
+  xy: 1347, 391
+  size: 100, 144
+  orig: 100, 144
+  offset: 0, 0
+  index: -1
+effect_14
+  rotate: true
+  xy: 1050, 150
+  size: 100, 144
+  orig: 100, 144
+  offset: 0, 0
+  index: -1
+effect_15
+  rotate: false
+  xy: 1346, 245
+  size: 100, 144
+  orig: 100, 144
+  offset: 0, 0
+  index: -1
+effect_stun_06
+  rotate: true
+  xy: 2, 3
+  size: 35, 33
+  orig: 35, 33
+  offset: 0, 0
+  index: -1
+effect_vargr_all_03_acceffect_01
+  rotate: true
+  xy: 1043, 894
+  size: 145, 213
+  orig: 145, 213
+  offset: 0, 0
+  index: -1
+effect_vargr_all_03_acceffect_02
+  rotate: true
+  xy: 297, 648
+  size: 147, 233
+  orig: 147, 233
+  offset: 0, 0
+  index: -1
+effect_vargr_all_03_acceffect_03
+  rotate: false
+  xy: 673, 127
+  size: 183, 207
+  orig: 183, 207
+  offset: 0, 0
+  index: -1
+effect_vargr_all_03_acceffect_04
+  rotate: true
+  xy: 858, 142
+  size: 222, 137
+  orig: 222, 137
+  offset: 0, 0
+  index: -1
+effect_vargr_all_03_sword_01
+  rotate: false
+  xy: 148, 648
+  size: 147, 391
+  orig: 147, 391
+  offset: 0, 0
+  index: -1
+effect_vargr_all_03_sword_02
+  rotate: false
+  xy: 2, 547
+  size: 144, 492
+  orig: 144, 492
+  offset: 0, 0
+  index: -1
+effect_vargr_light
+  rotate: false
+  xy: 475, 124
+  size: 196, 200
+  orig: 196, 200
+  offset: 0, 0
+  index: -1
+effect_vargr_slash
+  rotate: true
+  xy: 269, 49
+  size: 248, 204
+  orig: 248, 204
+  offset: 0, 0
+  index: -1
+vargr_all_03_acc_01
+  rotate: true
+  xy: 715, 797
+  size: 89, 157
+  orig: 89, 157
+  offset: 0, 0
+  index: -1
+vargr_all_03_acc_02
+  rotate: true
+  xy: 148, 556
+  size: 90, 184
+  orig: 90, 184
+  offset: 0, 0
+  index: -1
+vargr_all_03_acc_03
+  rotate: true
+  xy: 2, 40
+  size: 224, 265
+  orig: 224, 265
+  offset: 0, 0
+  index: -1
+vargr_all_03_acc_04
+  rotate: false
+  xy: 532, 685
+  size: 300, 110
+  orig: 300, 110
+  offset: 0, 0
+  index: -1
+vargr_all_03_arm_01
+  rotate: false
+  xy: 533, 571
+  size: 170, 112
+  orig: 170, 112
+  offset: 0, 0
+  index: -1
+vargr_all_03_arm_02
+  rotate: true
+  xy: 1272, 738
+  size: 78, 79
+  orig: 78, 79
+  offset: 0, 0
+  index: -1
+vargr_all_03_body_01
+  rotate: true
+  xy: 297, 797
+  size: 242, 207
+  orig: 242, 207
+  offset: 0, 0
+  index: -1
+vargr_all_03_body_011
+  rotate: true
+  xy: 506, 797
+  size: 242, 207
+  orig: 242, 207
+  offset: 0, 0
+  index: -1
+vargr_all_03_ear_01
+  rotate: true
+  xy: 1130, 811
+  size: 81, 118
+  orig: 81, 118
+  offset: 0, 0
+  index: -1
+vargr_all_03_ear_02
+  rotate: true
+  xy: 874, 807
+  size: 79, 126
+  orig: 79, 126
+  offset: 0, 0
+  index: -1
+vargr_all_03_eye_01
+  rotate: false
+  xy: 37, 4
+  size: 33, 34
+  orig: 33, 34
+  offset: 0, 0
+  index: -1
+vargr_all_03_fur_01
+  rotate: false
+  xy: 1249, 312
+  size: 95, 109
+  orig: 95, 109
+  offset: 0, 0
+  index: -1
+vargr_all_03_fur_02
+  rotate: false
+  xy: 475, 6
+  size: 149, 116
+  orig: 149, 116
+  offset: 0, 0
+  index: -1
+vargr_all_03_hair_01
+  rotate: false
+  xy: 1150, 27
+  size: 103, 121
+  orig: 103, 121
+  offset: 0, 0
+  index: -1
+vargr_all_03_hair_02
+  rotate: false
+  xy: 1249, 202
+  size: 91, 108
+  orig: 91, 108
+  offset: 0, 0
+  index: -1
+vargr_all_03_hair_03
+  rotate: true
+  xy: 772, 2
+  size: 123, 167
+  orig: 123, 167
+  offset: 0, 0
+  index: -1
+vargr_all_03_hair_04
+  rotate: true
+  xy: 1002, 807
+  size: 79, 126
+  orig: 79, 126
+  offset: 0, 0
+  index: -1
+vargr_all_03_hair_05
+  rotate: false
+  xy: 1225, 423
+  size: 117, 106
+  orig: 117, 106
+  offset: 0, 0
+  index: -1
+vargr_all_03_hair_06
+  rotate: true
+  xy: 808, 366
+  size: 215, 152
+  orig: 215, 152
+  offset: 0, 0
+  index: -1
+vargr_all_03_hand_01
+  rotate: false
+  xy: 1387, 829
+  size: 67, 94
+  orig: 67, 94
+  offset: 0, 0
+  index: -1
+vargr_all_03_hand_02
+  rotate: true
+  xy: 1250, 818
+  size: 74, 107
+  orig: 74, 107
+  offset: 0, 0
+  index: -1
+vargr_all_03_hand_03
+  rotate: false
+  xy: 639, 336
+  size: 167, 233
+  orig: 167, 233
+  offset: 0, 0
+  index: -1
+vargr_all_03_hand_04
+  rotate: true
+  xy: 941, 11
+  size: 129, 207
+  orig: 129, 207
+  offset: 0, 0
+  index: -1
+vargr_all_03_hand_05
+  rotate: false
+  xy: 1272, 677
+  size: 83, 59
+  orig: 83, 59
+  offset: 0, 0
+  index: -1
+vargr_all_03_head_01
+  rotate: true
+  xy: 962, 428
+  size: 163, 159
+  orig: 163, 159
+  offset: 0, 0
+  index: -1
+vargr_all_03_head_011
+  rotate: false
+  xy: 1084, 252
+  size: 163, 159
+  orig: 163, 159
+  offset: 0, 0
+  index: -1
+vargr_all_03_head_02
+  rotate: true
+  xy: 1255, 4
+  size: 102, 88
+  orig: 102, 88
+  offset: 0, 0
+  index: -1
+vargr_all_03_head_03
+  rotate: true
+  xy: 997, 210
+  size: 47, 51
+  orig: 47, 51
+  offset: 0, 0
+  index: -1
+vargr_all_03_horn_02
+  rotate: true
+  xy: 1387, 925
+  size: 114, 67
+  orig: 114, 67
+  offset: 0, 0
+  index: -1
+vargr_all_03_horn_03
+  rotate: false
+  xy: 962, 378
+  size: 120, 48
+  orig: 120, 48
+  offset: 0, 0
+  index: -1
+vargr_all_03_jaw_01
+  rotate: true
+  xy: 997, 313
+  size: 63, 76
+  orig: 63, 76
+  offset: 0, 0
+  index: -1
+vargr_all_03_jaw_02
+  rotate: false
+  xy: 997, 259
+  size: 54, 52
+  orig: 54, 52
+  offset: 0, 0
+  index: -1
+vargr_all_03_leg_01
+  rotate: true
+  xy: 334, 563
+  size: 83, 197
+  orig: 83, 197
+  offset: 0, 0
+  index: -1
+vargr_all_03_leg_02
+  rotate: false
+  xy: 1342, 108
+  size: 106, 135
+  orig: 106, 135
+  offset: 0, 0
+  index: -1
+vargr_all_03_neck_01
+  rotate: true
+  xy: 1258, 895
+  size: 144, 127
+  orig: 144, 127
+  offset: 0, 0
+  index: -1
+vargr_all_03_tail_01
+  rotate: true
+  xy: 248, 299
+  size: 255, 215
+  orig: 255, 215
+  offset: 0, 0
+  index: -1
+vargr_all_03_wing_01
+  rotate: true
+  xy: 2, 266
+  size: 279, 244
+  orig: 279, 244
+  offset: 0, 0
+  index: -1
+vargr_all_03_wing_02
+  rotate: true
+  xy: 465, 326
+  size: 235, 172
+  orig: 235, 172
+  offset: 0, 0
+  index: -1
+vargr_all_03_wing_03
+  rotate: false
+  xy: 715, 888
+  size: 326, 151
+  orig: 326, 151
+  offset: 0, 0
+  index: -1

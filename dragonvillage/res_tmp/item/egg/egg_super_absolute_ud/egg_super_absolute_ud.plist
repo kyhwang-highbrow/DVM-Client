@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+    <dict>
+        <key>frames</key>
+        <dict>
+            <key>egg_super_absolute_ud_src.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{0,2}</string>
+                <key>spriteSize</key>
+                <string>{712,603}</string>
+                <key>spriteSourceSize</key>
+                <string>{966,1215}</string>
+                <key>textureRect</key>
+                <string>{{1,1},{712,603}}</string>
+                <key>textureRotated</key>
+                <false/>
+            </dict>
+        </dict>
+        <key>metadata</key>
+        <dict>
+            <key>format</key>
+            <integer>3</integer>
+            <key>pixelFormat</key>
+            <string>RGBA8888</string>
+            <key>premultiplyAlpha</key>
+            <false/>
+            <key>realTextureFileName</key>
+            <string>egg_super_absolute_ud.png</string>
+            <key>size</key>
+            <string>{714,605}</string>
+            <key>smartupdate</key>
+            <string>$TexturePacker:SmartUpdate:a5d319b6004a5041237ef5c79cd9ac22:5f961321b179fabe40164d5ed7b49b9a:86dcb0002582ff9a56bcca0a1053755b$</string>
+            <key>textureFileName</key>
+            <string>egg_super_absolute_ud.png</string>
+        </dict>
+    </dict>
+</plist>

@@ -1,0 +1,181 @@
+
+spine_water_03.png
+size: 753,1045
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+spine_water_03_arm_01
+  rotate: true
+  xy: 635, 43
+  size: 89, 113
+  orig: 89, 113
+  offset: 0, 0
+  index: -1
+spine_water_03_arm_02
+  rotate: true
+  xy: 2, 3
+  size: 83, 105
+  orig: 83, 105
+  offset: 0, 0
+  index: -1
+spine_water_03_body_01
+  rotate: true
+  xy: 536, 318
+  size: 237, 202
+  orig: 237, 202
+  offset: 0, 0
+  index: -1
+spine_water_03_body_06
+  rotate: true
+  xy: 641, 884
+  size: 159, 98
+  orig: 159, 98
+  offset: 0, 0
+  index: -1
+spine_water_03_eff_01
+  rotate: false
+  xy: 372, 716
+  size: 267, 327
+  orig: 267, 327
+  offset: 0, 0
+  index: -1
+spine_water_03_effct_02
+  rotate: false
+  xy: 372, 557
+  size: 281, 157
+  orig: 281, 157
+  offset: 0, 0
+  index: -1
+spine_water_03_effct_02_1
+  rotate: true
+  xy: 210, 120
+  size: 234, 194
+  orig: 234, 194
+  offset: 0, 0
+  index: -1
+spine_water_03_effct_03
+  rotate: false
+  xy: 2, 809
+  size: 368, 234
+  orig: 368, 234
+  offset: 0, 0
+  index: -1
+spine_water_03_effct_04
+  rotate: false
+  xy: 2, 573
+  size: 368, 234
+  orig: 368, 234
+  offset: 0, 0
+  index: -1
+spine_water_03_eye_01
+  rotate: true
+  xy: 546, 2
+  size: 53, 54
+  orig: 53, 54
+  offset: 0, 0
+  index: -1
+spine_water_03_eye_02
+  rotate: false
+  xy: 336, 64
+  size: 53, 54
+  orig: 53, 54
+  offset: 0, 0
+  index: -1
+spine_water_03_hand_01
+  rotate: false
+  xy: 531, 183
+  size: 119, 133
+  orig: 119, 133
+  offset: 0, 0
+  index: -1
+spine_water_03_hand_02
+  rotate: false
+  xy: 641, 765
+  size: 105, 117
+  orig: 105, 117
+  offset: 0, 0
+  index: -1
+spine_water_03_head_01
+  rotate: false
+  xy: 406, 2
+  size: 138, 148
+  orig: 138, 148
+  offset: 0, 0
+  index: -1
+spine_water_03_leg_01
+  rotate: false
+  xy: 652, 192
+  size: 87, 124
+  orig: 87, 124
+  offset: 0, 0
+  index: -1
+spine_water_03_leg_02
+  rotate: false
+  xy: 546, 57
+  size: 87, 124
+  orig: 87, 124
+  offset: 0, 0
+  index: -1
+spine_water_03_leg_03
+  rotate: false
+  xy: 655, 639
+  size: 87, 124
+  orig: 87, 124
+  offset: 0, 0
+  index: -1
+spine_water_03_leg_04
+  rotate: true
+  xy: 210, 31
+  size: 87, 124
+  orig: 87, 124
+  offset: 0, 0
+  index: -1
+spine_water_03_mouth_01
+  rotate: false
+  xy: 655, 596
+  size: 77, 41
+  orig: 77, 41
+  offset: 0, 0
+  index: -1
+spine_water_03_wing_01
+  rotate: false
+  xy: 2, 356
+  size: 262, 215
+  orig: 262, 215
+  offset: 0, 0
+  index: -1
+spine_water_03_wing_02
+  rotate: false
+  xy: 406, 152
+  size: 123, 221
+  orig: 123, 221
+  offset: 0, 0
+  index: -1
+spine_water_03_wing_03
+  rotate: false
+  xy: 109, 30
+  size: 99, 56
+  orig: 99, 56
+  offset: 0, 0
+  index: -1
+spine_water_03_wing_04
+  rotate: true
+  xy: 2, 88
+  size: 266, 206
+  orig: 266, 206
+  offset: 0, 0
+  index: -1
+spine_water_03_wing_05
+  rotate: true
+  xy: 266, 375
+  size: 180, 268
+  orig: 180, 268
+  offset: 0, 0
+  index: -1
+spine_water_03_wing_06
+  rotate: false
+  xy: 652, 134
+  size: 99, 56
+  orig: 99, 56
+  offset: 0, 0
+  index: -1

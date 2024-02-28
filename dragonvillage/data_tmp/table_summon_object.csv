@@ -1,0 +1,4 @@
+sobj_id,t_name,type,res,scale,icon,effect,attr,size_type,skill_basic,skill_1,skill_die,atk_max,def_max,hp_max,aspd,cri_chance,cri_dmg,hit_rate,avoid,cri_avoid,resistance,move,move_speed,life_time,attacked_type,dependent
+300000,폭탄,object,res/character/monster/swordman_@/swordman_@.spine,1,res/ui/icons/mon/swordman_@.png,res/missile/missile_bomb_@/missile_bomb_@.spine,earth,s,230020,,,99999,99999,99999999,100,100,50,0,0,0,0,0,0,-1,invincible,TRUE
+300001,자폭병,missile,res/character/monster/swordman_@/swordman_@.spine,1,res/ui/icons/mon/swordman_@.png,res/missile/missile_bomb_@/missile_bomb_@.spine,earth,s,262003,,,99999,99999,99999999,100,100,50,0,0,0,0,0,0,-1,both,TRUE
+300002,생물,creature,res/character/monster/swordman_@/swordman_@.spine,1,res/ui/icons/mon/swordman_@.png,res/missile/missile_bomb_@/missile_bomb_@.spine,earth,s,230020,,,99999,99999,99999999,100,100,50,0,0,0,0,0,0,-1,active_only,TRUE

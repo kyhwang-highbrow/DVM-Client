@@ -1,0 +1,34 @@
+{
+	"skill_elite_succubus_0":
+	{
+		"attack_value":
+		[		
+			{
+				"idx":1,
+				"res":"res/missile/missile_heart/missile_heart.vrp",
+				"visual":"idle2",
+				"body":[0,0,20],
+                "count":1,
+				"damage_rate":100,
+                "scale":1.5,
+                "period":0,
+				"speed":300,
+				"accel":1000,
+				"h_limit_speed":2000,
+				"accel_delay":0.2,
+				"angular_velocity":0,
+				"offset":[0,0],
+                "dir_add":0,
+				"no_rotate":true,
+				
+                "effect":
+                {
+                    "motion_streak":"",
+                    "rotation":false,
+                    "afterimage":false
+                }
+				
+			}
+		]
+	}
+}

@@ -1,0 +1,34 @@
+
+common_evil_wing_fire.png
+size: 512,512
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+common_evil_wing_fire_body_01
+  rotate: false
+  xy: 2, 106
+  size: 140, 212
+  orig: 140, 212
+  offset: 0, 0
+  index: -1
+common_evil_wing_fire_tail_01
+  rotate: true
+  xy: 2, 2
+  size: 102, 66
+  orig: 102, 66
+  offset: 0, 0
+  index: -1
+common_evil_wing_fire_wing_01
+  rotate: false
+  xy: 2, 320
+  size: 170, 190
+  orig: 170, 190
+  offset: 0, 0
+  index: -1
+common_evil_wing_fire_wing_02
+  rotate: false
+  xy: 174, 328
+  size: 156, 182
+  orig: 156, 182
+  offset: 0, 0
+  index: -1

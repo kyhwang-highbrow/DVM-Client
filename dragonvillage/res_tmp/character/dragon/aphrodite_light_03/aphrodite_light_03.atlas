@@ -1,0 +1,237 @@
+
+aphrodite_light_03.png
+size: 1969,364
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+aphrodite_light_03_arm_01
+  rotate: true
+  xy: 303, 2
+  size: 59, 55
+  orig: 59, 55
+  offset: 0, 0
+  index: -1
+aphrodite_light_03_arm_02
+  rotate: false
+  xy: 1941, 286
+  size: 26, 76
+  orig: 26, 76
+  offset: 0, 0
+  index: -1
+aphrodite_light_03_body_01
+  rotate: true
+  xy: 1678, 212
+  size: 72, 105
+  orig: 72, 105
+  offset: 0, 0
+  index: -1
+aphrodite_light_03_body_02
+  rotate: false
+  xy: 1678, 286
+  size: 110, 76
+  orig: 110, 76
+  offset: 0, 0
+  index: -1
+aphrodite_light_03_dress_01
+  rotate: true
+  xy: 730, 2
+  size: 76, 112
+  orig: 76, 112
+  offset: 0, 0
+  index: -1
+aphrodite_light_03_dress_02
+  rotate: false
+  xy: 844, 10
+  size: 210, 89
+  orig: 210, 89
+  offset: 0, 0
+  index: -1
+aphrodite_light_03_dress_03
+  rotate: true
+  xy: 1790, 181
+  size: 181, 149
+  orig: 181, 149
+  offset: 0, 0
+  index: -1
+aphrodite_light_03_dress_04
+  rotate: false
+  xy: 1790, 3
+  size: 70, 145
+  orig: 70, 145
+  offset: 0, 0
+  index: -1
+aphrodite_light_03_ear_01
+  rotate: false
+  xy: 1862, 3
+  size: 63, 112
+  orig: 63, 112
+  offset: 0, 0
+  index: -1
+aphrodite_light_03_ear_02
+  rotate: false
+  xy: 1294, 5
+  size: 75, 118
+  orig: 75, 118
+  offset: 0, 0
+  index: -1
+aphrodite_light_03_eff_01
+  rotate: true
+  xy: 2, 15
+  size: 347, 299
+  orig: 347, 299
+  offset: 0, 0
+  index: -1
+aphrodite_light_03_eff_02
+  rotate: false
+  xy: 1371, 2
+  size: 125, 125
+  orig: 125, 125
+  offset: 0, 0
+  index: -1
+aphrodite_light_03_eff_03
+  rotate: true
+  xy: 415, 6
+  size: 55, 47
+  orig: 55, 47
+  offset: 0, 0
+  index: -1
+aphrodite_light_03_eff_04
+  rotate: false
+  xy: 973, 113
+  size: 249, 249
+  orig: 249, 249
+  offset: 0, 0
+  index: -1
+aphrodite_light_03_eff_05
+  rotate: true
+  xy: 303, 63
+  size: 299, 286
+  orig: 299, 286
+  offset: 0, 0
+  index: -1
+aphrodite_light_03_eye
+  rotate: false
+  xy: 769, 81
+  size: 27, 18
+  orig: 27, 18
+  offset: 0, 0
+  index: -1
+aphrodite_light_03_hand_01
+  rotate: true
+  xy: 509, 11
+  size: 50, 92
+  orig: 50, 92
+  offset: 0, 0
+  index: -1
+aphrodite_light_03_hand_02
+  rotate: true
+  xy: 1678, 133
+  size: 77, 84
+  orig: 77, 84
+  offset: 0, 0
+  index: -1
+aphrodite_light_03_head_01
+  rotate: false
+  xy: 1862, 117
+  size: 70, 62
+  orig: 70, 62
+  offset: 0, 0
+  index: -1
+aphrodite_light_03_horn_01
+  rotate: false
+  xy: 1266, 4
+  size: 26, 119
+  orig: 26, 119
+  offset: 0, 0
+  index: -1
+aphrodite_light_03_horn_02
+  rotate: true
+  xy: 603, 2
+  size: 76, 125
+  orig: 76, 125
+  offset: 0, 0
+  index: -1
+aphrodite_light_03_lace_01
+  rotate: false
+  xy: 769, 101
+  size: 202, 261
+  orig: 202, 261
+  offset: 0, 0
+  index: -1
+aphrodite_light_03_lace_02
+  rotate: false
+  xy: 591, 80
+  size: 176, 282
+  orig: 176, 282
+  offset: 0, 0
+  index: -1
+aphrodite_light_03_lace_03
+  rotate: true
+  xy: 1056, 4
+  size: 107, 208
+  orig: 107, 208
+  offset: 0, 0
+  index: -1
+aphrodite_light_03_lace_04
+  rotate: false
+  xy: 1941, 246
+  size: 26, 38
+  orig: 26, 38
+  offset: 0, 0
+  index: -1
+aphrodite_light_03_lace_05
+  rotate: false
+  xy: 1764, 150
+  size: 61, 29
+  orig: 61, 29
+  offset: 0, 0
+  index: -1
+aphrodite_light_03_leg_01
+  rotate: true
+  xy: 1601, 13
+  size: 114, 187
+  orig: 114, 187
+  offset: 0, 0
+  index: -1
+aphrodite_light_03_leg_02
+  rotate: false
+  xy: 1224, 125
+  size: 81, 237
+  orig: 81, 237
+  offset: 0, 0
+  index: -1
+aphrodite_light_03_mouth
+  rotate: true
+  xy: 798, 86
+  size: 13, 12
+  orig: 13, 12
+  offset: 0, 0
+  index: -1
+aphrodite_light_03_tail
+  rotate: false
+  xy: 1307, 129
+  size: 369, 233
+  orig: 369, 233
+  offset: 0, 0
+  index: -1
+aphrodite_light_03_thing_01
+  rotate: true
+  xy: 360, 3
+  size: 58, 53
+  orig: 58, 53
+  offset: 0, 0
+  index: -1
+aphrodite_light_03_thing_02
+  rotate: true
+  xy: 464, 6
+  size: 55, 43
+  orig: 55, 43
+  offset: 0, 0
+  index: -1
+aphrodite_light_03_weapon
+  rotate: false
+  xy: 1498, 2
+  size: 101, 125
+  orig: 101, 125
+  offset: 0, 0
+  index: -1

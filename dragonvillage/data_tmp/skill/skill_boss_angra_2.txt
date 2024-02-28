@@ -1,0 +1,29 @@
+{
+	"skill_boss_angra_2":
+	{
+		"ver":2,
+		"attack_value":
+		[							
+			{
+				"idx":1,
+				"target_idx":[1],
+				"res":"res/effect/skill_kadeath_eye/skill_kadeath_eye_water.vrp",
+				"visual":"idle",
+				"body":[0,0,20],
+                "scale":1,
+				"damage_rate":5000,
+                "count":10,
+                "period":0.1,
+				"time":0,
+				"speed":0,
+				"angular_velocity":0,
+				"offset":['target','target'],
+                "dir_array":['random'],
+				"map_shake_time":0.5,
+				"missile_type":"pass",
+				"fadeout_time":2
+			}
+		]
+	}
+}
+

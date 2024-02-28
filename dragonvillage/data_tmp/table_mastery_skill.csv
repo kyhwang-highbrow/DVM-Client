@@ -1,0 +1,193 @@
+msid,rarity,role,tier,icon,t_name,t_step_desc,mode,other_opt,option,add_value,m_lv
+110101,common,dealer,1,res/ui/icons/skill/200933.png,적중 증가, +({1}),,,hit_rate_add,10,3
+110102,common,dealer,1,res/ui/icons/skill/242301.png,치명 회피 증가, +({1}),,,cri_avoid_add,10,3
+110103,common,dealer,1,res/ui/icons/skill/206941.png,효과 저항 증가, +({1}),,,resistance_add,10,3
+110201,common,dealer,2,res/ui/icons/skill/201243.png,방어력 증가, +({1}),,,def_add,490,3
+110202,common,dealer,2,res/ui/icons/skill/201832.png,회피 증가, +({1}),,,avoid_add,7,3
+110203,common,dealer,2,res/ui/icons/skill/200132.png,생명력 증가, +({1}),,,hp_add,29400,3
+110301,common,dealer,3,res/ui/icons/skill/202052.png,공격 속도 증가, +({1})%,,,aspd_add,7,3
+110302,common,dealer,3,res/ui/icons/skill/246201.png,콜로세움에서 공격 속도 증가, +({1})%,pvp,1,aspd_add,8,3
+110303,common,dealer,3,res/ui/icons/skill/203311.png,일반공격 피해량 증가, +({1})%,,1,basic_dmg_add,17,3
+110401,common,dealer,4,res/ui/icons/skill/200421.png,치명 확률 증가, +({1})%,,,cri_chance_add,21,1
+110402,common,dealer,4,res/ui/icons/skill/200943.png,공격력 증가, +({1}),,,atk_add,1470,1
+110403,common,dealer,4,res/ui/icons/skill/205844.png,치명 피해 증가, +({1})%,,,cri_dmg_add,21,1
+120101,common,tanker,1,res/ui/icons/skill/200933.png,적중 증가, +({1}),,,hit_rate_add,10,3
+120102,common,tanker,1,res/ui/icons/skill/203311.png,일반공격 피해량 증가, +({1})%,,1,basic_dmg_add,17,3
+120103,common,tanker,1,res/ui/icons/skill/204331.png,효과 적중 증가, +({1}),,,accuracy_add,10,3
+120201,common,tanker,2,res/ui/icons/skill/200943.png,공격력 증가, +({1}),,,atk_add,490,3
+120202,common,tanker,2,res/ui/icons/skill/200421.png,치명 확률 증가, +({1})%,,,cri_chance_add,7,3
+120203,common,tanker,2,res/ui/icons/skill/202052.png,공격 속도 증가, +({1})%,,,aspd_add,7,3
+120301,common,tanker,3,res/ui/icons/skill/205211.png,회복량 증가, +({1})%,,1,recovery_power_add,7,3
+120302,common,tanker,3,res/ui/icons/skill/242301.png,치명 회피 증가, +({1}),,,cri_avoid_add,10,3
+120303,common,tanker,3,res/ui/icons/skill/201832.png,회피 증가, +({1}),,,avoid_add,7,3
+120401,common,tanker,4,res/ui/icons/skill/200234.png,피해량 감소, -({1})%,,1,dmg_adj_rate_multi,6,1
+120402,common,tanker,4,res/ui/icons/skill/201243.png,방어력 증가, +({1}),,,def_add,1470,1
+120403,common,tanker,4,res/ui/icons/skill/200132.png,생명력 증가, +({1}),,,hp_add,88200,1
+130101,common,supporter,1,res/ui/icons/skill/203311.png,일반공격 피해량 증가, +({1})%,,1,basic_dmg_add,17,3
+130102,common,supporter,1,res/ui/icons/skill/245301.png,콜로세움에서 일반공격 피해량 증가, +({1})%,pvp,1,basic_dmg_add,24,3
+130103,common,supporter,1,res/ui/icons/skill/200933.png,적중 증가, +({1}),,,hit_rate_add,10,3
+130201,common,supporter,2,res/ui/icons/skill/206941.png,효과 저항 증가, +({1}),,,resistance_add,10,3
+130202,common,supporter,2,res/ui/icons/skill/242301.png,치명 회피 증가, +({1}),,,cri_avoid_add,10,3
+130203,common,supporter,2,res/ui/icons/skill/201832.png,회피 증가, +({1}),,,avoid_add,7,3
+130301,common,supporter,3,res/ui/icons/skill/200421.png,치명 확률 증가, +({1})%,,,cri_chance_add,7,3
+130302,common,supporter,3,res/ui/icons/skill/204022.png,콜로세움에서 치명 확률 증가, +({1})%,pvp,1,cri_chance_add,8,3
+130303,common,supporter,3,res/ui/icons/skill/204331.png,효과 적중 증가, +({1}),,,accuracy_add,10,3
+130401,common,supporter,4,res/ui/icons/skill/203152.png,패시브 스킬 재사용 시간 감소, -({1})%,,1,cool_actu_add,9,1
+130402,common,supporter,4,res/ui/icons/skill/246201.png,콜로세움에서 공격 속도 증가, +({1})%,pvp,1,aspd_add,24,1
+130403,common,supporter,4,res/ui/icons/skill/202052.png,공격 속도 증가, +({1})%,,,aspd_add,21,1
+140101,common,healer,1,res/ui/icons/skill/200933.png,적중 증가, +({1}),,,hit_rate_add,10,3
+140102,common,healer,1,res/ui/icons/skill/203311.png,일반공격 피해량 증가, +({1})%,,1,basic_dmg_add,17,3
+140103,common,healer,1,res/ui/icons/skill/204331.png,효과 적중 증가, +({1}),,,accuracy_add,10,3
+140201,common,healer,2,res/ui/icons/skill/201832.png,회피 증가, +({1}),,,avoid_add,7,3
+140202,common,healer,2,res/ui/icons/skill/242301.png,치명 회피 증가, +({1}),,,cri_avoid_add,10,3
+140203,common,healer,2,res/ui/icons/skill/206941.png,효과 저항 증가, +({1}),,,resistance_add,10,3
+140301,common,healer,3,res/ui/icons/skill/204022.png,콜로세움에서 치명 확률 증가, +({1})%,pvp,1,cri_chance_add,8,3
+140302,common,healer,3,res/ui/icons/skill/200421.png,치명 확률 증가, +({1})%,,,cri_chance_add,7,3
+140303,common,healer,3,res/ui/icons/skill/205844.png,치명 피해 증가, +({1})%,,,cri_dmg_add,7,3
+140401,common,healer,4,res/ui/icons/skill/200943.png,공격력 증가, +({1}),,,atk_add,1470,1
+140402,common,healer,4,res/ui/icons/skill/205241.png,회복 스킬 효과 증가, +({1})%,,1,heal_power_add,15,1
+140403,common,healer,4,res/ui/icons/skill/205242.png,콜로세움에서 회복 스킬 효과 증가, +({1})%,pvp,1,heal_power_add,24,1
+210101,rare,dealer,1,res/ui/icons/skill/200933.png,적중 증가, +({1}),,,hit_rate_add,12,3
+210102,rare,dealer,1,res/ui/icons/skill/242301.png,치명 회피 증가, +({1}),,,cri_avoid_add,12,3
+210103,rare,dealer,1,res/ui/icons/skill/206941.png,효과 저항 증가, +({1}),,,resistance_add,12,3
+210201,rare,dealer,2,res/ui/icons/skill/201243.png,방어력 증가, +({1}),,,def_add,560,3
+210202,rare,dealer,2,res/ui/icons/skill/201832.png,회피 증가, +({1}),,,avoid_add,8,3
+210203,rare,dealer,2,res/ui/icons/skill/200132.png,생명력 증가, +({1}),,,hp_add,33600,3
+210301,rare,dealer,3,res/ui/icons/skill/202052.png,공격 속도 증가, +({1})%,,,aspd_add,8,3
+210302,rare,dealer,3,res/ui/icons/skill/246201.png,콜로세움에서 공격 속도 증가, +({1})%,pvp,1,aspd_add,9,3
+210303,rare,dealer,3,res/ui/icons/skill/203311.png,일반공격 피해량 증가, +({1})%,,1,basic_dmg_add,20,3
+210401,rare,dealer,4,res/ui/icons/skill/200421.png,치명 확률 증가, +({1})%,,,cri_chance_add,24,1
+210402,rare,dealer,4,res/ui/icons/skill/200943.png,공격력 증가, +({1}),,,atk_add,1680,1
+210403,rare,dealer,4,res/ui/icons/skill/205844.png,치명 피해 증가, +({1})%,,,cri_dmg_add,24,1
+220101,rare,tanker,1,res/ui/icons/skill/200933.png,적중 증가, +({1}),,,hit_rate_add,12,3
+220102,rare,tanker,1,res/ui/icons/skill/203311.png,일반공격 피해량 증가, +({1})%,,1,basic_dmg_add,20,3
+220103,rare,tanker,1,res/ui/icons/skill/204331.png,효과 적중 증가, +({1}),,,accuracy_add,12,3
+220201,rare,tanker,2,res/ui/icons/skill/200943.png,공격력 증가, +({1}),,,atk_add,560,3
+220202,rare,tanker,2,res/ui/icons/skill/200421.png,치명 확률 증가, +({1})%,,,cri_chance_add,8,3
+220203,rare,tanker,2,res/ui/icons/skill/202052.png,공격 속도 증가, +({1})%,,,aspd_add,8,3
+220301,rare,tanker,3,res/ui/icons/skill/205211.png,회복량 증가, +({1})%,,1,recovery_power_add,8,3
+220302,rare,tanker,3,res/ui/icons/skill/242301.png,치명 회피 증가, +({1}),,,cri_avoid_add,12,3
+220303,rare,tanker,3,res/ui/icons/skill/201832.png,회피 증가, +({1}),,,avoid_add,8,3
+220401,rare,tanker,4,res/ui/icons/skill/200234.png,피해량 감소, -({1})%,,1,dmg_adj_rate_multi,9,1
+220402,rare,tanker,4,res/ui/icons/skill/201243.png,방어력 증가, +({1}),,,def_add,1680,1
+220403,rare,tanker,4,res/ui/icons/skill/200132.png,생명력 증가, +({1}),,,hp_add,100800,1
+230101,rare,supporter,1,res/ui/icons/skill/203311.png,일반공격 피해량 증가, +({1})%,,1,basic_dmg_add,20,3
+230102,rare,supporter,1,res/ui/icons/skill/245301.png,콜로세움에서 일반공격 피해량 증가, +({1})%,pvp,1,basic_dmg_add,28,3
+230103,rare,supporter,1,res/ui/icons/skill/200933.png,적중 증가, +({1}),,,hit_rate_add,12,3
+230201,rare,supporter,2,res/ui/icons/skill/206941.png,효과 저항 증가, +({1}),,,resistance_add,12,3
+230202,rare,supporter,2,res/ui/icons/skill/242301.png,치명 회피 증가, +({1}),,,cri_avoid_add,12,3
+230203,rare,supporter,2,res/ui/icons/skill/201832.png,회피 증가, +({1}),,,avoid_add,8,3
+230301,rare,supporter,3,res/ui/icons/skill/200421.png,치명 확률 증가, +({1})%,,,cri_chance_add,8,3
+230302,rare,supporter,3,res/ui/icons/skill/204022.png,콜로세움에서 치명 확률 증가, +({1})%,pvp,1,cri_chance_add,9,3
+230303,rare,supporter,3,res/ui/icons/skill/204331.png,효과 적중 증가, +({1}),,,accuracy_add,12,3
+230401,rare,supporter,4,res/ui/icons/skill/203152.png,패시브 스킬 재사용 시간 감소, -({1})%,,1,cool_actu_add,9,1
+230402,rare,supporter,4,res/ui/icons/skill/246201.png,콜로세움에서 공격 속도 증가, +({1})%,pvp,1,aspd_add,27,1
+230403,rare,supporter,4,res/ui/icons/skill/202052.png,공격 속도 증가, +({1})%,,,aspd_add,24,1
+240101,rare,healer,1,res/ui/icons/skill/200933.png,적중 증가, +({1}),,,hit_rate_add,12,3
+240102,rare,healer,1,res/ui/icons/skill/203311.png,일반공격 피해량 증가, +({1})%,,1,basic_dmg_add,20,3
+240103,rare,healer,1,res/ui/icons/skill/204331.png,효과 적중 증가, +({1}),,,accuracy_add,12,3
+240201,rare,healer,2,res/ui/icons/skill/201832.png,회피 증가, +({1}),,,avoid_add,8,3
+240202,rare,healer,2,res/ui/icons/skill/242301.png,치명 회피 증가, +({1}),,,cri_avoid_add,12,3
+240203,rare,healer,2,res/ui/icons/skill/206941.png,효과 저항 증가, +({1}),,,resistance_add,12,3
+240301,rare,healer,3,res/ui/icons/skill/204022.png,콜로세움에서 치명 확률 증가, +({1})%,pvp,1,cri_chance_add,9,3
+240302,rare,healer,3,res/ui/icons/skill/200421.png,치명 확률 증가, +({1})%,,,cri_chance_add,8,3
+240303,rare,healer,3,res/ui/icons/skill/205844.png,치명 피해 증가, +({1})%,,,cri_dmg_add,8,3
+240401,rare,healer,4,res/ui/icons/skill/200943.png,공격력 증가, +({1}),,,atk_add,1680,1
+240402,rare,healer,4,res/ui/icons/skill/205241.png,회복 스킬 효과 증가, +({1})%,,1,heal_power_add,18,1
+240403,rare,healer,4,res/ui/icons/skill/205242.png,콜로세움에서 회복 스킬 효과 증가, +({1})%,pvp,1,heal_power_add,27,1
+310101,hero,dealer,1,res/ui/icons/skill/200933.png,적중 증가, +({1}),,,hit_rate_add,13,3
+310102,hero,dealer,1,res/ui/icons/skill/242301.png,치명 회피 증가, +({1}),,,cri_avoid_add,13,3
+310103,hero,dealer,1,res/ui/icons/skill/206941.png,효과 저항 증가, +({1}),,,resistance_add,13,3
+310201,hero,dealer,2,res/ui/icons/skill/201243.png,방어력 증가, +({1}),,,def_add,630,3
+310202,hero,dealer,2,res/ui/icons/skill/201832.png,회피 증가, +({1}),,,avoid_add,9,3
+310203,hero,dealer,2,res/ui/icons/skill/200132.png,생명력 증가, +({1}),,,hp_add,37800,3
+310301,hero,dealer,3,res/ui/icons/skill/202052.png,공격 속도 증가, +({1})%,,,aspd_add,9,3
+310302,hero,dealer,3,res/ui/icons/skill/246201.png,콜로세움에서 공격 속도 증가, +({1})%,pvp,1,aspd_add,10,3
+310303,hero,dealer,3,res/ui/icons/skill/203311.png,일반공격 피해량 증가, +({1})%,,1,basic_dmg_add,22,3
+310401,hero,dealer,4,res/ui/icons/skill/200421.png,치명 확률 증가, +({1})%,,,cri_chance_add,27,1
+310402,hero,dealer,4,res/ui/icons/skill/200943.png,공격력 증가, +({1}),,,atk_add,1890,1
+310403,hero,dealer,4,res/ui/icons/skill/205844.png,치명 피해 증가, +({1})%,,,cri_dmg_add,27,1
+320101,hero,tanker,1,res/ui/icons/skill/200933.png,적중 증가, +({1}),,,hit_rate_add,13,3
+320102,hero,tanker,1,res/ui/icons/skill/203311.png,일반공격 피해량 증가, +({1})%,,1,basic_dmg_add,22,3
+320103,hero,tanker,1,res/ui/icons/skill/204331.png,효과 적중 증가, +({1}),,,accuracy_add,13,3
+320201,hero,tanker,2,res/ui/icons/skill/200943.png,공격력 증가, +({1}),,,atk_add,630,3
+320202,hero,tanker,2,res/ui/icons/skill/200421.png,치명 확률 증가, +({1})%,,,cri_chance_add,9,3
+320203,hero,tanker,2,res/ui/icons/skill/202052.png,공격 속도 증가, +({1})%,,,aspd_add,9,3
+320301,hero,tanker,3,res/ui/icons/skill/205211.png,회복량 증가, +({1})%,,1,recovery_power_add,9,3
+320302,hero,tanker,3,res/ui/icons/skill/242301.png,치명 회피 증가, +({1}),,,cri_avoid_add,13,3
+320303,hero,tanker,3,res/ui/icons/skill/201832.png,회피 증가, +({1}),,,avoid_add,9,3
+320401,hero,tanker,4,res/ui/icons/skill/200234.png,피해량 감소, -({1})%,,1,dmg_adj_rate_multi,12,1
+320402,hero,tanker,4,res/ui/icons/skill/201243.png,방어력 증가, +({1}),,,def_add,1890,1
+320403,hero,tanker,4,res/ui/icons/skill/200132.png,생명력 증가, +({1}),,,hp_add,113400,1
+330101,hero,supporter,1,res/ui/icons/skill/203311.png,일반공격 피해량 증가, +({1})%,,1,basic_dmg_add,22,3
+330102,hero,supporter,1,res/ui/icons/skill/245301.png,콜로세움에서 일반공격 피해량 증가, +({1})%,pvp,1,basic_dmg_add,31,3
+330103,hero,supporter,1,res/ui/icons/skill/200933.png,적중 증가, +({1}),,,hit_rate_add,13,3
+330201,hero,supporter,2,res/ui/icons/skill/206941.png,효과 저항 증가, +({1}),,,resistance_add,13,3
+330202,hero,supporter,2,res/ui/icons/skill/242301.png,치명 회피 증가, +({1}),,,cri_avoid_add,13,3
+330203,hero,supporter,2,res/ui/icons/skill/201832.png,회피 증가, +({1}),,,avoid_add,9,3
+330301,hero,supporter,3,res/ui/icons/skill/200421.png,치명 확률 증가, +({1})%,,,cri_chance_add,9,3
+330302,hero,supporter,3,res/ui/icons/skill/204022.png,콜로세움에서 치명 확률 증가, +({1})%,pvp,1,cri_chance_add,10,3
+330303,hero,supporter,3,res/ui/icons/skill/204331.png,효과 적중 증가, +({1}),,,accuracy_add,13,3
+330401,hero,supporter,4,res/ui/icons/skill/203152.png,패시브 스킬 재사용 시간 감소, -({1})%,,1,cool_actu_add,9,1
+330402,hero,supporter,4,res/ui/icons/skill/246201.png,콜로세움에서 공격 속도 증가, +({1})%,pvp,1,aspd_add,30,1
+330403,hero,supporter,4,res/ui/icons/skill/202052.png,공격 속도 증가, +({1})%,,,aspd_add,27,1
+340101,hero,healer,1,res/ui/icons/skill/200933.png,적중 증가, +({1}),,,hit_rate_add,13,3
+340102,hero,healer,1,res/ui/icons/skill/203311.png,일반공격 피해량 증가, +({1})%,,1,basic_dmg_add,22,3
+340103,hero,healer,1,res/ui/icons/skill/204331.png,효과 적중 증가, +({1}),,,accuracy_add,13,3
+340201,hero,healer,2,res/ui/icons/skill/201832.png,회피 증가, +({1}),,,avoid_add,9,3
+340202,hero,healer,2,res/ui/icons/skill/242301.png,치명 회피 증가, +({1}),,,cri_avoid_add,13,3
+340203,hero,healer,2,res/ui/icons/skill/206941.png,효과 저항 증가, +({1}),,,resistance_add,13,3
+340301,hero,healer,3,res/ui/icons/skill/204022.png,콜로세움에서 치명 확률 증가, +({1})%,pvp,1,cri_chance_add,10,3
+340302,hero,healer,3,res/ui/icons/skill/200421.png,치명 확률 증가, +({1})%,,,cri_chance_add,9,3
+340303,hero,healer,3,res/ui/icons/skill/205844.png,치명 피해 증가, +({1})%,,,cri_dmg_add,9,3
+340401,hero,healer,4,res/ui/icons/skill/200943.png,공격력 증가, +({1}),,,atk_add,1890,1
+340402,hero,healer,4,res/ui/icons/skill/205241.png,회복 스킬 효과 증가, +({1})%,,1,heal_power_add,21,1
+340403,hero,healer,4,res/ui/icons/skill/205242.png,콜로세움에서 회복 스킬 효과 증가, +({1})%,pvp,1,heal_power_add,30,1
+410101,legend,dealer,1,res/ui/icons/skill/200933.png,적중 증가, +({1}),,,hit_rate_add,15,3
+410102,legend,dealer,1,res/ui/icons/skill/242301.png,치명 회피 증가, +({1}),,,cri_avoid_add,15,3
+410103,legend,dealer,1,res/ui/icons/skill/206941.png,효과 저항 증가, +({1}),,,resistance_add,15,3
+410201,legend,dealer,2,res/ui/icons/skill/201243.png,방어력 증가, +({1}),,,def_add,700,3
+410202,legend,dealer,2,res/ui/icons/skill/201832.png,회피 증가, +({1}),,,avoid_add,10,3
+410203,legend,dealer,2,res/ui/icons/skill/200132.png,생명력 증가, +({1}),,,hp_add,42000,3
+410301,legend,dealer,3,res/ui/icons/skill/202052.png,공격 속도 증가, +({1})%,,,aspd_add,10,3
+410302,legend,dealer,3,res/ui/icons/skill/246201.png,콜로세움에서 공격 속도 증가, +({1})%,pvp,1,aspd_add,12,3
+410303,legend,dealer,3,res/ui/icons/skill/203311.png,일반공격 피해량 증가, +({1})%,,1,basic_dmg_add,25,3
+410401,legend,dealer,4,res/ui/icons/skill/200421.png,치명 확률 증가, +({1})%,,,cri_chance_add,30,1
+410402,legend,dealer,4,res/ui/icons/skill/200943.png,공격력 증가, +({1}),,,atk_add,2100,1
+410403,legend,dealer,4,res/ui/icons/skill/205844.png,치명 피해 증가, +({1})%,,,cri_dmg_add,30,1
+420101,legend,tanker,1,res/ui/icons/skill/200933.png,적중 증가, +({1}),,,hit_rate_add,15,3
+420102,legend,tanker,1,res/ui/icons/skill/203311.png,일반공격 피해량 증가, +({1})%,,1,basic_dmg_add,25,3
+420103,legend,tanker,1,res/ui/icons/skill/204331.png,효과 적중 증가, +({1}),,,accuracy_add,15,3
+420201,legend,tanker,2,res/ui/icons/skill/200943.png,공격력 증가, +({1}),,,atk_add,700,3
+420202,legend,tanker,2,res/ui/icons/skill/200421.png,치명 확률 증가, +({1})%,,,cri_chance_add,10,3
+420203,legend,tanker,2,res/ui/icons/skill/202052.png,공격 속도 증가, +({1})%,,,aspd_add,10,3
+420301,legend,tanker,3,res/ui/icons/skill/205211.png,회복량 증가, +({1})%,,1,recovery_power_add,10,3
+420302,legend,tanker,3,res/ui/icons/skill/242301.png,치명 회피 증가, +({1}),,,cri_avoid_add,15,3
+420303,legend,tanker,3,res/ui/icons/skill/201832.png,회피 증가, +({1}),,,avoid_add,10,3
+420401,legend,tanker,4,res/ui/icons/skill/200234.png,피해량 감소, -({1})%,,1,dmg_adj_rate_multi,15,1
+420402,legend,tanker,4,res/ui/icons/skill/201243.png,방어력 증가, +({1}),,,def_add,2100,1
+420403,legend,tanker,4,res/ui/icons/skill/200132.png,생명력 증가, +({1}),,,hp_add,126000,1
+430101,legend,supporter,1,res/ui/icons/skill/203311.png,일반공격 피해량 증가, +({1})%,,1,basic_dmg_add,25,3
+430102,legend,supporter,1,res/ui/icons/skill/245301.png,콜로세움에서 일반공격 피해량 증가, +({1})%,pvp,1,basic_dmg_add,35,3
+430103,legend,supporter,1,res/ui/icons/skill/200933.png,적중 증가, +({1}),,,hit_rate_add,15,3
+430201,legend,supporter,2,res/ui/icons/skill/206941.png,효과 저항 증가, +({1}),,,resistance_add,15,3
+430202,legend,supporter,2,res/ui/icons/skill/242301.png,치명 회피 증가, +({1}),,,cri_avoid_add,15,3
+430203,legend,supporter,2,res/ui/icons/skill/201832.png,회피 증가, +({1}),,,avoid_add,10,3
+430301,legend,supporter,3,res/ui/icons/skill/200421.png,치명 확률 증가, +({1})%,,,cri_chance_add,10,3
+430302,legend,supporter,3,res/ui/icons/skill/204022.png,콜로세움에서 치명 확률 증가, +({1})%,pvp,1,cri_chance_add,12,3
+430303,legend,supporter,3,res/ui/icons/skill/204331.png,효과 적중 증가, +({1}),,,accuracy_add,15,3
+430401,legend,supporter,4,res/ui/icons/skill/203152.png,패시브 스킬 재사용 시간 감소, -({1})%,,1,cool_actu_add,9,1
+430402,legend,supporter,4,res/ui/icons/skill/246201.png,콜로세움에서 공격 속도 증가, +({1})%,pvp,1,aspd_add,36,1
+430403,legend,supporter,4,res/ui/icons/skill/202052.png,공격 속도 증가, +({1})%,,,aspd_add,30,1
+440101,legend,healer,1,res/ui/icons/skill/200933.png,적중 증가, +({1}),,,hit_rate_add,15,3
+440102,legend,healer,1,res/ui/icons/skill/203311.png,일반공격 피해량 증가, +({1})%,,1,basic_dmg_add,25,3
+440103,legend,healer,1,res/ui/icons/skill/204331.png,효과 적중 증가, +({1}),,,accuracy_add,15,3
+440201,legend,healer,2,res/ui/icons/skill/201832.png,회피 증가, +({1}),,,avoid_add,10,3
+440202,legend,healer,2,res/ui/icons/skill/242301.png,치명 회피 증가, +({1}),,,cri_avoid_add,15,3
+440203,legend,healer,2,res/ui/icons/skill/206941.png,효과 저항 증가, +({1}),,,resistance_add,15,3
+440301,legend,healer,3,res/ui/icons/skill/204022.png,콜로세움에서 치명 확률 증가, +({1})%,pvp,1,cri_chance_add,12,3
+440302,legend,healer,3,res/ui/icons/skill/200421.png,치명 확률 증가, +({1})%,,,cri_chance_add,10,3
+440303,legend,healer,3,res/ui/icons/skill/205844.png,치명 피해 증가, +({1})%,,,cri_dmg_add,10,3
+440401,legend,healer,4,res/ui/icons/skill/200943.png,공격력 증가, +({1}),,,atk_add,2100,1
+440402,legend,healer,4,res/ui/icons/skill/205241.png,회복 스킬 효과 증가, +({1})%,,1,heal_power_add,24,1
+440403,legend,healer,4,res/ui/icons/skill/205242.png,콜로세움에서 회복 스킬 효과 증가, +({1})%,pvp,1,heal_power_add,36,1

@@ -1,0 +1,111 @@
+
+narvi.png
+size: 1777,783
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+narvi_arm_01
+  rotate: true
+  xy: 1593, 111
+  size: 83, 109
+  orig: 83, 109
+  offset: 0, 0
+  index: -1
+narvi_body_01
+  rotate: true
+  xy: 2, 2
+  size: 779, 912
+  orig: 779, 912
+  offset: 0, 0
+  index: -1
+narvi_body_02
+  rotate: false
+  xy: 1394, 19
+  size: 192, 142
+  orig: 192, 142
+  offset: 0, 0
+  index: -1
+narvi_effect_01
+  rotate: false
+  xy: 1668, 74
+  size: 33, 35
+  orig: 33, 35
+  offset: 0, 0
+  index: -1
+narvi_effect_02
+  rotate: false
+  xy: 1588, 27
+  size: 78, 82
+  orig: 78, 82
+  offset: 0, 0
+  index: -1
+narvi_eye_01
+  rotate: true
+  xy: 1741, 298
+  size: 79, 25
+  orig: 79, 25
+  offset: 0, 0
+  index: -1
+narvi_eye_02
+  rotate: true
+  xy: 1704, 115
+  size: 79, 25
+  orig: 79, 25
+  offset: 0, 0
+  index: -1
+narvi_foot_01
+  rotate: false
+  xy: 1388, 514
+  size: 211, 267
+  orig: 211, 267
+  offset: 0, 0
+  index: -1
+narvi_hair_01
+  rotate: false
+  xy: 1593, 196
+  size: 146, 181
+  orig: 146, 181
+  offset: 0, 0
+  index: -1
+narvi_hair_02
+  rotate: false
+  xy: 1606, 379
+  size: 169, 198
+  orig: 169, 198
+  offset: 0, 0
+  index: -1
+narvi_hair_03
+  rotate: false
+  xy: 916, 388
+  size: 470, 393
+  orig: 470, 393
+  offset: 0, 0
+  index: -1
+narvi_hand_01
+  rotate: false
+  xy: 1601, 579
+  size: 166, 202
+  orig: 166, 202
+  offset: 0, 0
+  index: -1
+narvi_hand_02
+  rotate: true
+  xy: 1388, 391
+  size: 121, 216
+  orig: 121, 216
+  offset: 0, 0
+  index: -1
+narvi_hat_01
+  rotate: false
+  xy: 1394, 163
+  size: 197, 226
+  orig: 197, 226
+  offset: 0, 0
+  index: -1
+narvi_head_01
+  rotate: true
+  xy: 916, 11
+  size: 375, 476
+  orig: 375, 476
+  offset: 0, 0
+  index: -1

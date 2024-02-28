@@ -1,0 +1,181 @@
+
+jaryong_fire_01.png
+size: 598,525
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+jaryong_fire_01_acc_01
+  rotate: false
+  xy: 560, 347
+  size: 29, 107
+  orig: 29, 107
+  offset: 0, 0
+  index: -1
+jaryong_fire_01_arm_01
+  rotate: true
+  xy: 378, 267
+  size: 121, 108
+  orig: 121, 108
+  offset: 0, 0
+  index: -1
+jaryong_fire_01_body_01
+  rotate: false
+  xy: 2, 103
+  size: 224, 188
+  orig: 224, 188
+  offset: 0, 0
+  index: -1
+jaryong_fire_01_calf_01
+  rotate: false
+  xy: 259, 23
+  size: 73, 80
+  orig: 73, 80
+  offset: 0, 0
+  index: -1
+jaryong_fire_01_effect_01
+  rotate: false
+  xy: 2, 293
+  size: 228, 230
+  orig: 228, 230
+  offset: 0, 0
+  index: -1
+jaryong_fire_01_elbow_01
+  rotate: false
+  xy: 473, 179
+  size: 110, 82
+  orig: 110, 82
+  offset: 0, 0
+  index: -1
+jaryong_fire_01_eye_01
+  rotate: false
+  xy: 420, 48
+  size: 35, 30
+  orig: 35, 30
+  offset: 0, 0
+  index: -1
+jaryong_fire_01_eye_02
+  rotate: false
+  xy: 463, 444
+  size: 11, 17
+  orig: 11, 17
+  offset: 0, 0
+  index: -1
+jaryong_fire_01_eye_03
+  rotate: true
+  xy: 560, 314
+  size: 31, 28
+  orig: 31, 28
+  offset: 0, 0
+  index: -1
+jaryong_fire_01_foot_01
+  rotate: true
+  xy: 228, 105
+  size: 56, 121
+  orig: 56, 121
+  offset: 0, 0
+  index: -1
+jaryong_fire_01_foot_02
+  rotate: true
+  xy: 480, 456
+  size: 67, 116
+  orig: 67, 116
+  offset: 0, 0
+  index: -1
+jaryong_fire_01_hair_01
+  rotate: false
+  xy: 2, 10
+  size: 188, 91
+  orig: 188, 91
+  offset: 0, 0
+  index: -1
+jaryong_fire_01_hair_02
+  rotate: true
+  xy: 534, 263
+  size: 191, 24
+  orig: 191, 24
+  offset: 0, 0
+  index: -1
+jaryong_fire_01_hair_03
+  rotate: true
+  xy: 232, 269
+  size: 119, 144
+  orig: 119, 144
+  offset: 0, 0
+  index: -1
+jaryong_fire_01_hair_04
+  rotate: true
+  xy: 488, 280
+  size: 174, 44
+  orig: 174, 44
+  offset: 0, 0
+  index: -1
+jaryong_fire_01_hand_01
+  rotate: false
+  xy: 192, 12
+  size: 65, 89
+  orig: 65, 89
+  offset: 0, 0
+  index: -1
+jaryong_fire_01_hand_02
+  rotate: true
+  xy: 334, 37
+  size: 41, 84
+  orig: 41, 84
+  offset: 0, 0
+  index: -1
+jaryong_fire_01_head_01
+  rotate: false
+  xy: 481, 73
+  size: 110, 104
+  orig: 110, 104
+  offset: 0, 0
+  index: -1
+jaryong_fire_01_mouth_01
+  rotate: false
+  xy: 457, 52
+  size: 20, 26
+  orig: 20, 26
+  offset: 0, 0
+  index: -1
+jaryong_fire_01_mouth_02
+  rotate: false
+  xy: 259, 2
+  size: 40, 19
+  orig: 40, 19
+  offset: 0, 0
+  index: -1
+jaryong_fire_01_shoulder_01
+  rotate: false
+  xy: 357, 162
+  size: 114, 103
+  orig: 114, 103
+  offset: 0, 0
+  index: -1
+jaryong_fire_01_tail_01
+  rotate: false
+  xy: 228, 163
+  size: 127, 104
+  orig: 127, 104
+  offset: 0, 0
+  index: -1
+jaryong_fire_01_tail_02
+  rotate: false
+  xy: 232, 463
+  size: 246, 60
+  orig: 246, 60
+  offset: 0, 0
+  index: -1
+jaryong_fire_01_tail_03
+  rotate: false
+  xy: 232, 390
+  size: 229, 71
+  orig: 229, 71
+  offset: 0, 0
+  index: -1
+jaryong_fire_01_thigh_01
+  rotate: true
+  xy: 351, 80
+  size: 80, 128
+  orig: 80, 128
+  offset: 0, 0
+  index: -1

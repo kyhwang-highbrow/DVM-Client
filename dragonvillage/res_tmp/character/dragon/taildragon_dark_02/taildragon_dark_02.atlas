@@ -1,0 +1,153 @@
+
+taildragon_dark_02.png
+size: 668,540
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+taildragon_dark_02_arm_01
+  rotate: true
+  xy: 534, 275
+  size: 61, 89
+  orig: 61, 89
+  offset: 0, 0
+  index: -1
+taildragon_dark_02_arm_02
+  rotate: true
+  xy: 364, 47
+  size: 60, 90
+  orig: 60, 90
+  offset: 0, 0
+  index: -1
+taildragon_dark_02_body_01
+  rotate: false
+  xy: 2, 113
+  size: 173, 190
+  orig: 173, 190
+  offset: 0, 0
+  index: -1
+taildragon_dark_02_eye_01
+  rotate: true
+  xy: 625, 267
+  size: 49, 39
+  orig: 49, 39
+  offset: 0, 0
+  index: -1
+taildragon_dark_02_eye_02
+  rotate: false
+  xy: 615, 226
+  size: 49, 39
+  orig: 49, 39
+  offset: 0, 0
+  index: -1
+taildragon_dark_02_foot_01
+  rotate: true
+  xy: 241, 31
+  size: 66, 103
+  orig: 66, 103
+  offset: 0, 0
+  index: -1
+taildragon_dark_02_foot_02
+  rotate: false
+  xy: 599, 360
+  size: 67, 78
+  orig: 67, 78
+  offset: 0, 0
+  index: -1
+taildragon_dark_02_hair_01
+  rotate: true
+  xy: 134, 13
+  size: 84, 105
+  orig: 84, 105
+  offset: 0, 0
+  index: -1
+taildragon_dark_02_hair_02
+  rotate: true
+  xy: 484, 132
+  size: 138, 129
+  orig: 138, 129
+  offset: 0, 0
+  index: -1
+taildragon_dark_02_hand_01
+  rotate: false
+  xy: 589, 41
+  size: 61, 89
+  orig: 61, 89
+  offset: 0, 0
+  index: -1
+taildragon_dark_02_hand_02
+  rotate: true
+  xy: 456, 2
+  size: 60, 90
+  orig: 60, 90
+  offset: 0, 0
+  index: -1
+taildragon_dark_02_head_01
+  rotate: true
+  xy: 2, 2
+  size: 109, 130
+  orig: 109, 130
+  offset: 0, 0
+  index: -1
+taildragon_dark_02_head_02
+  rotate: false
+  xy: 625, 318
+  size: 41, 40
+  orig: 41, 40
+  offset: 0, 0
+  index: -1
+taildragon_dark_02_leg_01
+  rotate: true
+  xy: 484, 64
+  size: 66, 103
+  orig: 66, 103
+  offset: 0, 0
+  index: -1
+taildragon_dark_02_leg_02
+  rotate: false
+  xy: 599, 440
+  size: 67, 98
+  orig: 67, 98
+  offset: 0, 0
+  index: -1
+taildragon_dark_02_tail_01
+  rotate: false
+  xy: 199, 272
+  size: 333, 64
+  orig: 333, 64
+  offset: 0, 0
+  index: -1
+taildragon_dark_02_tail_03
+  rotate: false
+  xy: 199, 338
+  size: 198, 200
+  orig: 198, 200
+  offset: 0, 0
+  index: -1
+taildragon_dark_02_tail_04
+  rotate: false
+  xy: 2, 305
+  size: 195, 233
+  orig: 195, 233
+  offset: 0, 0
+  index: -1
+taildragon_dark_02_tail_06
+  rotate: false
+  xy: 399, 338
+  size: 198, 200
+  orig: 198, 200
+  offset: 0, 0
+  index: -1
+taildragon_dark_02_wing_01
+  rotate: false
+  xy: 177, 99
+  size: 185, 171
+  orig: 185, 171
+  offset: 0, 0
+  index: -1
+taildragon_dark_02_wing_02
+  rotate: false
+  xy: 364, 109
+  size: 118, 161
+  orig: 118, 161
+  offset: 0, 0
+  index: -1

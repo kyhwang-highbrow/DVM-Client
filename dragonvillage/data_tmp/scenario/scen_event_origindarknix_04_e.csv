@@ -1,0 +1,9 @@
+page,bg,illustration,char,t_char_name,char_pos,char_ani,char_effect,r_scen,t_text,text_pos,text_type,auto_skip,effect_1,effect_2,effect_3,bgm,bgm_action,sound
+1,,,,,,,,,,,,3,title;끝없는 고통,skip_disable,,,,
+2,,,,,,,,,,,,0.3,skip_disable,,,,,
+3,,,,,,,,,고통의 기억은 수백 번 되풀이되고 끝없이 반복했다.,,narrate,,,,,,,
+4,,,,,,,,,"무고한 생명마저 죽음에 이르게 하였으나, 운명은 변하지 않았다.",,narrate,,,,,,,
+5,,,,,,,,,고통의 기억 속 시간의 굴레 끝에 변한 것은 단 하나.,,narrate,,,,,,,
+6,,,,,,,,,지독히 타오르기 시작한 '복수심' 이었다.,,narrate,,,,,,,
+7,,,,,,,,,"그의 복수심은 죽음과 절망, 파멸과 함께",,narrate,,,,,,,
+8,,,,,,,,,세상에 종언을 부르고 있었다.,,narrate,,,,,,,

@@ -1,0 +1,26 @@
+{
+    "bg":"map_clanraid",
+	"camera":
+	{
+		"scale":0.6,
+		"pos_x":0,
+		"pos_y":0
+	},
+	
+	"direction":"boss_wave",
+	
+	"wave":
+	[
+		{
+            "idx":1,
+            "wave":
+            {
+				0:
+				[
+					"153006;1;Basic;BOSS;RF14;1;;"
+					"153006;1;Basic;BOSS;RB24;1;;"
+				]
+            }
+        }
+	]
+}

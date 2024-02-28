@@ -1,0 +1,104 @@
+
+taros_earth_01.png
+size: 203,529
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+taros_earth_01_arm_01
+  rotate: true
+  xy: 97, 110
+  size: 55, 83
+  orig: 55, 83
+  offset: 0, 0
+  index: -1
+taros_earth_01_arm_02
+  rotate: false
+  xy: 84, 5
+  size: 57, 81
+  orig: 57, 81
+  offset: 0, 0
+  index: -1
+taros_earth_01_body_01
+  rotate: false
+  xy: 2, 417
+  size: 151, 110
+  orig: 151, 110
+  offset: 0, 0
+  index: -1
+taros_earth_01_claw
+  rotate: true
+  xy: 155, 270
+  size: 257, 45
+  orig: 257, 45
+  offset: 0, 0
+  index: -1
+taros_earth_01_effect_01
+  rotate: true
+  xy: 143, 6
+  size: 49, 46
+  orig: 49, 46
+  offset: 0, 0
+  index: -1
+taros_earth_01_eye_01
+  rotate: true
+  xy: 108, 275
+  size: 34, 32
+  orig: 34, 32
+  offset: 0, 0
+  index: -1
+taros_earth_01_eye_02
+  rotate: false
+  xy: 131, 390
+  size: 14, 25
+  orig: 14, 25
+  offset: 0, 0
+  index: -1
+taros_earth_01_head_0
+  rotate: true
+  xy: 108, 311
+  size: 77, 42
+  orig: 77, 42
+  offset: 0, 0
+  index: -1
+taros_earth_01_head_02
+  rotate: true
+  xy: 2, 282
+  size: 106, 104
+  orig: 106, 104
+  offset: 0, 0
+  index: -1
+taros_earth_01_light_01
+  rotate: false
+  xy: 143, 57
+  size: 58, 51
+  orig: 58, 51
+  offset: 0, 0
+  index: -1
+taros_earth_01_lightdust
+  rotate: false
+  xy: 2, 169
+  size: 127, 99
+  orig: 127, 99
+  offset: 0, 0
+  index: -1
+taros_earth_01_neck_01
+  rotate: true
+  xy: 2, 88
+  size: 79, 93
+  orig: 79, 93
+  offset: 0, 0
+  index: -1
+taros_earth_01_neck_02
+  rotate: false
+  xy: 131, 167
+  size: 46, 101
+  orig: 46, 101
+  offset: 0, 0
+  index: -1
+taros_earth_01_won
+  rotate: false
+  xy: 2, 2
+  size: 80, 84
+  orig: 80, 84
+  offset: 0, 0
+  index: -1

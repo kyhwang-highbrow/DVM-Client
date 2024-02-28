@@ -1,0 +1,85 @@
+{
+    "directing":"floating_1",
+	"layer":
+    [
+    
+        {
+            "name":"하늘"
+            "speed":0.2
+            "list":
+            [
+                {"res":"res/bg/dark_castle/dark_castle.vrp" "animation":"layer_1_a" "width":3840}
+		
+									
+            ]
+        }
+		
+		{
+            "name":"원경"
+            "speed":0.3
+            "list":
+            [
+                {"res":"res/bg/dark_castle/dark_castle.vrp" "animation":"layer_2_d" "width":1261}
+									
+            ]
+        }
+		
+        {
+            "name":"원경"
+            "speed":0.4
+            "list":
+            [
+            	{"res":"res/bg/dark_castle/dark_castle.vrp" "animation":"layer_2_c" "width":2770}
+									
+            ]
+        }
+        
+        {
+            "name":"중경_기둥"
+            "speed":0.5
+            "list":
+            [
+                {"res":"res/bg/dark_castle/dark_castle.vrp" "animation":"layer_2_b" "width":2900}
+		
+				
+            ]
+        }
+        
+    
+		
+        {
+            "name":"중경"
+            "speed":0.6
+            "list":
+            [
+			    {"res":"res/bg/dark_castle/dark_castle.vrp" "animation":"layer_3_a" "width":1600}
+				{"res":"res/bg/dark_castle/dark_castle.vrp" "animation":"layer_3_c" "width":2000}
+                
+            ]
+        }
+        
+		{
+            "name":"중경_다리"
+            "speed":0.7
+            "list":
+            [
+                {"res":"res/bg/dark_castle/dark_castle.vrp" "animation":"layer_4_a" "width":3720}
+												
+            ]
+        }
+			
+		{
+            "name":"근경"
+            "speed":0.9
+            "list":
+            [                				
+				
+				{"res":"res/bg/dark_castle/dark_castle.vrp" "animation":"layer_5_c" "width":1280}
+	       		{"res":"res/bg/dark_castle/dark_castle.vrp" "animation":"layer_5_a" "width":1038}
+
+		    ]
+        }
+		
+		
+    ]
+}

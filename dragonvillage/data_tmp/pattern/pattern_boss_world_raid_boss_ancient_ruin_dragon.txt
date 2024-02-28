@@ -1,0 +1,21 @@
+{
+    "pattern_boss_world_raid_boss_ancient_ruin_dragon":
+    [        
+        [
+            "w;2", "a;3", "w;2", "a;7", "a;6", "w;2", "a;4", "w;4",
+			"a;8", "a;5", "a;3", "w;2", "a;1", "w;3",
+			"a;6", "a;6", "a;6", "a;7", "a;7", "a;7", "a;4", "w;4"
+			"a;5", "a;8", "w;1", "a;2", "a;1", "w;3"
+        ]
+    ],
+	
+
+	"ani_mix":
+	[
+        "idle;attack;0.1",
+        "idle;idle;0.1",
+        "attack;idle;0.1",
+		"skill_4_appear;idle;0.1",
+		"idle;skill_4_appear;0.1"
+    ]
+}

@@ -1,0 +1,27 @@
+{
+    "difficult":2,
+    "bg":"map_darkdungeon",
+	"wave":
+	[	
+        {
+            "idx":1,
+			"camera":
+            {
+                "scale":0.8,
+                "pos_x":0,
+                "pos_y":0
+            },
+            "direction":"boss_wave",
+            "wave":
+            {				
+				0:
+				[
+					"142002;1;Basic;BOSS;RB14;0.5;roam"
+					"142001;1;Basic;BOSS;RM13;0.5;roam"
+					"142003;1;Basic;BOSS;RM16;0.5;roam"
+					"142000;1;Basic;BOSS;RF14;0.5;roam"
+				]
+            }
+        }
+    ]
+}

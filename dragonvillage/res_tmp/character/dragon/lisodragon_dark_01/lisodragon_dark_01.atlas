@@ -1,0 +1,125 @@
+
+lisodragon_dark_01.png
+size: 542,1037
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+lisodragon_dark_01_Pillow_01
+  rotate: false
+  xy: 2, 747
+  size: 327, 288
+  orig: 327, 288
+  offset: 0, 0
+  index: -1
+lisodragon_dark_01_arm_01
+  rotate: true
+  xy: 2, 129
+  size: 177, 185
+  orig: 177, 185
+  offset: 0, 0
+  index: -1
+lisodragon_dark_01_arm_02
+  rotate: true
+  xy: 2, 308
+  size: 177, 206
+  orig: 177, 206
+  offset: 0, 0
+  index: -1
+lisodragon_dark_01_body_01
+  rotate: false
+  xy: 2, 487
+  size: 314, 258
+  orig: 314, 258
+  offset: 0, 0
+  index: -1
+lisodragon_dark_01_body_02
+  rotate: true
+  xy: 210, 338
+  size: 147, 94
+  orig: 147, 94
+  offset: 0, 0
+  index: -1
+lisodragon_dark_01_ear_01
+  rotate: false
+  xy: 112, 50
+  size: 71, 77
+  orig: 71, 77
+  offset: 0, 0
+  index: -1
+lisodragon_dark_01_ear_02
+  rotate: false
+  xy: 185, 10
+  size: 60, 62
+  orig: 60, 62
+  offset: 0, 0
+  index: -1
+lisodragon_dark_01_effect_01
+  rotate: false
+  xy: 305, 47
+  size: 98, 98
+  orig: 98, 98
+  offset: 0, 0
+  index: -1
+lisodragon_dark_01_effect_02
+  rotate: false
+  xy: 405, 47
+  size: 98, 98
+  orig: 98, 98
+  offset: 0, 0
+  index: -1
+lisodragon_dark_01_effect_03
+  rotate: true
+  xy: 313, 147
+  size: 150, 213
+  orig: 150, 213
+  offset: 0, 0
+  index: -1
+lisodragon_dark_01_eye_01
+  rotate: false
+  xy: 112, 2
+  size: 60, 46
+  orig: 60, 46
+  offset: 0, 0
+  index: -1
+lisodragon_dark_01_hand_01
+  rotate: true
+  xy: 210, 222
+  size: 114, 101
+  orig: 114, 101
+  offset: 0, 0
+  index: -1
+lisodragon_dark_01_hand_02
+  rotate: false
+  xy: 189, 74
+  size: 114, 146
+  orig: 114, 146
+  offset: 0, 0
+  index: -1
+lisodragon_dark_01_head_01
+  rotate: true
+  xy: 331, 552
+  size: 232, 209
+  orig: 232, 209
+  offset: 0, 0
+  index: -1
+lisodragon_dark_01_leg_01
+  rotate: false
+  xy: 331, 786
+  size: 203, 249
+  orig: 203, 249
+  offset: 0, 0
+  index: -1
+lisodragon_dark_01_leg_02
+  rotate: true
+  xy: 318, 299
+  size: 251, 192
+  orig: 251, 192
+  offset: 0, 0
+  index: -1
+lisodragon_dark_01_mouth_01
+  rotate: true
+  xy: 2, 13
+  size: 114, 108
+  orig: 114, 108
+  offset: 0, 0
+  index: -1

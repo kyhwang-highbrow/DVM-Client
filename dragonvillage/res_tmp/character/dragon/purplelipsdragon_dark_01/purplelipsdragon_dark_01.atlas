@@ -1,0 +1,139 @@
+
+purplelipsdragon_dark_01.png
+size: 869,273
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+purplelipsdragon_dark_01_arm_01
+  rotate: true
+  xy: 308, 8
+  size: 67, 87
+  orig: 67, 87
+  offset: 0, 0
+  index: -1
+purplelipsdragon_dark_01_body_01
+  rotate: true
+  xy: 325, 77
+  size: 194, 209
+  orig: 194, 209
+  offset: 0, 0
+  index: -1
+purplelipsdragon_dark_01_body_02
+  rotate: false
+  xy: 206, 23
+  size: 100, 92
+  orig: 100, 92
+  offset: 0, 0
+  index: -1
+purplelipsdragon_dark_01_body_03
+  rotate: true
+  xy: 2, 117
+  size: 154, 321
+  orig: 154, 321
+  offset: 0, 0
+  index: -1
+purplelipsdragon_dark_01_effect_02
+  rotate: false
+  xy: 397, 4
+  size: 71, 71
+  orig: 71, 71
+  offset: 0, 0
+  index: -1
+purplelipsdragon_dark_01_effect_03
+  rotate: false
+  xy: 536, 99
+  size: 164, 172
+  orig: 164, 172
+  offset: 0, 0
+  index: -1
+purplelipsdragon_dark_01_effect_04
+  rotate: false
+  xy: 470, 4
+  size: 71, 71
+  orig: 71, 71
+  offset: 0, 0
+  index: -1
+purplelipsdragon_dark_01_eye_01
+  rotate: true
+  xy: 825, 200
+  size: 71, 42
+  orig: 71, 42
+  offset: 0, 0
+  index: -1
+purplelipsdragon_dark_01_eye_02
+  rotate: true
+  xy: 644, 26
+  size: 71, 42
+  orig: 71, 42
+  offset: 0, 0
+  index: -1
+purplelipsdragon_dark_01_eye_03
+  rotate: true
+  xy: 825, 127
+  size: 71, 42
+  orig: 71, 42
+  offset: 0, 0
+  index: -1
+purplelipsdragon_dark_01_eye_04
+  rotate: true
+  xy: 825, 54
+  size: 71, 42
+  orig: 71, 42
+  offset: 0, 0
+  index: -1
+purplelipsdragon_dark_01_head_01
+  rotate: false
+  xy: 543, 8
+  size: 99, 89
+  orig: 99, 89
+  offset: 0, 0
+  index: -1
+purplelipsdragon_dark_01_head_01_b
+  rotate: false
+  xy: 308, 90
+  size: 15, 25
+  orig: 15, 25
+  offset: 0, 0
+  index: -1
+purplelipsdragon_dark_01_head_01_r
+  rotate: false
+  xy: 236, 2
+  size: 27, 19
+  orig: 27, 19
+  offset: 0, 0
+  index: -1
+purplelipsdragon_dark_01_head_03
+  rotate: false
+  xy: 2, 8
+  size: 100, 107
+  orig: 100, 107
+  offset: 0, 0
+  index: -1
+purplelipsdragon_dark_01_head_04
+  rotate: false
+  xy: 104, 8
+  size: 100, 107
+  orig: 100, 107
+  offset: 0, 0
+  index: -1
+purplelipsdragon_dark_01_leg_01
+  rotate: false
+  xy: 702, 139
+  size: 121, 132
+  orig: 121, 132
+  offset: 0, 0
+  index: -1
+purplelipsdragon_dark_01_leg_02
+  rotate: false
+  xy: 702, 5
+  size: 121, 132
+  orig: 121, 132
+  offset: 0, 0
+  index: -1
+purplelipsdragon_dark_01_mouth_01
+  rotate: false
+  xy: 206, 2
+  size: 28, 19
+  orig: 28, 19
+  offset: 0, 0
+  index: -1

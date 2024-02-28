@@ -1,0 +1,216 @@
+
+eternal_all_01.png
+size: 596,1038
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+effect_eternal_all_01_atk_01
+  rotate: true
+  xy: 461, 7
+  size: 100, 115
+  orig: 100, 115
+  offset: 0, 0
+  index: -1
+effect_eternal_all_01_atk_02
+  rotate: false
+  xy: 211, 2
+  size: 198, 198
+  orig: 198, 198
+  offset: 0, 0
+  index: -1
+effect_eternal_all_01_light_01
+  rotate: true
+  xy: 2, 829
+  size: 207, 249
+  orig: 207, 249
+  offset: 0, 0
+  index: -1
+effect_eternal_all_01_light_02
+  rotate: true
+  xy: 253, 829
+  size: 207, 249
+  orig: 207, 249
+  offset: 0, 0
+  index: -1
+effect_eternal_all_01_light_03
+  rotate: true
+  xy: 2, 620
+  size: 207, 249
+  orig: 207, 249
+  offset: 0, 0
+  index: -1
+effect_eternal_all_01_light_04
+  rotate: true
+  xy: 253, 620
+  size: 207, 249
+  orig: 207, 249
+  offset: 0, 0
+  index: -1
+effect_eternal_all_01_light_05
+  rotate: true
+  xy: 2, 411
+  size: 207, 249
+  orig: 207, 249
+  offset: 0, 0
+  index: -1
+effect_eternal_all_01_light_06
+  rotate: true
+  xy: 253, 411
+  size: 207, 249
+  orig: 207, 249
+  offset: 0, 0
+  index: -1
+effect_eternal_all_01_light_07
+  rotate: false
+  xy: 2, 160
+  size: 207, 249
+  orig: 207, 249
+  offset: 0, 0
+  index: -1
+effect_eternal_all_01_light_08
+  rotate: true
+  xy: 211, 202
+  size: 207, 249
+  orig: 207, 249
+  offset: 0, 0
+  index: -1
+eternal_all_01_b_arm
+  rotate: true
+  xy: 504, 513
+  size: 65, 79
+  orig: 65, 79
+  offset: 0, 0
+  index: -1
+eternal_all_01_b_leg
+  rotate: false
+  xy: 411, 49
+  size: 48, 68
+  orig: 48, 68
+  offset: 0, 0
+  index: -1
+eternal_all_01_b_wing
+  rotate: false
+  xy: 504, 908
+  size: 62, 128
+  orig: 62, 128
+  offset: 0, 0
+  index: -1
+eternal_all_01_ball
+  rotate: true
+  xy: 411, 2
+  size: 45, 41
+  orig: 45, 41
+  offset: 0, 0
+  index: -1
+eternal_all_01_bang
+  rotate: false
+  xy: 504, 580
+  size: 84, 75
+  orig: 84, 75
+  offset: 0, 0
+  index: -1
+eternal_all_01_body
+  rotate: true
+  xy: 492, 223
+  size: 183, 100
+  orig: 183, 100
+  offset: 0, 0
+  index: -1
+eternal_all_01_c_eye
+  rotate: true
+  xy: 462, 331
+  size: 78, 28
+  orig: 78, 28
+  offset: 0, 0
+  index: -1
+eternal_all_01_eye
+  rotate: true
+  xy: 411, 119
+  size: 81, 46
+  orig: 81, 46
+  offset: 0, 0
+  index: -1
+eternal_all_01_eye_l
+  rotate: false
+  xy: 462, 292
+  size: 27, 37
+  orig: 27, 37
+  offset: 0, 0
+  index: -1
+eternal_all_01_eye_r
+  rotate: false
+  xy: 118, 16
+  size: 37, 41
+  orig: 37, 41
+  offset: 0, 0
+  index: -1
+eternal_all_01_eyebrow
+  rotate: false
+  xy: 504, 408
+  size: 90, 43
+  orig: 90, 43
+  offset: 0, 0
+  index: -1
+eternal_all_01_f_arm
+  rotate: true
+  xy: 504, 735
+  size: 78, 88
+  orig: 78, 88
+  offset: 0, 0
+  index: -1
+eternal_all_01_f_wing
+  rotate: true
+  xy: 462, 109
+  size: 112, 131
+  orig: 112, 131
+  offset: 0, 0
+  index: -1
+eternal_all_01_head
+  rotate: true
+  xy: 2, 38
+  size: 120, 114
+  orig: 120, 114
+  offset: 0, 0
+  index: -1
+eternal_all_01_mark_01
+  rotate: true
+  xy: 118, 104
+  size: 54, 58
+  orig: 54, 58
+  offset: 0, 0
+  index: -1
+eternal_all_01_mouth
+  rotate: true
+  xy: 2, 4
+  size: 32, 30
+  orig: 32, 30
+  offset: 0, 0
+  index: -1
+eternal_all_01_shoulder
+  rotate: true
+  xy: 504, 657
+  size: 76, 87
+  orig: 76, 87
+  offset: 0, 0
+  index: -1
+eternal_all_01_sleep
+  rotate: false
+  xy: 118, 59
+  size: 53, 43
+  orig: 53, 43
+  offset: 0, 0
+  index: -1
+eternal_all_01_surp
+  rotate: false
+  xy: 504, 815
+  size: 86, 91
+  orig: 86, 91
+  offset: 0, 0
+  index: -1
+eternal_all_01_tail
+  rotate: false
+  xy: 504, 453
+  size: 75, 58
+  orig: 75, 58
+  offset: 0, 0
+  index: -1

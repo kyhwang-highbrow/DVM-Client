@@ -1,0 +1,117 @@
+{
+	"skill_elite_light_orb_2":
+	{
+		"ver":2,
+		"attack_value":
+		[							
+			{
+				"idx":1,
+				"res":"res/missile/missile_dot/missile_dot_@.png",	
+				"body":[0,0,10],
+                "count":50,
+                "period":0.1,
+                "scale":1,
+				"time":0,
+				"speed":500,
+				"accel":-1000,
+				"l_limit_speed":300,
+				"accel_delay":0,
+				"angular_velocity":60,
+				"offset":[0,0],
+				"dir_array":[0,90,180,270],
+				"dir_add":0,
+				"missile_type":"pass",
+				"vanish_time":1.5,
+				"res_depth":"bottom",
+				
+                "effect":
+                {
+                    "motion_streak":"",
+                    "rotation":false,
+                    "afterimage":false
+                }
+			},
+			
+			{
+				"idx":1,
+				"res":"res/missile/missile_dot/missile_dot_@.png",
+				"body":[0,0,10],
+                "count":50,
+                "period":0.1,
+                "scale":1,
+				"time":0,
+				"speed":500,
+				"accel":-1000,
+				"l_limit_speed":300,
+				"accel_delay":0,
+				"angular_velocity":-60,
+				"offset":[0,0],
+				"dir_array":[0,90,180,270],
+				"dir_add":0,
+				"missile_type":"pass",
+				"vanish_time":1.5,
+				"res_depth":"bottom",
+				
+                "effect":
+                {
+                    "motion_streak":"",
+                    "rotation":false,
+                    "afterimage":false
+                }
+			},
+			
+			{
+				"idx":1,
+				"res":"res/missile/missile_wedge_2/missile_wedge_2_@.vrp",
+				"body":[0,0,5],
+                "count":2,
+                "period":2,
+                "scale":0.3,
+				"time":0,
+				"speed":-50,
+				"accel":5000,
+				"h_limit_speed":1000,
+				"accel_delay":2,
+				"angular_velocity":0,
+				"offset":[0,0],
+				"dir_array":[45,135,225,315],
+				"dir_add":45,
+				"missile_type":"pass",
+				"reset_time":0.1,
+				"size_up_time":2,
+				"res_depth":"bottom",
+				
+				"add_script":
+				[
+					{
+						"idx":1,
+						"res":"res/missile/missile_dot/missile_dot_@.png",
+						"body":[0,0,10],
+						"count":1,
+						"period":0.1,
+						"scale":1,
+						"time":0,
+						"speed":1000,
+						"accel_delay":0,
+						"angular_velocity":0,
+						"offset":[0,0],
+						"dir_array":['random'],
+						"dir_add":0
+					}
+				],
+				
+				"add_script_start":2,
+				"add_script_term":0.05,
+				"add_script_max":50,
+				
+                "effect":
+                {
+                    "motion_streak":"",
+                    "rotation":false,
+                    "afterimage":false
+                }
+			}
+		]
+	}
+}
+

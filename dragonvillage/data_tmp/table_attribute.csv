@@ -1,0 +1,7 @@
+attr_id,t_name,type,strong_type_01,strong_type_02,strong_type_03,strong_type_04,strong_type_05,strong_type_06,weak_type_01,weak_type_02,weak_type_03,weak_type_04,weak_type_05,weak_type_06,strong_option_01,strong_value_01,strong_option_02,strong_value_02,strong_option_03,strong_value_03,weak_option_01,weak_value_01,weak_option_02,weak_value_02,weak_option_03,weak_value_03,cd_bonus,cd_penalty,t_desc,exp_bonus
+1,땅,earth,water,x,x,x,x,x,fire,x,x,x,x,x,damage_up,0,cri_chance_up,15,bash,50,damage_down,0,hit_rate_down,0,miss,50,fire,water,"[땅속성] 물속성에 강함. 불속성에 약함, 방어력 20% 보너스",1.5
+2,물,water,fire,x,x,x,x,x,earth,x,x,x,x,x,damage_up,0,cri_chance_up,15,bash,50,damage_down,0,hit_rate_down,0,miss,50,earth,fire,[물속성] 불속성에 강함. 땅속성에 약함. 생명력 20% 보너스,1.5
+3,불,fire,earth,x,x,x,x,x,water,x,x,x,x,x,damage_up,0,cri_chance_up,15,bash,50,damage_down,0,hit_rate_down,0,miss,50,water,earth,[불속성] 땅속성에 강함. 물속성에 약함. 공격력 20% 보너스,1.5
+4,빛,light,dark,x,x,x,x,x,x,x,x,x,x,x,damage_up,0,cri_chance_up,15,bash,50,damage_down,0,hit_rate_down,0,miss,50,dark,"light,earth,fire,water",[빛속성] 어둠속성에 강함. 치명 확률 20% 보너스,1.5
+5,어둠,dark,light,x,x,x,x,x,x,x,x,x,x,x,damage_up,0,cri_chance_up,15,bash,50,damage_down,0,hit_rate_down,0,miss,50,light,"dark,earth,fire,water",[어둠속성] 빛속성에 강함. 공격속도 20% 보너스,1.5
+6,무,none,x,x,x,x,x,x,x,x,x,x,x,x,damage_up,0,cri_chance_up,15,bash,50,damage_down,0,hit_rate_down,0,miss,50,,,[무속성] 상성 없음,0

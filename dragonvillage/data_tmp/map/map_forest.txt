@@ -1,0 +1,76 @@
+{
+    "directing":"floating_1",
+	"layer":
+    [
+    
+        {
+            "name":"배경"
+            "speed":0.2
+            "list":
+            [
+                {"res":"res/bg/forest/forest.vrp" "animation":"layer_1_a" "width":3840}
+
+            ]
+        }
+        
+        
+        {
+            "name":"원경"
+            "speed":0.4
+            "list":
+            [
+                {"res":"res/bg/forest/forest.vrp" "animation":"layer_2_a" "width":2200}
+								
+            ]
+        }
+        
+        
+        {
+            "name":"중경1"
+            "speed":0.6
+            "list":
+            [
+			    {"res":"res/bg/forest/forest.vrp" "animation":"layer_3_a" "width":2000}
+  
+                
+            ]
+        }
+        
+		
+		{
+            "name":"중경2"
+            "speed":0.7
+            "list":
+            [
+                {"res":"res/bg/forest/forest.vrp" "animation":"layer_4_a" "width":2500}
+
+
+		    ]
+        }
+		
+				{
+            "name":"중경2"
+            "speed":0.8
+            "list":
+            [
+                {"res":"res/bg/forest/forest.vrp" "animation":"layer_5_a" "width":3400}
+
+
+		    ]
+        }
+		
+		
+		{
+            "name":"근경"
+            "speed":0.8
+            "list":
+            [
+               {"res":"res/bg/forest/forest.vrp" "animation":"layer_6_a" "width":2400}
+
+
+                
+            ]
+        }
+		
+    ]
+}

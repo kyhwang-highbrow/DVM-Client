@@ -1,0 +1,188 @@
+
+whirlwind_fire_02.png
+size: 872,540
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+whirlwind_fire_02_arm_01
+  rotate: true
+  xy: 772, 216
+  size: 64, 97
+  orig: 64, 97
+  offset: 0, 0
+  index: -1
+whirlwind_fire_02_arm_02
+  rotate: false
+  xy: 793, 445
+  size: 75, 93
+  orig: 75, 93
+  offset: 0, 0
+  index: -1
+whirlwind_fire_02_body_01
+  rotate: true
+  xy: 226, 2
+  size: 79, 155
+  orig: 79, 155
+  offset: 0, 0
+  index: -1
+whirlwind_fire_02_body_02
+  rotate: true
+  xy: 453, 84
+  size: 126, 155
+  orig: 126, 155
+  offset: 0, 0
+  index: -1
+whirlwind_fire_02_body_04
+  rotate: true
+  xy: 2, 197
+  size: 341, 155
+  orig: 341, 155
+  offset: 0, 0
+  index: -1
+whirlwind_fire_02_body_05
+  rotate: true
+  xy: 610, 101
+  size: 113, 96
+  orig: 113, 96
+  offset: 0, 0
+  index: -1
+whirlwind_fire_02_eye_01
+  rotate: true
+  xy: 316, 318
+  size: 53, 59
+  orig: 53, 59
+  offset: 0, 0
+  index: -1
+whirlwind_fire_02_hand_01
+  rotate: false
+  xy: 772, 282
+  size: 95, 90
+  orig: 95, 90
+  offset: 0, 0
+  index: -1
+whirlwind_fire_02_hand_02
+  rotate: false
+  xy: 793, 381
+  size: 75, 62
+  orig: 75, 62
+  offset: 0, 0
+  index: -1
+whirlwind_fire_02_head_01
+  rotate: true
+  xy: 708, 103
+  size: 111, 89
+  orig: 111, 89
+  offset: 0, 0
+  index: -1
+whirlwind_fire_02_head_02
+  rotate: true
+  xy: 523, 3
+  size: 79, 110
+  orig: 79, 110
+  offset: 0, 0
+  index: -1
+whirlwind_fire_02_head_04
+  rotate: false
+  xy: 799, 117
+  size: 71, 97
+  orig: 71, 97
+  offset: 0, 0
+  index: -1
+whirlwind_fire_02_head_05
+  rotate: false
+  xy: 749, 2
+  size: 93, 99
+  orig: 93, 99
+  offset: 0, 0
+  index: -1
+whirlwind_fire_02_head_06
+  rotate: true
+  xy: 159, 209
+  size: 105, 153
+  orig: 105, 153
+  offset: 0, 0
+  index: -1
+whirlwind_fire_02_head_07
+  rotate: true
+  xy: 316, 373
+  size: 165, 159
+  orig: 165, 159
+  offset: 0, 0
+  index: -1
+whirlwind_fire_02_head_08
+  rotate: true
+  xy: 383, 11
+  size: 70, 138
+  orig: 70, 138
+  offset: 0, 0
+  index: -1
+whirlwind_fire_02_head_09
+  rotate: false
+  xy: 439, 212
+  size: 165, 159
+  orig: 165, 159
+  offset: 0, 0
+  index: -1
+whirlwind_fire_02_leg_01
+  rotate: true
+  xy: 635, 6
+  size: 93, 112
+  orig: 93, 112
+  offset: 0, 0
+  index: -1
+whirlwind_fire_02_leg_02
+  rotate: true
+  xy: 314, 221
+  size: 93, 123
+  orig: 93, 123
+  offset: 0, 0
+  index: -1
+whirlwind_fire_02_mouth_01
+  rotate: true
+  xy: 377, 326
+  size: 45, 40
+  orig: 45, 40
+  offset: 0, 0
+  index: -1
+whirlwind_fire_02_wing_01
+  rotate: true
+  xy: 226, 83
+  size: 124, 225
+  orig: 124, 225
+  offset: 0, 0
+  index: -1
+whirlwind_fire_02_wing_02
+  rotate: true
+  xy: 477, 374
+  size: 164, 156
+  orig: 164, 156
+  offset: 0, 0
+  index: -1
+whirlwind_fire_02_wing_02_01
+  rotate: false
+  xy: 606, 216
+  size: 164, 156
+  orig: 164, 156
+  offset: 0, 0
+  index: -1
+whirlwind_fire_02_wing_02_02
+  rotate: true
+  xy: 635, 374
+  size: 164, 156
+  orig: 164, 156
+  offset: 0, 0
+  index: -1
+whirlwind_fire_02_wing_03
+  rotate: true
+  xy: 2, 40
+  size: 155, 222
+  orig: 155, 222
+  offset: 0, 0
+  index: -1
+whirlwind_fire_02_wing_04
+  rotate: false
+  xy: 159, 316
+  size: 155, 222
+  orig: 155, 222
+  offset: 0, 0
+  index: -1

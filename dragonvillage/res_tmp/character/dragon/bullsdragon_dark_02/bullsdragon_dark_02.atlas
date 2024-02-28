@@ -1,0 +1,125 @@
+
+bullsdragon_dark_02.png
+size: 1778,257
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+bullsdragon_dark_02_arm_01
+  rotate: false
+  xy: 1322, 110
+  size: 129, 145
+  orig: 129, 145
+  offset: 0, 0
+  index: -1
+bullsdragon_dark_02_arm_02
+  rotate: true
+  xy: 1146, 9
+  size: 85, 105
+  orig: 85, 105
+  offset: 0, 0
+  index: -1
+bullsdragon_dark_02_body_01
+  rotate: true
+  xy: 665, 20
+  size: 235, 204
+  orig: 235, 204
+  offset: 0, 0
+  index: -1
+bullsdragon_dark_02_body_02
+  rotate: false
+  xy: 2, 3
+  size: 235, 252
+  orig: 235, 252
+  offset: 0, 0
+  index: -1
+bullsdragon_dark_02_eye_01
+  rotate: true
+  xy: 1036, 11
+  size: 83, 108
+  orig: 83, 108
+  offset: 0, 0
+  index: -1
+bullsdragon_dark_02_foot_01
+  rotate: false
+  xy: 1596, 17
+  size: 94, 103
+  orig: 94, 103
+  offset: 0, 0
+  index: -1
+bullsdragon_dark_02_foot_02
+  rotate: false
+  xy: 1682, 152
+  size: 94, 103
+  orig: 94, 103
+  offset: 0, 0
+  index: -1
+bullsdragon_dark_02_hand_01
+  rotate: true
+  xy: 1036, 96
+  size: 159, 141
+  orig: 159, 141
+  offset: 0, 0
+  index: -1
+bullsdragon_dark_02_hand_02
+  rotate: true
+  xy: 1179, 96
+  size: 159, 141
+  orig: 159, 141
+  offset: 0, 0
+  index: -1
+bullsdragon_dark_02_head_01
+  rotate: false
+  xy: 871, 59
+  size: 163, 196
+  orig: 163, 196
+  offset: 0, 0
+  index: -1
+bullsdragon_dark_02_head_03
+  rotate: true
+  xy: 1457, 2
+  size: 114, 137
+  orig: 114, 137
+  offset: 0, 0
+  index: -1
+bullsdragon_dark_02_head_04
+  rotate: false
+  xy: 1453, 118
+  size: 119, 137
+  orig: 119, 137
+  offset: 0, 0
+  index: -1
+bullsdragon_dark_02_leg_01
+  rotate: true
+  xy: 1322, 2
+  size: 106, 133
+  orig: 106, 133
+  offset: 0, 0
+  index: -1
+bullsdragon_dark_02_leg_02
+  rotate: false
+  xy: 1574, 122
+  size: 106, 133
+  orig: 106, 133
+  offset: 0, 0
+  index: -1
+bullsdragon_dark_02_mouth_01
+  rotate: false
+  xy: 1253, 22
+  size: 59, 72
+  orig: 59, 72
+  offset: 0, 0
+  index: -1
+bullsdragon_dark_02_wing_01
+  rotate: false
+  xy: 239, 4
+  size: 211, 251
+  orig: 211, 251
+  offset: 0, 0
+  index: -1
+bullsdragon_dark_02_wing_02
+  rotate: false
+  xy: 452, 4
+  size: 211, 251
+  orig: 211, 251
+  offset: 0, 0
+  index: -1

@@ -1,0 +1,237 @@
+
+pharaohdragon_dark_02.png
+size: 1334,239
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+pharaohdragon_dark_02_arm_01
+  rotate: false
+  xy: 1216, 2
+  size: 44, 48
+  orig: 44, 48
+  offset: 0, 0
+  index: -1
+pharaohdragon_dark_02_arm_02
+  rotate: false
+  xy: 1180, 52
+  size: 49, 49
+  orig: 49, 49
+  offset: 0, 0
+  index: -1
+pharaohdragon_dark_02_body_01
+  rotate: false
+  xy: 599, 74
+  size: 121, 163
+  orig: 121, 163
+  offset: 0, 0
+  index: -1
+pharaohdragon_dark_02_body_armor_01
+  rotate: false
+  xy: 981, 90
+  size: 86, 68
+  orig: 86, 68
+  offset: 0, 0
+  index: -1
+pharaohdragon_dark_02_calf_01
+  rotate: true
+  xy: 454, 4
+  size: 40, 52
+  orig: 40, 52
+  offset: 0, 0
+  index: -1
+pharaohdragon_dark_02_calf_02
+  rotate: true
+  xy: 976, 11
+  size: 76, 24
+  orig: 76, 24
+  offset: 0, 0
+  index: -1
+pharaohdragon_dark_02_effect_01
+  rotate: false
+  xy: 2, 7
+  size: 228, 230
+  orig: 228, 230
+  offset: 0, 0
+  index: -1
+pharaohdragon_dark_02_elbow_01
+  rotate: false
+  xy: 1295, 36
+  size: 34, 68
+  orig: 34, 68
+  offset: 0, 0
+  index: -1
+pharaohdragon_dark_02_elbow_02
+  rotate: true
+  xy: 1002, 2
+  size: 31, 58
+  orig: 31, 58
+  offset: 0, 0
+  index: -1
+pharaohdragon_dark_02_eye_01
+  rotate: false
+  xy: 313, 2
+  size: 45, 42
+  orig: 45, 42
+  offset: 0, 0
+  index: -1
+pharaohdragon_dark_02_eye_02
+  rotate: false
+  xy: 360, 2
+  size: 45, 42
+  orig: 45, 42
+  offset: 0, 0
+  index: -1
+pharaohdragon_dark_02_eye_03
+  rotate: false
+  xy: 407, 2
+  size: 45, 42
+  orig: 45, 42
+  offset: 0, 0
+  index: -1
+pharaohdragon_dark_02_foot_01
+  rotate: false
+  xy: 818, 2
+  size: 35, 84
+  orig: 35, 84
+  offset: 0, 0
+  index: -1
+pharaohdragon_dark_02_foot_02
+  rotate: true
+  xy: 731, 2
+  size: 84, 85
+  orig: 84, 85
+  offset: 0, 0
+  index: -1
+pharaohdragon_dark_02_foot_armor_01
+  rotate: false
+  xy: 1295, 106
+  size: 35, 52
+  orig: 35, 52
+  offset: 0, 0
+  index: -1
+pharaohdragon_dark_02_hair_01
+  rotate: true
+  xy: 722, 88
+  size: 149, 116
+  orig: 149, 116
+  offset: 0, 0
+  index: -1
+pharaohdragon_dark_02_hair_02
+  rotate: false
+  xy: 1069, 13
+  size: 109, 145
+  orig: 109, 145
+  offset: 0, 0
+  index: -1
+pharaohdragon_dark_02_hair_03
+  rotate: true
+  xy: 1180, 103
+  size: 55, 113
+  orig: 55, 113
+  offset: 0, 0
+  index: -1
+pharaohdragon_dark_02_hand_01
+  rotate: false
+  xy: 559, 3
+  size: 47, 50
+  orig: 47, 50
+  offset: 0, 0
+  index: -1
+pharaohdragon_dark_02_hand_02
+  rotate: false
+  xy: 508, 3
+  size: 49, 50
+  orig: 49, 50
+  offset: 0, 0
+  index: -1
+pharaohdragon_dark_02_head_01
+  rotate: false
+  xy: 1002, 35
+  size: 61, 53
+  orig: 61, 53
+  offset: 0, 0
+  index: -1
+pharaohdragon_dark_02_head_02
+  rotate: false
+  xy: 668, 3
+  size: 61, 69
+  orig: 61, 69
+  offset: 0, 0
+  index: -1
+pharaohdragon_dark_02_head_03
+  rotate: false
+  xy: 918, 89
+  size: 61, 69
+  orig: 61, 69
+  offset: 0, 0
+  index: -1
+pharaohdragon_dark_02_horn_01
+  rotate: false
+  xy: 840, 88
+  size: 76, 149
+  orig: 76, 149
+  offset: 0, 0
+  index: -1
+pharaohdragon_dark_02_lowerbody_01
+  rotate: true
+  xy: 499, 55
+  size: 182, 98
+  orig: 182, 98
+  offset: 0, 0
+  index: -1
+pharaohdragon_dark_02_mouth_01
+  rotate: true
+  xy: 1180, 11
+  size: 23, 16
+  orig: 23, 16
+  offset: 0, 0
+  index: -1
+pharaohdragon_dark_02_mouth_02
+  rotate: true
+  xy: 1198, 11
+  size: 23, 16
+  orig: 23, 16
+  offset: 0, 0
+  index: -1
+pharaohdragon_dark_02_neck_01
+  rotate: true
+  xy: 608, 2
+  size: 70, 58
+  orig: 70, 58
+  offset: 0, 0
+  index: -1
+pharaohdragon_dark_02_tail_01
+  rotate: true
+  xy: 855, 4
+  size: 82, 58
+  orig: 82, 58
+  offset: 0, 0
+  index: -1
+pharaohdragon_dark_02_tail_02
+  rotate: false
+  xy: 918, 160
+  size: 414, 77
+  orig: 414, 77
+  offset: 0, 0
+  index: -1
+pharaohdragon_dark_02_thigh_01
+  rotate: true
+  xy: 232, 2
+  size: 42, 79
+  orig: 42, 79
+  offset: 0, 0
+  index: -1
+pharaohdragon_dark_02_thigh_02
+  rotate: true
+  xy: 915, 7
+  size: 79, 59
+  orig: 79, 59
+  offset: 0, 0
+  index: -1
+pharaohdragon_dark_02_wing_01
+  rotate: true
+  xy: 232, 46
+  size: 191, 265
+  orig: 191, 265
+  offset: 0, 0
+  index: -1

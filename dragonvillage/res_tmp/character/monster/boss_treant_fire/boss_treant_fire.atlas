@@ -1,0 +1,180 @@
+
+boss_treant_fire.png
+size: 2048,2048
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+boss_treant_fire_acc_01
+  rotate: true
+  xy: 686, 860
+  size: 396, 563
+  orig: 396, 563
+  offset: 0, 0
+  index: -1
+boss_treant_fire_arm_01
+  rotate: true
+  xy: 1272, 23
+  size: 474, 659
+  orig: 474, 659
+  offset: 0, 0
+  index: -1
+boss_treant_fire_body_01
+  rotate: false
+  xy: 1260, 926
+  size: 784, 1118
+  orig: 784, 1118
+  offset: 0, 0
+  index: -1
+boss_treant_fire_eff_02
+  rotate: true
+  xy: 363, 860
+  size: 104, 106
+  orig: 104, 106
+  offset: 0, 0
+  index: -1
+boss_treant_fire_eff_03
+  rotate: true
+  xy: 2, 6
+  size: 54, 51
+  orig: 54, 51
+  offset: 0, 0
+  index: -1
+boss_treant_fire_eye_01
+  rotate: true
+  xy: 1090, 622
+  size: 236, 135
+  orig: 236, 135
+  offset: 0, 0
+  index: -1
+boss_treant_fire_finger_03
+  rotate: true
+  xy: 341, 966
+  size: 290, 343
+  orig: 290, 343
+  offset: 0, 0
+  index: -1
+boss_treant_fire_finger_05
+  rotate: true
+  xy: 2, 932
+  size: 324, 337
+  orig: 324, 337
+  offset: 0, 0
+  index: -1
+boss_treant_fire_finger_06
+  rotate: false
+  xy: 822, 519
+  size: 266, 339
+  orig: 266, 339
+  offset: 0, 0
+  index: -1
+boss_treant_fire_hand_01
+  rotate: false
+  xy: 1251, 499
+  size: 758, 425
+  orig: 758, 425
+  offset: 0, 0
+  index: -1
+boss_treant_fire_hand_02
+  rotate: false
+  xy: 363, 14
+  size: 444, 483
+  orig: 444, 483
+  offset: 0, 0
+  index: -1
+boss_treant_fire_jaw_01
+  rotate: true
+  xy: 363, 504
+  size: 354, 457
+  orig: 354, 457
+  offset: 0, 0
+  index: -1
+boss_treant_fire_leaf_01
+  rotate: false
+  xy: 2, 1258
+  size: 1256, 786
+  orig: 1256, 786
+  offset: 0, 0
+  index: -1
+boss_treant_fire_leaf_02
+  rotate: true
+  xy: 2, 62
+  size: 862, 359
+  orig: 862, 359
+  offset: 0, 0
+  index: -1
+boss_treant_fire_shoulder_01
+  rotate: true
+  xy: 809, 17
+  size: 480, 461
+  orig: 480, 461
+  offset: 0, 0
+  index: -1
+
+boss_treant_fire2.png
+size: 2048,2048
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+boss_treant_fire_eff_01
+  rotate: false
+  xy: 2, 1174
+  size: 753, 744
+  orig: 753, 744
+  offset: 0, 0
+  index: -1
+boss_treant_fire_eff_04
+  rotate: false
+  xy: 1554, 1791
+  size: 127, 127
+  orig: 127, 127
+  offset: 0, 0
+  index: -1
+boss_treant_fire_finger_01
+  rotate: false
+  xy: 522, 920
+  size: 228, 252
+  orig: 228, 252
+  offset: 0, 0
+  index: -1
+boss_treant_fire_finger_02
+  rotate: false
+  xy: 323, 792
+  size: 197, 380
+  orig: 197, 380
+  offset: 0, 0
+  index: -1
+boss_treant_fire_finger_04
+  rotate: false
+  xy: 1311, 1662
+  size: 241, 256
+  orig: 241, 256
+  offset: 0, 0
+  index: -1
+boss_treant_fire_finger_07
+  rotate: false
+  xy: 323, 563
+  size: 190, 227
+  orig: 190, 227
+  offset: 0, 0
+  index: -1
+boss_treant_fire_fruit_01
+  rotate: true
+  xy: 2, 2
+  size: 1170, 319
+  orig: 1170, 319
+  offset: 0, 0
+  index: -1
+boss_treant_fire_head_01
+  rotate: false
+  xy: 757, 1283
+  size: 552, 635
+  orig: 552, 635
+  offset: 0, 0
+  index: -1
+boss_treant_fire_mouth_01
+  rotate: false
+  xy: 1311, 1496
+  size: 216, 164
+  orig: 216, 164
+  offset: 0, 0
+  index: -1

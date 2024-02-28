@@ -1,0 +1,209 @@
+
+teddydragon_fire_03.png
+size: 1940,285
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+teddydragon_fire_03_Pillow_01
+  rotate: false
+  xy: 478, 74
+  size: 205, 209
+  orig: 205, 209
+  offset: 0, 0
+  index: -1
+teddydragon_fire_03_Pillow_02
+  rotate: false
+  xy: 685, 74
+  size: 205, 209
+  orig: 205, 209
+  offset: 0, 0
+  index: -1
+teddydragon_fire_03_arm_01
+  rotate: false
+  xy: 1450, 2
+  size: 85, 124
+  orig: 85, 124
+  offset: 0, 0
+  index: -1
+teddydragon_fire_03_arm_02
+  rotate: false
+  xy: 1751, 159
+  size: 85, 124
+  orig: 85, 124
+  offset: 0, 0
+  index: -1
+teddydragon_fire_03_body_01
+  rotate: false
+  xy: 1378, 128
+  size: 146, 155
+  orig: 146, 155
+  offset: 0, 0
+  index: -1
+teddydragon_fire_03_body_02
+  rotate: true
+  xy: 1526, 136
+  size: 147, 94
+  orig: 147, 94
+  offset: 0, 0
+  index: -1
+teddydragon_fire_03_ear_01
+  rotate: false
+  xy: 1537, 3
+  size: 91, 131
+  orig: 91, 131
+  offset: 0, 0
+  index: -1
+teddydragon_fire_03_effect_01
+  rotate: false
+  xy: 661, 9
+  size: 44, 63
+  orig: 44, 63
+  offset: 0, 0
+  index: -1
+teddydragon_fire_03_effect_02
+  rotate: false
+  xy: 478, 9
+  size: 59, 63
+  orig: 59, 63
+  offset: 0, 0
+  index: -1
+teddydragon_fire_03_effect_03
+  rotate: false
+  xy: 2, 32
+  size: 236, 251
+  orig: 236, 251
+  offset: 0, 0
+  index: -1
+teddydragon_fire_03_effect_04
+  rotate: false
+  xy: 240, 32
+  size: 236, 251
+  orig: 236, 251
+  offset: 0, 0
+  index: -1
+teddydragon_fire_03_eye_01
+  rotate: true
+  xy: 889, 39
+  size: 33, 32
+  orig: 33, 32
+  offset: 0, 0
+  index: -1
+teddydragon_fire_03_eye_02
+  rotate: true
+  xy: 889, 4
+  size: 33, 32
+  orig: 33, 32
+  offset: 0, 0
+  index: -1
+teddydragon_fire_03_foot_01
+  rotate: false
+  xy: 1349, 15
+  size: 99, 105
+  orig: 99, 105
+  offset: 0, 0
+  index: -1
+teddydragon_fire_03_foot_02
+  rotate: false
+  xy: 1838, 135
+  size: 99, 75
+  orig: 99, 75
+  offset: 0, 0
+  index: -1
+teddydragon_fire_03_head_01
+  rotate: false
+  xy: 1232, 122
+  size: 144, 161
+  orig: 144, 161
+  offset: 0, 0
+  index: -1
+teddydragon_fire_03_head_02
+  rotate: false
+  xy: 1836, 13
+  size: 94, 120
+  orig: 94, 120
+  offset: 0, 0
+  index: -1
+teddydragon_fire_03_horn_01
+  rotate: false
+  xy: 539, 9
+  size: 59, 63
+  orig: 59, 63
+  offset: 0, 0
+  index: -1
+teddydragon_fire_03_horn_02
+  rotate: false
+  xy: 600, 9
+  size: 59, 63
+  orig: 59, 63
+  offset: 0, 0
+  index: -1
+teddydragon_fire_03_leg_01
+  rotate: true
+  xy: 1759, 58
+  size: 99, 75
+  orig: 99, 75
+  offset: 0, 0
+  index: -1
+teddydragon_fire_03_leg_02
+  rotate: false
+  xy: 1224, 3
+  size: 123, 101
+  orig: 123, 101
+  offset: 0, 0
+  index: -1
+teddydragon_fire_03_ribbon_01
+  rotate: false
+  xy: 1838, 212
+  size: 100, 71
+  orig: 100, 71
+  offset: 0, 0
+  index: -1
+teddydragon_fire_03_ribbon_02
+  rotate: true
+  xy: 707, 13
+  size: 59, 89
+  orig: 59, 89
+  offset: 0, 0
+  index: -1
+teddydragon_fire_03_ribbon_03
+  rotate: true
+  xy: 798, 13
+  size: 59, 89
+  orig: 59, 89
+  offset: 0, 0
+  index: -1
+teddydragon_fire_03_rug_01
+  rotate: false
+  xy: 923, 3
+  size: 299, 101
+  orig: 299, 101
+  offset: 0, 0
+  index: -1
+teddydragon_fire_03_tam_01
+  rotate: false
+  xy: 892, 106
+  size: 168, 177
+  orig: 168, 177
+  offset: 0, 0
+  index: -1
+teddydragon_fire_03_tam_02
+  rotate: false
+  xy: 1062, 106
+  size: 168, 177
+  orig: 168, 177
+  offset: 0, 0
+  index: -1
+teddydragon_fire_03_wing_01
+  rotate: true
+  xy: 1622, 145
+  size: 138, 127
+  orig: 138, 127
+  offset: 0, 0
+  index: -1
+teddydragon_fire_03_wing_02
+  rotate: true
+  xy: 1630, 5
+  size: 138, 127
+  orig: 138, 127
+  offset: 0, 0
+  index: -1

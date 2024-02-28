@@ -1,0 +1,559 @@
+
+bagmadragon_light_03.png
+size: 2001,771
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+bagmadragon_light_03_arm_01
+  rotate: true
+  xy: 1351, 65
+  size: 38, 63
+  orig: 38, 63
+  offset: 0, 0
+  index: -1
+bagmadragon_light_03_arm_02
+  rotate: false
+  xy: 1599, 5
+  size: 39, 63
+  orig: 39, 63
+  offset: 0, 0
+  index: -1
+bagmadragon_light_03_body_01
+  rotate: false
+  xy: 951, 304
+  size: 237, 203
+  orig: 237, 203
+  offset: 0, 0
+  index: -1
+bagmadragon_light_03_body_01_effect_01
+  rotate: false
+  xy: 1190, 301
+  size: 174, 206
+  orig: 174, 206
+  offset: 0, 0
+  index: -1
+bagmadragon_light_03_body_02
+  rotate: true
+  xy: 1019, 509
+  size: 260, 310
+  orig: 260, 310
+  offset: 0, 0
+  index: -1
+bagmadragon_light_03_body_03
+  rotate: false
+  xy: 1581, 356
+  size: 194, 186
+  orig: 194, 186
+  offset: 0, 0
+  index: -1
+bagmadragon_light_03_body_04
+  rotate: false
+  xy: 575, 93
+  size: 266, 99
+  orig: 266, 99
+  offset: 0, 0
+  index: -1
+bagmadragon_light_03_ear_01
+  rotate: false
+  xy: 1599, 70
+  size: 51, 74
+  orig: 51, 74
+  offset: 0, 0
+  index: -1
+bagmadragon_light_03_ear_02
+  rotate: true
+  xy: 1770, 117
+  size: 30, 66
+  orig: 30, 66
+  offset: 0, 0
+  index: -1
+bagmadragon_light_03_effect_01
+  rotate: false
+  xy: 1331, 582
+  size: 340, 187
+  orig: 340, 187
+  offset: 0, 0
+  index: -1
+bagmadragon_light_03_effect_02
+  rotate: false
+  xy: 575, 527
+  size: 442, 242
+  orig: 442, 242
+  offset: 0, 0
+  index: -1
+bagmadragon_light_03_effect_03
+  rotate: false
+  xy: 575, 194
+  size: 346, 130
+  orig: 346, 130
+  offset: 0, 0
+  index: -1
+bagmadragon_light_03_effect_04
+  rotate: false
+  xy: 575, 326
+  size: 374, 199
+  orig: 374, 199
+  offset: 0, 0
+  index: -1
+bagmadragon_light_03_effect_05
+  rotate: false
+  xy: 2, 4
+  size: 372, 155
+  orig: 372, 155
+  offset: 0, 0
+  index: -1
+bagmadragon_light_03_effect_06
+  rotate: true
+  xy: 1673, 544
+  size: 225, 267
+  orig: 225, 267
+  offset: 0, 0
+  index: -1
+bagmadragon_light_03_effect_07
+  rotate: false
+  xy: 2, 161
+  size: 571, 608
+  orig: 571, 608
+  offset: 0, 0
+  index: -1
+bagmadragon_light_03_effect_light
+  rotate: false
+  xy: 1696, 255
+  size: 99, 99
+  orig: 99, 99
+  offset: 0, 0
+  index: -1
+bagmadragon_light_03_effect_lightdust
+  rotate: true
+  xy: 1464, 143
+  size: 127, 99
+  orig: 127, 99
+  offset: 0, 0
+  index: -1
+bagmadragon_light_03_eye_01
+  rotate: true
+  xy: 376, 12
+  size: 18, 38
+  orig: 18, 38
+  offset: 0, 0
+  index: -1
+bagmadragon_light_03_flower_01
+  rotate: false
+  xy: 1558, 19
+  size: 39, 44
+  orig: 39, 44
+  offset: 0, 0
+  index: -1
+bagmadragon_light_03_flower_01_01
+  rotate: true
+  xy: 1705, 6
+  size: 39, 44
+  orig: 39, 44
+  offset: 0, 0
+  index: -1
+bagmadragon_light_03_flower_01_effect_01
+  rotate: false
+  xy: 1751, 7
+  size: 30, 30
+  orig: 30, 30
+  offset: 0, 0
+  index: -1
+bagmadragon_light_03_flower_01_effect_02
+  rotate: false
+  xy: 1565, 146
+  size: 127, 133
+  orig: 127, 133
+  offset: 0, 0
+  index: -1
+bagmadragon_light_03_hair_01
+  rotate: true
+  xy: 1176, 161
+  size: 138, 140
+  orig: 138, 140
+  offset: 0, 0
+  index: -1
+bagmadragon_light_03_hair_02
+  rotate: false
+  xy: 1777, 363
+  size: 171, 179
+  orig: 171, 179
+  offset: 0, 0
+  index: -1
+bagmadragon_light_03_hair_03
+  rotate: true
+  xy: 842, 17
+  size: 60, 76
+  orig: 60, 76
+  offset: 0, 0
+  index: -1
+bagmadragon_light_03_hair_04
+  rotate: false
+  xy: 1838, 180
+  size: 56, 98
+  orig: 56, 98
+  offset: 0, 0
+  index: -1
+bagmadragon_light_03_hair_05
+  rotate: true
+  xy: 1950, 465
+  size: 85, 46
+  orig: 85, 46
+  offset: 0, 0
+  index: -1
+bagmadragon_light_03_hand_01
+  rotate: true
+  xy: 1416, 73
+  size: 82, 45
+  orig: 82, 45
+  offset: 0, 0
+  index: -1
+bagmadragon_light_03_hand_02
+  rotate: true
+  xy: 1547, 65
+  size: 76, 50
+  orig: 76, 50
+  offset: 0, 0
+  index: -1
+bagmadragon_light_03_head_01
+  rotate: false
+  xy: 1838, 101
+  size: 56, 77
+  orig: 56, 77
+  offset: 0, 0
+  index: -1
+bagmadragon_light_03_head_01_effect_01
+  rotate: true
+  xy: 1463, 64
+  size: 77, 82
+  orig: 77, 82
+  offset: 0, 0
+  index: -1
+bagmadragon_light_03_horn_01
+  rotate: true
+  xy: 1896, 160
+  size: 82, 84
+  orig: 82, 84
+  offset: 0, 0
+  index: -1
+bagmadragon_light_03_horn_02
+  rotate: true
+  xy: 1652, 46
+  size: 25, 48
+  orig: 25, 48
+  offset: 0, 0
+  index: -1
+bagmadragon_light_03_horn_03
+  rotate: false
+  xy: 1652, 73
+  size: 48, 71
+  orig: 48, 71
+  offset: 0, 0
+  index: -1
+bagmadragon_light_03_leaf_01
+  rotate: true
+  xy: 1950, 378
+  size: 85, 47
+  orig: 85, 47
+  offset: 0, 0
+  index: -1
+bagmadragon_light_03_leaf_02
+  rotate: true
+  xy: 1220, 2
+  size: 94, 66
+  orig: 94, 66
+  offset: 0, 0
+  index: -1
+bagmadragon_light_03_leaf_03
+  rotate: true
+  xy: 1702, 47
+  size: 40, 64
+  orig: 40, 64
+  offset: 0, 0
+  index: -1
+bagmadragon_light_03_leaf_04
+  rotate: true
+  xy: 1040, 49
+  size: 119, 50
+  orig: 119, 50
+  offset: 0, 0
+  index: -1
+bagmadragon_light_03_leaf_05
+  rotate: false
+  xy: 1581, 544
+  size: 84, 36
+  orig: 84, 36
+  offset: 0, 0
+  index: -1
+bagmadragon_light_03_leaf_06
+  rotate: true
+  xy: 920, 73
+  size: 95, 118
+  orig: 95, 118
+  offset: 0, 0
+  index: -1
+bagmadragon_light_03_leaf_07
+  rotate: true
+  xy: 744, 8
+  size: 83, 96
+  orig: 83, 96
+  offset: 0, 0
+  index: -1
+bagmadragon_light_03_leaf_08
+  rotate: true
+  xy: 1768, 80
+  size: 35, 65
+  orig: 35, 65
+  offset: 0, 0
+  index: -1
+bagmadragon_light_03_leaf_09
+  rotate: true
+  xy: 1167, 52
+  size: 44, 50
+  orig: 44, 50
+  offset: 0, 0
+  index: -1
+bagmadragon_light_03_leaf_10
+  rotate: false
+  xy: 1288, 2
+  size: 61, 43
+  orig: 61, 43
+  offset: 0, 0
+  index: -1
+bagmadragon_light_03_leaf_11
+  rotate: false
+  xy: 1294, 105
+  size: 120, 50
+  orig: 120, 50
+  offset: 0, 0
+  index: -1
+bagmadragon_light_03_petal_01
+  rotate: false
+  xy: 923, 170
+  size: 172, 132
+  orig: 172, 132
+  offset: 0, 0
+  index: -1
+bagmadragon_light_03_petal_02
+  rotate: false
+  xy: 1366, 272
+  size: 182, 91
+  orig: 182, 91
+  offset: 0, 0
+  index: -1
+bagmadragon_light_03_petal_03
+  rotate: true
+  xy: 1694, 146
+  size: 107, 74
+  orig: 107, 74
+  offset: 0, 0
+  index: -1
+bagmadragon_light_03_petal_04
+  rotate: true
+  xy: 1896, 98
+  size: 60, 85
+  orig: 60, 85
+  offset: 0, 0
+  index: -1
+bagmadragon_light_03_petal_05
+  rotate: true
+  xy: 843, 79
+  size: 113, 75
+  orig: 113, 75
+  offset: 0, 0
+  index: -1
+bagmadragon_light_03_petal_06
+  rotate: false
+  xy: 571, 21
+  size: 171, 70
+  orig: 171, 70
+  offset: 0, 0
+  index: -1
+bagmadragon_light_03_petal_07
+  rotate: true
+  xy: 1318, 157
+  size: 113, 144
+  orig: 113, 144
+  offset: 0, 0
+  index: -1
+bagmadragon_light_03_petal_08
+  rotate: true
+  xy: 1097, 162
+  size: 140, 77
+  orig: 140, 77
+  offset: 0, 0
+  index: -1
+bagmadragon_light_03_petal_09
+  rotate: false
+  xy: 1797, 280
+  size: 113, 81
+  orig: 113, 81
+  offset: 0, 0
+  index: -1
+bagmadragon_light_03_petal_10
+  rotate: false
+  xy: 1942, 640
+  size: 51, 129
+  orig: 51, 129
+  offset: 0, 0
+  index: -1
+bagmadragon_light_03_petal_11
+  rotate: false
+  xy: 1092, 52
+  size: 73, 108
+  orig: 73, 108
+  offset: 0, 0
+  index: -1
+bagmadragon_light_03_petal_12
+  rotate: true
+  xy: 1768, 39
+  size: 39, 65
+  orig: 39, 65
+  offset: 0, 0
+  index: -1
+bagmadragon_light_03_petal_13
+  rotate: false
+  xy: 1912, 244
+  size: 87, 55
+  orig: 87, 55
+  offset: 0, 0
+  index: -1
+bagmadragon_light_03_petal_14
+  rotate: false
+  xy: 1351, 19
+  size: 62, 44
+  orig: 62, 44
+  offset: 0, 0
+  index: -1
+bagmadragon_light_03_petal_15
+  rotate: false
+  xy: 1912, 301
+  size: 87, 60
+  orig: 87, 60
+  offset: 0, 0
+  index: -1
+bagmadragon_light_03_petal_16
+  rotate: false
+  xy: 1702, 89
+  size: 64, 55
+  orig: 64, 55
+  offset: 0, 0
+  index: -1
+bagmadragon_light_03_petal_17
+  rotate: false
+  xy: 1942, 552
+  size: 49, 86
+  orig: 49, 86
+  offset: 0, 0
+  index: -1
+bagmadragon_light_03_petal_18
+  rotate: false
+  xy: 1415, 2
+  size: 38, 42
+  orig: 38, 42
+  offset: 0, 0
+  index: -1
+bagmadragon_light_03_petal_19
+  rotate: false
+  xy: 1092, 2
+  size: 126, 48
+  orig: 126, 48
+  offset: 0, 0
+  index: -1
+bagmadragon_light_03_petal_20
+  rotate: false
+  xy: 1550, 281
+  size: 144, 73
+  orig: 144, 73
+  offset: 0, 0
+  index: -1
+bagmadragon_light_03_petal_21
+  rotate: false
+  xy: 920, 12
+  size: 111, 59
+  orig: 111, 59
+  offset: 0, 0
+  index: -1
+bagmadragon_light_03_petal_22
+  rotate: true
+  xy: 1770, 149
+  size: 104, 66
+  orig: 104, 66
+  offset: 0, 0
+  index: -1
+bagmadragon_light_03_petal_23
+  rotate: true
+  xy: 1167, 98
+  size: 61, 125
+  orig: 61, 125
+  offset: 0, 0
+  index: -1
+bagmadragon_light_03_pistil_01
+  rotate: false
+  xy: 1640, 5
+  size: 63, 39
+  orig: 63, 39
+  offset: 0, 0
+  index: -1
+bagmadragon_light_03_pistil_01_01
+  rotate: false
+  xy: 1455, 10
+  size: 52, 52
+  orig: 52, 52
+  offset: 0, 0
+  index: -1
+bagmadragon_light_03_pistil_02
+  rotate: false
+  xy: 1835, 35
+  size: 50, 64
+  orig: 50, 64
+  offset: 0, 0
+  index: -1
+bagmadragon_light_03_pistil_02_01
+  rotate: false
+  xy: 1509, 8
+  size: 47, 54
+  orig: 47, 54
+  offset: 0, 0
+  index: -1
+bagmadragon_light_03_pistil_03
+  rotate: true
+  xy: 1331, 521
+  size: 59, 32
+  orig: 59, 32
+  offset: 0, 0
+  index: -1
+bagmadragon_light_03_pistil_03_01
+  rotate: false
+  xy: 1944, 44
+  size: 55, 52
+  orig: 55, 52
+  offset: 0, 0
+  index: -1
+bagmadragon_light_03_pistil_04
+  rotate: true
+  xy: 1033, 9
+  size: 38, 56
+  orig: 38, 56
+  offset: 0, 0
+  index: -1
+bagmadragon_light_03_pistil_04_01
+  rotate: false
+  xy: 1887, 41
+  size: 55, 55
+  orig: 55, 55
+  offset: 0, 0
+  index: -1
+bagmadragon_light_03_wing_01
+  rotate: false
+  xy: 1366, 365
+  size: 213, 215
+  orig: 213, 215
+  offset: 0, 0
+  index: -1
+bagmadragon_light_03_wing_02
+  rotate: true
+  xy: 376, 32
+  size: 127, 193
+  orig: 127, 193
+  offset: 0, 0
+  index: -1

@@ -1,0 +1,13 @@
+{
+	"directing":"floating_1",
+	"layer":
+    [
+        {
+            "speed":0
+			"list":
+			[
+                {"res":"res/bg/ancient_tower/ancient_tower.vrp" "animation":"idle_fire" "width":1920 "pos_x":640}
+            ]
+        }
+    ]
+}

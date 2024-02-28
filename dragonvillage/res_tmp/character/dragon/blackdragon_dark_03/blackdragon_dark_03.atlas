@@ -1,0 +1,223 @@
+
+blackdragon_dark_03.png
+size: 1871,807
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+blackdragon_dark_03_arm_01
+  rotate: false
+  xy: 1803, 509
+  size: 44, 84
+  orig: 44, 84
+  offset: 0, 0
+  index: -1
+blackdragon_dark_03_arm_02
+  rotate: true
+  xy: 1743, 252
+  size: 59, 66
+  orig: 59, 66
+  offset: 0, 0
+  index: -1
+blackdragon_dark_03_body_01
+  rotate: true
+  xy: 1646, 22
+  size: 121, 163
+  orig: 121, 163
+  offset: 0, 0
+  index: -1
+blackdragon_dark_03_ear_01
+  rotate: false
+  xy: 1655, 249
+  size: 86, 143
+  orig: 86, 143
+  offset: 0, 0
+  index: -1
+blackdragon_dark_03_ear_02
+  rotate: true
+  xy: 1741, 197
+  size: 50, 114
+  orig: 50, 114
+  offset: 0, 0
+  index: -1
+blackdragon_dark_03_effect_01
+  rotate: false
+  xy: 1508, 575
+  size: 228, 230
+  orig: 228, 230
+  offset: 0, 0
+  index: -1
+blackdragon_dark_03_effect_02
+  rotate: false
+  xy: 1849, 758
+  size: 20, 47
+  orig: 20, 47
+  offset: 0, 0
+  index: -1
+blackdragon_dark_03_effect_03_1
+  rotate: false
+  xy: 2, 405
+  size: 500, 400
+  orig: 500, 400
+  offset: 0, 0
+  index: -1
+blackdragon_dark_03_effect_03_2
+  rotate: false
+  xy: 504, 405
+  size: 500, 400
+  orig: 500, 400
+  offset: 0, 0
+  index: -1
+blackdragon_dark_03_effect_03_3
+  rotate: false
+  xy: 1006, 405
+  size: 500, 400
+  orig: 500, 400
+  offset: 0, 0
+  index: -1
+blackdragon_dark_03_effect_03_4
+  rotate: false
+  xy: 2, 3
+  size: 500, 400
+  orig: 500, 400
+  offset: 0, 0
+  index: -1
+blackdragon_dark_03_effect_03_5
+  rotate: false
+  xy: 504, 3
+  size: 500, 400
+  orig: 500, 400
+  offset: 0, 0
+  index: -1
+blackdragon_dark_03_effect_03_6
+  rotate: false
+  xy: 1006, 3
+  size: 500, 400
+  orig: 500, 400
+  offset: 0, 0
+  index: -1
+blackdragon_dark_03_eye_01
+  rotate: true
+  xy: 1811, 280
+  size: 31, 29
+  orig: 31, 29
+  offset: 0, 0
+  index: -1
+blackdragon_dark_03_eye_02
+  rotate: true
+  xy: 1646, 2
+  size: 18, 23
+  orig: 18, 23
+  offset: 0, 0
+  index: -1
+blackdragon_dark_03_eye_03
+  rotate: false
+  xy: 1696, 6
+  size: 34, 14
+  orig: 34, 14
+  offset: 0, 0
+  index: -1
+blackdragon_dark_03_eye_04
+  rotate: false
+  xy: 1508, 2
+  size: 16, 6
+  orig: 16, 6
+  offset: 0, 0
+  index: -1
+blackdragon_dark_03_eye_05
+  rotate: false
+  xy: 1811, 249
+  size: 31, 29
+  orig: 31, 29
+  offset: 0, 0
+  index: -1
+blackdragon_dark_03_eye_06
+  rotate: true
+  xy: 1671, 2
+  size: 18, 23
+  orig: 18, 23
+  offset: 0, 0
+  index: -1
+blackdragon_dark_03_foot_01
+  rotate: true
+  xy: 1811, 3
+  size: 47, 50
+  orig: 47, 50
+  offset: 0, 0
+  index: -1
+blackdragon_dark_03_foot_02
+  rotate: false
+  xy: 1741, 147
+  size: 49, 48
+  orig: 49, 48
+  offset: 0, 0
+  index: -1
+blackdragon_dark_03_hand_01
+  rotate: true
+  xy: 1811, 52
+  size: 94, 58
+  orig: 94, 58
+  offset: 0, 0
+  index: -1
+blackdragon_dark_03_hand_02
+  rotate: false
+  xy: 1792, 148
+  size: 68, 47
+  orig: 68, 47
+  offset: 0, 0
+  index: -1
+blackdragon_dark_03_head_01
+  rotate: true
+  xy: 1738, 692
+  size: 113, 109
+  orig: 113, 109
+  offset: 0, 0
+  index: -1
+blackdragon_dark_03_leg_01
+  rotate: false
+  xy: 1655, 169
+  size: 84, 78
+  orig: 84, 78
+  offset: 0, 0
+  index: -1
+blackdragon_dark_03_leg_02
+  rotate: false
+  xy: 1743, 313
+  size: 78, 79
+  orig: 78, 79
+  offset: 0, 0
+  index: -1
+blackdragon_dark_03_mouth_01
+  rotate: false
+  xy: 1732, 6
+  size: 19, 14
+  orig: 19, 14
+  offset: 0, 0
+  index: -1
+blackdragon_dark_03_neck_01
+  rotate: true
+  xy: 1508, 10
+  size: 133, 136
+  orig: 133, 136
+  offset: 0, 0
+  index: -1
+blackdragon_dark_03_neck_02
+  rotate: true
+  xy: 1655, 394
+  size: 179, 146
+  orig: 179, 146
+  offset: 0, 0
+  index: -1
+blackdragon_dark_03_tail_01
+  rotate: false
+  xy: 1508, 145
+  size: 145, 428
+  orig: 145, 428
+  offset: 0, 0
+  index: -1
+blackdragon_dark_03_wing_01
+  rotate: false
+  xy: 1738, 595
+  size: 127, 95
+  orig: 127, 95
+  offset: 0, 0
+  index: -1

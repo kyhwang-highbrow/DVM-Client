@@ -1,0 +1,356 @@
+
+envy_all_02.png
+size: 1906,1543
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+effect_charging
+  rotate: true
+  xy: 1541, 395
+  size: 200, 189
+  orig: 200, 189
+  offset: 0, 0
+  index: -1
+effect_light_01
+  rotate: true
+  xy: 1256, 25
+  size: 211, 199
+  orig: 211, 199
+  offset: 0, 0
+  index: -1
+effect_light_circle_01
+  rotate: true
+  xy: 1541, 214
+  size: 179, 180
+  orig: 179, 180
+  offset: 0, 0
+  index: -1
+effect_light_star1
+  rotate: false
+  xy: 1508, 1214
+  size: 381, 327
+  orig: 381, 327
+  offset: 0, 0
+  index: -1
+effect_slash
+  rotate: false
+  xy: 1006, 32
+  size: 248, 204
+  orig: 248, 204
+  offset: 0, 0
+  index: -1
+effect_smmok
+  rotate: false
+  xy: 1006, 238
+  size: 342, 299
+  orig: 342, 299
+  offset: 0, 0
+  index: -1
+effect_smoke_001
+  rotate: false
+  xy: 2, 1041
+  size: 500, 500
+  orig: 500, 500
+  offset: 0, 0
+  index: -1
+effect_smoke_002
+  rotate: false
+  xy: 2, 539
+  size: 500, 500
+  orig: 500, 500
+  offset: 0, 0
+  index: -1
+effect_smoke_003
+  rotate: false
+  xy: 504, 1041
+  size: 500, 500
+  orig: 500, 500
+  offset: 0, 0
+  index: -1
+effect_smoke_004
+  rotate: false
+  xy: 2, 37
+  size: 500, 500
+  orig: 500, 500
+  offset: 0, 0
+  index: -1
+effect_smoke_005
+  rotate: false
+  xy: 504, 539
+  size: 500, 500
+  orig: 500, 500
+  offset: 0, 0
+  index: -1
+effect_smoke_006
+  rotate: false
+  xy: 1006, 1041
+  size: 500, 500
+  orig: 500, 500
+  offset: 0, 0
+  index: -1
+effect_smoke_007
+  rotate: false
+  xy: 504, 37
+  size: 500, 500
+  orig: 500, 500
+  offset: 0, 0
+  index: -1
+effect_smoke_008
+  rotate: false
+  xy: 1006, 539
+  size: 500, 500
+  orig: 500, 500
+  offset: 0, 0
+  index: -1
+effect_stun_06
+  rotate: false
+  xy: 2, 2
+  size: 35, 33
+  orig: 35, 33
+  offset: 0, 0
+  index: -1
+envy_all_02_acc_01
+  rotate: false
+  xy: 1840, 552
+  size: 64, 98
+  orig: 64, 98
+  offset: 0, 0
+  index: -1
+envy_all_02_acc_02
+  rotate: true
+  xy: 1778, 983
+  size: 85, 108
+  orig: 85, 108
+  offset: 0, 0
+  index: -1
+envy_all_02_acc_03
+  rotate: true
+  xy: 1730, 55
+  size: 74, 95
+  orig: 74, 95
+  offset: 0, 0
+  index: -1
+envy_all_02_acc_04
+  rotate: false
+  xy: 1831, 292
+  size: 73, 85
+  orig: 73, 85
+  offset: 0, 0
+  index: -1
+envy_all_02_acc_05
+  rotate: false
+  xy: 1730, 131
+  size: 84, 87
+  orig: 84, 87
+  offset: 0, 0
+  index: -1
+envy_all_02_body_01
+  rotate: false
+  xy: 1778, 1070
+  size: 125, 142
+  orig: 125, 142
+  offset: 0, 0
+  index: -1
+envy_all_02_body_02
+  rotate: true
+  xy: 1723, 302
+  size: 91, 102
+  orig: 91, 102
+  offset: 0, 0
+  index: -1
+envy_all_02_body_03
+  rotate: true
+  xy: 1732, 413
+  size: 120, 93
+  orig: 120, 93
+  offset: 0, 0
+  index: -1
+envy_all_02_eye_01
+  rotate: false
+  xy: 1848, 656
+  size: 35, 29
+  orig: 35, 29
+  offset: 0, 0
+  index: -1
+envy_all_02_eye_02
+  rotate: true
+  xy: 1686, 654
+  size: 35, 29
+  orig: 35, 29
+  offset: 0, 0
+  index: -1
+envy_all_02_eye_03
+  rotate: true
+  xy: 1508, 562
+  size: 33, 31
+  orig: 33, 31
+  offset: 0, 0
+  index: -1
+envy_all_02_eye_04
+  rotate: false
+  xy: 76, 3
+  size: 34, 32
+  orig: 34, 32
+  offset: 0, 0
+  index: -1
+envy_all_02_eye_05
+  rotate: false
+  xy: 1512, 269
+  size: 27, 29
+  orig: 27, 29
+  offset: 0, 0
+  index: -1
+envy_all_02_eye_06
+  rotate: false
+  xy: 1670, 38
+  size: 24, 26
+  orig: 24, 26
+  offset: 0, 0
+  index: -1
+envy_all_02_eyebrow_01
+  rotate: true
+  xy: 1686, 607
+  size: 43, 44
+  orig: 43, 44
+  offset: 0, 0
+  index: -1
+envy_all_02_head_01
+  rotate: false
+  xy: 1732, 535
+  size: 106, 115
+  orig: 106, 115
+  offset: 0, 0
+  index: -1
+envy_all_02_head_02
+  rotate: false
+  xy: 1827, 379
+  size: 77, 73
+  orig: 77, 73
+  offset: 0, 0
+  index: -1
+envy_all_02_head_03
+  rotate: false
+  xy: 1350, 250
+  size: 86, 48
+  orig: 86, 48
+  offset: 0, 0
+  index: -1
+envy_all_02_head_04
+  rotate: false
+  xy: 39, 2
+  size: 35, 33
+  orig: 35, 33
+  offset: 0, 0
+  index: -1
+envy_all_02_head_05
+  rotate: true
+  xy: 1840, 454
+  size: 96, 64
+  orig: 96, 64
+  offset: 0, 0
+  index: -1
+envy_all_02_horn_01
+  rotate: false
+  xy: 1848, 687
+  size: 40, 66
+  orig: 40, 66
+  offset: 0, 0
+  index: -1
+envy_all_02_horn_02
+  rotate: false
+  xy: 1831, 195
+  size: 67, 95
+  orig: 67, 95
+  offset: 0, 0
+  index: -1
+envy_all_02_horn_03
+  rotate: true
+  xy: 1622, 19
+  size: 45, 46
+  orig: 45, 46
+  offset: 0, 0
+  index: -1
+envy_all_02_horn_04
+  rotate: false
+  xy: 1827, 19
+  size: 64, 85
+  orig: 64, 85
+  offset: 0, 0
+  index: -1
+envy_all_02_horn_05
+  rotate: true
+  xy: 1438, 246
+  size: 52, 72
+  orig: 52, 72
+  offset: 0, 0
+  index: -1
+envy_all_02_neck_01
+  rotate: false
+  xy: 1718, 652
+  size: 128, 101
+  orig: 128, 101
+  offset: 0, 0
+  index: -1
+envy_all_02_neck_02
+  rotate: false
+  xy: 1508, 597
+  size: 176, 92
+  orig: 176, 92
+  offset: 0, 0
+  index: -1
+envy_all_02_tail_01
+  rotate: false
+  xy: 1508, 980
+  size: 268, 232
+  orig: 268, 232
+  offset: 0, 0
+  index: -1
+envy_all_02_tail_02
+  rotate: false
+  xy: 1622, 66
+  size: 106, 146
+  orig: 106, 146
+  offset: 0, 0
+  index: -1
+envy_all_02_wing_01
+  rotate: true
+  xy: 1718, 755
+  size: 223, 166
+  orig: 223, 166
+  offset: 0, 0
+  index: -1
+envy_all_02_wing_02
+  rotate: true
+  xy: 1508, 691
+  size: 287, 208
+  orig: 287, 208
+  offset: 0, 0
+  index: -1
+envy_all_02_wing_03
+  rotate: false
+  xy: 1457, 42
+  size: 163, 170
+  orig: 163, 170
+  offset: 0, 0
+  index: -1
+envy_all_02_wing_04
+  rotate: false
+  xy: 1723, 220
+  size: 106, 80
+  orig: 106, 80
+  offset: 0, 0
+  index: -1
+envy_all_02_wing_05
+  rotate: false
+  xy: 1827, 106
+  size: 65, 87
+  orig: 65, 87
+  offset: 0, 0
+  index: -1
+envy_all_02_wing_09
+  rotate: true
+  xy: 1350, 300
+  size: 237, 189
+  orig: 237, 189
+  offset: 0, 0
+  index: -1

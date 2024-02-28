@@ -1,0 +1,405 @@
+
+ashley_all_02.png
+size: 1906,1040
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+ashley_all_02_arm_01
+  rotate: false
+  xy: 432, 103
+  size: 207, 252
+  orig: 207, 252
+  offset: 0, 0
+  index: -1
+ashley_all_02_arm_02
+  rotate: false
+  xy: 1432, 772
+  size: 81, 76
+  orig: 81, 76
+  offset: 0, 0
+  index: -1
+ashley_all_02_arm_03
+  rotate: true
+  xy: 1342, 244
+  size: 119, 79
+  orig: 119, 79
+  offset: 0, 0
+  index: -1
+ashley_all_02_arm_04
+  rotate: false
+  xy: 544, 14
+  size: 70, 87
+  orig: 70, 87
+  offset: 0, 0
+  index: -1
+ashley_all_02_arm_05
+  rotate: false
+  xy: 1836, 165
+  size: 64, 87
+  orig: 64, 87
+  offset: 0, 0
+  index: -1
+ashley_all_02_arm_06
+  rotate: true
+  xy: 641, 157
+  size: 162, 250
+  orig: 162, 250
+  offset: 0, 0
+  index: -1
+ashley_all_02_armeffect_01
+  rotate: false
+  xy: 1661, 93
+  size: 100, 101
+  orig: 100, 101
+  offset: 0, 0
+  index: -1
+ashley_all_02_armeffect_02
+  rotate: true
+  xy: 1661, 27
+  size: 64, 92
+  orig: 64, 92
+  offset: 0, 0
+  index: -1
+ashley_all_02_armor_01
+  rotate: false
+  xy: 1836, 254
+  size: 68, 131
+  orig: 68, 131
+  offset: 0, 0
+  index: -1
+ashley_all_02_armor_03
+  rotate: true
+  xy: 203, 26
+  size: 74, 126
+  orig: 74, 126
+  offset: 0, 0
+  index: -1
+ashley_all_02_armor_04
+  rotate: false
+  xy: 1075, 411
+  size: 37, 86
+  orig: 37, 86
+  offset: 0, 0
+  index: -1
+ashley_all_02_armor_06
+  rotate: true
+  xy: 1812, 9
+  size: 69, 72
+  orig: 69, 72
+  offset: 0, 0
+  index: -1
+ashley_all_02_armor_07
+  rotate: true
+  xy: 1853, 627
+  size: 63, 46
+  orig: 63, 46
+  offset: 0, 0
+  index: -1
+ashley_all_02_blade_01
+  rotate: true
+  xy: 1432, 407
+  size: 135, 207
+  orig: 135, 207
+  offset: 0, 0
+  index: -1
+ashley_all_02_body_01
+  rotate: false
+  xy: 2, 102
+  size: 428, 253
+  orig: 428, 253
+  offset: 0, 0
+  index: -1
+ashley_all_02_eye_01
+  rotate: true
+  xy: 1866, 999
+  size: 39, 38
+  orig: 39, 38
+  offset: 0, 0
+  index: -1
+ashley_all_02_eye_02
+  rotate: true
+  xy: 1006, 465
+  size: 32, 31
+  orig: 32, 31
+  offset: 0, 0
+  index: -1
+ashley_all_02_head_01
+  rotate: true
+  xy: 893, 162
+  size: 157, 115
+  orig: 157, 115
+  offset: 0, 0
+  index: -1
+ashley_all_02_head_02
+  rotate: true
+  xy: 1825, 80
+  size: 83, 63
+  orig: 83, 63
+  offset: 0, 0
+  index: -1
+ashley_all_02_horn_01
+  rotate: true
+  xy: 1763, 83
+  size: 111, 60
+  orig: 111, 60
+  offset: 0, 0
+  index: -1
+ashley_all_02_horn_02
+  rotate: true
+  xy: 1755, 27
+  size: 54, 55
+  orig: 54, 55
+  offset: 0, 0
+  index: -1
+ashley_all_02_led_01
+  rotate: false
+  xy: 331, 14
+  size: 103, 86
+  orig: 103, 86
+  offset: 0, 0
+  index: -1
+ashley_all_02_led_02
+  rotate: false
+  xy: 1866, 962
+  size: 33, 35
+  orig: 33, 35
+  offset: 0, 0
+  index: -1
+ashley_all_02_led_03
+  rotate: true
+  xy: 1039, 466
+  size: 31, 33
+  orig: 31, 33
+  offset: 0, 0
+  index: -1
+ashley_all_02_led_04
+  rotate: true
+  xy: 969, 465
+  size: 32, 35
+  orig: 32, 35
+  offset: 0, 0
+  index: -1
+ashley_all_02_led_05
+  rotate: false
+  xy: 1010, 152
+  size: 134, 167
+  orig: 134, 167
+  offset: 0, 0
+  index: -1
+ashley_all_02_led_13
+  rotate: false
+  xy: 1075, 369
+  size: 36, 40
+  orig: 36, 40
+  offset: 0, 0
+  index: -1
+ashley_all_02_leg_01
+  rotate: true
+  xy: 924, 321
+  size: 142, 149
+  orig: 142, 149
+  offset: 0, 0
+  index: -1
+ashley_all_02_leg_02
+  rotate: true
+  xy: 2, 2
+  size: 98, 80
+  orig: 98, 80
+  offset: 0, 0
+  index: -1
+ashley_all_02_leg_03
+  rotate: true
+  xy: 436, 10
+  size: 91, 106
+  orig: 91, 106
+  offset: 0, 0
+  index: -1
+ashley_all_02_neck_01
+  rotate: false
+  xy: 84, 4
+  size: 117, 96
+  orig: 117, 96
+  offset: 0, 0
+  index: -1
+ashley_all_02_neck_02
+  rotate: true
+  xy: 1853, 575
+  size: 50, 49
+  orig: 50, 49
+  offset: 0, 0
+  index: -1
+ashley_all_02_wing_01
+  rotate: false
+  xy: 969, 499
+  size: 143, 320
+  orig: 143, 320
+  offset: 0, 0
+  index: -1
+ashley_all_02_wing_02
+  rotate: false
+  xy: 1287, 528
+  size: 143, 320
+  orig: 143, 320
+  offset: 0, 0
+  index: -1
+ashley_all_02_wing_03
+  rotate: false
+  xy: 668, 321
+  size: 254, 142
+  orig: 254, 142
+  offset: 0, 0
+  index: -1
+ashley_all_02_wing_04
+  rotate: false
+  xy: 641, 13
+  size: 254, 142
+  orig: 254, 142
+  offset: 0, 0
+  index: -1
+ashley_all_02_wing_07
+  rotate: false
+  xy: 1009, 22
+  size: 129, 128
+  orig: 129, 128
+  offset: 0, 0
+  index: -1
+ashley_all_02_wing_08
+  rotate: false
+  xy: 1114, 547
+  size: 171, 301
+  orig: 171, 301
+  offset: 0, 0
+  index: -1
+effect_ashley_all_02_01
+  rotate: false
+  xy: 1342, 189
+  size: 52, 53
+  orig: 52, 53
+  offset: 0, 0
+  index: -1
+effect_ashley_all_02_06
+  rotate: false
+  xy: 1114, 850
+  size: 420, 188
+  orig: 420, 188
+  offset: 0, 0
+  index: -1
+effect_ashley_all_02_07
+  rotate: true
+  xy: 1146, 8
+  size: 179, 180
+  orig: 179, 180
+  offset: 0, 0
+  index: -1
+effect_ashley_all_02_08
+  rotate: false
+  xy: 668, 821
+  size: 444, 217
+  orig: 444, 217
+  offset: 0, 0
+  index: -1
+effect_ashley_all_02_09
+  rotate: true
+  xy: 1853, 692
+  size: 58, 51
+  orig: 58, 51
+  offset: 0, 0
+  index: -1
+effect_ashley_all_02_10
+  rotate: false
+  xy: 1328, 19
+  size: 163, 168
+  orig: 163, 168
+  offset: 0, 0
+  index: -1
+effect_ashley_all_02_11
+  rotate: true
+  xy: 1432, 209
+  size: 196, 200
+  orig: 196, 200
+  offset: 0, 0
+  index: -1
+effect_ashley_all_02_12
+  rotate: true
+  xy: 1536, 752
+  size: 286, 328
+  orig: 286, 328
+  offset: 0, 0
+  index: -1
+effect_ashley_all_02_13
+  rotate: false
+  xy: 1432, 544
+  size: 206, 206
+  orig: 206, 206
+  offset: 0, 0
+  index: -1
+effect_ashley_all_02_14
+  rotate: false
+  xy: 1493, 28
+  size: 166, 166
+  orig: 166, 166
+  offset: 0, 0
+  index: -1
+effect_ashley_all_02_15
+  rotate: false
+  xy: 1634, 196
+  size: 200, 189
+  orig: 200, 189
+  offset: 0, 0
+  index: -1
+effect_ashley_all_02_16
+  rotate: false
+  xy: 1640, 551
+  size: 211, 199
+  orig: 211, 199
+  offset: 0, 0
+  index: -1
+effect_ashley_all_02_17
+  rotate: true
+  xy: 1286, 365
+  size: 161, 144
+  orig: 161, 144
+  offset: 0, 0
+  index: -1
+effect_ashley_all_02_18
+  rotate: false
+  xy: 1114, 379
+  size: 170, 166
+  orig: 170, 166
+  offset: 0, 0
+  index: -1
+effect_ashley_all_02_19
+  rotate: false
+  xy: 2, 357
+  size: 664, 681
+  orig: 664, 681
+  offset: 0, 0
+  index: -1
+effect_ashley_all_02_20
+  rotate: false
+  xy: 1641, 387
+  size: 212, 162
+  orig: 212, 162
+  offset: 0, 0
+  index: -1
+effect_ashley_all_02_21
+  rotate: false
+  xy: 897, 15
+  size: 110, 145
+  orig: 110, 145
+  offset: 0, 0
+  index: -1
+effect_ashley_all_02_22
+  rotate: false
+  xy: 1146, 189
+  size: 194, 174
+  orig: 194, 174
+  offset: 0, 0
+  index: -1
+effect_ashley_all_02_23
+  rotate: false
+  xy: 668, 465
+  size: 299, 354
+  orig: 299, 354
+  offset: 0, 0
+  index: -1

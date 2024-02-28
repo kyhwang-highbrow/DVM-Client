@@ -1,0 +1,12 @@
+page,bg,illustration,char,t_char_name,char_pos,char_ani,char_effect,r_scen,t_text,text_pos,text_type,auto_skip,effect_1,effect_2,effect_3,bgm,bgm_action,sound
+1,,,,,,,,,,,,3,title;절망의 다크닉스,skip_disable,,,,
+2,,,,,,,,,,,,0.3,skip_disable,,,,,
+3,다크닉스스토리3_1,,,,,,,,,,,,,,,,,
+4,,,,,,,,,어떠한 절규도 운명을 뒤바꿀 수는 없었다.,,narrate,,,,,bgm_sorrow,,
+5,,,,,,,,,"다크닉스의 울음이 퍼질 때마다, 짙은 어둠의 기운도 함께 퍼지기 시작했다.",,narrate,,,,,,,
+6,다크닉스스토리3_1,,다크닉스2,다크닉스,right,fury,,,끄아아아아악!!!!!!!!,,bold,,,,,,,
+7,,,다크닉스2,다크닉스,right,fury,,,"아모르 신이시여 제발, 제발!!!!",,bold,,,,,,,
+8,,,,,,,,,창조신 아모르에게선 그 어떤 답도 내려오지 않았다.,,narrate,,,,,,,
+9,,,,,,,,,마치 그녀의 죽음이 운명이라는 듯.,,narrate,,,,,,,
+10,,,,,,,,,그녀의 시신을 끌어안는 시간이 길어질수록,,narrate,,,,,,,
+11,,,,,,,,,끌어오르는 분노는 다크닉스의 영혼을 잠식해가고 있었다.,,narrate,,,,,,,

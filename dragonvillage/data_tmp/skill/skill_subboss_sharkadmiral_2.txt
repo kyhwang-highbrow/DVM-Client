@@ -1,0 +1,71 @@
+{
+	"skill_subboss_sharkadmiral_2":
+	{
+		"ver":2,
+		"attack_value":
+		[							
+			{
+				"idx":1,
+				"res":"res/missile/missile_anchor/missile_anchor.vrp",
+				"body":[0,0,80],
+                "count":3,
+				"damage_rate":16.6,
+                "period":0.15,
+                "scale":0.8,
+				"time":0,
+				"speed":400,
+				"accel_delay":0.2,
+				"accel":400,
+				"l_limit_speed":0,
+				"angular_velocity":200,
+				"offset":[0,0],
+				
+				"dir_array":[90,210,330],
+				"dir_add":0,
+				"missile_type":"pass",
+				"reset_time":0.3,
+				
+				
+				
+                "effect":
+                {
+                    "motion_streak":"res/missile/motion_streak/motion_streak_line_water.png",
+                    "rotation":false,
+                    "afterimage":false
+                }				
+			},
+			
+			{
+				"idx":1,
+				"res":"res/missile/missile_anchor/missile_anchor.vrp",
+				"body":[0,0,80],
+                "count":3,
+				"damage_rate":16.6,				
+                "period":0.15,
+                "scale":0.8,
+				"time":0,
+				"speed":400,
+				"accel_delay":0.2,
+				"accel":400,
+				"l_limit_speed":0,
+				"angular_velocity":-200,
+				"offset":[0,0],
+				
+				"dir_array":[90,210,330],
+				"dir_add":0,
+				"missile_type":"pass",
+				"reset_time":0.3,
+				
+				
+				
+                "effect":
+                {
+                    "motion_streak":"res/missile/motion_streak/motion_streak_line_water.png",
+                    "rotation":false,
+                    "afterimage":false
+                }				
+			}
+		]
+	}
+}
+

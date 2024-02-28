@@ -1,0 +1,55 @@
+{
+	"skill_monsterdragon_01":
+	{
+		"attack_value":
+		[
+			
+			{
+				"idx":1,
+				"res":"res/effect/skill_leaf_blade/skill_leaf_blade_@.vrp",
+				"visual":"idle",
+				"body":[0,0,30],
+				"count":3,
+				"damage_rate":16.6,
+				"period":0.2,
+				"scale":0.5,
+				"time":0,
+				"speed":800,
+				"accel":1000,
+				"h_limit_speed":2000,
+				"accel_delay":0,
+				"angular_velocity":0,
+				"is_abs_pos":false,
+				"offset":[0,0],
+				"dir_array":[60,-60],
+				"delete_time":3,
+				"movement":"guid",
+				
+				"effect":
+                {
+                    "motion_streak":"res/missile/motion_streak/motion_streak_leaf.png",
+                    "rotation":false,
+                    "afterimage":false
+                }
+			},
+			
+			{
+				"idx":1,
+				"res":"res/effect/effect_screen/effect_screen_@.vrp",
+				"visual":"idle",
+				"body":[0,0,0],
+                "count":1,
+                "period":0,
+                "scale":30,
+				"time":0.1,
+				"speed":0,
+				"is_abs_pos":true,
+				"offset":[0,0],
+				"dir":0,
+				"dir_add":0,
+				"res_depth":"bottom;1",
+				"fadeout_time":3
+			}
+		]
+	}
+}

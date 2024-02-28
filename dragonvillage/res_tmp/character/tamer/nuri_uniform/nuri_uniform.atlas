@@ -1,0 +1,524 @@
+
+nuri_uniform.png
+size: 1873,396
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+nuri_uniform_arm_01
+  rotate: true
+  xy: 834, 3
+  size: 34, 52
+  orig: 34, 52
+  offset: 0, 0
+  index: -1
+nuri_uniform_arm_02
+  rotate: true
+  xy: 375, 9
+  size: 24, 38
+  orig: 24, 38
+  offset: 0, 0
+  index: -1
+nuri_uniform_arm_03
+  rotate: false
+  xy: 976, 2
+  size: 30, 45
+  orig: 30, 45
+  offset: 0, 0
+  index: -1
+nuri_uniform_arm_04
+  rotate: true
+  xy: 327, 3
+  size: 30, 46
+  orig: 30, 46
+  offset: 0, 0
+  index: -1
+nuri_uniform_body_01
+  rotate: true
+  xy: 475, 18
+  size: 55, 78
+  orig: 55, 78
+  offset: 0, 0
+  index: -1
+nuri_uniform_body_02
+  rotate: false
+  xy: 1020, 40
+  size: 68, 42
+  orig: 68, 42
+  offset: 0, 0
+  index: -1
+nuri_uniform_body_03
+  rotate: true
+  xy: 2, 2
+  size: 28, 38
+  orig: 28, 38
+  offset: 0, 0
+  index: -1
+nuri_uniform_body_04
+  rotate: false
+  xy: 1090, 29
+  size: 55, 53
+  orig: 55, 53
+  offset: 0, 0
+  index: -1
+nuri_uniform_effect_01
+  rotate: false
+  xy: 1151, 82
+  size: 146, 138
+  orig: 146, 138
+  offset: 0, 0
+  index: -1
+nuri_uniform_effect_02
+  rotate: true
+  xy: 1535, 2
+  size: 96, 86
+  orig: 96, 86
+  offset: 0, 0
+  index: -1
+nuri_uniform_effect_03
+  rotate: false
+  xy: 1499, 234
+  size: 161, 160
+  orig: 161, 160
+  offset: 0, 0
+  index: -1
+nuri_uniform_effect_04
+  rotate: false
+  xy: 746, 195
+  size: 201, 199
+  orig: 201, 199
+  offset: 0, 0
+  index: -1
+nuri_uniform_effect_05
+  rotate: false
+  xy: 1535, 100
+  size: 132, 132
+  orig: 132, 132
+  offset: 0, 0
+  index: -1
+nuri_uniform_effect_06
+  rotate: false
+  xy: 1151, 222
+  size: 172, 172
+  orig: 172, 172
+  offset: 0, 0
+  index: -1
+nuri_uniform_effect_07
+  rotate: false
+  xy: 949, 194
+  size: 200, 200
+  orig: 200, 200
+  offset: 0, 0
+  index: -1
+nuri_uniform_effect_08
+  rotate: false
+  xy: 1325, 222
+  size: 172, 172
+  orig: 172, 172
+  offset: 0, 0
+  index: -1
+nuri_uniform_effect_09
+  rotate: false
+  xy: 290, 180
+  size: 228, 214
+  orig: 228, 214
+  offset: 0, 0
+  index: -1
+nuri_uniform_effect_10
+  rotate: false
+  xy: 1662, 248
+  size: 149, 146
+  orig: 149, 146
+  offset: 0, 0
+  index: -1
+nuri_uniform_effect_11
+  rotate: false
+  xy: 1299, 82
+  size: 146, 138
+  orig: 146, 138
+  offset: 0, 0
+  index: -1
+nuri_uniform_effect_12
+  rotate: true
+  xy: 269, 35
+  size: 42, 144
+  orig: 42, 144
+  offset: 0, 0
+  index: -1
+nuri_uniform_effect_13
+  rotate: false
+  xy: 926, 2
+  size: 48, 45
+  orig: 48, 45
+  offset: 0, 0
+  index: -1
+nuri_uniform_effect_14
+  rotate: false
+  xy: 2, 93
+  size: 286, 301
+  orig: 286, 301
+  offset: 0, 0
+  index: -1
+nuri_uniform_eye_01
+  rotate: false
+  xy: 269, 8
+  size: 56, 25
+  orig: 56, 25
+  offset: 0, 0
+  index: -1
+nuri_uniform_eye_02
+  rotate: false
+  xy: 1817, 2
+  size: 48, 21
+  orig: 48, 21
+  offset: 0, 0
+  index: -1
+nuri_uniform_eye_03
+  rotate: false
+  xy: 122, 9
+  size: 43, 21
+  orig: 43, 21
+  offset: 0, 0
+  index: -1
+nuri_uniform_eye_04
+  rotate: false
+  xy: 42, 5
+  size: 56, 25
+  orig: 56, 25
+  offset: 0, 0
+  index: -1
+nuri_uniform_face_01
+  rotate: true
+  xy: 1797, 233
+  size: 13, 14
+  orig: 13, 14
+  offset: 0, 0
+  index: -1
+nuri_uniform_foot_01
+  rotate: false
+  xy: 1273, 2
+  size: 41, 39
+  orig: 41, 39
+  offset: 0, 0
+  index: -1
+nuri_uniform_foot_02
+  rotate: false
+  xy: 791, 2
+  size: 41, 35
+  orig: 41, 35
+  offset: 0, 0
+  index: -1
+nuri_uniform_hair_00
+  rotate: true
+  xy: 623, 12
+  size: 61, 56
+  orig: 61, 56
+  offset: 0, 0
+  index: -1
+nuri_uniform_hair_01
+  rotate: false
+  xy: 447, 75
+  size: 109, 103
+  orig: 109, 103
+  offset: 0, 0
+  index: -1
+nuri_uniform_hair_02
+  rotate: false
+  xy: 681, 14
+  size: 67, 50
+  orig: 67, 50
+  offset: 0, 0
+  index: -1
+nuri_uniform_hair_03
+  rotate: false
+  xy: 930, 90
+  size: 111, 102
+  orig: 111, 102
+  offset: 0, 0
+  index: -1
+nuri_uniform_hair_04
+  rotate: false
+  xy: 750, 13
+  size: 39, 51
+  orig: 39, 51
+  offset: 0, 0
+  index: -1
+nuri_uniform_hair_05
+  rotate: false
+  xy: 1403, 8
+  size: 22, 20
+  orig: 22, 20
+  offset: 0, 0
+  index: -1
+nuri_uniform_hair_06
+  rotate: false
+  xy: 1427, 8
+  size: 22, 20
+  orig: 22, 20
+  offset: 0, 0
+  index: -1
+nuri_uniform_hair_07
+  rotate: true
+  xy: 558, 75
+  size: 112, 124
+  orig: 112, 124
+  offset: 0, 0
+  index: -1
+nuri_uniform_hand_01
+  rotate: false
+  xy: 1466, 2
+  size: 32, 29
+  orig: 32, 29
+  offset: 0, 0
+  index: -1
+nuri_uniform_hand_02
+  rotate: false
+  xy: 1500, 4
+  size: 32, 27
+  orig: 32, 27
+  offset: 0, 0
+  index: -1
+nuri_uniform_hand_03
+  rotate: false
+  xy: 1112, 4
+  size: 21, 23
+  orig: 21, 23
+  offset: 0, 0
+  index: -1
+nuri_uniform_hand_04
+  rotate: false
+  xy: 1078, 2
+  size: 32, 24
+  orig: 32, 24
+  offset: 0, 0
+  index: -1
+nuri_uniform_hand_05
+  rotate: true
+  xy: 100, 2
+  size: 28, 20
+  orig: 28, 20
+  offset: 0, 0
+  index: -1
+nuri_uniform_head_01
+  rotate: true
+  xy: 1623, 7
+  size: 91, 99
+  orig: 91, 99
+  offset: 0, 0
+  index: -1
+nuri_uniform_head_02
+  rotate: false
+  xy: 1724, 17
+  size: 91, 99
+  orig: 91, 99
+  offset: 0, 0
+  index: -1
+nuri_uniform_lowbody_01
+  rotate: false
+  xy: 1273, 43
+  size: 67, 37
+  orig: 67, 37
+  offset: 0, 0
+  index: -1
+nuri_uniform_lowbody_02
+  rotate: false
+  xy: 1342, 43
+  size: 67, 37
+  orig: 67, 37
+  offset: 0, 0
+  index: -1
+nuri_uniform_reg_01
+  rotate: false
+  xy: 1447, 85
+  size: 86, 135
+  orig: 86, 135
+  offset: 0, 0
+  index: -1
+nuri_uniform_reg_02
+  rotate: true
+  xy: 801, 39
+  size: 53, 123
+  orig: 53, 123
+  offset: 0, 0
+  index: -1
+nuri_uniform_reg_03
+  rotate: true
+  xy: 926, 49
+  size: 39, 92
+  orig: 39, 92
+  offset: 0, 0
+  index: -1
+nuri_uniform_reg_04
+  rotate: false
+  xy: 1817, 25
+  size: 41, 93
+  orig: 41, 93
+  offset: 0, 0
+  index: -1
+nuri_uniform_sholder_01
+  rotate: false
+  xy: 1008, 2
+  size: 36, 36
+  orig: 36, 36
+  offset: 0, 0
+  index: -1
+nuri_uniform_wepon_01
+  rotate: false
+  xy: 1316, 8
+  size: 53, 33
+  orig: 53, 33
+  offset: 0, 0
+  index: -1
+nuri_uniform_wepon_02
+  rotate: false
+  xy: 1724, 2
+  size: 15, 13
+  orig: 15, 13
+  offset: 0, 0
+  index: -1
+nuri_uniform_wepon_03
+  rotate: false
+  xy: 1741, 2
+  size: 15, 13
+  orig: 15, 13
+  offset: 0, 0
+  index: -1
+nuri_uniform_wepon_04
+  rotate: false
+  xy: 1411, 30
+  size: 53, 50
+  orig: 53, 50
+  offset: 0, 0
+  index: -1
+nuri_uniform_wepon_05
+  rotate: false
+  xy: 1466, 33
+  size: 53, 50
+  orig: 53, 50
+  offset: 0, 0
+  index: -1
+nuri_uniform_wepon_06
+  rotate: false
+  xy: 1210, 30
+  size: 61, 50
+  orig: 61, 50
+  offset: 0, 0
+  index: -1
+nuri_uniform_wepon_07
+  rotate: true
+  xy: 415, 2
+  size: 71, 58
+  orig: 71, 58
+  offset: 0, 0
+  index: -1
+nuri_uniform_z2_01
+  rotate: false
+  xy: 520, 189
+  size: 224, 205
+  orig: 224, 205
+  offset: 0, 0
+  index: -1
+nuri_uniform_z2_02
+  rotate: false
+  xy: 1669, 118
+  size: 126, 128
+  orig: 126, 128
+  offset: 0, 0
+  index: -1
+nuri_uniform_z2_03
+  rotate: true
+  xy: 179, 7
+  size: 84, 88
+  orig: 84, 88
+  offset: 0, 0
+  index: -1
+nuri_uniform_z2_04
+  rotate: false
+  xy: 888, 5
+  size: 30, 32
+  orig: 30, 32
+  offset: 0, 0
+  index: -1
+nuri_uniform_z2_05
+  rotate: false
+  xy: 1046, 6
+  size: 30, 32
+  orig: 30, 32
+  offset: 0, 0
+  index: -1
+nuri_uniform_z2_06
+  rotate: false
+  xy: 1371, 9
+  size: 30, 32
+  orig: 30, 32
+  offset: 0, 0
+  index: -1
+nuri_uniform_z2_07
+  rotate: false
+  xy: 1797, 120
+  size: 74, 69
+  orig: 74, 69
+  offset: 0, 0
+  index: -1
+nuri_uniform_z2_08
+  rotate: true
+  xy: 1813, 191
+  size: 85, 58
+  orig: 85, 58
+  offset: 0, 0
+  index: -1
+nuri_uniform_z2_09
+  rotate: true
+  xy: 1813, 278
+  size: 116, 58
+  orig: 116, 58
+  offset: 0, 0
+  index: -1
+nuri_uniform_z2_10
+  rotate: true
+  xy: 1147, 28
+  size: 52, 61
+  orig: 52, 61
+  offset: 0, 0
+  index: -1
+nuri_uniform_z_01
+  rotate: true
+  xy: 1043, 84
+  size: 108, 99
+  orig: 108, 99
+  offset: 0, 0
+  index: -1
+nuri_uniform_z_02
+  rotate: false
+  xy: 555, 14
+  size: 66, 59
+  orig: 66, 59
+  offset: 0, 0
+  index: -1
+uniform_effect_01
+  rotate: false
+  xy: 2, 32
+  size: 175, 59
+  orig: 175, 59
+  offset: 0, 0
+  index: -1
+uniform_effect_02
+  rotate: false
+  xy: 290, 79
+  size: 155, 99
+  orig: 155, 99
+  offset: 0, 0
+  index: -1
+uniform_effect_03
+  rotate: false
+  xy: 684, 66
+  size: 115, 121
+  orig: 115, 121
+  offset: 0, 0
+  index: -1
+uniform_effect_04
+  rotate: false
+  xy: 801, 94
+  size: 127, 99
+  orig: 127, 99
+  offset: 0, 0
+  index: -1

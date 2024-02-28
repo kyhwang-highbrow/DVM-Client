@@ -1,0 +1,244 @@
+
+skill_nemus.png
+size: 1751,1036
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+effect_cross_01
+  rotate: false
+  xy: 1054, 14
+  size: 100, 100
+  orig: 100, 100
+  offset: 0, 0
+  index: -1
+effect_cross_02
+  rotate: false
+  xy: 1156, 14
+  size: 100, 100
+  orig: 100, 100
+  offset: 0, 0
+  index: -1
+effect_frag_00001
+  rotate: false
+  xy: 626, 778
+  size: 256, 256
+  orig: 256, 256
+  offset: 0, 0
+  index: -1
+effect_frag_00002
+  rotate: false
+  xy: 626, 520
+  size: 256, 256
+  orig: 256, 256
+  offset: 0, 0
+  index: -1
+effect_frag_00003
+  rotate: false
+  xy: 626, 262
+  size: 256, 256
+  orig: 256, 256
+  offset: 0, 0
+  index: -1
+effect_frag_00004
+  rotate: false
+  xy: 626, 4
+  size: 256, 256
+  orig: 256, 256
+  offset: 0, 0
+  index: -1
+effect_frag_00005
+  rotate: false
+  xy: 884, 778
+  size: 256, 256
+  orig: 256, 256
+  offset: 0, 0
+  index: -1
+effect_leaf_01
+  rotate: false
+  xy: 1658, 619
+  size: 90, 67
+  orig: 90, 67
+  offset: 0, 0
+  index: -1
+effect_leaf_02
+  rotate: true
+  xy: 1658, 931
+  size: 103, 78
+  orig: 103, 78
+  offset: 0, 0
+  index: -1
+effect_leaf_03
+  rotate: false
+  xy: 1658, 757
+  size: 91, 67
+  orig: 91, 67
+  offset: 0, 0
+  index: -1
+effect_leaf_04
+  rotate: false
+  xy: 1258, 2
+  size: 196, 152
+  orig: 196, 152
+  offset: 0, 0
+  index: -1
+effect_nemus_shine
+  rotate: true
+  xy: 884, 116
+  size: 144, 300
+  orig: 144, 300
+  offset: 0, 0
+  index: -1
+effect_shockwave_01
+  rotate: false
+  xy: 1142, 338
+  size: 180, 180
+  orig: 180, 180
+  offset: 0, 0
+  index: -1
+effect_shockwave_02
+  rotate: false
+  xy: 1186, 156
+  size: 180, 180
+  orig: 180, 180
+  offset: 0, 0
+  index: -1
+effect_shockwave_03
+  rotate: false
+  xy: 1324, 338
+  size: 180, 180
+  orig: 180, 180
+  offset: 0, 0
+  index: -1
+effect_shockwave_04
+  rotate: false
+  xy: 1368, 156
+  size: 180, 180
+  orig: 180, 180
+  offset: 0, 0
+  index: -1
+effect_shockwave_05
+  rotate: false
+  xy: 1506, 338
+  size: 180, 180
+  orig: 180, 180
+  offset: 0, 0
+  index: -1
+effect_shockwave_06
+  rotate: false
+  xy: 1550, 156
+  size: 180, 180
+  orig: 180, 180
+  offset: 0, 0
+  index: -1
+effect_skill_nemus_attack
+  rotate: false
+  xy: 364, 695
+  size: 260, 339
+  orig: 260, 339
+  offset: 0, 0
+  index: -1
+effect_skill_nemus_attack_09
+  rotate: true
+  xy: 884, 14
+  size: 100, 168
+  orig: 100, 168
+  offset: 0, 0
+  index: -1
+effect_skill_nemus_attack_11
+  rotate: false
+  xy: 2, 34
+  size: 360, 1000
+  orig: 360, 1000
+  offset: 0, 0
+  index: -1
+effect_skill_nemus_attack_glow
+  rotate: false
+  xy: 364, 354
+  size: 260, 339
+  orig: 260, 339
+  offset: 0, 0
+  index: -1
+effect_skill_nemus_attack_leaf_01
+  rotate: false
+  xy: 1658, 550
+  size: 90, 67
+  orig: 90, 67
+  offset: 0, 0
+  index: -1
+effect_skill_nemus_attack_leaf_02
+  rotate: true
+  xy: 1658, 826
+  size: 103, 78
+  orig: 103, 78
+  offset: 0, 0
+  index: -1
+effect_skill_nemus_attack_leaf_03
+  rotate: false
+  xy: 1658, 688
+  size: 91, 67
+  orig: 91, 67
+  offset: 0, 0
+  index: -1
+effect_skill_nemus_attack_leaf_04
+  rotate: false
+  xy: 1456, 2
+  size: 196, 152
+  orig: 196, 152
+  offset: 0, 0
+  index: -1
+effect_skill_nemus_glow_attack
+  rotate: false
+  xy: 364, 13
+  size: 260, 339
+  orig: 260, 339
+  offset: 0, 0
+  index: -1
+effect_smoke_00001
+  rotate: false
+  xy: 1142, 778
+  size: 256, 256
+  orig: 256, 256
+  offset: 0, 0
+  index: -1
+effect_smoke_00002
+  rotate: false
+  xy: 1400, 778
+  size: 256, 256
+  orig: 256, 256
+  offset: 0, 0
+  index: -1
+effect_smoke_00003
+  rotate: false
+  xy: 884, 520
+  size: 256, 256
+  orig: 256, 256
+  offset: 0, 0
+  index: -1
+effect_smoke_00004
+  rotate: false
+  xy: 1142, 520
+  size: 256, 256
+  orig: 256, 256
+  offset: 0, 0
+  index: -1
+effect_smoke_00005
+  rotate: false
+  xy: 1400, 520
+  size: 256, 256
+  orig: 256, 256
+  offset: 0, 0
+  index: -1
+effect_smoke_00006
+  rotate: false
+  xy: 884, 262
+  size: 256, 256
+  orig: 256, 256
+  offset: 0, 0
+  index: -1
+effect_smoke_00007
+  rotate: false
+  xy: 884, 262
+  size: 256, 256
+  orig: 256, 256
+  offset: 0, 0
+  index: -1

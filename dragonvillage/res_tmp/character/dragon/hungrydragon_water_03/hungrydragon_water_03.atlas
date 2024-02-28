@@ -1,0 +1,286 @@
+
+hungrydragon_water_03.png
+size: 1478,538
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+hungrydragon_water_03_arm_01
+  rotate: false
+  xy: 1103, 86
+  size: 102, 107
+  orig: 102, 107
+  offset: 0, 0
+  index: -1
+hungrydragon_water_03_arm_02
+  rotate: true
+  xy: 1111, 233
+  size: 95, 85
+  orig: 95, 85
+  offset: 0, 0
+  index: -1
+hungrydragon_water_03_arm_02_01
+  rotate: true
+  xy: 734, 3
+  size: 25, 40
+  orig: 25, 40
+  offset: 0, 0
+  index: -1
+hungrydragon_water_03_body_01
+  rotate: false
+  xy: 2, 135
+  size: 338, 401
+  orig: 338, 401
+  offset: 0, 0
+  index: -1
+hungrydragon_water_03_effect_01
+  rotate: true
+  xy: 350, 2
+  size: 157, 174
+  orig: 157, 174
+  offset: 0, 0
+  index: -1
+hungrydragon_water_03_effect_02
+  rotate: false
+  xy: 778, 165
+  size: 115, 122
+  orig: 115, 122
+  offset: 0, 0
+  index: -1
+hungrydragon_water_03_effect_03
+  rotate: true
+  xy: 186, 2
+  size: 131, 162
+  orig: 131, 162
+  offset: 0, 0
+  index: -1
+hungrydragon_water_03_effect_04
+  rotate: false
+  xy: 677, 30
+  size: 126, 133
+  orig: 126, 133
+  offset: 0, 0
+  index: -1
+hungrydragon_water_03_effect_05
+  rotate: false
+  xy: 904, 6
+  size: 197, 184
+  orig: 197, 184
+  offset: 0, 0
+  index: -1
+hungrydragon_water_03_effect_06
+  rotate: false
+  xy: 875, 307
+  size: 216, 229
+  orig: 216, 229
+  offset: 0, 0
+  index: -1
+hungrydragon_water_03_effect_07
+  rotate: false
+  xy: 1002, 195
+  size: 107, 110
+  orig: 107, 110
+  offset: 0, 0
+  index: -1
+hungrydragon_water_03_effect_08
+  rotate: false
+  xy: 600, 325
+  size: 273, 211
+  orig: 273, 211
+  offset: 0, 0
+  index: -1
+hungrydragon_water_03_effect_09
+  rotate: true
+  xy: 640, 165
+  size: 118, 136
+  orig: 118, 136
+  offset: 0, 0
+  index: -1
+hungrydragon_water_03_effect_10
+  rotate: false
+  xy: 526, 4
+  size: 149, 155
+  orig: 149, 155
+  offset: 0, 0
+  index: -1
+hungrydragon_water_03_effect_11
+  rotate: false
+  xy: 1223, 22
+  size: 98, 98
+  orig: 98, 98
+  offset: 0, 0
+  index: -1
+hungrydragon_water_03_eye_01
+  rotate: true
+  xy: 1409, 76
+  size: 54, 57
+  orig: 54, 57
+  offset: 0, 0
+  index: -1
+hungrydragon_water_03_eye_02
+  rotate: false
+  xy: 821, 289
+  size: 34, 34
+  orig: 34, 34
+  offset: 0, 0
+  index: -1
+hungrydragon_water_03_eye_03
+  rotate: true
+  xy: 600, 285
+  size: 38, 51
+  orig: 38, 51
+  offset: 0, 0
+  index: -1
+hungrydragon_water_03_eye_04
+  rotate: true
+  xy: 677, 3
+  size: 25, 55
+  orig: 25, 55
+  offset: 0, 0
+  index: -1
+hungrydragon_water_03_foot_01
+  rotate: false
+  xy: 1287, 336
+  size: 69, 102
+  orig: 69, 102
+  offset: 0, 0
+  index: -1
+hungrydragon_water_03_foot_01_01
+  rotate: false
+  xy: 1401, 440
+  size: 75, 96
+  orig: 75, 96
+  offset: 0, 0
+  index: -1
+hungrydragon_water_03_foot_02
+  rotate: false
+  xy: 1358, 353
+  size: 56, 85
+  orig: 56, 85
+  offset: 0, 0
+  index: -1
+hungrydragon_water_03_fx_smoke
+  rotate: false
+  xy: 342, 280
+  size: 256, 256
+  orig: 256, 256
+  offset: 0, 0
+  index: -1
+hungrydragon_water_03_head_01
+  rotate: false
+  xy: 1416, 373
+  size: 57, 65
+  orig: 57, 65
+  offset: 0, 0
+  index: -1
+hungrydragon_water_03_horn_01
+  rotate: false
+  xy: 1323, 33
+  size: 84, 87
+  orig: 84, 87
+  offset: 0, 0
+  index: -1
+hungrydragon_water_03_horn_02
+  rotate: false
+  xy: 1401, 132
+  size: 53, 89
+  orig: 53, 89
+  offset: 0, 0
+  index: -1
+hungrydragon_water_03_leg_01
+  rotate: false
+  xy: 895, 192
+  size: 105, 113
+  orig: 105, 113
+  offset: 0, 0
+  index: -1
+hungrydragon_water_03_leg_02
+  rotate: false
+  xy: 805, 30
+  size: 97, 133
+  orig: 97, 133
+  offset: 0, 0
+  index: -1
+hungrydragon_water_03_meat_01
+  rotate: false
+  xy: 1093, 330
+  size: 192, 206
+  orig: 192, 206
+  offset: 0, 0
+  index: -1
+hungrydragon_water_03_meat_01_01
+  rotate: false
+  xy: 1207, 122
+  size: 192, 206
+  orig: 192, 206
+  offset: 0, 0
+  index: -1
+hungrydragon_water_03_meat_02
+  rotate: true
+  xy: 342, 161
+  size: 117, 147
+  orig: 117, 147
+  offset: 0, 0
+  index: -1
+hungrydragon_water_03_meat_02_01
+  rotate: true
+  xy: 491, 161
+  size: 117, 147
+  orig: 117, 147
+  offset: 0, 0
+  index: -1
+hungrydragon_water_03_mouth_01
+  rotate: false
+  xy: 1103, 18
+  size: 118, 66
+  orig: 118, 66
+  offset: 0, 0
+  index: -1
+hungrydragon_water_03_mouth_02
+  rotate: false
+  xy: 1287, 469
+  size: 101, 67
+  orig: 101, 67
+  offset: 0, 0
+  index: -1
+hungrydragon_water_03_mouth_02_01
+  rotate: true
+  xy: 653, 289
+  size: 34, 54
+  orig: 34, 54
+  offset: 0, 0
+  index: -1
+hungrydragon_water_03_mouth_02_02
+  rotate: true
+  xy: 709, 289
+  size: 34, 54
+  orig: 34, 54
+  offset: 0, 0
+  index: -1
+hungrydragon_water_03_mouth_02_03
+  rotate: true
+  xy: 765, 289
+  size: 34, 54
+  orig: 34, 54
+  offset: 0, 0
+  index: -1
+hungrydragon_water_03_tail_01
+  rotate: false
+  xy: 2, 6
+  size: 182, 127
+  orig: 182, 127
+  offset: 0, 0
+  index: -1
+hungrydragon_water_03_wing_01
+  rotate: false
+  xy: 1401, 288
+  size: 75, 63
+  orig: 75, 63
+  offset: 0, 0
+  index: -1
+hungrydragon_water_03_wing_02
+  rotate: false
+  xy: 1401, 223
+  size: 75, 63
+  orig: 75, 63
+  offset: 0, 0
+  index: -1

@@ -1,0 +1,139 @@
+
+oymyakon_water_03.png
+size: 537,1049
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+oymyakon_water_03_arm_01
+  rotate: true
+  xy: 371, 69
+  size: 118, 75
+  orig: 118, 75
+  offset: 0, 0
+  index: -1
+oymyakon_water_03_arm_02
+  rotate: true
+  xy: 371, 5
+  size: 62, 75
+  orig: 62, 75
+  offset: 0, 0
+  index: -1
+oymyakon_water_03_body_01
+  rotate: false
+  xy: 200, 189
+  size: 186, 214
+  orig: 186, 214
+  offset: 0, 0
+  index: -1
+oymyakon_water_03_body_02
+  rotate: false
+  xy: 2, 882
+  size: 427, 165
+  orig: 427, 165
+  offset: 0, 0
+  index: -1
+oymyakon_water_03_effect_01
+  rotate: false
+  xy: 2, 696
+  size: 406, 184
+  orig: 406, 184
+  offset: 0, 0
+  index: -1
+oymyakon_water_03_effect_02
+  rotate: true
+  xy: 296, 473
+  size: 221, 194
+  orig: 221, 194
+  offset: 0, 0
+  index: -1
+oymyakon_water_03_eye_01
+  rotate: true
+  xy: 296, 405
+  size: 66, 86
+  orig: 66, 86
+  offset: 0, 0
+  index: -1
+oymyakon_water_03_eye_03
+  rotate: true
+  xy: 448, 84
+  size: 106, 74
+  orig: 106, 74
+  offset: 0, 0
+  index: -1
+oymyakon_water_03_foot_01
+  rotate: false
+  xy: 388, 192
+  size: 84, 144
+  orig: 84, 144
+  offset: 0, 0
+  index: -1
+oymyakon_water_03_foot_02
+  rotate: false
+  xy: 431, 834
+  size: 93, 114
+  orig: 93, 114
+  offset: 0, 0
+  index: -1
+oymyakon_water_03_hand_01
+  rotate: false
+  xy: 200, 29
+  size: 169, 158
+  orig: 169, 158
+  offset: 0, 0
+  index: -1
+oymyakon_water_03_hand_02
+  rotate: false
+  xy: 410, 711
+  size: 92, 121
+  orig: 92, 121
+  offset: 0, 0
+  index: -1
+oymyakon_water_03_head_01
+  rotate: true
+  xy: 2, 2
+  size: 144, 192
+  orig: 144, 192
+  offset: 0, 0
+  index: -1
+oymyakon_water_03_head_03
+  rotate: false
+  xy: 474, 278
+  size: 54, 58
+  orig: 54, 58
+  offset: 0, 0
+  index: -1
+oymyakon_water_03_head_04
+  rotate: false
+  xy: 448, 3
+  size: 66, 79
+  orig: 66, 79
+  offset: 0, 0
+  index: -1
+oymyakon_water_03_leg_01
+  rotate: false
+  xy: 388, 338
+  size: 106, 133
+  orig: 106, 133
+  offset: 0, 0
+  index: -1
+oymyakon_water_03_leg_02
+  rotate: true
+  xy: 431, 950
+  size: 97, 104
+  orig: 97, 104
+  offset: 0, 0
+  index: -1
+oymyakon_water_03_wing_01
+  rotate: false
+  xy: 2, 405
+  size: 292, 289
+  orig: 292, 289
+  offset: 0, 0
+  index: -1
+oymyakon_water_03_wing_02
+  rotate: false
+  xy: 2, 148
+  size: 196, 255
+  orig: 196, 255
+  offset: 0, 0
+  index: -1

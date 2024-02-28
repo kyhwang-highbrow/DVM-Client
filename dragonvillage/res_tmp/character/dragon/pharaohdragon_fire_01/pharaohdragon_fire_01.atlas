@@ -1,0 +1,181 @@
+
+pharaohdragon_fire_01.png
+size: 434,525
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+pharaohdragon_fire_01_arm_01
+  rotate: false
+  xy: 215, 10
+  size: 44, 48
+  orig: 44, 48
+  offset: 0, 0
+  index: -1
+pharaohdragon_fire_01_arm_02
+  rotate: false
+  xy: 383, 243
+  size: 49, 49
+  orig: 49, 49
+  offset: 0, 0
+  index: -1
+pharaohdragon_fire_01_body_01
+  rotate: false
+  xy: 2, 49
+  size: 121, 163
+  orig: 121, 163
+  offset: 0, 0
+  index: -1
+pharaohdragon_fire_01_calf_01
+  rotate: true
+  xy: 261, 18
+  size: 40, 52
+  orig: 40, 52
+  offset: 0, 0
+  index: -1
+pharaohdragon_fire_01_calf_02
+  rotate: false
+  xy: 322, 87
+  size: 76, 24
+  orig: 76, 24
+  offset: 0, 0
+  index: -1
+pharaohdragon_fire_01_effect_01
+  rotate: false
+  xy: 2, 214
+  size: 228, 230
+  orig: 228, 230
+  offset: 0, 0
+  index: -1
+pharaohdragon_fire_01_elbow_01
+  rotate: true
+  xy: 317, 51
+  size: 34, 68
+  orig: 34, 68
+  offset: 0, 0
+  index: -1
+pharaohdragon_fire_01_elbow_02
+  rotate: true
+  xy: 315, 18
+  size: 31, 58
+  orig: 31, 58
+  offset: 0, 0
+  index: -1
+pharaohdragon_fire_01_eye_01
+  rotate: true
+  xy: 2, 2
+  size: 45, 42
+  orig: 45, 42
+  offset: 0, 0
+  index: -1
+pharaohdragon_fire_01_eye_02
+  rotate: true
+  xy: 46, 2
+  size: 45, 42
+  orig: 45, 42
+  offset: 0, 0
+  index: -1
+pharaohdragon_fire_01_eye_03
+  rotate: true
+  xy: 90, 2
+  size: 45, 42
+  orig: 45, 42
+  offset: 0, 0
+  index: -1
+pharaohdragon_fire_01_foot_01
+  rotate: true
+  xy: 236, 104
+  size: 35, 84
+  orig: 35, 84
+  offset: 0, 0
+  index: -1
+pharaohdragon_fire_01_foot_02
+  rotate: false
+  xy: 236, 141
+  size: 84, 85
+  orig: 84, 85
+  offset: 0, 0
+  index: -1
+pharaohdragon_fire_01_hair_01
+  rotate: false
+  xy: 232, 228
+  size: 149, 116
+  orig: 149, 116
+  offset: 0, 0
+  index: -1
+pharaohdragon_fire_01_hair_02
+  rotate: false
+  xy: 125, 67
+  size: 109, 145
+  orig: 109, 145
+  offset: 0, 0
+  index: -1
+pharaohdragon_fire_01_hair_03
+  rotate: false
+  xy: 322, 113
+  size: 55, 113
+  orig: 55, 113
+  offset: 0, 0
+  index: -1
+pharaohdragon_fire_01_hand_01
+  rotate: false
+  xy: 379, 113
+  size: 47, 50
+  orig: 47, 50
+  offset: 0, 0
+  index: -1
+pharaohdragon_fire_01_hand_02
+  rotate: false
+  xy: 383, 294
+  size: 49, 50
+  orig: 49, 50
+  offset: 0, 0
+  index: -1
+pharaohdragon_fire_01_head_01
+  rotate: true
+  xy: 379, 165
+  size: 61, 53
+  orig: 61, 53
+  offset: 0, 0
+  index: -1
+pharaohdragon_fire_01_lowerbody_01
+  rotate: false
+  xy: 232, 346
+  size: 182, 98
+  orig: 182, 98
+  offset: 0, 0
+  index: -1
+pharaohdragon_fire_01_mouth_01
+  rotate: true
+  xy: 416, 421
+  size: 23, 16
+  orig: 23, 16
+  offset: 0, 0
+  index: -1
+pharaohdragon_fire_01_mouth_02
+  rotate: true
+  xy: 416, 396
+  size: 23, 16
+  orig: 23, 16
+  offset: 0, 0
+  index: -1
+pharaohdragon_fire_01_tail_02
+  rotate: false
+  xy: 2, 446
+  size: 414, 77
+  orig: 414, 77
+  offset: 0, 0
+  index: -1
+pharaohdragon_fire_01_thigh_01
+  rotate: true
+  xy: 236, 60
+  size: 42, 79
+  orig: 42, 79
+  offset: 0, 0
+  index: -1
+pharaohdragon_fire_01_thigh_02
+  rotate: false
+  xy: 134, 6
+  size: 79, 59
+  orig: 79, 59
+  offset: 0, 0
+  index: -1

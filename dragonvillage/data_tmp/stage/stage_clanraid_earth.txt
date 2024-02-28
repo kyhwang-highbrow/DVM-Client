@@ -1,0 +1,35 @@
+{
+    "bg":"map_clanraid",
+	"camera":
+	{
+		"scale":0.6,
+		"pos_x":0,
+		"pos_y":0
+	},
+	
+	"direction":"boss_wave",
+	
+	"wave":
+	[
+		{
+            "idx":1,
+            "wave":
+            {
+				0:
+				[
+					"150011;1;Basic;BOSS;RM23;0.5;;enemy_top"
+				],
+				0.5:
+				[
+					"151071;1;Basic;BO10;RM24;0.5;;enemy_bottom"
+					"151061;1;Basic;BO10;RM22;0;;enemy_bottom"
+					"151051;1;Basic;BO10;RM14;0.5;;enemy_bottom"
+					"151041;1;Basic;BO10;RM23;0;;enemy_bottom"
+					"151031;1;Basic;BO10;RF24;0.5;;enemy_bottom"
+					"151021;1;Basic;BO10;RM24;0;;enemy_bottom"
+					"151011;1;Basic;BO10;RB24;0.5;;enemy_bottom"
+				]
+            }
+        }
+	]
+}

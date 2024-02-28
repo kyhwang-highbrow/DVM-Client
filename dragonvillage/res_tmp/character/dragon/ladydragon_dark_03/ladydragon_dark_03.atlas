@@ -1,0 +1,216 @@
+
+ladydragon_dark_03.png
+size: 443,523
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+ladydragon_dark_03_acc_01
+  rotate: false
+  xy: 313, 22
+  size: 49, 44
+  orig: 49, 44
+  offset: 0, 0
+  index: -1
+ladydragon_dark_03_acc_02
+  rotate: true
+  xy: 226, 54
+  size: 41, 28
+  orig: 41, 28
+  offset: 0, 0
+  index: -1
+ladydragon_dark_03_acc_03
+  rotate: false
+  xy: 232, 294
+  size: 101, 87
+  orig: 101, 87
+  offset: 0, 0
+  index: -1
+ladydragon_dark_03_arm_01
+  rotate: true
+  xy: 314, 68
+  size: 42, 54
+  orig: 42, 54
+  offset: 0, 0
+  index: -1
+ladydragon_dark_03_arm_02
+  rotate: true
+  xy: 257, 129
+  size: 65, 78
+  orig: 65, 78
+  offset: 0, 0
+  index: -1
+ladydragon_dark_03_body_01
+  rotate: true
+  xy: 232, 383
+  size: 138, 209
+  orig: 138, 209
+  offset: 0, 0
+  index: -1
+ladydragon_dark_03_ear_01
+  rotate: false
+  xy: 201, 137
+  size: 54, 50
+  orig: 54, 50
+  offset: 0, 0
+  index: -1
+ladydragon_dark_03_effect_01
+  rotate: false
+  xy: 2, 291
+  size: 228, 230
+  orig: 228, 230
+  offset: 0, 0
+  index: -1
+ladydragon_dark_03_effect_02
+  rotate: false
+  xy: 257, 80
+  size: 55, 47
+  orig: 55, 47
+  offset: 0, 0
+  index: -1
+ladydragon_dark_03_effect_03
+  rotate: false
+  xy: 256, 31
+  size: 55, 47
+  orig: 55, 47
+  offset: 0, 0
+  index: -1
+ladydragon_dark_03_elbow_01
+  rotate: true
+  xy: 226, 97
+  size: 38, 29
+  orig: 38, 29
+  offset: 0, 0
+  index: -1
+ladydragon_dark_03_eye_l_01
+  rotate: true
+  xy: 370, 77
+  size: 33, 30
+  orig: 33, 30
+  offset: 0, 0
+  index: -1
+ladydragon_dark_03_eye_l_02
+  rotate: false
+  xy: 416, 244
+  size: 13, 22
+  orig: 13, 22
+  offset: 0, 0
+  index: -1
+ladydragon_dark_03_eye_l_03
+  rotate: false
+  xy: 416, 268
+  size: 25, 23
+  orig: 25, 23
+  offset: 0, 0
+  index: -1
+ladydragon_dark_03_eye_r_01
+  rotate: false
+  xy: 314, 113
+  size: 17, 14
+  orig: 17, 14
+  offset: 0, 0
+  index: -1
+ladydragon_dark_03_eye_r_02
+  rotate: false
+  xy: 431, 248
+  size: 10, 18
+  orig: 10, 18
+  offset: 0, 0
+  index: -1
+ladydragon_dark_03_eye_r_03
+  rotate: false
+  xy: 238, 2
+  size: 12, 18
+  orig: 12, 18
+  offset: 0, 0
+  index: -1
+ladydragon_dark_03_hair_01
+  rotate: true
+  xy: 54, 42
+  size: 114, 98
+  orig: 114, 98
+  offset: 0, 0
+  index: -1
+ladydragon_dark_03_hair_02
+  rotate: true
+  xy: 154, 46
+  size: 89, 70
+  orig: 89, 70
+  offset: 0, 0
+  index: -1
+ladydragon_dark_03_hair_04
+  rotate: true
+  xy: 2, 2
+  size: 29, 234
+  orig: 29, 234
+  offset: 0, 0
+  index: -1
+ladydragon_dark_03_hair_06
+  rotate: true
+  xy: 337, 154
+  size: 50, 79
+  orig: 50, 79
+  offset: 0, 0
+  index: -1
+ladydragon_dark_03_hair_07
+  rotate: false
+  xy: 332, 206
+  size: 82, 85
+  orig: 82, 85
+  offset: 0, 0
+  index: -1
+ladydragon_dark_03_hair_08
+  rotate: true
+  xy: 165, 137
+  size: 152, 34
+  orig: 152, 34
+  offset: 0, 0
+  index: -1
+ladydragon_dark_03_hair_09
+  rotate: false
+  xy: 54, 158
+  size: 109, 131
+  orig: 109, 131
+  offset: 0, 0
+  index: -1
+ladydragon_dark_03_hand_01
+  rotate: true
+  xy: 337, 112
+  size: 40, 62
+  orig: 40, 62
+  offset: 0, 0
+  index: -1
+ladydragon_dark_03_head_01
+  rotate: false
+  xy: 335, 293
+  size: 96, 88
+  orig: 96, 88
+  offset: 0, 0
+  index: -1
+ladydragon_dark_03_leg_01
+  rotate: false
+  xy: 201, 189
+  size: 49, 100
+  orig: 49, 100
+  offset: 0, 0
+  index: -1
+ladydragon_dark_03_mouth_01
+  rotate: true
+  xy: 238, 34
+  size: 18, 16
+  orig: 18, 16
+  offset: 0, 0
+  index: -1
+ladydragon_dark_03_tail_01
+  rotate: true
+  xy: 2, 33
+  size: 256, 50
+  orig: 256, 50
+  offset: 0, 0
+  index: -1
+ladydragon_dark_03_wing_01
+  rotate: true
+  xy: 252, 196
+  size: 96, 78
+  orig: 96, 78
+  offset: 0, 0
+  index: -1

@@ -1,0 +1,45 @@
+{
+	"pattern_elite_chandelier":
+	[			
+		[
+			"m;RF24;250", "a;basic", "w;3",
+			"m;RB24;250", "a;3", "w;3",
+			"m;RM24;250", "a;basic", "w;3",
+			"a;1", "w;6",
+			"m;RF22;250", "a;basic", "w;3",
+			"m;RB22;250", "a;3", "w;3",
+			"m;RM22;250", "a;basic", "w;3",
+			"a;1", "w;6",
+			"m;RF26;250", "a;basic", "w;3",
+			"m;RB26;250", "a;3", "w;3",
+			"m;RM26;250", "a;basic", "w;3",
+			"a;1", "w;6"
+		]
+    ],
+	
+	"hp_trriger":
+    {
+        "priority":1,
+        "list":
+        [
+            {
+                "hp_percent":30,
+                "pattern":
+                [
+					"m;RF24;250", "a;basic", "w;1",
+					"m;RB24;250", "a;4", "w;1",
+					"m;RM24;250", "a;basic", "w;1",
+					"a;1", "w;2",
+					"m;RF22;250", "a;basic", "w;1",
+					"m;RB22;250", "a;4", "w;1",
+					"m;RM22;250", "a;basic", "w;1",
+					"a;1", "w;2",
+					"m;RF26;250", "a;basic", "w;1",
+					"m;RB26;250", "a;4", "w;1",
+					"m;RM26;250", "a;basic", "w;1",
+					"a;1", "w;2"
+                ]
+            }
+        ]
+    }
+}

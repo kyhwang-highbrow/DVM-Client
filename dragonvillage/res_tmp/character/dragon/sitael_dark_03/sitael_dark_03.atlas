@@ -1,0 +1,244 @@
+
+sitael_dark_03.png
+size: 1706,305
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+sitael_dark_03_arm_01
+  rotate: false
+  xy: 1549, 7
+  size: 77, 85
+  orig: 77, 85
+  offset: 0, 0
+  index: -1
+sitael_dark_03_arm_02
+  rotate: false
+  xy: 1150, 19
+  size: 52, 100
+  orig: 52, 100
+  offset: 0, 0
+  index: -1
+sitael_dark_03_body_01
+  rotate: true
+  xy: 2, 2
+  size: 301, 223
+  orig: 301, 223
+  offset: 0, 0
+  index: -1
+sitael_dark_03_body_armor_01
+  rotate: false
+  xy: 1345, 136
+  size: 73, 167
+  orig: 73, 167
+  offset: 0, 0
+  index: -1
+sitael_dark_03_body_armor_02
+  rotate: false
+  xy: 1204, 23
+  size: 120, 96
+  orig: 120, 96
+  offset: 0, 0
+  index: -1
+sitael_dark_03_calf_01
+  rotate: false
+  xy: 965, 14
+  size: 43, 60
+  orig: 43, 60
+  offset: 0, 0
+  index: -1
+sitael_dark_03_effect_01
+  rotate: false
+  xy: 391, 73
+  size: 228, 230
+  orig: 228, 230
+  offset: 0, 0
+  index: -1
+sitael_dark_03_elbow_01
+  rotate: false
+  xy: 1010, 4
+  size: 47, 115
+  orig: 47, 115
+  offset: 0, 0
+  index: -1
+sitael_dark_03_elbow_02
+  rotate: true
+  xy: 1326, 25
+  size: 94, 86
+  orig: 94, 86
+  offset: 0, 0
+  index: -1
+sitael_dark_03_eye_01
+  rotate: false
+  xy: 1628, 10
+  size: 30, 34
+  orig: 30, 34
+  offset: 0, 0
+  index: -1
+sitael_dark_03_eye_02
+  rotate: false
+  xy: 1660, 10
+  size: 30, 34
+  orig: 30, 34
+  offset: 0, 0
+  index: -1
+sitael_dark_03_foot_01
+  rotate: false
+  xy: 1414, 4
+  size: 58, 130
+  orig: 58, 130
+  offset: 0, 0
+  index: -1
+sitael_dark_03_foot_armor_01
+  rotate: false
+  xy: 1644, 94
+  size: 46, 82
+  orig: 46, 82
+  offset: 0, 0
+  index: -1
+sitael_dark_03_hand_01
+  rotate: false
+  xy: 855, 2
+  size: 58, 72
+  orig: 58, 72
+  offset: 0, 0
+  index: -1
+sitael_dark_03_hand_02
+  rotate: true
+  xy: 1628, 46
+  size: 46, 76
+  orig: 46, 76
+  offset: 0, 0
+  index: -1
+sitael_dark_03_hand_armor_01
+  rotate: true
+  xy: 391, 3
+  size: 68, 120
+  orig: 68, 120
+  offset: 0, 0
+  index: -1
+sitael_dark_03_hand_armor_02
+  rotate: false
+  xy: 1059, 7
+  size: 89, 112
+  orig: 89, 112
+  offset: 0, 0
+  index: -1
+sitael_dark_03_head_01
+  rotate: true
+  xy: 834, 76
+  size: 227, 145
+  orig: 227, 145
+  offset: 0, 0
+  index: -1
+sitael_dark_03_head_armor_01
+  rotate: true
+  xy: 1474, 20
+  size: 118, 73
+  orig: 118, 73
+  offset: 0, 0
+  index: -1
+sitael_dark_03_horn_01
+  rotate: false
+  xy: 981, 121
+  size: 180, 182
+  orig: 180, 182
+  offset: 0, 0
+  index: -1
+sitael_dark_03_horn_01_s
+  rotate: false
+  xy: 1163, 121
+  size: 180, 182
+  orig: 180, 182
+  offset: 0, 0
+  index: -1
+sitael_dark_03_horn_02
+  rotate: true
+  xy: 1420, 140
+  size: 163, 80
+  orig: 163, 80
+  offset: 0, 0
+  index: -1
+sitael_dark_03_mouth_01
+  rotate: true
+  xy: 1644, 178
+  size: 79, 49
+  orig: 79, 49
+  offset: 0, 0
+  index: -1
+sitael_dark_03_mouth_02
+  rotate: false
+  xy: 1326, 3
+  size: 47, 20
+  orig: 47, 20
+  offset: 0, 0
+  index: -1
+sitael_dark_03_neck_01
+  rotate: true
+  xy: 915, 12
+  size: 62, 48
+  orig: 62, 48
+  offset: 0, 0
+  index: -1
+sitael_dark_03_neck_02
+  rotate: false
+  xy: 1644, 259
+  size: 56, 44
+  orig: 56, 44
+  offset: 0, 0
+  index: -1
+sitael_dark_03_neck_03
+  rotate: false
+  xy: 1502, 146
+  size: 55, 37
+  orig: 55, 37
+  offset: 0, 0
+  index: -1
+sitael_dark_03_shoulder_01
+  rotate: true
+  xy: 1553, 213
+  size: 90, 89
+  orig: 90, 89
+  offset: 0, 0
+  index: -1
+sitael_dark_03_shoulder_02
+  rotate: true
+  xy: 1559, 121
+  size: 90, 83
+  orig: 90, 83
+  offset: 0, 0
+  index: -1
+sitael_dark_03_tail_01
+  rotate: false
+  xy: 513, 7
+  size: 340, 64
+  orig: 340, 64
+  offset: 0, 0
+  index: -1
+sitael_dark_03_thigh_01
+  rotate: false
+  xy: 1502, 185
+  size: 49, 118
+  orig: 49, 118
+  offset: 0, 0
+  index: -1
+sitael_dark_03_weapon_01
+  rotate: true
+  xy: 227, 2
+  size: 301, 80
+  orig: 301, 80
+  offset: 0, 0
+  index: -1
+sitael_dark_03_weapon_02
+  rotate: true
+  xy: 309, 2
+  size: 301, 80
+  orig: 301, 80
+  offset: 0, 0
+  index: -1
+sitael_dark_03_wing_01
+  rotate: false
+  xy: 621, 74
+  size: 211, 229
+  orig: 211, 229
+  offset: 0, 0
+  index: -1

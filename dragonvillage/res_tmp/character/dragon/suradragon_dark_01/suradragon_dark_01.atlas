@@ -1,0 +1,132 @@
+
+suradragon_dark_01.png
+size: 665,518
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+suradragon_dark_01_arm_01
+  rotate: true
+  xy: 274, 11
+  size: 64, 115
+  orig: 64, 115
+  offset: 0, 0
+  index: -1
+suradragon_dark_01_arm_02
+  rotate: false
+  xy: 554, 279
+  size: 102, 101
+  orig: 102, 101
+  offset: 0, 0
+  index: -1
+suradragon_dark_01_body_01
+  rotate: true
+  xy: 2, 294
+  size: 222, 550
+  orig: 222, 550
+  offset: 0, 0
+  index: -1
+suradragon_dark_01_effect_01
+  rotate: false
+  xy: 2, 62
+  size: 228, 230
+  orig: 228, 230
+  offset: 0, 0
+  index: -1
+suradragon_dark_01_elbow_01
+  rotate: false
+  xy: 2, 8
+  size: 120, 52
+  orig: 120, 52
+  offset: 0, 0
+  index: -1
+suradragon_dark_01_elbow_02
+  rotate: true
+  xy: 217, 2
+  size: 58, 55
+  orig: 58, 55
+  offset: 0, 0
+  index: -1
+suradragon_dark_01_eye_01
+  rotate: true
+  xy: 633, 418
+  size: 37, 17
+  orig: 37, 17
+  offset: 0, 0
+  index: -1
+suradragon_dark_01_eye_02
+  rotate: false
+  xy: 633, 388
+  size: 17, 12
+  orig: 17, 12
+  offset: 0, 0
+  index: -1
+suradragon_dark_01_eye_03
+  rotate: false
+  xy: 633, 402
+  size: 26, 14
+  orig: 26, 14
+  offset: 0, 0
+  index: -1
+suradragon_dark_01_eye_04
+  rotate: true
+  xy: 652, 449
+  size: 6, 8
+  orig: 6, 8
+  offset: 0, 0
+  index: -1
+suradragon_dark_01_hand_01
+  rotate: true
+  xy: 391, 9
+  size: 34, 79
+  orig: 34, 79
+  offset: 0, 0
+  index: -1
+suradragon_dark_01_hand_02
+  rotate: true
+  xy: 472, 11
+  size: 32, 74
+  orig: 32, 74
+  offset: 0, 0
+  index: -1
+suradragon_dark_01_hand_acc_01
+  rotate: true
+  xy: 124, 12
+  size: 48, 91
+  orig: 48, 91
+  offset: 0, 0
+  index: -1
+suradragon_dark_01_hand_acc_02
+  rotate: false
+  xy: 633, 457
+  size: 30, 59
+  orig: 30, 59
+  offset: 0, 0
+  index: -1
+suradragon_dark_01_head_01
+  rotate: true
+  xy: 554, 382
+  size: 134, 77
+  orig: 134, 77
+  offset: 0, 0
+  index: -1
+suradragon_dark_01_head_armor_01
+  rotate: true
+  xy: 232, 77
+  size: 215, 179
+  orig: 215, 179
+  offset: 0, 0
+  index: -1
+suradragon_dark_01_leg_01
+  rotate: false
+  xy: 413, 45
+  size: 116, 247
+  orig: 116, 247
+  offset: 0, 0
+  index: -1
+suradragon_dark_01_leg_02
+  rotate: false
+  xy: 531, 74
+  size: 132, 203
+  orig: 132, 203
+  offset: 0, 0
+  index: -1

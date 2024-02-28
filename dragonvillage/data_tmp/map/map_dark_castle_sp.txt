@@ -1,0 +1,112 @@
+{
+    "directing":"floating_1",
+	"layer":
+    [
+    
+        {
+            "name":"하늘"
+            "speed":0.2
+            "list":
+            [
+                {"res":"res/bg/dark_castle/dark_castle.vrp" "animation":"layer_1_a" "width":3840}
+				
+									
+            ]
+        }
+		
+		{
+            "name":"원경 이펙트"
+            "speed":0.2
+            "list":
+            [
+                {"res":"res/bg/dark_castle/dark_castle.vrp" "animation":"layer_1_a_effect" "width":3072 "scale":0.8}
+									
+            ]
+        }
+		
+        {
+            "name":"원경_벽1"
+            "speed":0.3
+            "list":
+            [
+            	{"res":"res/bg/dark_castle/dark_castle.vrp" "animation":"layer_2_a" "width":504 "scale":0.8}
+									
+            ]
+        }
+        
+        {
+            "name":"원경_벽2"
+            "speed":0.4
+            "list":
+            [
+                {"res":"res/bg/dark_castle/dark_castle.vrp" "animation":"layer_2_b" "width":1584 "scale":0.8}
+		
+				
+            ]
+        }
+        
+		 {
+            "name":"중경_기둥"
+            "speed":0.5
+            "list":
+            [
+                {"res":"res/bg/dark_castle/dark_castle.vrp" "animation":"layer_2_c" "width":2000 "scale":0.8}
+		
+				
+            ]
+        }
+		{
+            "name":"중경_기둥_빛"
+            "speed":0.5
+            "list":
+            [
+                {"res":"res/bg/dark_castle/dark_castle.vrp" "animation":"layer_2_c_light" "width":2000 "scale":0.8}
+		
+				
+            ]
+        }
+    
+		
+        {
+            "name":"중경_잔해"
+            "speed":0.6
+            "list":
+            [
+			    {"res":"res/bg/dark_castle/dark_castle.vrp" "animation":"layer_3_a" "width":1312 "scale":0.8}
+	
+				
+                
+            ]
+        }
+        
+		{
+            "name":"근경_다리"
+            "speed":0.7
+            "list":
+            [
+                {"res":"res/bg/dark_castle/dark_castle.vrp" "animation":"layer_4_a" "width":2976 "scale":0.8}
+												
+            ]
+        }
+			
+		{
+            "name":"근경"
+            "speed":0.9
+            "list":
+            [                				
+				{"res":"res/bg/dark_castle/dark_castle.vrp" "animation":"layer_5_a" "width":2560 "scale":0.8}
+
+		    ]
+        }
+		
+		{
+            "name":"차원_틈"
+            "speed":0
+            "list":
+            [
+               {"res":"res/bg/dmgate_stage/dmgate_stage.vrp" "animation":"stage_02" "width":3840 "scale":1.55 "pos_x":1050}
+            ]
+        }
+		
+    ]
+}

@@ -1,0 +1,111 @@
+
+fairydragon_dark_01.png
+size: 885,170
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+fairydragon_dark_01_arm_01
+  rotate: true
+  xy: 626, 116
+  size: 52, 41
+  orig: 52, 41
+  offset: 0, 0
+  index: -1
+fairydragon_dark_01_arm_02
+  rotate: false
+  xy: 245, 2
+  size: 51, 29
+  orig: 51, 29
+  offset: 0, 0
+  index: -1
+fairydragon_dark_01_body_01
+  rotate: true
+  xy: 245, 33
+  size: 135, 193
+  orig: 135, 193
+  offset: 0, 0
+  index: -1
+fairydragon_dark_01_butterfly_01
+  rotate: true
+  xy: 781, 61
+  size: 46, 83
+  orig: 46, 83
+  offset: 0, 0
+  index: -1
+fairydragon_dark_01_butterfly_02
+  rotate: true
+  xy: 298, 19
+  size: 12, 32
+  orig: 12, 32
+  offset: 0, 0
+  index: -1
+fairydragon_dark_01_eye_01
+  rotate: true
+  xy: 781, 6
+  size: 53, 37
+  orig: 53, 37
+  offset: 0, 0
+  index: -1
+fairydragon_dark_01_eye_03
+  rotate: true
+  xy: 820, 6
+  size: 53, 37
+  orig: 53, 37
+  offset: 0, 0
+  index: -1
+fairydragon_dark_01_head_01
+  rotate: true
+  xy: 673, 4
+  size: 164, 106
+  orig: 164, 106
+  offset: 0, 0
+  index: -1
+fairydragon_dark_01_head_02
+  rotate: false
+  xy: 602, 6
+  size: 69, 63
+  orig: 69, 63
+  offset: 0, 0
+  index: -1
+fairydragon_dark_01_head_03
+  rotate: true
+  xy: 440, 4
+  size: 65, 81
+  orig: 65, 81
+  offset: 0, 0
+  index: -1
+fairydragon_dark_01_leg_01
+  rotate: false
+  xy: 523, 4
+  size: 77, 65
+  orig: 77, 65
+  offset: 0, 0
+  index: -1
+fairydragon_dark_01_leg_02
+  rotate: true
+  xy: 781, 109
+  size: 59, 69
+  orig: 59, 69
+  offset: 0, 0
+  index: -1
+fairydragon_dark_01_mouth_01
+  rotate: true
+  xy: 852, 120
+  size: 48, 31
+  orig: 48, 31
+  offset: 0, 0
+  index: -1
+fairydragon_dark_01_wing_01
+  rotate: false
+  xy: 2, 3
+  size: 241, 165
+  orig: 241, 165
+  offset: 0, 0
+  index: -1
+fairydragon_dark_01_wing_02
+  rotate: true
+  xy: 440, 71
+  size: 97, 184
+  orig: 97, 184
+  offset: 0, 0
+  index: -1

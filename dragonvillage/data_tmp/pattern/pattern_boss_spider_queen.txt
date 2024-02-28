@@ -1,0 +1,53 @@
+{
+    "pattern_boss_spider_queen":
+    [        
+        [
+            "m;RM14;100", "a;basic", "w;1", "a;basic", "m;RF22;100", "a;basic", "w;1", "a;basic", "m;RF26;100", "a;basic", "w;1", "a;basic", "m;RM14;100",
+			"a;1", "w;4", "a;basic", "w;2", "a;basic", "w;2", "a;basic", "w;2", "a;basic", "w;2", "a;basic", "w;2", "a;3", "w;2", "a;basic", "w;2"
+        ]
+    ],
+	
+    "hp_trriger":
+    {
+        "priority":1,
+        "list":
+        [
+            {
+                "hp_percent":75,
+                "pattern":
+                [
+                    "m;RM14;100", "a;5", "a;basic", "w;2", "a;4", "w;4", "a;basic", "w;2", "a;3", "w;2", "m;RM14;100", "a;1", 
+					"a;basic", "w;1", "a;basic", "m;RF22;100", "a;basic", "w;1", "a;basic", "m;RF26;100", "a;basic", "w;1", "a;basic", "m;RM14;100"
+                ]
+            },
+			
+			{
+                "hp_percent":50,
+                "pattern":
+                [
+                    "m;RM14;100", "a;3", "a;3", "a;4", "a;basic", "w;2", "a;5", "w;2", "a;basic", "w;2", "a;2", "w;3", "a;basic", "w;2",
+					"m;RB14;100", "a;basic", "w;1", "a;basic", "m;RB22;100", "a;basic", "w;1", "a;basic", "m;RB26;100", "a;basic", "w;1", "a;basic", "m;RM14;100"
+                ]
+            },
+			
+            {
+                "hp_percent":25,
+                "pattern":
+                [
+                    "m;RM14;100", "a;basic", "w;2", "a;2", "w;2", "a;basic", "w;2", "m;RM14;100", "a;1",
+					"a;basic", "w;1", "a;basic", "m;RF22;100", "a;basic", "w;1", "a;basic", "m;RF26;100", "a;basic", "w;1", "a;basic", "m;RM14;100",
+					"a;3", "a;3", "a;3", "a;basic", "w;2", "a;5", "w;2"
+                ]
+            }
+        ]
+    },
+	
+	"ani_mix":
+	[
+        "idle;attack;0.1",
+        "idle;idle;0.1",
+        "attack;idle;0.1",
+		"skill_2;idle;0.1",
+		"idle;skill_2;0.1"
+    ]
+}

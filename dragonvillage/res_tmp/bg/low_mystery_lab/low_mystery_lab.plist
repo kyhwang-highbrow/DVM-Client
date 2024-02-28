@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+    <dict>
+        <key>frames</key>
+        <dict>
+            <key>low_mystery_lab_1_a.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{0,0}</string>
+                <key>spriteSize</key>
+                <string>{1282,800}</string>
+                <key>spriteSourceSize</key>
+                <string>{1282,800}</string>
+                <key>textureRect</key>
+                <string>{{1,1},{1282,800}}</string>
+                <key>textureRotated</key>
+                <true/>
+            </dict>
+        </dict>
+        <key>metadata</key>
+        <dict>
+            <key>format</key>
+            <integer>3</integer>
+            <key>pixelFormat</key>
+            <string>RGBA8888</string>
+            <key>premultiplyAlpha</key>
+            <false/>
+            <key>realTextureFileName</key>
+            <string>low_mystery_lab.png</string>
+            <key>size</key>
+            <string>{1024,2048}</string>
+            <key>smartupdate</key>
+            <string>$TexturePacker:SmartUpdate:821bd4c94a9d4994814ed085e85a1ee5:00711f92b753f4aefa07cd10b6a07d37:30f3f4bcb60c977ccaf304e9808d2208$</string>
+            <key>textureFileName</key>
+            <string>low_mystery_lab.png</string>
+        </dict>
+    </dict>
+</plist>

@@ -1,0 +1,50 @@
+{
+	"skill_grow_mushroom":
+	{
+		"attack_value":
+		[		
+			{
+				"idx":1,
+				"res":"res/effect/skill_grow_mushroom/skill_grow_mushroom.spine",
+				"body":[0,0,0],
+                "count":1,
+                "scale":1,
+				"speed":0,
+				"accel":0,
+				"offset":[-540,0],				
+				"explosion_time":6,
+                "dir":-90,
+				"nodamage": true,
+				
+                "effect":
+                {
+                    "motion_streak":"",
+                    "rotation":false,
+                    "afterimage":false
+                }				
+			},
+			
+			{
+				"idx":1,
+				"res":"res/effect/effect_hit_magical_fire/effect_hit_magical_fire.spine",
+				"visual":"idle",
+				"body":[0,0,20],
+                "count":1,
+				"damage_rate":100,
+                "scale":1,
+				"accel":0,
+				"time":5,
+				"offset":[-540,0],
+				"explosion_time":0.1,
+				"missile_type": "pass",
+				
+                "effect":
+                {
+                    "motion_streak":"",
+                    "rotation":false,
+                    "afterimage":false
+                }				
+			}
+		]
+	}
+}

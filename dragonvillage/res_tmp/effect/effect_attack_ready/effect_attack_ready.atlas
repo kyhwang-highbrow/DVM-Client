@@ -1,0 +1,27 @@
+
+effect_attack_ready.png
+size: 128,128
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+effect_attack_ready_01
+  rotate: false
+  xy: 2, 31
+  size: 62, 83
+  orig: 62, 83
+  offset: 0, 0
+  index: -1
+effect_attack_ready_02
+  rotate: false
+  xy: 2, 2
+  size: 84, 27
+  orig: 84, 27
+  offset: 0, 0
+  index: -1
+effect_attack_ready_03
+  rotate: true
+  xy: 66, 47
+  size: 67, 57
+  orig: 67, 57
+  offset: 0, 0
+  index: -1

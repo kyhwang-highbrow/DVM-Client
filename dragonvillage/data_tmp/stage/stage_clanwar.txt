@@ -1,0 +1,12 @@
+{
+    "bg":"map_clanwar",
+	"camera":
+	{
+		"scale":0.8,
+		"pos_x":0,
+		"pos_y":0
+	},
+	"wave":
+	[
+	]
+}

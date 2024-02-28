@@ -1,0 +1,139 @@
+
+yuria.png
+size: 1936,819
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+yuria_acc_01
+  rotate: false
+  xy: 688, 90
+  size: 83, 85
+  orig: 83, 85
+  offset: 0, 0
+  index: -1
+yuria_acc_02
+  rotate: false
+  xy: 1817, 128
+  size: 83, 85
+  orig: 83, 85
+  offset: 0, 0
+  index: -1
+yuria_acc_03
+  rotate: false
+  xy: 773, 90
+  size: 83, 85
+  orig: 83, 85
+  offset: 0, 0
+  index: -1
+yuria_acc_04
+  rotate: false
+  xy: 1817, 41
+  size: 83, 85
+  orig: 83, 85
+  offset: 0, 0
+  index: -1
+yuria_arm_01
+  rotate: false
+  xy: 1372, 378
+  size: 355, 439
+  orig: 355, 439
+  offset: 0, 0
+  index: -1
+yuria_arm_02
+  rotate: false
+  xy: 1729, 506
+  size: 205, 311
+  orig: 205, 311
+  offset: 0, 0
+  index: -1
+yuria_body_01
+  rotate: true
+  xy: 2, 177
+  size: 640, 858
+  orig: 640, 858
+  offset: 0, 0
+  index: -1
+yuria_cape_01
+  rotate: false
+  xy: 1189, 102
+  size: 243, 247
+  orig: 243, 247
+  offset: 0, 0
+  index: -1
+yuria_cape_02
+  rotate: true
+  xy: 862, 106
+  size: 243, 325
+  orig: 243, 325
+  offset: 0, 0
+  index: -1
+yuria_cape_03
+  rotate: false
+  xy: 1729, 390
+  size: 147, 114
+  orig: 147, 114
+  offset: 0, 0
+  index: -1
+yuria_effect_01
+  rotate: true
+  xy: 188, 48
+  size: 127, 175
+  orig: 127, 175
+  offset: 0, 0
+  index: -1
+yuria_effect_02
+  rotate: true
+  xy: 513, 5
+  size: 80, 83
+  orig: 80, 83
+  offset: 0, 0
+  index: -1
+yuria_effect_03
+  rotate: true
+  xy: 598, 5
+  size: 80, 83
+  orig: 80, 83
+  offset: 0, 0
+  index: -1
+yuria_eye_01
+  rotate: false
+  xy: 513, 87
+  size: 173, 88
+  orig: 173, 88
+  offset: 0, 0
+  index: -1
+yuria_eye_02
+  rotate: true
+  xy: 1817, 215
+  size: 173, 88
+  orig: 173, 88
+  offset: 0, 0
+  index: -1
+yuria_face_01
+  rotate: true
+  xy: 2, 2
+  size: 173, 184
+  orig: 173, 184
+  offset: 0, 0
+  index: -1
+yuria_hair_01
+  rotate: false
+  xy: 862, 351
+  size: 508, 466
+  orig: 508, 466
+  offset: 0, 0
+  index: -1
+yuria_hair_02
+  rotate: false
+  xy: 1434, 26
+  size: 381, 350
+  orig: 381, 350
+  offset: 0, 0
+  index: -1
+yuria_shoulder_01
+  rotate: false
+  xy: 365, 42
+  size: 146, 133
+  orig: 146, 133
+  offset: 0, 0
+  index: -1

@@ -1,0 +1,195 @@
+
+sitael_dark_02.png
+size: 377,1033
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+sitael_dark_02_arm_01
+  rotate: true
+  xy: 290, 375
+  size: 77, 85
+  orig: 77, 85
+  offset: 0, 0
+  index: -1
+sitael_dark_02_arm_02
+  rotate: false
+  xy: 297, 273
+  size: 52, 100
+  orig: 52, 100
+  offset: 0, 0
+  index: -1
+sitael_dark_02_body_01
+  rotate: false
+  xy: 2, 808
+  size: 301, 223
+  orig: 301, 223
+  offset: 0, 0
+  index: -1
+sitael_dark_02_body_armor_01
+  rotate: false
+  xy: 232, 639
+  size: 73, 167
+  orig: 73, 167
+  offset: 0, 0
+  index: -1
+sitael_dark_02_body_armor_02
+  rotate: true
+  xy: 215, 454
+  size: 120, 96
+  orig: 120, 96
+  offset: 0, 0
+  index: -1
+sitael_dark_02_calf_01
+  rotate: false
+  xy: 313, 463
+  size: 43, 60
+  orig: 43, 60
+  offset: 0, 0
+  index: -1
+sitael_dark_02_effect_01
+  rotate: false
+  xy: 2, 576
+  size: 228, 230
+  orig: 228, 230
+  offset: 0, 0
+  index: -1
+sitael_dark_02_elbow_01
+  rotate: false
+  xy: 273, 18
+  size: 47, 115
+  orig: 47, 115
+  offset: 0, 0
+  index: -1
+sitael_dark_02_elbow_02
+  rotate: true
+  xy: 215, 135
+  size: 94, 86
+  orig: 94, 86
+  offset: 0, 0
+  index: -1
+sitael_dark_02_eye_01
+  rotate: false
+  xy: 322, 56
+  size: 30, 34
+  orig: 30, 34
+  offset: 0, 0
+  index: -1
+sitael_dark_02_eye_02
+  rotate: false
+  xy: 322, 20
+  size: 30, 34
+  orig: 30, 34
+  offset: 0, 0
+  index: -1
+sitael_dark_02_foot_01
+  rotate: false
+  xy: 305, 901
+  size: 58, 130
+  orig: 58, 130
+  offset: 0, 0
+  index: -1
+sitael_dark_02_foot_armor_01
+  rotate: false
+  xy: 313, 525
+  size: 46, 82
+  orig: 46, 82
+  offset: 0, 0
+  index: -1
+sitael_dark_02_hand_01
+  rotate: true
+  xy: 232, 579
+  size: 58, 72
+  orig: 58, 72
+  offset: 0, 0
+  index: -1
+sitael_dark_02_hand_02
+  rotate: false
+  xy: 322, 92
+  size: 46, 76
+  orig: 46, 76
+  offset: 0, 0
+  index: -1
+sitael_dark_02_hand_armor_01
+  rotate: false
+  xy: 307, 779
+  size: 68, 120
+  orig: 68, 120
+  offset: 0, 0
+  index: -1
+sitael_dark_02_hand_armor_02
+  rotate: false
+  xy: 182, 2
+  size: 89, 112
+  orig: 89, 112
+  offset: 0, 0
+  index: -1
+sitael_dark_02_head_01
+  rotate: true
+  xy: 68, 116
+  size: 227, 145
+  orig: 227, 145
+  offset: 0, 0
+  index: -1
+sitael_dark_02_head_armor_01
+  rotate: true
+  xy: 215, 334
+  size: 118, 73
+  orig: 118, 73
+  offset: 0, 0
+  index: -1
+sitael_dark_02_horn_01
+  rotate: false
+  xy: 68, 7
+  size: 112, 107
+  orig: 112, 107
+  offset: 0, 0
+  index: -1
+sitael_dark_02_horn_02
+  rotate: true
+  xy: 215, 231
+  size: 101, 80
+  orig: 101, 80
+  offset: 0, 0
+  index: -1
+sitael_dark_02_mouth_01
+  rotate: true
+  xy: 303, 192
+  size: 79, 49
+  orig: 79, 49
+  offset: 0, 0
+  index: -1
+sitael_dark_02_mouth_02
+  rotate: false
+  xy: 303, 170
+  size: 47, 20
+  orig: 47, 20
+  offset: 0, 0
+  index: -1
+sitael_dark_02_neck_01
+  rotate: false
+  xy: 313, 609
+  size: 62, 48
+  orig: 62, 48
+  offset: 0, 0
+  index: -1
+sitael_dark_02_tail_01
+  rotate: true
+  xy: 2, 3
+  size: 340, 64
+  orig: 340, 64
+  offset: 0, 0
+  index: -1
+sitael_dark_02_thigh_01
+  rotate: false
+  xy: 307, 659
+  size: 49, 118
+  orig: 49, 118
+  offset: 0, 0
+  index: -1
+sitael_dark_02_wing_01
+  rotate: false
+  xy: 2, 345
+  size: 211, 229
+  orig: 211, 229
+  offset: 0, 0
+  index: -1

@@ -1,0 +1,440 @@
+
+dede_gladius.png
+size: 1763,338
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+dede_gladius_acce_01
+  rotate: false
+  xy: 1616, 2
+  size: 38, 39
+  orig: 38, 39
+  offset: 0, 0
+  index: -1
+dede_gladius_arm_01
+  rotate: false
+  xy: 198, 21
+  size: 30, 64
+  orig: 30, 64
+  offset: 0, 0
+  index: -1
+dede_gladius_arm_02
+  rotate: false
+  xy: 1657, 66
+  size: 27, 48
+  orig: 27, 48
+  offset: 0, 0
+  index: -1
+dede_gladius_arm_03
+  rotate: false
+  xy: 1725, 70
+  size: 30, 45
+  orig: 30, 45
+  offset: 0, 0
+  index: -1
+dede_gladius_arm_04
+  rotate: false
+  xy: 468, 8
+  size: 39, 57
+  orig: 39, 57
+  offset: 0, 0
+  index: -1
+dede_gladius_belt_01
+  rotate: true
+  xy: 1678, 116
+  size: 41, 34
+  orig: 41, 34
+  offset: 0, 0
+  index: -1
+dede_gladius_belt_02
+  rotate: false
+  xy: 1147, 41
+  size: 23, 36
+  orig: 23, 36
+  offset: 0, 0
+  index: -1
+dede_gladius_belt_03
+  rotate: false
+  xy: 198, 87
+  size: 32, 33
+  orig: 32, 33
+  offset: 0, 0
+  index: -1
+dede_gladius_belt_04
+  rotate: true
+  xy: 1010, 164
+  size: 50, 26
+  orig: 50, 26
+  offset: 0, 0
+  index: -1
+dede_gladius_belt_05
+  rotate: false
+  xy: 1010, 216
+  size: 28, 32
+  orig: 28, 32
+  offset: 0, 0
+  index: -1
+dede_gladius_belt_acc_01
+  rotate: false
+  xy: 519, 60
+  size: 40, 57
+  orig: 40, 57
+  offset: 0, 0
+  index: -1
+dede_gladius_belt_acc_02
+  rotate: false
+  xy: 424, 57
+  size: 41, 60
+  orig: 41, 60
+  offset: 0, 0
+  index: -1
+dede_gladius_belt_acc_03
+  rotate: true
+  xy: 434, 119
+  size: 34, 63
+  orig: 34, 63
+  offset: 0, 0
+  index: -1
+dede_gladius_belt_acc_04
+  rotate: true
+  xy: 499, 119
+  size: 34, 63
+  orig: 34, 63
+  offset: 0, 0
+  index: -1
+dede_gladius_belt_acc_05
+  rotate: false
+  xy: 1723, 275
+  size: 38, 61
+  orig: 38, 61
+  offset: 0, 0
+  index: -1
+dede_gladius_belt_acc_06
+  rotate: false
+  xy: 509, 2
+  size: 39, 56
+  orig: 39, 56
+  offset: 0, 0
+  index: -1
+dede_gladius_body_01
+  rotate: true
+  xy: 1438, 43
+  size: 109, 97
+  orig: 109, 97
+  offset: 0, 0
+  index: -1
+dede_gladius_body_02
+  rotate: true
+  xy: 1686, 62
+  size: 52, 37
+  orig: 52, 37
+  offset: 0, 0
+  index: -1
+dede_gladius_cape_02
+  rotate: true
+  xy: 1595, 43
+  size: 24, 21
+  orig: 24, 21
+  offset: 0, 0
+  index: -1
+dede_gladius_cape_03
+  rotate: false
+  xy: 1501, 239
+  size: 109, 97
+  orig: 109, 97
+  offset: 0, 0
+  index: -1
+dede_gladius_cape_r_01
+  rotate: false
+  xy: 1537, 70
+  size: 58, 48
+  orig: 58, 48
+  offset: 0, 0
+  index: -1
+dede_gladius_cape_r_02
+  rotate: false
+  xy: 947, 190
+  size: 61, 58
+  orig: 61, 58
+  offset: 0, 0
+  index: -1
+dede_gladius_cloth
+  rotate: false
+  xy: 1656, 3
+  size: 42, 38
+  orig: 42, 38
+  offset: 0, 0
+  index: -1
+dede_gladius_effect_01
+  rotate: false
+  xy: 1040, 79
+  size: 130, 169
+  orig: 130, 169
+  offset: 0, 0
+  index: -1
+dede_gladius_effect_02
+  rotate: true
+  xy: 1174, 162
+  size: 130, 169
+  orig: 130, 169
+  offset: 0, 0
+  index: -1
+dede_gladius_effect_03
+  rotate: false
+  xy: 599, 2
+  size: 161, 160
+  orig: 161, 160
+  offset: 0, 0
+  index: -1
+dede_gladius_effect_04
+  rotate: false
+  xy: 434, 155
+  size: 163, 181
+  orig: 163, 181
+  offset: 0, 0
+  index: -1
+dede_gladius_effect_05
+  rotate: false
+  xy: 232, 2
+  size: 132, 132
+  orig: 132, 132
+  offset: 0, 0
+  index: -1
+dede_gladius_effect_06
+  rotate: false
+  xy: 599, 164
+  size: 172, 172
+  orig: 172, 172
+  offset: 0, 0
+  index: -1
+dede_gladius_effect_07
+  rotate: false
+  xy: 232, 136
+  size: 200, 200
+  orig: 200, 200
+  offset: 0, 0
+  index: -1
+dede_gladius_effect_08
+  rotate: false
+  xy: 773, 164
+  size: 172, 172
+  orig: 172, 172
+  offset: 0, 0
+  index: -1
+dede_gladius_effect_09
+  rotate: false
+  xy: 2, 122
+  size: 228, 214
+  orig: 228, 214
+  offset: 0, 0
+  index: -1
+dede_gladius_effect_10
+  rotate: false
+  xy: 1172, 14
+  size: 149, 146
+  orig: 149, 146
+  offset: 0, 0
+  index: -1
+dede_gladius_effect_11
+  rotate: false
+  xy: 1345, 154
+  size: 146, 138
+  orig: 146, 138
+  offset: 0, 0
+  index: -1
+dede_gladius_effect_12
+  rotate: true
+  xy: 1174, 294
+  size: 42, 247
+  orig: 42, 247
+  offset: 0, 0
+  index: -1
+dede_gladius_effect_13
+  rotate: false
+  xy: 762, 2
+  size: 161, 160
+  orig: 161, 160
+  offset: 0, 0
+  index: -1
+dede_gladius_effect_14
+  rotate: false
+  xy: 947, 250
+  size: 225, 86
+  orig: 225, 86
+  offset: 0, 0
+  index: -1
+dede_gladius_effect_15
+  rotate: true
+  xy: 2, 7
+  size: 113, 194
+  orig: 113, 194
+  offset: 0, 0
+  index: -1
+dede_gladius_effect_16
+  rotate: false
+  xy: 925, 2
+  size: 113, 160
+  orig: 113, 160
+  offset: 0, 0
+  index: -1
+dede_gladius_effect_17
+  rotate: false
+  xy: 1323, 22
+  size: 113, 130
+  orig: 113, 130
+  offset: 0, 0
+  index: -1
+dede_gladius_eye_01
+  rotate: false
+  xy: 1537, 43
+  size: 56, 25
+  orig: 56, 25
+  offset: 0, 0
+  index: -1
+dede_gladius_eye_02
+  rotate: false
+  xy: 947, 167
+  size: 48, 21
+  orig: 48, 21
+  offset: 0, 0
+  index: -1
+dede_gladius_eye_03
+  rotate: false
+  xy: 1641, 43
+  size: 43, 21
+  orig: 43, 21
+  offset: 0, 0
+  index: -1
+dede_gladius_foot_01
+  rotate: false
+  xy: 424, 12
+  size: 42, 43
+  orig: 42, 43
+  offset: 0, 0
+  index: -1
+dede_gladius_foot_02
+  rotate: false
+  xy: 1714, 117
+  size: 40, 41
+  orig: 40, 41
+  offset: 0, 0
+  index: -1
+dede_gladius_hair_01
+  rotate: false
+  xy: 1612, 239
+  size: 109, 97
+  orig: 109, 97
+  offset: 0, 0
+  index: -1
+dede_gladius_hair_02
+  rotate: false
+  xy: 1597, 69
+  size: 58, 45
+  orig: 58, 45
+  offset: 0, 0
+  index: -1
+dede_gladius_hair_03
+  rotate: false
+  xy: 1537, 120
+  size: 76, 37
+  orig: 76, 37
+  offset: 0, 0
+  index: -1
+dede_gladius_hair_acc_01
+  rotate: false
+  xy: 1699, 160
+  size: 62, 77
+  orig: 62, 77
+  offset: 0, 0
+  index: -1
+dede_gladius_hair_acc_02
+  rotate: true
+  xy: 1423, 294
+  size: 42, 76
+  orig: 42, 76
+  offset: 0, 0
+  index: -1
+dede_gladius_hand_01
+  rotate: true
+  xy: 1618, 43
+  size: 24, 21
+  orig: 24, 21
+  offset: 0, 0
+  index: -1
+dede_gladius_hand_02
+  rotate: false
+  xy: 564, 132
+  size: 24, 21
+  orig: 24, 21
+  offset: 0, 0
+  index: -1
+dede_gladius_hand_03
+  rotate: true
+  xy: 1723, 243
+  size: 30, 35
+  orig: 30, 35
+  offset: 0, 0
+  index: -1
+dede_gladius_hand_04
+  rotate: true
+  xy: 1723, 243
+  size: 30, 35
+  orig: 30, 35
+  offset: 0, 0
+  index: -1
+dede_gladius_head_01
+  rotate: true
+  xy: 1600, 159
+  size: 78, 97
+  orig: 78, 97
+  offset: 0, 0
+  index: -1
+dede_gladius_neck_01
+  rotate: false
+  xy: 467, 67
+  size: 50, 50
+  orig: 50, 50
+  offset: 0, 0
+  index: -1
+dede_gladius_reg_01
+  rotate: true
+  xy: 1493, 159
+  size: 78, 105
+  orig: 78, 105
+  offset: 0, 0
+  index: -1
+dede_gladius_reg_02
+  rotate: true
+  xy: 1040, 22
+  size: 55, 105
+  orig: 55, 105
+  offset: 0, 0
+  index: -1
+dede_gladius_reg_03
+  rotate: true
+  xy: 1438, 2
+  size: 39, 87
+  orig: 39, 87
+  offset: 0, 0
+  index: -1
+dede_gladius_reg_04
+  rotate: true
+  xy: 1527, 2
+  size: 39, 87
+  orig: 39, 87
+  offset: 0, 0
+  index: -1
+dede_gladius_run_b_arm_01
+  rotate: false
+  xy: 1615, 116
+  size: 61, 41
+  orig: 61, 41
+  offset: 0, 0
+  index: -1
+dede_gladius_wepon_01
+  rotate: false
+  xy: 366, 14
+  size: 56, 120
+  orig: 56, 120
+  offset: 0, 0
+  index: -1

@@ -1,0 +1,46 @@
+{
+    "directing":"floating_1",
+	"layer":
+    [	
+		{
+            "name":"배경"
+            "speed":0.05
+            "list":
+            [
+                {"res":"res/bg/summerdungeon/summerdungeon.vrp" "animation":"bg_layer_1" "width":1920 "pos_x":640 "scale":1}
+
+            ]
+        },
+		
+		{
+            "name":"원경"
+            "speed":0.1
+            "list":
+            [
+                {"res":"res/bg/summerdungeon/summerdungeon.vrp" "animation":"bg_layer_2" "width":1920 "pos_x":640 "scale":1}
+
+            ]
+        },
+		
+		{
+            "name":"중경"
+            "speed":0.3
+            "list":
+            [
+                {"res":"res/bg/summerdungeon/summerdungeon.vrp" "animation":"bg_layer_3" "width":1920 "pos_x":640 "scale":1}
+
+            ]
+        },
+		
+		
+		{
+            "name":"근경"
+            "speed":0.5
+            "list":
+            [
+                {"res":"res/bg/summerdungeon/summerdungeon.vrp" "animation":"bg_layer_4" "width":1920 "pos_x":640 "scale":1}
+
+            ]
+        }
+    ]
+}

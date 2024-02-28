@@ -1,0 +1,167 @@
+
+optatio_earth_02.png
+size: 493,1049
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+optatio_earth_02_arm_01
+  rotate: false
+  xy: 232, 322
+  size: 107, 85
+  orig: 107, 85
+  offset: 0, 0
+  index: -1
+optatio_earth_02_body_01
+  rotate: false
+  xy: 2, 2
+  size: 178, 143
+  orig: 178, 143
+  offset: 0, 0
+  index: -1
+optatio_earth_02_calf_01
+  rotate: true
+  xy: 429, 21
+  size: 59, 62
+  orig: 59, 62
+  offset: 0, 0
+  index: -1
+optatio_earth_02_effect_01
+  rotate: false
+  xy: 2, 346
+  size: 228, 230
+  orig: 228, 230
+  offset: 0, 0
+  index: -1
+optatio_earth_02_effect_02
+  rotate: true
+  xy: 438, 94
+  size: 56, 48
+  orig: 56, 48
+  offset: 0, 0
+  index: -1
+optatio_earth_02_elbow_01
+  rotate: false
+  xy: 2, 147
+  size: 223, 197
+  orig: 223, 197
+  offset: 0, 0
+  index: -1
+optatio_earth_02_elbow_02
+  rotate: false
+  xy: 227, 97
+  size: 110, 101
+  orig: 110, 101
+  offset: 0, 0
+  index: -1
+optatio_earth_02_foot_01
+  rotate: true
+  xy: 339, 9
+  size: 71, 88
+  orig: 71, 88
+  offset: 0, 0
+  index: -1
+optatio_earth_02_hand_02
+  rotate: false
+  xy: 373, 937
+  size: 118, 110
+  orig: 118, 110
+  offset: 0, 0
+  index: -1
+optatio_earth_02_head_01
+  rotate: false
+  xy: 331, 441
+  size: 155, 163
+  orig: 155, 163
+  offset: 0, 0
+  index: -1
+optatio_earth_02_leg_01
+  rotate: true
+  xy: 222, 10
+  size: 85, 115
+  orig: 85, 115
+  offset: 0, 0
+  index: -1
+optatio_earth_02_leg_02
+  rotate: true
+  xy: 341, 246
+  size: 85, 115
+  orig: 85, 115
+  offset: 0, 0
+  index: -1
+optatio_earth_02_lowerbody_01
+  rotate: false
+  xy: 339, 82
+  size: 97, 68
+  orig: 97, 68
+  offset: 0, 0
+  index: -1
+optatio_earth_02_lowerbody_03
+  rotate: false
+  xy: 339, 152
+  size: 105, 92
+  orig: 105, 92
+  offset: 0, 0
+  index: -1
+optatio_earth_02_neck_01
+  rotate: true
+  xy: 227, 200
+  size: 120, 103
+  orig: 120, 103
+  offset: 0, 0
+  index: -1
+optatio_earth_02_shoulder_01
+  rotate: false
+  xy: 373, 719
+  size: 116, 135
+  orig: 116, 135
+  offset: 0, 0
+  index: -1
+optatio_earth_02_thigh_01
+  rotate: false
+  xy: 341, 333
+  size: 116, 106
+  orig: 116, 106
+  offset: 0, 0
+  index: -1
+optatio_earth_02_thigh_02
+  rotate: false
+  xy: 330, 606
+  size: 116, 111
+  orig: 116, 111
+  offset: 0, 0
+  index: -1
+optatio_earth_02_wing_01
+  rotate: true
+  xy: 373, 856
+  size: 79, 118
+  orig: 79, 118
+  offset: 0, 0
+  index: -1
+optatio_earth_02_wing_02
+  rotate: false
+  xy: 182, 17
+  size: 38, 128
+  orig: 38, 128
+  offset: 0, 0
+  index: -1
+optatio_earth_02_wing_03
+  rotate: false
+  xy: 232, 409
+  size: 97, 167
+  orig: 97, 167
+  offset: 0, 0
+  index: -1
+optatio_earth_02_wing_04
+  rotate: false
+  xy: 2, 741
+  size: 369, 306
+  orig: 369, 306
+  offset: 0, 0
+  index: -1
+optatio_earth_02_wing_05
+  rotate: false
+  xy: 2, 578
+  size: 326, 161
+  orig: 326, 161
+  offset: 0, 0
+  index: -1

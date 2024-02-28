@@ -1,0 +1,363 @@
+
+eternal_all_03.png
+size: 2033,720
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+effect_eternal_all_03_atk_01
+  rotate: false
+  xy: 962, 10
+  size: 101, 99
+  orig: 101, 99
+  offset: 0, 0
+  index: -1
+effect_eternal_all_03_atk_02
+  rotate: false
+  xy: 1980, 152
+  size: 51, 184
+  orig: 51, 184
+  offset: 0, 0
+  index: -1
+effect_eternal_all_03_atk_03
+  rotate: true
+  xy: 1611, 2
+  size: 57, 64
+  orig: 57, 64
+  offset: 0, 0
+  index: -1
+effect_eternal_all_03_atk_04
+  rotate: false
+  xy: 1442, 72
+  size: 84, 91
+  orig: 84, 91
+  offset: 0, 0
+  index: -1
+effect_eternal_all_03_atk_05
+  rotate: false
+  xy: 1090, 80
+  size: 124, 124
+  orig: 124, 124
+  offset: 0, 0
+  index: -1
+effect_eternal_all_03_light_01
+  rotate: true
+  xy: 435, 11
+  size: 161, 265
+  orig: 161, 265
+  offset: 0, 0
+  index: -1
+effect_eternal_all_03_light_02
+  rotate: false
+  xy: 618, 174
+  size: 158, 265
+  orig: 158, 265
+  offset: 0, 0
+  index: -1
+effect_eternal_all_03_light_03
+  rotate: true
+  xy: 1530, 296
+  size: 174, 265
+  orig: 174, 265
+  offset: 0, 0
+  index: -1
+effect_eternal_all_03_light_04
+  rotate: false
+  xy: 778, 200
+  size: 178, 265
+  orig: 178, 265
+  offset: 0, 0
+  index: -1
+effect_eternal_all_03_light_05
+  rotate: false
+  xy: 958, 239
+  size: 178, 265
+  orig: 178, 265
+  offset: 0, 0
+  index: -1
+effect_eternal_all_03_light_06
+  rotate: true
+  xy: 1263, 312
+  size: 177, 265
+  orig: 177, 265
+  offset: 0, 0
+  index: -1
+effect_eternal_all_03_light_07
+  rotate: false
+  xy: 435, 174
+  size: 181, 265
+  orig: 181, 265
+  offset: 0, 0
+  index: -1
+effect_eternal_all_03_light_08
+  rotate: false
+  xy: 1808, 453
+  size: 190, 265
+  orig: 190, 265
+  offset: 0, 0
+  index: -1
+effect_eternal_all_03_light_acc
+  rotate: false
+  xy: 962, 111
+  size: 126, 126
+  orig: 126, 126
+  offset: 0, 0
+  index: -1
+effect_eternal_all_03_pose_01
+  rotate: false
+  xy: 1815, 163
+  size: 163, 173
+  orig: 163, 173
+  offset: 0, 0
+  index: -1
+effect_eternal_all_03_pose_02
+  rotate: false
+  xy: 379, 441
+  size: 277, 277
+  orig: 277, 277
+  offset: 0, 0
+  index: -1
+effect_eternal_all_03_pose_03
+  rotate: false
+  xy: 2, 337
+  size: 375, 381
+  orig: 375, 381
+  offset: 0, 0
+  index: -1
+effect_eternal_all_03_pose_04
+  rotate: false
+  xy: 1553, 472
+  size: 253, 246
+  orig: 253, 246
+  offset: 0, 0
+  index: -1
+eternal_all_03_acc
+  rotate: true
+  xy: 1178, 10
+  size: 62, 92
+  orig: 62, 92
+  offset: 0, 0
+  index: -1
+eternal_all_03_b_arm
+  rotate: true
+  xy: 1797, 338
+  size: 113, 205
+  orig: 113, 205
+  offset: 0, 0
+  index: -1
+eternal_all_03_b_finger_01
+  rotate: false
+  xy: 2000, 671
+  size: 30, 47
+  orig: 30, 47
+  offset: 0, 0
+  index: -1
+eternal_all_03_b_finger_02
+  rotate: false
+  xy: 1880, 15
+  size: 42, 42
+  orig: 42, 42
+  offset: 0, 0
+  index: -1
+eternal_all_03_b_finger_03
+  rotate: false
+  xy: 1744, 9
+  size: 47, 52
+  orig: 47, 52
+  offset: 0, 0
+  index: -1
+eternal_all_03_b_horn
+  rotate: true
+  xy: 1528, 2
+  size: 74, 81
+  orig: 74, 81
+  offset: 0, 0
+  index: -1
+eternal_all_03_b_leg
+  rotate: true
+  xy: 702, 17
+  size: 155, 134
+  orig: 155, 134
+  offset: 0, 0
+  index: -1
+eternal_all_03_b_wing
+  rotate: true
+  xy: 955, 506
+  size: 212, 311
+  orig: 212, 311
+  offset: 0, 0
+  index: -1
+eternal_all_03_band_01
+  rotate: false
+  xy: 1263, 165
+  size: 265, 145
+  orig: 265, 145
+  offset: 0, 0
+  index: -1
+eternal_all_03_band_02
+  rotate: true
+  xy: 300, 26
+  size: 309, 133
+  orig: 309, 133
+  offset: 0, 0
+  index: -1
+eternal_all_03_band_03
+  rotate: false
+  xy: 1528, 78
+  size: 109, 73
+  orig: 109, 73
+  offset: 0, 0
+  index: -1
+eternal_all_03_band_04
+  rotate: false
+  xy: 1823, 59
+  size: 106, 53
+  orig: 106, 53
+  offset: 0, 0
+  index: -1
+eternal_all_03_band_05
+  rotate: false
+  xy: 1138, 206
+  size: 123, 53
+  orig: 123, 53
+  offset: 0, 0
+  index: -1
+eternal_all_03_band_06
+  rotate: true
+  xy: 838, 7
+  size: 191, 122
+  orig: 191, 122
+  offset: 0, 0
+  index: -1
+eternal_all_03_band_07
+  rotate: false
+  xy: 1739, 63
+  size: 82, 88
+  orig: 82, 88
+  offset: 0, 0
+  index: -1
+eternal_all_03_band_08
+  rotate: false
+  xy: 1823, 114
+  size: 122, 47
+  orig: 122, 47
+  offset: 0, 0
+  index: -1
+eternal_all_03_body
+  rotate: false
+  xy: 2, 21
+  size: 296, 314
+  orig: 296, 314
+  offset: 0, 0
+  index: -1
+eternal_all_03_c_eye
+  rotate: true
+  xy: 2000, 617
+  size: 52, 25
+  orig: 52, 25
+  offset: 0, 0
+  index: -1
+eternal_all_03_claw
+  rotate: false
+  xy: 379, 377
+  size: 40, 62
+  orig: 40, 62
+  offset: 0, 0
+  index: -1
+eternal_all_03_eye
+  rotate: false
+  xy: 1827, 22
+  size: 51, 35
+  orig: 51, 35
+  offset: 0, 0
+  index: -1
+eternal_all_03_f_arm_01
+  rotate: false
+  xy: 1065, 9
+  size: 111, 69
+  orig: 111, 69
+  offset: 0, 0
+  index: -1
+eternal_all_03_f_arm_02
+  rotate: false
+  xy: 1947, 65
+  size: 73, 85
+  orig: 73, 85
+  offset: 0, 0
+  index: -1
+eternal_all_03_f_finger_01
+  rotate: true
+  xy: 1677, 2
+  size: 55, 65
+  orig: 55, 65
+  offset: 0, 0
+  index: -1
+eternal_all_03_f_finger_02
+  rotate: false
+  xy: 1216, 165
+  size: 39, 39
+  orig: 39, 39
+  offset: 0, 0
+  index: -1
+eternal_all_03_f_hand
+  rotate: true
+  xy: 1272, 3
+  size: 69, 83
+  orig: 69, 83
+  offset: 0, 0
+  index: -1
+eternal_all_03_f_shoulder
+  rotate: false
+  xy: 1328, 85
+  size: 112, 78
+  orig: 112, 78
+  offset: 0, 0
+  index: -1
+eternal_all_03_f_wing_01
+  rotate: false
+  xy: 658, 467
+  size: 295, 251
+  orig: 295, 251
+  offset: 0, 0
+  index: -1
+eternal_all_03_f_wing_02
+  rotate: true
+  xy: 1138, 261
+  size: 243, 123
+  orig: 243, 123
+  offset: 0, 0
+  index: -1
+eternal_all_03_head_01
+  rotate: false
+  xy: 1216, 74
+  size: 110, 89
+  orig: 110, 89
+  offset: 0, 0
+  index: -1
+eternal_all_03_head_02
+  rotate: true
+  xy: 1793, 2
+  size: 55, 32
+  orig: 55, 32
+  offset: 0, 0
+  index: -1
+eternal_all_03_horn
+  rotate: false
+  xy: 1639, 61
+  size: 98, 90
+  orig: 98, 90
+  offset: 0, 0
+  index: -1
+eternal_all_03_s_wing
+  rotate: false
+  xy: 1530, 153
+  size: 283, 141
+  orig: 283, 141
+  offset: 0, 0
+  index: -1
+eternal_all_03_tail
+  rotate: false
+  xy: 1268, 491
+  size: 283, 227
+  orig: 283, 227
+  offset: 0, 0
+  index: -1

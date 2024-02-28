@@ -1,0 +1,143 @@
+{
+	"skill_elite_lizard_man_shaman_2":
+	{
+		"ver":2,
+		"attack_value":
+		[
+			{
+				"idx":1,
+				"res":"res/missile/missile_flame/missile_flame_@.vrp",
+				"body":[0,0,0],
+                "count":1,
+                "period":0,
+                "scale":2,
+				"time":0,
+				"speed":100,
+				"accel":1500,
+				"accel_delay":0.5,
+				"l_limit_speed":0,
+				"h_limit_speed":5000,
+				"angular_velocity":0,
+				
+				"is_abs_pos":false,
+				"offset":[0,0],
+				"dir_array":[90],
+
+				"vanish_time":10,
+				
+                "effect":
+                {
+                    "motion_streak":"",
+                    "rotation":false,
+                    "afterimage":false
+                }
+			},
+			
+			{
+				"idx":1,
+				"target_idx":[1],
+				"res":"res/missile/missile_flame/missile_flame_@.vrp",
+				"body":[0,0,30],
+                "count":5,
+				"damage_rate":20,
+                "period":0.2,
+                "scale":0.8,
+				"time":1,
+				"speed":1000,
+				"accel":0,
+				"accel_delay":0.1,
+				"l_limit_speed":0,
+				"h_limit_speed":5000,
+				"angular_velocity":0,
+				
+				"is_abs_pos":true,
+				"offset":['target',600],
+				"dir_array":[-90],
+
+				"vanish_time":10,
+				
+                "effect":
+                {
+                    "motion_streak":"",
+                    "rotation":false,
+                    "afterimage":false
+                }
+			},
+			
+			{
+				"idx":1,
+				"target_idx":[2],
+				"res":"res/missile/missile_flame/missile_flame_@.vrp",
+				"body":[0,0,30],
+                "count":5,
+				"damage_rate":20,
+                "period":0.2,
+                "scale":0.8,
+				"time":2,
+				"speed":1000,
+				"accel":0,
+				"accel_delay":0.1,
+				"l_limit_speed":0,
+				"h_limit_speed":5000,
+				"angular_velocity":0,
+				
+				"is_abs_pos":true,
+				"offset":['target',600],
+				"dir_array":[-90],
+
+				"vanish_time":10,
+				
+                "effect":
+                {
+                    "motion_streak":"",
+                    "rotation":false,
+                    "afterimage":false
+                }
+			},
+			
+			{
+				"idx":1,
+				"target_idx":[3],
+				"res":"res/missile/missile_flame/missile_flame_@.vrp",
+				"body":[0,0,30],
+                "count":5,
+				"damage_rate":20,
+                "period":0.2,
+                "scale":0.8,
+				"time":3,
+				"speed":1000,
+				"accel":0,
+				"accel_delay":0.1,
+				"l_limit_speed":0,
+				"h_limit_speed":5000,
+				"angular_velocity":0,
+				
+				"is_abs_pos":true,
+				"offset":['target',600],
+				"dir_array":[-90],
+
+				"vanish_time":10,
+				
+                "effect":
+                {
+                    "motion_streak":"",
+                    "rotation":false,
+                    "afterimage":false
+                }
+			},
+			
+			{
+				"idx":1,
+				"comment":"쉐이크",
+				"body":[0,0,0],
+                "count":1,
+				"time":2.2,
+                "period":1,
+                "scale":1,
+				"offset":[0,0],
+				"map_shake_time":1.5
+			}
+		]
+	}
+}
+

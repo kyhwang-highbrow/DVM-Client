@@ -1,0 +1,237 @@
+
+crescentdragon_water_03.png
+size: 712,279
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+crescentdragon_water_03_arm_01
+  rotate: true
+  xy: 502, 55
+  size: 53, 59
+  orig: 53, 59
+  offset: 0, 0
+  index: -1
+crescentdragon_water_03_arm_02
+  rotate: false
+  xy: 563, 60
+  size: 55, 64
+  orig: 55, 64
+  offset: 0, 0
+  index: -1
+crescentdragon_water_03_body_01
+  rotate: false
+  xy: 2, 122
+  size: 126, 155
+  orig: 126, 155
+  offset: 0, 0
+  index: -1
+crescentdragon_water_03_body_02
+  rotate: true
+  xy: 157, 2
+  size: 126, 85
+  orig: 126, 85
+  offset: 0, 0
+  index: -1
+crescentdragon_water_03_effect_01
+  rotate: false
+  xy: 537, 10
+  size: 57, 43
+  orig: 57, 43
+  offset: 0, 0
+  index: -1
+crescentdragon_water_03_effect_02
+  rotate: false
+  xy: 420, 6
+  size: 36, 47
+  orig: 36, 47
+  offset: 0, 0
+  index: -1
+crescentdragon_water_03_effect_03
+  rotate: true
+  xy: 2, 4
+  size: 116, 153
+  orig: 116, 153
+  offset: 0, 0
+  index: -1
+crescentdragon_water_03_effect_04
+  rotate: true
+  xy: 345, 54
+  size: 97, 62
+  orig: 97, 62
+  offset: 0, 0
+  index: -1
+crescentdragon_water_03_effect_05
+  rotate: true
+  xy: 651, 7
+  size: 41, 34
+  orig: 41, 34
+  offset: 0, 0
+  index: -1
+crescentdragon_water_03_effect_06
+  rotate: true
+  xy: 363, 180
+  size: 97, 62
+  orig: 97, 62
+  offset: 0, 0
+  index: -1
+crescentdragon_water_03_effect_07
+  rotate: true
+  xy: 458, 6
+  size: 47, 34
+  orig: 47, 34
+  offset: 0, 0
+  index: -1
+crescentdragon_water_03_effect_08
+  rotate: false
+  xy: 651, 124
+  size: 57, 43
+  orig: 57, 43
+  offset: 0, 0
+  index: -1
+crescentdragon_water_03_effect_09
+  rotate: true
+  xy: 457, 55
+  size: 32, 43
+  orig: 32, 43
+  offset: 0, 0
+  index: -1
+crescentdragon_water_03_effect_10
+  rotate: false
+  xy: 409, 89
+  size: 89, 89
+  orig: 89, 89
+  offset: 0, 0
+  index: -1
+crescentdragon_water_03_effect_11
+  rotate: false
+  xy: 427, 188
+  size: 89, 89
+  orig: 89, 89
+  offset: 0, 0
+  index: -1
+crescentdragon_water_03_effect_12
+  rotate: true
+  xy: 543, 126
+  size: 74, 60
+  orig: 74, 60
+  offset: 0, 0
+  index: -1
+crescentdragon_water_03_eye_01
+  rotate: false
+  xy: 664, 87
+  size: 43, 35
+  orig: 43, 35
+  offset: 0, 0
+  index: -1
+crescentdragon_water_03_eye_02
+  rotate: true
+  xy: 241, 134
+  size: 17, 26
+  orig: 17, 26
+  offset: 0, 0
+  index: -1
+crescentdragon_water_03_eye_03
+  rotate: false
+  xy: 664, 50
+  size: 43, 35
+  orig: 43, 35
+  offset: 0, 0
+  index: -1
+crescentdragon_water_03_foot_01
+  rotate: false
+  xy: 588, 204
+  size: 42, 73
+  orig: 42, 73
+  offset: 0, 0
+  index: -1
+crescentdragon_water_03_foot_02
+  rotate: true
+  xy: 345, 2
+  size: 50, 73
+  orig: 50, 73
+  offset: 0, 0
+  index: -1
+crescentdragon_water_03_hand_01
+  rotate: true
+  xy: 651, 224
+  size: 53, 59
+  orig: 53, 59
+  offset: 0, 0
+  index: -1
+crescentdragon_water_03_hand_02
+  rotate: true
+  xy: 651, 169
+  size: 53, 59
+  orig: 53, 59
+  offset: 0, 0
+  index: -1
+crescentdragon_water_03_head_01
+  rotate: true
+  xy: 241, 153
+  size: 124, 120
+  orig: 124, 120
+  offset: 0, 0
+  index: -1
+crescentdragon_water_03_head_02
+  rotate: false
+  xy: 500, 110
+  size: 41, 76
+  orig: 41, 76
+  offset: 0, 0
+  index: -1
+crescentdragon_water_03_head_03
+  rotate: true
+  xy: 596, 4
+  size: 54, 53
+  orig: 54, 53
+  offset: 0, 0
+  index: -1
+crescentdragon_water_03_head_04
+  rotate: false
+  xy: 409, 55
+  size: 46, 32
+  orig: 46, 32
+  offset: 0, 0
+  index: -1
+crescentdragon_water_03_leg_01
+  rotate: false
+  xy: 605, 129
+  size: 42, 73
+  orig: 42, 73
+  offset: 0, 0
+  index: -1
+crescentdragon_water_03_leg_02
+  rotate: false
+  xy: 620, 65
+  size: 42, 57
+  orig: 42, 57
+  offset: 0, 0
+  index: -1
+crescentdragon_water_03_weapon_01
+  rotate: false
+  xy: 518, 202
+  size: 68, 75
+  orig: 68, 75
+  offset: 0, 0
+  index: -1
+crescentdragon_water_03_weapon_02
+  rotate: false
+  xy: 494, 9
+  size: 41, 44
+  orig: 41, 44
+  offset: 0, 0
+  index: -1
+crescentdragon_water_03_wing_01
+  rotate: true
+  xy: 130, 130
+  size: 147, 109
+  orig: 147, 109
+  offset: 0, 0
+  index: -1
+crescentdragon_water_03_wing_02
+  rotate: true
+  xy: 244, 17
+  size: 115, 99
+  orig: 115, 99
+  offset: 0, 0
+  index: -1

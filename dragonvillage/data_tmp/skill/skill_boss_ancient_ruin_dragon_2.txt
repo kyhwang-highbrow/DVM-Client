@@ -1,0 +1,407 @@
+{
+	"skill_boss_ancient_ruin_dragon_2":
+	{
+		"ver":2,
+		"attack_value":
+		[							
+			{
+				"idx":1,
+				"comment":"로켓 런처_1"
+				"res":"res/missile/missile_rocket/missile_rocket.vrp",
+				"visual":"@_idle",
+				"body":[0,0,0],
+                "count":2,
+				"damage_rate":0,
+                "period":0.5,
+                "scale":1,
+				"time":0,
+				"speed":300,
+				"accel":1400,
+				"l_limit_speed":0,
+				"h_limit_speed":2000,
+				"accel_delay":0,
+				"angular_velocity":30,
+				"offset":[0,50],
+				"dir":-40,
+				"dir_add":0,
+				"missile_type":"pass",
+				"fadeout_time":10,
+				
+				"add_script":
+				[
+					{
+						"comment":"폭파",
+				
+						"idx":1,
+						"res":"res/effect/skill_explosion/skill_explosion_fire.vrp",
+						"visual":"idle",
+						"body":[0,0,0],
+						"scale":1.5,
+						"damage_rate":0,
+						"count":1,
+						"period":0,
+						"time":0,
+						"speed":0,
+						"angular_velocity":0,
+						"offset":[0,0],
+						"dir_array":['random'],
+						"map_shake_time":0.5,
+						"missile_type":"pass",
+						"fadeout_time":0.2
+					}
+				],
+				
+				"add_script_start":1,
+				"add_script_term":0.5,
+				"add_script_max":1,
+				"add_script_relative":true,
+				"add_script_dead":true
+				
+                "effect":
+                {
+                    "motion_streak":"res/missile/motion_streak/motion_streak_line_@.png",
+                    "rotation":false,
+                    "afterimage":false
+                }				
+			},
+			
+			{
+				"idx":1,
+				"comment":"로켓 런처_2"
+				"res":"res/missile/missile_rocket/missile_rocket.vrp",
+				"visual":"@_idle",
+				"body":[0,0,0],
+                "count":2,
+				"damage_rate":0,
+                "period":0.5,
+                "scale":1,
+				"time":0.2,
+				"speed":300,
+				"accel":1400,
+				"l_limit_speed":0,
+				"h_limit_speed":2000,
+				"accel_delay":0,
+				"angular_velocity":-20,
+				"offset":[0,0],
+				"dir":30,
+				"dir_add":0,
+				"missile_type":"pass",
+				"fadeout_time":10,
+				
+				"add_script":
+				[
+					{
+						"comment":"폭파",
+				
+						"idx":1,
+						"res":"res/effect/skill_explosion/skill_explosion_fire.vrp",
+						"visual":"idle",
+						"body":[0,0,0],
+						"scale":1.5,
+						"damage_rate":0,
+						"count":1,
+						"period":0,
+						"time":0,
+						"speed":0,
+						"angular_velocity":0,
+						"offset":[0,0],
+						"dir_array":['random'],
+						"map_shake_time":0.5,
+						"missile_type":"pass",
+						"fadeout_time":0.2
+					}
+				],
+				
+				"add_script_start":1,
+				"add_script_term":0.5,
+				"add_script_max":1,
+				"add_script_relative":true,
+				"add_script_dead":true
+				
+                "effect":
+                {
+                    "motion_streak":"res/missile/motion_streak/motion_streak_line_@.png",
+                    "rotation":false,
+                    "afterimage":false
+                }				
+			},
+			
+			{
+				"idx":1,
+				"comment":"로켓 런처_3"
+				"res":"res/missile/missile_rocket/missile_rocket.vrp",
+				"visual":"@_idle",
+				"body":[0,0,0],
+                "count":2,
+				"damage_rate":0,
+                "period":0.5,
+                "scale":1,
+				"time":0.4,
+				"speed":300,
+				"accel":1400,
+				"l_limit_speed":0,
+				"h_limit_speed":2000,
+				"accel_delay":0,
+				"angular_velocity":10,
+				"offset":[0,-50],
+				"dir":-20,
+				"dir_add":0,
+				"missile_type":"pass",
+				"fadeout_time":10,
+				
+				"add_script":
+				[
+					{
+						"comment":"폭파",
+				
+						"idx":1,
+						"res":"res/effect/skill_explosion/skill_explosion_fire.vrp",
+						"visual":"idle",
+						"body":[0,0,0],
+						"scale":1.5,
+						"damage_rate":25,
+						"count":1,
+						"period":0,
+						"time":0,
+						"speed":0,
+						"angular_velocity":0,
+						"offset":[0,0],
+						"dir_array":['random'],
+						"map_shake_time":0.5,
+						"missile_type":"pass",
+						"fadeout_time":0.2
+					}
+				],
+				
+				"add_script_start":1,
+				"add_script_term":0,
+				"add_script_max":1,
+				"add_script_relative":true,
+				"add_script_dead":true
+				
+                "effect":
+                {
+                    "motion_streak":"res/missile/motion_streak/motion_streak_line_@.png",
+                    "rotation":false,
+                    "afterimage":false
+                }				
+			},
+			
+			{
+				"idx":1,
+				"comment":"로켓 런처_4"
+				"res":"res/missile/missile_rocket/missile_rocket.vrp",
+				"visual":"@_idle",
+				"body":[0,0,0],
+                "count":2,
+				"damage_rate":0,
+                "period":0.5,
+                "scale":1,
+				"time":0.6,
+				"speed":300,
+				"accel":1400,
+				"l_limit_speed":0,
+				"h_limit_speed":2000,
+				"accel_delay":0,
+				"angular_velocity":-60,
+				"offset":[0,0],
+				"dir":10,
+				"dir_add":0,
+				"missile_type":"pass",
+				"fadeout_time":10,
+				
+				"add_script":
+				[
+					{
+						"comment":"폭파",
+				
+						"idx":1,
+						"res":"res/effect/skill_explosion/skill_explosion_fire.vrp",
+						"visual":"idle",
+						"body":[0,0,0],
+						"scale":1.5,
+						"damage_rate":0,
+						"count":1,
+						"period":0,
+						"time":0,
+						"speed":0,
+						"angular_velocity":0,
+						"offset":[0,0],
+						"dir_array":['random'],
+						"map_shake_time":0.5,
+						"missile_type":"pass",
+						"fadeout_time":0.2
+					}
+				],
+				
+				"add_script_start":1.1,
+				"add_script_term":0,
+				"add_script_max":1,
+				"add_script_relative":true,
+				"add_script_dead":true
+				
+                "effect":
+                {
+                    "motion_streak":"",
+                    "rotation":false,
+                    "afterimage":false
+                }				
+			},
+			
+			{
+				"idx":1,
+				"comment":"로켓 런처_5"
+				"res":"res/missile/missile_rocket/missile_rocket.vrp",
+				"visual":"@_idle",
+				"body":[0,0,0],
+                "count":2,
+				"damage_rate":0,
+                "period":0.5,
+                "scale":1,
+				"time":0.8,
+				"speed":300,
+				"accel":1400,
+				"l_limit_speed":0,
+				"h_limit_speed":2000,
+				"accel_delay":0,
+				"angular_velocity":-60,
+				"offset":[0,50],
+				"dir":60,
+				"dir_add":0,
+				"missile_type":"pass",
+				"fadeout_time":10,
+				
+				"add_script":
+				[
+					{
+						"comment":"폭파",
+				
+						"idx":1,
+						"res":"res/effect/skill_explosion/skill_explosion_fire.vrp",
+						"visual":"idle",
+						"body":[0,0,0],
+						"scale":1.5,
+						"damage_rate":0,
+						"count":1,
+						"period":0,
+						"time":0,
+						"speed":0,
+						"angular_velocity":0,
+						"offset":[0,0],
+						"dir_array":['random'],
+						"map_shake_time":0.5,
+						"missile_type":"pass",
+						"fadeout_time":0.2
+					}
+				],
+				
+				"add_script_start":1.1,
+				"add_script_term":0,
+				"add_script_max":1,
+				"add_script_relative":true,
+				"add_script_dead":true
+				
+                "effect":
+                {
+                    "motion_streak":"res/missile/motion_streak/motion_streak_line_@.png",
+                    "rotation":false,
+                    "afterimage":false
+                }				
+			},
+			
+			{
+				"idx":1,
+				"comment":"로켓 런처_6"
+				"res":"res/missile/missile_rocket/missile_rocket.vrp",
+				"visual":"@_idle",
+				"body":[0,0,0],
+                "count":2,
+				"damage_rate":0,
+                "period":0.5,
+                "scale":1,
+				"time":1,
+				"speed":300,
+				"accel":1400,
+				"l_limit_speed":0,
+				"h_limit_speed":2000,
+				"accel_delay":0,
+				"angular_velocity":60,
+				"offset":[0,0],
+				"dir":-30,
+				"dir_add":0,
+				"missile_type":"pass",
+				"fadeout_time":10,
+				
+				"add_script":
+				[
+					{
+						"comment":"폭파",
+				
+						"idx":1,
+						"res":"res/effect/skill_explosion/skill_explosion_fire.vrp",
+						"visual":"idle",
+						"body":[0,0,0],
+						"scale":1.5,
+						"damage_rate":0,
+						"count":1,
+						"period":0,
+						"time":0,
+						"speed":0,
+						"angular_velocity":0,
+						"offset":[0,0],
+						"dir_array":['random'],
+						"map_shake_time":0.5,
+						"missile_type":"pass",
+						"fadeout_time":0.2
+					}
+				],
+				
+				"add_script_start":1.1,
+				"add_script_term":0.5,
+				"add_script_max":1,
+				"add_script_relative":true,
+				"add_script_dead":true
+				
+                "effect":
+                {
+                    "motion_streak":"res/missile/motion_streak/motion_streak_line_@.png",
+                    "rotation":false,
+                    "afterimage":false
+                }				
+			},
+			
+			{
+				"idx":1,
+				"comment":"피격박스"
+				"res":"",
+				"body":[0,0,700],
+                "count":1,
+				"damage_rate":25,
+                "period":0,
+                "scale":1,
+				"time":1,
+				"speed":0,
+				"accel":0,
+				"l_limit_speed":0,
+				"h_limit_speed":0,
+				"accel_delay":0,
+				"angular_velocity":0,
+				"offset":[100,0],
+				"dir":0,
+				"is_abs_pos":true,
+				"dir_add":0,
+				"missile_type":"pass",
+				"fadeout_time":2,
+				"reset_time":0.5,
+				
+                "effect":
+                {
+                    "motion_streak":"",
+                    "rotation":false,
+                    "afterimage":false
+                }				
+			}
+		]
+	}
+}
+

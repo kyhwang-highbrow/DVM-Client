@@ -1,0 +1,88 @@
+{
+    "directing":"floating_1",
+	"layer":
+    [
+    
+        {
+            "name":"배경"
+            "speed":0.2
+            "list":
+            [
+                {"res":"res/bg/volcano2/volcano2.vrp" "animation":"layer_1_a" "width":3840}
+               
+            ]
+        }
+        
+        
+        {
+            "name":"원경"
+            "speed":0.4
+			"list":
+            [
+                
+                {"res":"res/bg/volcano2/volcano2.vrp" "animation":"layer_2_b" "width":1680 "scale":0.75}
+            ]
+        }
+		
+		{
+            "name":"중경1"
+            "speed":0.5
+            "list":
+            [
+                
+				{"res":"res/bg/volcano2/volcano2.vrp" "animation":"layer_3_a" "width":1374 "scale":0.75} 
+            ]
+        }
+        
+        {
+            "name":"중경2"
+            "speed":0.6
+            "list":
+            [
+                
+				{"res":"res/bg/volcano2/volcano2.vrp" "animation":"layer_3_b" "width":1575 "scale":0.75}
+            ]
+        }
+		
+		{
+            "name":"근경1"
+            "speed":0.7
+            "list":
+            [
+                {"res":"res/bg/volcano2/volcano2.vrp" "animation":"layer_4_a" "width":1110 "scale":0.75}
+                {"res":"res/bg/volcano2/volcano2.vrp" "animation":"layer_4_b" "width":1260 "scale":0.75}
+				{"res":"res/bg/volcano2/volcano2.vrp" "animation":"layer_4_c" "width":1260 "scale":0.75}
+		    ]
+        }
+			{
+            "name":"빛"
+            "speed":0.7
+            "list":
+            [
+                {"res":"res/bg/volcano2/volcano2.vrp" "animation":"layer_4_light" "width":1110 "scale":0.75}
+           
+		    ]
+        }
+		{
+            "name":"초근경1"
+            "speed":0.9
+            "list":
+            [
+                {"res":"res/bg/volcano2/volcano2.vrp" "animation":"layer_5_a" "width":1260 "scale":0.75}
+                {"res":"res/bg/volcano2/volcano2.vrp" "animation":"layer_5_b" "width":1350 "scale":0.75}
+				{"res":"res/bg/volcano2/volcano2.vrp" "animation":"layer_5_c" "width":1650 "scale":0.75}
+				
+			]
+        }
+		
+		{
+            "name":"근경"
+            "speed":0
+            "list":
+            [
+               {"res":"res/bg/dmgate_stage/dmgate_stage.vrp" "animation":"stage_04" "width":3840 "scale":1.55 "pos_x":1050}
+            ]
+        }
+		
+    ]
+}

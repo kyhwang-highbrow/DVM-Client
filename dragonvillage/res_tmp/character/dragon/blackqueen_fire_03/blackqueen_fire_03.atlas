@@ -1,0 +1,167 @@
+
+blackqueen_fire_03.png
+size: 451,1032
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+blackqueen_fire_03_arm_l_01
+  rotate: true
+  xy: 306, 23
+  size: 50, 90
+  orig: 50, 90
+  offset: 0, 0
+  index: -1
+blackqueen_fire_03_arm_l_02
+  rotate: false
+  xy: 338, 434
+  size: 80, 118
+  orig: 80, 118
+  offset: 0, 0
+  index: -1
+blackqueen_fire_03_arm_r_01
+  rotate: false
+  xy: 329, 348
+  size: 90, 84
+  orig: 90, 84
+  offset: 0, 0
+  index: -1
+blackqueen_fire_03_arm_r_02
+  rotate: false
+  xy: 219, 254
+  size: 92, 97
+  orig: 92, 97
+  offset: 0, 0
+  index: -1
+blackqueen_fire_03_body_01
+  rotate: false
+  xy: 213, 554
+  size: 198, 193
+  orig: 198, 193
+  offset: 0, 0
+  index: -1
+blackqueen_fire_03_deco_01
+  rotate: false
+  xy: 306, 141
+  size: 92, 84
+  orig: 92, 84
+  offset: 0, 0
+  index: -1
+blackqueen_fire_03_ef_01
+  rotate: true
+  xy: 2, 236
+  size: 222, 215
+  orig: 222, 215
+  offset: 0, 0
+  index: -1
+blackqueen_fire_03_ef_02
+  rotate: true
+  xy: 313, 266
+  size: 80, 122
+  orig: 80, 122
+  offset: 0, 0
+  index: -1
+blackqueen_fire_03_eye_01
+  rotate: false
+  xy: 413, 719
+  size: 24, 28
+  orig: 24, 28
+  offset: 0, 0
+  index: -1
+blackqueen_fire_03_eye_02
+  rotate: false
+  xy: 413, 689
+  size: 24, 28
+  orig: 24, 28
+  offset: 0, 0
+  index: -1
+blackqueen_fire_03_eye_03
+  rotate: false
+  xy: 413, 659
+  size: 24, 28
+  orig: 24, 28
+  offset: 0, 0
+  index: -1
+blackqueen_fire_03_fur_01
+  rotate: false
+  xy: 2, 12
+  size: 175, 222
+  orig: 175, 222
+  offset: 0, 0
+  index: -1
+blackqueen_fire_03_fur_02
+  rotate: true
+  xy: 398, 14
+  size: 69, 39
+  orig: 69, 39
+  offset: 0, 0
+  index: -1
+blackqueen_fire_03_head_01
+  rotate: false
+  xy: 179, 58
+  size: 125, 176
+  orig: 125, 176
+  offset: 0, 0
+  index: -1
+blackqueen_fire_03_head_02
+  rotate: true
+  xy: 397, 85
+  size: 54, 52
+  orig: 54, 52
+  offset: 0, 0
+  index: -1
+blackqueen_fire_03_leg_l_01
+  rotate: true
+  xy: 306, 75
+  size: 64, 89
+  orig: 64, 89
+  offset: 0, 0
+  index: -1
+blackqueen_fire_03_leg_l_02
+  rotate: true
+  xy: 313, 227
+  size: 37, 105
+  orig: 37, 105
+  offset: 0, 0
+  index: -1
+blackqueen_fire_03_leg_r_01
+  rotate: true
+  xy: 213, 463
+  size: 89, 123
+  orig: 89, 123
+  offset: 0, 0
+  index: -1
+blackqueen_fire_03_leg_r_02
+  rotate: true
+  xy: 179, 2
+  size: 54, 123
+  orig: 54, 123
+  offset: 0, 0
+  index: -1
+blackqueen_fire_03_tail_01
+  rotate: false
+  xy: 2, 460
+  size: 209, 311
+  orig: 209, 311
+  offset: 0, 0
+  index: -1
+blackqueen_fire_03_tail_ef
+  rotate: false
+  xy: 219, 353
+  size: 108, 108
+  orig: 108, 108
+  offset: 0, 0
+  index: -1
+blackqueen_fire_03_wing_l
+  rotate: false
+  xy: 287, 749
+  size: 146, 281
+  orig: 146, 281
+  offset: 0, 0
+  index: -1
+blackqueen_fire_03_wing_r
+  rotate: false
+  xy: 2, 773
+  size: 283, 257
+  orig: 283, 257
+  offset: 0, 0
+  index: -1

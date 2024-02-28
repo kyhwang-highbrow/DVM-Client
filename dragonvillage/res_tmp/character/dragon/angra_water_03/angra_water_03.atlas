@@ -1,0 +1,328 @@
+
+angra_water_03.png
+size: 1997,520
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+angra_water_03_arm_01
+  rotate: true
+  xy: 1470, 195
+  size: 128, 147
+  orig: 128, 147
+  offset: 0, 0
+  index: -1
+angra_water_03_arm_02
+  rotate: false
+  xy: 165, 19
+  size: 170, 133
+  orig: 170, 133
+  offset: 0, 0
+  index: -1
+angra_water_03_arm_03
+  rotate: false
+  xy: 1033, 2
+  size: 208, 180
+  orig: 208, 180
+  offset: 0, 0
+  index: -1
+angra_water_03_armer_01
+  rotate: true
+  xy: 1007, 184
+  size: 104, 136
+  orig: 104, 136
+  offset: 0, 0
+  index: -1
+angra_water_03_armer_02
+  rotate: false
+  xy: 1887, 249
+  size: 92, 77
+  orig: 92, 77
+  offset: 0, 0
+  index: -1
+angra_water_03_armer_03
+  rotate: false
+  xy: 1833, 103
+  size: 67, 68
+  orig: 67, 68
+  offset: 0, 0
+  index: -1
+angra_water_03_armer_04
+  rotate: true
+  xy: 1655, 135
+  size: 68, 95
+  orig: 68, 95
+  offset: 0, 0
+  index: -1
+angra_water_03_armer_05
+  rotate: false
+  xy: 1788, 394
+  size: 116, 124
+  orig: 116, 124
+  offset: 0, 0
+  index: -1
+angra_water_03_armer_06
+  rotate: true
+  xy: 602, 168
+  size: 45, 72
+  orig: 45, 72
+  offset: 0, 0
+  index: -1
+angra_water_03_body_01
+  rotate: false
+  xy: 332, 165
+  size: 268, 353
+  orig: 268, 353
+  offset: 0, 0
+  index: -1
+angra_water_03_finger_01
+  rotate: false
+  xy: 1816, 283
+  size: 69, 109
+  orig: 69, 109
+  offset: 0, 0
+  index: -1
+angra_water_03_finger_02
+  rotate: false
+  xy: 1655, 10
+  size: 80, 56
+  orig: 80, 56
+  offset: 0, 0
+  index: -1
+angra_water_03_finger_03
+  rotate: false
+  xy: 1737, 11
+  size: 70, 55
+  orig: 70, 55
+  offset: 0, 0
+  index: -1
+angra_water_03_finger_04
+  rotate: true
+  xy: 1873, 173
+  size: 74, 84
+  orig: 74, 84
+  offset: 0, 0
+  index: -1
+angra_water_03_finger_05
+  rotate: true
+  xy: 1809, 23
+  size: 73, 69
+  orig: 73, 69
+  offset: 0, 0
+  index: -1
+angra_water_03_finger_06
+  rotate: false
+  xy: 1880, 36
+  size: 56, 65
+  orig: 56, 65
+  offset: 0, 0
+  index: -1
+angra_water_03_hair_01
+  rotate: false
+  xy: 1752, 98
+  size: 79, 77
+  orig: 79, 77
+  offset: 0, 0
+  index: -1
+angra_water_03_hair_02
+  rotate: true
+  xy: 1655, 68
+  size: 65, 92
+  orig: 65, 92
+  offset: 0, 0
+  index: -1
+angra_water_03_hair_03
+  rotate: false
+  xy: 337, 4
+  size: 211, 159
+  orig: 211, 159
+  offset: 0, 0
+  index: -1
+angra_water_03_hand_01
+  rotate: false
+  xy: 1321, 194
+  size: 147, 123
+  orig: 147, 123
+  offset: 0, 0
+  index: -1
+angra_water_03_head_01
+  rotate: true
+  xy: 1619, 205
+  size: 118, 148
+  orig: 118, 148
+  offset: 0, 0
+  index: -1
+angra_water_03_horn_01
+  rotate: true
+  xy: 848, 182
+  size: 106, 157
+  orig: 106, 157
+  offset: 0, 0
+  index: -1
+angra_water_03_horn_02
+  rotate: false
+  xy: 1805, 177
+  size: 66, 104
+  orig: 66, 104
+  offset: 0, 0
+  index: -1
+angra_water_03_kadeatheye_01
+  rotate: false
+  xy: 1906, 328
+  size: 87, 87
+  orig: 87, 87
+  offset: 0, 0
+  index: -1
+angra_water_03_leg_01
+  rotate: true
+  xy: 1145, 192
+  size: 118, 174
+  orig: 118, 174
+  offset: 0, 0
+  index: -1
+angra_water_03_sholder_01
+  rotate: true
+  xy: 1906, 417
+  size: 101, 89
+  orig: 101, 89
+  offset: 0, 0
+  index: -1
+angra_water_03_tail_01
+  rotate: false
+  xy: 1243, 7
+  size: 208, 183
+  orig: 208, 183
+  offset: 0, 0
+  index: -1
+angra_water_03_tail_02
+  rotate: true
+  xy: 848, 290
+  size: 228, 188
+  orig: 228, 188
+  offset: 0, 0
+  index: -1
+angra_water_03_wing_01
+  rotate: false
+  xy: 2, 154
+  size: 328, 364
+  orig: 328, 364
+  offset: 0, 0
+  index: -1
+angra_water_03_wing_02
+  rotate: false
+  xy: 602, 215
+  size: 244, 303
+  orig: 244, 303
+  offset: 0, 0
+  index: -1
+angra_water_03_wing_03
+  rotate: true
+  xy: 1459, 325
+  size: 193, 183
+  orig: 193, 183
+  offset: 0, 0
+  index: -1
+effect_angra_water_03_effect_01
+  rotate: false
+  xy: 1038, 312
+  size: 206, 206
+  orig: 206, 206
+  offset: 0, 0
+  index: -1
+effect_angra_water_03_effect_02
+  rotate: false
+  xy: 865, 14
+  size: 166, 166
+  orig: 166, 166
+  offset: 0, 0
+  index: -1
+effect_angra_water_03_effect_03
+  rotate: false
+  xy: 1644, 376
+  size: 142, 142
+  orig: 142, 142
+  offset: 0, 0
+  index: -1
+effect_angra_water_03_effect_04
+  rotate: false
+  xy: 1453, 3
+  size: 200, 189
+  orig: 200, 189
+  offset: 0, 0
+  index: -1
+effect_angra_water_03_effect_05
+  rotate: false
+  xy: 1246, 319
+  size: 211, 199
+  orig: 211, 199
+  offset: 0, 0
+  index: -1
+effect_angra_water_03_effect_06
+  rotate: false
+  xy: 2, 8
+  size: 161, 144
+  orig: 161, 144
+  offset: 0, 0
+  index: -1
+effect_angra_water_03_effect_07
+  rotate: true
+  xy: 697, 7
+  size: 170, 166
+  orig: 170, 166
+  offset: 0, 0
+  index: -1
+effect_angra_water_03_effect_08
+  rotate: false
+  xy: 550, 18
+  size: 145, 145
+  orig: 145, 145
+  offset: 0, 0
+  index: -1
+effect_angra_water_03_effect_09
+  rotate: false
+  xy: 1902, 110
+  size: 58, 61
+  orig: 58, 61
+  offset: 0, 0
+  index: -1
+effect_stun_01
+  rotate: false
+  xy: 676, 179
+  size: 84, 34
+  orig: 84, 34
+  offset: 0, 0
+  index: -1
+effect_stun_02
+  rotate: false
+  xy: 762, 179
+  size: 84, 34
+  orig: 84, 34
+  offset: 0, 0
+  index: -1
+effect_stun_03
+  rotate: false
+  xy: 1644, 340
+  size: 84, 34
+  orig: 84, 34
+  offset: 0, 0
+  index: -1
+effect_stun_04
+  rotate: false
+  xy: 1730, 340
+  size: 84, 34
+  orig: 84, 34
+  offset: 0, 0
+  index: -1
+effect_stun_05
+  rotate: true
+  xy: 1769, 254
+  size: 84, 34
+  orig: 84, 34
+  offset: 0, 0
+  index: -1
+effect_stun_06
+  rotate: true
+  xy: 1769, 217
+  size: 35, 33
+  orig: 35, 33
+  offset: 0, 0
+  index: -1

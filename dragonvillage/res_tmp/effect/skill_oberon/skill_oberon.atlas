@@ -1,0 +1,370 @@
+
+skill_oberon.png
+size: 1938,1102
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+Arm_L
+  rotate: false
+  xy: 1544, 53
+  size: 136, 239
+  orig: 136, 239
+  offset: 0, 0
+  index: -1
+Arm_L_1
+  rotate: false
+  xy: 1868, 489
+  size: 52, 61
+  orig: 52, 61
+  offset: 0, 0
+  index: -1
+Arm_L_2
+  rotate: false
+  xy: 391, 218
+  size: 55, 64
+  orig: 55, 64
+  offset: 0, 0
+  index: -1
+Arm_L_3
+  rotate: false
+  xy: 1881, 272
+  size: 55, 65
+  orig: 55, 65
+  offset: 0, 0
+  index: -1
+Arm_R
+  rotate: false
+  xy: 1769, 659
+  size: 136, 239
+  orig: 136, 239
+  offset: 0, 0
+  index: -1
+Arm_R_1
+  rotate: false
+  xy: 323, 492
+  size: 52, 61
+  orig: 52, 61
+  offset: 0, 0
+  index: -1
+Arm_R_2
+  rotate: false
+  xy: 1854, 905
+  size: 55, 64
+  orig: 55, 64
+  offset: 0, 0
+  index: -1
+Arm_R_3
+  rotate: false
+  xy: 1881, 205
+  size: 55, 65
+  orig: 55, 65
+  offset: 0, 0
+  index: -1
+Feet_L
+  rotate: false
+  xy: 1854, 971
+  size: 80, 129
+  orig: 80, 129
+  offset: 0, 0
+  index: -1
+Feet_R
+  rotate: true
+  xy: 1068, 12
+  size: 78, 130
+  orig: 78, 130
+  offset: 0, 0
+  index: -1
+Head_acc2_L
+  rotate: false
+  xy: 2, 173
+  size: 185, 310
+  orig: 185, 310
+  offset: 0, 0
+  index: -1
+Head_acc2_R
+  rotate: true
+  xy: 1000, 915
+  size: 185, 310
+  orig: 185, 310
+  offset: 0, 0
+  index: -1
+Leg_L
+  rotate: false
+  xy: 1682, 2
+  size: 114, 149
+  orig: 114, 149
+  offset: 0, 0
+  index: -1
+Leg_L_1
+  rotate: false
+  xy: 1339, 4
+  size: 103, 91
+  orig: 103, 91
+  offset: 0, 0
+  index: -1
+Leg_R
+  rotate: false
+  xy: 1784, 160
+  size: 95, 161
+  orig: 95, 161
+  offset: 0, 0
+  index: -1
+Leg_R_1
+  rotate: true
+  xy: 1444, 24
+  size: 71, 96
+  orig: 71, 96
+  offset: 0, 0
+  index: -1
+Neck
+  rotate: false
+  xy: 685, 915
+  size: 313, 185
+  orig: 313, 185
+  offset: 0, 0
+  index: -1
+W_L_1
+  rotate: false
+  xy: 343, 757
+  size: 340, 343
+  orig: 340, 343
+  offset: 0, 0
+  index: -1
+W_L_2
+  rotate: false
+  xy: 2, 485
+  size: 319, 199
+  orig: 319, 199
+  offset: 0, 0
+  index: -1
+body_top
+  rotate: false
+  xy: 2, 13
+  size: 187, 158
+  orig: 187, 158
+  offset: 0, 0
+  index: -1
+boty_bottom
+  rotate: false
+  xy: 1677, 323
+  size: 147, 125
+  orig: 147, 125
+  offset: 0, 0
+  index: -1
+effect_Wind_Whole_00000
+  rotate: true
+  xy: 1312, 900
+  size: 200, 269
+  orig: 200, 269
+  offset: 0, 0
+  index: -1
+effect_Wind_Whole_00000_water
+  rotate: true
+  xy: 885, 511
+  size: 200, 269
+  orig: 200, 269
+  offset: 0, 0
+  index: -1
+effect_Wind_Whole_00001
+  rotate: true
+  xy: 1583, 900
+  size: 200, 269
+  orig: 200, 269
+  offset: 0, 0
+  index: -1
+effect_Wind_Whole_00001_water
+  rotate: true
+  xy: 593, 309
+  size: 200, 269
+  orig: 200, 269
+  offset: 0, 0
+  index: -1
+effect_Wind_Whole_00002
+  rotate: true
+  xy: 685, 713
+  size: 200, 269
+  orig: 200, 269
+  offset: 0, 0
+  index: -1
+effect_Wind_Whole_00002_water
+  rotate: true
+  xy: 864, 309
+  size: 200, 269
+  orig: 200, 269
+  offset: 0, 0
+  index: -1
+effect_Wind_Whole_00003
+  rotate: true
+  xy: 956, 713
+  size: 200, 269
+  orig: 200, 269
+  offset: 0, 0
+  index: -1
+effect_Wind_Whole_00003_water
+  rotate: true
+  xy: 1156, 496
+  size: 200, 269
+  orig: 200, 269
+  offset: 0, 0
+  index: -1
+effect_Wind_Whole_00004
+  rotate: false
+  xy: 189, 214
+  size: 200, 269
+  orig: 200, 269
+  offset: 0, 0
+  index: -1
+effect_Wind_Whole_00004_water
+  rotate: true
+  xy: 1427, 496
+  size: 200, 269
+  orig: 200, 269
+  offset: 0, 0
+  index: -1
+effect_Wind_Whole_00005
+  rotate: true
+  xy: 1227, 698
+  size: 200, 269
+  orig: 200, 269
+  offset: 0, 0
+  index: -1
+effect_Wind_Whole_00005_water
+  rotate: true
+  xy: 1135, 294
+  size: 200, 269
+  orig: 200, 269
+  offset: 0, 0
+  index: -1
+effect_Wind_Whole_00006
+  rotate: true
+  xy: 1498, 698
+  size: 200, 269
+  orig: 200, 269
+  offset: 0, 0
+  index: -1
+effect_Wind_Whole_00006_water
+  rotate: true
+  xy: 1406, 294
+  size: 200, 269
+  orig: 200, 269
+  offset: 0, 0
+  index: -1
+effect_Wind_Whole_00007
+  rotate: true
+  xy: 191, 12
+  size: 200, 269
+  orig: 200, 269
+  offset: 0, 0
+  index: -1
+effect_Wind_Whole_00007_water
+  rotate: false
+  xy: 462, 13
+  size: 200, 269
+  orig: 200, 269
+  offset: 0, 0
+  index: -1
+effect_Wind_Whole_00008
+  rotate: true
+  xy: 343, 555
+  size: 200, 269
+  orig: 200, 269
+  offset: 0, 0
+  index: -1
+effect_Wind_Whole_00008_water
+  rotate: false
+  xy: 664, 38
+  size: 200, 269
+  orig: 200, 269
+  offset: 0, 0
+  index: -1
+effect_Wind_Whole_00009
+  rotate: false
+  xy: 391, 284
+  size: 200, 269
+  orig: 200, 269
+  offset: 0, 0
+  index: -1
+effect_Wind_Whole_00009_water
+  rotate: false
+  xy: 866, 38
+  size: 200, 269
+  orig: 200, 269
+  offset: 0, 0
+  index: -1
+effect_Wind_Whole_00010
+  rotate: true
+  xy: 614, 511
+  size: 200, 269
+  orig: 200, 269
+  offset: 0, 0
+  index: -1
+effect_Wind_Whole_00010_water
+  rotate: true
+  xy: 1068, 92
+  size: 200, 269
+  orig: 200, 269
+  offset: 0, 0
+  index: -1
+effect_circle
+  rotate: false
+  xy: 1798, 30
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: -1
+effect_lar
+  rotate: true
+  xy: 1698, 450
+  size: 100, 168
+  orig: 100, 168
+  offset: 0, 0
+  index: -1
+effect_particle
+  rotate: true
+  xy: 1881, 160
+  size: 43, 39
+  orig: 43, 39
+  offset: 0, 0
+  index: -1
+effect_smal
+  rotate: true
+  xy: 1698, 552
+  size: 105, 210
+  orig: 105, 210
+  offset: 0, 0
+  index: -1
+effect_tamer_heal_03
+  rotate: false
+  xy: 1682, 153
+  size: 100, 168
+  orig: 100, 168
+  offset: 0, 0
+  index: -1
+head
+  rotate: false
+  xy: 2, 686
+  size: 339, 414
+  orig: 339, 414
+  offset: 0, 0
+  index: -1
+head_acc1
+  rotate: false
+  xy: 1826, 339
+  size: 89, 109
+  orig: 89, 109
+  offset: 0, 0
+  index: -1
+tail_1
+  rotate: false
+  xy: 1200, 15
+  size: 121, 75
+  orig: 121, 75
+  offset: 0, 0
+  index: -1
+tail_2
+  rotate: false
+  xy: 1339, 97
+  size: 203, 195
+  orig: 203, 195
+  offset: 0, 0
+  index: -1

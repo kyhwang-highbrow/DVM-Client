@@ -1,0 +1,79 @@
+{
+	"skill_boss_darknix_0":
+	{
+		"attack_value":
+		[		
+			{
+				"idx":1,
+				"res":"res/missile/missile_flame/missile_flame_@.vrp",
+				"body":[0,0,40],
+                "count":1,
+				"damage_rate":40,
+                "scale":1.5,
+                "period":0,
+				"speed":800,
+				"accel":2000,
+				"h_limit_speed":1000,
+				"accel_delay":0.5,
+				"angular_velocity":0,
+				"offset":[0,0],
+                "dir_add":0,
+				
+                "effect":
+                {
+                    "motion_streak":"",
+                    "rotation":false,
+                    "afterimage":true
+                }
+			},
+			
+			{
+				"idx":1,
+				"res":"res/missile/missile_flame/missile_flame_@.vrp",
+				"body":[0,0,30],
+                "count":1,
+				"damage_rate":30,
+                "scale":1,
+                "period":0,
+				"speed":800,
+				"accel":2000,
+				"h_limit_speed":1000,
+				"accel_delay":0.5,
+				"angular_velocity":20,
+				"offset":[50,100],
+                "dir_add":-10,
+				
+                "effect":
+                {
+                    "motion_streak":"",
+                    "rotation":false,
+                    "afterimage":true
+                }
+			},
+			
+			{
+				"idx":1,
+				"res":"res/missile/missile_flame/missile_flame_@.vrp",
+				"body":[0,0,30],
+                "count":1,
+				"damage_rate":30,
+                "scale":1,
+                "period":0,
+				"speed":800,
+				"accel":2000,
+				"h_limit_speed":1000,
+				"accel_delay":0.5,
+				"angular_velocity":-20,
+				"offset":[50,-100],
+                "dir_add":10,
+				
+                "effect":
+                {
+                    "motion_streak":"",
+                    "rotation":false,
+                    "afterimage":true
+                }
+			}
+		]
+	}
+}

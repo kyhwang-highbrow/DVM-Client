@@ -1,0 +1,216 @@
+
+smartdragon_water_02.png
+size: 1332,237
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+smartdragon_water_02_arm_01
+  rotate: true
+  xy: 1122, 30
+  size: 38, 74
+  orig: 38, 74
+  offset: 0, 0
+  index: -1
+smartdragon_water_02_arm_02
+  rotate: false
+  xy: 688, 2
+  size: 62, 62
+  orig: 62, 62
+  offset: 0, 0
+  index: -1
+smartdragon_water_02_body_01
+  rotate: false
+  xy: 474, 61
+  size: 212, 174
+  orig: 212, 174
+  offset: 0, 0
+  index: -1
+smartdragon_water_02_book_01
+  rotate: true
+  xy: 2, 14
+  size: 221, 238
+  orig: 221, 238
+  offset: 0, 0
+  index: -1
+smartdragon_water_02_effect_01
+  rotate: true
+  xy: 242, 7
+  size: 228, 230
+  orig: 228, 230
+  offset: 0, 0
+  index: -1
+smartdragon_water_02_effect_02
+  rotate: true
+  xy: 851, 39
+  size: 7, 23
+  orig: 7, 23
+  offset: 0, 0
+  index: -1
+smartdragon_water_02_effect_04_1
+  rotate: false
+  xy: 876, 14
+  size: 80, 80
+  orig: 80, 80
+  offset: 0, 0
+  index: -1
+smartdragon_water_02_effect_04_2
+  rotate: false
+  xy: 958, 14
+  size: 80, 80
+  orig: 80, 80
+  offset: 0, 0
+  index: -1
+smartdragon_water_02_effect_04_3
+  rotate: false
+  xy: 1040, 22
+  size: 80, 80
+  orig: 80, 80
+  offset: 0, 0
+  index: -1
+smartdragon_water_02_effect_04_4
+  rotate: false
+  xy: 1140, 70
+  size: 80, 80
+  orig: 80, 80
+  offset: 0, 0
+  index: -1
+smartdragon_water_02_eye_01
+  rotate: false
+  xy: 752, 2
+  size: 28, 11
+  orig: 28, 11
+  offset: 0, 0
+  index: -1
+smartdragon_water_02_eye_02
+  rotate: true
+  xy: 782, 2
+  size: 11, 17
+  orig: 11, 17
+  offset: 0, 0
+  index: -1
+smartdragon_water_02_eye_03
+  rotate: false
+  xy: 830, 42
+  size: 19, 22
+  orig: 19, 22
+  offset: 0, 0
+  index: -1
+smartdragon_water_02_eye_04
+  rotate: false
+  xy: 1016, 96
+  size: 11, 6
+  orig: 11, 6
+  offset: 0, 0
+  index: -1
+smartdragon_water_02_eye_05
+  rotate: false
+  xy: 1112, 128
+  size: 8, 14
+  orig: 8, 14
+  offset: 0, 0
+  index: -1
+smartdragon_water_02_eye_06
+  rotate: true
+  xy: 2, 4
+  size: 8, 16
+  orig: 8, 16
+  offset: 0, 0
+  index: -1
+smartdragon_water_02_foot_01
+  rotate: true
+  xy: 752, 15
+  size: 49, 76
+  orig: 49, 76
+  offset: 0, 0
+  index: -1
+smartdragon_water_02_foot_02
+  rotate: true
+  xy: 1222, 16
+  size: 38, 72
+  orig: 38, 72
+  offset: 0, 0
+  index: -1
+smartdragon_water_02_hand_01
+  rotate: false
+  xy: 1016, 104
+  size: 94, 38
+  orig: 94, 38
+  offset: 0, 0
+  index: -1
+smartdragon_water_02_hand_02
+  rotate: true
+  xy: 1222, 56
+  size: 67, 74
+  orig: 67, 74
+  offset: 0, 0
+  index: -1
+smartdragon_water_02_head_01
+  rotate: false
+  xy: 876, 96
+  size: 138, 139
+  orig: 138, 139
+  offset: 0, 0
+  index: -1
+smartdragon_water_02_head_02
+  rotate: true
+  xy: 474, 10
+  size: 49, 91
+  orig: 49, 91
+  offset: 0, 0
+  index: -1
+smartdragon_water_02_head_glasses_03
+  rotate: false
+  xy: 1198, 28
+  size: 22, 40
+  orig: 22, 40
+  offset: 0, 0
+  index: -1
+smartdragon_water_02_head_graduationcap_03
+  rotate: true
+  xy: 688, 66
+  size: 169, 186
+  orig: 169, 186
+  offset: 0, 0
+  index: -1
+smartdragon_water_02_leg_01
+  rotate: false
+  xy: 1254, 125
+  size: 76, 110
+  orig: 76, 110
+  offset: 0, 0
+  index: -1
+smartdragon_water_02_leg_02
+  rotate: true
+  xy: 567, 9
+  size: 50, 71
+  orig: 50, 71
+  offset: 0, 0
+  index: -1
+smartdragon_water_02_mouth_01
+  rotate: false
+  xy: 640, 31
+  size: 31, 28
+  orig: 31, 28
+  offset: 0, 0
+  index: -1
+smartdragon_water_02_mouth_02
+  rotate: false
+  xy: 851, 48
+  size: 23, 16
+  orig: 23, 16
+  offset: 0, 0
+  index: -1
+smartdragon_water_02_wing_01
+  rotate: false
+  xy: 1016, 144
+  size: 122, 91
+  orig: 122, 91
+  offset: 0, 0
+  index: -1
+smartdragon_water_02_wing_02
+  rotate: true
+  xy: 1140, 152
+  size: 83, 112
+  orig: 83, 112
+  offset: 0, 0
+  index: -1

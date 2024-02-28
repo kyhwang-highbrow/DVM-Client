@@ -1,0 +1,92 @@
+{
+	"skill_boss_spider_queen_1":
+	{
+		"attack_value":
+		[	
+			{
+				"idx":1,
+				"res":"res/missile/missile_spider/missile_spider.vrp",
+				"body":[0,0,6],
+				"body_active_time":1,
+                "count":8,
+				"damage_rate":50,
+                "scale":0.2,
+                "period":0.4,
+				"speed":1000,
+				"accel":-5000,
+				"accel_delay":0,
+				"l_limit_speed":300,
+				"offset":[0,0],
+				"size_up_time":4,
+				
+				"res_depth":"bottom",
+                "dir_array":[22,67,112,157,202,247,292,337],
+				
+                "effect":
+                {
+                    "motion_streak":"",
+                    "rotation":false,
+                    "afterimage":false
+                }				
+			},
+			
+			{
+				"idx":1,
+				"res":"res/missile/missile_spider/missile_spider.vrp",
+				"body":[0,0,6],
+				"body_active_time":1,
+                "count":12,
+				"damage_rate":5,
+                "scale":0.2,
+				"time":3,
+                "period":0.4,
+				"speed":1000,
+				"accel":-5000,
+				"accel_delay":0,
+				"l_limit_speed":300,
+				"offset":[0,0],
+				"size_up_time":4,
+				
+				"res_depth":"bottom",
+                "dir_array":[22,67,112,157,202,247,292,337],
+				"dir_add":10,
+				
+                "effect":
+                {
+                    "motion_streak":"",
+                    "rotation":false,
+                    "afterimage":false
+                }				
+			},
+			
+			{
+				"idx":1,
+				"res":"res/missile/missile_spider/missile_spider.vrp",
+				"body":[0,0,6],
+				"body_active_time":1,
+                "count":13,
+				"damage_rate":50,
+                "scale":0.2,
+				"time":7.8,
+                "period":0.4,
+				"speed":1000,
+				"accel":-5000,
+				"accel_delay":0,
+				"l_limit_speed":300,
+				"offset":[0,0],
+				
+				"res_depth":"bottom",
+                "dir_array":[267,302,357,402,447,492,537,582],
+				"dir_add":-10,
+				"size_up_time":4,
+				
+                "effect":
+                {
+                    "motion_streak":"",
+                    "rotation":false,
+                    "afterimage":false
+                }				
+			}
+		]
+	}
+}

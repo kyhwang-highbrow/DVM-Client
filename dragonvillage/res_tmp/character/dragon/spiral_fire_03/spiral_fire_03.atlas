@@ -1,0 +1,419 @@
+
+spiral_fire_03.png
+size: 508,524
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+ef_02
+  rotate: true
+  xy: 317, 164
+  size: 24, 59
+  orig: 24, 59
+  offset: 0, 0
+  index: -1
+ef_03
+  rotate: false
+  xy: 426, 65
+  size: 42, 43
+  orig: 42, 43
+  offset: 0, 0
+  index: -1
+ef_04
+  rotate: false
+  xy: 380, 62
+  size: 44, 44
+  orig: 44, 44
+  offset: 0, 0
+  index: -1
+ef_05
+  rotate: false
+  xy: 2, 73
+  size: 80, 108
+  orig: 80, 108
+  offset: 0, 0
+  index: -1
+spiral_0
+  rotate: false
+  xy: 158, 426
+  size: 118, 96
+  orig: 118, 96
+  offset: 0, 0
+  index: -1
+spiral_1
+  rotate: false
+  xy: 2, 183
+  size: 106, 96
+  orig: 106, 96
+  offset: 0, 0
+  index: -1
+spiral_2
+  rotate: false
+  xy: 110, 183
+  size: 68, 96
+  orig: 68, 96
+  offset: 0, 0
+  index: -1
+spiral_3
+  rotate: true
+  xy: 386, 409
+  size: 36, 96
+  orig: 36, 96
+  offset: 0, 0
+  index: -1
+spiral_4
+  rotate: true
+  xy: 343, 295
+  size: 36, 96
+  orig: 36, 96
+  offset: 0, 0
+  index: -1
+spiral_5
+  rotate: true
+  xy: 264, 356
+  size: 68, 96
+  orig: 68, 96
+  offset: 0, 0
+  index: -1
+spiral_6
+  rotate: false
+  xy: 278, 426
+  size: 106, 96
+  orig: 106, 96
+  offset: 0, 0
+  index: -1
+spiral_fire_03_arm_l_01
+  rotate: true
+  xy: 364, 108
+  size: 49, 51
+  orig: 49, 51
+  offset: 0, 0
+  index: -1
+spiral_fire_03_arm_l_02
+  rotate: true
+  xy: 468, 226
+  size: 42, 33
+  orig: 42, 33
+  offset: 0, 0
+  index: -1
+spiral_fire_03_arm_l_03
+  rotate: true
+  xy: 475, 192
+  size: 32, 28
+  orig: 32, 28
+  offset: 0, 0
+  index: -1
+spiral_fire_03_arm_r_01
+  rotate: false
+  xy: 417, 110
+  size: 47, 47
+  orig: 47, 47
+  offset: 0, 0
+  index: -1
+spiral_fire_03_arm_r_02
+  rotate: true
+  xy: 293, 2
+  size: 37, 28
+  orig: 37, 28
+  offset: 0, 0
+  index: -1
+spiral_fire_03_arm_r_03
+  rotate: false
+  xy: 380, 37
+  size: 30, 23
+  orig: 30, 23
+  offset: 0, 0
+  index: -1
+spiral_fire_03_body_01
+  rotate: false
+  xy: 2, 394
+  size: 154, 128
+  orig: 154, 128
+  offset: 0, 0
+  index: -1
+spiral_fire_03_deco_01
+  rotate: false
+  xy: 153, 285
+  size: 90, 73
+  orig: 90, 73
+  offset: 0, 0
+  index: -1
+spiral_fire_03_deco_02
+  rotate: true
+  xy: 173, 31
+  size: 58, 56
+  orig: 58, 56
+  offset: 0, 0
+  index: -1
+spiral_fire_03_deco_03
+  rotate: true
+  xy: 315, 108
+  size: 53, 47
+  orig: 53, 47
+  offset: 0, 0
+  index: -1
+spiral_fire_03_ef_01
+  rotate: false
+  xy: 231, 40
+  size: 58, 57
+  orig: 58, 57
+  offset: 0, 0
+  index: -1
+spiral_fire_03_eye_01
+  rotate: false
+  xy: 466, 125
+  size: 40, 32
+  orig: 40, 32
+  offset: 0, 0
+  index: -1
+spiral_fire_03_eye_02
+  rotate: true
+  xy: 470, 83
+  size: 40, 32
+  orig: 40, 32
+  offset: 0, 0
+  index: -1
+spiral_fire_03_eye_03
+  rotate: true
+  xy: 470, 41
+  size: 40, 32
+  orig: 40, 32
+  offset: 0, 0
+  index: -1
+spiral_fire_03_face_01
+  rotate: false
+  xy: 2, 281
+  size: 149, 111
+  orig: 149, 111
+  offset: 0, 0
+  index: -1
+spiral_fire_03_face_02
+  rotate: false
+  xy: 407, 159
+  size: 66, 61
+  orig: 66, 61
+  offset: 0, 0
+  index: -1
+spiral_fire_03_face_03
+  rotate: false
+  xy: 330, 190
+  size: 75, 30
+  orig: 75, 30
+  offset: 0, 0
+  index: -1
+spiral_fire_03_font_01
+  rotate: false
+  xy: 245, 297
+  size: 96, 57
+  orig: 96, 57
+  offset: 0, 0
+  index: -1
+spiral_fire_03_font_02
+  rotate: false
+  xy: 158, 360
+  size: 104, 64
+  orig: 104, 64
+  offset: 0, 0
+  index: -1
+spiral_fire_03_font_03
+  rotate: false
+  xy: 84, 91
+  size: 82, 90
+  orig: 82, 90
+  offset: 0, 0
+  index: -1
+spiral_fire_03_font_04
+  rotate: false
+  xy: 246, 205
+  size: 82, 90
+  orig: 82, 90
+  offset: 0, 0
+  index: -1
+spiral_fire_03_gear_b_01
+  rotate: false
+  xy: 217, 101
+  size: 24, 24
+  orig: 24, 24
+  offset: 0, 0
+  index: -1
+spiral_fire_03_gear_b_02
+  rotate: true
+  xy: 484, 422
+  size: 23, 22
+  orig: 23, 22
+  offset: 0, 0
+  index: -1
+spiral_fire_03_gear_b_03
+  rotate: false
+  xy: 362, 409
+  size: 15, 15
+  orig: 15, 15
+  offset: 0, 0
+  index: -1
+spiral_fire_03_gear_f_01
+  rotate: false
+  xy: 470, 5
+  size: 34, 34
+  orig: 34, 34
+  offset: 0, 0
+  index: -1
+spiral_fire_03_gear_l_01
+  rotate: false
+  xy: 475, 161
+  size: 28, 29
+  orig: 28, 29
+  offset: 0, 0
+  index: -1
+spiral_fire_03_leg_l_01
+  rotate: true
+  xy: 2, 2
+  size: 69, 102
+  orig: 69, 102
+  offset: 0, 0
+  index: -1
+spiral_fire_03_leg_l_02
+  rotate: false
+  xy: 231, 2
+  size: 60, 36
+  orig: 60, 36
+  offset: 0, 0
+  index: -1
+spiral_fire_03_leg_l_03
+  rotate: true
+  xy: 362, 333
+  size: 74, 88
+  orig: 74, 88
+  offset: 0, 0
+  index: -1
+spiral_fire_03_leg_r_01
+  rotate: false
+  xy: 180, 189
+  size: 64, 94
+  orig: 64, 94
+  offset: 0, 0
+  index: -1
+spiral_fire_03_leg_r_02
+  rotate: false
+  xy: 452, 318
+  size: 54, 29
+  orig: 54, 29
+  offset: 0, 0
+  index: -1
+spiral_fire_03_leg_r_03
+  rotate: false
+  xy: 106, 4
+  size: 65, 85
+  orig: 65, 85
+  offset: 0, 0
+  index: -1
+spiral_fire_03_mouth_01
+  rotate: false
+  xy: 386, 447
+  size: 107, 75
+  orig: 107, 75
+  offset: 0, 0
+  index: -1
+spiral_fire_03_mouth_02
+  rotate: false
+  xy: 246, 163
+  size: 69, 40
+  orig: 69, 40
+  offset: 0, 0
+  index: -1
+spiral_fire_03_neck_01
+  rotate: false
+  xy: 180, 127
+  size: 64, 60
+  orig: 64, 60
+  offset: 0, 0
+  index: -1
+spiral_fire_03_neck_02
+  rotate: false
+  xy: 246, 99
+  size: 67, 62
+  orig: 67, 62
+  offset: 0, 0
+  index: -1
+spiral_fire_03_neck_03
+  rotate: true
+  xy: 404, 222
+  size: 71, 62
+  orig: 71, 62
+  offset: 0, 0
+  index: -1
+spiral_fire_03_tail_01
+  rotate: false
+  xy: 330, 222
+  size: 72, 71
+  orig: 72, 71
+  offset: 0, 0
+  index: -1
+spiral_fire_03_tail_02
+  rotate: false
+  xy: 452, 349
+  size: 54, 58
+  orig: 54, 58
+  offset: 0, 0
+  index: -1
+spiral_fire_03_tail_03
+  rotate: false
+  xy: 332, 54
+  size: 46, 52
+  orig: 46, 52
+  offset: 0, 0
+  index: -1
+spiral_fire_03_tail_04
+  rotate: true
+  xy: 168, 91
+  size: 34, 47
+  orig: 34, 47
+  offset: 0, 0
+  index: -1
+spiral_fire_03_tail_05
+  rotate: true
+  xy: 173, 7
+  size: 22, 43
+  orig: 22, 43
+  offset: 0, 0
+  index: -1
+spiral_fire_03_wing_l_01
+  rotate: true
+  xy: 291, 41
+  size: 56, 39
+  orig: 56, 39
+  offset: 0, 0
+  index: -1
+spiral_fire_03_wing_l_02
+  rotate: true
+  xy: 475, 270
+  size: 46, 31
+  orig: 46, 31
+  offset: 0, 0
+  index: -1
+spiral_fire_03_wing_l_03
+  rotate: false
+  xy: 378, 160
+  size: 26, 28
+  orig: 26, 28
+  offset: 0, 0
+  index: -1
+spiral_fire_03_wing_r_01
+  rotate: false
+  xy: 332, 2
+  size: 45, 50
+  orig: 45, 50
+  offset: 0, 0
+  index: -1
+spiral_fire_03_wing_r_02
+  rotate: false
+  xy: 426, 24
+  size: 42, 39
+  orig: 42, 39
+  offset: 0, 0
+  index: -1
+spiral_fire_03_wing_r_03
+  rotate: false
+  xy: 379, 13
+  size: 22, 22
+  orig: 22, 22
+  offset: 0, 0
+  index: -1

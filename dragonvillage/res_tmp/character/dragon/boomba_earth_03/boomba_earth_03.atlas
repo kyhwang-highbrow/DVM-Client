@@ -1,0 +1,146 @@
+
+boomba_earth_03.png
+size: 577,551
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+boomba_earth_03_arm_01
+  rotate: false
+  xy: 400, 324
+  size: 107, 95
+  orig: 107, 95
+  offset: 0, 0
+  index: -1
+boomba_earth_03_arm_02
+  rotate: false
+  xy: 400, 227
+  size: 107, 95
+  orig: 107, 95
+  offset: 0, 0
+  index: -1
+boomba_earth_03_body_01
+  rotate: false
+  xy: 2, 272
+  size: 268, 277
+  orig: 268, 277
+  offset: 0, 0
+  index: -1
+boomba_earth_03_body_02
+  rotate: false
+  xy: 272, 287
+  size: 126, 129
+  orig: 126, 129
+  offset: 0, 0
+  index: -1
+boomba_earth_03_body_03
+  rotate: true
+  xy: 2, 2
+  size: 268, 277
+  orig: 268, 277
+  offset: 0, 0
+  index: -1
+boomba_earth_03_effect_01
+  rotate: false
+  xy: 483, 92
+  size: 92, 83
+  orig: 92, 83
+  offset: 0, 0
+  index: -1
+boomba_earth_03_effect_02
+  rotate: true
+  xy: 281, 92
+  size: 92, 83
+  orig: 92, 83
+  offset: 0, 0
+  index: -1
+boomba_earth_03_effect_03
+  rotate: false
+  xy: 509, 493
+  size: 65, 56
+  orig: 65, 56
+  offset: 0, 0
+  index: -1
+boomba_earth_03_eye_01
+  rotate: true
+  xy: 509, 375
+  size: 59, 60
+  orig: 59, 60
+  offset: 0, 0
+  index: -1
+boomba_earth_03_foot_01
+  rotate: false
+  xy: 366, 115
+  size: 47, 53
+  orig: 47, 53
+  offset: 0, 0
+  index: -1
+boomba_earth_03_foot_02
+  rotate: true
+  xy: 509, 436
+  size: 55, 63
+  orig: 55, 63
+  offset: 0, 0
+  index: -1
+boomba_earth_03_head_02
+  rotate: false
+  xy: 386, 421
+  size: 121, 128
+  orig: 121, 128
+  offset: 0, 0
+  index: -1
+boomba_earth_03_leg_01
+  rotate: false
+  xy: 281, 5
+  size: 75, 85
+  orig: 75, 85
+  offset: 0, 0
+  index: -1
+boomba_earth_03_mouth_01
+  rotate: false
+  xy: 281, 186
+  size: 101, 99
+  orig: 101, 99
+  offset: 0, 0
+  index: -1
+boomba_earth_03_mouth_02
+  rotate: true
+  xy: 272, 418
+  size: 131, 112
+  orig: 131, 112
+  offset: 0, 0
+  index: -1
+boomba_earth_03_wing_01
+  rotate: false
+  xy: 358, 10
+  size: 91, 80
+  orig: 91, 80
+  offset: 0, 0
+  index: -1
+boomba_earth_03_wing_02
+  rotate: false
+  xy: 451, 10
+  size: 91, 80
+  orig: 91, 80
+  offset: 0, 0
+  index: -1
+boomba_water_03_effect_04
+  rotate: false
+  xy: 509, 276
+  size: 55, 97
+  orig: 55, 97
+  offset: 0, 0
+  index: -1
+boomba_water_03_effect_05
+  rotate: false
+  xy: 509, 177
+  size: 55, 97
+  orig: 55, 97
+  offset: 0, 0
+  index: -1
+boomba_water_03_effect_06
+  rotate: true
+  xy: 384, 170
+  size: 55, 97
+  orig: 55, 97
+  offset: 0, 0
+  index: -1

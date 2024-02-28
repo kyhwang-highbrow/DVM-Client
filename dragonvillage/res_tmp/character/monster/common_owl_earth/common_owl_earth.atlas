@@ -1,0 +1,55 @@
+
+common_owl_earth.png
+size: 512,512
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+owl_earth_arm_01
+  rotate: false
+  xy: 1, 49
+  size: 87, 86
+  orig: 87, 86
+  offset: 0, 0
+  index: -1
+owl_earth_body_01
+  rotate: false
+  xy: 1, 137
+  size: 242, 250
+  orig: 242, 250
+  offset: 0, 0
+  index: -1
+owl_earth_mouth_03
+  rotate: false
+  xy: 325, 352
+  size: 56, 35
+  orig: 56, 35
+  offset: 0, 0
+  index: -1
+owlbear_earth_arm_01
+  rotate: false
+  xy: 245, 323
+  size: 78, 64
+  orig: 78, 64
+  offset: 0, 0
+  index: -1
+owlbear_earth_leg_01
+  rotate: false
+  xy: 1, 1
+  size: 57, 46
+  orig: 57, 46
+  offset: 0, 0
+  index: -1
+owlbear_earth_leg_02
+  rotate: false
+  xy: 90, 89
+  size: 57, 46
+  orig: 57, 46
+  offset: 0, 0
+  index: -1
+owlbear_earth_tail_01
+  rotate: false
+  xy: 245, 275
+  size: 57, 46
+  orig: 57, 46
+  offset: 0, 0
+  index: -1

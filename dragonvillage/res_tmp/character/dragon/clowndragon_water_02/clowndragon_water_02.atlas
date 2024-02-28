@@ -1,0 +1,160 @@
+
+clowndragon_water_02.png
+size: 777,271
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+clowndragon_water_02_accessory_01
+  rotate: false
+  xy: 554, 2
+  size: 104, 105
+  orig: 104, 105
+  offset: 0, 0
+  index: -1
+clowndragon_water_02_arm_01
+  rotate: true
+  xy: 2, 6
+  size: 73, 72
+  orig: 73, 72
+  offset: 0, 0
+  index: -1
+clowndragon_water_02_arm_02
+  rotate: false
+  xy: 660, 9
+  size: 68, 59
+  orig: 68, 59
+  offset: 0, 0
+  index: -1
+clowndragon_water_02_body_01
+  rotate: false
+  xy: 452, 109
+  size: 140, 160
+  orig: 140, 160
+  offset: 0, 0
+  index: -1
+clowndragon_water_02_card_06
+  rotate: false
+  xy: 332, 104
+  size: 118, 165
+  orig: 118, 165
+  offset: 0, 0
+  index: -1
+clowndragon_water_02_eye_01
+  rotate: true
+  xy: 752, 121
+  size: 25, 17
+  orig: 25, 17
+  offset: 0, 0
+  index: -1
+clowndragon_water_02_eye_02
+  rotate: false
+  xy: 594, 109
+  size: 11, 16
+  orig: 11, 16
+  offset: 0, 0
+  index: -1
+clowndragon_water_02_eye_03
+  rotate: false
+  xy: 721, 127
+  size: 29, 19
+  orig: 29, 19
+  offset: 0, 0
+  index: -1
+clowndragon_water_02_eye_04
+  rotate: true
+  xy: 332, 89
+  size: 13, 18
+  orig: 13, 18
+  offset: 0, 0
+  index: -1
+clowndragon_water_02_face_01
+  rotate: false
+  xy: 750, 102
+  size: 25, 17
+  orig: 25, 17
+  offset: 0, 0
+  index: -1
+clowndragon_water_02_foot_01
+  rotate: false
+  xy: 352, 4
+  size: 60, 98
+  orig: 60, 98
+  offset: 0, 0
+  index: -1
+clowndragon_water_02_foot_02
+  rotate: true
+  xy: 282, 8
+  size: 79, 66
+  orig: 79, 66
+  offset: 0, 0
+  index: -1
+clowndragon_water_02_hand_01
+  rotate: false
+  xy: 158, 9
+  size: 62, 70
+  orig: 62, 70
+  offset: 0, 0
+  index: -1
+clowndragon_water_02_hand_02
+  rotate: true
+  xy: 721, 228
+  size: 41, 49
+  orig: 41, 49
+  offset: 0, 0
+  index: -1
+clowndragon_water_02_head_01
+  rotate: true
+  xy: 2, 81
+  size: 188, 172
+  orig: 188, 172
+  offset: 0, 0
+  index: -1
+clowndragon_water_02_leg_01
+  rotate: true
+  xy: 660, 70
+  size: 55, 88
+  orig: 55, 88
+  offset: 0, 0
+  index: -1
+clowndragon_water_02_leg_02
+  rotate: false
+  xy: 721, 148
+  size: 48, 78
+  orig: 48, 78
+  offset: 0, 0
+  index: -1
+clowndragon_water_02_neck_01
+  rotate: true
+  xy: 176, 89
+  size: 180, 154
+  orig: 180, 154
+  offset: 0, 0
+  index: -1
+clowndragon_water_02_thigh_01
+  rotate: false
+  xy: 222, 3
+  size: 58, 84
+  orig: 58, 84
+  offset: 0, 0
+  index: -1
+clowndragon_water_02_thigh_02
+  rotate: false
+  xy: 76, 8
+  size: 80, 71
+  orig: 80, 71
+  offset: 0, 0
+  index: -1
+clowndragon_water_02_wing_01
+  rotate: true
+  xy: 594, 127
+  size: 142, 125
+  orig: 142, 125
+  offset: 0, 0
+  index: -1
+clowndragon_water_02_wing_02
+  rotate: true
+  xy: 414, 6
+  size: 96, 138
+  orig: 96, 138
+  offset: 0, 0
+  index: -1

@@ -1,0 +1,286 @@
+
+pharaohdragon_water_03.png
+size: 798,525
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+pharaohdragon_water_03_arm_01
+  rotate: true
+  xy: 747, 135
+  size: 44, 48
+  orig: 44, 48
+  offset: 0, 0
+  index: -1
+pharaohdragon_water_03_arm_02
+  rotate: false
+  xy: 747, 181
+  size: 49, 49
+  orig: 49, 49
+  offset: 0, 0
+  index: -1
+pharaohdragon_water_03_body_01
+  rotate: false
+  xy: 234, 88
+  size: 121, 163
+  orig: 121, 163
+  offset: 0, 0
+  index: -1
+pharaohdragon_water_03_body_armor_01
+  rotate: true
+  xy: 679, 290
+  size: 86, 68
+  orig: 86, 68
+  offset: 0, 0
+  index: -1
+pharaohdragon_water_03_calf_01
+  rotate: false
+  xy: 693, 80
+  size: 40, 52
+  orig: 40, 52
+  offset: 0, 0
+  index: -1
+pharaohdragon_water_03_calf_02
+  rotate: true
+  xy: 541, 24
+  size: 76, 24
+  orig: 76, 24
+  offset: 0, 0
+  index: -1
+pharaohdragon_water_03_effect_01
+  rotate: false
+  xy: 2, 214
+  size: 228, 230
+  orig: 228, 230
+  offset: 0, 0
+  index: -1
+pharaohdragon_water_03_effect_02_1
+  rotate: false
+  xy: 499, 288
+  size: 88, 88
+  orig: 88, 88
+  offset: 0, 0
+  index: -1
+pharaohdragon_water_03_effect_02_2
+  rotate: false
+  xy: 610, 435
+  size: 88, 88
+  orig: 88, 88
+  offset: 0, 0
+  index: -1
+pharaohdragon_water_03_effect_02_3
+  rotate: false
+  xy: 700, 435
+  size: 88, 88
+  orig: 88, 88
+  offset: 0, 0
+  index: -1
+pharaohdragon_water_03_effect_02_4
+  rotate: false
+  xy: 589, 288
+  size: 88, 88
+  orig: 88, 88
+  offset: 0, 0
+  index: -1
+pharaohdragon_water_03_effect_02_5
+  rotate: false
+  xy: 553, 198
+  size: 88, 88
+  orig: 88, 88
+  offset: 0, 0
+  index: -1
+pharaohdragon_water_03_effect_02_6
+  rotate: false
+  xy: 553, 108
+  size: 88, 88
+  orig: 88, 88
+  offset: 0, 0
+  index: -1
+pharaohdragon_water_03_effect_03
+  rotate: false
+  xy: 2, 13
+  size: 230, 199
+  orig: 230, 199
+  offset: 0, 0
+  index: -1
+pharaohdragon_water_03_elbow_01
+  rotate: false
+  xy: 321, 18
+  size: 34, 68
+  orig: 34, 68
+  offset: 0, 0
+  index: -1
+pharaohdragon_water_03_elbow_02
+  rotate: true
+  xy: 567, 4
+  size: 31, 58
+  orig: 31, 58
+  offset: 0, 0
+  index: -1
+pharaohdragon_water_03_eye_01
+  rotate: false
+  xy: 749, 284
+  size: 45, 42
+  orig: 45, 42
+  offset: 0, 0
+  index: -1
+pharaohdragon_water_03_eye_02
+  rotate: false
+  xy: 693, 36
+  size: 45, 42
+  orig: 45, 42
+  offset: 0, 0
+  index: -1
+pharaohdragon_water_03_eye_03
+  rotate: false
+  xy: 740, 36
+  size: 45, 42
+  orig: 45, 42
+  offset: 0, 0
+  index: -1
+pharaohdragon_water_03_foot_01
+  rotate: false
+  xy: 643, 202
+  size: 35, 84
+  orig: 35, 84
+  offset: 0, 0
+  index: -1
+pharaohdragon_water_03_foot_02
+  rotate: true
+  xy: 234, 2
+  size: 84, 85
+  orig: 84, 85
+  offset: 0, 0
+  index: -1
+pharaohdragon_water_03_foot_armor_01
+  rotate: false
+  xy: 735, 80
+  size: 35, 52
+  orig: 35, 52
+  offset: 0, 0
+  index: -1
+pharaohdragon_water_03_hair_01
+  rotate: true
+  xy: 357, 102
+  size: 149, 116
+  orig: 149, 116
+  offset: 0, 0
+  index: -1
+pharaohdragon_water_03_hair_02
+  rotate: false
+  xy: 499, 378
+  size: 109, 145
+  orig: 109, 145
+  offset: 0, 0
+  index: -1
+pharaohdragon_water_03_hair_03
+  rotate: true
+  xy: 610, 378
+  size: 55, 113
+  orig: 55, 113
+  offset: 0, 0
+  index: -1
+pharaohdragon_water_03_hand_01
+  rotate: false
+  xy: 749, 328
+  size: 47, 50
+  orig: 47, 50
+  offset: 0, 0
+  index: -1
+pharaohdragon_water_03_hand_02
+  rotate: false
+  xy: 747, 232
+  size: 49, 50
+  orig: 49, 50
+  offset: 0, 0
+  index: -1
+pharaohdragon_water_03_head_01
+  rotate: false
+  xy: 725, 380
+  size: 61, 53
+  orig: 61, 53
+  offset: 0, 0
+  index: -1
+pharaohdragon_water_03_head_02
+  rotate: false
+  xy: 567, 37
+  size: 61, 69
+  orig: 61, 69
+  offset: 0, 0
+  index: -1
+pharaohdragon_water_03_head_03
+  rotate: false
+  xy: 630, 37
+  size: 61, 69
+  orig: 61, 69
+  offset: 0, 0
+  index: -1
+pharaohdragon_water_03_horn_01
+  rotate: false
+  xy: 475, 102
+  size: 76, 149
+  orig: 76, 149
+  offset: 0, 0
+  index: -1
+pharaohdragon_water_03_lowerbody_01
+  rotate: false
+  xy: 357, 2
+  size: 182, 98
+  orig: 182, 98
+  offset: 0, 0
+  index: -1
+pharaohdragon_water_03_mouth_01
+  rotate: false
+  xy: 418, 446
+  size: 23, 16
+  orig: 23, 16
+  offset: 0, 0
+  index: -1
+pharaohdragon_water_03_mouth_02
+  rotate: false
+  xy: 443, 446
+  size: 23, 16
+  orig: 23, 16
+  offset: 0, 0
+  index: -1
+pharaohdragon_water_03_neck_01
+  rotate: true
+  xy: 687, 134
+  size: 70, 58
+  orig: 70, 58
+  offset: 0, 0
+  index: -1
+pharaohdragon_water_03_tail_01
+  rotate: true
+  xy: 680, 206
+  size: 82, 58
+  orig: 82, 58
+  offset: 0, 0
+  index: -1
+pharaohdragon_water_03_tail_02
+  rotate: false
+  xy: 2, 446
+  size: 414, 77
+  orig: 414, 77
+  offset: 0, 0
+  index: -1
+pharaohdragon_water_03_thigh_01
+  rotate: false
+  xy: 643, 121
+  size: 42, 79
+  orig: 42, 79
+  offset: 0, 0
+  index: -1
+pharaohdragon_water_03_thigh_02
+  rotate: false
+  xy: 418, 464
+  size: 79, 59
+  orig: 79, 59
+  offset: 0, 0
+  index: -1
+pharaohdragon_water_03_wing_01
+  rotate: true
+  xy: 232, 253
+  size: 191, 265
+  orig: 191, 265
+  offset: 0, 0
+  index: -1

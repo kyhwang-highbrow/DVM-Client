@@ -1,0 +1,230 @@
+
+garuda_water_03.png
+size: 1968,964
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+garuda_water_03_arm_01
+  rotate: true
+  xy: 1169, 3
+  size: 130, 195
+  orig: 130, 195
+  offset: 0, 0
+  index: -1
+garuda_water_03_arm_02
+  rotate: false
+  xy: 1738, 359
+  size: 130, 195
+  orig: 130, 195
+  offset: 0, 0
+  index: -1
+garuda_water_03_arm_03
+  rotate: false
+  xy: 1621, 130
+  size: 130, 99
+  orig: 130, 99
+  offset: 0, 0
+  index: -1
+garuda_water_03_arm_04
+  rotate: true
+  xy: 1865, 253
+  size: 89, 99
+  orig: 89, 99
+  offset: 0, 0
+  index: -1
+garuda_water_03_arm_horn_01
+  rotate: true
+  xy: 1477, 4
+  size: 157, 140
+  orig: 157, 140
+  offset: 0, 0
+  index: -1
+garuda_water_03_arm_horn_02
+  rotate: false
+  xy: 1870, 462
+  size: 85, 140
+  orig: 85, 140
+  offset: 0, 0
+  index: -1
+garuda_water_03_body_01
+  rotate: false
+  xy: 1169, 135
+  size: 301, 189
+  orig: 301, 189
+  offset: 0, 0
+  index: -1
+garuda_water_03_body_02
+  rotate: false
+  xy: 1558, 748
+  size: 351, 214
+  orig: 351, 214
+  offset: 0, 0
+  index: -1
+garuda_water_03_body_effect_01_s0059
+  rotate: false
+  xy: 2, 645
+  size: 387, 317
+  orig: 387, 317
+  offset: 0, 0
+  index: -1
+garuda_water_03_body_effect_01_s0060
+  rotate: false
+  xy: 2, 326
+  size: 387, 317
+  orig: 387, 317
+  offset: 0, 0
+  index: -1
+garuda_water_03_body_effect_01_s0061
+  rotate: false
+  xy: 391, 645
+  size: 387, 317
+  orig: 387, 317
+  offset: 0, 0
+  index: -1
+garuda_water_03_body_effect_01_s0062
+  rotate: false
+  xy: 2, 7
+  size: 387, 317
+  orig: 387, 317
+  offset: 0, 0
+  index: -1
+garuda_water_03_body_effect_01_s0063
+  rotate: false
+  xy: 391, 326
+  size: 387, 317
+  orig: 387, 317
+  offset: 0, 0
+  index: -1
+garuda_water_03_body_effect_01_s0064
+  rotate: false
+  xy: 780, 645
+  size: 387, 317
+  orig: 387, 317
+  offset: 0, 0
+  index: -1
+garuda_water_03_body_effect_01_s0065
+  rotate: false
+  xy: 391, 7
+  size: 387, 317
+  orig: 387, 317
+  offset: 0, 0
+  index: -1
+garuda_water_03_body_effect_01_s0066
+  rotate: false
+  xy: 780, 326
+  size: 387, 317
+  orig: 387, 317
+  offset: 0, 0
+  index: -1
+garuda_water_03_body_effect_01_s0067
+  rotate: false
+  xy: 1169, 645
+  size: 387, 317
+  orig: 387, 317
+  offset: 0, 0
+  index: -1
+garuda_water_03_body_effect_01_s0068
+  rotate: false
+  xy: 780, 7
+  size: 387, 317
+  orig: 387, 317
+  offset: 0, 0
+  index: -1
+garuda_water_03_body_effect_01_s0069
+  rotate: false
+  xy: 1169, 326
+  size: 387, 317
+  orig: 387, 317
+  offset: 0, 0
+  index: -1
+garuda_water_03_eye_01
+  rotate: true
+  xy: 1753, 131
+  size: 115, 114
+  orig: 115, 114
+  offset: 0, 0
+  index: -1
+garuda_water_03_foot_01
+  rotate: false
+  xy: 1366, 2
+  size: 109, 131
+  orig: 109, 131
+  offset: 0, 0
+  index: -1
+garuda_water_03_foot_02
+  rotate: false
+  xy: 1621, 231
+  size: 109, 131
+  orig: 109, 131
+  offset: 0, 0
+  index: -1
+garuda_water_03_hand_01
+  rotate: true
+  xy: 1836, 604
+  size: 142, 89
+  orig: 142, 89
+  offset: 0, 0
+  index: -1
+garuda_water_03_hand_02
+  rotate: true
+  xy: 1870, 344
+  size: 116, 92
+  orig: 116, 92
+  offset: 0, 0
+  index: -1
+garuda_water_03_head_01
+  rotate: false
+  xy: 1472, 163
+  size: 147, 161
+  orig: 147, 161
+  offset: 0, 0
+  index: -1
+garuda_water_03_head_02
+  rotate: false
+  xy: 1869, 165
+  size: 90, 86
+  orig: 90, 86
+  offset: 0, 0
+  index: -1
+garuda_water_03_head_03
+  rotate: false
+  xy: 1558, 556
+  size: 276, 190
+  orig: 276, 190
+  offset: 0, 0
+  index: -1
+garuda_water_03_head_04
+  rotate: false
+  xy: 1558, 364
+  size: 178, 190
+  orig: 178, 190
+  offset: 0, 0
+  index: -1
+garuda_water_03_head_05
+  rotate: false
+  xy: 1911, 882
+  size: 55, 80
+  orig: 55, 80
+  offset: 0, 0
+  index: -1
+garuda_water_03_head_06
+  rotate: false
+  xy: 1911, 800
+  size: 55, 80
+  orig: 55, 80
+  offset: 0, 0
+  index: -1
+garuda_water_03_leg_01
+  rotate: true
+  xy: 1732, 248
+  size: 109, 131
+  orig: 109, 131
+  offset: 0, 0
+  index: -1
+garuda_water_03_leg_02
+  rotate: false
+  xy: 1619, 7
+  size: 109, 121
+  orig: 109, 121
+  offset: 0, 0
+  index: -1

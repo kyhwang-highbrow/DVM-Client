@@ -1,0 +1,76 @@
+
+boss_ancient_drone_noeffect.png
+size: 381,136
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+boss_ancient_drone_effect_01
+  rotate: false
+  xy: 318, 70
+  size: 37, 37
+  orig: 37, 37
+  offset: 0, 0
+  index: -1
+boss_ancient_drone_effect_02
+  rotate: false
+  xy: 318, 109
+  size: 61, 25
+  orig: 61, 25
+  offset: 0, 0
+  index: -1
+boss_ancient_drone_effect_03
+  rotate: false
+  xy: 152, 4
+  size: 87, 41
+  orig: 87, 41
+  offset: 0, 0
+  index: -1
+boss_ancient_drone_effect_04
+  rotate: true
+  xy: 332, 11
+  size: 57, 29
+  orig: 57, 29
+  offset: 0, 0
+  index: -1
+boss_ancient_drone_effect_04_1
+  rotate: true
+  xy: 291, 69
+  size: 65, 25
+  orig: 65, 25
+  offset: 0, 0
+  index: -1
+boss_ancient_drone_effect_05
+  rotate: false
+  xy: 152, 47
+  size: 86, 87
+  orig: 86, 87
+  offset: 0, 0
+  index: -1
+boss_ancient_drone_res_01
+  rotate: true
+  xy: 305, 2
+  size: 65, 25
+  orig: 65, 25
+  offset: 0, 0
+  index: -1
+boss_ancient_drone_res_02
+  rotate: false
+  xy: 240, 67
+  size: 49, 67
+  orig: 49, 67
+  offset: 0, 0
+  index: -1
+boss_ancient_drone_res_03
+  rotate: false
+  xy: 241, 3
+  size: 62, 62
+  orig: 62, 62
+  offset: 0, 0
+  index: -1
+boss_ancient_drone_res_04
+  rotate: true
+  xy: 2, 5
+  size: 129, 148
+  orig: 129, 148
+  offset: 0, 0
+  index: -1

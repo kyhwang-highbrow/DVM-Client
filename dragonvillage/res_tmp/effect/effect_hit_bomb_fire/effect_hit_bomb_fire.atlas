@@ -1,0 +1,76 @@
+
+effect_hit_bomb_fire.png
+size: 1024,1024
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+effect_hit_bomb_fire_01
+  rotate: false
+  xy: 2, 598
+  size: 440, 413
+  orig: 440, 413
+  offset: 0, 0
+  index: -1
+effect_hit_bomb_fire_02
+  rotate: false
+  xy: 2, 2
+  size: 96, 119
+  orig: 96, 119
+  offset: 0, 0
+  index: -1
+effect_hit_bomb_fire_04
+  rotate: false
+  xy: 2, 235
+  size: 372, 361
+  orig: 372, 361
+  offset: 0, 0
+  index: -1
+effect_hit_bomb_fire_05
+  rotate: false
+  xy: 772, 761
+  size: 250, 250
+  orig: 250, 250
+  offset: 0, 0
+  index: -1
+effect_hit_bomb_fire_06
+  rotate: false
+  xy: 444, 696
+  size: 326, 315
+  orig: 326, 315
+  offset: 0, 0
+  index: -1
+effect_hit_bomb_fire_07
+  rotate: false
+  xy: 2, 123
+  size: 112, 110
+  orig: 112, 110
+  offset: 0, 0
+  index: -1
+effect_hit_bomb_fire_08
+  rotate: false
+  xy: 772, 509
+  size: 250, 250
+  orig: 250, 250
+  offset: 0, 0
+  index: -1
+effect_hit_bomb_fire_09
+  rotate: false
+  xy: 444, 444
+  size: 250, 250
+  orig: 250, 250
+  offset: 0, 0
+  index: -1
+effect_hit_bomb_fire_10
+  rotate: false
+  xy: 376, 192
+  size: 250, 250
+  orig: 250, 250
+  offset: 0, 0
+  index: -1
+effect_hit_bomb_fire_11
+  rotate: false
+  xy: 628, 192
+  size: 250, 250
+  orig: 250, 250
+  offset: 0, 0
+  index: -1

@@ -1,0 +1,103 @@
+{
+    "directing":"floating_1",
+	"layer":
+    [
+    
+        {
+            "name":"배경"
+            "speed":0.2
+            "list":
+            [
+                {"res":"res/bg/sky_temple3/sky_temple3.vrp" "animation":"layer_1_a" "width":3840}
+	
+									
+            ]
+        }
+		
+         {
+            "name":"배경"
+            "speed":0.3
+            "list":
+            [
+                {"res":"res/bg/sky_temple3/sky_temple3.vrp" "animation":"layer_2_a" "width":2200}
+	
+									
+            ]
+        }
+		
+		
+        {
+            "name":"구름"
+            "speed":0.4
+            "list":
+            [
+                {"res":"res/bg/sky_temple3/sky_temple3.vrp" "animation":"layer_2_cloud_a" "width":1280}
+				{"res":"res/bg/sky_temple3/sky_temple3.vrp" "animation":"layer_2_cloud_b" "width":1680}
+									
+            ]
+        }
+		
+        {
+            "name":"중경1"
+            "speed":0.5
+            "list":
+            [
+			    {"res":"res/bg/sky_temple3/sky_temple3.vrp" "animation":"layer_3_a" "width":1280}
+
+            ]
+        }
+        
+		{
+            "name":"구름"
+            "speed":0.6
+            "list":
+            [
+                {"res":"res/bg/sky_temple3/sky_temple3.vrp" "animation":"layer_3_cloud_a" "width":1600}
+												
+            ]
+        }
+	
+		
+		{
+            "name":"중경2"
+            "speed":0.7
+            "list":
+            [
+                {"res":"res/bg/sky_temple3/sky_temple3.vrp" "animation":"layer_4_a" "width":1920}
+					
+
+		    ]
+        }
+		
+			       
+				   
+		{   
+            "name":"구름"
+            "speed":0.8
+            "list":
+            [
+               
+				{"res":"res/bg/sky_temple3/sky_temple3.vrp" "animation":"layer_4_cloud_b" "width":1280}
+				{"res":"res/bg/sky_temple3/sky_temple3.vrp" "animation":"layer_4_cloud_c" "width":1580}
+				{"res":"res/bg/sky_temple3/sky_temple3.vrp" "animation":"layer_4_cloud_d" "width":1900}
+									
+            ]
+        }
+			
+		{
+            "name":"근경"
+            "speed":0.9
+            "list":
+            [
+               {"res":"res/bg/sky_temple3/sky_temple3.vrp" "animation":"layer_5_a" "width":3840}
+			   {"res":"res/bg/sky_temple3/sky_temple3.vrp" "animation":"layer_5_c" "width":3840}
+			   
+			                   
+            ]
+        }
+		
+		
+		
+		
+    ]
+}

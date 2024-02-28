@@ -1,0 +1,20 @@
+
+missile_glave_earth.png
+size: 548,283
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+missile_glave_earth_01
+  rotate: false
+  xy: 284, 18
+  size: 262, 263
+  orig: 262, 263
+  offset: 0, 0
+  index: -1
+missile_glave_earth_02
+  rotate: false
+  xy: 2, 2
+  size: 280, 279
+  orig: 280, 279
+  offset: 0, 0
+  index: -1

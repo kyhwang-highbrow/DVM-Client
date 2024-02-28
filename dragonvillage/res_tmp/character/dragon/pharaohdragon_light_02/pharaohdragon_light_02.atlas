@@ -1,0 +1,223 @@
+
+pharaohdragon_light_02.png
+size: 1319,239
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+pharaohdragon_light_02_arm_01
+  rotate: false
+  xy: 1155, 71
+  size: 44, 48
+  orig: 44, 48
+  offset: 0, 0
+  index: -1
+pharaohdragon_light_02_arm_02
+  rotate: false
+  xy: 1231, 77
+  size: 49, 49
+  orig: 49, 49
+  offset: 0, 0
+  index: -1
+pharaohdragon_light_02_body_01
+  rotate: true
+  xy: 915, 116
+  size: 121, 163
+  orig: 121, 163
+  offset: 0, 0
+  index: -1
+pharaohdragon_light_02_body_armor_01
+  rotate: false
+  xy: 785, 12
+  size: 86, 68
+  orig: 86, 68
+  offset: 0, 0
+  index: -1
+pharaohdragon_light_02_calf_01
+  rotate: true
+  xy: 469, 4
+  size: 40, 52
+  orig: 40, 52
+  offset: 0, 0
+  index: -1
+pharaohdragon_light_02_calf_02
+  rotate: true
+  xy: 1283, 101
+  size: 76, 24
+  orig: 76, 24
+  offset: 0, 0
+  index: -1
+pharaohdragon_light_02_effect_01
+  rotate: false
+  xy: 2, 7
+  size: 228, 230
+  orig: 228, 230
+  offset: 0, 0
+  index: -1
+pharaohdragon_light_02_elbow_01
+  rotate: true
+  xy: 399, 10
+  size: 34, 68
+  orig: 34, 68
+  offset: 0, 0
+  index: -1
+pharaohdragon_light_02_elbow_02
+  rotate: false
+  xy: 1247, 17
+  size: 31, 58
+  orig: 31, 58
+  offset: 0, 0
+  index: -1
+pharaohdragon_light_02_eye_01
+  rotate: false
+  xy: 1106, 3
+  size: 45, 42
+  orig: 45, 42
+  offset: 0, 0
+  index: -1
+pharaohdragon_light_02_eye_02
+  rotate: false
+  xy: 1153, 3
+  size: 45, 42
+  orig: 45, 42
+  offset: 0, 0
+  index: -1
+pharaohdragon_light_02_eye_03
+  rotate: false
+  xy: 1200, 3
+  size: 45, 42
+  orig: 45, 42
+  offset: 0, 0
+  index: -1
+pharaohdragon_light_02_foot_01
+  rotate: true
+  xy: 313, 9
+  size: 35, 84
+  orig: 35, 84
+  offset: 0, 0
+  index: -1
+pharaohdragon_light_02_foot_02
+  rotate: false
+  xy: 873, 12
+  size: 84, 85
+  orig: 84, 85
+  offset: 0, 0
+  index: -1
+pharaohdragon_light_02_foot_armor_01
+  rotate: false
+  xy: 1282, 47
+  size: 35, 52
+  orig: 35, 52
+  offset: 0, 0
+  index: -1
+pharaohdragon_light_02_hair_01
+  rotate: false
+  xy: 1080, 121
+  size: 149, 116
+  orig: 149, 116
+  offset: 0, 0
+  index: -1
+pharaohdragon_light_02_hair_02
+  rotate: true
+  xy: 959, 5
+  size: 109, 145
+  orig: 109, 145
+  offset: 0, 0
+  index: -1
+pharaohdragon_light_02_hair_03
+  rotate: true
+  xy: 523, 3
+  size: 55, 113
+  orig: 55, 113
+  offset: 0, 0
+  index: -1
+pharaohdragon_light_02_hand_01
+  rotate: false
+  xy: 1106, 69
+  size: 47, 50
+  orig: 47, 50
+  offset: 0, 0
+  index: -1
+pharaohdragon_light_02_hand_02
+  rotate: true
+  xy: 1231, 128
+  size: 49, 50
+  orig: 49, 50
+  offset: 0, 0
+  index: -1
+pharaohdragon_light_02_head_01
+  rotate: false
+  xy: 638, 5
+  size: 61, 53
+  orig: 61, 53
+  offset: 0, 0
+  index: -1
+pharaohdragon_light_02_horn_01
+  rotate: true
+  xy: 683, 82
+  size: 76, 149
+  orig: 76, 149
+  offset: 0, 0
+  index: -1
+pharaohdragon_light_02_lowerbody_01
+  rotate: false
+  xy: 499, 60
+  size: 182, 98
+  orig: 182, 98
+  offset: 0, 0
+  index: -1
+pharaohdragon_light_02_mouth_01
+  rotate: false
+  xy: 683, 64
+  size: 23, 16
+  orig: 23, 16
+  offset: 0, 0
+  index: -1
+pharaohdragon_light_02_mouth_02
+  rotate: false
+  xy: 708, 64
+  size: 23, 16
+  orig: 23, 16
+  offset: 0, 0
+  index: -1
+pharaohdragon_light_02_neck_01
+  rotate: false
+  xy: 1231, 179
+  size: 70, 58
+  orig: 70, 58
+  offset: 0, 0
+  index: -1
+pharaohdragon_light_02_tail_01
+  rotate: false
+  xy: 701, 4
+  size: 82, 58
+  orig: 82, 58
+  offset: 0, 0
+  index: -1
+pharaohdragon_light_02_tail_02
+  rotate: false
+  xy: 499, 160
+  size: 414, 77
+  orig: 414, 77
+  offset: 0, 0
+  index: -1
+pharaohdragon_light_02_thigh_01
+  rotate: true
+  xy: 232, 2
+  size: 42, 79
+  orig: 42, 79
+  offset: 0, 0
+  index: -1
+pharaohdragon_light_02_thigh_02
+  rotate: false
+  xy: 834, 99
+  size: 79, 59
+  orig: 79, 59
+  offset: 0, 0
+  index: -1
+pharaohdragon_light_02_wing_01
+  rotate: true
+  xy: 232, 46
+  size: 191, 265
+  orig: 191, 265
+  offset: 0, 0
+  index: -1

@@ -1,0 +1,328 @@
+
+balrog_all_03.png
+size: 1938,476
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+balrog_all_03_acc_01
+  rotate: false
+  xy: 1366, 70
+  size: 116, 108
+  orig: 116, 108
+  offset: 0, 0
+  index: -1
+balrog_all_03_acc_01-1
+  rotate: false
+  xy: 1761, 119
+  size: 93, 89
+  orig: 93, 89
+  offset: 0, 0
+  index: -1
+balrog_all_03_acc_02
+  rotate: true
+  xy: 646, 158
+  size: 133, 172
+  orig: 133, 172
+  offset: 0, 0
+  index: -1
+balrog_all_03_acc_02-1
+  rotate: true
+  xy: 1880, 199
+  size: 109, 53
+  orig: 109, 53
+  offset: 0, 0
+  index: -1
+balrog_all_03_acc_03
+  rotate: false
+  xy: 370, 160
+  size: 68, 42
+  orig: 68, 42
+  offset: 0, 0
+  index: -1
+balrog_all_03_acc_04
+  rotate: false
+  xy: 1669, 99
+  size: 90, 94
+  orig: 90, 94
+  offset: 0, 0
+  index: -1
+balrog_all_03_acc_04-2
+  rotate: true
+  xy: 1578, 8
+  size: 72, 75
+  orig: 72, 75
+  offset: 0, 0
+  index: -1
+balrog_all_03_arm_01
+  rotate: false
+  xy: 771, 22
+  size: 127, 117
+  orig: 127, 117
+  offset: 0, 0
+  index: -1
+balrog_all_03_arm_02
+  rotate: true
+  xy: 820, 141
+  size: 150, 98
+  orig: 150, 98
+  offset: 0, 0
+  index: -1
+balrog_all_03_arm_03
+  rotate: true
+  xy: 458, 180
+  size: 111, 186
+  orig: 111, 186
+  offset: 0, 0
+  index: -1
+balrog_all_03_balrog_effect_01
+  rotate: false
+  xy: 1415, 308
+  size: 167, 166
+  orig: 167, 166
+  offset: 0, 0
+  index: -1
+balrog_all_03_balrog_effect_02
+  rotate: false
+  xy: 1509, 33
+  size: 36, 35
+  orig: 36, 35
+  offset: 0, 0
+  index: -1
+balrog_all_03_balrog_effect_03
+  rotate: false
+  xy: 529, 51
+  size: 107, 127
+  orig: 107, 127
+  offset: 0, 0
+  index: -1
+balrog_all_03_body_01
+  rotate: false
+  xy: 2, 204
+  size: 454, 270
+  orig: 454, 270
+  offset: 0, 0
+  index: -1
+balrog_all_03_claw_effect_01
+  rotate: false
+  xy: 920, 2
+  size: 165, 138
+  orig: 165, 138
+  offset: 0, 0
+  index: -1
+balrog_all_03_claw_effect_02
+  rotate: true
+  xy: 1548, 188
+  size: 118, 81
+  orig: 118, 81
+  offset: 0, 0
+  index: -1
+balrog_all_03_claw_effect_03
+  rotate: true
+  xy: 638, 34
+  size: 122, 131
+  orig: 122, 131
+  offset: 0, 0
+  index: -1
+balrog_all_03_effect_skil_01
+  rotate: false
+  xy: 2, 70
+  size: 366, 132
+  orig: 366, 132
+  offset: 0, 0
+  index: -1
+balrog_all_03_effect_skil_02
+  rotate: false
+  xy: 458, 293
+  size: 459, 181
+  orig: 459, 181
+  offset: 0, 0
+  index: -1
+balrog_all_03_effect_skil_03
+  rotate: false
+  xy: 920, 142
+  size: 156, 157
+  orig: 156, 157
+  offset: 0, 0
+  index: -1
+balrog_all_03_effect_skil_04
+  rotate: true
+  xy: 1245, 180
+  size: 128, 153
+  orig: 128, 153
+  offset: 0, 0
+  index: -1
+balrog_all_03_effect_skil_05
+  rotate: false
+  xy: 1584, 316
+  size: 173, 158
+  orig: 173, 158
+  offset: 0, 0
+  index: -1
+balrog_all_03_effect_skil_06
+  rotate: false
+  xy: 1222, 310
+  size: 191, 164
+  orig: 191, 164
+  offset: 0, 0
+  index: -1
+balrog_all_03_finger_01
+  rotate: true
+  xy: 1234, 8
+  size: 68, 104
+  orig: 68, 104
+  offset: 0, 0
+  index: -1
+balrog_all_03_finger_01-1
+  rotate: false
+  xy: 529, 9
+  size: 38, 40
+  orig: 38, 40
+  offset: 0, 0
+  index: -1
+balrog_all_03_finger_02
+  rotate: false
+  xy: 1631, 195
+  size: 118, 119
+  orig: 118, 119
+  offset: 0, 0
+  index: -1
+balrog_all_03_finger_02-1
+  rotate: false
+  xy: 207, 5
+  size: 102, 63
+  orig: 102, 63
+  offset: 0, 0
+  index: -1
+balrog_all_03_finger_03
+  rotate: false
+  xy: 311, 5
+  size: 55, 63
+  orig: 55, 63
+  offset: 0, 0
+  index: -1
+balrog_all_03_finger_04
+  rotate: true
+  xy: 1445, 14
+  size: 54, 62
+  orig: 54, 62
+  offset: 0, 0
+  index: -1
+balrog_all_03_finger_05
+  rotate: false
+  xy: 1761, 23
+  size: 88, 94
+  orig: 88, 94
+  offset: 0, 0
+  index: -1
+balrog_all_03_fire_01
+  rotate: true
+  xy: 1751, 210
+  size: 98, 127
+  orig: 98, 127
+  offset: 0, 0
+  index: -1
+balrog_all_03_fire_02
+  rotate: false
+  xy: 1245, 78
+  size: 119, 100
+  orig: 119, 100
+  offset: 0, 0
+  index: -1
+balrog_all_03_fire_03
+  rotate: true
+  xy: 2, 2
+  size: 66, 141
+  orig: 66, 141
+  offset: 0, 0
+  index: -1
+balrog_all_03_fire_04
+  rotate: true
+  xy: 1340, 9
+  size: 59, 103
+  orig: 59, 103
+  offset: 0, 0
+  index: -1
+balrog_all_03_fire_05
+  rotate: false
+  xy: 1087, 28
+  size: 145, 126
+  orig: 145, 126
+  offset: 0, 0
+  index: -1
+balrog_all_03_fire_06
+  rotate: true
+  xy: 1669, 14
+  size: 83, 88
+  orig: 83, 88
+  offset: 0, 0
+  index: -1
+balrog_all_03_head_01
+  rotate: false
+  xy: 1856, 100
+  size: 77, 97
+  orig: 77, 97
+  offset: 0, 0
+  index: -1
+balrog_all_03_head_02
+  rotate: true
+  xy: 1851, 14
+  size: 84, 85
+  orig: 84, 85
+  offset: 0, 0
+  index: -1
+balrog_all_03_head_03
+  rotate: false
+  xy: 145, 2
+  size: 60, 66
+  orig: 60, 66
+  offset: 0, 0
+  index: -1
+balrog_all_03_horn_01
+  rotate: false
+  xy: 1078, 156
+  size: 165, 143
+  orig: 165, 143
+  offset: 0, 0
+  index: -1
+balrog_all_03_horn_02
+  rotate: true
+  xy: 1400, 188
+  size: 118, 146
+  orig: 118, 146
+  offset: 0, 0
+  index: -1
+balrog_all_03_leg_01
+  rotate: true
+  xy: 1759, 310
+  size: 164, 166
+  orig: 164, 166
+  offset: 0, 0
+  index: -1
+balrog_all_03_leg_02
+  rotate: false
+  xy: 1484, 70
+  size: 92, 116
+  orig: 92, 116
+  offset: 0, 0
+  index: -1
+balrog_all_03_leg_03
+  rotate: true
+  xy: 1578, 82
+  size: 104, 89
+  orig: 104, 89
+  offset: 0, 0
+  index: -1
+balrog_all_03_wing_01
+  rotate: false
+  xy: 919, 301
+  size: 301, 173
+  orig: 301, 173
+  offset: 0, 0
+  index: -1
+balrog_all_03_wing_02
+  rotate: false
+  xy: 370, 2
+  size: 157, 154
+  orig: 157, 154
+  offset: 0, 0
+  index: -1

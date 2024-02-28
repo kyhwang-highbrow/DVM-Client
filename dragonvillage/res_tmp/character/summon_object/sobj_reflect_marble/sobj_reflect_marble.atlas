@@ -1,0 +1,20 @@
+
+sobj_reflect_marble.png
+size: 204,103
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+marble_1
+  rotate: false
+  xy: 2, 2
+  size: 99, 99
+  orig: 99, 99
+  offset: 0, 0
+  index: -1
+marble_2
+  rotate: false
+  xy: 103, 2
+  size: 99, 99
+  orig: 99, 99
+  offset: 0, 0
+  index: -1

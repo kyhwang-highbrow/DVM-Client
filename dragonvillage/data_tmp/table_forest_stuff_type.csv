@@ -1,0 +1,6 @@
+stuff_type,t_stuff_name,res,x,y
+bookshelf,책장,res/bg/dragon_forest/dragon_forest_object_05.png,-700,70
+chest,보물상자,res/bg/dragon_forest/dragon_forest_object_02.png,-350,50
+table,탁자,res/bg/dragon_forest/dragon_forest_object_03.png,20,20
+well,샘물,res/bg/dragon_forest/dragon_forest_object_04.png,390,55
+nest,둥지,res/bg/dragon_forest/dragon_forest_object_01.png,700,80

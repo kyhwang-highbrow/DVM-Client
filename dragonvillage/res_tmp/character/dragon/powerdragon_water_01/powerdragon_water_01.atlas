@@ -1,0 +1,146 @@
+
+powerdragon_water_01.png
+size: 2048,2048
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+powerdragon_water_01_arm_01
+  rotate: false
+  xy: 2, 833
+  size: 427, 593
+  orig: 427, 593
+  offset: 0, 0
+  index: -1
+powerdragon_water_01_arm_02
+  rotate: false
+  xy: 1436, 1553
+  size: 296, 489
+  orig: 296, 489
+  offset: 0, 0
+  index: -1
+powerdragon_water_01_body_01
+  rotate: false
+  xy: 431, 989
+  size: 448, 437
+  orig: 448, 437
+  offset: 0, 0
+  index: -1
+powerdragon_water_01_body_02
+  rotate: false
+  xy: 375, 324
+  size: 336, 372
+  orig: 336, 372
+  offset: 0, 0
+  index: -1
+powerdragon_water_01_body_03
+  rotate: false
+  xy: 713, 324
+  size: 336, 372
+  orig: 336, 372
+  offset: 0, 0
+  index: -1
+powerdragon_water_01_eff_01
+  rotate: false
+  xy: 1427, 858
+  size: 172, 85
+  orig: 172, 85
+  offset: 0, 0
+  index: -1
+powerdragon_water_01_eff_02
+  rotate: false
+  xy: 881, 1002
+  size: 172, 85
+  orig: 172, 85
+  offset: 0, 0
+  index: -1
+powerdragon_water_01_eff_03
+  rotate: true
+  xy: 1957, 1379
+  size: 172, 85
+  orig: 172, 85
+  offset: 0, 0
+  index: -1
+powerdragon_water_01_eff_04
+  rotate: true
+  xy: 2, 269
+  size: 562, 371
+  orig: 562, 371
+  offset: 0, 0
+  index: -1
+powerdragon_water_01_eff_05
+  rotate: false
+  xy: 2, 1428
+  size: 1003, 614
+  orig: 1003, 614
+  offset: 0, 0
+  index: -1
+powerdragon_water_01_eye_01
+  rotate: false
+  xy: 1108, 1145
+  size: 317, 302
+  orig: 317, 302
+  offset: 0, 0
+  index: -1
+powerdragon_water_01_foot_01
+  rotate: true
+  xy: 431, 698
+  size: 289, 420
+  orig: 289, 420
+  offset: 0, 0
+  index: -1
+powerdragon_water_01_foot_02
+  rotate: false
+  xy: 1755, 1278
+  size: 200, 273
+  orig: 200, 273
+  offset: 0, 0
+  index: -1
+powerdragon_water_01_hand_01
+  rotate: false
+  xy: 1007, 1449
+  size: 427, 593
+  orig: 427, 593
+  offset: 0, 0
+  index: -1
+powerdragon_water_01_hand_02
+  rotate: false
+  xy: 1734, 1553
+  size: 296, 489
+  orig: 296, 489
+  offset: 0, 0
+  index: -1
+powerdragon_water_01_head_01
+  rotate: false
+  xy: 1436, 1249
+  size: 317, 302
+  orig: 317, 302
+  offset: 0, 0
+  index: -1
+powerdragon_water_01_jaw_01
+  rotate: false
+  xy: 1427, 945
+  size: 317, 302
+  orig: 317, 302
+  offset: 0, 0
+  index: -1
+powerdragon_water_01_jaw_02
+  rotate: false
+  xy: 1108, 841
+  size: 317, 302
+  orig: 317, 302
+  offset: 0, 0
+  index: -1
+powerdragon_water_01_wing_01
+  rotate: false
+  xy: 2, 57
+  size: 368, 210
+  orig: 368, 210
+  offset: 0, 0
+  index: -1
+powerdragon_water_01_wing_02
+  rotate: true
+  xy: 881, 1089
+  size: 337, 225
+  orig: 337, 225
+  offset: 0, 0
+  index: -1

@@ -1,0 +1,454 @@
+
+nuri_winter_01.png
+size: 1985,411
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+nuri_winter_01_arm_01
+  rotate: false
+  xy: 1539, 40
+  size: 34, 52
+  orig: 34, 52
+  offset: 0, 0
+  index: -1
+nuri_winter_01_arm_02
+  rotate: true
+  xy: 1023, 3
+  size: 24, 38
+  orig: 24, 38
+  offset: 0, 0
+  index: -1
+nuri_winter_01_arm_03
+  rotate: true
+  xy: 1427, 2
+  size: 30, 45
+  orig: 30, 45
+  offset: 0, 0
+  index: -1
+nuri_winter_01_arm_04
+  rotate: true
+  xy: 1379, 2
+  size: 30, 46
+  orig: 30, 46
+  offset: 0, 0
+  index: -1
+nuri_winter_01_body_01
+  rotate: true
+  xy: 171, 27
+  size: 79, 113
+  orig: 79, 113
+  offset: 0, 0
+  index: -1
+nuri_winter_01_body_02
+  rotate: false
+  xy: 1208, 253
+  size: 222, 156
+  orig: 222, 156
+  offset: 0, 0
+  index: -1
+nuri_winter_01_body_03
+  rotate: true
+  xy: 1310, 101
+  size: 150, 110
+  orig: 150, 110
+  offset: 0, 0
+  index: -1
+nuri_winter_01_body_04
+  rotate: false
+  xy: 949, 279
+  size: 257, 130
+  orig: 257, 130
+  offset: 0, 0
+  index: -1
+nuri_winter_01_effect_01
+  rotate: false
+  xy: 1112, 2
+  size: 146, 138
+  orig: 146, 138
+  offset: 0, 0
+  index: -1
+nuri_winter_01_effect_02
+  rotate: false
+  xy: 965, 29
+  size: 96, 86
+  orig: 96, 86
+  offset: 0, 0
+  index: -1
+nuri_winter_01_effect_03
+  rotate: false
+  xy: 949, 117
+  size: 161, 160
+  orig: 161, 160
+  offset: 0, 0
+  index: -1
+nuri_winter_01_effect_04
+  rotate: false
+  xy: 746, 210
+  size: 201, 199
+  orig: 201, 199
+  offset: 0, 0
+  index: -1
+nuri_winter_01_effect_05
+  rotate: false
+  xy: 1721, 103
+  size: 132, 132
+  orig: 132, 132
+  offset: 0, 0
+  index: -1
+nuri_winter_01_effect_06
+  rotate: false
+  xy: 1607, 237
+  size: 172, 172
+  orig: 172, 172
+  offset: 0, 0
+  index: -1
+nuri_winter_01_effect_07
+  rotate: false
+  xy: 520, 2
+  size: 200, 200
+  orig: 200, 200
+  offset: 0, 0
+  index: -1
+nuri_winter_01_effect_08
+  rotate: false
+  xy: 1781, 237
+  size: 172, 172
+  orig: 172, 172
+  offset: 0, 0
+  index: -1
+nuri_winter_01_effect_09
+  rotate: false
+  xy: 290, 195
+  size: 228, 214
+  orig: 228, 214
+  offset: 0, 0
+  index: -1
+nuri_winter_01_effect_10
+  rotate: false
+  xy: 1422, 94
+  size: 149, 146
+  orig: 149, 146
+  offset: 0, 0
+  index: -1
+nuri_winter_01_effect_11
+  rotate: false
+  xy: 1573, 97
+  size: 146, 138
+  orig: 146, 138
+  offset: 0, 0
+  index: -1
+nuri_winter_01_effect_12
+  rotate: false
+  xy: 454, 49
+  size: 42, 144
+  orig: 42, 144
+  offset: 0, 0
+  index: -1
+nuri_winter_01_effect_13
+  rotate: false
+  xy: 1260, 105
+  size: 48, 45
+  orig: 48, 45
+  offset: 0, 0
+  index: -1
+nuri_winter_01_effect_14
+  rotate: false
+  xy: 2, 108
+  size: 286, 301
+  orig: 286, 301
+  offset: 0, 0
+  index: -1
+nuri_winter_01_eye_01
+  rotate: false
+  xy: 965, 2
+  size: 56, 25
+  orig: 56, 25
+  offset: 0, 0
+  index: -1
+nuri_winter_01_eye_02
+  rotate: true
+  xy: 1955, 303
+  size: 48, 21
+  orig: 48, 21
+  offset: 0, 0
+  index: -1
+nuri_winter_01_eye_03
+  rotate: true
+  xy: 1955, 258
+  size: 43, 21
+  orig: 43, 21
+  offset: 0, 0
+  index: -1
+nuri_winter_01_eye_04
+  rotate: true
+  xy: 1955, 353
+  size: 56, 25
+  orig: 56, 25
+  offset: 0, 0
+  index: -1
+nuri_winter_01_face_01
+  rotate: false
+  xy: 1706, 81
+  size: 13, 14
+  orig: 13, 14
+  offset: 0, 0
+  index: -1
+nuri_winter_01_foot_01
+  rotate: true
+  xy: 1643, 2
+  size: 41, 39
+  orig: 41, 39
+  offset: 0, 0
+  index: -1
+nuri_winter_01_foot_02
+  rotate: true
+  xy: 1684, 2
+  size: 41, 35
+  orig: 41, 35
+  offset: 0, 0
+  index: -1
+nuri_winter_01_hair_01
+  rotate: false
+  xy: 1432, 242
+  size: 173, 167
+  orig: 173, 167
+  offset: 0, 0
+  index: -1
+nuri_winter_01_hair_06
+  rotate: false
+  xy: 1907, 33
+  size: 72, 74
+  orig: 72, 74
+  offset: 0, 0
+  index: -1
+nuri_winter_01_hand_01
+  rotate: false
+  xy: 1907, 2
+  size: 32, 29
+  orig: 32, 29
+  offset: 0, 0
+  index: -1
+nuri_winter_01_hand_02
+  rotate: false
+  xy: 1542, 2
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+nuri_winter_01_hand_03
+  rotate: false
+  xy: 237, 2
+  size: 21, 23
+  orig: 21, 23
+  offset: 0, 0
+  index: -1
+nuri_winter_01_hand_04
+  rotate: true
+  xy: 1608, 2
+  size: 32, 24
+  orig: 32, 24
+  offset: 0, 0
+  index: -1
+nuri_winter_01_hand_05
+  rotate: true
+  xy: 498, 165
+  size: 28, 20
+  orig: 28, 20
+  offset: 0, 0
+  index: -1
+nuri_winter_01_head_01
+  rotate: false
+  xy: 1721, 2
+  size: 91, 99
+  orig: 91, 99
+  offset: 0, 0
+  index: -1
+nuri_winter_01_head_02
+  rotate: false
+  xy: 1814, 2
+  size: 91, 99
+  orig: 91, 99
+  offset: 0, 0
+  index: -1
+nuri_winter_01_reg_01
+  rotate: false
+  xy: 1112, 142
+  size: 86, 135
+  orig: 86, 135
+  offset: 0, 0
+  index: -1
+nuri_winter_01_reg_02
+  rotate: false
+  xy: 722, 79
+  size: 53, 123
+  orig: 53, 123
+  offset: 0, 0
+  index: -1
+nuri_winter_01_reg_03
+  rotate: false
+  xy: 1063, 23
+  size: 39, 92
+  orig: 39, 92
+  offset: 0, 0
+  index: -1
+nuri_winter_01_reg_04
+  rotate: false
+  xy: 1260, 10
+  size: 41, 93
+  orig: 41, 93
+  offset: 0, 0
+  index: -1
+nuri_winter_01_wepon_01
+  rotate: false
+  xy: 2, 18
+  size: 167, 88
+  orig: 167, 88
+  offset: 0, 0
+  index: -1
+nuri_winter_01_wepon_04
+  rotate: false
+  xy: 777, 108
+  size: 100, 100
+  orig: 100, 100
+  offset: 0, 0
+  index: -1
+nuri_winter_01_wepon_05
+  rotate: false
+  xy: 777, 6
+  size: 100, 100
+  orig: 100, 100
+  offset: 0, 0
+  index: -1
+nuri_winter_01_wepon_06
+  rotate: false
+  xy: 1643, 45
+  size: 61, 50
+  orig: 61, 50
+  offset: 0, 0
+  index: -1
+nuri_winter_01_wepon_07
+  rotate: false
+  xy: 1466, 34
+  size: 71, 58
+  orig: 71, 58
+  offset: 0, 0
+  index: -1
+nuri_winter_01_z2_01
+  rotate: false
+  xy: 520, 204
+  size: 224, 205
+  orig: 224, 205
+  offset: 0, 0
+  index: -1
+nuri_winter_01_z2_02
+  rotate: true
+  xy: 1855, 109
+  size: 126, 128
+  orig: 126, 128
+  offset: 0, 0
+  index: -1
+nuri_winter_01_z2_03
+  rotate: false
+  xy: 879, 2
+  size: 84, 88
+  orig: 84, 88
+  offset: 0, 0
+  index: -1
+nuri_winter_01_z2_04
+  rotate: true
+  xy: 1474, 2
+  size: 30, 32
+  orig: 30, 32
+  offset: 0, 0
+  index: -1
+nuri_winter_01_z2_05
+  rotate: true
+  xy: 1508, 2
+  size: 30, 32
+  orig: 30, 32
+  offset: 0, 0
+  index: -1
+nuri_winter_01_z2_06
+  rotate: false
+  xy: 1576, 2
+  size: 30, 32
+  orig: 30, 32
+  offset: 0, 0
+  index: -1
+nuri_winter_01_z2_07
+  rotate: false
+  xy: 1303, 30
+  size: 74, 69
+  orig: 74, 69
+  offset: 0, 0
+  index: -1
+nuri_winter_01_z2_08
+  rotate: false
+  xy: 1379, 34
+  size: 85, 58
+  orig: 85, 58
+  offset: 0, 0
+  index: -1
+nuri_winter_01_z2_09
+  rotate: true
+  xy: 879, 92
+  size: 116, 58
+  orig: 116, 58
+  offset: 0, 0
+  index: -1
+nuri_winter_01_z2_10
+  rotate: false
+  xy: 722, 16
+  size: 52, 61
+  orig: 52, 61
+  offset: 0, 0
+  index: -1
+nuri_winter_01_z3_01
+  rotate: false
+  xy: 290, 42
+  size: 162, 151
+  orig: 162, 151
+  offset: 0, 0
+  index: -1
+nuri_winter_01_z3_02
+  rotate: false
+  xy: 210, 2
+  size: 25, 23
+  orig: 25, 23
+  offset: 0, 0
+  index: -1
+nuri_winter_01_z3_03
+  rotate: true
+  xy: 722, 2
+  size: 12, 11
+  orig: 12, 11
+  offset: 0, 0
+  index: -1
+nuri_winter_01_z3_04
+  rotate: false
+  xy: 171, 2
+  size: 37, 23
+  orig: 37, 23
+  offset: 0, 0
+  index: -1
+nuri_winter_01_z3_05
+  rotate: false
+  xy: 1303, 11
+  size: 21, 17
+  orig: 21, 17
+  offset: 0, 0
+  index: -1
+nuri_winter_01_z_01
+  rotate: false
+  xy: 1200, 152
+  size: 108, 99
+  orig: 108, 99
+  offset: 0, 0
+  index: -1
+nuri_winter_01_z_02
+  rotate: false
+  xy: 1575, 36
+  size: 66, 59
+  orig: 66, 59
+  offset: 0, 0
+  index: -1

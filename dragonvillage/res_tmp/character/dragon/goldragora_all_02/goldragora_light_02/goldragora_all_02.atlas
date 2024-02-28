@@ -1,0 +1,202 @@
+
+goldragora_all_02.png
+size: 1007,285
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+effect_goldragora_all_02_atk_01
+  rotate: false
+  xy: 783, 141
+  size: 65, 142
+  orig: 65, 142
+  offset: 0, 0
+  index: -1
+effect_goldragora_all_02_atk_02
+  rotate: false
+  xy: 691, 137
+  size: 90, 146
+  orig: 90, 146
+  offset: 0, 0
+  index: -1
+effect_goldragora_all_02_atk_03
+  rotate: false
+  xy: 393, 3
+  size: 99, 100
+  orig: 99, 100
+  offset: 0, 0
+  index: -1
+goldragora_all_02_balloon_01
+  rotate: false
+  xy: 302, 105
+  size: 137, 178
+  orig: 137, 178
+  offset: 0, 0
+  index: -1
+goldragora_all_02_balloon_02
+  rotate: false
+  xy: 162, 101
+  size: 138, 182
+  orig: 138, 182
+  offset: 0, 0
+  index: -1
+goldragora_all_02_band
+  rotate: false
+  xy: 957, 75
+  size: 42, 33
+  orig: 42, 33
+  offset: 0, 0
+  index: -1
+goldragora_all_02_body_01
+  rotate: false
+  xy: 2, 87
+  size: 158, 196
+  orig: 158, 196
+  offset: 0, 0
+  index: -1
+goldragora_all_02_body_02
+  rotate: false
+  xy: 950, 225
+  size: 54, 58
+  orig: 54, 58
+  offset: 0, 0
+  index: -1
+goldragora_all_02_body_03
+  rotate: false
+  xy: 441, 116
+  size: 158, 167
+  orig: 158, 167
+  offset: 0, 0
+  index: -1
+goldragora_all_02_c_eye
+  rotate: false
+  xy: 869, 239
+  size: 79, 44
+  orig: 79, 44
+  offset: 0, 0
+  index: -1
+goldragora_all_02_candy
+  rotate: true
+  xy: 121, 2
+  size: 83, 84
+  orig: 83, 84
+  offset: 0, 0
+  index: -1
+goldragora_all_02_cap_01
+  rotate: true
+  xy: 601, 130
+  size: 153, 88
+  orig: 153, 88
+  offset: 0, 0
+  index: -1
+goldragora_all_02_cap_02
+  rotate: true
+  xy: 494, 6
+  size: 108, 64
+  orig: 108, 64
+  offset: 0, 0
+  index: -1
+goldragora_all_02_eye
+  rotate: false
+  xy: 869, 189
+  size: 71, 48
+  orig: 71, 48
+  offset: 0, 0
+  index: -1
+goldragora_all_02_fly_01
+  rotate: true
+  xy: 560, 16
+  size: 98, 70
+  orig: 98, 70
+  offset: 0, 0
+  index: -1
+goldragora_all_02_fly_02
+  rotate: true
+  xy: 797, 51
+  size: 88, 57
+  orig: 88, 57
+  offset: 0, 0
+  index: -1
+goldragora_all_02_fly_03
+  rotate: true
+  xy: 322, 2
+  size: 101, 69
+  orig: 101, 69
+  offset: 0, 0
+  index: -1
+goldragora_all_02_gold
+  rotate: false
+  xy: 869, 28
+  size: 54, 54
+  orig: 54, 54
+  offset: 0, 0
+  index: -1
+goldragora_all_02_hand_01
+  rotate: false
+  xy: 957, 110
+  size: 47, 52
+  orig: 47, 52
+  offset: 0, 0
+  index: -1
+goldragora_all_02_hand_02
+  rotate: true
+  xy: 850, 142
+  size: 45, 59
+  orig: 45, 59
+  offset: 0, 0
+  index: -1
+goldragora_all_02_leaf
+  rotate: false
+  xy: 207, 3
+  size: 113, 96
+  orig: 113, 96
+  offset: 0, 0
+  index: -1
+goldragora_all_02_lope
+  rotate: false
+  xy: 766, 5
+  size: 29, 130
+  orig: 29, 130
+  offset: 0, 0
+  index: -1
+goldragora_all_02_mouth_01
+  rotate: true
+  xy: 856, 84
+  size: 56, 52
+  orig: 56, 52
+  offset: 0, 0
+  index: -1
+goldragora_all_02_mouth_02
+  rotate: false
+  xy: 797, 2
+  size: 70, 47
+  orig: 70, 47
+  offset: 0, 0
+  index: -1
+goldragora_all_02_s_gold
+  rotate: true
+  xy: 2, 2
+  size: 83, 117
+  orig: 83, 117
+  offset: 0, 0
+  index: -1
+goldragora_all_02_s_hand
+  rotate: false
+  xy: 910, 86
+  size: 45, 54
+  orig: 45, 54
+  offset: 0, 0
+  index: -1
+goldragora_all_02_swing
+  rotate: true
+  xy: 632, 7
+  size: 121, 132
+  orig: 121, 132
+  offset: 0, 0
+  index: -1
+goldragora_all_02_wallet
+  rotate: true
+  xy: 942, 164
+  size: 59, 63
+  orig: 59, 63
+  offset: 0, 0
+  index: -1

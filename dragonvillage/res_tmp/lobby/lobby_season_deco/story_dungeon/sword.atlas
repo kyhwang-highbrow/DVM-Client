@@ -1,0 +1,272 @@
+
+sword.png
+size: 1870,2032
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+effect_light1
+  rotate: false
+  xy: 902, 1575
+  size: 371, 134
+  orig: 371, 134
+  offset: 0, 0
+  index: -1
+effect_light_00000
+  rotate: false
+  xy: 1290, 1742
+  size: 288, 288
+  orig: 288, 288
+  offset: 0, 0
+  index: -1
+effect_light_00002
+  rotate: false
+  xy: 2, 448
+  size: 288, 288
+  orig: 288, 288
+  offset: 0, 0
+  index: -1
+effect_light_00004
+  rotate: false
+  xy: 1580, 1742
+  size: 288, 288
+  orig: 288, 288
+  offset: 0, 0
+  index: -1
+effect_light_00006
+  rotate: false
+  xy: 2, 158
+  size: 288, 288
+  orig: 288, 288
+  offset: 0, 0
+  index: -1
+effect_light_00008
+  rotate: false
+  xy: 353, 1180
+  size: 288, 288
+  orig: 288, 288
+  offset: 0, 0
+  index: -1
+effect_light_00010
+  rotate: false
+  xy: 643, 1180
+  size: 288, 288
+  orig: 288, 288
+  offset: 0, 0
+  index: -1
+effect_light_00012
+  rotate: false
+  xy: 933, 1285
+  size: 288, 288
+  orig: 288, 288
+  offset: 0, 0
+  index: -1
+effect_light_00014
+  rotate: false
+  xy: 933, 995
+  size: 288, 288
+  orig: 288, 288
+  offset: 0, 0
+  index: -1
+effect_light_00016
+  rotate: false
+  xy: 353, 890
+  size: 288, 288
+  orig: 288, 288
+  offset: 0, 0
+  index: -1
+effect_light_00018
+  rotate: false
+  xy: 643, 890
+  size: 288, 288
+  orig: 288, 288
+  offset: 0, 0
+  index: -1
+effect_light_00020
+  rotate: false
+  xy: 933, 705
+  size: 288, 288
+  orig: 288, 288
+  offset: 0, 0
+  index: -1
+effect_light_00022
+  rotate: false
+  xy: 302, 600
+  size: 288, 288
+  orig: 288, 288
+  offset: 0, 0
+  index: -1
+effect_light_00024
+  rotate: false
+  xy: 592, 600
+  size: 288, 288
+  orig: 288, 288
+  offset: 0, 0
+  index: -1
+effect_light_00026
+  rotate: false
+  xy: 292, 310
+  size: 288, 288
+  orig: 288, 288
+  offset: 0, 0
+  index: -1
+effect_light_00028
+  rotate: false
+  xy: 582, 310
+  size: 288, 288
+  orig: 288, 288
+  offset: 0, 0
+  index: -1
+effect_light_00030
+  rotate: false
+  xy: 292, 20
+  size: 288, 288
+  orig: 288, 288
+  offset: 0, 0
+  index: -1
+effect_light_00032
+  rotate: false
+  xy: 582, 20
+  size: 288, 288
+  orig: 288, 288
+  offset: 0, 0
+  index: -1
+effect_light_00034
+  rotate: false
+  xy: 882, 415
+  size: 288, 288
+  orig: 288, 288
+  offset: 0, 0
+  index: -1
+effect_light_00036
+  rotate: false
+  xy: 872, 125
+  size: 288, 288
+  orig: 288, 288
+  offset: 0, 0
+  index: -1
+effect_light_00038
+  rotate: false
+  xy: 1223, 1285
+  size: 288, 288
+  orig: 288, 288
+  offset: 0, 0
+  index: -1
+effect_light_00040
+  rotate: false
+  xy: 1223, 995
+  size: 288, 288
+  orig: 288, 288
+  offset: 0, 0
+  index: -1
+effect_light_00042
+  rotate: false
+  xy: 1223, 705
+  size: 288, 288
+  orig: 288, 288
+  offset: 0, 0
+  index: -1
+effect_light_00044
+  rotate: false
+  xy: 1172, 415
+  size: 288, 288
+  orig: 288, 288
+  offset: 0, 0
+  index: -1
+effect_light_00046
+  rotate: false
+  xy: 1162, 125
+  size: 288, 288
+  orig: 288, 288
+  offset: 0, 0
+  index: -1
+effect_light_00048
+  rotate: false
+  xy: 1513, 1452
+  size: 288, 288
+  orig: 288, 288
+  offset: 0, 0
+  index: -1
+effect_light_00050
+  rotate: false
+  xy: 1513, 1162
+  size: 288, 288
+  orig: 288, 288
+  offset: 0, 0
+  index: -1
+effect_light_00052
+  rotate: false
+  xy: 1513, 872
+  size: 288, 288
+  orig: 288, 288
+  offset: 0, 0
+  index: -1
+effect_light_00054
+  rotate: false
+  xy: 1513, 582
+  size: 288, 288
+  orig: 288, 288
+  offset: 0, 0
+  index: -1
+effect_light_00056
+  rotate: false
+  xy: 1462, 292
+  size: 288, 288
+  orig: 288, 288
+  offset: 0, 0
+  index: -1
+effect_light_00058
+  rotate: false
+  xy: 1452, 2
+  size: 288, 288
+  orig: 288, 288
+  offset: 0, 0
+  index: -1
+halo1
+  rotate: false
+  xy: 902, 1711
+  size: 386, 319
+  orig: 386, 319
+  offset: 0, 0
+  index: -1
+halo2
+  rotate: true
+  xy: 804, 1495
+  size: 124, 96
+  orig: 124, 96
+  offset: 0, 0
+  index: -1
+halo3
+  rotate: true
+  xy: 2, 738
+  size: 369, 298
+  orig: 369, 298
+  offset: 0, 0
+  index: -1
+halo4
+  rotate: false
+  xy: 2, 1109
+  size: 349, 366
+  orig: 349, 366
+  offset: 0, 0
+  index: -1
+halo5
+  rotate: false
+  xy: 405, 1621
+  size: 495, 409
+  orig: 495, 409
+  offset: 0, 0
+  index: -1
+object1
+  rotate: false
+  xy: 2, 1477
+  size: 401, 553
+  orig: 401, 553
+  offset: 0, 0
+  index: -1
+shadow_1
+  rotate: false
+  xy: 405, 1470
+  size: 397, 149
+  orig: 397, 149
+  offset: 0, 0
+  index: -1

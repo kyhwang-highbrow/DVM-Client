@@ -1,0 +1,272 @@
+
+party_water_01.png
+size: 528,1038
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+party_water_01_arm_01
+  rotate: false
+  xy: 482, 548
+  size: 29, 39
+  orig: 29, 39
+  offset: 0, 0
+  index: -1
+party_water_01_arm_02
+  rotate: false
+  xy: 482, 627
+  size: 33, 36
+  orig: 33, 36
+  offset: 0, 0
+  index: -1
+party_water_01_balloon_01
+  rotate: true
+  xy: 430, 4
+  size: 104, 95
+  orig: 104, 95
+  offset: 0, 0
+  index: -1
+party_water_01_body_01
+  rotate: true
+  xy: 339, 716
+  size: 62, 78
+  orig: 62, 78
+  offset: 0, 0
+  index: -1
+party_water_01_effect _01
+  rotate: false
+  xy: 2, 716
+  size: 335, 320
+  orig: 335, 320
+  offset: 0, 0
+  index: -1
+party_water_01_effect _02
+  rotate: true
+  xy: 256, 479
+  size: 235, 224
+  orig: 235, 224
+  offset: 0, 0
+  index: -1
+party_water_01_effect _15
+  rotate: false
+  xy: 2, 2
+  size: 206, 319
+  orig: 206, 319
+  offset: 0, 0
+  index: -1
+party_water_01_effect _16
+  rotate: false
+  xy: 2, 323
+  size: 252, 391
+  orig: 252, 391
+  offset: 0, 0
+  index: -1
+party_water_01_effect _17
+  rotate: false
+  xy: 256, 287
+  size: 199, 190
+  orig: 199, 190
+  offset: 0, 0
+  index: -1
+party_water_01_effect _18
+  rotate: false
+  xy: 210, 95
+  size: 199, 190
+  orig: 199, 190
+  offset: 0, 0
+  index: -1
+party_water_01_eye_01
+  rotate: false
+  xy: 494, 127
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+party_water_01_eye_01_01
+  rotate: true
+  xy: 210, 287
+  size: 34, 32
+  orig: 34, 32
+  offset: 0, 0
+  index: -1
+party_water_01_eye_01_02
+  rotate: false
+  xy: 489, 924
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+party_water_01_eye_02
+  rotate: false
+  xy: 482, 479
+  size: 21, 31
+  orig: 21, 31
+  offset: 0, 0
+  index: -1
+party_water_01_eye_02_01
+  rotate: false
+  xy: 489, 894
+  size: 23, 28
+  orig: 23, 28
+  offset: 0, 0
+  index: -1
+party_water_01_eye_02_02
+  rotate: false
+  xy: 505, 479
+  size: 21, 31
+  orig: 21, 31
+  offset: 0, 0
+  index: -1
+party_water_01_firework_01
+  rotate: false
+  xy: 339, 909
+  size: 148, 127
+  orig: 148, 127
+  offset: 0, 0
+  index: -1
+party_water_01_firework_02
+  rotate: false
+  xy: 411, 158
+  size: 38, 127
+  orig: 38, 127
+  offset: 0, 0
+  index: -1
+party_water_01_firework_02_01
+  rotate: true
+  xy: 301, 55
+  size: 38, 127
+  orig: 38, 127
+  offset: 0, 0
+  index: -1
+party_water_01_firework_03
+  rotate: false
+  xy: 457, 350
+  size: 38, 127
+  orig: 38, 127
+  offset: 0, 0
+  index: -1
+party_water_01_firework_04
+  rotate: false
+  xy: 339, 780
+  size: 148, 127
+  orig: 148, 127
+  offset: 0, 0
+  index: -1
+party_water_01_foot_01
+  rotate: false
+  xy: 482, 665
+  size: 39, 38
+  orig: 39, 38
+  offset: 0, 0
+  index: -1
+party_water_01_foot_02
+  rotate: true
+  xy: 482, 589
+  size: 36, 33
+  orig: 36, 33
+  offset: 0, 0
+  index: -1
+party_water_01_hair_01
+  rotate: true
+  xy: 451, 217
+  size: 68, 75
+  orig: 68, 75
+  offset: 0, 0
+  index: -1
+party_water_01_hair_02
+  rotate: true
+  xy: 301, 3
+  size: 50, 71
+  orig: 50, 71
+  offset: 0, 0
+  index: -1
+party_water_01_hand_01
+  rotate: true
+  xy: 489, 958
+  size: 33, 30
+  orig: 33, 30
+  offset: 0, 0
+  index: -1
+party_water_01_hand_02
+  rotate: true
+  xy: 482, 512
+  size: 34, 31
+  orig: 34, 31
+  offset: 0, 0
+  index: -1
+party_water_01_head_01
+  rotate: false
+  xy: 210, 3
+  size: 89, 90
+  orig: 89, 90
+  offset: 0, 0
+  index: -1
+party_water_01_head_02
+  rotate: false
+  xy: 459, 126
+  size: 33, 33
+  orig: 33, 33
+  offset: 0, 0
+  index: -1
+party_water_01_head_03
+  rotate: false
+  xy: 497, 450
+  size: 28, 27
+  orig: 28, 27
+  offset: 0, 0
+  index: -1
+party_water_01_leg_01
+  rotate: false
+  xy: 484, 737
+  size: 42, 41
+  orig: 42, 41
+  offset: 0, 0
+  index: -1
+party_water_01_leg_02
+  rotate: false
+  xy: 411, 110
+  size: 46, 46
+  orig: 46, 46
+  offset: 0, 0
+  index: -1
+party_water_01_ribbon_01
+  rotate: false
+  xy: 374, 10
+  size: 53, 43
+  orig: 53, 43
+  offset: 0, 0
+  index: -1
+party_water_01_ribbon_02
+  rotate: false
+  xy: 457, 301
+  size: 69, 47
+  orig: 69, 47
+  offset: 0, 0
+  index: -1
+party_water_01_ribbon_02_01
+  rotate: false
+  xy: 451, 161
+  size: 75, 54
+  orig: 75, 54
+  offset: 0, 0
+  index: -1
+party_water_01_ribbon_03
+  rotate: true
+  xy: 484, 705
+  size: 30, 42
+  orig: 30, 42
+  offset: 0, 0
+  index: -1
+party_water_01_ribbon_04
+  rotate: false
+  xy: 489, 993
+  size: 27, 43
+  orig: 27, 43
+  offset: 0, 0
+  index: -1
+party_water_01_tail_01
+  rotate: false
+  xy: 419, 725
+  size: 63, 53
+  orig: 63, 53
+  offset: 0, 0
+  index: -1

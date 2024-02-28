@@ -1,0 +1,223 @@
+
+clouddragon_water_03.png
+size: 777,274
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+clouddragon_water_03_acc_01
+  rotate: false
+  xy: 413, 63
+  size: 94, 53
+  orig: 94, 53
+  offset: 0, 0
+  index: -1
+clouddragon_water_03_arm_01
+  rotate: false
+  xy: 479, 2
+  size: 49, 45
+  orig: 49, 45
+  offset: 0, 0
+  index: -1
+clouddragon_water_03_arm_02
+  rotate: false
+  xy: 684, 9
+  size: 42, 55
+  orig: 42, 55
+  offset: 0, 0
+  index: -1
+clouddragon_water_03_body_01
+  rotate: false
+  xy: 154, 2
+  size: 130, 90
+  orig: 130, 90
+  offset: 0, 0
+  index: -1
+clouddragon_water_03_effect_01
+  rotate: false
+  xy: 154, 94
+  size: 141, 92
+  orig: 141, 92
+  offset: 0, 0
+  index: -1
+clouddragon_water_03_effect_02
+  rotate: false
+  xy: 601, 197
+  size: 123, 75
+  orig: 123, 75
+  offset: 0, 0
+  index: -1
+clouddragon_water_03_effect_03
+  rotate: true
+  xy: 509, 49
+  size: 71, 45
+  orig: 71, 45
+  offset: 0, 0
+  index: -1
+clouddragon_water_03_effect_04
+  rotate: true
+  xy: 556, 48
+  size: 86, 79
+  orig: 86, 79
+  offset: 0, 0
+  index: -1
+clouddragon_water_03_effect_05
+  rotate: true
+  xy: 600, 140
+  size: 55, 97
+  orig: 55, 97
+  offset: 0, 0
+  index: -1
+clouddragon_water_03_effect_06
+  rotate: true
+  xy: 347, 10
+  size: 65, 56
+  orig: 65, 56
+  offset: 0, 0
+  index: -1
+clouddragon_water_03_eye_01
+  rotate: false
+  xy: 637, 38
+  size: 45, 32
+  orig: 45, 32
+  offset: 0, 0
+  index: -1
+clouddragon_water_03_eye_02
+  rotate: false
+  xy: 759, 124
+  size: 16, 20
+  orig: 16, 20
+  offset: 0, 0
+  index: -1
+clouddragon_water_03_foot_01
+  rotate: false
+  xy: 685, 66
+  size: 37, 72
+  orig: 37, 72
+  offset: 0, 0
+  index: -1
+clouddragon_water_03_foot_02
+  rotate: false
+  xy: 724, 79
+  size: 33, 65
+  orig: 33, 65
+  offset: 0, 0
+  index: -1
+clouddragon_water_03_hair_01
+  rotate: false
+  xy: 413, 118
+  size: 69, 108
+  orig: 69, 108
+  offset: 0, 0
+  index: -1
+clouddragon_water_03_hair_02
+  rotate: false
+  xy: 484, 122
+  size: 62, 104
+  orig: 62, 104
+  offset: 0, 0
+  index: -1
+clouddragon_water_03_hand_01
+  rotate: false
+  xy: 405, 16
+  size: 72, 45
+  orig: 72, 45
+  offset: 0, 0
+  index: -1
+clouddragon_water_03_hand_02
+  rotate: true
+  xy: 699, 146
+  size: 39, 71
+  orig: 39, 71
+  offset: 0, 0
+  index: -1
+clouddragon_water_03_head_01
+  rotate: false
+  xy: 2, 2
+  size: 76, 70
+  orig: 76, 70
+  offset: 0, 0
+  index: -1
+clouddragon_water_03_head_02
+  rotate: true
+  xy: 726, 187
+  size: 85, 49
+  orig: 85, 49
+  offset: 0, 0
+  index: -1
+clouddragon_water_03_head_03
+  rotate: true
+  xy: 587, 2
+  size: 44, 36
+  orig: 44, 36
+  offset: 0, 0
+  index: -1
+clouddragon_water_03_head_04
+  rotate: false
+  xy: 286, 2
+  size: 59, 73
+  orig: 59, 73
+  offset: 0, 0
+  index: -1
+clouddragon_water_03_leg_01
+  rotate: false
+  xy: 548, 136
+  size: 50, 90
+  orig: 50, 90
+  offset: 0, 0
+  index: -1
+clouddragon_water_03_leg_02
+  rotate: false
+  xy: 637, 72
+  size: 46, 66
+  orig: 46, 66
+  offset: 0, 0
+  index: -1
+clouddragon_water_03_mouth_01
+  rotate: false
+  xy: 376, 204
+  size: 29, 22
+  orig: 29, 22
+  offset: 0, 0
+  index: -1
+clouddragon_water_03_tail_01
+  rotate: false
+  xy: 376, 228
+  size: 223, 44
+  orig: 223, 44
+  offset: 0, 0
+  index: -1
+clouddragon_water_03_tail_02
+  rotate: false
+  xy: 80, 2
+  size: 69, 70
+  orig: 69, 70
+  offset: 0, 0
+  index: -1
+clouddragon_water_03_wing_01
+  rotate: false
+  xy: 2, 74
+  size: 150, 198
+  orig: 150, 198
+  offset: 0, 0
+  index: -1
+clouddragon_water_03_wing_02
+  rotate: true
+  xy: 154, 188
+  size: 84, 220
+  orig: 84, 220
+  offset: 0, 0
+  index: -1
+clouddragon_water_03_wool_01
+  rotate: false
+  xy: 530, 2
+  size: 55, 44
+  orig: 55, 44
+  offset: 0, 0
+  index: -1
+clouddragon_water_03_wool_02
+  rotate: false
+  xy: 297, 77
+  size: 114, 109
+  orig: 114, 109
+  offset: 0, 0
+  index: -1

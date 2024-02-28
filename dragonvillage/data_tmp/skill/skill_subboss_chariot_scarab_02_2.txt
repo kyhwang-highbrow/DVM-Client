@@ -1,0 +1,51 @@
+{
+	"skill_subboss_chariot_scarab_02_2":
+	{
+		"attack_value":
+		[		
+			{
+				"idx":1,
+				"res":"res/effect/effect_scarab_spark/effect_scarab_spark.vrp",
+				"body":[0,0,0],
+                "count":1,
+                "scale":1,
+                "period":0,
+				"speed":0,
+				"accel":0,
+				"l_limit_speed":0,
+				"accel_delay":0,
+				"angular_velocity":0,
+				"offset":[-100,-70],
+				"dir":155,
+				"delete_time":1.1,
+				
+                "effect":
+                {
+                    "motion_streak":"",
+                    "rotation":false,
+                    "afterimage":false
+                }
+			},
+			
+			{
+				"idx":1,
+				"res":"res/missile/missile_spark/missile_spark.vrp",
+				"body":[0,0,80],
+				"time":1,
+				"count":1,
+				"damage_rate":5,
+				"scale":2,
+				"period":0.1,
+				"speed":1000,
+				"accel":-1000,
+				"l_limit_speed":100,
+				"accel_delay":0,
+				"angular_velocity":0,
+				"offset":[-120,0],
+				"dir_array":[180,140,-140],
+				"missile_type":"pass",
+				"reset_time":0.1
+			}
+		]
+	}
+}

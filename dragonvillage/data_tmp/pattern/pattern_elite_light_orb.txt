@@ -1,0 +1,25 @@
+{
+	"pattern_elite_light_orb":
+	[			
+		[
+			"m;RF22;700", "a;basic", "a;basic", "m;RF26;700", "a;basic", "a;basic",
+			"m;RB22;700", "a;basic", "a;basic", "m;RB26;700", "a;basic", "a;basic",
+			"m;RM24;700", "a;1", "w;5"
+		]
+    ],
+	
+	"hp_trriger":
+    {
+        "priority":1,
+        "list":
+        [
+            {
+                "hp_percent":1,
+                "pattern":
+                [
+					"a;1"
+                ]
+            }
+        ]
+    }
+}

@@ -1,0 +1,237 @@
+
+sitael_earth_03.png
+size: 897,528
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+sitael_earth_03_arm_01
+  rotate: false
+  xy: 811, 119
+  size: 77, 85
+  orig: 77, 85
+  offset: 0, 0
+  index: -1
+sitael_earth_03_arm_02
+  rotate: true
+  xy: 134, 17
+  size: 52, 100
+  orig: 52, 100
+  offset: 0, 0
+  index: -1
+sitael_earth_03_body_01
+  rotate: false
+  xy: 2, 303
+  size: 301, 223
+  orig: 301, 223
+  offset: 0, 0
+  index: -1
+sitael_earth_03_body_armor_01
+  rotate: true
+  xy: 643, 223
+  size: 73, 167
+  orig: 73, 167
+  offset: 0, 0
+  index: -1
+sitael_earth_03_body_armor_02
+  rotate: false
+  xy: 478, 118
+  size: 120, 96
+  orig: 120, 96
+  offset: 0, 0
+  index: -1
+sitael_earth_03_calf_01
+  rotate: true
+  xy: 411, 4
+  size: 43, 60
+  orig: 43, 60
+  offset: 0, 0
+  index: -1
+sitael_earth_03_effect_01
+  rotate: false
+  xy: 2, 71
+  size: 228, 230
+  orig: 228, 230
+  offset: 0, 0
+  index: -1
+sitael_earth_03_elbow_01
+  rotate: true
+  xy: 236, 25
+  size: 47, 115
+  orig: 47, 115
+  offset: 0, 0
+  index: -1
+sitael_earth_03_elbow_02
+  rotate: false
+  xy: 379, 49
+  size: 94, 86
+  orig: 94, 86
+  offset: 0, 0
+  index: -1
+sitael_earth_03_eye_01
+  rotate: true
+  xy: 861, 36
+  size: 30, 34
+  orig: 30, 34
+  offset: 0, 0
+  index: -1
+sitael_earth_03_eye_02
+  rotate: true
+  xy: 861, 4
+  size: 30, 34
+  orig: 30, 34
+  offset: 0, 0
+  index: -1
+sitael_earth_03_foot_01
+  rotate: true
+  xy: 2, 11
+  size: 58, 130
+  orig: 58, 130
+  offset: 0, 0
+  index: -1
+sitael_earth_03_foot_armor_01
+  rotate: true
+  xy: 691, 100
+  size: 46, 82
+  orig: 46, 82
+  offset: 0, 0
+  index: -1
+sitael_earth_03_hand_01
+  rotate: false
+  xy: 689, 26
+  size: 58, 72
+  orig: 58, 72
+  offset: 0, 0
+  index: -1
+sitael_earth_03_hand_02
+  rotate: false
+  xy: 749, 22
+  size: 46, 76
+  orig: 46, 76
+  offset: 0, 0
+  index: -1
+sitael_earth_03_hand_armor_01
+  rotate: true
+  xy: 475, 48
+  size: 68, 120
+  orig: 68, 120
+  offset: 0, 0
+  index: -1
+sitael_earth_03_hand_armor_02
+  rotate: false
+  xy: 600, 102
+  size: 89, 112
+  orig: 89, 112
+  offset: 0, 0
+  index: -1
+sitael_earth_03_head_01
+  rotate: true
+  xy: 232, 74
+  size: 227, 145
+  orig: 227, 145
+  offset: 0, 0
+  index: -1
+sitael_earth_03_head_armor_01
+  rotate: false
+  xy: 691, 148
+  size: 118, 73
+  orig: 118, 73
+  offset: 0, 0
+  index: -1
+sitael_earth_03_horn_01
+  rotate: true
+  xy: 379, 137
+  size: 176, 97
+  orig: 176, 97
+  offset: 0, 0
+  index: -1
+sitael_earth_03_horn_02
+  rotate: false
+  xy: 478, 216
+  size: 163, 80
+  orig: 163, 80
+  offset: 0, 0
+  index: -1
+sitael_earth_03_mouth_01
+  rotate: false
+  xy: 797, 68
+  size: 79, 49
+  orig: 79, 49
+  offset: 0, 0
+  index: -1
+sitael_earth_03_mouth_02
+  rotate: false
+  xy: 473, 26
+  size: 47, 20
+  orig: 47, 20
+  offset: 0, 0
+  index: -1
+sitael_earth_03_neck_01
+  rotate: false
+  xy: 797, 18
+  size: 62, 48
+  orig: 62, 48
+  offset: 0, 0
+  index: -1
+sitael_earth_03_neck_02
+  rotate: false
+  xy: 353, 2
+  size: 56, 44
+  orig: 56, 44
+  offset: 0, 0
+  index: -1
+sitael_earth_03_neck_03
+  rotate: false
+  xy: 839, 303
+  size: 55, 37
+  orig: 55, 37
+  offset: 0, 0
+  index: -1
+sitael_earth_03_shoulder_01
+  rotate: false
+  xy: 597, 11
+  size: 90, 89
+  orig: 90, 89
+  offset: 0, 0
+  index: -1
+sitael_earth_03_shoulder_02
+  rotate: true
+  xy: 812, 206
+  size: 90, 83
+  orig: 90, 83
+  offset: 0, 0
+  index: -1
+sitael_earth_03_tail_01
+  rotate: false
+  xy: 536, 462
+  size: 340, 64
+  orig: 340, 64
+  offset: 0, 0
+  index: -1
+sitael_earth_03_thigh_01
+  rotate: false
+  xy: 839, 342
+  size: 49, 118
+  orig: 49, 118
+  offset: 0, 0
+  index: -1
+sitael_earth_03_weapon_01
+  rotate: false
+  xy: 536, 380
+  size: 301, 80
+  orig: 301, 80
+  offset: 0, 0
+  index: -1
+sitael_earth_03_weapon_02
+  rotate: false
+  xy: 536, 298
+  size: 301, 80
+  orig: 301, 80
+  offset: 0, 0
+  index: -1
+sitael_earth_03_wing_01
+  rotate: true
+  xy: 305, 315
+  size: 211, 229
+  orig: 211, 229
+  offset: 0, 0
+  index: -1

@@ -1,0 +1,202 @@
+
+aphrodite_water_02.png
+size: 969,520
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+aphrodite_water_02_arm_01
+  rotate: false
+  xy: 906, 5
+  size: 59, 55
+  orig: 59, 55
+  offset: 0, 0
+  index: -1
+aphrodite_water_02_arm_02
+  rotate: true
+  xy: 74, 40
+  size: 26, 76
+  orig: 26, 76
+  offset: 0, 0
+  index: -1
+aphrodite_water_02_body_01
+  rotate: true
+  xy: 705, 53
+  size: 72, 105
+  orig: 72, 105
+  offset: 0, 0
+  index: -1
+aphrodite_water_02_body_02
+  rotate: false
+  xy: 439, 2
+  size: 110, 76
+  orig: 110, 76
+  offset: 0, 0
+  index: -1
+aphrodite_water_02_dress_01
+  rotate: true
+  xy: 325, 6
+  size: 76, 112
+  orig: 76, 112
+  offset: 0, 0
+  index: -1
+aphrodite_water_02_dress_02
+  rotate: true
+  xy: 154, 5
+  size: 212, 91
+  orig: 212, 91
+  offset: 0, 0
+  index: -1
+aphrodite_water_02_dress_03
+  rotate: false
+  xy: 2, 68
+  size: 150, 149
+  orig: 150, 149
+  offset: 0, 0
+  index: -1
+aphrodite_water_02_dress_04
+  rotate: false
+  xy: 901, 373
+  size: 66, 145
+  orig: 66, 145
+  offset: 0, 0
+  index: -1
+aphrodite_water_02_ear_01
+  rotate: false
+  xy: 901, 259
+  size: 63, 112
+  orig: 63, 112
+  offset: 0, 0
+  index: -1
+aphrodite_water_02_ear_02
+  rotate: false
+  xy: 515, 80
+  size: 75, 118
+  orig: 75, 118
+  offset: 0, 0
+  index: -1
+aphrodite_water_02_eff_01
+  rotate: false
+  xy: 2, 219
+  size: 347, 299
+  orig: 347, 299
+  offset: 0, 0
+  index: -1
+aphrodite_water_02_eff_02
+  rotate: false
+  xy: 592, 158
+  size: 125, 125
+  orig: 125, 125
+  offset: 0, 0
+  index: -1
+aphrodite_water_02_eye
+  rotate: false
+  xy: 901, 240
+  size: 25, 17
+  orig: 25, 17
+  offset: 0, 0
+  index: -1
+aphrodite_water_02_hand_01
+  rotate: true
+  xy: 812, 10
+  size: 50, 92
+  orig: 50, 92
+  offset: 0, 0
+  index: -1
+aphrodite_water_02_hand_02
+  rotate: false
+  xy: 247, 133
+  size: 77, 84
+  orig: 77, 84
+  offset: 0, 0
+  index: -1
+aphrodite_water_02_head_01
+  rotate: false
+  xy: 2, 4
+  size: 70, 62
+  orig: 70, 62
+  offset: 0, 0
+  index: -1
+aphrodite_water_02_horn_01
+  rotate: false
+  xy: 929, 62
+  size: 26, 119
+  orig: 26, 119
+  offset: 0, 0
+  index: -1
+aphrodite_water_02_horn_02
+  rotate: false
+  xy: 247, 6
+  size: 76, 125
+  orig: 76, 125
+  offset: 0, 0
+  index: -1
+aphrodite_water_02_lace_02
+  rotate: false
+  xy: 723, 236
+  size: 176, 282
+  orig: 176, 282
+  offset: 0, 0
+  index: -1
+aphrodite_water_02_lace_03
+  rotate: true
+  xy: 719, 127
+  size: 107, 208
+  orig: 107, 208
+  offset: 0, 0
+  index: -1
+aphrodite_water_02_lace_04
+  rotate: true
+  xy: 74, 12
+  size: 26, 38
+  orig: 26, 38
+  offset: 0, 0
+  index: -1
+aphrodite_water_02_lace_05
+  rotate: true
+  xy: 929, 183
+  size: 61, 29
+  orig: 61, 29
+  offset: 0, 0
+  index: -1
+aphrodite_water_02_leg_01
+  rotate: true
+  xy: 326, 84
+  size: 114, 187
+  orig: 114, 187
+  offset: 0, 0
+  index: -1
+aphrodite_water_02_leg_02
+  rotate: true
+  xy: 351, 200
+  size: 83, 239
+  orig: 83, 239
+  offset: 0, 0
+  index: -1
+aphrodite_water_02_mouth
+  rotate: false
+  xy: 928, 246
+  size: 18, 11
+  orig: 18, 11
+  offset: 0, 0
+  index: -1
+aphrodite_water_02_tail
+  rotate: false
+  xy: 351, 285
+  size: 370, 233
+  orig: 370, 233
+  offset: 0, 0
+  index: -1
+aphrodite_water_02_thing_01
+  rotate: false
+  xy: 812, 72
+  size: 58, 53
+  orig: 58, 53
+  offset: 0, 0
+  index: -1
+aphrodite_water_02_weapon
+  rotate: false
+  xy: 592, 24
+  size: 111, 132
+  orig: 111, 132
+  offset: 0, 0
+  index: -1

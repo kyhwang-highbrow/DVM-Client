@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+    <dict>
+        <key>frames</key>
+        <dict>
+            <key>missile_gerner__01.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{2,2},{558,558}}</string>
+                <key>offset</key>
+                <string>{0,0}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{10,10},{558,558}}</string>
+                <key>sourceSize</key>
+                <string>{578,578}</string>
+            </dict>
+        </dict>
+        <key>metadata</key>
+        <dict>
+            <key>format</key>
+            <integer>2</integer>
+            <key>realTextureFileName</key>
+            <string>missile_gerner__ball.png</string>
+            <key>size</key>
+            <string>{562,562}</string>
+            <key>smartupdate</key>
+            <string>$TexturePacker:SmartUpdate:2767da6c5c36ec688795e5d2967a442f:9b3d1311459169dc4ce61460d82466bf:a00369ea35a29e5c85304b4e89b397d3$</string>
+            <key>textureFileName</key>
+            <string>missile_gerner__ball.png</string>
+        </dict>
+    </dict>
+</plist>

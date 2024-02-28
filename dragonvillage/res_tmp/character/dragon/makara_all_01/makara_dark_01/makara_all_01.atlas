@@ -1,0 +1,328 @@
+
+makara_all_01.png
+size: 1543,514
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+effect_makara_all_01_back_1
+  rotate: false
+  xy: 2, 12
+  size: 500, 500
+  orig: 500, 500
+  offset: 0, 0
+  index: -1
+effect_makara_all_01_effect_04
+  rotate: false
+  xy: 1378, 113
+  size: 56, 55
+  orig: 56, 55
+  offset: 0, 0
+  index: -1
+effect_makara_all_01_effect_05
+  rotate: true
+  xy: 504, 2
+  size: 46, 47
+  orig: 46, 47
+  offset: 0, 0
+  index: -1
+effect_makara_all_01_effect_06
+  rotate: false
+  xy: 1467, 361
+  size: 74, 74
+  orig: 74, 74
+  offset: 0, 0
+  index: -1
+effect_makara_all_01_effect_07_1
+  rotate: false
+  xy: 1436, 126
+  size: 53, 53
+  orig: 53, 53
+  offset: 0, 0
+  index: -1
+effect_makara_all_01_effect_09
+  rotate: false
+  xy: 1451, 237
+  size: 70, 70
+  orig: 70, 70
+  offset: 0, 0
+  index: -1
+effect_makara_all_01_stareffect_01
+  rotate: false
+  xy: 504, 50
+  size: 499, 462
+  orig: 499, 462
+  offset: 0, 0
+  index: -1
+effect_makara_all_01_starstar_02
+  rotate: false
+  xy: 1005, 177
+  size: 325, 335
+  orig: 325, 335
+  offset: 0, 0
+  index: -1
+makara_all_01_acc_01
+  rotate: false
+  xy: 926, 19
+  size: 44, 29
+  orig: 44, 29
+  offset: 0, 0
+  index: -1
+makara_all_01_acc_01_1
+  rotate: true
+  xy: 1471, 83
+  size: 41, 24
+  orig: 41, 24
+  offset: 0, 0
+  index: -1
+makara_all_01_acc_02
+  rotate: false
+  xy: 1436, 84
+  size: 33, 40
+  orig: 33, 40
+  offset: 0, 0
+  index: -1
+makara_all_01_acc_02_1
+  rotate: false
+  xy: 972, 11
+  size: 31, 37
+  orig: 31, 37
+  offset: 0, 0
+  index: -1
+makara_all_01_arm_01
+  rotate: true
+  xy: 1332, 170
+  size: 51, 98
+  orig: 51, 98
+  offset: 0, 0
+  index: -1
+makara_all_01_arm_01_1
+  rotate: false
+  xy: 1491, 145
+  size: 34, 34
+  orig: 34, 34
+  offset: 0, 0
+  index: -1
+makara_all_01_arm_01_2
+  rotate: true
+  xy: 1509, 198
+  size: 37, 32
+  orig: 37, 32
+  offset: 0, 0
+  index: -1
+makara_all_01_arm_01_3
+  rotate: true
+  xy: 1471, 46
+  size: 35, 28
+  orig: 35, 28
+  offset: 0, 0
+  index: -1
+makara_all_01_arm_02
+  rotate: false
+  xy: 682, 3
+  size: 49, 45
+  orig: 49, 45
+  offset: 0, 0
+  index: -1
+makara_all_01_arm_02_1
+  rotate: false
+  xy: 733, 4
+  size: 47, 44
+  orig: 47, 44
+  offset: 0, 0
+  index: -1
+makara_all_01_arm_02_2
+  rotate: false
+  xy: 1497, 109
+  size: 30, 34
+  orig: 30, 34
+  offset: 0, 0
+  index: -1
+makara_all_01_arm_02_3
+  rotate: false
+  xy: 1501, 48
+  size: 28, 33
+  orig: 28, 33
+  offset: 0, 0
+  index: -1
+makara_all_01_arm_03
+  rotate: true
+  xy: 1315, 59
+  size: 55, 61
+  orig: 55, 61
+  offset: 0, 0
+  index: -1
+makara_all_01_body_01
+  rotate: false
+  xy: 1332, 341
+  size: 133, 171
+  orig: 133, 171
+  offset: 0, 0
+  index: -1
+makara_all_01_chain_01
+  rotate: false
+  xy: 1378, 46
+  size: 56, 65
+  orig: 56, 65
+  offset: 0, 0
+  index: -1
+makara_all_01_chain_01_1
+  rotate: false
+  xy: 886, 12
+  size: 38, 36
+  orig: 38, 36
+  offset: 0, 0
+  index: -1
+makara_all_01_chain_01_2
+  rotate: true
+  xy: 1497, 83
+  size: 24, 28
+  orig: 24, 28
+  offset: 0, 0
+  index: -1
+makara_all_01_chain_02
+  rotate: false
+  xy: 1467, 309
+  size: 74, 50
+  orig: 74, 50
+  offset: 0, 0
+  index: -1
+makara_all_01_chain_02_1
+  rotate: true
+  xy: 782, 11
+  size: 37, 52
+  orig: 37, 52
+  offset: 0, 0
+  index: -1
+makara_all_01_chain_02_2
+  rotate: false
+  xy: 649, 2
+  size: 31, 46
+  orig: 31, 46
+  offset: 0, 0
+  index: -1
+makara_all_01_eye_01
+  rotate: false
+  xy: 1436, 46
+  size: 33, 36
+  orig: 33, 36
+  offset: 0, 0
+  index: -1
+makara_all_01_eye_02
+  rotate: false
+  xy: 1356, 21
+  size: 25, 23
+  orig: 25, 23
+  offset: 0, 0
+  index: -1
+makara_all_01_eye_03
+  rotate: false
+  xy: 836, 7
+  size: 48, 41
+  orig: 48, 41
+  offset: 0, 0
+  index: -1
+makara_all_01_eye_04
+  rotate: false
+  xy: 1271, 72
+  size: 42, 42
+  orig: 42, 42
+  offset: 0, 0
+  index: -1
+makara_all_01_hair_01
+  rotate: false
+  xy: 1005, 68
+  size: 125, 107
+  orig: 125, 107
+  offset: 0, 0
+  index: -1
+makara_all_01_hair_02
+  rotate: false
+  xy: 1213, 2
+  size: 70, 68
+  orig: 70, 68
+  offset: 0, 0
+  index: -1
+makara_all_01_head_01
+  rotate: false
+  xy: 1467, 437
+  size: 74, 75
+  orig: 74, 75
+  offset: 0, 0
+  index: -1
+makara_all_01_head_02
+  rotate: true
+  xy: 1132, 2
+  size: 68, 79
+  orig: 68, 79
+  offset: 0, 0
+  index: -1
+makara_all_01_head_03
+  rotate: false
+  xy: 1132, 72
+  size: 67, 103
+  orig: 67, 103
+  offset: 0, 0
+  index: -1
+makara_all_01_head_04
+  rotate: false
+  xy: 1451, 181
+  size: 56, 54
+  orig: 56, 54
+  offset: 0, 0
+  index: -1
+makara_all_01_head_05
+  rotate: true
+  xy: 1201, 72
+  size: 42, 68
+  orig: 42, 68
+  offset: 0, 0
+  index: -1
+makara_all_01_leg_01
+  rotate: false
+  xy: 1332, 223
+  size: 67, 116
+  orig: 67, 116
+  offset: 0, 0
+  index: -1
+makara_all_01_leg_02
+  rotate: false
+  xy: 1285, 7
+  size: 69, 50
+  orig: 69, 50
+  offset: 0, 0
+  index: -1
+makara_all_01_leg_02_1
+  rotate: true
+  xy: 1301, 116
+  size: 52, 75
+  orig: 52, 75
+  offset: 0, 0
+  index: -1
+makara_all_01_wing_01
+  rotate: false
+  xy: 553, 3
+  size: 94, 45
+  orig: 94, 45
+  offset: 0, 0
+  index: -1
+makara_all_01_wing_01_1
+  rotate: false
+  xy: 1201, 116
+  size: 98, 59
+  orig: 98, 59
+  offset: 0, 0
+  index: -1
+makara_all_01_wing_02
+  rotate: true
+  xy: 1401, 223
+  size: 116, 48
+  orig: 116, 48
+  offset: 0, 0
+  index: -1
+makara_all_01_wing_02_1
+  rotate: false
+  xy: 1005, 2
+  size: 123, 64
+  orig: 123, 64
+  offset: 0, 0
+  index: -1

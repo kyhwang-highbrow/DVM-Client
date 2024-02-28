@@ -1,0 +1,111 @@
+
+littio_water_02.png
+size: 369,283
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+littio_water_02_arm_01
+  rotate: false
+  xy: 317, 81
+  size: 45, 76
+  orig: 45, 76
+  offset: 0, 0
+  index: -1
+littio_water_02_arm_02
+  rotate: true
+  xy: 108, 29
+  size: 45, 76
+  orig: 45, 76
+  offset: 0, 0
+  index: -1
+littio_water_02_body_01
+  rotate: false
+  xy: 2, 176
+  size: 135, 105
+  orig: 135, 105
+  offset: 0, 0
+  index: -1
+littio_water_02_body_02
+  rotate: false
+  xy: 253, 214
+  size: 109, 67
+  orig: 109, 67
+  offset: 0, 0
+  index: -1
+littio_water_02_body_03
+  rotate: false
+  xy: 186, 15
+  size: 71, 67
+  orig: 71, 67
+  offset: 0, 0
+  index: -1
+littio_water_02_body_04
+  rotate: true
+  xy: 2, 2
+  size: 62, 77
+  orig: 62, 77
+  offset: 0, 0
+  index: -1
+littio_water_02_eye_01
+  rotate: false
+  xy: 330, 43
+  size: 36, 36
+  orig: 36, 36
+  offset: 0, 0
+  index: -1
+littio_water_02_head_01
+  rotate: false
+  xy: 2, 66
+  size: 104, 108
+  orig: 104, 108
+  offset: 0, 0
+  index: -1
+littio_water_02_head_03
+  rotate: false
+  xy: 238, 84
+  size: 77, 73
+  orig: 77, 73
+  offset: 0, 0
+  index: -1
+littio_water_02_head_04
+  rotate: true
+  xy: 259, 12
+  size: 67, 69
+  orig: 67, 69
+  offset: 0, 0
+  index: -1
+littio_water_02_leg_01
+  rotate: false
+  xy: 108, 76
+  size: 63, 98
+  orig: 63, 98
+  offset: 0, 0
+  index: -1
+littio_water_02_leg_02
+  rotate: false
+  xy: 173, 96
+  size: 63, 88
+  orig: 63, 88
+  offset: 0, 0
+  index: -1
+littio_water_02_mouth_01
+  rotate: false
+  xy: 330, 11
+  size: 37, 30
+  orig: 37, 30
+  offset: 0, 0
+  index: -1
+littio_water_02_wing_01
+  rotate: false
+  xy: 139, 186
+  size: 112, 95
+  orig: 112, 95
+  offset: 0, 0
+  index: -1
+littio_water_02_wing_02
+  rotate: true
+  xy: 253, 159
+  size: 53, 98
+  orig: 53, 98
+  offset: 0, 0
+  index: -1

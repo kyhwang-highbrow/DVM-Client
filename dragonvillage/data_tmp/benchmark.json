@@ -1,0 +1,15 @@
+{
+    "all_test" : true,
+    "wave_time" : 1,
+    "last_wave_time" : 120,
+    "stage_list":[
+        1130107,
+        1130401,
+        1130603,
+        1130804,
+        1131206
+    ],
+    "skip":[
+        {'stage_id':999999, 'desc':'개발 스테이지'}
+    ]
+}

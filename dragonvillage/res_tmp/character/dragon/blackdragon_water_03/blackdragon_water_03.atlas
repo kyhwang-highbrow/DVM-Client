@@ -1,0 +1,237 @@
+
+blackdragon_water_03.png
+size: 1890,808
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+blackdragon_water_03_arm_01
+  rotate: true
+  xy: 1740, 103
+  size: 44, 84
+  orig: 44, 84
+  offset: 0, 0
+  index: -1
+blackdragon_water_03_arm_02
+  rotate: false
+  xy: 1826, 78
+  size: 59, 66
+  orig: 59, 66
+  offset: 0, 0
+  index: -1
+blackdragon_water_03_body_01
+  rotate: false
+  xy: 1508, 213
+  size: 121, 163
+  orig: 121, 163
+  offset: 0, 0
+  index: -1
+blackdragon_water_03_ear_01
+  rotate: true
+  xy: 1655, 340
+  size: 86, 143
+  orig: 86, 143
+  offset: 0, 0
+  index: -1
+blackdragon_water_03_ear_02
+  rotate: true
+  xy: 1508, 23
+  size: 50, 114
+  orig: 50, 114
+  offset: 0, 0
+  index: -1
+blackdragon_water_03_effect_01
+  rotate: false
+  xy: 1655, 576
+  size: 228, 230
+  orig: 228, 230
+  offset: 0, 0
+  index: -1
+blackdragon_water_03_effect_02
+  rotate: true
+  xy: 1836, 432
+  size: 20, 47
+  orig: 20, 47
+  offset: 0, 0
+  index: -1
+blackdragon_water_03_effect_03_1
+  rotate: false
+  xy: 2, 406
+  size: 500, 400
+  orig: 500, 400
+  offset: 0, 0
+  index: -1
+blackdragon_water_03_effect_03_2
+  rotate: false
+  xy: 2, 4
+  size: 500, 400
+  orig: 500, 400
+  offset: 0, 0
+  index: -1
+blackdragon_water_03_effect_03_3
+  rotate: false
+  xy: 504, 406
+  size: 500, 400
+  orig: 500, 400
+  offset: 0, 0
+  index: -1
+blackdragon_water_03_effect_03_4
+  rotate: false
+  xy: 504, 4
+  size: 500, 400
+  orig: 500, 400
+  offset: 0, 0
+  index: -1
+blackdragon_water_03_effect_03_5
+  rotate: false
+  xy: 1006, 406
+  size: 500, 400
+  orig: 500, 400
+  offset: 0, 0
+  index: -1
+blackdragon_water_03_effect_03_6
+  rotate: false
+  xy: 1006, 4
+  size: 500, 400
+  orig: 500, 400
+  offset: 0, 0
+  index: -1
+blackdragon_water_03_eye_01
+  rotate: false
+  xy: 1791, 72
+  size: 31, 29
+  orig: 31, 29
+  offset: 0, 0
+  index: -1
+blackdragon_water_03_eye_02
+  rotate: true
+  xy: 1524, 3
+  size: 18, 23
+  orig: 18, 23
+  offset: 0, 0
+  index: -1
+blackdragon_water_03_eye_03
+  rotate: true
+  xy: 1631, 342
+  size: 34, 14
+  orig: 34, 14
+  offset: 0, 0
+  index: -1
+blackdragon_water_03_eye_04
+  rotate: true
+  xy: 1647, 360
+  size: 16, 6
+  orig: 16, 6
+  offset: 0, 0
+  index: -1
+blackdragon_water_03_eye_05
+  rotate: false
+  xy: 1791, 41
+  size: 31, 29
+  orig: 31, 29
+  offset: 0, 0
+  index: -1
+blackdragon_water_03_eye_06
+  rotate: true
+  xy: 1549, 3
+  size: 18, 23
+  orig: 18, 23
+  offset: 0, 0
+  index: -1
+blackdragon_water_03_foot_01
+  rotate: false
+  xy: 1836, 454
+  size: 47, 50
+  orig: 47, 50
+  offset: 0, 0
+  index: -1
+blackdragon_water_03_foot_02
+  rotate: false
+  xy: 1740, 53
+  size: 49, 48
+  orig: 49, 48
+  offset: 0, 0
+  index: -1
+blackdragon_water_03_hair_01
+  rotate: false
+  xy: 1826, 146
+  size: 62, 81
+  orig: 62, 81
+  offset: 0, 0
+  index: -1
+blackdragon_water_03_hair_02
+  rotate: false
+  xy: 1631, 229
+  size: 113, 109
+  orig: 113, 109
+  offset: 0, 0
+  index: -1
+blackdragon_water_03_hand_01
+  rotate: false
+  xy: 1643, 40
+  size: 94, 58
+  orig: 94, 58
+  offset: 0, 0
+  index: -1
+blackdragon_water_03_hand_02
+  rotate: true
+  xy: 1836, 506
+  size: 68, 47
+  orig: 68, 47
+  offset: 0, 0
+  index: -1
+blackdragon_water_03_head_01
+  rotate: false
+  xy: 1746, 229
+  size: 113, 109
+  orig: 113, 109
+  offset: 0, 0
+  index: -1
+blackdragon_water_03_leg_01
+  rotate: false
+  xy: 1740, 149
+  size: 84, 78
+  orig: 84, 78
+  offset: 0, 0
+  index: -1
+blackdragon_water_03_leg_02
+  rotate: false
+  xy: 1800, 347
+  size: 78, 79
+  orig: 78, 79
+  offset: 0, 0
+  index: -1
+blackdragon_water_03_mouth_01
+  rotate: true
+  xy: 1508, 2
+  size: 19, 14
+  orig: 19, 14
+  offset: 0, 0
+  index: -1
+blackdragon_water_03_neck_01
+  rotate: false
+  xy: 1508, 75
+  size: 133, 136
+  orig: 133, 136
+  offset: 0, 0
+  index: -1
+blackdragon_water_03_neck_02
+  rotate: false
+  xy: 1655, 428
+  size: 179, 146
+  orig: 179, 146
+  offset: 0, 0
+  index: -1
+blackdragon_water_03_tail_01
+  rotate: false
+  xy: 1508, 378
+  size: 145, 428
+  orig: 145, 428
+  offset: 0, 0
+  index: -1
+blackdragon_water_03_wing_01
+  rotate: true
+  xy: 1643, 100
+  size: 127, 95
+  orig: 127, 95
+  offset: 0, 0
+  index: -1

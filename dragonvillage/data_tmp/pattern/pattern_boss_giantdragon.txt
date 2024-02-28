@@ -1,0 +1,117 @@
+{
+    "pattern_boss_giantdragon":
+    [        
+        [
+			"w;2", "a;basic", "w;2", "a;basic", "w;2", "a;1",
+			"w;2", "a;basic", "w;2", "a;basic", "w;2", "a;1",
+			"w;2", "a;basic", "w;2", "a;basic", "w;2", "a;2",
+			"w;2", "a;4"
+			
+        ]
+    ],
+	
+    "hp_trriger":
+    {
+        "priority":1,
+        "list":
+        [
+            {
+                "hp_percent":75,
+                "pattern":
+                [
+                    "m;NEST;400",
+					"w;2", "a;4", "w;2", "a;3", "w;2", "a;1"
+                ]
+            },
+			
+			{
+                "hp_percent":50,
+                "pattern":
+                [
+                    "m;NEST;400",
+					"w;2", "a;4", "w;2", "a;3", "w;2", "a;2"
+                ]
+            },
+			
+			{
+                "hp_percent":25,
+                "pattern":
+                [
+                    "m;NEST;400",
+					"w;2", "a;4", "w;1", "a;3", "w;1", "a;1"
+                ]
+            }
+        ]
+    },
+	
+	"time_trriger":
+    {
+        "priority":2,
+        "list":
+        [
+			{
+                "time":10,
+                "pattern":
+                [
+                    "m;RB24;200", "a;2", "w;3", "m;NEST;400", "w;1"
+                ]
+            },
+			
+			{
+                "time":40,
+                "pattern":
+                [
+                    "m;RB22;200", "a;2", "w;3", "m;NEST;400", "w;1"
+                ]
+            },
+			
+			{
+                "time":70,
+                "pattern":
+                [
+                    "m;RB26;200", "a;2", "w;3", "m;NEST;400", "w;1"
+                ]
+            },
+			
+			{
+                "time":100,
+                "pattern":
+                [
+                    "m;RB24;200", "a;2", "w;3", "m;NEST;400", "w;1"
+                ]
+            },
+			
+			{
+                "time":130,
+                "pattern":
+                [
+                    "m;RB22;200", "a;2", "w;3", "m;NEST;400", "w;1"
+                ]
+            },
+			
+			{
+                "time":160,
+                "pattern":
+                [
+                    "m;RB26;200", "a;2", "w;3", "m;NEST;400", "w;1"
+                ]
+            }
+        ]
+    },
+	
+	"ani_mix":
+	[
+        "idle;attack;0.1",
+        "idle;idle;0.1",
+        "attack;idle;0.1",
+		"skill_4_appear;idle;0.1",
+		"skill_3_appear;idle;0.1",
+		"skill_2_appear;idle;0.1",
+		"idle;skill_4_appear;0.1"
+    ]
+	
+	"sound":
+	{
+		"die":"vo_gdragon_die"
+	}
+}

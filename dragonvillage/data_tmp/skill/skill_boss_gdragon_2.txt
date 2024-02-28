@@ -1,0 +1,78 @@
+{
+	"skill_boss_gdragon_2":
+	{
+		"attack_value":
+		[		
+			{
+				"comment":"거대용 공통스킬: 용의 분노(모으기)",
+				
+				"idx":1,
+				"res":"res/effect/effect_charge_line/effect_charge_line_@.vrp",
+				"visual":"idle",
+				"body":[0,0,0],
+                "count":1,
+                "scale":0.5,
+                "period":0,
+				"time":0,
+				"speed":0,
+				"angular_velocity":0,
+				"offset":[-200,0],
+                "dir":0,
+				"fadeout_time":0.5
+			},
+			
+			{
+				"comment":"거대용 공통스킬: 용의 분노",
+				
+				"idx":1,
+				"res":"res/effect/skill_gdragon_laser/skill_gdragon_laser_@.vrp",
+				"visual":"idle",
+				"body":[0,0,0],
+                "count":1,
+                "scale":[4,8],
+                "period":0,
+				"time":0,
+				"speed":0,
+				"angular_velocity":0,
+				"offset":[-200,0],
+                "dir":0,
+				
+				"fadeout_time":1.3,
+				
+                "effect":
+                {
+                    "motion_streak":"",
+                    "rotation":false,
+                    "afterimage":false
+                }
+			},
+			
+			{
+				"idx":1,
+				"body":[0,0,200],
+                "count":1,
+				"damage_rate":100,
+                "scale":1,
+                "period":0,
+				"time":0.6,
+				"speed":2500,
+				"accel":0,
+				"h_limit_speed":2000,
+				"accel_delay":0,
+				"angular_velocity":0,
+				"offset":[-200,0],
+				"dir":0,
+                "dir_add":0,
+				"missile_type":"pass",
+				"map_shake_time":0.5,
+				
+                "effect":
+                {
+                    "motion_streak":"",
+                    "rotation":false,
+                    "afterimage":false
+                }
+			}
+		]
+	}
+}

@@ -1,0 +1,167 @@
+
+figer_fire_02.png
+size: 364,1032
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+figer_fire_02_arm_01
+  rotate: true
+  xy: 2, 2
+  size: 124, 226
+  orig: 124, 226
+  offset: 0, 0
+  index: -1
+figer_fire_02_arm_02
+  rotate: false
+  xy: 204, 598
+  size: 146, 212
+  orig: 146, 212
+  offset: 0, 0
+  index: -1
+figer_fire_02_body_01
+  rotate: true
+  xy: 2, 553
+  size: 257, 200
+  orig: 257, 200
+  offset: 0, 0
+  index: -1
+figer_fire_02_body_acc_01
+  rotate: true
+  xy: 2, 128
+  size: 204, 175
+  orig: 204, 175
+  offset: 0, 0
+  index: -1
+figer_fire_02_eye_02
+  rotate: false
+  xy: 230, 10
+  size: 25, 18
+  orig: 25, 18
+  offset: 0, 0
+  index: -1
+figer_fire_02_eye_03
+  rotate: false
+  xy: 321, 246
+  size: 20, 19
+  orig: 20, 19
+  offset: 0, 0
+  index: -1
+figer_fire_02_eye_04
+  rotate: false
+  xy: 321, 303
+  size: 41, 25
+  orig: 41, 25
+  offset: 0, 0
+  index: -1
+figer_fire_02_hand_01_finger_1
+  rotate: true
+  xy: 179, 131
+  size: 37, 67
+  orig: 37, 67
+  offset: 0, 0
+  index: -1
+figer_fire_02_hand_01_finger_2
+  rotate: false
+  xy: 318, 444
+  size: 37, 66
+  orig: 37, 66
+  offset: 0, 0
+  index: -1
+figer_fire_02_hand_01_finger_3
+  rotate: false
+  xy: 318, 382
+  size: 35, 60
+  orig: 35, 60
+  offset: 0, 0
+  index: -1
+figer_fire_02_head_01
+  rotate: false
+  xy: 248, 124
+  size: 84, 86
+  orig: 84, 86
+  offset: 0, 0
+  index: -1
+figer_fire_02_head_01_02
+  rotate: true
+  xy: 179, 170
+  size: 146, 67
+  orig: 146, 67
+  offset: 0, 0
+  index: -1
+figer_fire_02_head_01_03
+  rotate: false
+  xy: 204, 512
+  size: 158, 84
+  orig: 158, 84
+  offset: 0, 0
+  index: -1
+figer_fire_02_head_horn_01
+  rotate: false
+  xy: 230, 30
+  size: 59, 92
+  orig: 59, 92
+  offset: 0, 0
+  index: -1
+figer_fire_02_head_horn_02
+  rotate: false
+  xy: 291, 42
+  size: 68, 80
+  orig: 68, 80
+  offset: 0, 0
+  index: -1
+figer_fire_02_leg_01
+  rotate: false
+  xy: 257, 824
+  size: 101, 206
+  orig: 101, 206
+  offset: 0, 0
+  index: -1
+figer_fire_02_leg_02
+  rotate: false
+  xy: 203, 318
+  size: 113, 192
+  orig: 113, 192
+  offset: 0, 0
+  index: -1
+figer_fire_02_mouth_01
+  rotate: true
+  xy: 248, 212
+  size: 104, 71
+  orig: 104, 71
+  offset: 0, 0
+  index: -1
+figer_fire_02_mouth_02
+  rotate: false
+  xy: 321, 267
+  size: 35, 34
+  orig: 35, 34
+  offset: 0, 0
+  index: -1
+figer_fire_02_mouth_03
+  rotate: true
+  xy: 318, 330
+  size: 50, 43
+  orig: 50, 43
+  offset: 0, 0
+  index: -1
+figer_fire_02_tail_01
+  rotate: true
+  xy: 2, 334
+  size: 217, 199
+  orig: 217, 199
+  offset: 0, 0
+  index: -1
+figer_fire_02_teeth_02
+  rotate: true
+  xy: 257, 812
+  size: 10, 13
+  orig: 10, 13
+  offset: 0, 0
+  index: -1
+figer_fire_02_wing_01
+  rotate: false
+  xy: 2, 812
+  size: 253, 218
+  orig: 253, 218
+  offset: 0, 0
+  index: -1

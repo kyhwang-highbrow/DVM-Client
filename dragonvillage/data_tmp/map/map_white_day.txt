@@ -1,0 +1,13 @@
+{
+	"layer":
+    [
+        {
+            "name":"ë°°ę˛˝"
+            "speed":0
+			"list":
+			[
+                {"res":"res/bg/map_white_day/map_white_day.vrp" "animation":"idle" "width":1920 "pos_x":640 "scale":1.2}
+            ]
+        }
+    ]
+}

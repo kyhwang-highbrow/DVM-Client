@@ -1,0 +1,111 @@
+
+sobj_ufo.png
+size: 594,295
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+sobj_ufo_alien
+  rotate: false
+  xy: 360, 3
+  size: 77, 53
+  orig: 77, 53
+  offset: 0, 0
+  index: -1
+sobj_ufo_antena
+  rotate: false
+  xy: 492, 10
+  size: 74, 57
+  orig: 74, 57
+  offset: 0, 0
+  index: -1
+sobj_ufo_b_wing
+  rotate: false
+  xy: 251, 62
+  size: 78, 73
+  orig: 78, 73
+  offset: 0, 0
+  index: -1
+sobj_ufo_body
+  rotate: false
+  xy: 2, 15
+  size: 233, 93
+  orig: 233, 93
+  offset: 0, 0
+  index: -1
+sobj_ufo_boost
+  rotate: true
+  xy: 283, 2
+  size: 54, 75
+  orig: 54, 75
+  offset: 0, 0
+  index: -1
+sobj_ufo_gun_01
+  rotate: true
+  xy: 442, 2
+  size: 65, 48
+  orig: 65, 48
+  offset: 0, 0
+  index: -1
+sobj_ufo_gun_02
+  rotate: false
+  xy: 354, 129
+  size: 113, 60
+  orig: 113, 60
+  offset: 0, 0
+  index: -1
+sobj_ufo_h_wing
+  rotate: false
+  xy: 354, 191
+  size: 111, 102
+  orig: 111, 102
+  offset: 0, 0
+  index: -1
+sobj_ufo_hit
+  rotate: false
+  xy: 2, 110
+  size: 247, 183
+  orig: 247, 183
+  offset: 0, 0
+  index: -1
+sobj_ufo_inner_01
+  rotate: true
+  xy: 237, 2
+  size: 58, 44
+  orig: 58, 44
+  offset: 0, 0
+  index: -1
+sobj_ufo_inner_02
+  rotate: false
+  xy: 331, 58
+  size: 109, 69
+  orig: 109, 69
+  offset: 0, 0
+  index: -1
+sobj_ufo_window
+  rotate: false
+  xy: 469, 149
+  size: 110, 78
+  orig: 110, 78
+  offset: 0, 0
+  index: -1
+sobj_ufo_window_r
+  rotate: false
+  xy: 469, 69
+  size: 110, 78
+  orig: 110, 78
+  offset: 0, 0
+  index: -1
+ufo_fire_1
+  rotate: true
+  xy: 467, 229
+  size: 64, 125
+  orig: 64, 125
+  offset: 0, 0
+  index: -1
+ufo_fire_2
+  rotate: false
+  xy: 251, 137
+  size: 101, 156
+  orig: 101, 156
+  offset: 0, 0
+  index: -1

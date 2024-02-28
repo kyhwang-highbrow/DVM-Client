@@ -1,0 +1,46 @@
+{
+    "pattern_boss_golddragon":
+    [        
+        [
+			"a;basic", "w;2", "a;basic", "w;2", "a;basic", "w;2", "a;2",
+			"a;basic", "w;2", "a;basic", "w;2", "a;basic", "w;2", "a;1",
+			"a;basic", "w;2", "a;basic", "w;2", "a;basic", "w;2", "a;5",
+			"a;basic", "w;2", "a;basic", "w;2", "a;basic", "w;2", "a;6",
+			"a;basic", "w;2", "a;basic", "w;2", "a;basic", "w;2", "a;2",
+			"a;basic", "w;2", "a;basic", "w;2", "a;basic", "w;2", "a;1",
+			"a;basic", "w;2", "a;basic", "w;2", "a;basic", "w;2", "a;5",
+			"a;basic", "w;2", "a;basic", "w;2", "a;basic", "w;2", "a;6"
+        ],
+		
+		[
+			"a;basic", "w;2", "a;basic", "w;2", "a;basic", "w;2", "a;3",
+			"a;basic", "w;2", "a;basic", "w;2", "a;basic", "w;2", "a;1",
+			"a;basic", "w;2", "a;basic", "w;2", "a;basic", "w;2", "a;5",
+			"a;basic", "w;2", "a;basic", "w;2", "a;basic", "w;2", "a;6",
+			"a;basic", "w;2", "a;basic", "w;2", "a;basic", "w;2", "a;3",
+			"a;basic", "w;2", "a;basic", "w;2", "a;basic", "w;2", "a;1",
+			"a;basic", "w;2", "a;basic", "w;2", "a;basic", "w;2", "a;5",
+			"a;basic", "w;2", "a;basic", "w;2", "a;basic", "w;2", "a;6"
+        ],
+		
+		[
+			"a;basic", "w;2", "a;basic", "w;2", "a;basic", "w;2", "a;4",
+			"a;basic", "w;2", "a;basic", "w;2", "a;basic", "w;2", "a;1",
+			"a;basic", "w;2", "a;basic", "w;2", "a;basic", "w;2", "a;5",
+			"a;basic", "w;2", "a;basic", "w;2", "a;basic", "w;2", "a;6",
+			"a;basic", "w;2", "a;basic", "w;2", "a;basic", "w;2", "a;4",
+			"a;basic", "w;2", "a;basic", "w;2", "a;basic", "w;2", "a;1",
+			"a;basic", "w;2", "a;basic", "w;2", "a;basic", "w;2", "a;5",
+			"a;basic", "w;2", "a;basic", "w;2", "a;basic", "w;2", "a;6"
+        ]
+    ],
+
+	"ani_mix":
+	[
+        "idle;attack;0.1",
+        "idle;idle;0.1",
+        "attack;idle;0.1",
+		"skill_4_appear;idle;0.1",
+		"idle;skill_4_appear;0.1"
+    ]
+}

@@ -1,0 +1,111 @@
+
+dede_sleep_h.png
+size: 459,536
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+dede_sleep_bed_01
+  rotate: true
+  xy: 2, 19
+  size: 91, 181
+  orig: 91, 181
+  offset: 0, 0
+  index: -1
+dede_sleep_bed_02
+  rotate: true
+  xy: 314, 297
+  size: 237, 133
+  orig: 237, 133
+  offset: 0, 0
+  index: -1
+dede_sleep_bed_03
+  rotate: false
+  xy: 2, 295
+  size: 310, 103
+  orig: 310, 103
+  offset: 0, 0
+  index: -1
+dede_sleep_bed_04
+  rotate: false
+  xy: 2, 190
+  size: 310, 103
+  orig: 310, 103
+  offset: 0, 0
+  index: -1
+dede_sleep_bed_05
+  rotate: false
+  xy: 227, 14
+  size: 42, 96
+  orig: 42, 96
+  offset: 0, 0
+  index: -1
+dede_sleep_bed_06
+  rotate: false
+  xy: 272, 95
+  size: 43, 93
+  orig: 43, 93
+  offset: 0, 0
+  index: -1
+dede_sleep_bed_07
+  rotate: false
+  xy: 2, 112
+  size: 268, 76
+  orig: 268, 76
+  offset: 0, 0
+  index: -1
+dede_sleep_bed_08
+  rotate: false
+  xy: 185, 2
+  size: 40, 108
+  orig: 40, 108
+  offset: 0, 0
+  index: -1
+dede_sleep_bed_09
+  rotate: false
+  xy: 2, 400
+  size: 310, 134
+  orig: 310, 134
+  offset: 0, 0
+  index: -1
+dede_sleep_body_01
+  rotate: false
+  xy: 418, 215
+  size: 16, 31
+  orig: 16, 31
+  offset: 0, 0
+  index: -1
+dede_sleep_body_02
+  rotate: false
+  xy: 418, 248
+  size: 28, 47
+  orig: 28, 47
+  offset: 0, 0
+  index: -1
+dede_sleep_body_03
+  rotate: true
+  xy: 393, 139
+  size: 74, 64
+  orig: 74, 64
+  offset: 0, 0
+  index: -1
+dede_sleep_duvet_01
+  rotate: true
+  xy: 317, 52
+  size: 161, 74
+  orig: 161, 74
+  offset: 0, 0
+  index: -1
+dede_sleep_head_01
+  rotate: false
+  xy: 393, 75
+  size: 58, 62
+  orig: 58, 62
+  offset: 0, 0
+  index: -1
+dede_sleep_pillow
+  rotate: false
+  xy: 314, 215
+  size: 102, 80
+  orig: 102, 80
+  offset: 0, 0
+  index: -1

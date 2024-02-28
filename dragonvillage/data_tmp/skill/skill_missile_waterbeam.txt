@@ -1,0 +1,26 @@
+{
+	"skill_missile_waterbeam":
+	{
+		"attack_value":
+		[		
+			{				
+				"idx":1,
+				"res":"res/missile/missile_test/missile_test.png",
+				"body":[0,0,20],
+                "count":20,
+				"time":0.01,
+                "scale":1,
+                "period":0.05,
+				"speed":500,
+				"offset":[0,0],
+				
+                "effect":
+                {
+                    "motion_streak":"",
+                    "rotation":false,
+                    "afterimage":false
+                }				
+			}
+		]
+	}
+}

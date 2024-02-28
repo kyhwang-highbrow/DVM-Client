@@ -1,0 +1,7 @@
+rarity,unique_status,unique_action,unique_value,earth_status,earth_action,earth_value,water_status,water_action,water_value,fire_status,fire_action,fire_value,light_status,light_action,light_value,dark_status,dark_action,dark_value
+common,,,,hp,add,500,avoid,add,5,atk,multiply,6,def,add,6,cri_dmg,add,5
+rare,,,,hp,add,600,avoid,add,6,atk,multiply,7,def,add,7,cri_dmg,add,6
+hero,,,,hp,add,650,avoid,add,7,atk,multiply,8,def,add,8,cri_dmg,add,7
+legend,,,,hp,add,700,avoid,add,8,atk,multiply,10,def,add,10,cri_dmg,add,8
+120294,cri_chance; atk,add; multiply,5; 10,,,,,,,,,,,,,,,
+120295,atk; def,multiply; multiply,10; 10,,,,,,,,,,,,,,,

@@ -1,0 +1,104 @@
+
+priest_wind.png
+size: 512,128
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+priest_wind_arm_01
+  rotate: false
+  xy: 276, 82
+  size: 44, 44
+  orig: 44, 44
+  offset: 0, 0
+  index: -1
+priest_wind_arm_02
+  rotate: true
+  xy: 227, 82
+  size: 44, 47
+  orig: 44, 47
+  offset: 0, 0
+  index: -1
+priest_wind_body_01
+  rotate: false
+  xy: 2, 21
+  size: 65, 105
+  orig: 65, 105
+  offset: 0, 0
+  index: -1
+priest_wind_body_02
+  rotate: false
+  xy: 404, 96
+  size: 30, 30
+  orig: 30, 30
+  offset: 0, 0
+  index: -1
+priest_wind_body_03
+  rotate: false
+  xy: 322, 84
+  size: 40, 42
+  orig: 40, 42
+  offset: 0, 0
+  index: -1
+priest_wind_body_04
+  rotate: false
+  xy: 227, 62
+  size: 33, 18
+  orig: 33, 18
+  offset: 0, 0
+  index: -1
+priest_wind_effect_01
+  rotate: true
+  xy: 187, 62
+  size: 35, 38
+  orig: 35, 38
+  offset: 0, 0
+  index: -1
+priest_wind_effect_02
+  rotate: false
+  xy: 135, 99
+  size: 90, 27
+  orig: 90, 27
+  offset: 0, 0
+  index: -1
+priest_wind_effect_03
+  rotate: true
+  xy: 30, 4
+  size: 15, 23
+  orig: 15, 23
+  offset: 0, 0
+  index: -1
+priest_wind_hand_01
+  rotate: false
+  xy: 364, 94
+  size: 38, 32
+  orig: 38, 32
+  offset: 0, 0
+  index: -1
+priest_wind_hand_02
+  rotate: false
+  xy: 2, 2
+  size: 26, 17
+  orig: 26, 17
+  offset: 0, 0
+  index: -1
+priest_wind_head_01
+  rotate: true
+  xy: 69, 21
+  size: 43, 51
+  orig: 43, 51
+  offset: 0, 0
+  index: -1
+priest_wind_weapon_01
+  rotate: false
+  xy: 69, 66
+  size: 64, 60
+  orig: 64, 60
+  offset: 0, 0
+  index: -1
+priest_wind_weapon_02
+  rotate: true
+  xy: 135, 67
+  size: 30, 50
+  orig: 30, 50
+  offset: 0, 0
+  index: -1

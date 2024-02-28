@@ -1,0 +1,65 @@
+{
+    "directing":"floating_1",
+	"layer":
+    [
+        {
+            "name":"배경"
+            "speed":0
+            "list":
+            [
+                {"res":"res/bg/halloween/halloween.vrp" "animation":"layer_bg_2" "width":1920 "pos_x":640 "scale":1.15}
+
+            ]
+        },
+		
+		{
+            "name":"배경"
+            "speed":0.05
+            "list":
+            [
+                {"res":"res/bg/halloween/halloween.vrp" "animation":"layer_bg_1" "width":1920 "pos_x":640 "scale":1.15}
+
+            ]
+        },
+		
+		{
+            "name":"원경"
+            "speed":0.1
+            "list":
+            [
+                {"res":"res/bg/halloween/halloween.vrp" "animation":"layer_01" "width":1520 "pos_x":640 "pos_y":100 "scale":1.5}
+
+            ]
+        },
+		
+		{
+            "name":"중경"
+            "speed":0.3
+            "list":
+            [
+                {"res":"res/bg/halloween/halloween.vrp" "animation":"layer_02" "width":1920 "pos_x":240 "pos_y":0 "scale":1.5}
+
+            ]
+        },
+		
+		{
+            "name":"중경"
+            "speed":0.4
+            "list":
+            [
+                {"res":"res/bg/halloween/halloween.vrp" "animation":"layer_02" "width":920 "pos_x":640 "pos_y":0 "scale":1.5}
+
+            ]
+        },
+		
+		{
+            "name":"근경"
+            "speed":0.5
+            "list":
+            [
+                {"res":"res/bg/halloween/halloween.vrp" "animation":"layer_03" "width":1920 "pos_x":640 "pos_y":400 "scale":1.5}
+
+            ]
+        }
+    ]
+}

@@ -1,0 +1,110 @@
+{
+    "difficult":2,
+    "bg":"map_nest_ether",
+	"camera":
+	{
+		"scale":1,
+        "pos_x":0,
+        "pos_y":0
+	}
+	
+	"wave":
+	[
+        {
+			"idx":1,
+			"camera":
+            {
+                "scale":1,
+                "pos_x":2280,
+                "pos_y":0
+            },
+			
+            "wave":
+            {
+				0:
+				[
+					"130015;1;Basic;RO04;RF14;2"
+				],
+				
+				0.2:
+				[
+					"131075;1;Basic;RO02;RM12;2"
+					"131075;1;Basic;RO06;RM16;2"
+				],
+				
+				0.4:
+				[
+					"131075;1;Basic;RO04;RB14;2"
+				]
+            }
+		},
+		
+		{
+			"idx":2,
+			"camera":
+            {
+                "scale":0.8,
+                "pos_x":5080,
+                "pos_y":0
+            },
+			
+            "wave":
+            {
+				0:
+				[
+					"130055;1;Appear;RO03;RB13;0.5"
+					"130055;1;Appear;RO05;RB15;0.5"
+				],
+				
+				0.2:
+				[	
+					"130015;1;Basic2;RB14;RF12;0.5"
+					"130015;1;Basic2;RB14;RF16;0.5"
+				],
+				
+				0.4:
+				[	
+					"131075;1;Basic2;RB14;RM11;0.5"
+					"131075;1;Basic2;RB14;RM17;0.5"
+				]
+            }
+		},
+		
+		{
+            "idx":3,
+			"camera":
+            {
+                "scale":0.6,
+                "pos_x":5080,
+                "pos_y":0
+            },
+			
+            "direction":"boss_wave",
+			
+            "wave":
+            {
+				0:
+				[
+					"135015;1;NestDragon;BOSS;NEST;2"
+				]
+            },
+			
+			"regen":
+			[
+				{
+					0:
+					[
+						"131075;1;Appear;RO02;RF22;2"
+					]
+				},
+				
+				{
+					0:
+					[
+						"131075;1;Appear;RO06;RF26;2"
+					]
+				}
+			]
+        }
+    ]
+}

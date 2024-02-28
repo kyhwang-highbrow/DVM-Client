@@ -1,0 +1,216 @@
+
+garuda_water_02.png
+size: 2018,937
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+garuda_water_02_arm_01
+  rotate: true
+  xy: 498, 27
+  size: 130, 195
+  orig: 130, 195
+  offset: 0, 0
+  index: -1
+garuda_water_02_arm_02
+  rotate: true
+  xy: 695, 27
+  size: 130, 195
+  orig: 130, 195
+  offset: 0, 0
+  index: -1
+garuda_water_02_arm_03
+  rotate: true
+  xy: 892, 27
+  size: 130, 99
+  orig: 130, 99
+  offset: 0, 0
+  index: -1
+garuda_water_02_arm_04
+  rotate: false
+  xy: 1394, 198
+  size: 89, 99
+  orig: 89, 99
+  offset: 0, 0
+  index: -1
+garuda_water_02_body_01
+  rotate: false
+  xy: 1699, 357
+  size: 301, 189
+  orig: 301, 189
+  offset: 0, 0
+  index: -1
+garuda_water_02_body_02
+  rotate: true
+  xy: 1699, 4
+  size: 351, 214
+  orig: 351, 214
+  offset: 0, 0
+  index: -1
+garuda_water_02_body_effect_01_s0059
+  rotate: true
+  xy: 2, 548
+  size: 387, 317
+  orig: 387, 317
+  offset: 0, 0
+  index: -1
+garuda_water_02_body_effect_01_s0060
+  rotate: true
+  xy: 2, 159
+  size: 387, 317
+  orig: 387, 317
+  offset: 0, 0
+  index: -1
+garuda_water_02_body_effect_01_s0061
+  rotate: true
+  xy: 321, 548
+  size: 387, 317
+  orig: 387, 317
+  offset: 0, 0
+  index: -1
+garuda_water_02_body_effect_01_s0062
+  rotate: true
+  xy: 321, 159
+  size: 387, 317
+  orig: 387, 317
+  offset: 0, 0
+  index: -1
+garuda_water_02_body_effect_01_s0063
+  rotate: true
+  xy: 640, 548
+  size: 387, 317
+  orig: 387, 317
+  offset: 0, 0
+  index: -1
+garuda_water_02_body_effect_01_s0064
+  rotate: true
+  xy: 640, 159
+  size: 387, 317
+  orig: 387, 317
+  offset: 0, 0
+  index: -1
+garuda_water_02_body_effect_01_s0065
+  rotate: true
+  xy: 959, 548
+  size: 387, 317
+  orig: 387, 317
+  offset: 0, 0
+  index: -1
+garuda_water_02_body_effect_01_s0066
+  rotate: true
+  xy: 959, 159
+  size: 387, 317
+  orig: 387, 317
+  offset: 0, 0
+  index: -1
+garuda_water_02_body_effect_01_s0067
+  rotate: false
+  xy: 1310, 618
+  size: 387, 317
+  orig: 387, 317
+  offset: 0, 0
+  index: -1
+garuda_water_02_body_effect_01_s0068
+  rotate: true
+  xy: 1699, 548
+  size: 387, 317
+  orig: 387, 317
+  offset: 0, 0
+  index: -1
+garuda_water_02_body_effect_01_s0069
+  rotate: false
+  xy: 1310, 299
+  size: 387, 317
+  orig: 387, 317
+  offset: 0, 0
+  index: -1
+garuda_water_02_eye_01
+  rotate: true
+  xy: 1278, 182
+  size: 115, 114
+  orig: 115, 114
+  offset: 0, 0
+  index: -1
+garuda_water_02_foot_01
+  rotate: false
+  xy: 165, 26
+  size: 109, 131
+  orig: 109, 131
+  offset: 0, 0
+  index: -1
+garuda_water_02_foot_02
+  rotate: false
+  xy: 276, 26
+  size: 109, 131
+  orig: 109, 131
+  offset: 0, 0
+  index: -1
+garuda_water_02_hand_01
+  rotate: true
+  xy: 993, 32
+  size: 125, 101
+  orig: 125, 101
+  offset: 0, 0
+  index: -1
+garuda_water_02_hand_02
+  rotate: true
+  xy: 1096, 32
+  size: 125, 101
+  orig: 125, 101
+  offset: 0, 0
+  index: -1
+garuda_water_02_head_01
+  rotate: true
+  xy: 2, 10
+  size: 147, 161
+  orig: 147, 161
+  offset: 0, 0
+  index: -1
+garuda_water_02_head_02
+  rotate: false
+  xy: 1915, 269
+  size: 90, 86
+  orig: 90, 86
+  offset: 0, 0
+  index: -1
+garuda_water_02_head_03
+  rotate: true
+  xy: 1502, 21
+  size: 276, 190
+  orig: 276, 190
+  offset: 0, 0
+  index: -1
+garuda_water_02_head_04
+  rotate: true
+  xy: 1310, 2
+  size: 178, 190
+  orig: 178, 190
+  offset: 0, 0
+  index: -1
+garuda_water_02_head_05
+  rotate: true
+  xy: 1915, 212
+  size: 55, 80
+  orig: 55, 80
+  offset: 0, 0
+  index: -1
+garuda_water_02_head_06
+  rotate: true
+  xy: 1915, 155
+  size: 55, 80
+  orig: 55, 80
+  offset: 0, 0
+  index: -1
+garuda_water_02_leg_01
+  rotate: false
+  xy: 387, 26
+  size: 109, 131
+  orig: 109, 131
+  offset: 0, 0
+  index: -1
+garuda_water_02_leg_02
+  rotate: false
+  xy: 1199, 36
+  size: 109, 121
+  orig: 109, 121
+  offset: 0, 0
+  index: -1

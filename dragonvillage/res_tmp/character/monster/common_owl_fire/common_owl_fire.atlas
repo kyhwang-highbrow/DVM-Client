@@ -1,0 +1,55 @@
+
+common_owl_fire.png
+size: 512,512
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+owl_fire_arm_01
+  rotate: false
+  xy: 1, 73
+  size: 174, 172
+  orig: 174, 172
+  offset: 0, 0
+  index: -1
+owl_fire_body_01
+  rotate: false
+  xy: 1, 247
+  size: 242, 250
+  orig: 242, 250
+  offset: 0, 0
+  index: -1
+owl_fire_mouth_03
+  rotate: false
+  xy: 1, 1
+  size: 112, 70
+  orig: 112, 70
+  offset: 0, 0
+  index: -1
+owlbear_fire_arm_01
+  rotate: false
+  xy: 245, 369
+  size: 156, 128
+  orig: 156, 128
+  offset: 0, 0
+  index: -1
+owlbear_fire_leg_01
+  rotate: false
+  xy: 245, 275
+  size: 114, 92
+  orig: 114, 92
+  offset: 0, 0
+  index: -1
+owlbear_fire_leg_02
+  rotate: true
+  xy: 403, 383
+  size: 114, 92
+  orig: 114, 92
+  offset: 0, 0
+  index: -1
+owlbear_fire_tail_01
+  rotate: true
+  xy: 177, 131
+  size: 114, 92
+  orig: 114, 92
+  offset: 0, 0
+  index: -1

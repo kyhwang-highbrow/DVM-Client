@@ -1,0 +1,174 @@
+
+hedgebat_earth_01.png
+size: 1864,237
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+hedgeba_earth_01__bfx
+  rotate: false
+  xy: 1240, 85
+  size: 103, 150
+  orig: 103, 150
+  offset: 0, 0
+  index: -1
+hedgeba_earth_01_arm_01
+  rotate: false
+  xy: 880, 5
+  size: 52, 41
+  orig: 52, 41
+  offset: 0, 0
+  index: -1
+hedgeba_earth_01_body_01
+  rotate: true
+  xy: 477, 13
+  size: 222, 194
+  orig: 222, 194
+  offset: 0, 0
+  index: -1
+hedgeba_earth_01_eff_02
+  rotate: true
+  xy: 1018, 63
+  size: 172, 85
+  orig: 172, 85
+  offset: 0, 0
+  index: -1
+hedgeba_earth_01_effect_01
+  rotate: false
+  xy: 235, 7
+  size: 240, 228
+  orig: 240, 228
+  offset: 0, 0
+  index: -1
+hedgeba_earth_01_effect_light
+  rotate: false
+  xy: 1589, 30
+  size: 99, 99
+  orig: 99, 99
+  offset: 0, 0
+  index: -1
+hedgeba_earth_01_effect_lightdust
+  rotate: false
+  xy: 1366, 5
+  size: 127, 99
+  orig: 127, 99
+  offset: 0, 0
+  index: -1
+hedgeba_earth_01_effect_tail_03
+  rotate: true
+  xy: 2, 2
+  size: 233, 231
+  orig: 233, 231
+  offset: 0, 0
+  index: -1
+hedgeba_earth_01_eye_01
+  rotate: false
+  xy: 934, 6
+  size: 37, 40
+  orig: 37, 40
+  offset: 0, 0
+  index: -1
+hedgeba_earth_01_face_01
+  rotate: false
+  xy: 1240, 5
+  size: 124, 78
+  orig: 124, 78
+  offset: 0, 0
+  index: -1
+hedgeba_earth_01_hair_02
+  rotate: false
+  xy: 1690, 31
+  size: 97, 98
+  orig: 97, 98
+  offset: 0, 0
+  index: -1
+hedgeba_earth_01_hair_03
+  rotate: true
+  xy: 1465, 123
+  size: 112, 97
+  orig: 112, 97
+  offset: 0, 0
+  index: -1
+hedgeba_earth_01_hair_04
+  rotate: false
+  xy: 1345, 106
+  size: 118, 129
+  orig: 118, 129
+  offset: 0, 0
+  index: -1
+hedgeba_earth_01_leg_01
+  rotate: true
+  xy: 1018, 3
+  size: 58, 70
+  orig: 58, 70
+  offset: 0, 0
+  index: -1
+hedgeba_earth_01_leg_02
+  rotate: false
+  xy: 1090, 5
+  size: 73, 56
+  orig: 73, 56
+  offset: 0, 0
+  index: -1
+hedgeba_earth_01_mouth_01
+  rotate: false
+  xy: 798, 16
+  size: 21, 22
+  orig: 21, 22
+  offset: 0, 0
+  index: -1
+hedgeba_earth_01_mouth_02
+  rotate: false
+  xy: 673, 7
+  size: 18, 10
+  orig: 18, 10
+  offset: 0, 0
+  index: -1
+hedgeba_earth_01_spark_1
+  rotate: true
+  xy: 673, 19
+  size: 216, 123
+  orig: 216, 123
+  offset: 0, 0
+  index: -1
+hedgeba_earth_01_spark_2
+  rotate: true
+  xy: 798, 40
+  size: 195, 80
+  orig: 195, 80
+  offset: 0, 0
+  index: -1
+hedgeba_earth_01_spark_3
+  rotate: true
+  xy: 1564, 131
+  size: 104, 270
+  orig: 104, 270
+  offset: 0, 0
+  index: -1
+hedgeba_earth_01_tail_01
+  rotate: true
+  xy: 1495, 10
+  size: 111, 92
+  orig: 111, 92
+  offset: 0, 0
+  index: -1
+hedgeba_earth_01_tail_04
+  rotate: false
+  xy: 1789, 41
+  size: 73, 88
+  orig: 73, 88
+  offset: 0, 0
+  index: -1
+hedgeba_earth_01_wing_01
+  rotate: false
+  xy: 880, 48
+  size: 136, 187
+  orig: 136, 187
+  offset: 0, 0
+  index: -1
+hedgeba_earth_01_wing_02
+  rotate: false
+  xy: 1105, 72
+  size: 133, 163
+  orig: 133, 163
+  offset: 0, 0
+  index: -1

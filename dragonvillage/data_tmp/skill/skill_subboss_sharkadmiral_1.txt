@@ -1,0 +1,94 @@
+{
+	"skill_subboss_sharkadmiral_1":
+	{
+		"ver":2,
+		"attack_value":
+		[
+			{
+				"idx":1,
+				"res":"res/missile/missile_anchor/missile_anchor.vrp",
+				"body":[0,0,0],
+                "count":1,
+                "period":0.2,
+                "scale":1.2,
+				"time":0,
+				"speed":1000,
+				"accel_delay":1.5,
+				"accel":-10000,
+				"l_limit_speed":0,
+				"angular_velocity":0,
+				"is_abs_pos":true,
+				"offset":[1500,'target'],
+				"vanish_time":3.61,
+				"dir":0,
+				"dir_add":0,
+				"missile_type":"pass",
+				
+				"add_script":
+				[
+					{
+						"idx":1,
+						"res":"res/missile/missile_wedge/missile_wedge_@.vrp",
+						"body":[0,0,0],
+						"count":1,
+						"period":0,
+						"scale":1,
+						"time":0,
+						"speed":0,
+						"accel":0,
+						"l_limit_speed":0,
+						"accel_delay":0,
+						"angular_velocity":0,
+						"offset":[0,0],
+						"vanish_time":4,
+						"dir":180,
+						"dir_add":0
+						
+						"add_script":
+						[
+							{
+								"idx":1,
+								"res":"res/missile/missile_wedge_2/missile_wedge_2_@.vrp",
+								"body":[0,0,2.5],
+								"count":1,
+								"damage_rate":33,
+								"period":0,
+								"scale":0.1,
+								"time":1,
+								"speed":0,
+								"accel":0,
+								"l_limit_speed":0,
+								"accel_delay":0,
+								"angular_velocity":0,
+								"offset":[0,0],
+								"size_up_time":0.1,
+								"delete_time":0.1,
+								"missile_type":"pass",
+								"dir":180,
+								"dir_add":0
+							}
+						],
+						
+						"add_script_start":0.1,
+						"add_script_term":0.5,
+						"add_script_max":3,
+						"add_script_relative":true,
+						"add_script_dead":false
+					}
+				],
+				
+				"add_script_start":0.1,
+				"add_script_term":0.1,
+				"add_script_max":18,
+				
+                "effect":
+                {
+                    "motion_streak":"res/missile/motion_streak/motion_streak_line_water.png",
+                    "rotation":false,
+                    "afterimage":false
+                }				
+			}
+		]
+	}
+}
+

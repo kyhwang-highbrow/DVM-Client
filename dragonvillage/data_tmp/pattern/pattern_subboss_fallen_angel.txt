@@ -1,0 +1,46 @@
+{
+	"pattern_subboss_fallen_angel":
+	[			
+		[
+			"a;basic", "w;3", "a;basic", "w;3", "a;basic", "w;3", "m;RM21;500", "a;1", "w;5",
+			"a;basic", "w;3", "a;basic", "w;3", "a;basic", "w;3", "m;RM26;500", "a;1", "w;5"
+		]
+    ],
+	
+	"hp_trriger":
+    {
+        "priority":1,
+        "list":
+        [
+            {
+                "hp_percent":75,
+                "pattern":
+                [
+					"m;RM24;500", "a;3",
+					"a;basic", "w;3", "a;basic", "w;3", "m;RM26;500", "a;1", "w;5",
+					"a;basic", "w;3", "a;basic", "w;3", "m;RM21;500", "a;1", "w;5"
+                ]
+            },
+			
+			{
+                "hp_percent":50,
+                "pattern":
+                [
+					"m;RF24;500", "a;2",
+					"a;basic", "w;3", "a;3", "w;3", "m;RM21;500", "a;1", "w;5",
+					"a;basic", "w;3", "a;3", "w;3", "m;RM26;500", "a;1", "w;5"
+                ]
+            },
+			
+			{
+                "hp_percent":25,
+                "pattern":
+                [
+					"m;RF24;500", "a;2", "m;RM24;500", "a;2", "m;RB24;500",
+					"a;basic", "w;3", "a;3", "w;3", "m;RM26;500", "a;1", "w;5",
+					"a;basic", "w;3", "a;3", "w;3", "m;RM21;500", "a;1", "w;5"
+                ]
+            }
+        ]
+    }
+}

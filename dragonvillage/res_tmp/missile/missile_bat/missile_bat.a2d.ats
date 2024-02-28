@@ -1,0 +1,97 @@
+{
+	"AzraelVisual":"4.8",
+	"azBitmap":
+	[
+		{
+			"name":"(PROJECT_PATH)missile_bat.plist",
+			"expand":false,
+			"apply":true,
+			"sprite_list":
+			[
+
+			]
+		}
+	],
+	"azEventBox":
+	[
+
+	],
+	"azTag":
+	[
+
+	],
+	"azParticle":
+	[
+
+	],
+	"azVisualGroup":
+	[
+		{
+			"name":"group",
+			"expand":true,
+			"apply":true,
+			"visual_list":
+			[
+				{
+					"name":"idle",
+					"apply":true,
+					"fps":30,
+					"layer_root":
+					{
+						"expand":true,
+						"apply":true,
+						"layer_list":
+						[
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)missile_bat.plist'<azSprite>'missile_bat_01.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "rotate":-90.000000
+									},
+									{
+										"frame":2, "rotate":-90.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)missile_bat.plist'<azSprite>'missile_bat_02.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":3, "rotate":-90.000000, "pX":-32.000000, "pY":-1.000000
+									},
+									{
+										"frame":6, "rotate":-90.000000, "pX":-32.000000, "pY":-1.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)missile_bat.plist'<azSprite>'missile_bat_03.png'",
+								"expand":false,
+								"apply":false,
+								"key_list":
+								[
+									{
+										"frame":3, "pY":-31.000000
+									},
+									{
+										"frame":6, "pY":-31.000000
+									}
+								]
+							}
+						]
+					}
+				}
+			]
+		}
+	],
+	"azProject":
+	[
+
+	]
+}

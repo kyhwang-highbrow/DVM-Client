@@ -1,0 +1,28 @@
+{
+	"skill_kadeath":
+	{
+		"ver":2,
+		"attack_value":
+		[							
+			{
+				"idx":1,
+				"res":"res/effect/pulse_kadeath/pulse_kadeath.vrp",
+				"body":[0,0,2000],
+                "count":1,
+				"damage_rate":100,
+                "scale":[0.6,0.6],
+				"offset":[0,0],
+				"missile_type":"pass",
+				"fadeout_time":0.43,
+				
+                "effect":
+                {
+                    "motion_streak":"",
+                    "rotation":false,
+                    "afterimage":false
+                }
+			}
+		]
+	}
+}
+

@@ -1,0 +1,55 @@
+{
+	"skill_boss_golddragon_0":
+	{
+		"attack_value":
+		[		
+			{
+				"idx":1,
+				"res":"res/missile/missile_evolution_stone/evolution_stone_01.png",
+				"body":[0,0,40],
+                "count":2,
+				"damage_rate":20,
+                "scale":1,
+                "period":0.05,
+				"speed":1000,
+				"accel":2000,
+				"h_limit_speed":1500,
+				"accel_delay":0.1,
+				"angular_velocity":40,
+				"offset":[100,0],
+                "dir_array":['random',-10,-30],
+				
+                "effect":
+                {
+                    "motion_streak":"res/missile/motion_streak/motion_streak_white.png",
+                    "rotation":true,
+                    "afterimage":false
+                }
+			},
+			
+			{
+				"idx":1,
+				"res":"res/missile/missile_evolution_stone/evolution_stone_02.png",
+				"body":[0,0,40],
+                "count":3,
+				"damage_rate":20,
+                "scale":1,
+                "period":0.05,
+				"speed":800,
+				"accel":2000,
+				"h_limit_speed":1500,
+				"accel_delay":0.1,
+				"angular_velocity":40,
+				"offset":[100,0],
+                "dir_array":['random',0,-30],
+				
+                "effect":
+                {
+                    "motion_streak":"res/missile/motion_streak/motion_streak_white.png",
+                    "rotation":true,
+                    "afterimage":false
+                }
+			}
+		]
+	}
+}

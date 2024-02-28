@@ -1,0 +1,41 @@
+{
+    "difficult":2,
+    "bg":"map_sky_temple_sp",
+	"wave":
+	[	
+        {
+            "idx":1,
+			"camera":
+            {
+                "scale":0.7,
+                "pos_x":0,
+                "pos_y":0
+            },
+            "direction":"boss_wave",
+            "wave":
+            {				
+				0:
+				[
+					"201001;1;Basic;BOSS;RM24;0.5;boss"
+				],
+				
+				1.5:
+				[
+					"201002;1;Basic;RO04;RB10;0.5"
+					"201002;1;Basic;RO04;RB27;0.5"
+				]
+            },				
+				
+			"regen":
+			[
+				{
+					120:
+					[
+						"201002;1;Basic;RO04;RB22;1"
+						"201002;1;Basic;RO04;RB26;1"
+					]
+				}
+			]
+        }
+    ]
+}

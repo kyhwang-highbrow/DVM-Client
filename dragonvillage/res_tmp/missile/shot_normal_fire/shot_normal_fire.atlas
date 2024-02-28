@@ -1,0 +1,55 @@
+
+shot_normal_fire.png
+size: 512,64
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+shot_normal_fire_01
+  rotate: false
+  xy: 242, 18
+  size: 31, 32
+  orig: 31, 32
+  offset: 0, 0
+  index: -1
+shot_normal_fire_02
+  rotate: false
+  xy: 47, 14
+  size: 54, 36
+  orig: 54, 36
+  offset: 0, 0
+  index: -1
+shot_normal_fire_03
+  rotate: false
+  xy: 197, 8
+  size: 43, 42
+  orig: 43, 42
+  offset: 0, 0
+  index: -1
+shot_normal_fire_04
+  rotate: false
+  xy: 103, 6
+  size: 45, 44
+  orig: 45, 44
+  offset: 0, 0
+  index: -1
+shot_normal_fire_05
+  rotate: false
+  xy: 275, 18
+  size: 31, 32
+  orig: 31, 32
+  offset: 0, 0
+  index: -1
+shot_normal_fire_06
+  rotate: false
+  xy: 2, 2
+  size: 43, 48
+  orig: 43, 48
+  offset: 0, 0
+  index: -1
+shot_normal_fire_07
+  rotate: false
+  xy: 150, 6
+  size: 45, 44
+  orig: 45, 44
+  offset: 0, 0
+  index: -1

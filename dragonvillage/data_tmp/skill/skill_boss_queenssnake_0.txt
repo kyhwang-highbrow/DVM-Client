@@ -1,0 +1,37 @@
+{
+	"skill_boss_queenssnake_0":
+	{
+		"ver":2,
+		"attack_value":
+		[							
+			{
+				"idx":1,
+				"res":"res/missile/missile_crescent/missile_crescent_@.vrp",
+				"body":[0,0,20],
+                "count":3,
+				"damage_rate":33,
+                "period":0.2,
+                "scale":0.8,
+				"time":0,
+				"speed":800,
+				"accel":0,
+				"h_limit_speed":0,
+				"accel_delay":0,
+				"angular_velocity":0,
+				"offset":[-20,20],
+				"dir":0,
+				"dir_add":18,			
+				"size_up_time":3,
+				"movement":"target",
+				
+                "effect":
+                {
+                    "motion_streak":"",
+                    "rotation":false,
+                    "afterimage":false
+                }				
+			}
+		]
+	}
+}
+

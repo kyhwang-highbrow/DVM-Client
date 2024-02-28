@@ -1,0 +1,167 @@
+
+pinkbell_earth_01.png
+size: 237,1054
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+pinkbell_earth_01_arm_01
+  rotate: false
+  xy: 170, 225
+  size: 65, 65
+  orig: 65, 65
+  offset: 0, 0
+  index: -1
+pinkbell_earth_01_arm_02
+  rotate: false
+  xy: 170, 158
+  size: 65, 65
+  orig: 65, 65
+  offset: 0, 0
+  index: -1
+pinkbell_earth_01_body_01
+  rotate: false
+  xy: 109, 588
+  size: 126, 155
+  orig: 126, 155
+  offset: 0, 0
+  index: -1
+pinkbell_earth_01_body_02
+  rotate: false
+  xy: 2, 216
+  size: 102, 77
+  orig: 102, 77
+  offset: 0, 0
+  index: -1
+pinkbell_earth_01_effect_01
+  rotate: false
+  xy: 2, 295
+  size: 105, 139
+  orig: 105, 139
+  offset: 0, 0
+  index: -1
+pinkbell_earth_01_eye_01
+  rotate: false
+  xy: 178, 990
+  size: 57, 62
+  orig: 57, 62
+  offset: 0, 0
+  index: -1
+pinkbell_earth_01_eye_02
+  rotate: false
+  xy: 178, 926
+  size: 57, 62
+  orig: 57, 62
+  offset: 0, 0
+  index: -1
+pinkbell_earth_01_eye_03
+  rotate: false
+  xy: 178, 862
+  size: 57, 62
+  orig: 57, 62
+  offset: 0, 0
+  index: -1
+pinkbell_earth_01_eye_04
+  rotate: false
+  xy: 178, 798
+  size: 57, 62
+  orig: 57, 62
+  offset: 0, 0
+  index: -1
+pinkbell_earth_01_eyebrow_01
+  rotate: true
+  xy: 106, 158
+  size: 57, 62
+  orig: 57, 62
+  offset: 0, 0
+  index: -1
+pinkbell_earth_01_foot_01
+  rotate: false
+  xy: 2, 141
+  size: 62, 73
+  orig: 62, 73
+  offset: 0, 0
+  index: -1
+pinkbell_earth_01_foot_02
+  rotate: true
+  xy: 109, 292
+  size: 50, 73
+  orig: 50, 73
+  offset: 0, 0
+  index: -1
+pinkbell_earth_01_foot_03
+  rotate: false
+  xy: 2, 66
+  size: 62, 73
+  orig: 62, 73
+  offset: 0, 0
+  index: -1
+pinkbell_earth_01_foot_04
+  rotate: true
+  xy: 2, 2
+  size: 62, 73
+  orig: 62, 73
+  offset: 0, 0
+  index: -1
+pinkbell_earth_01_hand_01
+  rotate: false
+  xy: 66, 91
+  size: 65, 65
+  orig: 65, 65
+  offset: 0, 0
+  index: -1
+pinkbell_earth_01_hand_02
+  rotate: false
+  xy: 133, 91
+  size: 65, 65
+  orig: 65, 65
+  offset: 0, 0
+  index: -1
+pinkbell_earth_01_head_01
+  rotate: false
+  xy: 109, 466
+  size: 124, 120
+  orig: 124, 120
+  offset: 0, 0
+  index: -1
+pinkbell_earth_01_head_03
+  rotate: false
+  xy: 109, 344
+  size: 124, 120
+  orig: 124, 120
+  offset: 0, 0
+  index: -1
+pinkbell_earth_01_leg_01
+  rotate: false
+  xy: 106, 217
+  size: 62, 73
+  orig: 62, 73
+  offset: 0, 0
+  index: -1
+pinkbell_earth_01_leg_02
+  rotate: false
+  xy: 144, 16
+  size: 50, 73
+  orig: 50, 73
+  offset: 0, 0
+  index: -1
+pinkbell_earth_01_mouth_01
+  rotate: false
+  xy: 77, 24
+  size: 65, 65
+  orig: 65, 65
+  offset: 0, 0
+  index: -1
+pinkbell_earth_01_wing_01
+  rotate: false
+  xy: 2, 745
+  size: 174, 307
+  orig: 174, 307
+  offset: 0, 0
+  index: -1
+pinkbell_earth_01_wing_02
+  rotate: false
+  xy: 2, 436
+  size: 105, 307
+  orig: 105, 307
+  offset: 0, 0
+  index: -1

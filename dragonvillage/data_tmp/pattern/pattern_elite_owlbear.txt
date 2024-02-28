@@ -1,0 +1,45 @@
+{
+	"pattern_elite_owlbear":
+	[	
+		[
+			"m;RM22;2000", "w;3", "a;basic", "w;3", "a;basic", "w;3", "a;1",
+			"m;RF13;2000", "w;3", "a;basic", "w;3", "a;basic", "w;3", "a;1",
+			"m;RM25;2000", "w;3", "a;basic", "w;3", "a;basic", "w;3", "a;1",
+			"m;RF16;2000", "w;3", "a;basic", "w;3", "a;basic", "w;3", "a;1"
+		]
+    ],
+	
+	"hp_trriger":
+    {
+        "priority":1,
+        "list":
+        [
+            {
+                "hp_percent":50,
+                "pattern":
+                [
+                    "m;RB14;1000", "w;2", "a;basic", "a;basic", "a;basic", "a;basic", "w;3",
+					"m;RM22;2000", "w;3", "a;basic", "w;3", "a;basic", "w;3", "a;1",
+					"m;RM14;500", "w;3", "a;basic", "w;3", "a;basic", "w;3", "a;1",
+					"m;RF13;2000", "w;3", "a;basic", "w;3", "a;basic", "w;3", "a;1",
+					"m;RM14;500", "w;3", "a;basic", "w;3", "a;basic", "w;3", "a;1",
+					"m;RM25;2000", "w;3", "a;basic", "w;3", "a;basic", "w;3", "a;1",
+					"m;RM14;500", "w;3", "a;basic", "w;3", "a;basic", "w;3", "a;1",
+					"m;RF16;2000", "w;3", "a;basic", "w;3", "a;basic", "w;3", "a;1",
+					"m;RM14;500", "w;3", "a;basic", "w;3", "a;basic", "w;3", "a;1"
+                ]
+            },
+			
+            {
+                "hp_percent":30,
+                "pattern":
+                [
+					"m;RM22;2000", "a;2",
+					"m;RF13;2000", "a;2",
+					"m;RM25;2000", "a;2",
+					"m;RF16;2000", "a;2"
+                ]
+            }
+        ]
+    }
+}

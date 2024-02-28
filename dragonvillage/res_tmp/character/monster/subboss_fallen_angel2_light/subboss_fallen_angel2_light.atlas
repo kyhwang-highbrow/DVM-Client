@@ -1,0 +1,97 @@
+
+subboss_fallen_angel2_light.png
+size: 1024,512
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+subboss_fallen_angel2_light_acc_01
+  rotate: true
+  xy: 876, 207
+  size: 72, 73
+  orig: 72, 73
+  offset: 0, 0
+  index: -1
+subboss_fallen_angel2_light_acc_02
+  rotate: false
+  xy: 2, 2
+  size: 62, 109
+  orig: 62, 109
+  offset: 0, 0
+  index: -1
+subboss_fallen_angel2_light_arm_03
+  rotate: false
+  xy: 153, 44
+  size: 59, 67
+  orig: 59, 67
+  offset: 0, 0
+  index: -1
+subboss_fallen_angel2_light_arm_07
+  rotate: false
+  xy: 964, 407
+  size: 39, 40
+  orig: 39, 40
+  offset: 0, 0
+  index: -1
+subboss_fallen_angel2_light_body_01
+  rotate: true
+  xy: 964, 449
+  size: 59, 58
+  orig: 59, 58
+  offset: 0, 0
+  index: -1
+subboss_fallen_angel2_light_body_02
+  rotate: false
+  xy: 789, 281
+  size: 173, 227
+  orig: 173, 227
+  offset: 0, 0
+  index: -1
+subboss_fallen_angel2_light_effect_01
+  rotate: true
+  xy: 220, 41
+  size: 166, 201
+  orig: 166, 201
+  offset: 0, 0
+  index: -1
+subboss_fallen_angel2_light_effect_03
+  rotate: false
+  xy: 516, 224
+  size: 271, 284
+  orig: 271, 284
+  offset: 0, 0
+  index: -1
+subboss_fallen_angel2_light_hand_01
+  rotate: true
+  xy: 789, 212
+  size: 67, 85
+  orig: 67, 85
+  offset: 0, 0
+  index: -1
+subboss_fallen_angel2_light_hand_02
+  rotate: false
+  xy: 66, 38
+  size: 85, 73
+  orig: 85, 73
+  offset: 0, 0
+  index: -1
+subboss_fallen_angel2_light_head_01
+  rotate: false
+  xy: 423, 11
+  size: 116, 196
+  orig: 116, 196
+  offset: 0, 0
+  index: -1
+subboss_fallen_angel2_light_wing_01
+  rotate: false
+  xy: 2, 113
+  size: 216, 395
+  orig: 216, 395
+  offset: 0, 0
+  index: -1
+subboss_fallen_angel2_light_wing_02
+  rotate: false
+  xy: 220, 209
+  size: 294, 299
+  orig: 294, 299
+  offset: 0, 0
+  index: -1

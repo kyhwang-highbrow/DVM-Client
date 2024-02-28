@@ -1,0 +1,139 @@
+
+psykerdragon_water_03.png
+size: 1985,964
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+psykerdragon_water_03_arm_01
+  rotate: true
+  xy: 210, 116
+  size: 182, 211
+  orig: 182, 211
+  offset: 0, 0
+  index: -1
+psykerdragon_water_03_body_01
+  rotate: false
+  xy: 2, 604
+  size: 552, 358
+  orig: 552, 358
+  offset: 0, 0
+  index: -1
+psykerdragon_water_03_body_02
+  rotate: false
+  xy: 2, 102
+  size: 206, 196
+  orig: 206, 196
+  offset: 0, 0
+  index: -1
+psykerdragon_water_03_effect_01
+  rotate: false
+  xy: 2, 18
+  size: 49, 82
+  orig: 49, 82
+  offset: 0, 0
+  index: -1
+psykerdragon_water_03_effect_02
+  rotate: false
+  xy: 2, 300
+  size: 530, 302
+  orig: 530, 302
+  offset: 0, 0
+  index: -1
+psykerdragon_water_03_effect_03
+  rotate: false
+  xy: 556, 660
+  size: 530, 302
+  orig: 530, 302
+  offset: 0, 0
+  index: -1
+psykerdragon_water_03_effect_04
+  rotate: false
+  xy: 1088, 660
+  size: 530, 302
+  orig: 530, 302
+  offset: 0, 0
+  index: -1
+psykerdragon_water_03_effect_05
+  rotate: false
+  xy: 556, 356
+  size: 530, 302
+  orig: 530, 302
+  offset: 0, 0
+  index: -1
+psykerdragon_water_03_effect_06
+  rotate: false
+  xy: 1088, 356
+  size: 530, 302
+  orig: 530, 302
+  offset: 0, 0
+  index: -1
+psykerdragon_water_03_effect_07
+  rotate: false
+  xy: 534, 52
+  size: 530, 302
+  orig: 530, 302
+  offset: 0, 0
+  index: -1
+psykerdragon_water_03_effect_08
+  rotate: false
+  xy: 1066, 52
+  size: 530, 302
+  orig: 530, 302
+  offset: 0, 0
+  index: -1
+psykerdragon_water_03_effect_09
+  rotate: true
+  xy: 1620, 34
+  size: 530, 302
+  orig: 530, 302
+  offset: 0, 0
+  index: -1
+psykerdragon_water_03_eye_01
+  rotate: false
+  xy: 1598, 337
+  size: 16, 17
+  orig: 16, 17
+  offset: 0, 0
+  index: -1
+psykerdragon_water_03_eye_02
+  rotate: true
+  xy: 1970, 925
+  size: 37, 13
+  orig: 37, 13
+  offset: 0, 0
+  index: -1
+psykerdragon_water_03_eye_03
+  rotate: true
+  xy: 534, 559
+  size: 43, 20
+  orig: 43, 20
+  offset: 0, 0
+  index: -1
+psykerdragon_water_03_eye_04
+  rotate: true
+  xy: 1924, 504
+  size: 60, 34
+  orig: 60, 34
+  offset: 0, 0
+  index: -1
+psykerdragon_water_03_head_01
+  rotate: false
+  xy: 1620, 566
+  size: 348, 396
+  orig: 348, 396
+  offset: 0, 0
+  index: -1
+psykerdragon_water_03_mouth_01
+  rotate: true
+  xy: 423, 149
+  size: 149, 103
+  orig: 149, 103
+  offset: 0, 0
+  index: -1
+psykerdragon_water_03_wing_01
+  rotate: false
+  xy: 210, 2
+  size: 150, 112
+  orig: 150, 112
+  offset: 0, 0
+  index: -1

@@ -1,0 +1,195 @@
+
+abyssedge_all_02.png
+size: 1824,724
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+abyssedge_all_02_acc_01
+  rotate: false
+  xy: 1726, 79
+  size: 59, 35
+  orig: 59, 35
+  offset: 0, 0
+  index: -1
+abyssedge_all_02_acc_03
+  rotate: false
+  xy: 1181, 329
+  size: 383, 73
+  orig: 383, 73
+  offset: 0, 0
+  index: -1
+abyssedge_all_02_arm_01
+  rotate: false
+  xy: 2, 13
+  size: 321, 214
+  orig: 321, 214
+  offset: 0, 0
+  index: -1
+abyssedge_all_02_arm_02
+  rotate: true
+  xy: 1465, 126
+  size: 127, 99
+  orig: 127, 99
+  offset: 0, 0
+  index: -1
+abyssedge_all_02_arm_03
+  rotate: false
+  xy: 879, 194
+  size: 260, 186
+  orig: 260, 186
+  offset: 0, 0
+  index: -1
+abyssedge_all_02_arm_04
+  rotate: false
+  xy: 1606, 90
+  size: 118, 91
+  orig: 118, 91
+  offset: 0, 0
+  index: -1
+abyssedge_all_02_backstar
+  rotate: false
+  xy: 584, 35
+  size: 196, 200
+  orig: 196, 200
+  offset: 0, 0
+  index: -1
+abyssedge_all_02_bee
+  rotate: true
+  xy: 1726, 116
+  size: 65, 93
+  orig: 65, 93
+  offset: 0, 0
+  index: -1
+abyssedge_all_02_body_01
+  rotate: true
+  xy: 1181, 404
+  size: 318, 344
+  orig: 318, 344
+  offset: 0, 0
+  index: -1
+abyssedge_all_02_bred
+  rotate: true
+  xy: 1389, 25
+  size: 228, 74
+  orig: 228, 74
+  offset: 0, 0
+  index: -1
+abyssedge_all_02_clo
+  rotate: true
+  xy: 1606, 3
+  size: 85, 102
+  orig: 85, 102
+  offset: 0, 0
+  index: -1
+abyssedge_all_02_clow
+  rotate: true
+  xy: 1141, 255
+  size: 72, 363
+  orig: 72, 363
+  offset: 0, 0
+  index: -1
+abyssedge_all_02_effect_02
+  rotate: true
+  xy: 782, 91
+  size: 144, 88
+  orig: 144, 88
+  offset: 0, 0
+  index: -1
+abyssedge_all_02_effect_03
+  rotate: false
+  xy: 2, 229
+  size: 493, 493
+  orig: 493, 493
+  offset: 0, 0
+  index: -1
+abyssedge_all_02_explo
+  rotate: false
+  xy: 1527, 441
+  size: 278, 281
+  orig: 278, 281
+  offset: 0, 0
+  index: -1
+abyssedge_all_02_explode
+  rotate: false
+  xy: 1566, 183
+  size: 256, 256
+  orig: 256, 256
+  offset: 0, 0
+  index: -1
+abyssedge_all_02_eye_01
+  rotate: false
+  xy: 1141, 350
+  size: 30, 30
+  orig: 30, 30
+  offset: 0, 0
+  index: -1
+abyssedge_all_02_flare
+  rotate: false
+  xy: 497, 237
+  size: 380, 143
+  orig: 380, 143
+  offset: 0, 0
+  index: -1
+abyssedge_all_02_head_01
+  rotate: false
+  xy: 325, 9
+  size: 257, 218
+  orig: 257, 218
+  offset: 0, 0
+  index: -1
+abyssedge_all_02_leg_01
+  rotate: false
+  xy: 1465, 2
+  size: 139, 122
+  orig: 139, 122
+  offset: 0, 0
+  index: -1
+abyssedge_all_02_leg_02
+  rotate: false
+  xy: 782, 2
+  size: 87, 87
+  orig: 87, 87
+  offset: 0, 0
+  index: -1
+abyssedge_all_02_light
+  rotate: false
+  xy: 1506, 276
+  size: 58, 51
+  orig: 58, 51
+  offset: 0, 0
+  index: -1
+abyssedge_all_02_red
+  rotate: false
+  xy: 998, 81
+  size: 114, 111
+  orig: 114, 111
+  offset: 0, 0
+  index: -1
+abyssedge_all_02_shockwave_01
+  rotate: false
+  xy: 497, 382
+  size: 340, 340
+  orig: 340, 340
+  offset: 0, 0
+  index: -1
+abyssedge_all_02_shockwave_02
+  rotate: false
+  xy: 839, 382
+  size: 340, 340
+  orig: 340, 340
+  offset: 0, 0
+  index: -1
+abyssedge_all_02_spark
+  rotate: false
+  xy: 872, 96
+  size: 124, 96
+  orig: 124, 96
+  offset: 0, 0
+  index: -1
+abyssedge_all_02_won
+  rotate: true
+  xy: 1141, 10
+  size: 243, 246
+  orig: 243, 246
+  offset: 0, 0
+  index: -1

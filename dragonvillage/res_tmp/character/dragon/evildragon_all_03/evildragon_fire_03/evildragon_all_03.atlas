@@ -1,0 +1,552 @@
+
+evildragon_all_03.png
+size: 1827,598
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+evildragon_all_03_arm_01
+  rotate: false
+  xy: 600, 295
+  size: 77, 69
+  orig: 77, 69
+  offset: 0, 0
+  index: -1
+evildragon_all_03_arm_02
+  rotate: true
+  xy: 832, 3
+  size: 83, 56
+  orig: 83, 56
+  offset: 0, 0
+  index: -1
+evildragon_all_03_arm_03
+  rotate: true
+  xy: 1742, 113
+  size: 52, 68
+  orig: 52, 68
+  offset: 0, 0
+  index: -1
+evildragon_all_03_arm_04
+  rotate: true
+  xy: 1673, 279
+  size: 73, 75
+  orig: 73, 75
+  offset: 0, 0
+  index: -1
+evildragon_all_03_ball_01
+  rotate: true
+  xy: 794, 383
+  size: 213, 164
+  orig: 213, 164
+  offset: 0, 0
+  index: -1
+evildragon_all_03_ball_02
+  rotate: false
+  xy: 1467, 317
+  size: 149, 104
+  orig: 149, 104
+  offset: 0, 0
+  index: -1
+evildragon_all_03_ball_03
+  rotate: false
+  xy: 1473, 510
+  size: 86, 86
+  orig: 86, 86
+  offset: 0, 0
+  index: -1
+evildragon_all_03_body_01
+  rotate: false
+  xy: 1298, 423
+  size: 173, 173
+  orig: 173, 173
+  offset: 0, 0
+  index: -1
+evildragon_all_03_chain_01
+  rotate: false
+  xy: 805, 296
+  size: 83, 85
+  orig: 83, 85
+  offset: 0, 0
+  index: -1
+evildragon_all_03_chain_02
+  rotate: false
+  xy: 1609, 236
+  size: 62, 61
+  orig: 62, 61
+  offset: 0, 0
+  index: -1
+evildragon_all_03_chain_03
+  rotate: false
+  xy: 890, 303
+  size: 71, 78
+  orig: 71, 78
+  offset: 0, 0
+  index: -1
+evildragon_all_03_chain_04
+  rotate: false
+  xy: 1719, 30
+  size: 52, 60
+  orig: 52, 60
+  offset: 0, 0
+  index: -1
+evildragon_all_03_chain_05
+  rotate: true
+  xy: 1745, 167
+  size: 57, 70
+  orig: 57, 70
+  offset: 0, 0
+  index: -1
+evildragon_all_03_chain_06
+  rotate: true
+  xy: 1773, 65
+  size: 46, 51
+  orig: 46, 51
+  offset: 0, 0
+  index: -1
+evildragon_all_03_chain_07
+  rotate: true
+  xy: 1773, 6
+  size: 57, 50
+  orig: 57, 50
+  offset: 0, 0
+  index: -1
+evildragon_all_03_chain_08
+  rotate: true
+  xy: 600, 366
+  size: 230, 192
+  orig: 230, 192
+  offset: 0, 0
+  index: -1
+evildragon_all_03_effect2_01
+  rotate: false
+  xy: 2, 2
+  size: 96, 96
+  orig: 96, 96
+  offset: 0, 0
+  index: -1
+evildragon_all_03_effect2_02
+  rotate: false
+  xy: 1675, 430
+  size: 104, 94
+  orig: 104, 94
+  offset: 0, 0
+  index: -1
+evildragon_all_03_effect2_03
+  rotate: false
+  xy: 960, 401
+  size: 190, 195
+  orig: 190, 195
+  offset: 0, 0
+  index: -1
+evildragon_all_03_effect2_04
+  rotate: true
+  xy: 986, 102
+  size: 192, 190
+  orig: 192, 190
+  offset: 0, 0
+  index: -1
+evildragon_all_03_effect2_05
+  rotate: false
+  xy: 1618, 377
+  size: 54, 52
+  orig: 54, 52
+  offset: 0, 0
+  index: -1
+evildragon_all_03_effect2_06
+  rotate: true
+  xy: 62, 245
+  size: 351, 71
+  orig: 351, 71
+  offset: 0, 0
+  index: -1
+evildragon_all_03_effect2_07
+  rotate: true
+  xy: 2, 100
+  size: 496, 58
+  orig: 496, 58
+  offset: 0, 0
+  index: -1
+evildragon_all_03_effect2_08
+  rotate: true
+  xy: 1569, 5
+  size: 136, 90
+  orig: 136, 90
+  offset: 0, 0
+  index: -1
+evildragon_all_03_effect2_09
+  rotate: false
+  xy: 679, 296
+  size: 124, 68
+  orig: 124, 68
+  offset: 0, 0
+  index: -1
+evildragon_all_03_effect2_10
+  rotate: false
+  xy: 1661, 526
+  size: 146, 70
+  orig: 146, 70
+  offset: 0, 0
+  index: -1
+evildragon_all_03_effect3_01
+  rotate: false
+  xy: 575, 63
+  size: 227, 230
+  orig: 227, 230
+  offset: 0, 0
+  index: -1
+evildragon_all_03_effect3_02
+  rotate: false
+  xy: 284, 3
+  size: 289, 286
+  orig: 289, 286
+  offset: 0, 0
+  index: -1
+evildragon_all_03_effect3_03
+  rotate: true
+  xy: 135, 291
+  size: 305, 300
+  orig: 305, 300
+  offset: 0, 0
+  index: -1
+evildragon_all_03_effect_01
+  rotate: false
+  xy: 1617, 431
+  size: 56, 76
+  orig: 56, 76
+  offset: 0, 0
+  index: -1
+evildragon_all_03_effect_02
+  rotate: false
+  xy: 1561, 528
+  size: 55, 68
+  orig: 55, 68
+  offset: 0, 0
+  index: -1
+evildragon_all_03_effect_03
+  rotate: false
+  xy: 1661, 25
+  size: 56, 65
+  orig: 56, 65
+  offset: 0, 0
+  index: -1
+evildragon_all_03_effect_04
+  rotate: true
+  xy: 1661, 92
+  size: 53, 66
+  orig: 53, 66
+  offset: 0, 0
+  index: -1
+evildragon_all_03_effect_05
+  rotate: true
+  xy: 575, 2
+  size: 59, 70
+  orig: 59, 70
+  offset: 0, 0
+  index: -1
+evildragon_all_03_effect_06
+  rotate: true
+  xy: 1750, 292
+  size: 60, 73
+  orig: 60, 73
+  offset: 0, 0
+  index: -1
+evildragon_all_03_effect_07
+  rotate: true
+  xy: 705, 3
+  size: 58, 72
+  orig: 58, 72
+  offset: 0, 0
+  index: -1
+evildragon_all_03_effect_08
+  rotate: false
+  xy: 1561, 452
+  size: 54, 74
+  orig: 54, 74
+  offset: 0, 0
+  index: -1
+evildragon_all_03_effect_09
+  rotate: false
+  xy: 1473, 430
+  size: 52, 77
+  orig: 52, 77
+  offset: 0, 0
+  index: -1
+evildragon_all_03_effect_10
+  rotate: false
+  xy: 1618, 299
+  size: 53, 76
+  orig: 53, 76
+  offset: 0, 0
+  index: -1
+evildragon_all_03_eye_01
+  rotate: true
+  xy: 1618, 563
+  size: 33, 41
+  orig: 33, 41
+  offset: 0, 0
+  index: -1
+evildragon_all_03_finger_01
+  rotate: true
+  xy: 219, 248
+  size: 41, 34
+  orig: 41, 34
+  offset: 0, 0
+  index: -1
+evildragon_all_03_finger_02
+  rotate: false
+  xy: 179, 246
+  size: 38, 43
+  orig: 38, 43
+  offset: 0, 0
+  index: -1
+evildragon_all_03_finger_03
+  rotate: false
+  xy: 1780, 381
+  size: 45, 47
+  orig: 45, 47
+  offset: 0, 0
+  index: -1
+evildragon_all_03_finger_04
+  rotate: true
+  xy: 62, 164
+  size: 30, 36
+  orig: 30, 36
+  offset: 0, 0
+  index: -1
+evildragon_all_03_foot_01
+  rotate: false
+  xy: 1402, 304
+  size: 63, 117
+  orig: 63, 117
+  offset: 0, 0
+  index: -1
+evildragon_all_03_foot_02
+  rotate: false
+  xy: 62, 196
+  size: 36, 47
+  orig: 36, 47
+  offset: 0, 0
+  index: -1
+evildragon_all_03_hand_01
+  rotate: true
+  xy: 1673, 209
+  size: 68, 70
+  orig: 68, 70
+  offset: 0, 0
+  index: -1
+evildragon_all_03_hand_02
+  rotate: false
+  xy: 62, 107
+  size: 35, 55
+  orig: 35, 55
+  offset: 0, 0
+  index: -1
+evildragon_all_03_handeffect_01
+  rotate: true
+  xy: 1750, 226
+  size: 64, 72
+  orig: 64, 72
+  offset: 0, 0
+  index: -1
+evildragon_all_03_head_01
+  rotate: true
+  xy: 1065, 298
+  size: 101, 174
+  orig: 101, 174
+  offset: 0, 0
+  index: -1
+evildragon_all_03_horn_01
+  rotate: false
+  xy: 890, 5
+  size: 47, 81
+  orig: 47, 81
+  offset: 0, 0
+  index: -1
+evildragon_all_03_horn_02
+  rotate: false
+  xy: 1242, 4
+  size: 90, 98
+  orig: 90, 98
+  offset: 0, 0
+  index: -1
+evildragon_all_03_horn_03
+  rotate: false
+  xy: 1781, 478
+  size: 39, 46
+  orig: 39, 46
+  offset: 0, 0
+  index: -1
+evildragon_all_03_leg_01
+  rotate: false
+  xy: 1674, 354
+  size: 104, 74
+  orig: 104, 74
+  offset: 0, 0
+  index: -1
+evildragon_all_03_mouth_01
+  rotate: true
+  xy: 1527, 438
+  size: 39, 30
+  orig: 39, 30
+  offset: 0, 0
+  index: -1
+evildragon_all_03_mouth_02
+  rotate: false
+  xy: 135, 245
+  size: 42, 44
+  orig: 42, 44
+  offset: 0, 0
+  index: -1
+evildragon_all_03_skill_01
+  rotate: true
+  xy: 1325, 131
+  size: 166, 121
+  orig: 166, 121
+  offset: 0, 0
+  index: -1
+evildragon_all_03_skill_02
+  rotate: false
+  xy: 1007, 2
+  size: 139, 98
+  orig: 139, 98
+  offset: 0, 0
+  index: -1
+evildragon_all_03_skill_03
+  rotate: true
+  xy: 1152, 406
+  size: 190, 144
+  orig: 190, 144
+  offset: 0, 0
+  index: -1
+evildragon_all_03_skill_04
+  rotate: true
+  xy: 1178, 104
+  size: 192, 145
+  orig: 192, 145
+  offset: 0, 0
+  index: -1
+evildragon_all_03_skill_05
+  rotate: true
+  xy: 1148, 2
+  size: 98, 92
+  orig: 98, 92
+  offset: 0, 0
+  index: -1
+evildragon_all_03_skill_06
+  rotate: false
+  xy: 963, 296
+  size: 100, 103
+  orig: 100, 103
+  offset: 0, 0
+  index: -1
+evildragon_all_03_skill_07
+  rotate: true
+  xy: 1334, 300
+  size: 121, 66
+  orig: 121, 66
+  offset: 0, 0
+  index: -1
+evildragon_all_03_skillarm_01
+  rotate: false
+  xy: 1609, 167
+  size: 61, 67
+  orig: 61, 67
+  offset: 0, 0
+  index: -1
+evildragon_all_03_skillarm_02
+  rotate: false
+  xy: 647, 2
+  size: 56, 59
+  orig: 56, 59
+  offset: 0, 0
+  index: -1
+evildragon_all_03_skillarm_03
+  rotate: true
+  xy: 1672, 147
+  size: 60, 68
+  orig: 60, 68
+  offset: 0, 0
+  index: -1
+evildragon_all_03_skillarm_04
+  rotate: true
+  xy: 939, 6
+  size: 80, 66
+  orig: 80, 66
+  offset: 0, 0
+  index: -1
+evildragon_all_03_tail_01
+  rotate: false
+  xy: 804, 88
+  size: 180, 206
+  orig: 180, 206
+  offset: 0, 0
+  index: -1
+evildragon_all_03_tail_02
+  rotate: false
+  xy: 1448, 143
+  size: 159, 159
+  orig: 159, 159
+  offset: 0, 0
+  index: -1
+evildragon_all_03_taileffect_01
+  rotate: false
+  xy: 1618, 509
+  size: 39, 52
+  orig: 39, 52
+  offset: 0, 0
+  index: -1
+evildragon_all_03_taileffect_02
+  rotate: true
+  xy: 1527, 479
+  size: 29, 31
+  orig: 29, 31
+  offset: 0, 0
+  index: -1
+evildragon_all_03_taileffect_03
+  rotate: false
+  xy: 1781, 443
+  size: 35, 33
+  orig: 35, 33
+  offset: 0, 0
+  index: -1
+evildragon_all_03_wing_01
+  rotate: true
+  xy: 437, 295
+  size: 301, 161
+  orig: 301, 161
+  offset: 0, 0
+  index: -1
+evildragon_all_03_wing_02
+  rotate: true
+  xy: 100, 5
+  size: 238, 182
+  orig: 238, 182
+  offset: 0, 0
+  index: -1
+evildragon_all_03_wing_03
+  rotate: false
+  xy: 1402, 14
+  size: 165, 115
+  orig: 165, 115
+  offset: 0, 0
+  index: -1
+evildragon_all_03_wing_04
+  rotate: true
+  xy: 1334, 4
+  size: 125, 66
+  orig: 125, 66
+  offset: 0, 0
+  index: -1
+evildragon_all_03_wing_05
+  rotate: true
+  xy: 1241, 299
+  size: 105, 91
+  orig: 105, 91
+  offset: 0, 0
+  index: -1
+evilldragon_all_03_effect_light
+  rotate: true
+  xy: 779, 3
+  size: 58, 51
+  orig: 58, 51
+  offset: 0, 0
+  index: -1

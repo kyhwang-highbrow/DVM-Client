@@ -1,0 +1,195 @@
+
+bluedragon_light_03.png
+size: 1617,298
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+bluedragon_light_03_arm_01
+  rotate: true
+  xy: 315, 2
+  size: 60, 61
+  orig: 60, 61
+  offset: 0, 0
+  index: -1
+bluedragon_light_03_arm_02
+  rotate: true
+  xy: 1560, 252
+  size: 44, 55
+  orig: 44, 55
+  offset: 0, 0
+  index: -1
+bluedragon_light_03_bead_01
+  rotate: true
+  xy: 1560, 214
+  size: 36, 47
+  orig: 36, 47
+  offset: 0, 0
+  index: -1
+bluedragon_light_03_bead_02
+  rotate: false
+  xy: 1344, 172
+  size: 119, 124
+  orig: 119, 124
+  offset: 0, 0
+  index: -1
+bluedragon_light_03_bead_03
+  rotate: true
+  xy: 1324, 13
+  size: 130, 116
+  orig: 130, 116
+  offset: 0, 0
+  index: -1
+bluedragon_light_03_body_01
+  rotate: false
+  xy: 458, 84
+  size: 167, 212
+  orig: 167, 212
+  offset: 0, 0
+  index: -1
+bluedragon_light_03_body_02
+  rotate: false
+  xy: 1201, 145
+  size: 141, 151
+  orig: 141, 151
+  offset: 0, 0
+  index: -1
+bluedragon_light_03_body_03
+  rotate: true
+  xy: 1045, 121
+  size: 175, 154
+  orig: 175, 154
+  offset: 0, 0
+  index: -1
+bluedragon_light_03_body_04
+  rotate: false
+  xy: 729, 108
+  size: 118, 188
+  orig: 118, 188
+  offset: 0, 0
+  index: -1
+bluedragon_light_03_body_05
+  rotate: false
+  xy: 915, 11
+  size: 95, 106
+  orig: 95, 106
+  offset: 0, 0
+  index: -1
+bluedragon_light_03_effect_01
+  rotate: true
+  xy: 849, 119
+  size: 177, 96
+  orig: 177, 96
+  offset: 0, 0
+  index: -1
+bluedragon_light_03_effect_02
+  rotate: true
+  xy: 947, 119
+  size: 177, 96
+  orig: 177, 96
+  offset: 0, 0
+  index: -1
+bluedragon_light_03_effect_03
+  rotate: false
+  xy: 1012, 21
+  size: 177, 96
+  orig: 177, 96
+  offset: 0, 0
+  index: -1
+bluedragon_light_03_effect_04
+  rotate: false
+  xy: 627, 98
+  size: 100, 198
+  orig: 100, 198
+  offset: 0, 0
+  index: -1
+bluedragon_light_03_effect_05
+  rotate: false
+  xy: 2, 13
+  size: 311, 283
+  orig: 311, 283
+  offset: 0, 0
+  index: -1
+bluedragon_light_03_effect_06
+  rotate: true
+  xy: 754, 6
+  size: 100, 159
+  orig: 100, 159
+  offset: 0, 0
+  index: -1
+bluedragon_light_03_eye_01
+  rotate: true
+  xy: 440, 6
+  size: 56, 62
+  orig: 56, 62
+  offset: 0, 0
+  index: -1
+bluedragon_light_03_foot_01
+  rotate: false
+  xy: 1442, 48
+  size: 70, 90
+  orig: 70, 90
+  offset: 0, 0
+  index: -1
+bluedragon_light_03_hand_01
+  rotate: false
+  xy: 1514, 56
+  size: 84, 82
+  orig: 84, 82
+  offset: 0, 0
+  index: -1
+bluedragon_light_03_hand_02
+  rotate: false
+  xy: 378, 2
+  size: 60, 60
+  orig: 60, 60
+  offset: 0, 0
+  index: -1
+bluedragon_light_03_head_01
+  rotate: false
+  xy: 315, 64
+  size: 141, 232
+  orig: 141, 232
+  offset: 0, 0
+  index: -1
+bluedragon_light_03_head_02
+  rotate: false
+  xy: 1557, 144
+  size: 36, 68
+  orig: 36, 68
+  offset: 0, 0
+  index: -1
+bluedragon_light_03_head_03
+  rotate: false
+  xy: 504, 2
+  size: 126, 80
+  orig: 126, 80
+  offset: 0, 0
+  index: -1
+bluedragon_light_03_head_04
+  rotate: true
+  xy: 1465, 225
+  size: 71, 93
+  orig: 71, 93
+  offset: 0, 0
+  index: -1
+bluedragon_light_03_leg_01
+  rotate: true
+  xy: 1465, 140
+  size: 83, 90
+  orig: 83, 90
+  offset: 0, 0
+  index: -1
+bluedragon_light_03_leg_02
+  rotate: true
+  xy: 1191, 2
+  size: 117, 131
+  orig: 117, 131
+  offset: 0, 0
+  index: -1
+bluedragon_light_03_mouth_01
+  rotate: true
+  xy: 632, 3
+  size: 93, 120
+  orig: 93, 120
+  offset: 0, 0
+  index: -1

@@ -1,0 +1,11 @@
+page,bg,illustration,char,t_char_name,char_pos,char_ani,char_effect,r_scen,t_text,text_pos,text_type,auto_skip,effect_1,effect_2,effect_3,bgm,bgm_action,sound
+1,,,,,,,,,,,,3,title;고통 속에서도 꺼지지 않은 지혜,skip_disable,,,,
+2,,,,,,,,,,,,0.3,skip_disable,,,bgm_sorrow,,
+3,챕터4,,케사스,,right,fury,,,그 소년의 지혜가 깃든 몇마디 말로부터 시작된 변화는,,,,,,,,,
+4,,,,,,,,,먹잇감으로 전락했던 인류와 드래곤들 사이에 희망의 빛이 되어 타오르기 시작한다.,,,,,,,,,
+5,,,,,,,,,"한번 시작된 희망의 빛은 소년의 주위로 점차 퍼져나가기 시작했고,",,,,,,,,,
+6,,,,,,,,,한번 시작된 희망의 파도는 무서운 기세로 전장을 휩쓸기 시작했다.,,,,,,,,,
+7,,,거대한 빛,,left,idle,,,[!!!!!!!!!!!!!!],,bold_italic,,,,,,,
+8,,,거대한 빛,,left,idle,,,[대단하군! ..... 마저 따라 오거라],,bold_italic,,,,,,,
+9,,,,,,,,,그들은 어둠속을 가로지르며 다음 세계로 날아갔다.,,narrate,,,,,,,
+10,,,,,,,,,,,,1,black_in,skip_disable,,,,

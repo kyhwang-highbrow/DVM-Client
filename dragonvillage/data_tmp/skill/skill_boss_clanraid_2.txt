@@ -1,0 +1,436 @@
+{
+	"skill_boss_clanraid_2":
+	{
+		"attack_value":
+		[
+			{
+				"comment":"실탄",
+				
+				"idx":1,
+				"target_idx":[1],
+				"res":"res/effect/effect_hit_bomb_@/effect_hit_bomb_@.spine",
+				"visual":"idle",
+				"body":[0,0,20],
+                "scale":1.2,
+				"damage_rate":50,
+                "count":2,
+                "period":5,
+				"time":5.75,
+				"speed":0,
+				"angular_velocity":0,
+				"offset":['target','target'],
+                "dir":0,
+				"map_shake_time":0.5,
+				"missile_type":"pass",
+				"fadeout_time":0.1
+			},
+			
+			{
+				"comment":"이펙트",
+				
+				"idx":1,
+				"target_idx":[1],
+				"res":"res/effect/skill_gdragon_laser/skill_gdragon_laser_@.vrp",
+				"visual":"idle",
+				"body":[0,0,0],
+                "scale":1,
+                "count":2,
+                "period":5,
+				"time":5,
+				"speed":0,
+				"angular_velocity":0,
+				"offset":[0,0],
+                "dir":0,
+				"fadeout_time":1
+			},
+			
+			{
+				"comment":"실탄",
+				
+				"idx":1,
+				"target_idx":[10],
+				"res":"res/effect/effect_hit_bomb_@/effect_hit_bomb_@.spine",
+				"visual":"idle",
+				"body":[0,0,20],
+                "scale":1.2,
+				"damage_rate":50,
+                "count":2,
+                "period":5,
+				"time":6.25,
+				"speed":0,
+				"angular_velocity":0,
+				"offset":['target','target'],
+                "dir":0,
+				"map_shake_time":0.5,
+				"missile_type":"pass",
+				"fadeout_time":0.1
+			},
+			
+			{
+				"comment":"이펙트",
+				
+				"idx":1,
+				"target_idx":[10],
+				"res":"res/effect/skill_gdragon_laser/skill_gdragon_laser_@.vrp",
+				"visual":"idle",
+				"body":[0,0,0],
+                "scale":1,
+                "count":2,
+                "period":5,
+				"time":5.5,
+				"speed":0,
+				"angular_velocity":0,
+				"offset":[0,0],
+                "dir":0,
+				"fadeout_time":1
+			},
+			
+			{
+				"comment":"실탄",
+				
+				"idx":1,
+				"target_idx":[2],
+				"res":"res/effect/effect_hit_bomb_@/effect_hit_bomb_@.spine",
+				"visual":"idle",
+				"body":[0,0,20],
+                "scale":1.2,
+				"damage_rate":50,
+                "count":2,
+                "period":5,
+				"time":6.75,
+				"speed":0,
+				"angular_velocity":0,
+				"offset":['target','target'],
+                "dir":0,
+				"map_shake_time":0.5,
+				"missile_type":"pass",
+				"fadeout_time":0.1
+			},
+			
+			{
+				"comment":"이펙트",
+				
+				"idx":1,
+				"target_idx":[2],
+				"res":"res/effect/skill_gdragon_laser/skill_gdragon_laser_@.vrp",
+				"visual":"idle",
+				"body":[0,0,0],
+                "scale":1,
+                "count":2,
+                "period":5,
+				"time":6,
+				"speed":0,
+				"angular_velocity":0,
+				"offset":[0,0],
+                "dir":0,
+				"fadeout_time":1
+			},
+			
+			{
+				"comment":"실탄",
+				
+				"idx":1,
+				"target_idx":[9],
+				"res":"res/effect/effect_hit_bomb_@/effect_hit_bomb_@.spine",
+				"visual":"idle",
+				"body":[0,0,20],
+                "scale":1.2,
+				"damage_rate":50,
+                "count":2,
+                "period":5,
+				"time":7.25,
+				"speed":0,
+				"angular_velocity":0,
+				"offset":['target','target'],
+                "dir":0,
+				"map_shake_time":0.5,
+				"missile_type":"pass",
+				"fadeout_time":0.1
+			},
+			
+			{
+				"comment":"이펙트",
+				
+				"idx":1,
+				"target_idx":[9],
+				"res":"res/effect/skill_gdragon_laser/skill_gdragon_laser_@.vrp",
+				"visual":"idle",
+				"body":[0,0,0],
+                "scale":1,
+                "count":2,
+                "period":5,
+				"time":6.5,
+				"speed":0,
+				"angular_velocity":0,
+				"offset":[0,0],
+                "dir":0,
+				"fadeout_time":1
+			},
+			
+			{
+				"comment":"실탄",
+				
+				"idx":1,
+				"target_idx":[3],
+				"res":"res/effect/effect_hit_bomb_@/effect_hit_bomb_@.spine",
+				"visual":"idle",
+				"body":[0,0,20],
+                "scale":1.2,
+				"damage_rate":50,
+                "count":2,
+                "period":5,
+				"time":7.75,
+				"speed":0,
+				"angular_velocity":0,
+				"offset":['target','target'],
+                "dir":0,
+				"map_shake_time":0.5,
+				"missile_type":"pass",
+				"fadeout_time":0.1
+			},
+			
+			{
+				"comment":"이펙트",
+				
+				"idx":1,
+				"target_idx":[3],
+				"res":"res/effect/skill_gdragon_laser/skill_gdragon_laser_@.vrp",
+				"visual":"idle",
+				"body":[0,0,0],
+                "scale":1,
+                "count":2,
+                "period":5,
+				"time":7,
+				"speed":0,
+				"angular_velocity":0,
+				"offset":[0,0],
+                "dir":0,
+				"fadeout_time":1
+			},
+			
+			{
+				"comment":"실탄",
+				
+				"idx":1,
+				"target_idx":[8],
+				"res":"res/effect/effect_hit_bomb_@/effect_hit_bomb_@.spine",
+				"visual":"idle",
+				"body":[0,0,20],
+                "scale":1.2,
+				"damage_rate":50,
+                "count":2,
+                "period":5,
+				"time":8.25,
+				"speed":0,
+				"angular_velocity":0,
+				"offset":['target','target'],
+                "dir":0,
+				"map_shake_time":0.5,
+				"missile_type":"pass",
+				"fadeout_time":0.1
+			},
+			
+			{
+				"comment":"이펙트",
+				
+				"idx":1,
+				"target_idx":[8],
+				"res":"res/effect/skill_gdragon_laser/skill_gdragon_laser_@.vrp",
+				"visual":"idle",
+				"body":[0,0,0],
+                "scale":1,
+                "count":2,
+                "period":5,
+				"time":7.5,
+				"speed":0,
+				"angular_velocity":0,
+				"offset":[0,0],
+                "dir":0,
+				"fadeout_time":1
+			},
+			
+			{
+				"comment":"실탄",
+				
+				"idx":1,
+				"target_idx":[4],
+				"res":"res/effect/effect_hit_bomb_@/effect_hit_bomb_@.spine",
+				"visual":"idle",
+				"body":[0,0,20],
+                "scale":1.2,
+				"damage_rate":50,
+                "count":2,
+                "period":5,
+				"time":8.75,
+				"speed":0,
+				"angular_velocity":0,
+				"offset":['target','target'],
+                "dir":0,
+				"map_shake_time":0.5,
+				"missile_type":"pass",
+				"fadeout_time":0.1
+			},
+			
+			{
+				"comment":"이펙트",
+				
+				"idx":1,
+				"target_idx":[4],
+				"res":"res/effect/skill_gdragon_laser/skill_gdragon_laser_@.vrp",
+				"visual":"idle",
+				"body":[0,0,0],
+                "scale":1,
+                "count":2,
+                "period":5,
+				"time":8,
+				"speed":0,
+				"angular_velocity":0,
+				"offset":[0,0],
+                "dir":0,
+				"fadeout_time":1
+			},
+			
+			{
+				"comment":"실탄",
+				
+				"idx":1,
+				"target_idx":[7],
+				"res":"res/effect/effect_hit_bomb_@/effect_hit_bomb_@.spine",
+				"visual":"idle",
+				"body":[0,0,20],
+                "scale":1.2,
+				"damage_rate":50,
+                "count":2,
+                "period":5,
+				"time":9.25,
+				"speed":0,
+				"angular_velocity":0,
+				"offset":['target','target'],
+                "dir":0,
+				"map_shake_time":0.5,
+				"missile_type":"pass",
+				"fadeout_time":0.1
+			},
+			
+			{
+				"comment":"이펙트",
+				
+				"idx":1,
+				"target_idx":[7],
+				"res":"res/effect/skill_gdragon_laser/skill_gdragon_laser_@.vrp",
+				"visual":"idle",
+				"body":[0,0,0],
+                "scale":1,
+                "count":2,
+                "period":5,
+				"time":8.5,
+				"speed":0,
+				"angular_velocity":0,
+				"offset":[0,0],
+                "dir":0,
+				"fadeout_time":1
+			},
+			
+			{
+				"comment":"실탄",
+				
+				"idx":1,
+				"target_idx":[5],
+				"res":"res/effect/effect_hit_bomb_@/effect_hit_bomb_@.spine",
+				"visual":"idle",
+				"body":[0,0,20],
+                "scale":1.2,
+				"damage_rate":50,
+                "count":2,
+                "period":5,
+				"time":9.75,
+				"speed":0,
+				"angular_velocity":0,
+				"offset":['target','target'],
+                "dir":0,
+				"map_shake_time":0.5,
+				"missile_type":"pass",
+				"fadeout_time":0.1
+			},
+			
+			{
+				"comment":"이펙트",
+				
+				"idx":1,
+				"target_idx":[5],
+				"res":"res/effect/skill_gdragon_laser/skill_gdragon_laser_@.vrp",
+				"visual":"idle",
+				"body":[0,0,0],
+                "scale":1,
+                "count":2,
+                "period":5,
+				"time":9,
+				"speed":0,
+				"angular_velocity":0,
+				"offset":[0,0],
+                "dir":0,
+				"fadeout_time":1
+			},
+			
+			{
+				"comment":"실탄",
+				
+				"idx":1,
+				"target_idx":[6],
+				"res":"res/effect/effect_hit_bomb_@/effect_hit_bomb_@.spine",
+				"visual":"idle",
+				"body":[0,0,20],
+                "scale":1.2,
+				"damage_rate":50,
+                "count":2,
+                "period":5,
+				"time":10.25,
+				"speed":0,
+				"angular_velocity":0,
+				"offset":['target','target'],
+                "dir":0,
+				"map_shake_time":0.5,
+				"missile_type":"pass",
+				"fadeout_time":0.1
+			},
+			
+			{
+				"comment":"이펙트",
+				
+				"idx":1,
+				"target_idx":[6],
+				"res":"res/effect/skill_gdragon_laser/skill_gdragon_laser_@.vrp",
+				"visual":"idle",
+				"body":[0,0,0],
+                "scale":1,
+                "count":2,
+                "period":5,
+				"time":9.5,
+				"speed":0,
+				"angular_velocity":0,
+				"offset":[0,0],
+                "dir":0,
+				"fadeout_time":1
+			},
+			
+			{
+				"comment":"시작 지점 이펙트",
+				
+				"idx":1,
+				"res":"res/effect/skill_electricattack/skill_electricattack_@.vrp",
+				"visual":"start_idle",
+				"body":[0,0,0],
+                "scale":3,
+                "count":1,
+                "period":0,
+				"time":5,
+				"speed":0,
+				"angular_velocity":0,
+				"offset":[0,0],
+                "dir":0,
+				"map_shake_time":12,
+				"fadeout_time":10
+			}
+		]
+	}
+}

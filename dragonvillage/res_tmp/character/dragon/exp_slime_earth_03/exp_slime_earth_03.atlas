@@ -1,0 +1,76 @@
+
+exp_slime_earth_03.png
+size: 944,546
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+exp_slime_earth_03_body_01
+  rotate: false
+  xy: 2, 274
+  size: 312, 270
+  orig: 312, 270
+  offset: 0, 0
+  index: -1
+exp_slime_earth_03_body_02
+  rotate: false
+  xy: 2, 2
+  size: 312, 270
+  orig: 312, 270
+  offset: 0, 0
+  index: -1
+exp_slime_earth_03_body_03
+  rotate: false
+  xy: 547, 219
+  size: 81, 53
+  orig: 81, 53
+  offset: 0, 0
+  index: -1
+exp_slime_earth_03_body_05
+  rotate: false
+  xy: 316, 274
+  size: 312, 270
+  orig: 312, 270
+  offset: 0, 0
+  index: -1
+exp_slime_earth_03_effect_01
+  rotate: false
+  xy: 630, 386
+  size: 312, 158
+  orig: 312, 158
+  offset: 0, 0
+  index: -1
+exp_slime_earth_03_effect_02
+  rotate: false
+  xy: 316, 6
+  size: 229, 266
+  orig: 229, 266
+  offset: 0, 0
+  index: -1
+exp_slime_earth_03_eye_01
+  rotate: true
+  xy: 819, 101
+  size: 95, 82
+  orig: 95, 82
+  offset: 0, 0
+  index: -1
+exp_slime_earth_03_mouth_01
+  rotate: false
+  xy: 819, 49
+  size: 75, 50
+  orig: 75, 50
+  offset: 0, 0
+  index: -1
+exp_slime_earth_03_wing_01
+  rotate: true
+  xy: 630, 198
+  size: 186, 270
+  orig: 186, 270
+  offset: 0, 0
+  index: -1
+exp_slime_earth_03_wing_02
+  rotate: true
+  xy: 547, 10
+  size: 186, 270
+  orig: 186, 270
+  offset: 0, 0
+  index: -1

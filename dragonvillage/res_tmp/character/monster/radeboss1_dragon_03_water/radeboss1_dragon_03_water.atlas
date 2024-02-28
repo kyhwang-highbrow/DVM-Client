@@ -1,0 +1,41 @@
+
+radeboss1_dragon_03_water.png
+size: 539,333
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+w_Layer 1
+  rotate: true
+  xy: 435, 2
+  size: 58, 59
+  orig: 58, 59
+  offset: 0, 0
+  index: -1
+w_dragon_04_body_01
+  rotate: true
+  xy: 2, 9
+  size: 322, 431
+  orig: 322, 431
+  offset: 0, 0
+  index: -1
+w_dragon_04_head_01
+  rotate: false
+  xy: 435, 124
+  size: 80, 82
+  orig: 80, 82
+  offset: 0, 0
+  index: -1
+w_dragon_04_head_02
+  rotate: false
+  xy: 435, 208
+  size: 102, 123
+  orig: 102, 123
+  offset: 0, 0
+  index: -1
+w_effect_laser
+  rotate: false
+  xy: 435, 62
+  size: 60, 60
+  orig: 60, 60
+  offset: 0, 0
+  index: -1

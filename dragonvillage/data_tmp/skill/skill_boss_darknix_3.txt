@@ -1,0 +1,86 @@
+{
+	"skill_boss_darknix_3":
+	{
+		"attack_value":
+		[		
+			{
+				"comment":"(모으기)",
+				
+				"idx":1,
+				"res":"res/effect/effect_charge_line/effect_charge_line_dark.vrp",
+				"visual":"idle",
+				"body":[0,0,0],
+                "count":1,
+                "scale":0.5,
+                "period":0,
+				"time":0,
+				"speed":0,
+				"angular_velocity":0,
+				"offset":[0,0],
+                "dir":0
+				
+				"add_script":
+				[
+					{
+						"comment":"",
+						
+						"idx":1,
+						"res":"res/effect/skill_gdragon_laser/skill_gdragon_laser_dark.vrp",
+						"visual":"idle",
+						"body":[0,0,0],
+						"count":1,
+						"scale":[4,8],
+						"period":0,
+						"time":0,
+						"speed":0,
+						"angular_velocity":0,
+						"offset":[0,0],
+						"dir":0,
+						"map_shake_time":0.5,
+						
+						"fadeout_time":1.2,
+						
+						"effect":
+						{
+							"motion_streak":"",
+							"rotation":false,
+							"afterimage":false
+						}
+					}
+				],
+				
+				"add_script_start": 0.5,
+				"add_script_term": 0,
+				"add_script_max": 1,
+				"add_script_relative":true,
+				"add_script_dead":true
+			},
+			
+			{
+				"idx":1,
+				"body":[0,0,250],
+                "count":3,
+                "scale":1,
+				"damage_rate":33,
+                "period":0.1,
+				"time":1,
+				"speed":2000,
+				"accel":0,
+				"h_limit_speed":2000,
+				"accel_delay":0,
+				"angular_velocity":0,
+				"offset":[0,0],
+				"dir":0,
+                "dir_add":0,
+				"missile_type":"pass",
+				
+                "effect":
+                {
+                    "motion_streak":"",
+                    "rotation":false,
+                    "afterimage":false
+                }
+			}
+		]
+	}
+}

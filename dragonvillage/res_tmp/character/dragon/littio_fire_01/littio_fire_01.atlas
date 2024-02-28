@@ -1,0 +1,97 @@
+
+littio_fire_01.png
+size: 602,125
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+littio_fire_01_arm_01
+  rotate: true
+  xy: 349, 5
+  size: 47, 53
+  orig: 47, 53
+  offset: 0, 0
+  index: -1
+littio_fire_01_arm_02
+  rotate: true
+  xy: 404, 5
+  size: 47, 53
+  orig: 47, 53
+  offset: 0, 0
+  index: -1
+littio_fire_01_body_01
+  rotate: true
+  xy: 2, 2
+  size: 121, 108
+  orig: 121, 108
+  offset: 0, 0
+  index: -1
+littio_fire_01_body_02
+  rotate: true
+  xy: 349, 54
+  size: 69, 60
+  orig: 69, 60
+  offset: 0, 0
+  index: -1
+littio_fire_01_body_03
+  rotate: true
+  xy: 411, 54
+  size: 69, 60
+  orig: 69, 60
+  offset: 0, 0
+  index: -1
+littio_fire_01_body_04
+  rotate: true
+  xy: 473, 54
+  size: 69, 60
+  orig: 69, 60
+  offset: 0, 0
+  index: -1
+littio_fire_01_eye_01
+  rotate: true
+  xy: 514, 8
+  size: 44, 36
+  orig: 44, 36
+  offset: 0, 0
+  index: -1
+littio_fire_01_head_01
+  rotate: true
+  xy: 112, 6
+  size: 117, 107
+  orig: 117, 107
+  offset: 0, 0
+  index: -1
+littio_fire_01_head_03
+  rotate: false
+  xy: 535, 62
+  size: 65, 61
+  orig: 65, 61
+  offset: 0, 0
+  index: -1
+littio_fire_01_head_04
+  rotate: true
+  xy: 459, 6
+  size: 46, 53
+  orig: 46, 53
+  offset: 0, 0
+  index: -1
+littio_fire_01_leg_01
+  rotate: false
+  xy: 221, 36
+  size: 62, 87
+  orig: 62, 87
+  offset: 0, 0
+  index: -1
+littio_fire_01_leg_02
+  rotate: false
+  xy: 285, 36
+  size: 62, 87
+  orig: 62, 87
+  offset: 0, 0
+  index: -1
+littio_fire_01_mouth_01
+  rotate: false
+  xy: 221, 4
+  size: 37, 30
+  orig: 37, 30
+  offset: 0, 0
+  index: -1
