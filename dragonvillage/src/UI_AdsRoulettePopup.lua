@@ -276,19 +276,17 @@ function UI_AdsRoulettePopup:update(dt)
     local daily_roll_count = g_advRouletteData:getDailyCount()
 
     local is_end = 0 >= daily_roll_count
-
     self:refresh()
-    
-
-    if ((exp_at <= now) or exp_at == nil) then
-        vars['timeLabel']:setVisible(false)
-        self.root:unscheduleUpdate()
-        return
-    end
 
     if  is_end == true then
         vars['timeLabel']:setString(Str('광고 시청 완료!'))
         vars['timeLabel']:setVisible(true)
+        self.root:unscheduleUpdate()
+        return
+    end    
+
+    if ((exp_at <= now) or exp_at == nil) then
+        vars['timeLabel']:setVisible(false)
         self.root:unscheduleUpdate()
         return
     end
