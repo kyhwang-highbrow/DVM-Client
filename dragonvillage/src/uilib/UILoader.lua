@@ -626,6 +626,13 @@ local function loadNode(ui, data, vars, parent, keep_z_order, use_sprite_frames)
             node:setVisible(visible)
         end
 
+        -- 확률 표기 카페 링크 연결 버튼
+        if (data.lua_name == 'oddsTableLinkBtn') then
+            delegator:registerScriptTapHandler(function() 
+                SDKManager:goToWeb(GetToOddsTableUrl())
+            end)
+        end
+
     elseif type == 'TableView' then
         -- 2017-07-10 sgkim TableView대신 UIC_TableView로 전환함
 		cclog('2017-07-10 sgkim TableView대신 UIC_TableView로 전환함')

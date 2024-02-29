@@ -137,6 +137,10 @@ URL['DVM_XSOLLA_DOWNLOAD'] = 'http://dvmx.perplelab.com'
 -- 원스토어(ONEstore)
 URL['DVM_ONESTORE_DOWNLOAD'] = 'https://onesto.re/0000746979'
 
+-- 게임 내 확률표기 링크
+URL['DVM_ODDS_TABLE'] = 'https://cafe.naver.com/dragonvillagemobile/146207'
+URL['DVM_ODDS_TABLE_EN'] = 'https://cafe.naver.com/dragonvillagemobile/146207'
+
 function GetCSUrl(server)
     if ((server == SERVER_NAME.KOREA) or (g_localData:getLang() == 'ko'))then
         return PerpleSdkManager:xsollaIsAvailable() and URL['DVM_CS_XSOLLA'] or URL['DVM_CS']
@@ -211,5 +215,19 @@ function GetCustomerCenterUrl()
     end
 
     local url = 'https://highbrow.oqupie.com/portals/finder?' .. url_param
+    return url
+end
+
+
+-- 게임 내 확률 표기 링크 연결
+function GetToOddsTableUrl()
+    local url
+    -- '한국어' 일때만
+    if (g_localData:getLang() == 'ko') then
+        url = URL['DVM_ODDS_TABLE']
+    else
+        url = URL['DVM_ODDS_TABLE_EN']
+    end
+
     return url
 end
