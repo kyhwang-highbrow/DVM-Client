@@ -631,6 +631,11 @@ local function loadNode(ui, data, vars, parent, keep_z_order, use_sprite_frames)
             delegator:registerScriptTapHandler(function() 
                 SDKManager:goToWeb(GetToOddsTableUrl())
             end)
+
+            -- 한국만 우선 노출
+            local lang = g_localData:getLang() or ''
+            local visible = (lang == 'ko')
+            node:setVisible(visible)
         end
 
     elseif type == 'TableView' then
