@@ -1,11 +1,3 @@
-framework module TapjoyAdapter {
-  umbrella header "TapjoyAdapter.h"
-
-  export *
-  module * { export * }
-
-  link framework "Foundation"
-  link framework "UIKit"
-
-  header "GADMTapjoyExtras.h"
-}
+version https://git-lfs.github.com/spec/v1
+oid sha256:f86a93d50d5d104a227eb9a62b9aca1114d8f952f9c4adb1d4a0287554e2688c
+size 205
