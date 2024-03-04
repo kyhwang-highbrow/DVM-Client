@@ -1,0 +1,46 @@
+# Prerequisites
+*.d
+
+# Compiled Object files
+*.slo
+*.lo
+*.o
+*.obj
+
+# Windows Build
+Debug.win32
+Release.win32
+dragonvillage/runtime/Main.pdb
+dragonvillage/runtime/Main.ilk
+
+# Ignore files build by xcode
+*.mode*v*
+*.pbxuser
+*.xcbkptlist
+*.xcworkspacedata
+*.xcuserstate
+*.xccheckout
+*.xcscheme
+xcschememanagement.plist
+IDEWorkspaceChecks.plist
+.DS_Store
+._.*
+xcuserdata/
+DerivedData/
+
+# Add free
+.DS_Store
+.vs
+.vscode
+desktop.ini
+
+# Python
+*.pyc
+__pycache__
+
+# Android
+build
+dragonvillage/proj.android_studio/.safedk
+
+# Highbrow - patch
+patch/*/translate/*
